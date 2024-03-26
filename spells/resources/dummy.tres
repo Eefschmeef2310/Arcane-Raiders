@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://xji17m5oo03d"]
+
+[ext_resource type="Script" path="res://spells/resources/spell_resource_base.gd" id="1_7onbm"]
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/fire.tres" id="1_jawss"]
+[ext_resource type="PackedScene" uid="uid://ii7x16r2cavc" path="res://spells/scenes/ball/ball.tscn" id="3_1u7e8"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="4_cu0x3"]
+
+[resource]
+script = ExtResource("1_7onbm")
+spell_scene = ExtResource("3_1u7e8")
+element = ExtResource("1_jawss")
+ui_texture = ExtResource("4_cu0x3")
+name = ""

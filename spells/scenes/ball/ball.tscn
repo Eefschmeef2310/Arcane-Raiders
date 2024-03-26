@@ -1,11 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://ii7x16r2cavc"]
+[gd_scene load_steps=5 format=3 uid="uid://ii7x16r2cavc"]
 
 [ext_resource type="Texture2D" uid="uid://rnuk6e0pgt7u" path="res://spells/scenes/ball/Sports-Ball-Transparent.png" id="1_8cuff"]
+[ext_resource type="Script" path="res://spells/scenes/ball/ball.gd" id="1_onylv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4222c"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cp3xa"]
+
 [node name="Ball" type="RigidBody2D"]
+collision_layer = 0
 gravity_scale = 0.0
+linear_damp = 2.0
+script = ExtResource("1_onylv")
+force = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4222c")
@@ -13,3 +20,11 @@ shape = SubResource("CircleShape2D_4222c")
 [node name="Sports-ball-transparent" type="Sprite2D" parent="."]
 scale = Vector2(0.01, 0.01)
 texture = ExtResource("1_8cuff")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_cp3xa")
+debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
