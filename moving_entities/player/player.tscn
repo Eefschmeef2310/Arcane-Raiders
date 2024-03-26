@@ -14,7 +14,6 @@ motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
 data = NodePath("PlayerData")
-movement_speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -49)

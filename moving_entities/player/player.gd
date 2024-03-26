@@ -37,6 +37,6 @@ func set_input(id: int):
 	$Input.input = DeviceInput.new(id)
 
 func cast_spell(slot: int):
-	
+	print("Casting spell " + str(slot))
 
 #endregion
