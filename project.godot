@@ -14,14 +14,10 @@ config/name="Arcane Raiders"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Game="*res://managers/game_manager.gd"
-
 [file_customization]
 
 folder_colors={
-"res://managers/": "red",
+"res://elements/": "orange",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green"
 }
