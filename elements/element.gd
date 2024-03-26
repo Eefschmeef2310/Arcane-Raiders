@@ -42,5 +42,7 @@ func _process(_delta):
 
 #region Other methods (please try to separate and organise!)
 func effect(object):
-	pass
+	match element_type:
+		ElementType.Fire:
+			print("now run fire effect")
 #endregion
