@@ -11,16 +11,21 @@ radius = 64.0
 
 [node name="DummyEnemy" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 19
+collision_mask = 3
 script = ExtResource("1_04g5f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -64)
 shape = SubResource("CircleShape2D_pemjh")
 
 [node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
 texture = ExtResource("1_wa8tc")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -64)
+collision_layer = 8
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_ov0rg")

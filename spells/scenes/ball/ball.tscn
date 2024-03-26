@@ -1,20 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://ii7x16r2cavc"]
+[gd_scene load_steps=5 format=3 uid="uid://ii7x16r2cavc"]
 
 [ext_resource type="Texture2D" uid="uid://rnuk6e0pgt7u" path="res://spells/scenes/ball/Sports-Ball-Transparent.png" id="1_8cuff"]
 [ext_resource type="Script" path="res://spells/scenes/ball/ball.gd" id="1_onylv"]
-[ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/dummy.tres" id="2_5eax0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4222c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cp3xa"]
 
 [node name="Ball" type="RigidBody2D"]
-collision_layer = 0
+collision_layer = 16
 gravity_scale = 0.0
 linear_damp = 2.0
 script = ExtResource("1_onylv")
 force = 100.0
-resource = ExtResource("2_5eax0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4222c")

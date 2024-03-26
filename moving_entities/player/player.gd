@@ -37,6 +37,10 @@ func set_input(id: int):
 	$Input.input = DeviceInput.new(id)
 
 func cast_spell(slot: int):
-	print("Casting spell " + str(slot))
+	if slot < data.spells.size():
+		var cast_spell = data.spells[slot].spell_scene.instantiate()
+		cast_spell.resource = data.spells[slot]
+		cast_spell.global_position = global_position
+		owner.add_child(cast_spell)
 
 #endregion

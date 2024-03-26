@@ -13,17 +13,18 @@ extends RigidBody2D
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var force : float = 1000
-@export var resource : Spell
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var resource : Spell
 
 #endregion
 
 #region Godot methods
 func _ready():
-	apply_impulse(Vector2.RIGHT * force)
+	var angle = get_angle_to(get_global_mouse_position())
+	apply_impulse(Vector2(cos(angle), sin(angle)) * force)
 
 func _process(_delta):
 	#Runs per frame

@@ -8,4 +8,5 @@ class_name Spell
 @export var element : ElementResource
 @export var ui_texture : Texture2D
 @export var name : String
+@export var infliction_time: float
 #endregion

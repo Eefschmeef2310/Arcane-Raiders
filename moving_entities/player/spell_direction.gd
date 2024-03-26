@@ -1,4 +1,4 @@
-extends Entity
+extends Node2D
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -24,7 +24,9 @@ func _ready():
 	#Runs when all children have entered the tree
 	pass
 
-
+func _process(_delta):
+	rotation = get_angle_to(get_global_mouse_position())
+	print(rotation)
 #endregion
 
 #region Signal methods
@@ -32,6 +34,5 @@ func _ready():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func _on_hurtbox_body_entered(body):
-	on_hurt(body as Spell)
+
 #endregion
