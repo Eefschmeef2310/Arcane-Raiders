@@ -25,6 +25,7 @@ func _ready():
 
 func _process(_delta):
 	set_direction(Input.get_vector("Left", "Right", "Up", "Down"))
+	super(_delta)
 #endregion
 
 #region Signal methods

@@ -12,7 +12,7 @@ class_name MovementBase
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var movement_speed : float = 100
+@export var movement_speed : float = 300
 
 	#Onready Variables
 var direction: Vector2
@@ -24,7 +24,7 @@ var can_input: bool = true
 #endregion
 
 #region Godot methods
-func _physics_process(_delta):
+func _process(_delta):
 	if(can_input):
 		owner.velocity = direction * movement_speed
 	else:
