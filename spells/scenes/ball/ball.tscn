@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ii7x16r2cavc"]
+
+[ext_resource type="Texture2D" uid="uid://rnuk6e0pgt7u" path="res://spells/scenes/ball/Sports-Ball-Transparent.png" id="1_8cuff"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4222c"]
+
+[node name="Ball" type="RigidBody2D"]
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4222c")
+
+[node name="Sports-ball-transparent" type="Sprite2D" parent="."]
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("1_8cuff")

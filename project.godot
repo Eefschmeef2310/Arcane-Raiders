@@ -19,7 +19,8 @@ config/icon="res://icon.svg"
 folder_colors={
 "res://elements/": "orange",
 "res://moving_entities/": "teal",
-"res://moving_entities/player/": "green"
+"res://moving_entities/player/": "green",
+"res://spells/": "purple"
 }
 
 [input]
