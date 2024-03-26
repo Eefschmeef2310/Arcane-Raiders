@@ -11,13 +11,14 @@ var direction: Vector2
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
-	pass
+	# TODO temporary lines here
+	set_input(data.device_id)
 
 func _process(delta):
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
 			velocity = direction * movement_speed
+			move_and_slide()
 		
 #endregion
 
@@ -27,6 +28,15 @@ func _process(delta):
 
 #region Other methods (please try to separate and organise!)
 func init(new_data: PlayerData):
+	data.queue_free()
 	data = new_data
+	set_input(data.device_id)
+
+func set_input(id: int):
+	print(id)
+	$Input.input = DeviceInput.new(id)
+
+func cast_spell(slot: int):
+	print("Casting spell " + str(slot))
 
 #endregion
