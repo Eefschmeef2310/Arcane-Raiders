@@ -39,4 +39,5 @@ func _process(_delta):
 
 
 func _on_hurtbox_body_entered(body):
-	pass # Replace with function body.
+	if "resource" in body: #Therefore is spell
+		print("im hit")

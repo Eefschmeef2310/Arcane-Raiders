@@ -8,11 +8,12 @@ extends RigidBody2D
 	#Enums
 
 	#Constants
-
+	
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var force : float = 1000
+@export var resource : Spell
 
 	#Onready Variables
 
