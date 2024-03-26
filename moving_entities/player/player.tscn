@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
+[ext_resource type="Texture2D" uid="uid://dw8paowmssdqc" path="res://moving_entities/player/player_pointer.png" id="3_mr2qp"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
 [ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/dummy.tres" id="5_0ulxw"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="6_wkitl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -19,11 +19,12 @@ script = ExtResource("1_wrxev")
 data = NodePath("PlayerData")
 
 [node name="SpellDirection" type="Node2D" parent="."]
-scale = Vector2(0.75, 0.5)
+scale = Vector2(1, 0.5)
 script = ExtResource("6_378tb")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpellDirection"]
-texture = ExtResource("6_wkitl")
+modulate = Color(0.564706, 0.286275, 1, 1)
+texture = ExtResource("3_mr2qp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -49)

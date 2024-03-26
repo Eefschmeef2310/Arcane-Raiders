@@ -7,6 +7,7 @@ class_name Player
 @export_group("Parameters")
 @export var movement_speed : float = 300
 
+# Normalised vectors
 var move_direction: Vector2
 var aim_direction: Vector2
 
@@ -42,6 +43,8 @@ func cast_spell(slot: int):
 		var spell_node = data.spells[slot].spell_scene.instantiate()
 		spell_node.resource = data.spells[slot]
 		spell_node.global_position = global_position
+		spell_node.rotation = get_angle_to(global_position + aim_direction)
+		print(get_angle_to(aim_direction) - rotation)
 		owner.add_child(spell_node)
 
 #endregion

@@ -23,8 +23,7 @@ var resource : Spell
 
 #region Godot methods
 func _ready():
-	var angle = get_angle_to(get_global_mouse_position())
-	apply_impulse(Vector2(cos(angle), sin(angle)) * force)
+	apply_impulse(Vector2(cos(rotation), sin(rotation)) * force)
 
 func _process(_delta):
 	#Runs per frame

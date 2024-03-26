@@ -18,7 +18,10 @@ func _process(_delta):
 		
 		# If we have an input object, use it
 		if input:
-			move_dir = input.get_vector("left", "right", "up", "down")
+			move_dir = input.get_vector("left", "right", "up", "down").normalized()
+			if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
+				move_dir.y *= 0.5
+				move_dir = move_dir.normalized()
 			for i in spell.size():
 				spell[i] = input.is_action_just_pressed("spell" + str(i))
 			if input.is_keyboard():

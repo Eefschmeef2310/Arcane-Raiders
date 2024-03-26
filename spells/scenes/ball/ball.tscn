@@ -10,9 +10,8 @@
 [node name="Ball" type="RigidBody2D"]
 collision_layer = 16
 gravity_scale = 0.0
-linear_damp = 2.0
 script = ExtResource("1_onylv")
-force = 100.0
+force = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4222c")
