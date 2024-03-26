@@ -1,5 +1,5 @@
 extends Node
-class_name PlayerManager
+class_name PlayerData
 
 signal health_changed()
 signal spell_changed()

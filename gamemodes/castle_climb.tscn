@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
-[ext_resource type="Script" path="res://managers/player_manager.gd" id="2_tpid8"]
+[ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 
 [node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data")]
 script = ExtResource("1_jx40r")
