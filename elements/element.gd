@@ -1,11 +1,14 @@
-extends Node
-class_name Element
+extends Resource
+class_name ElementResource
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
 	#Signals
 
 	#Enums
+enum ElementType {
+	Fire
+}
 
 	#Constants
 
@@ -15,6 +18,7 @@ class_name Element
 @export var colour : Color
 @export var particle_texture : Texture2D
 @export var pip_texture : Texture2D #May be deleted later - E
+@export var element_type : ElementType
 
 	#Onready Variables
 

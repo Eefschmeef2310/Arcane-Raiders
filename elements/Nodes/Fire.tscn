@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkugja6dndukd"]
-
-[ext_resource type="Script" path="res://elements/Scripts/fire.gd" id="1_kos5p"]
-
-[node name="Fire" type="Node"]
-script = ExtResource("1_kos5p")
-colour = Color(0.858824, 0.333333, 0.117647, 1)
