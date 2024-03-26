@@ -17,12 +17,17 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 Game="*res://managers/game_manager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg")
 
 [file_customization]
 
