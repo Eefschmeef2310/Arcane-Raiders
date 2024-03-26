@@ -25,8 +25,7 @@ func _ready():
 	pass
 
 func _process(_delta):
-	rotation = get_angle_to(get_global_mouse_position())
-	print(rotation)
+	$Sprite2D.look_at(owner.global_position + owner.aim_direction)
 #endregion
 
 #region Signal methods

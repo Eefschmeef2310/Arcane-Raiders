@@ -7,7 +7,8 @@ class_name Player
 @export_group("Parameters")
 @export var movement_speed : float = 300
 
-var direction: Vector2
+var move_direction: Vector2
+var aim_direction: Vector2
 
 #region Godot methods
 func _ready():
@@ -17,7 +18,7 @@ func _ready():
 func _process(delta):
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
-			velocity = direction * movement_speed
+			velocity = move_direction * movement_speed
 			move_and_slide()
 		
 #endregion
@@ -38,9 +39,9 @@ func set_input(id: int):
 
 func cast_spell(slot: int):
 	if slot < data.spells.size():
-		var cast_spell = data.spells[slot].spell_scene.instantiate()
-		cast_spell.resource = data.spells[slot]
-		cast_spell.global_position = global_position
-		owner.add_child(cast_spell)
+		var spell_node = data.spells[slot].spell_scene.instantiate()
+		spell_node.resource = data.spells[slot]
+		spell_node.global_position = global_position
+		owner.add_child(spell_node)
 
 #endregion

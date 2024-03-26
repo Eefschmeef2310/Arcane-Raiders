@@ -18,6 +18,13 @@ wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
 data = NodePath("PlayerData")
 
+[node name="SpellDirection" type="Node2D" parent="."]
+scale = Vector2(0.75, 0.5)
+script = ExtResource("6_378tb")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpellDirection"]
+texture = ExtResource("6_wkitl")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -49)
 texture = ExtResource("1_kd5ik")
@@ -25,18 +32,9 @@ texture = ExtResource("1_kd5ik")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6gabg")
 
-[node name="Input" type="Node" parent="."]
+[node name="Input" type="Node2D" parent="."]
 script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="."]
 script = ExtResource("4_srdhb")
 spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("5_0ulxw"), ExtResource("5_0ulxw")])
-
-[node name="SpellDirection" type="Node2D" parent="."]
-position = Vector2(0, -77)
-script = ExtResource("6_378tb")
-
-[node name="Sprite2D" type="Sprite2D" parent="SpellDirection"]
-position = Vector2(49, 0)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("6_wkitl")
