@@ -7,7 +7,8 @@ class_name ElementResource
 
 	#Enums
 enum ElementType {
-	Fire
+	Fire,
+	Frost
 }
 
 	#Constants
@@ -46,4 +47,9 @@ func effect(object):
 	match element_type:
 		ElementType.Fire:
 			print("now run fire effect")
+		ElementType.Frost:
+			frost_effect(object)
+
+func frost_effect(object):
+	object.velocity *= 0.5
 #endregion

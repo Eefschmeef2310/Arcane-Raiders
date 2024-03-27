@@ -23,8 +23,11 @@ extends Entity
 func _ready():
 	#Runs when all children have entered the tree
 	pass
-
-
+	
+func _process(delta):
+	velocity = Vector2.LEFT * 100
+	super._process(delta) #may apply effect, which may change velocity
+	move_and_slide()
 #endregion
 
 #region Signal methods
@@ -33,5 +36,5 @@ func _ready():
 
 #region Other methods (please try to separate and organise!)
 func _on_hurtbox_body_entered(body):
-	on_hurt(body as Spell)
+	on_hurt(body.owner)
 #endregion

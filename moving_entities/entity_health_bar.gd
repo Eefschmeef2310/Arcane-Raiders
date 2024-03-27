@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends ProgressBar
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -8,11 +8,10 @@ extends RigidBody2D
 	#Enums
 
 	#Constants
-	
+
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var force : float = 1000
 
 	#Onready Variables
 
@@ -22,11 +21,10 @@ extends RigidBody2D
 
 #region Godot methods
 func _ready():
-	apply_impulse(Vector2(cos(owner.rotation), sin(owner.rotation)) * force)
+	max_value = owner.max_health
 
 func _process(_delta):
-	#Runs per frame
-	pass
+	value = owner.health
 #endregion
 
 #region Signal methods

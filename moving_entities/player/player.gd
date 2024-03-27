@@ -16,7 +16,7 @@ func _ready():
 	# TODO temporary lines here
 	set_input(data.device_id)
 
-func _process(delta):
+func _process(_delta):
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
 			velocity = move_direction * movement_speed
@@ -44,7 +44,7 @@ func cast_spell(slot: int):
 		spell_node.resource = data.spells[slot]
 		spell_node.global_position = global_position
 		spell_node.rotation = get_angle_to(global_position + aim_direction)
-		print(get_angle_to(aim_direction) - rotation)
+		#print(get_angle_to(aim_direction) - rotation)
 		owner.add_child(spell_node)
 
 #endregion

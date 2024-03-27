@@ -1,5 +1,5 @@
-extends RigidBody2D
-	#class_name
+extends Node
+class_name SpellScene
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -8,21 +8,22 @@ extends RigidBody2D
 	#Enums
 
 	#Constants
-	
+
 	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
-@export var force : float = 1000
+@export_group("Spell Scene")
+@export var base_damage : int = 10
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var resource : Spell #This is set in code
 
 #endregion
 
 #region Godot methods
 func _ready():
-	apply_impulse(Vector2(cos(owner.rotation), sin(owner.rotation)) * force)
+	#Runs when all children have entered the tree
+	pass
 
 func _process(_delta):
 	#Runs per frame
