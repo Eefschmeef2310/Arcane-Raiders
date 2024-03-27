@@ -59,8 +59,8 @@ func _process(_delta):
 						aim_dir = a.normalized()
 					
 				for i in spell.size():
-					spell[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
-					print(MultiplayerInput.is_action_just_pressed(device, "spell" + str(i)))
+					if MultiplayerInput.is_action_just_pressed(device, "spell" + str(i)):
+						spell[i] = true
 		
 		# Send input to owner
 		owner.move_direction = move_dir
