@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
+[ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
-[ext_resource type="Texture2D" uid="uid://dw8paowmssdqc" path="res://moving_entities/player/player_pointer.png" id="3_mr2qp"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
 [ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/dummy.tres" id="5_0ulxw"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
@@ -24,7 +24,9 @@ script = ExtResource("6_378tb")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpellDirection"]
 modulate = Color(0.564706, 0.286275, 1, 1)
-texture = ExtResource("3_mr2qp")
+rotation = 3.59538
+texture = ExtResource("3_fuo50")
+offset = Vector2(16.5, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -49)
@@ -38,4 +40,5 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="."]
 script = ExtResource("4_srdhb")
+device_id = -2
 spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("5_0ulxw"), ExtResource("5_0ulxw")])

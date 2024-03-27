@@ -36,7 +36,7 @@ func init(new_data: PlayerData):
 
 func set_input(id: int):
 	print(id)
-	$Input.input = DeviceInput.new(id)
+	$Input.set_device(id)
 
 func cast_spell(slot: int):
 	if slot < data.spells.size():
