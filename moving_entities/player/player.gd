@@ -14,7 +14,10 @@ var aim_direction: Vector2
 #region Godot methods
 func _ready():
 	# TODO temporary lines here
-	set_input(data.device_id)
+	if data:
+		set_input(data.device_id)
+		$SpellDirection/Sprite2D.modulate = data.main_color
+	
 
 func _process(_delta):
 	if is_instance_valid(data):
