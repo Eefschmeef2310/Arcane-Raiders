@@ -36,7 +36,7 @@ func init(new_data: PlayerData):
 
 func set_input(id: int):
 	print(id)
-	$Input.input = DeviceInput.new(id)
+	$Input.set_device(id)
 
 func cast_spell(slot: int):
 	if slot < data.spells.size():
@@ -44,7 +44,6 @@ func cast_spell(slot: int):
 		spell_node.resource = data.spells[slot]
 		spell_node.global_position = global_position
 		spell_node.rotation = get_angle_to(global_position + aim_direction)
-		print(get_angle_to(aim_direction) - rotation)
 		owner.add_child(spell_node)
 
 #endregion
