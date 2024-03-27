@@ -5,6 +5,8 @@ var devices: Array[int]
 
 var is_keyb: bool
 
+var block_input := false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
@@ -12,7 +14,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if is_instance_valid(owner.data) and owner.get_multiplayer_authority() == owner.data.peer_id:
+	if is_instance_valid(owner.data) and owner.get_multiplayer_authority() == owner.data.peer_id and !block_input:
 		var move_dir: Vector2
 		var aim_dir: Vector2
 		var spell: Array[bool]
@@ -70,10 +72,15 @@ func _process(_delta):
 				owner.cast_spell(i)
 
 func _input(event):
-	if (event is InputEventJoypadButton) or (event is InputEventJoypadMotion and abs(event.axis_value) > 0.5):
-		is_keyb = false
-	elif (event is InputEventKey) or (event is InputEventMouseButton) or (event is InputEventMouse):
-		is_keyb = true
+	if !input:
+		if (event is InputEventJoypadButton) or (event is InputEventJoypadMotion and abs(event.axis_value) > 0.5):
+			is_keyb = false
+			if is_instance_valid(owner.data) and owner.data.device_id != -3:
+				owner.data.device_changed.emit(event.device)
+		elif (event is InputEventKey) or (event is InputEventMouseButton) or (event is InputEventMouse):
+			is_keyb = true
+			if is_instance_valid(owner.data) and owner.data.device_id != -3:
+				owner.data.device_changed.emit(-1)
 
 func update_device_list(_device: int, _connected: bool):
 	devices.clear()
@@ -81,10 +88,13 @@ func update_device_list(_device: int, _connected: bool):
 	devices.append(-1)
 
 func set_device(id: int):
-	if id <= 2:
+	if id <= -2:
 		input = null
 	else:
 		input = DeviceInput.new(id)
+	block_input = (id == -3)
+	if is_instance_valid(owner.data):
+		owner.data.device_changed.emit(id)
 
 func clear_device():
 	input = null

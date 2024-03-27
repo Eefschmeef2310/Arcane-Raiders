@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PromptLibrary" load_steps=5 format=3 uid="uid://cpnm47k87d6i7"]
+
+[ext_resource type="Script" path="res://ui/prompts/prompt_library.gd" id="1_s7gq1"]
+[ext_resource type="Texture2D" uid="uid://k44h0owl5ljr" path="res://ui/prompts/keyb/mouse_left_outline.png" id="2_o4v8m"]
+[ext_resource type="Texture2D" uid="uid://brka4gsreusb2" path="res://ui/prompts/keyb/mouse_right_outline.png" id="3_csfiy"]
+[ext_resource type="Texture2D" uid="uid://hmvjqftwi63k" path="res://ui/prompts/keyb/keyboard_shift_outline.png" id="4_35mp0"]
+
+[resource]
+script = ExtResource("1_s7gq1")
+spell0 = ExtResource("2_o4v8m")
+spell1 = ExtResource("3_csfiy")
+spell2 = ExtResource("4_35mp0")
