@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://n76plus8syht"]
+[gd_scene load_steps=6 format=3 uid="uid://n76plus8syht"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/dummy_enemy.gd" id="1_04g5f"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_wa8tc"]
+[ext_resource type="Script" path="res://moving_entities/entity_health_bar.gd" id="3_22xub"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pemjh"]
 radius = 64.0
@@ -31,4 +32,19 @@ collision_mask = 16
 shape = SubResource("CircleShape2D_ov0rg")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -161.0
+offset_right = 68.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_22xub")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
