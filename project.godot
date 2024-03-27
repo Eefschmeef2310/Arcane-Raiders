@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Game="*res://managers/game_manager.gd"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
+SteamManager="*res://online/steamManager.tscn"
 
 [display]
 
@@ -37,6 +38,7 @@ folder_colors={
 "res://managers/": "red",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green",
+"res://online/": "pink",
 "res://spells/": "purple"
 }
 
