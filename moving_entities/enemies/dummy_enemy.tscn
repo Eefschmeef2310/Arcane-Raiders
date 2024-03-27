@@ -46,4 +46,5 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("3_22xub")
 
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

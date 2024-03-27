@@ -1,5 +1,5 @@
-extends Node
-class_name SpellScene
+extends Node2D
+	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -10,24 +10,23 @@ class_name SpellScene
 	#Constants
 
 	#Exported Variables
-@export_group("Spell Scene")
-@export var base_damage : int = 10
+	#@export_group("Group")
+	#@export_subgroup("Subgroup")
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var resource : Spell #This is set in code
+var size : float = 1
 
 #endregion
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
+	scale *= size
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(self.queue_free)
 #endregion
 
 #region Signal methods

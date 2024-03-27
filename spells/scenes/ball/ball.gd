@@ -8,11 +8,13 @@ extends RigidBody2D
 	#Enums
 
 	#Constants
+const EXPLOSION = preload("res://spells/scenes/explosive/explosion.tscn")
 	
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var force : float = 1000
+@export var explosion_size : float = 1
 
 	#Onready Variables
 
@@ -30,7 +32,12 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
-
+func _on_hitbox_body_entered(_body):
+	var explosion = EXPLOSION.instantiate()
+	explosion.size = explosion_size
+	explosion.position = position
+	owner.call_deferred("add_child", explosion)
+	queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)

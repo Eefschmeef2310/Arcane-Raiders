@@ -41,7 +41,7 @@ func _process(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func on_hurt(spell):
+func on_hurt(spell : Node2D):
 	#Apply base damage
 	health -= spell.base_damage
 	
