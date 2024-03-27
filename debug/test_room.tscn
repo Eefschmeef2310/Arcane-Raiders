@@ -34,9 +34,6 @@ texture = ExtResource("1_7v575")
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1285, 484)
 
-[node name="PlayerData" parent="Player" index="4"]
-device_id = -3
-
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
 
