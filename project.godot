@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 Game="*res://managers/game_manager.gd"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
-SteamManager="*res://online/steamManager.tscn"
+SteamManager="*res://online/steamManager/steamManager.tscn"
 
 [display]
 
