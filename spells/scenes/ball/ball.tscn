@@ -12,6 +12,7 @@
 base_damage = 100
 
 [node name="BallBody" type="RigidBody2D" parent="." index="0"]
+visible = false
 collision_layer = 32
 gravity_scale = 0.0
 script = ExtResource("1_onylv")
@@ -30,6 +31,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallBody/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_selhr")
+disabled = true
 debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
 
 [connection signal="body_entered" from="BallBody/Hitbox" to="BallBody" method="_on_hitbox_body_entered"]

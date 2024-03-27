@@ -33,6 +33,7 @@ func _process(_delta):
 				aim_dir = aim_dir.normalized()
 			else:
 				var a : Vector2 = input.get_vector("left", "right", "up", "down")
+				print(a.length())
 				if a.length() > 0:
 					aim_dir = a.normalized()
 			
@@ -65,10 +66,11 @@ func _process(_delta):
 		
 		# Send input to owner
 		owner.move_direction = move_dir
-		owner.aim_direction = aim_dir
+		if aim_dir != Vector2.ZERO:
+			owner.aim_direction = aim_dir
 		for i in spell.size():
 			if spell[i]:
-				owner.cast_spell(i)
+				owner.attempt_cast(i)
 
 func _input(event):
 	if !input:

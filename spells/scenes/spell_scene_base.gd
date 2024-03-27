@@ -10,7 +10,17 @@ extends Node
 
 	#Exported Variables
 @export_group("Spell Scene")
+# Damage the spell deals.
 @export var base_damage : int = 10
+
+# The time the player's startup animation plays for.
+@export var start_time : float = 0.2
+
+# The time the player's end animation plays for (before returning to idle).
+@export var end_time : float = 0.5
+
+# The time before the player can cast another spell.
+@export var cancel_time : float = 0.3
 
 	#Onready Variables
 
