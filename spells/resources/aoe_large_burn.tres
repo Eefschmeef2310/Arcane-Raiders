@@ -8,5 +8,5 @@
 script = ExtResource("1_lndjk")
 spell_scene = ExtResource("3_v8nd0")
 element = ExtResource("1_t67e7")
-name = "fire explosive"
+name = "Firestorm"
 infliction_time = 5.0

@@ -4,6 +4,7 @@
 
 [node name="ShockEffectLaser" type="Line2D"]
 points = PackedVector2Array(0, 0, 0, 0)
+default_color = Color(1, 0.760784, 0, 1)
 script = ExtResource("1_figus")
 
 [node name="Timer" type="Timer" parent="."]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://wv5jw8o5ednx" path="res://elements/icons/frost_icon.png" id="1_wea5a"]
 
 [resource]
+resource_name = "frost"
 script = ExtResource("1_j27cw")
 colour = Color(0.054902, 0.886275, 1, 1)
 pip_texture = ExtResource("1_wea5a")

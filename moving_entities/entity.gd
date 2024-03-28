@@ -70,7 +70,6 @@ func on_hurt(spell : Node2D):
 	health -= spell.base_damage
 	
 	#Add element to current inflictions dictionary
-	print(spell.resource)
 	if spell.resource:
 		if !current_inflictions_dictionary.has(spell.resource.element):
 			current_inflictions_dictionary[spell.resource.element] = 0

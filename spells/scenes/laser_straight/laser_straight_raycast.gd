@@ -15,6 +15,8 @@ var caster : Player
 
 #region Godot methods
 func _ready():
+	$Line2D.default_color = owner.resource.element.colour
+	
 	await get_tree().create_timer(owner.start_time).timeout
 	
 	owner.transfer_data(self)

@@ -37,6 +37,9 @@ func _ready():
 	scale *= size
 	process_mode = Node.PROCESS_MODE_INHERIT
 	
+	if resource:
+		modulate = resource.element.colour
+	
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_callback(queue_free)
