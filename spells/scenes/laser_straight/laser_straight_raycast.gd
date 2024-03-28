@@ -19,7 +19,7 @@ func _ready():
 	owner.transfer_data(self)
 	owner.transfer_data($Area2D)
 	owner.global_position = caster.global_position
-	owner.global_position.y -= 32
+	owner.global_position.y -= 16
 	
 	target_position = global_position + (caster.aim_direction * 999999)
 	

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bv803buhsotdn"]
+
+[ext_resource type="Script" path="res://ui/element_status/status_icon.gd" id="1_ahxvk"]
+[ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="1_b6c88"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lw5p5"]
+size = Vector2(32, 32)
+
+[node name="StatusIcon" type="TextureRect"]
+texture = SubResource("PlaceholderTexture2D_lw5p5")
+stretch_mode = 5
+script = ExtResource("1_ahxvk")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+fill_mode = 5
+texture_progress = ExtResource("1_b6c88")
