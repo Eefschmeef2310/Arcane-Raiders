@@ -26,7 +26,7 @@ func _process(delta):
 #region Signal methods
 func update_prompts(id: int):
 	if id <= -2:
-		print("lol")
+		#print("lol")
 		for spell in spells:
 			spell.hide_prompt()
 	else:

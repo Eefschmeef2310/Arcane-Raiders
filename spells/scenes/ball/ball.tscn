@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4td8rjmyf2lq"]
+[gd_scene load_steps=7 format=3 uid="uid://c4td8rjmyf2lq"]
 
 [ext_resource type="Texture2D" uid="uid://rnuk6e0pgt7u" path="res://spells/scenes/ball/Sports-Ball-Transparent.png" id="1_8cuff"]
 [ext_resource type="Script" path="res://spells/scenes/ball/ball.gd" id="1_onylv"]
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_rsnqn"]
+[ext_resource type="PackedScene" uid="uid://hluymg7rswm6" path="res://spells/scenes/explosive/explosion.tscn" id="4_2ld2n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
 
@@ -26,10 +27,12 @@ texture = ExtResource("1_8cuff")
 
 [node name="Hitbox" type="Area2D" parent="BallBody" index="2"]
 collision_layer = 32
-collision_mask = 8
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallBody/Hitbox" index="0"]
 shape = SubResource("CircleShape2D_selhr")
 debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
+
+[node name="Explosion" parent="." index="1" instance=ExtResource("4_2ld2n")]
 
 [connection signal="body_entered" from="BallBody/Hitbox" to="BallBody" method="_on_hitbox_body_entered"]

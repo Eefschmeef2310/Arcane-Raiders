@@ -35,7 +35,7 @@ func init(new_data: PlayerData):
 	set_input(data.device_id)
 
 func set_input(id: int):
-	print(id)
+	#print(id)
 	$Input.set_device(id)
 
 func cast_spell(slot: int):

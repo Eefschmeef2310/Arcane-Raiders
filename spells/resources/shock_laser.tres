@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://bm4454pipbp4e"]
+
+[ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_8im54"]
+[ext_resource type="Script" path="res://spells/resources/spell_base.gd" id="1_st3kj"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser/laser.tscn" id="3_cqwhl"]
+
+[resource]
+script = ExtResource("1_st3kj")
+spell_scene = ExtResource("3_cqwhl")
+element = ExtResource("1_8im54")
+name = "shock laser"
+infliction_time = 5.0

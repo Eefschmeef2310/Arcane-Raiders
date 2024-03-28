@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=11 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
 [ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/dummy.tres" id="5_0ulxw"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
+[ext_resource type="Resource" uid="uid://cy8odkeelulpq" path="res://spells/resources/fire_explosive.tres" id="8_mmg70"]
+[ext_resource type="Resource" uid="uid://bm4454pipbp4e" path="res://spells/resources/shock_laser.tres" id="8_pdcfa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -41,4 +43,4 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="."]
 script = ExtResource("4_srdhb")
-spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("5_0ulxw"), ExtResource("5_0ulxw")])
+spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("8_pdcfa"), ExtResource("8_mmg70")])

@@ -55,4 +55,10 @@ theme_override_constants/separation = 0
 layout_mode = 2
 data = NodePath("../../../Player/PlayerData")
 
+[node name="DummyEnemy2" parent="." instance=ExtResource("4_01ml2")]
+position = Vector2(1924, 665)
+
+[node name="DummyEnemy3" parent="." instance=ExtResource("4_01ml2")]
+position = Vector2(1484, 768)
+
 [editable path="Player"]
