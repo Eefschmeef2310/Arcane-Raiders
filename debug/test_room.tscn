@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=11 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
@@ -9,6 +9,9 @@
 [ext_resource type="Resource" uid="uid://db2akpv2voqys" path="res://spells/resources/aoe_large_frost.tres" id="5_do4uj"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
 [ext_resource type="Resource" uid="uid://dd5sbqtu2le8s" path="res://spells/resources/laser_straight_weak.tres" id="6_5keeo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
+font_size = 24
 
 [node name="TestRoom" type="Node2D" node_paths=PackedStringArray("data_to_fuck_with")]
 y_sort_enabled = true
@@ -48,6 +51,14 @@ spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("4_ci64u"), 
 position_smoothing_enabled = true
 
 [node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="GameUI"]
+offset_left = 421.0
+offset_top = 1010.0
+offset_right = 830.0
+offset_bottom = 1044.0
+text = "Press R to randomise spell loadout!"
+label_settings = SubResource("LabelSettings_0cuxm")
 
 [node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
 anchors_preset = 12
