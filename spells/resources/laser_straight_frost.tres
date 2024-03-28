@@ -8,5 +8,5 @@
 script = ExtResource("1_6l1no")
 spell_scene = ExtResource("3_ruusl")
 element = ExtResource("1_nw1rr")
-name = "frost laser"
+name = "Frost Bolt"
 infliction_time = 3.0

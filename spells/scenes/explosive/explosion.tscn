@@ -4,15 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_nju5r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lijma"]
+radius = 155.013
 
 [node name="Explosion" type="Area2D"]
-visible = false
 z_index = 1
 collision_layer = 16
 script = ExtResource("1_kylxx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_lijma")
-
 [node name="81310-orange-art-explosion-sprite-pixel-download-hq-png" type="Sprite2D" parent="."]
 texture = ExtResource("2_nju5r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lijma")

@@ -7,7 +7,7 @@
 [node name="AoeLarge" instance=ExtResource("1_r37sd")]
 script = ExtResource("2_6hqll")
 base_damage = 250
-cooldown_time = 7.0
+cooldown_time = 1.0
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 
@@ -19,6 +19,7 @@ autostart = true
 scale = Vector2(1, 0.75)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ring" index="0"]
+scale = Vector2(1.75, 1.75)
 texture = ExtResource("3_gt4r0")
 
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]

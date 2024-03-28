@@ -10,5 +10,5 @@ script = ExtResource("1_7onbm")
 spell_scene = ExtResource("3_1u7e8")
 element = ExtResource("1_c45y5")
 ui_texture = ExtResource("4_urano")
-name = "dummy"
+name = "Fireball"
 infliction_time = 2.0
