@@ -12,7 +12,6 @@ end_time = 0.2
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 target_position = Vector2(1000, 0)
-collision_mask = 9
 script = ExtResource("2_y0bv7")
 
 [node name="Line2D" type="Line2D" parent="RayCast2D" index="0"]

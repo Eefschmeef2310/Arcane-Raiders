@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Entity
 class_name Player
 #Authored by Xander. Please consult for any modifications or major feature requests.
 

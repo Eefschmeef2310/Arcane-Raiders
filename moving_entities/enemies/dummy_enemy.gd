@@ -25,9 +25,9 @@ func _ready():
 	pass
 	
 func _process(delta):
-	velocity = Vector2.LEFT * 100
+	# add velocity
 	super._process(delta) #may apply effect, which may change velocity
-	move_and_slide()
+	# move and slide
 #endregion
 
 #region Signal methods
