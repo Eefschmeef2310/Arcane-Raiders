@@ -1,4 +1,5 @@
 extends Node
+class_name SpellBase
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -29,23 +30,14 @@ extends Node
 
 	#Other Variables (please try to separate and organise!)
 var resource : Spell #This is set in code
+var caster : Player #This is also set in code
 
 #endregion
 
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
+func transfer_data(new: Node2D):
+	if "base_damage" in new:
+		new.base_damage = base_damage
+	if "resource" in new:
+		new.resource = resource
+	if "caster" in new:
+		new.caster = caster

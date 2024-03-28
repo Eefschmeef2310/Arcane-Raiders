@@ -18,6 +18,10 @@ extends Area2D
 	#Other Variables (please try to separate and organise!)
 var size : float = 1
 
+var base_damage : int
+var resource : Spell
+var caster : Player
+
 #endregion
 
 #region Godot methods
@@ -35,5 +39,5 @@ func begin():
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_QUAD)
-	tween.tween_callback(owner.queue_free)
+	tween.tween_callback(queue_free)
 #endregion

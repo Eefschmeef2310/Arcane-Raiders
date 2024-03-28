@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmxs62fwihysk"]
+
+[ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball_body.gd" id="1_x5adh"]
+[ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="2_ir44m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_selhr"]
+radius = 29.0172
+
+[node name="ProjBallBody" type="RigidBody2D"]
+y_sort_enabled = true
+collision_layer = 32
+gravity_scale = 0.0
+script = ExtResource("1_x5adh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ogc0g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-27.5, 0)
+texture = ExtResource("2_ir44m")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_selhr")
+debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
