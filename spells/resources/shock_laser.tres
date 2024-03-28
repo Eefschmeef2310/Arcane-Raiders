@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_8im54"]
 [ext_resource type="Script" path="res://spells/resources/spell_base.gd" id="1_st3kj"]
-[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser/laser.tscn" id="3_cqwhl"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="3_cqwhl"]
 
 [resource]
 script = ExtResource("1_st3kj")

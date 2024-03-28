@@ -24,7 +24,7 @@ const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tsc
 	set(value):
 		health = clamp(value, 0, max_health)
 		if health == 0:
-			print("I am dead, not big surprise")
+			queue_free()
 
 	#Onready Variables
 
@@ -56,6 +56,7 @@ func on_hurt(spell : Node2D):
 	health -= spell.base_damage
 	
 	#Add element to current inflictions dictionary
+	print(spell.resource)
 	if spell.resource:
 		if !current_inflictions_dictionary.has(spell.resource.element):
 			current_inflictions_dictionary[spell.resource.element] = 0

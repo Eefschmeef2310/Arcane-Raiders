@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=9 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="TileSet" uid="uid://bbdsbsvk44uax" path="res://tilesets/debug_tileset.tres" id="2_mwmkl"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
 [ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
+[ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/dummy.tres" id="4_hxk3w"]
+[ext_resource type="Resource" uid="uid://byp0oq0w2f3jc" path="res://spells/resources/frost_laser.tres" id="5_aewyl"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
+[ext_resource type="Resource" uid="uid://bm4454pipbp4e" path="res://spells/resources/shock_laser.tres" id="6_c7v3t"]
 
 [node name="TestRoom" type="Node2D"]
 y_sort_enabled = true
@@ -33,6 +36,9 @@ texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1285, 484)
+
+[node name="PlayerData" parent="Player" index="4"]
+spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("4_hxk3w"), ExtResource("5_aewyl"), ExtResource("6_c7v3t")])
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true

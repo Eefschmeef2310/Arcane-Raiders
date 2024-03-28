@@ -12,7 +12,7 @@ class_name SpellBase
 	#Exported Variables
 @export_group("Spell Scene")
 # Damage the spell deals.
-@export var base_damage : int = 10
+@export var base_damage : int = 50
 
 # The time the player's startup animation plays for.
 @export var start_time : float = 0.2
