@@ -8,7 +8,12 @@ class_name Entity
 	#Enums
 
 	#Constants
-const SHOCK = preload("res://elements/shock.tres")
+const elements = {
+	ElementResource.ElementType.Fire : preload("res://elements/fire.tres"),
+	ElementResource.ElementType.Frost : preload("res://elements/frost.tres"),
+	ElementResource.ElementType.Shock : preload("res://elements/shock.tres"),
+	ElementResource.ElementType.Weakened : preload("res://elements/weakened.tres")
+}
 const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tscn")
 
 	#Exported Variables
@@ -32,8 +37,11 @@ var current_inflictions_dictionary : Dictionary
 func _process(delta):
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
-		key.effect(self) #Key is the element itself, so the effect can be run through the key
-		current_inflictions_dictionary[key] -= delta
+		#apply effects
+		if current_inflictions_dictionary.has(ElementResource.ElementType.Frost): frost_effect()
+		
+		#following line ticks down each key's timer, while taking weakness into account
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != ElementResource.ElementType.Weakened and current_inflictions_dictionary.has(ElementResource.ElementType.Weakened)) else 1))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 #endregion
@@ -55,7 +63,7 @@ func on_hurt(spell : Node2D):
 		current_inflictions_dictionary[spell.resource.element] = clamp(current_inflictions_dictionary[spell.resource.element], 0, spell.resource.element.max_infliction_time)
 
 	#if shocked, run shock effect
-	if current_inflictions_dictionary.has(SHOCK):
+	if current_inflictions_dictionary.has(ElementResource.ElementType.Shock):
 		shock_effect(spell)
 		
 func shock_effect(spell):
@@ -75,20 +83,14 @@ func shock_effect(spell):
 	(shock_effect_laser as Line2D).points[0] = global_position
 	(shock_effect_laser as Line2D).points[1] = closest.global_position
 	
-	current_inflictions_dictionary[spell.resource.element] += spell.resource.infliction_time
-	current_inflictions_dictionary[spell.resource.element] = clamp(current_inflictions_dictionary[spell.resource.element], 0, spell.resource.element.max_infliction_time)
-	
-	if current_inflictions_dictionary.has(SHOCK):
-		shock_effect(spell)
+	#current_inflictions_dictionary[spell.resource.element] += spell.resource.infliction_time
+	#current_inflictions_dictionary[spell.resource.element] = clamp(current_inflictions_dictionary[spell.resource.element], 0, spell.resource.element.max_infliction_time)
+	#
+	#if current_inflictions_dictionary.has(SHOCK):
+		#shock_effect(spell)
 	
 	get_tree().root.add_child(shock_effect_laser)
-			
-	#spawn laser
-	#if closest:
-		#var shock_laser_spell = SHOCK_LASER_SPELL.spell_scene.instantiate()
-		#(shock_laser_spell.get_children()[0] as RayCast2D).global_position = global_position
-		#(shock_laser_spell.get_children()[0] as RayCast2D).add_exception(self)
-		#(shock_laser_spell.get_children()[0] as RayCast2D).target_position = closest.global_position #I LOVE DEPENDENCIES
-		#
-		#get_tree().root.add_child(shock_laser_spell)
+
+func frost_effect():
+	velocity *= 0.5
 #endregion
