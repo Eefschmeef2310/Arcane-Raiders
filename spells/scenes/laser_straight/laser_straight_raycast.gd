@@ -15,7 +15,6 @@ var caster : Player
 #region Godot methods
 func _ready():
 	await get_tree().create_timer(owner.start_time).timeout
-	print("dayumn")
 	
 	owner.transfer_data(self)
 	owner.transfer_data($Area2D)
@@ -40,7 +39,6 @@ func _process(delta):
 	if !$KillTimer.is_stopped():
 		t += delta
 		$Area2D/CollisionShape2D.disabled = (sin(t*200) >= 0)
-		print($Area2D/CollisionShape2D.disabled)
 
 #endregion
 
