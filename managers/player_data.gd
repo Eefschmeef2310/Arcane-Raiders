@@ -14,10 +14,7 @@ signal device_changed(id: int)
 	set(val):
 		health = val
 		health_changed.emit()
-@export var spells : Array[Spell]:
-	set(val):
-		spells = val
-		spell_changed.emit()
+@export var spells : Array[Spell]
 @export var spell_cooldowns_max : Array[float]
 @export var spell_cooldowns : Array[float]
 

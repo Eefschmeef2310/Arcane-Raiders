@@ -17,7 +17,7 @@ func _process(_delta):
 		if dict.size() != get_child_count():
 			#print("!!!")
 			for child in get_children():
-				child.queue_free()
+				child.free()
 			for element in dict:
 				var icon = STATUS_ICON.instantiate()
 				add_child(icon)

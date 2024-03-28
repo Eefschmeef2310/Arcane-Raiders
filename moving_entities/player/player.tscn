@@ -112,7 +112,7 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="."]
 script = ExtResource("4_srdhb")
-spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("5_0ulxw"), ExtResource("5_0ulxw")])
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("5_0ulxw"), ExtResource("5_0ulxw")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

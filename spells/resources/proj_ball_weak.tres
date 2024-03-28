@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://c08xu2420xauy"]
 
 [ext_resource type="Resource" uid="uid://dktppvnlqvpln" path="res://elements/weak.tres" id="1_qvm24"]
-[ext_resource type="Script" path="res://spells/resources/spell_base.gd" id="2_rmoes"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_rmoes"]
 [ext_resource type="PackedScene" uid="uid://c4td8rjmyf2lq" path="res://spells/scenes/proj_ball/proj_ball.tscn" id="3_r5701"]
-[ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="4_3u8da"]
+[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="4_fvrl7"]
 
 [resource]
 script = ExtResource("2_rmoes")
 spell_scene = ExtResource("3_r5701")
 element = ExtResource("1_qvm24")
-ui_texture = ExtResource("4_3u8da")
+ui_texture = ExtResource("4_fvrl7")
+modulate_icon = true
 name = "Poisonball"
-infliction_time = 2.0
+infliction_time = 3.0

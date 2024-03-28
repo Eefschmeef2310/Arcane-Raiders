@@ -7,6 +7,8 @@ class_name Spell
 @export var spell_scene : Resource
 @export var element : ElementResource
 @export var ui_texture : Texture2D
+@export var modulate_icon : bool = true
+
 @export var name : String
 @export var infliction_time: float
 #endregion
