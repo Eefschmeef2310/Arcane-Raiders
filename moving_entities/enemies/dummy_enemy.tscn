@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_afyxm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pemjh"]
-radius = 9.05539
+radius = 27.074
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ov0rg"]
 radius = 32.0156
@@ -19,7 +19,7 @@ max_health = 300
 health = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -9)
+position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_pemjh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

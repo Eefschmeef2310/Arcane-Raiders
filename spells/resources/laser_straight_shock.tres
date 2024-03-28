@@ -9,4 +9,4 @@ script = ExtResource("1_st3kj")
 spell_scene = ExtResource("3_cqwhl")
 element = ExtResource("1_8im54")
 name = "shock laser"
-infliction_time = 5.0
+infliction_time = 3.0

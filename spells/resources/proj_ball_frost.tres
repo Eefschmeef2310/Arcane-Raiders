@@ -11,4 +11,4 @@ spell_scene = ExtResource("3_3e51u")
 element = ExtResource("1_28sbm")
 ui_texture = ExtResource("4_x62pd")
 name = "dummy"
-infliction_time = 5.0
+infliction_time = 2.0

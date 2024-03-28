@@ -6,6 +6,7 @@ extends RayCast2D
 var is_casting : bool = false
 
 var t = 0
+var y_offset = -16
 
 var base_damage : int
 var resource : Spell
@@ -19,9 +20,10 @@ func _ready():
 	owner.transfer_data(self)
 	owner.transfer_data($Area2D)
 	owner.global_position = caster.global_position
-	owner.global_position.y -= 16
+	owner.global_position.y += y_offset
 	
 	target_position = global_position + (caster.aim_direction * 999999)
+	target_position.y += y_offset
 	
 	var cast_point = target_position
 	force_raycast_update()
@@ -36,9 +38,10 @@ func _ready():
 	$KillTimer.start()
 
 func _process(delta):
-	if !$KillTimer.is_stopped():
-		t += delta
-		$Area2D/CollisionShape2D.disabled = (sin(t*200) >= 0)
+	#if !$KillTimer.is_stopped():
+		#t += delta
+		#$Area2D/CollisionShape2D.disabled = (sin(t*200) >= 0)
+		pass
 
 #endregion
 
