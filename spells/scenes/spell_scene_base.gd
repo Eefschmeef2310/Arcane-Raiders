@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name SpellBase
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
