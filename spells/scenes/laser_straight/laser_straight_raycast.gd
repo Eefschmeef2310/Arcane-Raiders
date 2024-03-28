@@ -7,6 +7,8 @@ var is_casting : bool = false
 
 var t = 0
 var y_offset = -16
+var track_aim := true
+var beam_width = 30
 
 var base_damage : int
 var resource : Spell
@@ -15,35 +17,48 @@ var caster : Player
 
 #region Godot methods
 func _ready():
-	$Line2D.default_color = owner.resource.element.colour
-	
-	await get_tree().create_timer(owner.start_time).timeout
-	
 	owner.transfer_data(self)
 	owner.transfer_data($Area2D)
 	owner.global_position = caster.global_position
 	owner.global_position.y += y_offset
+	$Line2D.default_color = owner.resource.element.colour
+	$Line2D.width = 5
+	
+	await get_tree().create_timer(owner.start_time).timeout
+	track_aim = false
 	
 	target_position = global_position + (caster.aim_direction * 999999)
 	target_position.y += y_offset
 	
 	var cast_point = target_position
+	var cast_length: float
 	force_raycast_update()
 	
 	if is_colliding():
 		cast_point = to_local(get_collision_point())
+		cast_length = position.distance_to(cast_point)
 		
 	$Line2D.points[1] = cast_point
-	($Area2D/CollisionShape2D as CollisionShape2D).shape.b = cast_point
+	$Line2D.width = beam_width
+	$Area2D/CollisionShape2D.position = (position + cast_point)/2
+	$Area2D/CollisionShape2D.rotation = position.direction_to(cast_point).angle()
+	$Area2D/CollisionShape2D.shape.size = Vector2(cast_length, beam_width)
 	
-	$KillTimer.wait_time = owner.end_time
 	$KillTimer.start()
 
-func _process(delta):
-	#if !$KillTimer.is_stopped():
-		#t += delta
-		#$Area2D/CollisionShape2D.disabled = (sin(t*200) >= 0)
-		pass
+func _process(_delta):
+	if track_aim:
+		owner.global_position = caster.global_position
+		owner.global_position.y += y_offset
+		update_raycast()
+		if is_colliding():
+			var cast_point = to_local(get_collision_point())
+			$Line2D.points[1] = cast_point
+
+func update_raycast():
+	target_position = global_position + (caster.aim_direction * 999999)
+	target_position.y += y_offset
+	force_raycast_update()
 
 #endregion
 

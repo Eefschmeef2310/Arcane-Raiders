@@ -113,7 +113,9 @@ func shock_effect():
 		#draw line between guys
 		var shock_effect_laser = SHOCK_EFFECT_LASER.instantiate()
 		(shock_effect_laser as Line2D).points[0] = global_position
+		(shock_effect_laser as Line2D).points[0].y -= 16
 		(shock_effect_laser as Line2D).points[1] = closest.global_position
+		(shock_effect_laser as Line2D).points[1].y -= 16
 		add_sibling(shock_effect_laser)
 			
 	#spawn laser

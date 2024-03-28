@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://c7ypgsyxpc1tp"]
 
 [ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_ojweo"]
-[ext_resource type="Script" path="res://spells/resources/spell_base.gd" id="2_bavbr"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_uhacd"]
 [ext_resource type="PackedScene" uid="uid://c4td8rjmyf2lq" path="res://spells/scenes/proj_ball/proj_ball.tscn" id="3_ci8ob"]
-[ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="4_d4ddm"]
+[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="4_is86x"]
 
 [resource]
-script = ExtResource("2_bavbr")
+script = ExtResource("2_uhacd")
 spell_scene = ExtResource("3_ci8ob")
 element = ExtResource("1_ojweo")
-ui_texture = ExtResource("4_d4ddm")
+ui_texture = ExtResource("4_is86x")
+modulate_icon = true
 name = "Shockball"
-infliction_time = 2.0
+infliction_time = 3.0

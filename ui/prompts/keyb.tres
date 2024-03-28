@@ -7,6 +7,6 @@
 
 [resource]
 script = ExtResource("1_s7gq1")
-spell0 = ExtResource("2_o4v8m")
-spell1 = ExtResource("3_csfiy")
-spell2 = ExtResource("4_35mp0")
+spell0 = ExtResource("4_35mp0")
+spell1 = ExtResource("2_o4v8m")
+spell2 = ExtResource("3_csfiy")

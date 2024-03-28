@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://bm4454pipbp4e"]
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://bm4454pipbp4e"]
 
 [ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_8im54"]
-[ext_resource type="Script" path="res://spells/resources/spell_base.gd" id="1_st3kj"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_st3kj"]
 [ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="3_cqwhl"]
+[ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="4_svy6h"]
 
 [resource]
 script = ExtResource("1_st3kj")
 spell_scene = ExtResource("3_cqwhl")
 element = ExtResource("1_8im54")
+ui_texture = ExtResource("4_svy6h")
+modulate_icon = true
 name = "Lighnigh Bolt"
 infliction_time = 3.0

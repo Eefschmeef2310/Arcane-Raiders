@@ -16,7 +16,9 @@ var input_prompts: Array
 func _ready():
 	if is_instance_valid(data):
 		data.device_changed.connect(update_prompts)
+		data.spell_changed.connect(update_spells)
 		update_prompts(data.device_id)
+		update_spells()
 
 func _process(_delta):
 	if is_instance_valid(data):
@@ -30,7 +32,7 @@ func _process(_delta):
 func update_spells():
 	if is_instance_valid(data):
 		for i in spells.size():
-			spells[i].texture = data.spells[i].ui_texture
+			spells[i].set_spell(data.spells[i])
 
 func update_prompts(id: int):
 	if id <= -2:
@@ -50,7 +52,10 @@ func update_prompts(id: int):
 func set_data(d: PlayerData):
 	if is_instance_valid(data):
 		data.device_changed.disconnect(update_prompts)
+		data.spell_changed.disconnect(update_spells)
 	data = d
 	data.device_changed.connect(update_prompts)
+	data.spell_changed.connect(update_spells)
 	update_prompts(data.device_id)
+	update_spells()
 #endregion
