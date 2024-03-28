@@ -107,3 +107,8 @@ pause={
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Spells"
 2d_physics/layer_6="SpellImpact"
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)

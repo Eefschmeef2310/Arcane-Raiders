@@ -36,8 +36,8 @@ func _process(delta):
 
 #region Other methods (please try to separate and organise!)
 func _on_hurtbox_body_entered(body):
-	on_hurt(body.owner as Node2D)
+	on_hurt(body as Node2D)
 
 func _on_hurtbox_area_entered(area):
-	on_hurt(area.owner as Node2D)
+	on_hurt(area as Node2D)
 #endregion
