@@ -9,7 +9,7 @@ script = ExtResource("2_6hbed")
 BULLET = ExtResource("3_a28ln")
 waves = 10
 bullets_per_wave = 5
-max_radians = 3.142
+max_radians = 0.785
 base_damage = 5
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]

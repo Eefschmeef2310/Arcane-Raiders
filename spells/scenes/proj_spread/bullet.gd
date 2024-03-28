@@ -25,7 +25,8 @@ var caster : Player
 
 #region Godot methods
 func _ready():
-	pass
+	if resource:
+		modulate = resource.element.colour
 
 func _process(_delta):
 	position += Vector2(cos(rotation), sin(rotation)) * speed

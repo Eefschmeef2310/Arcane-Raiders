@@ -14,7 +14,7 @@ extends SpellBase
 @export var BULLET = preload("res://spells/scenes/proj_spread/bullet.tscn")
 @export var waves : int = 10
 @export var bullets_per_wave : int = 5
-@export_range(0, 2*PI) var max_radians : float = 0.2
+@export_range(0, TAU) var max_radians : float = 0.2
 
 	#Onready Variables
 
@@ -22,7 +22,7 @@ extends SpellBase
 
 #endregion
 
-#region Godot methods
+#region Godot methodse
 func _ready():
 	await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()

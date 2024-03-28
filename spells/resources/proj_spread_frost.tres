@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://buptq5orq7jgh"]
+
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_kw6ht"]
+[ext_resource type="Resource" uid="uid://baivofh8khbi0" path="res://elements/frost.tres" id="1_u0bq7"]
+[ext_resource type="PackedScene" uid="uid://bhx2svxx4h6ay" path="res://spells/scenes/proj_spread/proj_spread.tscn" id="3_0ynrn"]
+
+[resource]
+script = ExtResource("1_kw6ht")
+spell_scene = ExtResource("3_0ynrn")
+element = ExtResource("1_u0bq7")
+modulate_icon = true
+name = "Snow Cone"
+infliction_time = 0.5
