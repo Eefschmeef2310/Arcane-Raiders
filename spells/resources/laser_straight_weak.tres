@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://dd5sbqtu2le8s"]
+
+[ext_resource type="Resource" uid="uid://dktppvnlqvpln" path="res://elements/weak.tres" id="1_apd2a"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_6brkk"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="3_6urn2"]
+[ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="4_j7dop"]
+
+[resource]
+script = ExtResource("2_6brkk")
+spell_scene = ExtResource("3_6urn2")
+element = ExtResource("1_apd2a")
+ui_texture = ExtResource("4_j7dop")
+modulate_icon = true
+name = "Poison Bolt"
+infliction_time = 3.0

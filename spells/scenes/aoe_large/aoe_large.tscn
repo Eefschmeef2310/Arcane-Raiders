@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvlicvm1ejylu"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_r37sd"]
+[ext_resource type="Script" path="res://spells/scenes/aoe_large/aoe_large.gd" id="2_6hqll"]
+[ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="3_gt4r0"]
+
+[node name="AoeLarge" instance=ExtResource("1_r37sd")]
+y_sort_enabled = true
+script = ExtResource("2_6hqll")
+base_damage = 250
+start_time = 0.05
+cooldown_time = 7.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="0"]
+
+[node name="ExplosionTimer" type="Timer" parent="." index="1"]
+one_shot = true
+autostart = true
+
+[node name="Ring" type="Node2D" parent="." index="2"]
+scale = Vector2(1, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ring" index="0"]
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("3_gt4r0")
+
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]

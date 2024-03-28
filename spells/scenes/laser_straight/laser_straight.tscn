@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ql2ywssd2ilf"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_lamno"]
+[ext_resource type="Script" path="res://spells/scenes/laser_straight/laser_straight_raycast.gd" id="2_y0bv7"]
+[ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="3_74myo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_285tt"]
+size = Vector2(0, 0)
+
+[node name="LaserStraight" instance=ExtResource("1_lamno")]
+y_sort_enabled = true
+end_time = 0.2
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="0"]
+target_position = Vector2(1000, 0)
+script = ExtResource("2_y0bv7")
+
+[node name="Line2D" type="Line2D" parent="RayCast2D" index="0"]
+points = PackedVector2Array(0, 0, 10, 0)
+width = 20.0
+
+[node name="KillTimer" type="Timer" parent="RayCast2D" index="1"]
+wait_time = 0.4
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="RayCast2D" index="2"]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("3_74myo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RayCast2D/Area2D" index="0"]
+position = Vector2(105, 0)
+shape = SubResource("RectangleShape2D_285tt")
+
+[connection signal="timeout" from="RayCast2D/KillTimer" to="RayCast2D" method="_on_kill_timer_timeout"]

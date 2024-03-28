@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://t5lliv8qdp4t"]
+
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_lx2xh"]
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="1_vwh35"]
+[ext_resource type="PackedScene" uid="uid://bhx2svxx4h6ay" path="res://spells/scenes/proj_spread/proj_spread.tscn" id="3_jbaiy"]
+
+[resource]
+script = ExtResource("1_lx2xh")
+spell_scene = ExtResource("3_jbaiy")
+element = ExtResource("1_vwh35")
+name = "proj_spread)burn"
+infliction_time = 0.5

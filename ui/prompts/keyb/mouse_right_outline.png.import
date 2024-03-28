@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rnuk6e0pgt7u"
-path="res://.godot/imported/Sports-Ball-Transparent.png-8cc1b98b63f638e4cae5e2a96f98597c.ctex"
+uid="uid://brka4gsreusb2"
+path="res://.godot/imported/mouse_right_outline.png-280d0a1c5452b744e3bea3bb66cf07d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spells/scenes/ball/Sports-Ball-Transparent.png"
-dest_files=["res://.godot/imported/Sports-Ball-Transparent.png-8cc1b98b63f638e4cae5e2a96f98597c.ctex"]
+source_file="res://ui/prompts/keyb/mouse_right_outline.png"
+dest_files=["res://.godot/imported/mouse_right_outline.png-280d0a1c5452b744e3bea3bb66cf07d1.ctex"]
 
 [params]
 

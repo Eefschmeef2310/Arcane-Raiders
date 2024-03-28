@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -8,26 +8,24 @@ extends RigidBody2D
 	#Enums
 
 	#Constants
-	
+
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var force : float = 1000
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var size : float = 1
+
+var base_damage : int
 var resource : Spell
+var caster : Player
 
 #endregion
 
 #region Godot methods
-func _ready():
-	apply_impulse(Vector2(cos(rotation), sin(rotation)) * force)
 
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods
@@ -35,5 +33,14 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func _ready():
+	scale *= size
+	process_mode = Node.PROCESS_MODE_INHERIT
+	
+	if resource:
+		modulate = resource.element.colour
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(queue_free)
 #endregion

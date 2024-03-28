@@ -1,26 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://n76plus8syht"]
+[gd_scene load_steps=7 format=3 uid="uid://n76plus8syht"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/dummy_enemy.gd" id="1_04g5f"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_wa8tc"]
+[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_hl5sw"]
+[ext_resource type="Script" path="res://moving_entities/entity_health_bar.gd" id="3_22xub"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_afyxm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pemjh"]
-radius = 64.0
+radius = 27.074
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ov0rg"]
-radius = 64.0
+radius = 32.0156
 
-[node name="DummyEnemy" type="CharacterBody2D"]
+[node name="DummyEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_04g5f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -64)
+position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_pemjh")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(0, -64)
-texture = ExtResource("1_wa8tc")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("2_hl5sw")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -64)
@@ -28,7 +30,36 @@ collision_layer = 8
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 46)
 shape = SubResource("CircleShape2D_ov0rg")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -161.0
+offset_right = 68.0
+offset_bottom = -134.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_22xub")
+
+[node name="StatusUI" parent="." instance=ExtResource("4_afyxm")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

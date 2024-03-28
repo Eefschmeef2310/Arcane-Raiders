@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://botx8jw8in1ew"]
+
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_bdv2d"]
+[ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_kol3y"]
+[ext_resource type="PackedScene" uid="uid://bhx2svxx4h6ay" path="res://spells/scenes/proj_spread/proj_spread.tscn" id="3_cvxaw"]
+
+[resource]
+script = ExtResource("1_bdv2d")
+spell_scene = ExtResource("3_cvxaw")
+element = ExtResource("1_kol3y")
+modulate_icon = true
+name = "Shock Spread"
+infliction_time = 0.5

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://xji17m5oo03d"]
+
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="1_c45y5"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_thpjg"]
+[ext_resource type="PackedScene" uid="uid://c4td8rjmyf2lq" path="res://spells/scenes/proj_ball/proj_ball.tscn" id="3_1u7e8"]
+[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="4_abk7c"]
+
+[resource]
+script = ExtResource("2_thpjg")
+spell_scene = ExtResource("3_1u7e8")
+element = ExtResource("1_c45y5")
+ui_texture = ExtResource("4_abk7c")
+modulate_icon = true
+name = "Fireball"
+infliction_time = 3.0

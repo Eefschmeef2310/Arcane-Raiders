@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://db2akpv2voqys"]
+
+[ext_resource type="Resource" uid="uid://baivofh8khbi0" path="res://elements/frost.tres" id="1_a41a5"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_x4tk4"]
+[ext_resource type="PackedScene" uid="uid://cvlicvm1ejylu" path="res://spells/scenes/aoe_large/aoe_large.tscn" id="3_8bcok"]
+[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="4_kgbdu"]
+
+[resource]
+script = ExtResource("2_x4tk4")
+spell_scene = ExtResource("3_8bcok")
+element = ExtResource("1_a41a5")
+ui_texture = ExtResource("4_kgbdu")
+modulate_icon = true
+name = "Snowstorm"
+infliction_time = 5.0

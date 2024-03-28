@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://ds7mbn5tgbei"]
+
+[ext_resource type="Resource" uid="uid://baivofh8khbi0" path="res://elements/frost.tres" id="1_28sbm"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_3a88m"]
+[ext_resource type="PackedScene" uid="uid://c4td8rjmyf2lq" path="res://spells/scenes/proj_ball/proj_ball.tscn" id="3_3e51u"]
+[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="4_hpt11"]
+
+[resource]
+script = ExtResource("2_3a88m")
+spell_scene = ExtResource("3_3e51u")
+element = ExtResource("1_28sbm")
+ui_texture = ExtResource("4_hpt11")
+modulate_icon = true
+name = "Snowball"
+infliction_time = 3.0

@@ -7,7 +7,10 @@ class_name ElementResource
 
 	#Enums
 enum ElementType {
-	Fire
+	Burn,
+	Frost,
+	Shock,
+	Weak
 }
 
 	#Constants
@@ -25,25 +28,4 @@ enum ElementType {
 
 	#Other Variables (please try to separate and organise!)
 
-#endregion
-
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-func effect(object):
-	match element_type:
-		ElementType.Fire:
-			print("now run fire effect")
 #endregion

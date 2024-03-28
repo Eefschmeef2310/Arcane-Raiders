@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctlrtrpxed1cg"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_4le16"]
+[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_qrfy8"]
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/proj_spread/bullet.tscn" id="3_dulo2"]
+
+[node name="SpellSceneBase" instance=ExtResource("1_4le16")]
+script = ExtResource("2_qrfy8")
+BULLET = ExtResource("3_dulo2")
+waves = 5
+bullets_per_wave = 1
+max_radians = 0.0
+base_damage = 5
+
+[node name="WaveTimer" type="Timer" parent="." index="0"]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

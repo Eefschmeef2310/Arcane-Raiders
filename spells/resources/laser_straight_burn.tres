@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://ddmdygbe8v5ic"]
+
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="1_6l426"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_v2y0x"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="3_oerhm"]
+[ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="4_2oxkv"]
+
+[resource]
+script = ExtResource("2_v2y0x")
+spell_scene = ExtResource("3_oerhm")
+element = ExtResource("1_6l426")
+ui_texture = ExtResource("4_2oxkv")
+modulate_icon = true
+name = "Fire Bolt"
+infliction_time = 3.0
