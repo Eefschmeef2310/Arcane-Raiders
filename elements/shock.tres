@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ElementResource" load_steps=2 format=3 uid="uid://bn5wynfsgplge"]
+
+[ext_resource type="Script" path="res://elements/element.gd" id="1_btad0"]
+
+[resource]
+script = ExtResource("1_btad0")
+colour = Color(1, 0.945098, 0, 1)
+element_type = 2
+max_infliction_time = 5.0

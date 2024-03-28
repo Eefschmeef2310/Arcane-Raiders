@@ -8,7 +8,8 @@ class_name ElementResource
 	#Enums
 enum ElementType {
 	Fire,
-	Frost
+	Frost,
+	Shock
 }
 
 	#Constants

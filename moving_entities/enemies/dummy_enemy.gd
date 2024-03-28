@@ -39,5 +39,5 @@ func _on_hurtbox_body_entered(body):
 	on_hurt(body.owner as Node2D)
 
 func _on_hurtbox_area_entered(area):
-	on_hurt(area.owner.get_parent() as Node2D)
+	on_hurt(area.owner as Node2D)
 #endregion

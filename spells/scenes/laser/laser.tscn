@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://ql2ywssd2ilf"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_cx2se"]
+[ext_resource type="Script" path="res://spells/scenes/laser/laser.gd" id="2_0bxeo"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_f1k12"]
+b = Vector2(0, 0)
+
+[node name="laser" instance=ExtResource("1_cx2se")]
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="0"]
+target_position = Vector2(1000, 0)
+collision_mask = 9
+script = ExtResource("2_0bxeo")
+
+[node name="Line2D" type="Line2D" parent="RayCast2D" index="0"]
+points = PackedVector2Array(0, 0, 0, 0)
+
+[node name="kill_timer" type="Timer" parent="RayCast2D" index="1"]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="RayCast2D" index="2"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RayCast2D/Area2D" index="0"]
+shape = SubResource("SegmentShape2D_f1k12")
+
+[connection signal="timeout" from="RayCast2D/kill_timer" to="RayCast2D" method="_on_kill_timer_timeout"]
