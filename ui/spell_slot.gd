@@ -4,13 +4,8 @@ extends TextureRect
 
 
 
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(delta):
-	#Runs per frame
-	pass
+func set_cooldown_percent(p: float):
+	$ProgressBar.value = p
 
 func change_prompt(tex: Texture2D):
 	$Prompt.texture = tex

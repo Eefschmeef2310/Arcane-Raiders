@@ -22,6 +22,9 @@ extends Node
 # The time before the player can cast another spell.
 @export var cancel_time : float = 0.3
 
+# The time before this spell can be cast again.
+@export var cooldown_time : float = 3.0
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
