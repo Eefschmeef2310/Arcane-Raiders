@@ -19,7 +19,6 @@ collision_layer = 32
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("2_fjtu1")
-force = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallBody" index="0"]
 shape = SubResource("CircleShape2D_ogc0g")

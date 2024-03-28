@@ -41,7 +41,7 @@ func _on_animation_player_animation_finished(anim_name: String):
 	if anim_name.contains("cast_start"):
 		animation_player.play("cast_end", -1, 1/cast_end_time)
 	elif anim_name.contains("cast_end"):
-		animation_player.play("cast_idle", -1, 1)
+		animation_player.play("idle", -1, 1)
 		is_casting = false
 #endregion
 
@@ -68,6 +68,7 @@ func cast_spell(slot: int):
 		var spell_node = data.spells[slot].spell_scene.instantiate()
 		spell_node.resource = data.spells[slot]
 		spell_node.caster = self
+		
 		#print(get_angle_to(aim_direction) - rotation)
 		add_sibling(spell_node)
 		
