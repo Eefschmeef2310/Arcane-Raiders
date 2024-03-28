@@ -54,7 +54,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	$SpellDirection/Sprite2D.modulate = data.main_color
 
 func set_input(id: int):
-	print(id)
+	print("Setting input" + str(id))
 	$Input.set_device(id)
 
 # Splitting the functions to separate input from action for RPC
@@ -67,10 +67,9 @@ func cast_spell(slot: int):
 		# Initialise spell object and add to tree
 		var spell_node = data.spells[slot].spell_scene.instantiate()
 		spell_node.resource = data.spells[slot]
-		spell_node.global_position = global_position
-		spell_node.rotation = get_angle_to(global_position + aim_direction)
+		spell_node.caster = self
 		#print(get_angle_to(aim_direction) - rotation)
-		owner.add_child(spell_node)
+		add_sibling(spell_node)
 		
 		# Set cooldown
 		data.spell_cooldowns_max[slot] = spell_node.cooldown_time

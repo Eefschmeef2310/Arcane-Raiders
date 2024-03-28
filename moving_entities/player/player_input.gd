@@ -33,7 +33,6 @@ func _process(_delta):
 				aim_dir = aim_dir.normalized()
 			else:
 				var a : Vector2 = input.get_vector("left", "right", "up", "down")
-				print(a.length())
 				if a.length() > 0:
 					aim_dir = a.normalized()
 			
