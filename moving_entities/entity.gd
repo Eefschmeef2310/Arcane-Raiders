@@ -7,7 +7,7 @@ class_name Entity
 
 	#Enums
 const elements = {
-	ElementResource.ElementType.Fire : preload("res://elements/burn.tres"),
+	ElementResource.ElementType.Burn : preload("res://elements/burn.tres"),
 	ElementResource.ElementType.Frost : preload("res://elements/frost.tres"),
 	ElementResource.ElementType.Shock : preload("res://elements/shock.tres"),
 	ElementResource.ElementType.Weak : preload("res://elements/weak.tres")
@@ -40,6 +40,7 @@ var shocked_this_frame : bool = false
 
 #region Godot methods
 func _process(delta):
+	frost_speed_scale = 1.0
 	shocked_this_frame = false
 	
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
@@ -51,6 +52,12 @@ func _process(delta):
 		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != elements[ElementResource.ElementType.Weak] and current_inflictions_dictionary.has(elements[ElementResource.ElementType.Weak])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
+		
+		match key:
+			elements[ElementResource.ElementType.Burn]:
+				burn_effect(delta)
+			elements[ElementResource.ElementType.Frost]:
+				frost_effect()
 #endregion
 
 #region Signal methods
@@ -74,11 +81,15 @@ func on_hurt(spell : Node2D):
 	if current_inflictions_dictionary.has(elements[ElementResource.ElementType.Shock]):
 		shock_effect()
 
-func burn_effect():
-	pass
+func burn_effect(delta):
+	if burn_timer > 0:
+		burn_timer -= delta
+	if burn_timer <= 0:
+		health -= 20
+		burn_timer = burn_tick_rate
 
 func frost_effect():
-	pass
+	frost_speed_scale = 0.5
 
 func shock_effect():
 	#get closest entity with same tag

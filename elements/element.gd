@@ -7,7 +7,7 @@ class_name ElementResource
 
 	#Enums
 enum ElementType {
-	Fire,
+	Burn,
 	Frost,
 	Shock,
 	Weak
