@@ -43,9 +43,6 @@ spells = Array[Resource("res://spells/resources/spell_base.gd")]([ExtResource("4
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
 
-[node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1609, 600)
-
 [node name="GameUI" type="CanvasLayer" parent="."]
 
 [node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
@@ -60,6 +57,9 @@ theme_override_constants/separation = 0
 [node name="PlayerUI" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("5_q4kiy")]
 layout_mode = 2
 data = NodePath("../../../Player/PlayerData")
+
+[node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
+position = Vector2(1609, 600)
 
 [node name="DummyEnemy2" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1924, 665)

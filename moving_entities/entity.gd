@@ -6,9 +6,14 @@ class_name Entity
 	#Signals
 
 	#Enums
+const elements = {
+	ElementResource.ElementType.Fire : preload("res://elements/burn.tres"),
+	ElementResource.ElementType.Frost : preload("res://elements/frost.tres"),
+	ElementResource.ElementType.Shock : preload("res://elements/shock.tres"),
+	ElementResource.ElementType.Weak : preload("res://elements/weak.tres")
+}
 
 	#Constants
-const SHOCK = preload("res://elements/shock.tres")
 const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tscn")
 
 	#Exported Variables
@@ -39,8 +44,11 @@ func _process(delta):
 	
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
-		key.effect(self) #Key is the element itself, so the effect can be run through the key
-		current_inflictions_dictionary[key] -= delta
+		#apply effects
+		if current_inflictions_dictionary.has(ElementResource.ElementType.Frost): frost_effect()
+
+		#following line ticks down each key's timer, while taking weakness into account
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != elements[ElementResource.ElementType.Weak] and current_inflictions_dictionary.has(elements[ElementResource.ElementType.Weak])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 #endregion
@@ -63,7 +71,7 @@ func on_hurt(spell : Node2D):
 		current_inflictions_dictionary[spell.resource.element] = clamp(current_inflictions_dictionary[spell.resource.element], 0, spell.resource.element.max_infliction_time)
 
 	#if shocked, run shock effect
-	if current_inflictions_dictionary.has(SHOCK):
+	if current_inflictions_dictionary.has(elements[ElementResource.ElementType.Shock]):
 		shock_effect()
 
 func burn_effect():
@@ -89,7 +97,7 @@ func shock_effect():
 		shocked_this_frame = true
 		closest.shocked_this_frame = true
 		
-		if current_inflictions_dictionary.has(SHOCK):
+		if current_inflictions_dictionary.has(ElementResource.ElementType.Shock):
 			shock_effect()
 		
 		#draw line between guys

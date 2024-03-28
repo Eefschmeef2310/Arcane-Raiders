@@ -10,7 +10,7 @@ enum ElementType {
 	Fire,
 	Frost,
 	Shock,
-	Weakened
+	Weak
 }
 
 	#Constants

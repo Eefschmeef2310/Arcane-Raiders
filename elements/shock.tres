@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_btad0")
-colour = Color(1, 0.945098, 0, 1)
+colour = Color(1, 0.764706, 0.219608, 1)
 pip_texture = ExtResource("1_qyye0")
 element_type = 2
 max_infliction_time = 5.0
