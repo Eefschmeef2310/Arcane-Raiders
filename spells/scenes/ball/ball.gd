@@ -14,6 +14,9 @@ extends RigidBody2D
 
 #region Godot methods
 func _ready():
+	await get_tree().create_timer(owner.start_time).timeout
+	show()
+	$Hitbox/CollisionShape2D.disabled = false
 	apply_impulse(Vector2(cos(owner.rotation), sin(owner.rotation)) * force)
 #endregion
 

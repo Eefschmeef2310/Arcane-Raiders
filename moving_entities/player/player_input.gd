@@ -5,8 +5,6 @@ var devices: Array[int]
 
 var is_keyb: bool
 
-var block_input := false
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
@@ -14,7 +12,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if is_instance_valid(owner.data) and owner.get_multiplayer_authority() == owner.data.peer_id and !block_input:
+	if is_instance_valid(owner.data) and owner.get_multiplayer_authority() == owner.data.peer_id:
 		var move_dir: Vector2
 		var aim_dir: Vector2
 		var spell: Array[bool]
@@ -24,9 +22,10 @@ func _process(_delta):
 		if input:
 			# Movement
 			move_dir = input.get_vector("left", "right", "up", "down").normalized()
-			if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
-				move_dir.y *= 0.5
-				move_dir = move_dir.normalized()
+			if input.is_keyboard():
+				if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
+					move_dir.y *= 0.5
+					move_dir = move_dir.normalized()
 			
 			# Aim
 			if input.is_keyboard():
@@ -34,6 +33,7 @@ func _process(_delta):
 				aim_dir = aim_dir.normalized()
 			else:
 				var a : Vector2 = input.get_vector("left", "right", "up", "down")
+				print(a.length())
 				if a.length() > 0:
 					aim_dir = a.normalized()
 			
@@ -66,10 +66,11 @@ func _process(_delta):
 		
 		# Send input to owner
 		owner.move_direction = move_dir
-		owner.aim_direction = aim_dir
+		if aim_dir != Vector2.ZERO:
+			owner.aim_direction = aim_dir
 		for i in spell.size():
 			if spell[i]:
-				owner.cast_spell(i)
+				owner.attempt_cast(i)
 
 func _input(event):
 	if !input:
@@ -92,7 +93,6 @@ func set_device(id: int):
 		input = null
 	else:
 		input = DeviceInput.new(id)
-	block_input = (id == -3)
 	if is_instance_valid(owner.data):
 		owner.data.device_changed.emit(id)
 
