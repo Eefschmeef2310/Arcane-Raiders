@@ -33,7 +33,7 @@ var caster : Player
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func begin():
+func _ready():
 	scale *= size
 	process_mode = Node.PROCESS_MODE_INHERIT
 	

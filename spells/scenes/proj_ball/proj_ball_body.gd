@@ -39,13 +39,13 @@ func _on_explosion_timer_timeout():
 #region Other methods
 func create_explosion():
 	var explosion = explosion_scene.instantiate()
-	add_sibling(explosion)
+	
 	explosion.base_damage = base_damage
 	explosion.resource = resource
 	explosion.caster = caster
 	explosion.position = position
 	explosion.visible = true
-	explosion.begin()
+	call_deferred("add_sibling", explosion)
 	
 	queue_free()
 	

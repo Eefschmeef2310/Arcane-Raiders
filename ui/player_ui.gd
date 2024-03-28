@@ -18,7 +18,7 @@ func _ready():
 		data.device_changed.connect(update_prompts)
 		update_prompts(data.device_id)
 
-func _process(delta):
+func _process(_delta):
 	if is_instance_valid(data):
 		for i in spells.size():
 			var p = (data.spell_cooldowns[i] / data.spell_cooldowns_max[i]) * 100

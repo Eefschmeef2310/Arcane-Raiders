@@ -41,7 +41,7 @@ func _process(delta):
 		if current_inflictions_dictionary.has(ElementResource.ElementType.Frost): frost_effect()
 		
 		#following line ticks down each key's timer, while taking weakness into account
-		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != ElementResource.ElementType.Weakened and current_inflictions_dictionary.has(ElementResource.ElementType.Weakened)) else 1))
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != elements[ElementResource.ElementType.Weakened] and current_inflictions_dictionary.has(elements[ElementResource.ElementType.Weakened])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 #endregion
@@ -67,7 +67,7 @@ func on_hurt(spell : Node2D):
 	if current_inflictions_dictionary.has(ElementResource.ElementType.Shock):
 		shock_effect(spell)
 		
-func shock_effect(spell):
+func shock_effect(_spell):
 	#get closest entity with same tag
 	var closest : Node2D
 	var closest_distance : float = INF

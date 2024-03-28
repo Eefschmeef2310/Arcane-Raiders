@@ -9,13 +9,13 @@ func _ready():
 	#Runs when all children have entered the tree
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if owner is Entity:
 		var dict : Dictionary = owner.current_inflictions_dictionary
 		
 		# Resize number of icons if numbers mismatch
 		if dict.size() != get_child_count():
-			print("!!!")
+			#print("!!!")
 			for child in get_children():
 				child.queue_free()
 			for element in dict:
