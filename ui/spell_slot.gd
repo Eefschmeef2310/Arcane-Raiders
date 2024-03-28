@@ -2,8 +2,6 @@ extends TextureRect
 #class_name
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
-
-
 func set_cooldown_percent(p: float):
 	$ProgressBar.value = p
 

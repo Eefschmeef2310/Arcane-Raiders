@@ -23,6 +23,8 @@ func _ready():
 	direction = caster.aim_direction
 	global_position = caster.global_position + (direction * 20)
 	look_at(global_position + direction)
+	
+	modulate = resource.element.colour
 
 func _process(delta):
 	position += direction * move_speed * delta

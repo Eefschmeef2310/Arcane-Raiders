@@ -27,6 +27,11 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
+func update_spells():
+	if is_instance_valid(data):
+		for i in spells.size():
+			spells[i].texture = data.spells[i].ui_texture
+
 func update_prompts(id: int):
 	if id <= -2:
 		for spell in spells:
@@ -38,7 +43,7 @@ func update_prompts(id: int):
 			for i in spells.size():
 				spells[i].show_prompt()
 				spells[i].change_prompt(icons[i])
-	
+
 #endregion
 
 #region Other methods (please try to separate and organise!)
