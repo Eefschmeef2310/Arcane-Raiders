@@ -16,7 +16,7 @@ extends Node
 @export var server_browser : Control
 @export var lobbies_vbox : VBoxContainer
 @export var server_count_text : Label
-@export var gameScene : PackedScene
+@export var gameScene : String =  "res://debug/test_room.tscn"
 
 
 #@export_group("Group")
@@ -54,7 +54,7 @@ func _process(delta):
 
 
 func spawn_level(data):
-	var a = (data as PackedScene).instantiate()
+	var a = (load(data) as PackedScene).instantiate()
 	return a 
 
 func _on_host_pressed():

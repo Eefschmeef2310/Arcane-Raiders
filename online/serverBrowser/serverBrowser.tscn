@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ngf5irvgldhp"]
+[gd_scene load_steps=2 format=3 uid="uid://ngf5irvgldhp"]
 
 [ext_resource type="Script" path="res://online/serverBrowser/serverBrowser.gd" id="1_ih681"]
-[ext_resource type="PackedScene" uid="uid://b05susa6dm2te" path="res://debug/test_room.tscn" id="2_uussm"]
 
 [node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text")]
 script = ExtResource("1_ih681")
@@ -9,7 +8,6 @@ multiplayer_spawner = NodePath("MultiplayerSpawner")
 server_browser = NodePath("ServerBrowser")
 lobbies_vbox = NodePath("ServerBrowser/HSplitContainer/LobbyContainer/Lobbies")
 server_count_text = NodePath("ServerBrowser/HSplitContainer/VBoxContainer2/ServerDebugText")
-gameScene = ExtResource("2_uussm")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
