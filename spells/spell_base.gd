@@ -10,5 +10,5 @@ class_name Spell
 @export var modulate_icon : bool = true
 
 @export var name : String
-@export var infliction_time: float
+@export var infliction_time: float = 3
 #endregion
