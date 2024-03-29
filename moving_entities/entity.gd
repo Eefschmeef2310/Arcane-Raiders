@@ -39,6 +39,7 @@ var shocked_this_frame : bool = false
 #endregion
 
 #region Godot methods
+#TODO DON'T FORGET TO CALL THE SUPER!!!!
 func _process(delta):
 	frost_speed_scale = 1.0
 	shocked_this_frame = false
