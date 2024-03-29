@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
-[ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/proj_ball_burn.tres" id="5_0ulxw"]
+[ext_resource type="Resource" path="res://spells/resources/proj_ball_burn.tres" id="5_0ulxw"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
