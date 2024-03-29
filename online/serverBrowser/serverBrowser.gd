@@ -100,6 +100,7 @@ func on_lobby_match_list(lobbies):
 			button.set_size(Vector2(100,5))
 			button.connect("pressed",Callable(self,"join_lobby").bind(lobby))
 			lobbies_vbox.add_child(button)
+			valid_lobbies_count += 1
 	server_count_text.text = str(valid_lobbies_count," / ",all_lobbies_count," Servers Shown")
 
 
