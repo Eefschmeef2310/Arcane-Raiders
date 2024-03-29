@@ -48,8 +48,8 @@ func _physics_process(delta):
 		var current_agent_pos: Vector2 = global_position
 		var next_path_pos: Vector2 = nav_agent.get_next_path_position()
 		
-		velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
-		move_and_slide()
+		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
+		nav_agent.set_velocity(intended_velocity)
 	
 	
 #endregion
@@ -70,3 +70,9 @@ func _on_hurtbox_area_entered(area):
 func _on_nav_update_timer_timeout():
 	set_target()
 	pass
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	velocity = safe_velocity
+	move_and_slide()
+	pass # Replace with function body.
