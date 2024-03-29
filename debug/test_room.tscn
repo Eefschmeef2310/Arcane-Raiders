@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=12 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://db2akpv2voqys" path="res://spells/resources/aoe_large_frost.tres" id="5_do4uj"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
 [ext_resource type="Resource" uid="uid://dd5sbqtu2le8s" path="res://spells/resources/laser_straight_weak.tres" id="6_5keeo"]
+[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
@@ -41,13 +42,11 @@ position = Vector2(960, 540)
 texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
-position = Vector2(1285, 484)
+position = Vector2(1449, 1511)
 
 [node name="PlayerData" parent="Player" index="4"]
+device_id = -1
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("4_ci64u"), ExtResource("6_5keeo"), ExtResource("5_do4uj")])
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position_smoothing_enabled = true
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 
@@ -114,4 +113,20 @@ position = Vector2(1065, 1208)
 [node name="DummyEnemy14" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1703, 1240)
 
+[node name="DynamicCamera" parent="." instance=ExtResource("10_pyvl3")]
+position = Vector2(1094, 310)
+
+[node name="Player2" parent="." instance=ExtResource("3_tuxay")]
+position = Vector2(384, 146)
+
+[node name="PlayerData" parent="Player2" index="4"]
+device_id = 0
+
+[node name="Player3" parent="." instance=ExtResource("3_tuxay")]
+position = Vector2(491, 69)
+
+[node name="Player4" parent="." instance=ExtResource("3_tuxay")]
+position = Vector2(537, 151)
+
 [editable path="Player"]
+[editable path="Player2"]

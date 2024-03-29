@@ -1,4 +1,4 @@
-extends Area2D
+extends Node
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -12,32 +12,30 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var speed : float = 1
+@export var direction : Vector2
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var base_damage : int
-var resource : Spell
-var caster : Player
 
 #endregion
 
 #region Godot methods
 func _ready():
-	if resource:
-		modulate = resource.element.colour
+	#Runs when all children have entered the tree
+	pass
 
 func _process(_delta):
-	position += Vector2(cos(rotation), sin(rotation)) * speed
+	get_parent().velocity = direction
+	get_parent().move_and_slide()
+	
+func _input(event):
+	if event is InputEventKey && event.pressed && event.keycode == KEY_T:
+		direction *= -1
 #endregion
 
 #region Signal methods
-func _on_body_entered(_body):
-	queue_free()
 
-func _on_kill_timer_timeout():
-	queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)

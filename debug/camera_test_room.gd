@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -12,34 +12,34 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var speed : float = 1
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var base_damage : int
-var resource : Spell
-var caster : Player
 
 #endregion
 
 #region Godot methods
 func _ready():
-	if resource:
-		modulate = resource.element.colour
+	#Runs when all children have entered the tree
+	pass
 
 func _process(_delta):
-	position += Vector2(cos(rotation), sin(rotation)) * speed
+	#Runs per frame
+	pass
+	
+func _draw():
+	draw_circle($DynamicCamera.position, 10, Color.CORAL)
+	draw_rect(cam_rect, Color.CORAL, false, 4.0)
 #endregion
 
 #region Signal methods
-func _on_body_entered(_body):
-	queue_free()
 
-func _on_kill_timer_timeout():
-	queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+var cam_rect = Rect2()
+func draw_cam_rect(r):
+	cam_rect = r
+	queue_redraw()
 #endregion
