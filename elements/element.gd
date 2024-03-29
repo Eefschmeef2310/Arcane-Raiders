@@ -10,7 +10,8 @@ enum ElementType {
 	Burn,
 	Frost,
 	Shock,
-	Weak
+	Weak,
+	Null
 }
 
 	#Constants
