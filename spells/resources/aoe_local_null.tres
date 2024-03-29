@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://b3fh2blbf8sq4"]
+
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="1_yqbpy"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="2_t4yfe"]
+[ext_resource type="PackedScene" uid="uid://dt3a5xl27x1rt" path="res://spells/scenes/aoe_local/aoe_local.tscn" id="3_40miw"]
+[ext_resource type="Texture2D" uid="uid://dgn558h1qflav" path="res://spells/sprites/icons/aoe_local.png" id="4_d0uxr"]
+
+[resource]
+script = ExtResource("2_t4yfe")
+spell_scene = ExtResource("3_40miw")
+element = ExtResource("1_yqbpy")
+ui_texture = ExtResource("4_d0uxr")
+modulate_icon = true
+name = ""
+infliction_time = 3.0

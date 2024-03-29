@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://vmbst313ysv7"]
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://7dws3avp7a8d"]
 
 [ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_dldps"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="2_wkxbg"]
 [ext_resource type="PackedScene" uid="uid://dt3a5xl27x1rt" path="res://spells/scenes/aoe_local/aoe_local.tscn" id="3_mqycl"]
+[ext_resource type="Texture2D" uid="uid://dgn558h1qflav" path="res://spells/sprites/icons/aoe_local.png" id="4_ogaxm"]
 
 [resource]
 script = ExtResource("2_wkxbg")
 spell_scene = ExtResource("3_mqycl")
 element = ExtResource("1_dldps")
+ui_texture = ExtResource("4_ogaxm")
 modulate_icon = true
 name = ""
 infliction_time = 3.0
