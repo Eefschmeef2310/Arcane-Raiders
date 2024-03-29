@@ -45,7 +45,8 @@ func _process(delta):
 #region Other methods (please try to separate and organise!)
 func spawnPlayer(data):
 	var p = playerScene.instantiate()
-	p.set_multiplayer_authority(data)
+	p.position = Vector2(1285,484)
+	p.set_multiplayer_authority(data, true)
 	players[data] = p
 	return p
 
