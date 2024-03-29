@@ -23,12 +23,4 @@ script = ExtResource("2_tpid8")
 
 [node name="Level" type="Node2D" parent="."]
 
-[node name="Player0" type="CharacterBody2D" parent="."]
-
-[node name="Player1" type="CharacterBody2D" parent="."]
-
-[node name="Player2" type="CharacterBody2D" parent="."]
-
-[node name="Player3" type="CharacterBody2D" parent="."]
-
 [node name="Camera2D" type="Camera2D" parent="."]

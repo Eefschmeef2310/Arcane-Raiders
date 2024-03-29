@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://depvyl1280q8a"]
+
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_0u1hk"]
+[ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="1_qafr8"]
+[ext_resource type="PackedScene" uid="uid://ctlrtrpxed1cg" path="res://spells/scenes/proj_burst/proj_burst.tscn" id="3_nxxwe"]
+
+[resource]
+script = ExtResource("1_0u1hk")
+spell_scene = ExtResource("3_nxxwe")
+element = ExtResource("1_qafr8")
+modulate_icon = true
+name = ""
+infliction_time = 3.0

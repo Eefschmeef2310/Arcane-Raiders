@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://t5lliv8qdp4t"]
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://t5lliv8qdp4t"]
 
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="1_lx2xh"]
 [ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="1_vwh35"]
 [ext_resource type="PackedScene" uid="uid://bhx2svxx4h6ay" path="res://spells/scenes/proj_spread/proj_spread.tscn" id="3_jbaiy"]
+[ext_resource type="Texture2D" uid="uid://bl812jtw0j6dq" path="res://spells/sprites/icons/proj_spread.png" id="4_t4hdt"]
 
 [resource]
 script = ExtResource("1_lx2xh")
 spell_scene = ExtResource("3_jbaiy")
 element = ExtResource("1_vwh35")
+ui_texture = ExtResource("4_t4hdt")
+modulate_icon = true
 name = "proj_spread)burn"
 infliction_time = 0.5

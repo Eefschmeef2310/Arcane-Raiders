@@ -22,6 +22,7 @@ SpellManager="*res://managers/spell_manager.gd"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 SteamManager="*res://online/steamManager/steamManager.tscn"
 PromptManager="*res://managers/prompt_manager.gd"
+ColorblindTester="*res://debug/colorblind_tester.tscn"
 
 [display]
 
