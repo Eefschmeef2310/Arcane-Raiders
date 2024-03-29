@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ngf5irvgldhp"]
 
-[ext_resource type="Script" path="res://online/serverBrowser/serverBrowser.gd" id="1_ih681"]
+[ext_resource type="Script" path="res://multiplayer/serverBrowser/serverBrowser.gd" id="1_ih681"]
 
 [node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text")]
 script = ExtResource("1_ih681")

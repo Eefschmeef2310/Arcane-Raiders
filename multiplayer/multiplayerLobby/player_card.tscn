@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg1xa4bpkhjf7"]
+
+[ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="1_66res"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
+font_size = 46
+
+[node name="PlayerCard" type="PanelContainer"]
+custom_minimum_size = Vector2(400, 780)
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RaiderPortrait" type="TextureRect" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("1_66res")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="RaiderName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Player 1"
+label_settings = SubResource("LabelSettings_xtm21")
+horizontal_alignment = 1
+
+[node name="RaiderDesc" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "a dark and mysterious raider, only in it for the gold"

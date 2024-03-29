@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8oqal4h1mv7a"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
+[ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
+
+[sub_resource type="Gradient" id="Gradient_u4f7k"]
+colors = PackedColorArray(0.791999, 0.791999, 0.791999, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f7i7a"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sx2ub"]
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_u4f7k")
+noise = SubResource("FastNoiseLite_f7i7a")
+
+[sub_resource type="Gradient" id="Gradient_61w0d"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0.584314, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xxsx3"]
+gradient = SubResource("Gradient_61w0d")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
+font_size = 91
+font_color = Color(1, 0.921569, 0.929412, 1)
+
+[node name="MultiplayerLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_sx2ub")
+stretch_mode = 1
+script = ExtResource("1_woy3j")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="PlayerCard" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+layout_mode = 2
+
+[node name="PlayerCard2" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+layout_mode = 2
+
+[node name="PlayerCard3" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+layout_mode = 2
+
+[node name="PlayerCard4" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 144.0
+grow_horizontal = 2
+texture = SubResource("GradientTexture2D_xxsx3")
+
+[node name="Label" type="Label" parent="TextureRect2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -509.0
+offset_right = 509.0
+offset_bottom = 125.0
+grow_horizontal = 2
+text = "CHOOSE YOUR RAIDER!"
+label_settings = SubResource("LabelSettings_dkcho")
+horizontal_alignment = 1
