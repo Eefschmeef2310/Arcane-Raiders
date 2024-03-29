@@ -26,10 +26,12 @@ var players = {}
 func _ready():
 	#Runs when all children have entered the tree
 	spawn_function = spawnPlayer 
+	multiplayer.peer_connected.connect(spawn)
+	multiplayer.peer_disconnected.connect(removePlayer)
 	if is_multiplayer_authority():
+		print("spawning local player ")
 		spawn(1)
-		multiplayer.peer_connected.connect(spawn)
-		multiplayer.peer_disconnected.connect(removePlayer)
+	
 
 func _process(delta):
 	#Runs per frame

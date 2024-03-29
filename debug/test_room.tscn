@@ -43,6 +43,8 @@ position = Vector2(960, 540)
 texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
+process_mode = 4
+visible = false
 position = Vector2(1285, 484)
 
 [node name="PlayerData" parent="Player" index="4"]
