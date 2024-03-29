@@ -10,7 +10,8 @@ const elements = {
 	ElementResource.ElementType.Burn : preload("res://elements/burn.tres"),
 	ElementResource.ElementType.Frost : preload("res://elements/frost.tres"),
 	ElementResource.ElementType.Shock : preload("res://elements/shock.tres"),
-	ElementResource.ElementType.Weak : preload("res://elements/weak.tres")
+	ElementResource.ElementType.Weak : preload("res://elements/weak.tres"),
+	ElementResource.ElementType.Null : preload("res://elements/null.tres")
 }
 
 	#Constants
@@ -71,7 +72,7 @@ func on_hurt(spell : Node2D):
 	health -= spell.base_damage
 	
 	#Add element to current inflictions dictionary
-	if spell.resource:
+	if spell.resource and spell.resource.element != elements[ElementResource.ElementType.Null]:
 		if !current_inflictions_dictionary.has(spell.resource.element):
 			current_inflictions_dictionary[spell.resource.element] = 0
 		current_inflictions_dictionary[spell.resource.element] += spell.resource.infliction_time
