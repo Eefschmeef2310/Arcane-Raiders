@@ -54,7 +54,7 @@ func _process(delta):
 
 
 func spawn_level(data):
-	var a = (load(data) as PackedScene).instantiate()
+	var a = (data as PackedScene).instantiate()
 	return a 
 
 func _on_host_pressed():
