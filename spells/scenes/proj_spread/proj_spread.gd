@@ -22,7 +22,7 @@ extends SpellBase
 
 #endregion
 
-#region Godot methodse
+#region Godot methods
 func _ready():
 	await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
