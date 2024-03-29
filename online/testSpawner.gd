@@ -33,8 +33,9 @@ func _ready():
 
 func _process(delta):
 	#Runs per frame
-	if Input.is_action_just_pressed("spawn"):
-		spawn(1)
+	pass
+	#if Input.is_action_just_pressed("spawn"):
+		#spawn(1)
 #endregion
 
 #region Signal methods

@@ -28,11 +28,12 @@ func _ready():
 
 func _process(_delta):
 	if is_instance_valid(data):
-		if get_multiplayer_authority() == data.peer_id:
-			velocity = move_direction * movement_speed
-			if is_casting:
-				velocity *= 0.25
-			move_and_slide()
+		if !is_multiplayer_authority():
+			return
+		velocity = move_direction * movement_speed
+		if is_casting:
+			velocity *= 0.25
+		move_and_slide()
 		
 #endregion
 
