@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=15 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
@@ -79,6 +79,14 @@ _data = {
 "idle": SubResource("Animation_vdik6")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ttyqk"]
+properties/0/path = NodePath("SpellDirection/Sprite2D:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data")]
 y_sort_enabled = true
 collision_layer = 4
@@ -118,5 +126,8 @@ spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("5_0ulxw"), 
 libraries = {
 "": SubResource("AnimationLibrary_dg52v")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ttyqk")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
