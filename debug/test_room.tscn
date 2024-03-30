@@ -45,7 +45,6 @@ texture = ExtResource("1_7v575")
 position = Vector2(1449, 1511)
 
 [node name="PlayerData" parent="Player" index="4"]
-device_id = -1
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("4_ci64u"), ExtResource("6_5keeo"), ExtResource("5_do4uj")])
 
 [node name="GameUI" type="CanvasLayer" parent="."]
@@ -116,17 +115,4 @@ position = Vector2(1703, 1240)
 [node name="DynamicCamera" parent="." instance=ExtResource("10_pyvl3")]
 position = Vector2(1094, 310)
 
-[node name="Player2" parent="." instance=ExtResource("3_tuxay")]
-position = Vector2(384, 146)
-
-[node name="PlayerData" parent="Player2" index="4"]
-device_id = 0
-
-[node name="Player3" parent="." instance=ExtResource("3_tuxay")]
-position = Vector2(491, 69)
-
-[node name="Player4" parent="." instance=ExtResource("3_tuxay")]
-position = Vector2(537, 151)
-
 [editable path="Player"]
-[editable path="Player2"]
