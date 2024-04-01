@@ -21,7 +21,7 @@ Game="*res://managers/game_manager.gd"
 SpellManager="*res://managers/spell_manager.gd"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 PromptManager="*res://managers/prompt_manager.gd"
-ColorblindTester="*res://debug/colorblind_tester.tscn"
+ColorblindTester="res://debug/colorblind_tester.tscn"
 
 [display]
 
@@ -41,6 +41,7 @@ folder_colors={
 "res://managers/": "red",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green",
+"res://screens/": "yellow",
 "res://spells/": "purple"
 }
 

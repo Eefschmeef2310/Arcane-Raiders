@@ -3,6 +3,7 @@ extends Entity
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 @export var movement_speed: float = 100
+@export var damage : int = 10
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var nav_server_synced = false
@@ -38,7 +39,7 @@ func _process(delta):
 		#velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
 		#move_and_slide()
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if nav_server_synced:
 		#set_target()
 		
@@ -55,24 +56,21 @@ func _physics_process(delta):
 #endregion
 
 #region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
 func _on_hurtbox_body_entered(body):
 	on_hurt(body as Node2D)
 
 func _on_hurtbox_area_entered(area):
 	on_hurt(area as Node2D)
-#endregion
-
 
 func _on_nav_update_timer_timeout():
 	set_target()
 	pass
 
-
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
 	move_and_slide()
 	pass # Replace with function body.
+
+func _on_zero_health():
+	queue_free()
+#endregion

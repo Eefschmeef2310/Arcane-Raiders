@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=17 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/proj_ball_burn.tres" id="5_0ulxw"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
 [ext_resource type="Resource" uid="uid://cy8odkeelulpq" path="res://spells/resources/aoe_large_burn.tres" id="8_dsfju"]
+[ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -80,6 +81,10 @@ _data = {
 "idle": SubResource("Animation_vdik6")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8khp"]
+radius = 18.0
+height = 66.4
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
@@ -111,7 +116,7 @@ shape = SubResource("CircleShape2D_6gabg")
 [node name="Input" type="Node2D" parent="."]
 script = ExtResource("3_h46ns")
 
-[node name="PlayerData" type="Node" parent="."]
+[node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("8_dsfju"), ExtResource("5_0ulxw")])
 
@@ -120,4 +125,15 @@ libraries = {
 "": SubResource("AnimationLibrary_dg52v")
 }
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("9_cti52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -30)
+shape = SubResource("CapsuleShape2D_o8khp")
+
+[connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]

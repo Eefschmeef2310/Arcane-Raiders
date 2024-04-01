@@ -4,6 +4,8 @@ class_name Entity
 
 #region Variables
 	#Signals
+signal zero_health
+signal health_updated(health)
 
 	#Enums
 const elements = {
@@ -25,7 +27,8 @@ const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tsc
 	set(value):
 		health = clamp(value, 0, max_health)
 		if health == 0:
-			queue_free()
+			zero_health.emit()
+		health_updated.emit(health)
 
 	#Onready Variables
 

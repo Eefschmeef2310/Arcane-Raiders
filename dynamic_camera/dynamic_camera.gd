@@ -48,7 +48,6 @@ func dynamic_camera(delta):
 		z = 1 / clamp(r.size.x / screen_size.x, max_zoom, min_zoom)
 	else:
 		z = 1 / clamp(r.size.y / screen_size.y, max_zoom, min_zoom)
-		
 	zoom = lerp(zoom, Vector2.ONE * z, zoom_speed * delta)
 	
 	#get_parent().draw_cam_rect(r)

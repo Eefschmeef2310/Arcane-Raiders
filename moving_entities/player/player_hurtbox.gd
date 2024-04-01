@@ -1,4 +1,4 @@
-extends ProgressBar
+extends Area2D
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -14,6 +14,7 @@ extends ProgressBar
 	#@export_subgroup("Subgroup")
 
 	#Onready Variables
+@onready var player = $".."
 
 	#Other Variables (please try to separate and organise!)
 
@@ -21,13 +22,17 @@ extends ProgressBar
 
 #region Godot methods
 func _ready():
-	max_value = owner.max_health
-	_on_dummy_enemy_health_updated(owner.health)
+	#Runs when all children have entered the tree
+	pass
+
+func _process(_delta):
+	#Runs per frame
+	pass
 #endregion
 
 #region Signal methods
-func _on_dummy_enemy_health_updated(amount):
-	value = amount
+func _on_body_entered(body):
+	player.health -= body.damage
 #endregion
 
 #region Other methods (please try to separate and organise!)
