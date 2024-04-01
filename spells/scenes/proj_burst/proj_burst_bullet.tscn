@@ -12,7 +12,7 @@ script = ExtResource("1_yoba3")
 speed = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hs7ln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
