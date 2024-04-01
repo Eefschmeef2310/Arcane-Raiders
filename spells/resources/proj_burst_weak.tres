@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://b6lxjl85ixvj3"]
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://do574ckdv25ts"]
 
 [ext_resource type="Resource" uid="uid://dktppvnlqvpln" path="res://elements/weak.tres" id="1_fy4sr"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="1_kardo"]

@@ -87,13 +87,13 @@ horizontal_alignment = 1
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "You either lost all your health or 
-defeated every foe"
+defeated every foe."
 label_settings = SubResource("LabelSettings_5kgo8")
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "THANKS FOR PLAYING THE TECH DEMO!"
+text = "Thanks for playing the tech demo!"
 label_settings = SubResource("LabelSettings_c0pkf")
 horizontal_alignment = 1
 
@@ -105,12 +105,12 @@ theme_override_constants/margin_right = 600
 [node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 81
-text = "RESTART"
+text = "RESET"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 81
-text = "RESTART"
+text = "RESET"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
