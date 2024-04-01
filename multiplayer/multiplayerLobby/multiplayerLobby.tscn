@@ -93,3 +93,9 @@ grow_horizontal = 2
 text = "CHOOSE YOUR RAIDER!"
 label_settings = SubResource("LabelSettings_dkcho")
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"

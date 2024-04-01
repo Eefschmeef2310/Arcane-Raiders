@@ -1,19 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=7 format=3 uid="uid://bg1xa4bpkhjf7"]
 
+[ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/djmzop3o.bmp" id="1_3ms62"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
 [ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="1_66res"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="2_iy06u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
+font_size = 21
+font_color = Color(0.741176, 0.262745, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
 font_size = 46
 
-[node name="PlayerCard" type="PanelContainer"]
+[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name")]
 custom_minimum_size = Vector2(400, 780)
 size_flags_horizontal = 3
+script = ExtResource("1_6lvqp")
+raider_portrait = NodePath("VBoxContainer/RaiderPortrait")
+raider_name = NodePath("VBoxContainer/RaiderName")
+raider_desc = NodePath("VBoxContainer/RaiderDesc")
+player_name = NodePath("VBoxContainer/Username")
+default_slot_icon = ExtResource("2_iy06u")
+
+[node name="RightIndicator" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+flip_h = true
+
+[node name="LeftIndicator" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("1_3ms62")
+expand_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="RaiderPortrait" type="TextureRect" parent="VBoxContainer"]
 texture_filter = 1
+custom_minimum_size = Vector2(0, 396.86)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -21,15 +55,23 @@ texture = ExtResource("1_66res")
 expand_mode = 2
 stretch_mode = 4
 
+[node name="Username" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Clevertop"
+label_settings = SubResource("LabelSettings_nu6df")
+horizontal_alignment = 1
+
 [node name="RaiderName" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
-text = "Player 1"
+text = "Jeff"
 label_settings = SubResource("LabelSettings_xtm21")
 horizontal_alignment = 1
 
 [node name="RaiderDesc" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "a dark and mysterious raider, only in it for the gold"
+text = "a dark and mysterious raider, only in it for the gold, known to leave all their teammates behind the moment they see something shiny"
+horizontal_alignment = 1
+autowrap_mode = 3
