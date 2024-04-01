@@ -53,4 +53,6 @@ func UpdateCard(playerID : int, portrait : Texture2D, raider : String, descripti
 	var cardToSet = player_card_hbox.get_children()[playerID]
 	cardToSet.setValues(portrait, raider, description, username)
 
+## wait i might need to use resources for this :/
+
 #endregion
