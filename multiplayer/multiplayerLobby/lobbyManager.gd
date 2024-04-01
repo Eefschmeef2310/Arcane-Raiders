@@ -6,17 +6,21 @@ extends Node
 #Signals
 
 #Enums
+enum MultiplayerMode {Local,Online}
 
 #Constants
 
 #Exported Variables
 #@export_group("Group")
 #@export_subgroup("Subgroup")
+@export_group("Setup")
+@export var mode : MultiplayerMode
+@export_group("Node References")
+@export var player_card_hbox : HBoxContainer
 
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
-
 #endregion
 
 #region Godot methods
@@ -34,5 +38,19 @@ func _process(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
+
+## called after the lobby mode has been decided 
+func InitLobby(mode : MultiplayerMode):
+	if mode == MultiplayerMode.Local:
+		for card in player_card_hbox.get_children():
+			card.SetLocalDefault()
+	elif mode == MultiplayerMode.Online:
+		for card in player_card_hbox.get_children():
+			card.SetOnlineDefault()
+
+@rpc("any_peer","call_local")
+func UpdateCard(playerID : int, portrait : Texture2D, raider : String, description : String, username : String):
+	var cardToSet = player_card_hbox.get_children()[playerID]
+	cardToSet.setValues(portrait, raider, description, username)
 
 #endregion

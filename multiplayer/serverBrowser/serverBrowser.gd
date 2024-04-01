@@ -16,7 +16,7 @@ extends Node
 @export var server_browser : Control
 @export var lobbies_vbox : VBoxContainer
 @export var server_count_text : Label
-@export var gameScene : String =  "res://debug/test_room.tscn"
+@export var gameScene : String = "res://multiplayer/multiplayerLobby/multiplayerLobby.tscn"
 
 
 #@export_group("Group")
@@ -26,7 +26,8 @@ extends Node
 
 
 #Other Variables (please try to separate and organise!)
-var lobby_id = 0
+var lobby_id = 0 ## id of the currently connected lobby, 0 if not connected 
+var player_id = 0 ## 0 = host, 1-2-3 are players that join
 var peer = SteamMultiplayerPeer.new()
 
 #endregion
@@ -60,7 +61,9 @@ func spawn_level(data):
 func _on_host_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
-	multiplayer_spawner.spawn(gameScene)
+	var lobby_scene = multiplayer_spawner.spawn(gameScene)
+	lobby_scene.mode = lobby_scene.MultiplayerMode.Online
+	lobby_scene.Init()
 	#$Host.disabled = true
 	#$Refresh.disabled = true
 	#$LobbyContainer/Lobbies.hide()

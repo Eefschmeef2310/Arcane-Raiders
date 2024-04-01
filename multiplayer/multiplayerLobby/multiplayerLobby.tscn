@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=10 format=3 uid="uid://c8oqal4h1mv7a"]
 
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 
@@ -26,13 +27,15 @@ fill_to = Vector2(0, 1)
 font_size = 91
 font_color = Color(1, 0.921569, 0.929412, 1)
 
-[node name="MultiplayerLobby" type="Control"]
+[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_7ydb8")
+player_card_hbox = NodePath("MarginContainer/HBoxContainer")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
