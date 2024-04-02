@@ -44,7 +44,7 @@ func _process(delta):
 
 #region Other methods (please try to separate and organise!)
 @rpc("any_peer","call_local")
-func setVales(portrait : Texture2D, raider : String, description : String, username : String):
+func setValues(portrait : Texture2D, raider : String, description : String, username : String):
 	raider_portrait.texture = portrait
 	raider_name.text = raider
 	raider_desc.text = description
@@ -52,8 +52,8 @@ func setVales(portrait : Texture2D, raider : String, description : String, usern
 	#also set colour ect
 
 func setLocalDefault():
-	setVales(default_slot_icon, "???", "Press any key to join", " ")
+	setValues(default_slot_icon, "???", "Press any key to join", " ")
 
 func setOnlineDefault():
-	setVales(default_slot_icon, "???", "Join through the lobby", " ")
+	setValues(default_slot_icon, "???", "Join through the lobby", " ")
 #endregion

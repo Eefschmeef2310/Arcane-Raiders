@@ -27,7 +27,7 @@ extends Node
 
 #Other Variables (please try to separate and organise!)
 var lobby_id = 0 ## id of the currently connected lobby, 0 if not connected 
-var player_id = 0 ## 0 = host, 1-2-3 are players that join
+
 var peer = SteamMultiplayerPeer.new()
 
 #endregion
@@ -56,14 +56,15 @@ func _process(delta):
 
 func spawn_level(data):
 	var a = (load(data) as PackedScene).instantiate()
+	
 	return a 
 
 func _on_host_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	lobby_scene.mode = lobby_scene.MultiplayerMode.Online
-	lobby_scene.Init()
+	#lobby_scene.mode = lobby_scene.MultiplayerMode.Online
+	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Online)
 	#$Host.disabled = true
 	#$Refresh.disabled = true
 	#$LobbyContainer/Lobbies.hide()
@@ -73,6 +74,7 @@ func join_lobby(id):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
+	SteamManager.player_id = Steam.getNumLobbyMembers(id)
 	#$Host.disabled = true
 	#$Refresh.disabled = true
 	#$LobbyContainer/Lobbies.hide()

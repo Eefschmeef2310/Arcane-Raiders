@@ -1,5 +1,6 @@
 extends Node
 
+var player_id = 0 ## 0 = host/offline, 1-2-3 are players that join
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

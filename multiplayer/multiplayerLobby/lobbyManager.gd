@@ -17,7 +17,8 @@ enum MultiplayerMode {Local,Online}
 @export var mode : MultiplayerMode
 @export_group("Node References")
 @export var player_card_hbox : HBoxContainer
-
+@export_group("Other Resources")
+@export var default_slot_icon : Texture2D
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
@@ -29,7 +30,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	#Runs per frame
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 #endregion
 
@@ -43,16 +44,15 @@ func _process(delta):
 func InitLobby(mode : MultiplayerMode):
 	if mode == MultiplayerMode.Local:
 		for card in player_card_hbox.get_children():
-			card.SetLocalDefault()
+			card.setLocalDefault()
 	elif mode == MultiplayerMode.Online:
 		for card in player_card_hbox.get_children():
-			card.SetOnlineDefault()
+			card.setOnlineDefault()
 
 @rpc("any_peer","call_local")
 func UpdateCard(playerID : int, portrait : Texture2D, raider : String, description : String, username : String):
 	var cardToSet = player_card_hbox.get_children()[playerID]
 	cardToSet.setValues(portrait, raider, description, username)
 
-## wait i might need to use resources for this :/
 
 #endregion
