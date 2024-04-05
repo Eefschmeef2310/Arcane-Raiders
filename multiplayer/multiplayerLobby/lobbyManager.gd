@@ -62,7 +62,7 @@ func InitLobby(mode : MultiplayerMode):
 func UpdateCard(playerID : int, portrait : Texture2D, raider : String, description : String, username : String):
 	var cardToSet = player_card_hbox.get_children()[playerID]
 	#cardToSet.rpc("setValues",portrait, raider, description, username)
-	cardToSet.SetValues(portrait, raider, description, username)
+	cardToSet.setValues(portrait, raider, description, username)
 
 
 #endregion
