@@ -34,7 +34,7 @@ func _ready():
 
 func _process(delta):
 	## this is not good as it stops us from being able to change things if its in _process 
-	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 #endregion
 
