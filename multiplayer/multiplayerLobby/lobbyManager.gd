@@ -59,6 +59,7 @@ func _process(delta):
 	#print("lobby joined")
 	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	
+@rpc("any_peer","call_local")
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
