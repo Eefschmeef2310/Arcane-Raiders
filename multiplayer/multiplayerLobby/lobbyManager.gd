@@ -41,7 +41,7 @@ func _process(delta):
 	if (not sent_first_update):
 		sent_first_update = true
 		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
-		rpc("_on_peer_connected",0)
+		rpc("request_updates")
 		
 	if(Input.is_action_just_pressed("debug_random")):
 		#raider_desc.text += " •⩊• "
@@ -51,7 +51,11 @@ func _process(delta):
 	pass
 #endregion
 
-#func request_updates():
+@rpc("authority","call_local")
+func request_updates():
+	print("Completing an update request for player " + str(SteamManager.player_id))
+	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Cool Player", str(raider_desc.text), Steam.getPersonaName())
 	
 
 #region Signal methods
@@ -59,7 +63,7 @@ func _process(delta):
 	#print("lobby joined")
 	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	
-@rpc("any_peer","call_local")
+
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
