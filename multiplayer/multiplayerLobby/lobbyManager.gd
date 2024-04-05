@@ -29,6 +29,8 @@ var sent_first_update : bool = false
 func _ready():
 	#Runs when all children have entered the tree
 	##Steam.lobby_joined.connect(_on_lobby_joined)
+	multiplayer.peer_connected.connect(_on_peer_connected)
+		
 	print("Player ID: " + str(SteamManager.player_id))
 	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
@@ -51,6 +53,11 @@ func _process(delta):
 #func _on_lobby_joined():
 	#print("lobby joined")
 	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	
+func _on_peer_connected(id:int):
+	# send a new card update with everything for the new player 
+	print("Peer connected! id: " + str(id))
+	pass
 #endregion
 
 #region Other methods (please try to separate and organise!)
