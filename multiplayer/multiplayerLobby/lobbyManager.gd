@@ -41,7 +41,7 @@ func _process(delta):
 	if (not sent_first_update):
 		sent_first_update = true
 		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
-		rpc("request_updates", SteamManager.player_id)
+		#rpc("request_updates", SteamManager.player_id)
 		
 	if(Input.is_action_just_pressed("debug_random")):
 		#raider_desc.text += " •⩊• "
