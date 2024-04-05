@@ -38,13 +38,19 @@ func _process(delta):
 	if (not sent_first_update):
 		sent_first_update = true
 		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+		
+	if(Input.is_action_just_pressed("debug_random")):
+		#raider_desc.text += " •⩊• "
+		##rpc("setValues", default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
+		var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
+		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
 	pass
 #endregion
 
 #region Signal methods
-func _on_lobby_joined():
-	print("lobby joined")
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+#func _on_lobby_joined():
+	#print("lobby joined")
+	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 #endregion
 
 #region Other methods (please try to separate and organise!)

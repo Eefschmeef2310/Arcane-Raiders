@@ -40,11 +40,7 @@ func _ready():
 func _process(delta):
 	#Runs per frame
 	
-	if(Input.is_action_just_pressed("debug_random")):
-		if(Steam.getPersonaName() == player_name.text):
-			#raider_desc.text += " •⩊• "
-			##rpc("setValues", default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
-			lobby_manager.rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
+	
 	pass
 #endregion
 
