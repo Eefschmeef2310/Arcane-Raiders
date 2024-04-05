@@ -29,11 +29,12 @@ func _ready():
 	#Runs when all children have entered the tree
 	##Steam.lobby_joined.connect(_on_lobby_joined)
 	print("Player ID: " + str(SteamManager.player_id))
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 
 func _process(delta):
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	## this is not good as it stops us from being able to change things if its in _process 
+	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 #endregion
 
