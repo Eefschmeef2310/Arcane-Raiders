@@ -64,17 +64,21 @@ theme_override_constants/margin_bottom = 100
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="PlayerCard" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+[node name="PlayerCard" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
 layout_mode = 2
+lobby_manager = NodePath("../../..")
 
-[node name="PlayerCard2" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+[node name="PlayerCard2" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
 layout_mode = 2
+lobby_manager = NodePath("../../..")
 
-[node name="PlayerCard3" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+[node name="PlayerCard3" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
 layout_mode = 2
+lobby_manager = NodePath("../../..")
 
-[node name="PlayerCard4" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_bq112")]
+[node name="PlayerCard4" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
 layout_mode = 2
+lobby_manager = NodePath("../../..")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 1
