@@ -37,9 +37,9 @@ func _ready():
 
 func _process(delta):
 	## this is not good as it stops us from being able to change things if its in _process 
-	if (not sent_first_update):
-		sent_first_update = true
-		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	#if (not sent_first_update):
+		#sent_first_update = true
+		#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 		
 	if(Input.is_action_just_pressed("debug_random")):
 		#raider_desc.text += " •⩊• "
@@ -57,6 +57,8 @@ func _process(delta):
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
+	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 #endregion
 
