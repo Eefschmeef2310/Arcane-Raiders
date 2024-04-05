@@ -30,16 +30,17 @@ func _ready():
 	#Runs when all children have entered the tree
 	##Steam.lobby_joined.connect(_on_lobby_joined)
 	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
 		
 	print("Player ID: " + str(SteamManager.player_id))
 	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 
 func _process(delta):
-	## this is not good as it stops us from being able to change things if its in _process 
-	#if (not sent_first_update):
-		#sent_first_update = true
-		#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
+	if (not sent_first_update):
+		sent_first_update = true
+		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 		
 	if(Input.is_action_just_pressed("debug_random")):
 		#raider_desc.text += " •⩊• "
@@ -58,8 +59,12 @@ func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
 	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", raider_desc, Steam.getPersonaName())
 	pass
+	
+func _on_connected_to_server():
+	print("connected to server")
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -72,6 +77,7 @@ func InitLobby(mode : MultiplayerMode):
 	elif mode == MultiplayerMode.Online:
 		for card in player_card_hbox.get_children():
 			card.setOnlineDefault()
+	
 
 @rpc("any_peer","call_local")
 func UpdateCard(playerID : int, portrait : Texture2D, raider : String, description : String, username : String):
