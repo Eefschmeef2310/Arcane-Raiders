@@ -70,16 +70,28 @@ func _process(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func on_hurt(spell : Node2D):
+func on_hurt(hit_node):
+	var infliction_time: float
+	var element: ElementResource
+	
 	#Apply base damage
-	health -= spell.base_damage
+	if "base_damage" in hit_node:
+		health -= hit_node.base_damage
+		infliction_time = hit_node.base_damage / 50
+		print(infliction_time)
+		
 	
 	#Add element to current inflictions dictionary
-	if spell.resource and spell.resource.element != elements[ElementResource.ElementType.Null]:
-		if !current_inflictions_dictionary.has(spell.resource.element):
-			current_inflictions_dictionary[spell.resource.element] = 0
-		current_inflictions_dictionary[spell.resource.element] += spell.resource.infliction_time
-		current_inflictions_dictionary[spell.resource.element] = clamp(current_inflictions_dictionary[spell.resource.element], 0, spell.resource.element.max_infliction_time)
+	if "resource" in hit_node and hit_node.resource:
+		element = hit_node.resource.element
+	elif "element" in hit_node and hit_node.element:
+		element = hit_node.element
+	if element:
+		if element != elements[ElementResource.ElementType.Null]:
+			if !current_inflictions_dictionary.has(element):
+				current_inflictions_dictionary[element] = 0
+			current_inflictions_dictionary[element] += infliction_time
+			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(elements[ElementResource.ElementType.Shock]):
