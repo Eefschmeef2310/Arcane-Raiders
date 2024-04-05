@@ -27,15 +27,17 @@ enum MultiplayerMode {Local,Online}
 #region Godot methods
 func _ready():
 	#Runs when all children have entered the tree
+	Steam.lobby_joined.connect(_on_lobby_joined)
 	pass
 
 func _process(delta):
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	
 	pass
 #endregion
 
 #region Signal methods
-
+func _on_lobby_joined():
+	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 #endregion
 
 #region Other methods (please try to separate and organise!)
