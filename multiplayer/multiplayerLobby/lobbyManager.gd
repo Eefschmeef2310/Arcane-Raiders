@@ -73,7 +73,7 @@ func request_updates(from : int):
 	card.loadoutRes = LoadoutRes.new()
 	card.raiderRes.portrait = default_slot_icon
 	card.raiderRes.raider_name = "Cool Player"
-	card.raiderRes.raider_desc = raider_desc
+	card.raiderRes.raider_desc = raider_desc.text
 	card.username = Steam.getPersonaName()
 	rpc("UpdateCard", SteamManager.player_id, card)
 	
