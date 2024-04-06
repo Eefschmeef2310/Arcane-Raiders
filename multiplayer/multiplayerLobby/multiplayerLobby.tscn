@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 
 [sub_resource type="Gradient" id="Gradient_u4f7k"]
-colors = PackedColorArray(0.791999, 0.791999, 0.791999, 1, 1, 1, 1, 1)
+colors = PackedColorArray(0.477881, 0.47788, 0.47788, 1, 0, 0, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_f7i7a"]
 frequency = 0.005
