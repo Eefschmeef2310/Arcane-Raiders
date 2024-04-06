@@ -13,6 +13,7 @@ extends Node
 #@export_group("Group")
 #@export_subgroup("Subgroup")
 @export_group("Card Values")
+@export var cardRes : PlayerCardRes
 @export var raider_portrait : TextureRect
 @export var raider_name : Label
 @export var raider_desc : Label
@@ -34,6 +35,7 @@ extends Node
 
 #region Godot methods
 func _ready():
+	cardRes = PlayerCardRes.new()
 	setOnlineDefault()
 	pass
 
