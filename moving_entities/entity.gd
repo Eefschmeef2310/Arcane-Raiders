@@ -4,6 +4,8 @@ class_name Entity
 
 #region Variables
 	#Signals
+signal zero_health
+signal health_updated(health)
 
 	#Enums
 const elements = {
@@ -16,6 +18,7 @@ const elements = {
 
 	#Constants
 const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tscn")
+const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 
 	#Exported Variables
 	#@export_group("Group")
@@ -25,8 +28,10 @@ const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tsc
 	set(value):
 		health = clamp(value, 0, max_health)
 		if health == 0:
-			queue_free()
+			zero_health.emit()
+		health_updated.emit(health)
 
+@export var do_damage_numbers: bool = true
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -67,20 +72,43 @@ func _process(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func on_hurt(spell : Node2D):
+func on_hurt(hit_node):
+	var damage: int = 0
+	var infliction_time: float
+	var element: ElementResource
+	
 	#Apply base damage
-	health -= spell.base_damage
+	if "base_damage" in hit_node:
+		damage = hit_node.base_damage
+		health -= hit_node.base_damage
+		infliction_time = hit_node.base_damage / 50
+		
 	
 	#Add element to current inflictions dictionary
-	if spell.resource and spell.resource.element != elements[ElementResource.ElementType.Null]:
-		if !current_inflictions_dictionary.has(spell.resource.element):
-			current_inflictions_dictionary[spell.resource.element] = 0
-		current_inflictions_dictionary[spell.resource.element] += spell.resource.infliction_time
-		current_inflictions_dictionary[spell.resource.element] = clamp(current_inflictions_dictionary[spell.resource.element], 0, spell.resource.element.max_infliction_time)
+	if "resource" in hit_node and hit_node.resource:
+		element = hit_node.resource.element
+	elif "element" in hit_node and hit_node.element:
+		element = hit_node.element
+	if element:
+		if element != elements[ElementResource.ElementType.Null]:
+			if !current_inflictions_dictionary.has(element):
+				current_inflictions_dictionary[element] = 0
+			current_inflictions_dictionary[element] += infliction_time
+			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(elements[ElementResource.ElementType.Shock]):
 		shock_effect()
+	
+	if do_damage_numbers:
+		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
+		add_sibling(damage_number)
+		damage_number.global_position = global_position
+		damage_number.set_number(damage)
+		damage_number.set_color(damage)
+		if element:
+			damage_number.set_color(element.colour)
+		damage_number.animate()
 
 func burn_effect(delta):
 	if burn_timer > 0:

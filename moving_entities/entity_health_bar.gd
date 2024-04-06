@@ -22,13 +22,12 @@ extends ProgressBar
 #region Godot methods
 func _ready():
 	max_value = owner.max_health
-
-func _process(_delta):
-	value = owner.health
+	_on_dummy_enemy_health_updated(owner.health)
 #endregion
 
 #region Signal methods
-
+func _on_dummy_enemy_health_updated(amount):
+	value = amount
 #endregion
 
 #region Other methods (please try to separate and organise!)
