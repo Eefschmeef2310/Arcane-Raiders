@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=3 format=3 uid="uid://fx7kfybih0q4"]
+
+[ext_resource type="Texture2D" uid="uid://c0ueap1px1ndh" path="res://multiplayer/multiplayerLobby/raiders/CatTex.tres" id="1_cg572"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="1_nlfgd"]
+
+[resource]
+script = ExtResource("1_nlfgd")
+portrait = ExtResource("1_cg572")
+raider_name = "Cat"
+raider_desc = "nya! nya! nya! nya! nya! "
+color = Color(0.482353, 0, 0.545098, 1)
