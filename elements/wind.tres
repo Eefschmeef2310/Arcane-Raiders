@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ElementResource" load_steps=4 format=3 uid="uid://bq7strg5jf7hm"]
+
+[ext_resource type="Script" path="res://elements/element.gd" id="1_moo0l"]
+[ext_resource type="Resource" uid="uid://bcppocig6g6kr" path="res://elements/stun.tres" id="1_opssn"]
+[ext_resource type="Resource" uid="uid://8n7gorb78nbi" path="res://elements/shock.tres" id="2_co3bn"]
+
+[resource]
+script = ExtResource("1_moo0l")
+colour = Color(0.313726, 0.772549, 0.345098, 1)
+max_infliction_time = 5.0
+reactive_with = Array[ExtResource("1_moo0l")]([ExtResource("1_opssn"), ExtResource("2_co3bn")])

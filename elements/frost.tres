@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://baivofh8khbi0"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=5 format=3 uid="uid://dbx4q3lmad0tm"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_j27cw"]
 [ext_resource type="Texture2D" uid="uid://wv5jw8o5ednx" path="res://elements/icons/frost_icon.png" id="1_wea5a"]
+[ext_resource type="Resource" uid="uid://36ww2p3f2l8s" path="res://elements/burn.tres" id="2_peeav"]
+[ext_resource type="Resource" uid="uid://cgcylfba2d3fk" path="res://elements/wet.tres" id="3_pspo7"]
 
 [resource]
-resource_name = "frost"
 script = ExtResource("1_j27cw")
-colour = Color(0.054902, 0.886275, 1, 1)
+colour = Color(0.254902, 0.721569, 0.756863, 1)
 pip_texture = ExtResource("1_wea5a")
-element_type = 1
 max_infliction_time = 5.0
+reactive_with = Array[ExtResource("1_j27cw")]([ExtResource("2_peeav"), ExtResource("3_pspo7")])

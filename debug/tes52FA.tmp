@@ -1,34 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=10 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
 [ext_resource type="TileSet" uid="uid://bbdsbsvk44uax" path="res://tilesets/debug_tileset.tres" id="2_mwmkl"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
 [ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
-[ext_resource type="Resource" uid="uid://36ww2p3f2l8s" path="res://elements/burn.tres" id="5_1jas3"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
-[ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
-[ext_resource type="Resource" uid="uid://ce06pb2a30cgx" path="res://spells/resources/aoe_large.tres" id="7_4vvmk"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-
-[sub_resource type="Resource" id="Resource_3ni4i"]
-script = ExtResource("6_82yns")
-spell_scene = ExtResource("7_4vvmk")
-element = ExtResource("5_1jas3")
-modulate_icon = true
-
-[sub_resource type="Resource" id="Resource_0vf5g"]
-script = ExtResource("6_82yns")
-spell_scene = ExtResource("7_4vvmk")
-element = ExtResource("5_1jas3")
-modulate_icon = true
-
-[sub_resource type="Resource" id="Resource_buqlq"]
-script = ExtResource("6_82yns")
-spell_scene = ExtResource("7_4vvmk")
-element = ExtResource("5_1jas3")
-modulate_icon = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
@@ -62,9 +41,6 @@ texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1449, 1511)
-
-[node name="PlayerData" parent="Player" index="4"]
-spells = Array[ExtResource("6_82yns")]([SubResource("Resource_3ni4i"), SubResource("Resource_0vf5g"), SubResource("Resource_buqlq")])
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 

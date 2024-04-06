@@ -1,6 +1,7 @@
-extends ProgressBar
-	#class_name
+extends Resource
+class_name SpellSceneResource
 #Authored by Ethan. Please consult for any modifications or major feature requests.
+#THIS RESOURCE STORES UI INFO AND THE SCENE TO INSTANTIATE. LIKE ELEMENTS, THESE WILL BE STORED IN THE FILES
 
 #region Variables
 	#Signals
@@ -12,6 +13,8 @@ extends ProgressBar
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var scene_to_instantiate : PackedScene
+@export var ui_texture : Texture2D
 
 	#Onready Variables
 
@@ -21,14 +24,16 @@ extends ProgressBar
 
 #region Godot methods
 func _ready():
-	max_value = owner.max_health
-	_on_dummy_enemy_health_updated(owner.health)
+	#Runs when all children have entered the tree
+	pass
+
+func _process(_delta):
+	#Runs per frame
+	pass
 #endregion
 
 #region Signal methods
-func _on_dummy_enemy_health_updated(amount):
-	value = amount
-	visible = value != max_value
+
 #endregion
 
 #region Other methods (please try to separate and organise!)

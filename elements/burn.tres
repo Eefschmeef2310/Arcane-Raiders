@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://dvgoa0itiqajb"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=5 format=3 uid="uid://36ww2p3f2l8s"]
 
+[ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="1_408gf"]
 [ext_resource type="Script" path="res://elements/element.gd" id="1_gsbof"]
-[ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="1_h81lu"]
+[ext_resource type="Resource" uid="uid://dbx4q3lmad0tm" path="res://elements/frost.tres" id="2_8fdmu"]
+[ext_resource type="Resource" uid="uid://bcppocig6g6kr" path="res://elements/stun.tres" id="3_hpr7o"]
 
 [resource]
-resource_name = "burn"
 script = ExtResource("1_gsbof")
-colour = Color(1, 0.333333, 0, 1)
-pip_texture = ExtResource("1_h81lu")
-element_type = 0
-max_infliction_time = 10.0
+colour = Color(0.866667, 0.25098, 0.192157, 1)
+pip_texture = ExtResource("1_408gf")
+max_infliction_time = 5.0
+reactive_with = Array[ExtResource("1_gsbof")]([ExtResource("2_8fdmu"), ExtResource("3_hpr7o")])

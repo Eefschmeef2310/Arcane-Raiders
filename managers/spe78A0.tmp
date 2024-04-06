@@ -1,30 +1,28 @@
-[gd_scene load_steps=15 format=3 uid="uid://clnarx3akvsqu"]
+[gd_scene load_steps=13 format=3 uid="uid://clnarx3akvsqu"]
 
 [ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
-[ext_resource type="Resource" uid="uid://36ww2p3f2l8s" path="res://elements/burn.tres" id="2_d4pfh"]
-[ext_resource type="Resource" uid="uid://dbx4q3lmad0tm" path="res://elements/frost.tres" id="3_wyn5f"]
-[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="4_g0p7e"]
-[ext_resource type="Resource" uid="uid://8n7gorb78nbi" path="res://elements/shock.tres" id="5_485g6"]
+[ext_resource type="Resource" uid="uid://bfocackdd0thb" path="res://elements/stun.tres" id="6_ei4k5"]
 [ext_resource type="Resource" uid="uid://ce06pb2a30cgx" path="res://spells/resources/aoe_large.tres" id="6_njy4v"]
-[ext_resource type="Resource" uid="uid://bcppocig6g6kr" path="res://elements/stun.tres" id="6_nscba"]
-[ext_resource type="Resource" uid="uid://cgcylfba2d3fk" path="res://elements/wet.tres" id="7_u88jo"]
 [ext_resource type="Resource" uid="uid://buhcuk5o0e21n" path="res://spells/resources/aoe_local.tres" id="7_vdst2"]
-[ext_resource type="Resource" uid="uid://bq7strg5jf7hm" path="res://elements/wind.tres" id="8_4ef6i"]
 [ext_resource type="Resource" uid="uid://dy4j8mgqgtbow" path="res://spells/resources/proj_ball.tres" id="8_6tv1p"]
 [ext_resource type="Resource" uid="uid://bqhx1o5cjivok" path="res://spells/resources/proj_burst.tres" id="9_dbdg1"]
 [ext_resource type="Resource" uid="uid://bin2mvxavri5c" path="res://spells/resources/laser.tres" id="10_xk4cv"]
 [ext_resource type="Resource" uid="uid://pbujh3p2c6hd" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="32_aky2n"]
+[ext_resource type="Resource" uid="uid://baivofh8khbi0" path="res://elements/frost.tres" id="33_1g0y6"]
+[ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="34_077o5"]
+[ext_resource type="Resource" uid="uid://dktppvnlqvpln" path="res://elements/wet.tres" id="35_b200f"]
 
 [node name="SpellManager" type="Node"]
 script = ExtResource("1_dxaf6")
 elements = {
-"Burn": ExtResource("2_d4pfh"),
-"Frost": ExtResource("3_wyn5f"),
-"Null": ExtResource("4_g0p7e"),
-"Shock": ExtResource("5_485g6"),
-"Stun": ExtResource("6_nscba"),
-"Wet": ExtResource("7_u88jo"),
-"Wind": ExtResource("8_4ef6i")
+"Burn": ExtResource("32_aky2n"),
+"Frost": ExtResource("33_1g0y6"),
+"Null": null,
+"Shock": ExtResource("34_077o5"),
+"Stun": ExtResource("6_ei4k5"),
+"Wet": ExtResource("35_b200f"),
+"Wind": null
 }
 spell_scenes = {
 "AOE Large": ExtResource("6_njy4v"),

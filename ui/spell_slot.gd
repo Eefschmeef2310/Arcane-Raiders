@@ -3,7 +3,7 @@ extends TextureRect
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
 func set_spell(spell: Spell):
-	texture = spell.ui_texture
+	texture = spell.spell_scene.ui_texture
 	self_modulate = spell.element.colour if spell.modulate_icon else Color.WHITE
 
 func set_cooldown_percent(p: float):

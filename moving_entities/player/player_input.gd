@@ -15,7 +15,7 @@ func _process(_delta):
 	if is_instance_valid(owner.data) and owner.get_multiplayer_authority() == owner.data.peer_id:
 		var move_dir: Vector2
 		var aim_dir: Vector2
-		var spell: Array[bool]
+		var spell: Array[bool] = [false]
 		spell.resize(3)
 		
 		# If we have an input object, use it
