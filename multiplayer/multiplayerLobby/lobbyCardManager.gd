@@ -14,13 +14,15 @@ extends Node
 #@export_subgroup("Subgroup")
 @export_group("Card Values")
 @export var cardRes : PlayerCardRes
-@export var raider_portrait : TextureRect
-@export var raider_name : Label
-@export var raider_desc : Label
+@export var raider_portrait : TextureRect 
+@export var raider_name : Label 
+@export var raider_desc : Label 
 @export var player_name : Label
 
 @export_group("Other Resources")
 @export var default_slot_icon : Texture2D
+@export var default_online_card : PlayerCardRes
+@export var default_offline_card : PlayerCardRes
 
 @export_group("References")
 @export var lobby_manager : Node
@@ -52,18 +54,18 @@ func _process(delta):
 
 #region Other methods (please try to separate and organise!)
 @rpc("any_peer","call_local")
-func setValues(portrait : Texture2D, raider : String, description : String, username : String):
-	raider_portrait.texture = portrait
-	raider_name.text = raider
-	raider_desc.text = description
-	player_name.text = username
+func setValues(newValues : PlayerCardRes):
+	raider_portrait.texture = newValues.raiderRes.portrait
+	raider_name.text = newValues.raiderRes.raider_name
+	raider_desc.text = newValues.raiderRes.raider_desc
+	player_name.text = newValues.username
 	#also set colour ect
 
 func setLocalDefault():
-	setValues(default_slot_icon, "???", "Press any key to join", " ")
+	setValues(default_offline_card)
 	pass
 
 func setOnlineDefault():
-	setValues(default_slot_icon, "???", "Join through the lobby", " ")
+	setValues(default_online_card)
 	pass
 #endregion

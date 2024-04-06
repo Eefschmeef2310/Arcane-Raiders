@@ -40,22 +40,42 @@ func _process(delta):
 	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
 	if (not sent_first_update):
 		sent_first_update = true
-		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
-		#rpc("request_updates", SteamManager.player_id)
+		var card = PlayerCardRes.new()
+		card.raiderRes = RaiderRes.new()
+		card.loadoutRes = LoadoutRes.new()
+		card.raiderRes.portrait = default_slot_icon
+		card.raiderRes.raider_name = "Connected"
+		card.raiderRes.raider_desc = "This player has successfully connected"
+		card.username = Steam.getPersonaName()
+		rpc("UpdateCard", SteamManager.player_id, card)
 		
 	if(Input.is_action_just_pressed("debug_random")):
 		#raider_desc.text += " •⩊• "
 		##rpc("setValues", default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
 		var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-		rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
-	pass
+		var card = PlayerCardRes.new()
+		card.raiderRes = RaiderRes.new()
+		card.loadoutRes = LoadoutRes.new()
+		card.raiderRes.portrait = default_slot_icon
+		card.raiderRes.raider_name = "Cool Player"
+		card.raiderRes.raider_desc = raider_desc.text + " •⩊• "
+		card.username = Steam.getPersonaName()
+		rpc("UpdateCard", SteamManager.player_id, card)
+		pass
 #endregion
 
 @rpc("authority","call_local")
 func request_updates(from : int):
 	print("Completing an update request for player " + str(from))
 	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Cool Player", str(raider_desc.text), Steam.getPersonaName())
+	var card = PlayerCardRes.new()
+	card.raiderRes = RaiderRes.new()
+	card.loadoutRes = LoadoutRes.new()
+	card.raiderRes.portrait = default_slot_icon
+	card.raiderRes.raider_name = "Cool Player"
+	card.raiderRes.raider_desc = raider_desc
+	card.username = Steam.getPersonaName()
+	rpc("UpdateCard", SteamManager.player_id, card)
 	
 
 #region Signal methods
@@ -68,14 +88,28 @@ func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
 	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", raider_desc, Steam.getPersonaName())
+	var card = PlayerCardRes.new()
+	card.raiderRes = RaiderRes.new()
+	card.loadoutRes = LoadoutRes.new()
+	card.raiderRes.portrait = default_slot_icon
+	card.raiderRes.raider_name = "Connected"
+	card.raiderRes.raider_desc = "This player has successfully connected"
+	card.username = Steam.getPersonaName()
+	rpc("UpdateCard", SteamManager.player_id, card)
 	rpc("request_updates", id)
 	pass
 
 
 func _on_connected_to_server():
 	print("connected to server")
-	rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
+	var card = PlayerCardRes.new()
+	card.raiderRes = RaiderRes.new()
+	card.loadoutRes = LoadoutRes.new()
+	card.raiderRes.portrait = default_slot_icon
+	card.raiderRes.raider_name = "Connected"
+	card.raiderRes.raider_desc = "This player has successfully connected"
+	card.username = Steam.getPersonaName()
+	rpc("UpdateCard", SteamManager.player_id, card)
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -91,11 +125,11 @@ func InitLobby(mode : MultiplayerMode):
 	
 
 @rpc("any_peer","call_local")
-func UpdateCard(playerID : int, portrait : Texture2D, raider : String, description : String, username : String):
+func UpdateCard(playerID : int, newCard : PlayerCardRes):
 	var cardToSet = player_card_hbox.get_children()[playerID]
 	#cardToSet.rpc("setValues",portrait, raider, description, username)
 	print("Update called by player: " + str(playerID))
-	cardToSet.setValues(portrait, raider, description, username)
+	cardToSet.setValues(newCard)
 
 
 #endregion

@@ -1,7 +1,7 @@
 extends Resource
 class_name PlayerCardRes
 
-enum Selection {Raider,Loadout,Ready}
+enum Selection {None, Raider,Loadout,Ready}
 
 @export_group("Data")
 @export var display_username : bool
