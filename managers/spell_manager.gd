@@ -1,10 +1,8 @@
 extends Node
 
-#@export var spell_array: Array[Spell]
-#var every_spell: Dictionary
-
 @export var elements : Dictionary
 @export var spell_scenes : Dictionary
+@export var reactions : Dictionary
 
 func _ready():
 	#for spell in spell_array:
@@ -36,4 +34,13 @@ func get_random_spell():
 	while spell == null:
 		spell = spell_scenes[spell_scenes.keys().pick_random()]
 	
-	return Spell.new(element, spell, true)
+	#Create fresh spell
+	var new_spell = spell.duplicate()
+	new_spell.element = element
+	return new_spell
+
+func get_reaction(element_1, element_2):
+	if element_1 != element_2:
+		for key in reactions.keys():
+			if (element_1 in key) and (element_2 in key):
+				return reactions[key]

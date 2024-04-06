@@ -1,13 +1,9 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=5 format=3 uid="uid://cgcylfba2d3fk"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=2 format=3 uid="uid://dq30jen40bp5i"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_ejp4o"]
-[ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="1_lh2oi"]
-[ext_resource type="Resource" uid="uid://dbx4q3lmad0tm" path="res://elements/frost.tres" id="2_eg65n"]
-[ext_resource type="Resource" uid="uid://8n7gorb78nbi" path="res://elements/shock.tres" id="3_t4smd"]
 
 [resource]
 script = ExtResource("1_ejp4o")
-colour = Color(0, 0.129412, 0.533333, 1)
-pip_texture = ExtResource("1_lh2oi")
+colour = Color(0.141176, 0.231373, 0.690196, 1)
 max_infliction_time = 5.0
-reactive_with = Array[ExtResource("1_ejp4o")]([ExtResource("2_eg65n"), ExtResource("3_t4smd")])
+reactive_with = Array[StringName]([&"Frost", &"Shock"])

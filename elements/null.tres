@@ -6,4 +6,4 @@
 script = ExtResource("1_4mdce")
 colour = Color(1, 1, 1, 1)
 max_infliction_time = 5.0
-reactive_with = Array[ExtResource("1_4mdce")]([])
+reactive_with = Array[StringName]([])

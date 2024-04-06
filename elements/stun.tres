@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=5 format=3 uid="uid://bcppocig6g6kr"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://l0pouj41mexa"]
 
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_je7gj"]
 [ext_resource type="Script" path="res://elements/element.gd" id="1_lr73f"]
-[ext_resource type="Resource" uid="uid://36ww2p3f2l8s" path="res://elements/burn.tres" id="2_l8box"]
-[ext_resource type="Resource" uid="uid://bq7strg5jf7hm" path="res://elements/wind.tres" id="3_e0yn8"]
 
 [resource]
 script = ExtResource("1_lr73f")
-colour = Color(0.458824, 0.176471, 0.0509804, 1)
+colour = Color(0.560784, 0.254902, 0.0901961, 1)
 pip_texture = ExtResource("1_je7gj")
 max_infliction_time = 5.0
-reactive_with = Array[ExtResource("1_lr73f")]([ExtResource("2_l8box"), ExtResource("3_e0yn8")])
+reactive_with = Array[StringName]([&"Burn", &"Wind"])

@@ -1,6 +1,0 @@
-[gd_resource type="Resource" script_class="SpellSceneResource" load_steps=2 format=3 uid="uid://bgd73k601xer2"]
-
-[ext_resource type="Script" path="res://spells/resources/spell_scene_resource.gd" id="1_laxkc"]
-
-[resource]
-script = ExtResource("1_laxkc")

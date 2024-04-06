@@ -87,9 +87,9 @@ func on_hurt(hit_node):
 			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
 			
 			#Check if a reaction has occurred, may need to be moved further up the method
-			#for key in current_inflictions_dictionary.keys():
-				#if element.reaction_occurred(key):
-					#print("reaction occurred between " + element.resource_name + " and " + key.resource_name)
+			for key in current_inflictions_dictionary.keys():
+				var reaction = SpellManager.get_reaction(key, element)
+				if reaction : print(reaction)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
