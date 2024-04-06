@@ -55,7 +55,7 @@ func _process(delta):
 #region Other methods (please try to separate and organise!)
 @rpc("any_peer","call_local")
 func setValues(newValues : PlayerCardRes):
-	raider_portrait.texture = newValues.raiderRes.portrait
+	raider_portrait.texture.resource_path = newValues.raiderRes.portraitString
 	raider_name.text = newValues.raiderRes.raider_name
 	raider_desc.text = newValues.raiderRes.raider_desc
 	player_name.text = newValues.username

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=11 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
+[ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="2_dvdmf"]
 
 [sub_resource type="Gradient" id="Gradient_u4f7k"]
 colors = PackedColorArray(0.477881, 0.47788, 0.47788, 1, 0, 0, 0, 1)
@@ -36,6 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ydb8")
 player_card_hbox = NodePath("MarginContainer/HBoxContainer")
+default_slot_icon = ExtResource("2_dvdmf")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

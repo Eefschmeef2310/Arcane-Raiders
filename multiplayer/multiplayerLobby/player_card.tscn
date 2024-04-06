@@ -16,7 +16,7 @@ loadout_desc = "..."
 
 [sub_resource type="Resource" id="Resource_kd214"]
 script = ExtResource("4_ialn5")
-portrait = ExtResource("2_iy06u")
+portraitString = ""
 raider_name = "..."
 raider_desc = "..."
 color = Color(0, 0, 0, 1)
@@ -39,6 +39,7 @@ loadout_desc = "..."
 
 [sub_resource type="Resource" id="Resource_3cb8l"]
 script = ExtResource("4_ialn5")
+portraitString = ""
 raider_name = "..."
 raider_desc = "..."
 color = Color(0, 0, 0, 1)

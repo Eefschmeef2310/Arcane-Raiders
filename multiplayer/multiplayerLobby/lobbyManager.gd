@@ -43,7 +43,7 @@ func _process(delta):
 		var card = PlayerCardRes.new()
 		card.raiderRes = RaiderRes.new()
 		card.loadoutRes = LoadoutRes.new()
-		card.raiderRes.portrait = default_slot_icon
+		card.raiderRes.portraitString = default_slot_icon.resource_path
 		card.raiderRes.raider_name = "Connected"
 		card.raiderRes.raider_desc = "This player has successfully connected"
 		card.username = Steam.getPersonaName()
@@ -56,7 +56,7 @@ func _process(delta):
 		var card = PlayerCardRes.new()
 		card.raiderRes = RaiderRes.new()
 		card.loadoutRes = LoadoutRes.new()
-		card.raiderRes.portrait = default_slot_icon
+		card.raiderRes.portraitString = default_slot_icon.resource_path
 		card.raiderRes.raider_name = "Cool Player"
 		card.raiderRes.raider_desc = raider_desc.text + " •⩊• "
 		card.username = Steam.getPersonaName()
@@ -71,7 +71,7 @@ func request_updates(from : int):
 	var card = PlayerCardRes.new()
 	card.raiderRes = RaiderRes.new()
 	card.loadoutRes = LoadoutRes.new()
-	card.raiderRes.portrait = default_slot_icon
+	card.raiderRes.portraitString = default_slot_icon.resource_path
 	card.raiderRes.raider_name = "Cool Player"
 	card.raiderRes.raider_desc = raider_desc.text
 	card.username = Steam.getPersonaName()
@@ -91,7 +91,7 @@ func _on_peer_connected(id:int):
 	var card = PlayerCardRes.new()
 	card.raiderRes = RaiderRes.new()
 	card.loadoutRes = LoadoutRes.new()
-	card.raiderRes.portrait = default_slot_icon
+	card.raiderRes.portraitString = default_slot_icon.resource_path
 	card.raiderRes.raider_name = "Connected"
 	card.raiderRes.raider_desc = "This player has successfully connected"
 	card.username = Steam.getPersonaName()
@@ -105,7 +105,7 @@ func _on_connected_to_server():
 	var card = PlayerCardRes.new()
 	card.raiderRes = RaiderRes.new()
 	card.loadoutRes = LoadoutRes.new()
-	card.raiderRes.portrait = default_slot_icon
+	card.raiderRes.portraitString = default_slot_icon.resource_path
 	card.raiderRes.raider_name = "Connected"
 	card.raiderRes.raider_desc = "This player has successfully connected"
 	card.username = Steam.getPersonaName()
