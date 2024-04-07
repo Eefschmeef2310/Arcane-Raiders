@@ -11,8 +11,8 @@ class_name Player
 @onready var animation_player = $AnimationPlayer
 
 # Normalised vectors
-var move_direction: Vector2
-var aim_direction: Vector2
+@export var move_direction: Vector2
+@export var aim_direction: Vector2
 
 var is_casting := false
 var can_cast := true
@@ -53,7 +53,9 @@ func set_data(new_data: PlayerData, destroy_old := true):
 		data.queue_free()
 	data = new_data
 	set_input(data.device_id)
+	set_multiplayer_authority(data.peer_id, true)
 	$SpellDirection/Sprite2D.modulate = data.main_color
+	$Sprites/Body.self_modulate = data.main_color
 
 func set_input(id: int):
 	print("Setting input" + str(id))
@@ -62,14 +64,16 @@ func set_input(id: int):
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
 	if can_cast and data.spell_cooldowns[slot] <= 0:
-		cast_spell(slot)
+		cast_spell.rpc(slot)
 
+@rpc("authority", "call_local", "reliable")
 func cast_spell(slot: int):
-	if slot < data.spells.size():
+	if slot < data.spells.size() and data.spells[slot]:
 		# Initialise spell object and add to tree
 		var spell_node = data.spells[slot].scene.instantiate()
 		spell_node.resource = data.spells[slot]
 		spell_node.caster = self
+		spell_node.set_multiplayer_authority(data.peer_id, true)
 		
 		#print(get_angle_to(aim_direction) - rotation)
 		add_sibling(spell_node)

@@ -44,4 +44,4 @@ func start_cooldown(slot: int, time: float):
 
 @rpc("authority", "call_local", "reliable")
 func set_spell(slot: int, string: String):
-	pass
+	spells[slot] = SpellManager.get_spell_fron_string(string)

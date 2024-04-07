@@ -14,12 +14,8 @@ var input_prompts: Array
 
 #region Godot methods
 func _ready():
-	connect_player_signals()
 	if is_instance_valid(data):
-		data.device_changed.connect(update_prompts)
-		data.spell_changed.connect(update_spells)
-		update_prompts(data.device_id)
-		update_spells()
+		set_data(data)
 
 func _process(_delta):
 	if is_instance_valid(data):
@@ -56,12 +52,13 @@ func set_data(d: PlayerData):
 	if is_instance_valid(data):
 		data.device_changed.disconnect(update_prompts)
 		data.spell_changed.disconnect(update_spells)
+		data.health_changed.disconnect(_on_player_health_updated)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
+	data.health_changed.connect(_on_player_health_updated)
 	update_prompts(data.device_id)
 	update_spells()
+	$HBox/Stats/HealthBar.tint_progress = data.main_color
 
-func connect_player_signals():
-	data.health_changed.connect(_on_player_health_updated)
 #endregion

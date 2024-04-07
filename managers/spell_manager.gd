@@ -39,6 +39,16 @@ func get_random_spell():
 	new_spell.element = element
 	return new_spell
 
+func get_spell_fron_string(s: String) -> Spell:
+	var element_key = s.get_slice("-", 0)
+	var spell_key = s.get_slice("-", 1)
+	
+	var new_spell : Spell = spell_scenes[spell_key].duplicate()
+	new_spell.element = elements[element_key]
+	
+	return new_spell
+	
+
 func get_reaction(element_1, element_2):
 	if element_1 != element_2:
 		for key in reactions.keys():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=19 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
@@ -8,20 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="5_gj6bf"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_2udvh"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
-[ext_resource type="Script" path="res://spells/spell_base.gd" id="7_ik74f"]
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
-
-[sub_resource type="Resource" id="Resource_8g4gv"]
-script = ExtResource("7_ik74f")
-
-[sub_resource type="Resource" id="Resource_rv1q5"]
-script = ExtResource("7_ik74f")
-
-[sub_resource type="Resource" id="Resource_1e75t"]
-script = ExtResource("7_ik74f")
 
 [sub_resource type="Animation" id="Animation_y4ic7"]
 length = 0.001
@@ -96,6 +86,17 @@ _data = {
 radius = 18.0
 height = 66.4
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b1y77"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:move_direction")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:aim_direction")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
@@ -152,7 +153,7 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
-spells = Array[ExtResource("7_ik74f")]([SubResource("Resource_8g4gv"), SubResource("Resource_rv1q5"), SubResource("Resource_1e75t")])
+spells = Array[Resource("res://spells/spell_base.gd")]([null, null, null])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -167,6 +168,9 @@ script = ExtResource("9_cti52")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_o8khp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_b1y77")
 
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
