@@ -59,8 +59,8 @@ func _process(delta):
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
-	loadout_name.text = lobby_manager.loadous[selected_loadout].loadout_name
-	loadout_desc.text = lobby_manager.loadous[selected_loadout].loadout_desc
+	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
+	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
 	
 	#also manage pips for raider and loadout 
 	
