@@ -21,6 +21,7 @@ enum MultiplayerMode {Local,Online}
 #@export var default_slot_icon : Texture2D
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
+@export var server_browser_scene : PackedScene
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
@@ -131,3 +132,9 @@ func UpdateCard(playerID : int, username : String, n_raider : int, n_loadout : i
 
 
 #endregion
+
+
+func _on_back_button_pressed():
+	#TODO close server
+	get_tree().change_scene_to_packed(server_browser_scene) 
+	pass # Replace with function body.

@@ -70,6 +70,11 @@ func _on_host_pressed():
 	#$LobbyContainer/Lobbies.hide()
 	server_browser.hide()
 
+func _on_local_pressed():
+	var lobby_scene = multiplayer_spawner.spawn(gameScene)
+	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Local)
+	server_browser.hide()
+
 func join_lobby(id):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
@@ -118,3 +123,6 @@ func _on_refresh_pressed():
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+
+
+
