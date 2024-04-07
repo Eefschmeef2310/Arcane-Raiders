@@ -19,6 +19,8 @@ enum MultiplayerMode {Local,Online}
 @export var player_card_hbox : HBoxContainer
 @export_group("Other Resources")
 @export var default_slot_icon : Texture2D
+@export var raiders : Array[RaiderRes]
+@export var loadouts : Array[LoadoutRes]
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
