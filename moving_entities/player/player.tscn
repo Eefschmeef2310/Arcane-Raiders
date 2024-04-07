@@ -1,12 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=22 format=3 uid="uid://bp3p5hgbn2t6t"]
 
-[ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
+[ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="4_mc0f7"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
+[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="5_gj6bf"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_2udvh"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="7_ik74f"]
+[ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
@@ -115,8 +118,31 @@ offset = Vector2(16.5, 0)
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprites"]
-texture = ExtResource("1_kd5ik")
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("4_mc0f7")
 offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="Sprites"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("5_gj6bf")
+
+[node name="Head" type="Sprite2D" parent="Sprites"]
+position = Vector2(2, -75)
+texture = ExtResource("6_2udvh")
+
+[node name="Hand" type="Sprite2D" parent="Sprites"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(38, -28)
+texture = ExtResource("7_xrgo1")
+
+[node name="Hand2" type="Sprite2D" parent="Sprites"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-37, -28)
+texture = ExtResource("7_xrgo1")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6gabg")
