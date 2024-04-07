@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://di8bmn2pxre1i"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_bxyli"]
+[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_8mjcv"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_agrsj"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_ibapj"]
+[ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="5_8q6a4"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/enemy_chase.gd" id="6_2o2to"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yp1j"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqqxc"]
+radius = 35.0
+
+[node name="SmallFry" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "nav_update_timer", "state_machine") groups=["enemy"]]
+collision_layer = 8
+collision_mask = 11
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_bxyli")
+movement_speed = 200.0
+nav_agent = NodePath("NavigationAgent2D")
+nav_update_timer = NodePath("NavUpdateTimer")
+state_machine = NodePath("StateMachine")
+max_health = 300
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_7yp1j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("2_8mjcv")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -64)
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 46)
+shape = SubResource("CircleShape2D_wqqxc")
+debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_agrsj")]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = -39.0
+
+[node name="StatusUI" parent="." instance=ExtResource("4_ibapj")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("5_8q6a4")]
+initial_state = NodePath("EnemyFollow")
+
+[node name="EnemyFollow" type="Node" parent="StateMachine"]
+script = ExtResource("6_2o2to")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
+
+[node name="NavUpdateTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -50,6 +50,8 @@ func _physics_process(_delta):
 		var next_path_pos: Vector2 = nav_agent.get_next_path_position()
 		
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
+		#velocity = intended_velocity
+		#move_and_slide()
 		nav_agent.set_velocity(intended_velocity)
 	
 	
