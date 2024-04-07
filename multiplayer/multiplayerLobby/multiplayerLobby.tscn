@@ -1,9 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=17 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
-[ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="2_dvdmf"]
+[ext_resource type="Resource" uid="uid://bxwva5805lusc" path="res://multiplayer/multiplayerLobby/raiders/Dragon.tres" id="3_lyylo"]
+[ext_resource type="Resource" uid="uid://coenguoh1frq" path="res://multiplayer/multiplayerLobby/raiders/Dusty.tres" id="4_mlojx"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="5_o6wal"]
+
+[sub_resource type="Resource" id="Resource_78orn"]
+script = ExtResource("5_o6wal")
+loadout_name = "Fire"
+loadout_desc = "Fire Bolt, Force SHot, Burst"
+
+[sub_resource type="Resource" id="Resource_vvqua"]
+script = ExtResource("5_o6wal")
+loadout_name = "Ice"
+loadout_desc = "1, 2, 3"
+
+[sub_resource type="Resource" id="Resource_t40dh"]
+script = ExtResource("5_o6wal")
+loadout_name = "Cat"
+loadout_desc = "Nya, Meow, uwu"
 
 [sub_resource type="Gradient" id="Gradient_u4f7k"]
 colors = PackedColorArray(0.477881, 0.47788, 0.47788, 1, 0, 0, 0, 1)
@@ -37,7 +55,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ydb8")
 player_card_hbox = NodePath("MarginContainer/HBoxContainer")
-default_slot_icon = ExtResource("2_dvdmf")
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_837od"), ExtResource("3_lyylo"), ExtResource("4_mlojx")])
+loadouts = Array[ExtResource("5_o6wal")]([SubResource("Resource_78orn"), SubResource("Resource_vvqua"), SubResource("Resource_t40dh")])
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

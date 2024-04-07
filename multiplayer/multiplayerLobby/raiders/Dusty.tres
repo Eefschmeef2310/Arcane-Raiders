@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="RaiderRes" load_steps=2 format=3 uid="uid://coenguoh1frq"]
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=3 format=3 uid="uid://coenguoh1frq"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="1_67thn"]
+[ext_resource type="Texture2D" uid="uid://2dmhbnif1cw4" path="res://multiplayer/multiplayerLobby/raiders/dustyTex.tres" id="1_71wod"]
 
 [resource]
 script = ExtResource("1_67thn")
-portraitString = "res://multiplayer/multiplayerLobby/raiders/dustyTex.tres"
+portrait = ExtResource("1_71wod")
 raider_name = "Dusty"
 raider_desc = "Adventure!"
 color = Color(0, 0.372549, 0, 1)

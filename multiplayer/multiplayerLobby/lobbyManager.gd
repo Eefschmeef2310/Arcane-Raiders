@@ -15,10 +15,10 @@ enum MultiplayerMode {Local,Online}
 #@export_subgroup("Subgroup")
 @export_group("Setup")
 @export var mode : MultiplayerMode
-@export_group("Node References")
-@export var player_card_hbox : HBoxContainer
+@export_group("Node References") 
+@export var player_card_hbox : HBoxContainer #hold all the player cards!
 @export_group("Other Resources")
-@export var default_slot_icon : Texture2D
+#@export var default_slot_icon : Texture2D
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
 #Onready Variables
@@ -42,42 +42,27 @@ func _process(delta):
 	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
 	if (not sent_first_update):
 		sent_first_update = true
-		var card = PlayerCardRes.new()
-		card.raiderRes = RaiderRes.new()
-		card.loadoutRes = LoadoutRes.new()
-		card.raiderRes.portraitString = default_slot_icon.resource_path
-		card.raiderRes.raider_name = "Connected"
-		card.raiderRes.raider_desc = "This player has successfully connected"
-		card.username = Steam.getPersonaName()
-		rpc("UpdateCard", SteamManager.player_id, card)
-		
-	if(Input.is_action_just_pressed("debug_random")):
-		#raider_desc.text += " •⩊• "
-		##rpc("setValues", default_slot_icon, "Cool Player", str(raider_desc.text + " •⩊• "), Steam.getPersonaName())
-		var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-		var card = PlayerCardRes.new()
-		card.raiderRes = RaiderRes.new()
-		card.loadoutRes = LoadoutRes.new()
-		card.raiderRes.portraitString = default_slot_icon.resource_path
-		card.raiderRes.raider_name = "Cool Player"
-		card.raiderRes.raider_desc = raider_desc.text + " •⩊• "
-		card.username = Steam.getPersonaName()
-		rpc("UpdateCard", SteamManager.player_id, card)
-		pass
+		#set inital card values
+		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
+	
+	var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
+	var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
+	var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
+	var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
+	
+	if(Input.is_action_just_pressed("down")):
+		selection = clampi(selection + 1, 0,2)
+		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 #endregion
 
 @rpc("authority","call_local")
 func request_updates(from : int):
 	print("Completing an update request for player " + str(from))
-	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-	var card = PlayerCardRes.new()
-	card.raiderRes = RaiderRes.new()
-	card.loadoutRes = LoadoutRes.new()
-	card.raiderRes.portraitString = default_slot_icon.resource_path
-	card.raiderRes.raider_name = "Cool Player"
-	card.raiderRes.raider_desc = raider_desc.text
-	card.username = Steam.getPersonaName()
-	rpc("UpdateCard", SteamManager.player_id, card)
+	var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
+	var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
+	var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
+	var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
+	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 	
 
 #region Signal methods
@@ -89,29 +74,14 @@ func request_updates(from : int):
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
-	var raider_desc = player_card_hbox.get_children()[SteamManager.player_id].raider_desc
-	var card = PlayerCardRes.new()
-	card.raiderRes = RaiderRes.new()
-	card.loadoutRes = LoadoutRes.new()
-	card.raiderRes.portraitString = default_slot_icon.resource_path
-	card.raiderRes.raider_name = "Connected"
-	card.raiderRes.raider_desc = "This player has successfully connected"
-	card.username = Steam.getPersonaName()
-	rpc("UpdateCard", SteamManager.player_id, card)
+	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
 	rpc("request_updates", id)
 	pass
 
 
 func _on_connected_to_server():
 	print("connected to server")
-	var card = PlayerCardRes.new()
-	card.raiderRes = RaiderRes.new()
-	card.loadoutRes = LoadoutRes.new()
-	card.raiderRes.portraitString = default_slot_icon.resource_path
-	card.raiderRes.raider_name = "Connected"
-	card.raiderRes.raider_desc = "This player has successfully connected"
-	card.username = Steam.getPersonaName()
-	rpc("UpdateCard", SteamManager.player_id, card)
+	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -127,11 +97,11 @@ func InitLobby(mode : MultiplayerMode):
 	
 
 @rpc("any_peer","call_local")
-func UpdateCard(playerID : int, newCard : PlayerCardRes):
+func UpdateCard(playerID : int, username : String, n_raider : int, n_loadout : int, n_selection : int, n_ready : bool):
 	var cardToSet = player_card_hbox.get_children()[playerID]
 	#cardToSet.rpc("setValues",portrait, raider, description, username)
 	print("Update called by player: " + str(playerID))
-	cardToSet.setValues(newCard)
+	cardToSet.setValues(username, n_raider, n_loadout, n_selection, n_ready)
 
 
 #endregion

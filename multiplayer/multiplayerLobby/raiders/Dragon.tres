@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="RaiderRes" load_steps=2 format=3 uid="uid://bxwva5805lusc"]
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=3 format=3 uid="uid://bxwva5805lusc"]
 
+[ext_resource type="Texture2D" uid="uid://ccdt54g22hlnp" path="res://multiplayer/multiplayerLobby/raiders/dragonTex.tres" id="1_bxdu0"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="1_rrp8w"]
 
 [resource]
 script = ExtResource("1_rrp8w")
-portraitString = "res://multiplayer/multiplayerLobby/raiders/dragonTex.tres"
+portrait = ExtResource("1_bxdu0")
 raider_name = "Dragon"
 raider_desc = "I AM THE SILVER DRAGON"
 color = Color(0.258824, 0.364706, 0.392157, 1)
