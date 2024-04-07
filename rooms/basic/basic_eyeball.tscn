@@ -33,15 +33,15 @@ position = Vector2(-289, 674)
 gizmo_extents = 20.0
 
 [node name="PlayerSpawn1" type="Marker2D" parent="." groups=["player_spawn"]]
-position = Vector2(-199, 620)
+position = Vector2(-178, 598)
 gizmo_extents = 20.0
 
 [node name="PlayerSpawn2" type="Marker2D" parent="." groups=["player_spawn"]]
-position = Vector2(-201, 713)
+position = Vector2(-181, 744)
 gizmo_extents = 20.0
 
 [node name="PlayerSpawn3" type="Marker2D" parent="." groups=["player_spawn"]]
-position = Vector2(-113, 671)
+position = Vector2(-74, 668)
 gizmo_extents = 20.0
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]

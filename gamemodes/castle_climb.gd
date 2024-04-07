@@ -51,7 +51,7 @@ func start_next_floor():
 	level_spawner.spawn(randi_range(0, basic_rooms.size() - 1))
 	
 	await get_tree().create_timer(0.2).timeout
-	current_room_node.spawn_players(1)
+	current_room_node.spawn_players(number_of_players)
 
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_rooms[index].instantiate() as CastleRoom
