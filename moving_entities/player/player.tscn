@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
 [ext_resource type="Resource" path="res://spells/resources/proj_ball_burn.tres" id="5_0ulxw"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
-[ext_resource type="Resource" path="res://spells/resources/aoe_large_burn.tres" id="8_dsfju"]
+[ext_resource type="Resource" uid="uid://qb54g83nsj28" path="res://spells/resources/aoe_large_burn.tres" id="8_dsfju"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 

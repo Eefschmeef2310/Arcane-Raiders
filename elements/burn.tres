@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://dvgoa0itiqajb"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://lqvh6cm5u40u"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_gsbof"]
 [ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="1_h81lu"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=8 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
 [ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="1_66res"]
 [ext_resource type="Texture2D" uid="uid://byn34gwtakpjl" path="res://multiplayer/multiplayerLobby/pip.png" id="5_lpqe4"]
+[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="5_w3e0p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
 font_size = 21
@@ -14,7 +15,7 @@ outline_color = Color(0.168627, 0.815686, 1, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
 font_size = 36
 
-[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "loadout_name", "loadout_desc", "all_panels", "most_panels", "panels_array", "character_pips_box", "loadout_pips_box")]
+[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "loadout_name", "loadout_desc", "all_panels", "most_panels", "panels_array", "character_pips_box", "loadout_pips_box", "spells_box")]
 custom_minimum_size = Vector2(400, 780)
 size_flags_horizontal = 3
 script = ExtResource("1_6lvqp")
@@ -30,6 +31,7 @@ most_panels = NodePath("VBoxContainer/VBoxContainer")
 panels_array = [NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/LoadoutContainer"), NodePath("VBoxContainer/Button")]
 character_pips_box = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips")
 loadout_pips_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips")
+spells_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -227,6 +229,23 @@ size_flags_vertical = 0
 text = "Fire Bolt, Force Shot, Burst"
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="SpellsBox" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+alignment = 1
+
+[node name="Spell1" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox"]
+layout_mode = 2
+texture = ExtResource("5_w3e0p")
+
+[node name="Spell2" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox"]
+layout_mode = 2
+texture = ExtResource("5_w3e0p")
+
+[node name="Spell3" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox"]
+layout_mode = 2
+texture = ExtResource("5_w3e0p")
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2

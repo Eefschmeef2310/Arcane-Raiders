@@ -40,6 +40,7 @@ extends Node
 @export var panels_array : Array[Control]
 @export var character_pips_box : HBoxContainer
 @export var loadout_pips_box : HBoxContainer
+@export var spells_box : HBoxContainer
 
 #Onready Variables
 
@@ -86,11 +87,11 @@ func _process(delta):
 	for panel_num in panels_array.size():
 		if selected_panel == panel_num:
 			#highlight panel with moduate
-			(panels_array[panel_num] as Control).modulate = highlight_color
+			(panels_array[panel_num] as Control).self_modulate = highlight_color
 			pass
 		else:
 			#restore it to normal modulation
-			(panels_array[panel_num] as Control).modulate = Color.WHITE
+			(panels_array[panel_num] as Control).self_modulate = Color.WHITE
 			pass
 	pass
 #endregion
@@ -121,7 +122,13 @@ func UpdateDisplay():
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
+	
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
+	
+	for spell : int in spells_box.get_children().size():
+		spells_box.get_child(spell).texture = lobby_manager.loadouts[selected_loadout].spells[spell].ui_texture
+		spells_box.get_child(spell).modulate = lobby_manager.loadouts[selected_loadout].spells[spell].element.colour
+	
 	highlight_color = lobby_manager.raiders[selected_raider].color
 	if player_ready:
 		most_panels.modulate = Color.DIM_GRAY
