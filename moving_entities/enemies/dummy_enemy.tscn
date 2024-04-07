@@ -17,6 +17,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="DummyEnemy" type="CharacterBody2D" groups=["enemy"]]
+y_sort_enabled = true
 collision_layer = 8
 collision_mask = 11
 motion_mode = 1

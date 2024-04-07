@@ -60,11 +60,19 @@ func spawn_basic_level(index: int) -> Node:
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(last_floor: int, next_floor: int):
-	$RunUI/FloorLabel.text = str(current_floor) + "F"
-	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = str(current_floor) + "F"
-	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = str(current_floor - 1) + "F"
+	$RunUI/FloorLabel.text = get_floor_name(current_floor)
+	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(current_floor)
+	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(current_floor-1)
 	$RoomTransitionUI/AnimationPlayer.play("next_floor")
 	var tween = create_tween()
 	tween.tween_property($RoomTransitionUI/Items, "modulate:a", 1, 0.25)
 	tween.tween_interval(2)
 	tween.tween_property($RoomTransitionUI/Items, "modulate:a", 0, 0.25)
+
+func get_floor_name(floor: int) -> String:
+	if floor < 0:
+		return ""
+	elif floor == 0:
+		return "Foyer"
+	else:
+		return str(floor) + "F"

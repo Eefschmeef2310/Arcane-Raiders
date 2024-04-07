@@ -41,6 +41,12 @@ func _process(_delta):
 	else:
 		$SpritesFlip.scale.x = 1
 	
+	if !is_casting:
+		if move_direction != Vector2.ZERO:
+			animation_player.play("move", -1, 1)
+		else:
+			animation_player.play("idle", -1, 1)
+	
 #endregion
 
 #region Signal methods

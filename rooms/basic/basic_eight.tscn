@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_otn38"]
 
 [node name="BasicEight" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_pn1qw")
 
 [node name="TileMapFloor" type="TileMap" parent="."]
