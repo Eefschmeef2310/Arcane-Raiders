@@ -50,6 +50,7 @@ func _process(delta):
 	var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
 	var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
 	
+	#it just works 
 	if(Input.is_action_just_pressed("down")):
 		selection = clampi(selection + 1, 0,2)
 		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
