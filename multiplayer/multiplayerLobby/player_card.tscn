@@ -14,7 +14,7 @@ outline_color = Color(0.168627, 0.815686, 1, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
 font_size = 36
 
-[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "all_panels", "most_panels", "panels_array")]
+[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "loadout_name", "loadout_desc", "all_panels", "most_panels", "panels_array")]
 custom_minimum_size = Vector2(400, 780)
 size_flags_horizontal = 3
 script = ExtResource("1_6lvqp")
@@ -22,6 +22,8 @@ raider_portrait = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait")
 raider_name = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RaiderName")
 raider_desc = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/RaiderDesc")
 player_name = NodePath("VBoxContainer/VBoxContainer/Username")
+loadout_name = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/Loadout Name")
+loadout_desc = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/Loadout Desc")
 all_panels = NodePath("VBoxContainer")
 most_panels = NodePath("VBoxContainer/VBoxContainer")
 panels_array = [NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/LoadoutContainer"), NodePath("VBoxContainer/Button")]

@@ -61,14 +61,14 @@ func _process(delta):
 	
 	if(Input.is_action_just_pressed("left")):
 		if(selection == 0): #raider panel selected 
-			raider = clampi(raider - 1, 0,raiders.size())
+			raider = clampi(raider - 1, 0,raiders.size()-1)
 		elif(selection == 1): #loadout selected
 			loadout = clampi(loadout - 1, 0,loadouts.size())
 		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 		
 	if(Input.is_action_just_pressed("right")):
 		if(selection == 0): #raider panel selected 
-			raider = clampi(raider + 1, 0,raiders.size())
+			raider = clampi(raider + 1, 0,raiders.size()-1)
 		elif(selection == 1): #loadout selected
 			loadout = clampi(loadout + 1, 0,loadouts.size())
 		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)

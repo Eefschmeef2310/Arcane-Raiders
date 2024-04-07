@@ -31,6 +31,8 @@ extends Node
 @export var raider_name : Label 
 @export var raider_desc : Label 
 @export var player_name : Label
+@export var loadout_name : Label
+@export var loadout_desc : Label
 @export var all_panels : VBoxContainer # hide and show this depending on if a player has joined 
 @export var most_panels : VBoxContainer # modulate this to grey when a player is ready to show their choices are "locked"
 @export var panels_array : Array[Control]
@@ -53,9 +55,18 @@ func _process(delta):
 	if username != "":
 		show_panels = true
 	all_panels.visible = show_panels
+	#also manage setting of visible card values 
+	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
+	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
+	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
+	loadout_name.text = lobby_manager.loadous[selected_loadout].loadout_name
+	loadout_desc.text = lobby_manager.loadous[selected_loadout].loadout_desc
 	
 	#also manage pips for raider and loadout 
+	
+	
 	#also manage panel highlighting 
+	#TODO make modulate colour the raider color?
 	for panel_num in panels_array.size():
 		if selected_panel == panel_num:
 			#highlight panel with moduate
