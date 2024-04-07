@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://n76plus8syht"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/dummy_enemy.gd" id="1_04g5f"]
-[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_hl5sw"]
+[ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="2_wwupo"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_078x2"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_afyxm"]
 
@@ -23,8 +23,9 @@ position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_pemjh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -18)
-texture = ExtResource("2_hl5sw")
+position = Vector2(-1, -20)
+rotation = -0.15442
+texture = ExtResource("2_wwupo")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -64)
