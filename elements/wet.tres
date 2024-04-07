@@ -6,4 +6,3 @@
 script = ExtResource("1_ejp4o")
 colour = Color(0.141176, 0.231373, 0.690196, 1)
 max_infliction_time = 5.0
-reactive_with = Array[StringName]([&"Frost", &"Shock"])

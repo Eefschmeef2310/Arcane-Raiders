@@ -73,7 +73,7 @@ func on_hurt(hit_node):
 	if "base_damage" in hit_node:
 		damage = hit_node.base_damage
 		health -= hit_node.base_damage
-		infliction_time = hit_node.base_damage / 50
+		infliction_time = hit_node.base_damage / 10
 		
 	
 	#Add element to current inflictions dictionary
@@ -92,7 +92,20 @@ func on_hurt(hit_node):
 			#Check if a reaction has occurred, may need to be moved further up the method
 			for key in current_inflictions_dictionary.keys():
 				var reaction = SpellManager.get_reaction(key, element)
-				if reaction : print(reaction)
+				if reaction:
+					if reaction is StringName:
+						print(reaction) #TODO This is for debug, as not all reactions have scenes yet
+					elif reaction is PackedScene:
+						current_inflictions_dictionary.erase(key)
+						current_inflictions_dictionary.erase(element)
+						
+						reaction = reaction.instantiate()
+						if "entity" in reaction:
+							reaction.entity = self
+							add_child(reaction)
+						else:
+							reaction.global_position = global_position
+							get_tree().root.add_child(reaction)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):

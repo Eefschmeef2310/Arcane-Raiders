@@ -3,6 +3,11 @@ extends Node2D
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
 @export var data_to_fuck_with: PlayerData
+@onready var dynamic_camera = $DynamicCamera
+
+func _ready():
+	for player in get_tree().get_nodes_in_group("player"):
+		dynamic_camera.add_target(player)
 
 func _ready():
 	$DynamicCamera.add_target($Player)
