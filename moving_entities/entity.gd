@@ -62,6 +62,9 @@ func _process(delta):
 
 #region Other methods (please try to separate and organise!)
 func on_hurt(hit_node):
+	if !is_multiplayer_authority():
+		return
+
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource

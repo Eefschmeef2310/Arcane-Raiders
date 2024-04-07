@@ -73,7 +73,7 @@ func cast_spell(slot: int):
 		var spell_node = data.spells[slot].scene.instantiate()
 		spell_node.resource = data.spells[slot]
 		spell_node.caster = self
-		spell_node.set_multiplayer_authority(data.peer_id, true)
+		spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
 		
 		#print(get_angle_to(aim_direction) - rotation)
 		add_sibling(spell_node)
