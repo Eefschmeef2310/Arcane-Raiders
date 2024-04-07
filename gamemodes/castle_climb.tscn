@@ -1,26 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=4 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d82o0"]
+
 [node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data")]
 script = ExtResource("1_jx40r")
 player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
+start_on_spawn = true
 
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0.0392157, 0.52549, 1, 1)
 
 [node name="PlayerData1" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 
 [node name="PlayerData2" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0.858824, 0.639216, 0, 1)
 
 [node name="PlayerData3" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0, 0.65098, 0.113725, 1)
 
 [node name="PlayerDataSync" type="MultiplayerSynchronizer" parent="."]
-
-[node name="Level" type="Node2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d82o0")

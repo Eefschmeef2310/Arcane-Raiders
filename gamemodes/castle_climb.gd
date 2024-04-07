@@ -1,12 +1,14 @@
 extends Node
 
 @export var player_data : Array[Node]
+@export var start_on_spawn : bool = false
+
+var seed : int = 6969
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if start_on_spawn:
+		print("lesgo")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func start_climb(seed: int):
 	pass

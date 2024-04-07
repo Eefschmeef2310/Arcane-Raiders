@@ -44,6 +44,7 @@ texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1449, 1511)
+debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("4_ci64u"), ExtResource("6_5keeo"), ExtResource("5_do4uj")])

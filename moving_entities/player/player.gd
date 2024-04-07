@@ -2,6 +2,7 @@ extends Entity
 class_name Player
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
+@export var debug : bool = false
 @export var data: PlayerData
 
 @export_group("Parameters")
@@ -23,7 +24,8 @@ func _ready():
 	animation_player.play("idle", -1, 1)
 	
 	# TODO temporary lines here
-	set_data(data, false)
+	if debug:
+		set_data(data, false)
 	
 
 func _process(_delta):

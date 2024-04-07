@@ -33,7 +33,15 @@ func _process(delta):
 			if spell_cooldowns[i] < 0:
 				spell_cooldowns[i] = 0
 
-
 func _on_player_health_updated(amount):
 	health = amount
 	health_changed.emit(self, health)
+
+@rpc("any_peer", "call_local", "reliable")
+func start_cooldown(slot: int, time: float):
+	spell_cooldowns_max[slot] = time
+	spell_cooldowns[slot] = time
+
+@rpc("authority", "call_local", "reliable")
+func set_spell(slot: int, string: String):
+	pass
