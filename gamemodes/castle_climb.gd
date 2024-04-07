@@ -7,7 +7,7 @@ extends Node
 
 @export var basic_rooms: Array[PackedScene]
 
-var number_of_players = 3
+var number_of_players = 4
 var seed : int = 6969
 var current_floor : int = -1
 
@@ -60,7 +60,7 @@ func spawn_basic_level(index: int) -> Node:
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(last_floor: int, next_floor: int):
-	$GameUI/FloorLabel.text = str(current_floor) + "F"
+	$RunUI/FloorLabel.text = str(current_floor) + "F"
 	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = str(current_floor) + "F"
 	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = str(current_floor - 1) + "F"
 	$RoomTransitionUI/AnimationPlayer.play("next_floor")

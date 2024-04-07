@@ -35,7 +35,12 @@ func _process(_delta):
 			if is_casting:
 				velocity *= 0.25
 			move_and_slide()
-		
+	
+	if aim_direction.x < 0:
+		$SpritesFlip.scale.x = -1
+	else:
+		$SpritesFlip.scale.x = 1
+	
 #endregion
 
 #region Signal methods
@@ -52,10 +57,17 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
+	
 	set_input(data.device_id)
 	set_multiplayer_authority(data.peer_id, true)
 	$SpellDirection/Sprite2D.modulate = data.main_color
-	$Sprites/Body.self_modulate = data.main_color
+	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
+	
+	if data.character:
+		print(data.character.name)
+		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
+		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
+		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
 
 func set_input(id: int):
 	print("Setting input" + str(id))

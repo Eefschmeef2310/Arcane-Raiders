@@ -15,64 +15,16 @@
 
 [sub_resource type="Animation" id="Animation_y4ic7"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_ys4w5"]
 resource_name = "cast_end"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(1.2, 0.8), Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_b6wy7"]
 resource_name = "cast_start"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 1.2)]
-}
 
 [sub_resource type="Animation" id="Animation_vdik6"]
 resource_name = "idle"
 loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dg52v"]
 _data = {
@@ -110,36 +62,43 @@ data = NodePath("PlayerData")
 scale = Vector2(1, 0.5)
 script = ExtResource("6_378tb")
 
-[node name="Sprite2D" type="Sprite2D" parent="SpellDirection"]
-modulate = Color(0.564706, 0.286275, 1, 1)
-rotation = 3.59538
+[node name="Sprite2DShadow" type="Sprite2D" parent="SpellDirection"]
+modulate = Color(0, 0, 0, 0.784314)
+position = Vector2(0.788012, 3.61566)
 texture = ExtResource("3_fuo50")
 offset = Vector2(16.5, 0)
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="SpellDirection"]
+modulate = Color(0.564706, 0.286275, 1, 1)
+texture = ExtResource("3_fuo50")
+offset = Vector2(16.5, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
+[node name="SpritesFlip" type="Node2D" parent="."]
+
+[node name="SpritesScale" type="Node2D" parent="SpritesFlip"]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 visible = false
 position = Vector2(0, 11)
 texture = ExtResource("4_mc0f7")
 offset = Vector2(0, -60)
 flip_h = true
 
-[node name="Body" type="Sprite2D" parent="Sprites"]
+[node name="Body" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
 position = Vector2(0, -22)
 texture = ExtResource("5_gj6bf")
 
-[node name="Head" type="Sprite2D" parent="Sprites"]
+[node name="Head" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 position = Vector2(2, -75)
 texture = ExtResource("6_2udvh")
 
-[node name="Hand" type="Sprite2D" parent="Sprites"]
+[node name="RightHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
 position = Vector2(38, -28)
 texture = ExtResource("7_xrgo1")
 
-[node name="Hand2" type="Sprite2D" parent="Sprites"]
+[node name="LeftHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
 position = Vector2(-37, -28)
 texture = ExtResource("7_xrgo1")

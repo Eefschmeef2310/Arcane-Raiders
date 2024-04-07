@@ -4,6 +4,9 @@ extends Node2D
 
 @export var data_to_fuck_with: PlayerData
 
+func _ready():
+	$DynamicCamera.add_target($Player)
+
 func _process(_delta):
 	if Input.is_action_just_pressed("debug_random") and data_to_fuck_with:
 		for i in data_to_fuck_with.spells.size():

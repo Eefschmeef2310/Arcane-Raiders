@@ -16,6 +16,7 @@ signal device_changed(id: int)
 @export var spell_cooldowns : Array[float]
 
 @export var main_color : Color = Color.RED
+@export var character : PlayerCharacter
 
 func _ready():
 	spells.resize(3)

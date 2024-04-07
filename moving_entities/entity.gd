@@ -103,7 +103,6 @@ func on_hurt(hit_node):
 		add_sibling(damage_number)
 		damage_number.global_position = global_position
 		damage_number.set_number(damage)
-		damage_number.set_color(damage)
 		if element:
 			damage_number.set_color(element.colour)
 		damage_number.animate()

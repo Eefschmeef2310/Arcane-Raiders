@@ -1,12 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=16 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
-[ext_resource type="PackedScene" uid="uid://cbmfe52jfiyeb" path="res://rooms/basic/basic_eyeball.tscn" id="2_myxlf"]
+[ext_resource type="PackedScene" uid="uid://cbmfe52jfiyeb" path="res://rooms/basic/basic_eight.tscn" id="2_myxlf"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
+[ext_resource type="Resource" uid="uid://chy5u5x2b2p0s" path="res://moving_entities/player/player_characters/cat.tres" id="4_igbf8"]
+[ext_resource type="Resource" uid="uid://ctqj8outgmnmw" path="res://moving_entities/player/player_characters/wolf.tres" id="5_wfer1"]
+[ext_resource type="Resource" uid="uid://cd6i43ptcu4a0" path="res://moving_entities/player/player_characters/owl.tres" id="6_sbmub"]
+[ext_resource type="Resource" uid="uid://cqeg737gjxs7g" path="res://moving_entities/player/player_characters/croc.tres" id="7_ilw3s"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d82o0"]
+properties/0/path = NodePath("PlayerData0:peer_id")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("PlayerData0:health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_ahfih"]
 font = ExtResource("4_ft2nk")
@@ -18,6 +28,45 @@ shadow_offset = Vector2(2, 2)
 font = ExtResource("4_ft2nk")
 font_size = 192
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_gfsvk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items/VBoxContainer/LastFloorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items/VBoxContainer/NextFloorLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Items/VBoxContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 120)]
+}
 
 [sub_resource type="Animation" id="Animation_vgyv8"]
 resource_name = "next_floor"
@@ -59,45 +108,6 @@ tracks/2/keys = {
 "values": [Vector2(0, 120), Vector2(0, 120), Vector2(0, 420)]
 }
 
-[sub_resource type="Animation" id="Animation_gfsvk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Items/VBoxContainer/LastFloorLabel:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Items/VBoxContainer/NextFloorLabel:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Items/VBoxContainer:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 120)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4q6c3"]
 _data = {
 "RESET": SubResource("Animation_gfsvk"),
@@ -113,59 +123,34 @@ basic_rooms = Array[PackedScene]([ExtResource("2_myxlf")])
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
+character = ExtResource("4_igbf8")
 
 [node name="PlayerData1" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.188235, 0.388235, 0.760784, 1)
+character = ExtResource("5_wfer1")
 
 [node name="PlayerData2" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.784314, 0.6, 0.101961, 1)
+character = ExtResource("6_sbmub")
 
 [node name="PlayerData3" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.156863, 0.466667, 0.266667, 1)
+character = ExtResource("7_ilw3s")
 
 [node name="PlayerDataSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_d82o0")
 
-[node name="GameUI" type="CanvasLayer" parent="."]
+[node name="RunUI" type="CanvasLayer" parent="."]
 
-[node name="FloorLabel" type="Label" parent="GameUI"]
+[node name="FloorLabel" type="Label" parent="RunUI"]
 offset_left = 32.0
 offset_right = 115.0
 offset_bottom = 146.0
 text = "1F"
 label_settings = SubResource("LabelSettings_ahfih")
-
-[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -900.0
-offset_top = -190.0
-offset_right = 900.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 0
-
-[node name="PlayerUI0" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
-layout_mode = 2
-data = NodePath("../../../PlayerData0")
-
-[node name="PlayerUI1" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
-layout_mode = 2
-data = NodePath("../../../PlayerData1")
-
-[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
-layout_mode = 2
-data = NodePath("../../../PlayerData2")
-
-[node name="PlayerUI3" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
-layout_mode = 2
-data = NodePath("../../../PlayerData3")
 
 [node name="RoomTransitionUI" type="CanvasLayer" parent="."]
 
@@ -219,6 +204,37 @@ vertical_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_4q6c3")
 }
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -900.0
+offset_top = -190.0
+offset_right = 900.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PlayerUI0" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData0")
+
+[node name="PlayerUI1" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData1")
+
+[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData2")
+
+[node name="PlayerUI3" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData3")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
