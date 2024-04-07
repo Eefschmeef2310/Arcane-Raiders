@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=19 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
@@ -10,9 +10,8 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
 [ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_qhx16"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="8_a00af"]
-[ext_resource type="PackedScene" uid="uid://cvlicvm1ejylu" path="res://spells/scenes/aoe_large/aoe_large.tscn" id="10_f78d5"]
+[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="9_bw1d1"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
-[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="11_0u30n"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="11_cfego"]
 
@@ -22,11 +21,11 @@ scene = ExtResource("6_qhx16")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("5_1jas3")
 
-[sub_resource type="Resource" id="Resource_q6eem"]
+[sub_resource type="Resource" id="Resource_h2pq2"]
 script = ExtResource("6_82yns")
-scene = ExtResource("10_f78d5")
-ui_texture = ExtResource("11_0u30n")
-element = ExtResource("5_1jas3")
+scene = ExtResource("6_qhx16")
+ui_texture = ExtResource("8_a00af")
+element = ExtResource("9_bw1d1")
 
 [sub_resource type="Resource" id="Resource_ivv85"]
 script = ExtResource("6_82yns")
@@ -72,7 +71,7 @@ position = Vector2(1431, 1023)
 debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
-spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_q6eem"), SubResource("Resource_ivv85")])
+spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_h2pq2"), SubResource("Resource_ivv85")])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]

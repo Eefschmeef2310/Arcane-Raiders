@@ -100,8 +100,12 @@ func on_hurt(hit_node):
 						current_inflictions_dictionary.erase(element)
 						
 						reaction = reaction.instantiate()
-						reaction.global_position = global_position
-						get_tree().root.add_child(reaction)
+						if "entity" in reaction:
+							reaction.entity = self
+							add_child(reaction)
+						else:
+							reaction.global_position = global_position
+							get_tree().root.add_child(reaction)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):

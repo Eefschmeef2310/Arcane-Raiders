@@ -10,7 +10,7 @@ BULLET = ExtResource("3_b1pbc")
 waves = 1
 bullets_per_wave = 20
 max_radians = 6.283
-base_damage = 5
+base_damage = 10
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 
