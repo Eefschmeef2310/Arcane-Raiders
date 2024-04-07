@@ -14,10 +14,11 @@ outline_color = Color(0.168627, 0.815686, 1, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
 font_size = 36
 
-[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "loadout_name", "loadout_desc", "all_panels", "most_panels", "panels_array")]
+[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "loadout_name", "loadout_desc", "all_panels", "most_panels", "panels_array", "character_pips_box", "loadout_pips_box")]
 custom_minimum_size = Vector2(400, 780)
 size_flags_horizontal = 3
 script = ExtResource("1_6lvqp")
+pip_texture = ExtResource("5_lpqe4")
 raider_portrait = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait")
 raider_name = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RaiderName")
 raider_desc = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/RaiderDesc")
@@ -27,6 +28,8 @@ loadout_desc = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContai
 all_panels = NodePath("VBoxContainer")
 most_panels = NodePath("VBoxContainer/VBoxContainer")
 panels_array = [NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/LoadoutContainer"), NodePath("VBoxContainer/Button")]
+character_pips_box = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips")
+loadout_pips_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -173,47 +176,47 @@ texture = ExtResource("1_3ms62")
 expand_mode = 4
 flip_h = true
 
-[node name="CharacterPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
+[node name="LoadoutPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
-[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/CharacterPips"]
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("5_lpqe4")
