@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SpellSceneResource" load_steps=3 format=3 uid="uid://btwfx0pnip8u5"]
+
+[ext_resource type="Script" path="res://spells/scenes/spell_scene_resource.gd" id="1_nqwnt"]
+[ext_resource type="Texture2D" uid="uid://b2xorjixatitx" path="res://spells/sprites/icons/proj_burst.png" id="2_yhim3"]
+
+[resource]
+script = ExtResource("1_nqwnt")
+ui_texture = ExtResource("2_yhim3")

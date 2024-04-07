@@ -67,7 +67,7 @@ func attempt_cast(slot: int):
 func cast_spell(slot: int):
 	if slot < data.spells.size():
 		# Initialise spell object and add to tree
-		var spell_node = data.spells[slot].spell_scene.instantiate()
+		var spell_node = data.spells[slot].scene.instantiate()
 		spell_node.resource = data.spells[slot]
 		spell_node.caster = self
 		

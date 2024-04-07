@@ -20,8 +20,6 @@ func set_number(n: int):
 	label.text = str(n)
 
 func animate():
-	scale
-	print(_number)
 	tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(_s*2, _s*2), 0.1)
 	tween.tween_property(self, "scale", Vector2(_s, _s), 0.1)

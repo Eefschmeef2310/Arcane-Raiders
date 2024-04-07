@@ -1,0 +1,35 @@
+[gd_scene load_steps=14 format=3 uid="uid://clnarx3akvsqu"]
+
+[ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="4_ykrwv"]
+[ext_resource type="Resource" uid="uid://bfocackdd0thb" path="res://elements/stun.tres" id="6_ei4k5"]
+[ext_resource type="Resource" uid="uid://ce06pb2a30cgx" path="res://spells/resources/aoe_large.tres" id="6_njy4v"]
+[ext_resource type="Resource" uid="uid://buhcuk5o0e21n" path="res://spells/resources/aoe_local.tres" id="7_vdst2"]
+[ext_resource type="Resource" uid="uid://dy4j8mgqgtbow" path="res://spells/resources/proj_ball.tres" id="8_6tv1p"]
+[ext_resource type="Resource" uid="uid://bqhx1o5cjivok" path="res://spells/resources/proj_burst.tres" id="9_dbdg1"]
+[ext_resource type="Resource" uid="uid://bin2mvxavri5c" path="res://spells/resources/laser.tres" id="10_xk4cv"]
+[ext_resource type="Resource" uid="uid://pbujh3p2c6hd" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="32_aky2n"]
+[ext_resource type="Resource" uid="uid://baivofh8khbi0" path="res://elements/frost.tres" id="33_1g0y6"]
+[ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="34_077o5"]
+[ext_resource type="Resource" uid="uid://dktppvnlqvpln" path="res://elements/wet.tres" id="35_b200f"]
+
+[node name="SpellManager" type="Node"]
+script = ExtResource("1_dxaf6")
+elements = {
+"Burn": ExtResource("32_aky2n"),
+"Frost": ExtResource("33_1g0y6"),
+"Null": ExtResource("4_ykrwv"),
+"Shock": ExtResource("34_077o5"),
+"Stun": ExtResource("6_ei4k5"),
+"Wet": ExtResource("35_b200f"),
+"Wind": null
+}
+spell_scenes = {
+"AOE Large": ExtResource("6_njy4v"),
+"AOE Local": ExtResource("7_vdst2"),
+"Ball": ExtResource("8_6tv1p"),
+"Burst": ExtResource("9_dbdg1"),
+"Laser": ExtResource("10_xk4cv"),
+"Spread": ExtResource("11_oeong")
+}

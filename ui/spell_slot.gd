@@ -4,7 +4,7 @@ extends TextureRect
 
 func set_spell(spell: Spell):
 	texture = spell.ui_texture
-	self_modulate = spell.element.colour if spell.modulate_icon else Color.WHITE
+	self_modulate = spell.element.colour
 
 func set_cooldown_percent(p: float):
 	$ProgressBar.value = p
