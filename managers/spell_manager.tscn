@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://clnarx3akvsqu"]
+[gd_scene load_steps=16 format=3 uid="uid://clnarx3akvsqu"]
 
 [ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="2_d4pfh"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://ct07iiqxgguov" path="res://spells/resources/proj_burst.tres" id="9_dbdg1"]
 [ext_resource type="Resource" uid="uid://b0smduujsnsld" path="res://spells/resources/laser.tres" id="10_xk4cv"]
 [ext_resource type="Resource" uid="uid://gcjnkbwfebfe" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
+[ext_resource type="PackedScene" uid="uid://cxbx5yeaogymo" path="res://spells/reactions/burn-frost.tscn" id="15_b7v01"]
 
 [node name="SpellManager" type="Node"]
 script = ExtResource("1_dxaf6")
@@ -35,7 +36,7 @@ spell_scenes = {
 "proj_spread": ExtResource("11_oeong")
 }
 reactions = {
-[ExtResource("2_d4pfh"), ExtResource("3_wyn5f")]: &"Burn and frost",
+[ExtResource("2_d4pfh"), ExtResource("3_wyn5f")]: ExtResource("15_b7v01"),
 [ExtResource("3_wyn5f"), ExtResource("7_u88jo")]: &"Frost and Wet",
 [ExtResource("7_u88jo"), ExtResource("5_485g6")]: &"Wet and Shock",
 [ExtResource("5_485g6"), ExtResource("8_4ef6i")]: &"Shock and Wind",

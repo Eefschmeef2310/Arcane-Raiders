@@ -8,4 +8,3 @@ script = ExtResource("1_lr73f")
 colour = Color(0.560784, 0.254902, 0.0901961, 1)
 pip_texture = ExtResource("1_je7gj")
 max_infliction_time = 5.0
-reactive_with = Array[StringName]([&"Burn", &"Wind"])

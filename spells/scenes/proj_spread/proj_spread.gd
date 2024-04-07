@@ -10,7 +10,7 @@ extends SpellBase
 
 	#Exported Variables
 	#@export_group("Group")
-	#@export_subgroup("Subgroup")
+	#@export_subgroup("Subgroup")s
 @export var BULLET = preload("res://spells/scenes/proj_spread/bullet.tscn")
 @export var waves : int = 10
 @export var bullets_per_wave : int = 5
@@ -24,6 +24,7 @@ extends SpellBase
 
 #region Godot methods
 func _ready():
+	if caster : global_position = caster.global_position
 	await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
 #endregion
@@ -39,9 +40,9 @@ func _on_wave_timer_timeout():
 			transfer_data(bullet)
 			
 			var rotation_offset = angle_step * x - max_radians / 2
-			bullet.rotation = caster.aim_direction.angle() + rotation_offset
+			bullet.rotation = (caster.aim_direction.angle() if caster else 0.) + rotation_offset
 			
-			bullet.global_position = caster.global_position
+			bullet.global_position = global_position
 			get_tree().root.add_child(bullet)
 		waves -= 1
 		$WaveTimer.start(0.05)

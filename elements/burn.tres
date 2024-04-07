@@ -8,4 +8,3 @@ script = ExtResource("1_gsbof")
 colour = Color(0.811765, 0.243137, 0.101961, 1)
 pip_texture = ExtResource("1_408gf")
 max_infliction_time = 5.0
-reactive_with = Array[StringName]([&"Frost", &"Stun"])
