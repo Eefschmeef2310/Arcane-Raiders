@@ -19,6 +19,7 @@ extends Node
 @export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
 @export var show_panels : bool = false #dont show stuff until a player connects
 @export var player_ready : bool = false
+@export var highlight_color : Color = Color.RED
 
 @export_group("Other Resources")
 #@export var default_slot_icon : Texture2D
@@ -61,6 +62,11 @@ func _process(delta):
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
+	highlight_color = lobby_manager.raiders[selected_raider].color
+	if player_ready:
+		most_panels.modulate = Color.DIM_GRAY
+	else: 
+		most_panels.modulate = Color.WHITE 
 	
 	#also manage pips for raider and loadout 
 	
@@ -70,7 +76,7 @@ func _process(delta):
 	for panel_num in panels_array.size():
 		if selected_panel == panel_num:
 			#highlight panel with moduate
-			(panels_array[panel_num] as Control).modulate = Color.RED
+			(panels_array[panel_num] as Control).modulate = highlight_color
 			pass
 		else:
 			#restore it to normal modulation

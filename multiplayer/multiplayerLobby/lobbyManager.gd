@@ -52,11 +52,13 @@ func _process(delta):
 	
 	#it just works 
 	if(Input.is_action_just_pressed("down")):
-		selection = clampi(selection + 1, 0,2)
+		if not gaming:
+			selection = clampi(selection + 1, 0,2)
 		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 	
 	if(Input.is_action_just_pressed("up")):
-		selection = clampi(selection - 1, 0,2)
+		if not gaming:
+			selection = clampi(selection - 1, 0,2)
 		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 	
 	if(Input.is_action_just_pressed("left")):
@@ -71,6 +73,11 @@ func _process(delta):
 			raider = clampi(raider + 1, 0,raiders.size()-1)
 		elif(selection == 1): #loadout selected
 			loadout = clampi(loadout + 1, 0,loadouts.size()-1)
+		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+	
+	if(Input.is_action_just_pressed("lobby_confirm")):
+		if(selection == 2): #ready button selected
+			gaming = !gaming
 		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 #endregion
 
