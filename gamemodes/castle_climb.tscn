@@ -17,7 +17,6 @@ shadow_offset = Vector2(2, 2)
 [sub_resource type="LabelSettings" id="LabelSettings_wuave"]
 font = ExtResource("4_ft2nk")
 font_size = 192
-shadow_color = Color(0, 0, 0, 0.501961)
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_vgyv8"]
@@ -220,3 +219,6 @@ vertical_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_4q6c3")
 }
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
