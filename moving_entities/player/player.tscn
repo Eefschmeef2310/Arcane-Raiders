@@ -1,21 +1,24 @@
-[gd_scene load_steps=20 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=19 format=3 uid="uid://bp3p5hgbn2t6t"]
 
+[ext_resource type="Texture2D" uid="uid://s3jfdgtjmsv6" path="res://debug/draft_player.png" id="1_kd5ik"]
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
-[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="4_ske3u"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
-[ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/proj_ball_burn.tres" id="5_0ulxw"]
-[ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="5_l85ka"]
-[ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="6_31arx"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
-[ext_resource type="Resource" uid="uid://cy8odkeelulpq" path="res://spells/resources/aoe_large_burn.tres" id="8_dsfju"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="7_ik74f"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kd8kl"]
-load_path = "res://.godot/imported/player_placeholder.png-6cda79048012f48c40e9e46d00f86819.ctex"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
+
+[sub_resource type="Resource" id="Resource_8g4gv"]
+script = ExtResource("7_ik74f")
+
+[sub_resource type="Resource" id="Resource_rv1q5"]
+script = ExtResource("7_ik74f")
+
+[sub_resource type="Resource" id="Resource_1e75t"]
+script = ExtResource("7_ik74f")
 
 [sub_resource type="Animation" id="Animation_y4ic7"]
 length = 0.001
@@ -112,31 +115,8 @@ offset = Vector2(16.5, 0)
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprites"]
-visible = false
-position = Vector2(0, 9)
-texture = SubResource("CompressedTexture2D_kd8kl")
+texture = ExtResource("1_kd5ik")
 offset = Vector2(0, -60)
-flip_h = true
-
-[node name="Body" type="Sprite2D" parent="Sprites"]
-modulate = Color(0.188235, 0.388235, 0.760784, 1)
-position = Vector2(0, -21)
-texture = ExtResource("4_ske3u")
-
-[node name="Head" type="Sprite2D" parent="Sprites"]
-position = Vector2(3, -74)
-texture = ExtResource("5_l85ka")
-
-[node name="Hand" type="Sprite2D" parent="Sprites"]
-modulate = Color(0.74902, 0.494118, 0.333333, 1)
-position = Vector2(38, -25)
-texture = ExtResource("6_31arx")
-
-[node name="Hand2" type="Sprite2D" parent="Sprites"]
-modulate = Color(0.74902, 0.494118, 0.333333, 1)
-position = Vector2(-38, -24)
-texture = ExtResource("6_31arx")
-flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6gabg")
@@ -146,7 +126,7 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
-spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("5_0ulxw"), ExtResource("8_dsfju"), ExtResource("5_0ulxw")])
+spells = Array[ExtResource("7_ik74f")]([SubResource("Resource_8g4gv"), SubResource("Resource_rv1q5"), SubResource("Resource_1e75t")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -159,7 +139,6 @@ collision_mask = 8
 script = ExtResource("9_cti52")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-visible = false
 position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_o8khp")
 

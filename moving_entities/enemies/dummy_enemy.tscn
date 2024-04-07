@@ -39,7 +39,7 @@ debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
 [node name="ProgressBar" parent="." instance=ExtResource("3_078x2")]
 offset_left = -50.0
-offset_top = -46.0
+offset_top = -43.0
 offset_right = 50.0
 offset_bottom = -39.0
 
@@ -50,9 +50,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -77.0
 offset_right = 100.0
-offset_bottom = -48.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 0
 
