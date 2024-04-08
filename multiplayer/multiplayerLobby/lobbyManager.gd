@@ -34,6 +34,7 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	
+	
 	#get the peer id the player who has just joined (by loading this scenes ready func)
 	var incoming_peer_id = multiplayer.get_unique_id()
 	
@@ -75,14 +76,14 @@ func CreateNewCard(peer_id : int):
 #region Signal methods
 
 
-func _on_peer_connected(id:int):
+func _on_peer_connected(id:int): #this isnt triggering when a client joins 
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
-	CreateNewCard(id)
+	CreateNewCard.rpc(id)
 	#rpc("request_updates", id)
 	pass
 
-func _on_connected_to_server():
+func _on_connected_to_server(): #this isnt working at all
 	#get all the data from the other players and spawn their cards too
 	print("I have connected to the server!")
 	pass
