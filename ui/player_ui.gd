@@ -32,7 +32,7 @@ func update_spells():
 			spells[i].set_spell(data.spells[i])
 
 func update_prompts(id: int):
-	if id <= -2:
+	if id <= -2 or data.peer_id != multiplayer.get_unique_id():
 		for spell in spells:
 			spell.hide_prompt()
 	else:
