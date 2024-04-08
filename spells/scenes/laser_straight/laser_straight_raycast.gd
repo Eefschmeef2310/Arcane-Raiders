@@ -24,7 +24,7 @@ func _ready():
 	$Line2D.default_color = owner.resource.element.colour
 	$Line2D.width = 5
 	
-	await get_tree().create_timer(owner.start_time).timeout
+	#await get_tree().create_timer(owner.start_time).timeout
 	track_aim = false
 	
 	target_position = global_position + (caster.aim_direction * 999999)

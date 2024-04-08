@@ -25,7 +25,7 @@ func _ready():
 	#Runs when all children have entered the tree
 	pass
 
-func _process(delta):
+func _process(_delta):
 	#texture.noise.offset.y += speed #texture takes too long to update :(
 	pass
 #endregion

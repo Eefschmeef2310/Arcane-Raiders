@@ -70,6 +70,7 @@ texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1431, 1023)
+debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_x7bfs"), SubResource("Resource_sjnuj")])

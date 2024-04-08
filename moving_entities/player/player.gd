@@ -14,6 +14,7 @@ class_name Player
 @export var move_direction: Vector2
 @export var aim_direction: Vector2
 
+var preparing_cast_slot := -1
 var is_casting := false
 var can_cast := true
 var cast_end_time : float
@@ -26,13 +27,14 @@ func _ready():
 	# TODO temporary lines here
 	if debug:
 		set_data(data, false)
+		
 	
 
 func _process(_delta):
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
 			velocity = move_direction * movement_speed
-			if is_casting:
+			if is_casting or preparing_cast_slot >= 0:
 				velocity *= 0.25
 			move_and_slide()
 	
@@ -41,19 +43,21 @@ func _process(_delta):
 	else:
 		$SpritesFlip.scale.x = 1
 	
-	if !is_casting:
+	if !is_casting and preparing_cast_slot < 0:
 		if move_direction != Vector2.ZERO:
 			animation_player.play("move", -1, 1)
 		else:
 			animation_player.play("idle", -1, 1)
 	
+	if debug:
+		$PrepareCast.text = str(preparing_cast_slot)
+		$CanCast.text = str(can_cast)
+	
 #endregion
 
 #region Signal methods
 func _on_animation_player_animation_finished(anim_name: String):
-	if anim_name.contains("cast_start"):
-		animation_player.play("cast_end", -1, 1/cast_end_time)
-	elif anim_name.contains("cast_end"):
+	if anim_name.contains("cast_end"):
 		animation_player.play("idle", -1, 1)
 		is_casting = false
 #endregion
@@ -79,10 +83,17 @@ func set_input(id: int):
 	print("Setting input" + str(id))
 	$Input.set_device(id)
 
+func prepare_cast(slot: int):
+	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0:
+		preparing_cast_slot = slot
+		animation_player.stop()
+		animation_player.play("cast_start")
+
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
 	if can_cast and data.spell_cooldowns[slot] <= 0:
 		cast_spell.rpc(slot)
+	preparing_cast_slot = -1
 
 @rpc("authority", "call_local", "reliable")
 func cast_spell(slot: int):
@@ -104,7 +115,7 @@ func cast_spell(slot: int):
 		is_casting = true
 		can_cast = false
 		cast_end_time = spell_node.end_time
-		animation_player.play("cast_start", -1, 1/spell_node.start_time)
+		animation_player.play("cast_end", -1, 1/spell_node.end_time)
 		
 		# Allow us to cast a spell again in a certain amount of time
 		# (only the authority uses this though)

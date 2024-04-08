@@ -10,22 +10,19 @@ extends Node
 #Constants
 
 #Exported Variables
-#@export_group("Group")
-#@export_subgroup("Subgroup")
 @export_group("Card Values")
 @export var username : String
+@export var peer_id : int # for online multiplayer
+@export var device_id : int = -2 # for local multiplayer
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
 @export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
-@export var show_panels : bool = false #dont show stuff until a player connects
+@export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED
 
 @export_group("Other Resources")
 @export var pip_texture : Texture2D
-#@export var default_slot_icon : Texture2D
-#@export var default_online_card : PlayerCardRes
-#@export var default_offline_card : PlayerCardRes
 
 @export_group("References")
 @export var lobby_manager : Node
@@ -51,6 +48,9 @@ extends Node
 
 #region Godot methods
 func _ready():
+	
+	
+	# create and prepare the ui pips
 	for child in character_pips_box.get_children():
 		child.queue_free()
 	
@@ -70,30 +70,49 @@ func _ready():
 		if loadoutCount > 0:
 			new_pip.modulate = Color.DIM_GRAY
 		loadout_pips_box.add_child(new_pip)
-	
-	#setOnlineDefault()
 	pass
 
-func _process(delta):
+func _process(_delta):
 	#Runs per frame
-	if username != "":
-		show_panels = true
+	#if username != "":
+		#show_panels = true
+	
+	if is_multiplayer_authority():
+		var changed = false
+		if(Input.is_action_just_pressed("down")):
+			if not player_ready:
+				selected_panel = clampi(selected_panel + 1, 0,2)
+			changed = true
+		
+		if(Input.is_action_just_pressed("up")):
+			if not player_ready:
+				selected_panel = clampi(selected_panel - 1, 0,2)
+			changed = true
+		
+		if(Input.is_action_just_pressed("left")):
+			if(selected_panel == 0): #raider panel selected 
+				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
+			elif(selected_panel == 1): #loadout selected
+				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
+			changed = true
+			
+		if(Input.is_action_just_pressed("right")):
+			if(selected_panel == 0): #raider panel selected 
+				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
+			elif(selected_panel == 1): #loadout selected
+				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
+			changed = true
+		
+		if(Input.is_action_just_pressed("lobby_confirm")):
+			if(selected_panel == 2): #ready button selected
+				player_ready = !player_ready
+				changed = true
+				
+		if changed:
+			setValues.rpc(Steam.getPersonaName(),selected_raider,selected_loadout,selected_panel,player_ready)
+	
 	UpdateDisplay()
-	
-	#also manage pips for raider and loadout 
-	
-	
-	#also manage panel highlighting 
-	for panel_num in panels_array.size():
-		if selected_panel == panel_num:
-			#highlight panel with moduate
-			(panels_array[panel_num] as Control).self_modulate = highlight_color
-			pass
-		else:
-			#restore it to normal modulation
-			(panels_array[panel_num] as Control).self_modulate = Color.WHITE
-			pass
-	pass
+
 #endregion
 
 #region Signal methods
@@ -111,32 +130,27 @@ func setValues(new_username : String, new_raider : int, new_loadout : int, new_p
 	selected_loadout = new_loadout
 	selected_panel = new_panel
 	player_ready = new_ready
-	
-	
-	#also set colour ect
 
 func UpdateDisplay():
+	
+	# hide everything if there isnt a player to use it
 	all_panels.visible = show_panels
-	#also manage setting of visible card values 
+	
+	# set some basic values
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
-	
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
 	
+	# prepare spell icons
 	for spell : int in spells_box.get_children().size():
 		var spell_resource: Spell = SpellManager.get_spell_from_string(lobby_manager.loadouts[selected_loadout].spell_ids[spell])
 		if spell_resource:
 			spells_box.get_child(spell).texture = spell_resource.ui_texture
 			spells_box.get_child(spell).modulate = spell_resource.element.colour
 	
-	highlight_color = lobby_manager.raiders[selected_raider].color
-	if player_ready:
-		most_panels.modulate = Color.DIM_GRAY
-	else: 
-		most_panels.modulate = Color.WHITE 
-	
+	# Manage the pips under raider and loadout title
 	for pip in character_pips_box.get_children().size():
 		if pip == selected_raider:
 			character_pips_box.get_child(pip).modulate = Color.WHITE
@@ -148,12 +162,24 @@ func UpdateDisplay():
 			loadout_pips_box.get_child(pip).modulate = Color.WHITE
 		else: 
 			loadout_pips_box.get_child(pip).modulate = Color.DIM_GRAY
-
-func setLocalDefault():
-	#setValues(default_offline_card)
+	
+	
+	#Highlight the correct panel
+	highlight_color = lobby_manager.raiders[selected_raider].color
+	if player_ready:
+		most_panels.modulate = Color.DIM_GRAY
+	else: 
+		most_panels.modulate = Color.WHITE 
+	
+	for panel_num in panels_array.size():
+		if selected_panel == panel_num:
+			#highlight panel with moduate
+			(panels_array[panel_num] as Control).self_modulate = highlight_color
+			pass
+		else:
+			#restore it to normal modulation
+			(panels_array[panel_num] as Control).self_modulate = Color.WHITE
+			pass
 	pass
 
-func setOnlineDefault():
-	#setValues(default_online_card)
-	pass
 #endregion

@@ -124,7 +124,7 @@ basic_rooms = Array[PackedScene]([ExtResource("2_myxlf"), ExtResource("3_i3kdw")
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
-character = ExtResource("5_ohq6b")
+character = ExtResource("7_ee2cn")
 
 [node name="PlayerData1" type="Node" parent="."]
 script = ExtResource("2_tpid8")
@@ -134,7 +134,7 @@ character = ExtResource("6_sfo2l")
 [node name="PlayerData2" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.784314, 0.6, 0.101961, 1)
-character = ExtResource("7_ee2cn")
+character = ExtResource("5_ohq6b")
 
 [node name="PlayerData3" type="Node" parent="."]
 script = ExtResource("2_tpid8")
@@ -150,7 +150,6 @@ replication_config = SubResource("SceneReplicationConfig_d82o0")
 offset_left = 32.0
 offset_right = 115.0
 offset_bottom = 146.0
-text = "1F"
 label_settings = SubResource("LabelSettings_ahfih")
 
 [node name="RoomTransitionUI" type="CanvasLayer" parent="."]

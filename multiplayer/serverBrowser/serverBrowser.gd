@@ -39,7 +39,7 @@ func _ready():
 	Steam.lobby_match_list.connect(on_lobby_match_list)
 	open_lobby_list()
 
-func _process(delta):
+func _process(_delta):
 	#Runs per frame
 	pass
 #endregion
@@ -85,8 +85,8 @@ func join_lobby(id):
 	#$LobbyContainer/Lobbies.hide()
 	server_browser.hide()
 
-func _on_lobby_created(connect, id):
-	if connect:
+func _on_lobby_created(connected, id):
+	if connected:
 		lobby_id = id
 		Steam.setLobbyData(lobby_id,"name",str(Steam.getPersonaName()+"'s Arcane Raiders Lobby " + Time.get_time_string_from_system()))
 		Steam.setLobbyJoinable(lobby_id, true)

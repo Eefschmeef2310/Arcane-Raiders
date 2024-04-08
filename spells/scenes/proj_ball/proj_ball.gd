@@ -6,7 +6,7 @@ extends SpellBase
 
 #region Godot methods
 func _ready():
-	await get_tree().create_timer(start_time).timeout
+	#await get_tree().create_timer(start_time).timeout
 	var ball = body.instantiate()
 	transfer_data(ball)
 	add_sibling(ball)
