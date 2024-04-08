@@ -31,8 +31,8 @@ var sent_first_update : bool = false
 func _ready():
 	##Runs when all children have entered the tree
 	#Steam.lobby_joined.connect(_on_lobby_joined)
-	#multiplayer.peer_connected.connect(_on_peer_connected)
-	#multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
 		
 	print("Player ID: " + str(SteamManager.player_id))
 	pass
@@ -110,7 +110,7 @@ func _on_peer_connected(id:int):
 
 
 func _on_connected_to_server():
-	print("connected to server")
+	print("connected to server!")
 	SendNewCard()
 #endregion
 
