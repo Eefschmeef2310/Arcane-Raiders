@@ -16,6 +16,7 @@ enum MultiplayerMode {Local,Online}
 @export var mode : MultiplayerMode
 @export_group("Node References") 
 @export var player_card_hbox : HBoxContainer #hold all the player cards!
+@export var multiplayer_spawner : MultiplayerSpawner
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
@@ -33,6 +34,7 @@ func _ready():
 	##Runs when all children have entered the tree
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer_spawner.spawn_function = CreateNewCard
 	
 	
 	#get the peer id the player who has just joined (by loading this scenes ready func)
@@ -40,7 +42,8 @@ func _ready():
 	
 	if(multiplayer.is_server()):
 	#CreateNewCard.rpc(incoming_peer_id)
-		CreateNewCard(incoming_peer_id)
+		#CreateNewCard(incoming_peer_id)
+		multiplayer_spawner.spawn(incoming_peer_id)
 	
 		
 	print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
@@ -62,8 +65,8 @@ func CreateNewCard(peer_id : int):
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
 	new_player_card.set_multiplayer_authority(peer_id, true)
-	player_card_hbox.add_child(new_player_card)
 	player_joined.emit()
+	return new_player_card
 
 #@rpc("authority","call_local")
 #func request_updates(from : int):
@@ -81,7 +84,8 @@ func CreateNewCard(peer_id : int):
 func _on_peer_connected(id:int): #this isnt triggering when a client joins 
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
-	CreateNewCard.rpc(id)
+	#CreateNewCard.rpc(id)
+	multiplayer_spawner.spawn(id)
 	#rpc("request_updates", id)
 	pass
 
