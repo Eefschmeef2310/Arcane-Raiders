@@ -126,8 +126,10 @@ func UpdateDisplay():
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
 	
 	for spell : int in spells_box.get_children().size():
-		spells_box.get_child(spell).texture = lobby_manager.loadouts[selected_loadout].spells[spell].ui_texture
-		spells_box.get_child(spell).modulate = lobby_manager.loadouts[selected_loadout].spells[spell].element.colour
+		var spell_resource: Spell = SpellManager.get_spell_from_string(lobby_manager.loadouts[selected_loadout].spell_ids[spell])
+		if spell_resource:
+			spells_box.get_child(spell).texture = spell_resource.ui_texture
+			spells_box.get_child(spell).modulate = spell_resource.element.colour
 	
 	highlight_color = lobby_manager.raiders[selected_raider].color
 	if player_ready:

@@ -1,46 +1,43 @@
-[gd_scene load_steps=19 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=18 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
-[ext_resource type="TileSet" uid="uid://d3m81kgrpb16j" path="res://tilesets/tileset.tres" id="2_m3mqg"]
+[ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_m3mqg"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
 [ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_1jas3"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
-[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_qhx16"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="8_a00af"]
-[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="9_bw1d1"]
-[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
+[ext_resource type="Resource" path="res://elements/wet.tres" id="9_bw1d1"]
+[ext_resource type="PackedScene" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="11_cfego"]
 
 [sub_resource type="Resource" id="Resource_6r2q7"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("5_1jas3")
 
 [sub_resource type="Resource" id="Resource_h2pq2"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("9_bw1d1")
 
 [sub_resource type="Resource" id="Resource_ivv85"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("11_cfego")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
 
-[node name="TestRoom" type="Node2D" node_paths=PackedStringArray("data_to_fuck_with")]
+[node name="TestRoom" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(-4, 10)
 script = ExtResource("1_iy1p6")
-data_to_fuck_with = NodePath("Player/PlayerData")
+data_to_fuck_with = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://managers/player_data.gd"),"device_id":-2,"peer_id":1,"health":0,"spells":Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_h2pq2"), SubResource("Resource_ivv85")]),"spell_cooldowns_max":Array[float]([]),"spell_cooldowns":Array[float]([]),"main_color":Color(0.737255, 0.231373, 0.192157, 1),"character":null)
+
 
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
@@ -68,7 +65,6 @@ texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1431, 1023)
-debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_h2pq2"), SubResource("Resource_ivv85")])
