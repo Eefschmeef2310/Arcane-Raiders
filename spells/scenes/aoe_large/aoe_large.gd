@@ -8,7 +8,6 @@ extends SpellBase
 var cast_distance: float = 250
 
 func _ready():
-	print(resource.element.resource_name)
 	
 	# Set modulation
 	$Ring/Sprite2D.modulate = resource.element.colour

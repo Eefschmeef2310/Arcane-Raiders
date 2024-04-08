@@ -8,12 +8,13 @@
 script = ExtResource("2_qrfy8")
 BULLET = ExtResource("3_jtqi4")
 waves = 5
-bullets_per_wave = 1
+bullets_per_wave = 2
 max_radians = 0.0
-base_damage = 5
+base_damage = 10
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 wait_time = 0.05
 one_shot = true
+autostart = true
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

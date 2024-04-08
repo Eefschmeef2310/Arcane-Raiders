@@ -6,7 +6,6 @@ extends Area2D
 	#Signals
 
 	#Enums
-
 	#Constants
 
 	#Exported Variables
@@ -33,7 +32,7 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	queue_free()
 
 func _on_kill_timer_timeout():

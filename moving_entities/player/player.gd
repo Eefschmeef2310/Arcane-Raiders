@@ -2,6 +2,7 @@ extends Entity
 class_name Player
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
+@export var debug : bool = false
 @export var data: PlayerData
 
 @export_group("Parameters")
@@ -10,8 +11,8 @@ class_name Player
 @onready var animation_player = $AnimationPlayer
 
 # Normalised vectors
-var move_direction: Vector2
-var aim_direction: Vector2
+@export var move_direction: Vector2
+@export var aim_direction: Vector2
 
 var is_casting := false
 var can_cast := true
@@ -23,7 +24,8 @@ func _ready():
 	animation_player.play("idle", -1, 1)
 	
 	# TODO temporary lines here
-	set_data(data, false)
+	if debug:
+		set_data(data, false)
 	
 
 func _process(_delta):
@@ -33,7 +35,18 @@ func _process(_delta):
 			if is_casting:
 				velocity *= 0.25
 			move_and_slide()
-		
+	
+	if aim_direction.x < 0:
+		$SpritesFlip.scale.x = -1
+	else:
+		$SpritesFlip.scale.x = 1
+	
+	if !is_casting:
+		if move_direction != Vector2.ZERO:
+			animation_player.play("move", -1, 1)
+		else:
+			animation_player.play("idle", -1, 1)
+	
 #endregion
 
 #region Signal methods
@@ -50,8 +63,17 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
+	
 	set_input(data.device_id)
+	set_multiplayer_authority(data.peer_id, true)
 	$SpellDirection/Sprite2D.modulate = data.main_color
+	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
+	
+	if data.character:
+		print(data.character.name)
+		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
+		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
+		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
 
 func set_input(id: int):
 	print("Setting input" + str(id))
@@ -60,14 +82,16 @@ func set_input(id: int):
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
 	if can_cast and data.spell_cooldowns[slot] <= 0:
-		cast_spell(slot)
+		cast_spell.rpc(slot)
 
+@rpc("authority", "call_local", "reliable")
 func cast_spell(slot: int):
-	if slot < data.spells.size():
+	if slot < data.spells.size() and data.spells[slot]:
 		# Initialise spell object and add to tree
-		var spell_node = data.spells[slot].spell_scene.instantiate()
+		var spell_node = data.spells[slot].scene.instantiate()
 		spell_node.resource = data.spells[slot]
 		spell_node.caster = self
+		spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
 		
 		#print(get_angle_to(aim_direction) - rotation)
 		add_sibling(spell_node)

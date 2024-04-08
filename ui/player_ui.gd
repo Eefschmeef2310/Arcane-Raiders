@@ -5,20 +5,17 @@ class_name PlayerUI
 @export var icons_keyb: Array[Texture2D]
 @export var icons_xbox: Array[Texture2D]
 @export var icons_ps: Array[Texture2D]
+@export var data: PlayerData
 
 @onready var spells: Array = [$HBox/Stats/Spells/Spell0, $HBox/Stats/Spells/Spell1, $HBox/Stats/Spells/Spell2]
-
-@export var data: PlayerData
+@onready var health_bar = $HBox/Stats/HealthBar
 
 var input_prompts: Array
 
 #region Godot methods
 func _ready():
 	if is_instance_valid(data):
-		data.device_changed.connect(update_prompts)
-		data.spell_changed.connect(update_spells)
-		update_prompts(data.device_id)
-		update_spells()
+		set_data(data)
 
 func _process(_delta):
 	if is_instance_valid(data):
@@ -46,6 +43,8 @@ func update_prompts(id: int):
 				spells[i].show_prompt()
 				spells[i].change_prompt(icons[i])
 
+func _on_player_health_updated(_player_data, _amount):
+	health_bar.value = data.health
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -53,9 +52,13 @@ func set_data(d: PlayerData):
 	if is_instance_valid(data):
 		data.device_changed.disconnect(update_prompts)
 		data.spell_changed.disconnect(update_spells)
+		data.health_changed.disconnect(_on_player_health_updated)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
+	data.health_changed.connect(_on_player_health_updated)
 	update_prompts(data.device_id)
 	update_spells()
+	$HBox/Stats/HealthBar.tint_progress = data.main_color
+
 #endregion

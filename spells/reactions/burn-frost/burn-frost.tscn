@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxbx5yeaogymo"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_3yuf6"]
+[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_m1j4m"]
+[ext_resource type="PackedScene" uid="uid://bp4swe3e1r06c" path="res://spells/reactions/burn-frost/burn-frost-bullet.tscn" id="3_fuemi"]
+
+[node name="burn-frost" instance=ExtResource("1_3yuf6")]
+script = ExtResource("2_m1j4m")
+BULLET = ExtResource("3_fuemi")
+waves = 1
+bullets_per_wave = 8
+max_radians = 6.283
+base_damage = 1
+start_time = 0.0
+end_time = 0.0
+cancel_time = 0.0
+cooldown_time = 0.0
+
+[node name="WaveTimer" type="Timer" parent="." index="0"]
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

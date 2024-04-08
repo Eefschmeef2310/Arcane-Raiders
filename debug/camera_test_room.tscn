@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://7udbwg4mghlv"]
+
+[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="1_4pd5d"]
+[ext_resource type="Script" path="res://debug/camera_test_room.gd" id="1_c8bi5"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_eo2p2"]
+[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_244ih"]
+
+[node name="CameraTestRoom" type="Node2D"]
+script = ExtResource("1_c8bi5")
+
+[node name="Player" parent="." instance=ExtResource("2_244ih")]
+position = Vector2(993, 540)
+
+[node name="PlayerData" parent="Player" index="4"]
+device_id = -1
+
+[node name="DynamicCamera" parent="." instance=ExtResource("1_4pd5d")]
+position = Vector2(979, 409)
+zoom_speed = 10.0
+max_zoom = 0.3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(954.5, 520)
+scale = Vector2(15.9141, 9.125)
+texture = ExtResource("1_eo2p2")
+
+[node name="Player2" parent="." instance=ExtResource("2_244ih")]
+position = Vector2(740, 382)
+
+[node name="Player3" parent="." instance=ExtResource("2_244ih")]
+position = Vector2(1092, 325)
+
+[editable path="Player"]
