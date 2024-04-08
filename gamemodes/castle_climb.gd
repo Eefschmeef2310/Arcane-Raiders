@@ -1,4 +1,5 @@
 extends Node
+class_name CastleClimb
 
 @onready var level_spawner = $LevelSpawner
 
