@@ -45,7 +45,7 @@ fill_to = Vector2(0, 1)
 font_size = 91
 font_color = Color(1, 0.921569, 0.929412, 1)
 
-[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox", "multiplayer_spawner")]
+[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox", "multiplayer_spawner", "debug_start_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,6 +55,7 @@ grow_vertical = 2
 script = ExtResource("1_7ydb8")
 player_card_hbox = NodePath("MarginContainer/PlayerCardBox")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
+debug_start_button = NodePath("StartButton")
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_pgemf"), ExtResource("4_r1oq1"), ExtResource("2_837od")])
 loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
 server_browser_scene = ExtResource("14_1q3ex")
