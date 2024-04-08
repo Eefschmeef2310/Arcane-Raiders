@@ -118,7 +118,7 @@ func StartGame():
 	hide_lobby.rpc()
 	var i = 0
 	for card in player_card_hbox.get_children():
-		castle_climb.set_player_data(i, card.device_id, card.peer_id, loadouts[card.selected_loadout].spell_ids, raiders[card.selected_raider])
+		castle_climb.set_player_data.rpc(i, card.device_id, card.peer_id, loadouts[card.selected_loadout].spell_ids, raiders[card.selected_raider])
 		i += 1
 	
 	castle_climb.start_climb()
