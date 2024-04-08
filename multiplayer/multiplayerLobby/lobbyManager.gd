@@ -17,6 +17,7 @@ enum MultiplayerMode {Local,Online}
 @export_group("Node References") 
 @export var player_card_hbox : HBoxContainer #hold all the player cards!
 @export var multiplayer_spawner : MultiplayerSpawner
+@export var debug_start_button : Button
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
@@ -31,6 +32,7 @@ var sent_first_update : bool = false
 
 #region Godot methods
 func _ready():
+	debug_start_button.disabled = not multiplayer.is_server()
 	##Runs when all children have entered the tree
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -103,6 +105,10 @@ func InitLobby(_online_mode : MultiplayerMode):
 	pass
 	
 
+
+func StartGame():
+	pass
+
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
 #
@@ -124,3 +130,7 @@ func _on_back_button_pressed():
 	#TODO close server
 	get_tree().change_scene_to_packed(server_browser_scene) 
 	pass # Replace with function body.
+
+
+func _on_start_button_pressed(): 
+	StartGame()
