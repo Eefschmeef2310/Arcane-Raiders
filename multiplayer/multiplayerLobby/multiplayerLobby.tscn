@@ -1,32 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=18 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
-[ext_resource type="Resource" uid="uid://bxwva5805lusc" path="res://multiplayer/multiplayerLobby/raiders/Dragon.tres" id="3_lyylo"]
-[ext_resource type="Resource" uid="uid://coenguoh1frq" path="res://multiplayer/multiplayerLobby/raiders/Dusty.tres" id="4_mlojx"]
-[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="5_vgbiw"]
+[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_pgemf"]
+[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="4_r1oq1"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
 [ext_resource type="PackedScene" uid="uid://ngf5irvgldhp" path="res://multiplayer/serverBrowser/serverBrowser.tscn" id="14_1q3ex"]
-
-[sub_resource type="Gradient" id="Gradient_a2n7h"]
-colors = PackedColorArray(0, 0.404969, 0.220992, 1, 1.73271e-06, 0.606315, 0.606363, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_i8f45"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7qkmn"]
-width = 64
-height = 64
-color_ramp = SubResource("Gradient_a2n7h")
-noise = SubResource("FastNoiseLite_i8f45")
-
-[sub_resource type="Resource" id="Resource_jmh4t"]
-script = ExtResource("5_vgbiw")
-portrait = SubResource("NoiseTexture2D_7qkmn")
-raider_name = "Alex"
-raider_desc = "such a cool person"
-color = Color(0, 0.541176, 0.682353, 1)
 
 [sub_resource type="Resource" id="Resource_gs5db"]
 script = ExtResource("6_mpv8m")
@@ -72,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ydb8")
 player_card_hbox = NodePath("MarginContainer/HBoxContainer")
-raiders = Array[ExtResource("5_vgbiw")]([ExtResource("2_837od"), ExtResource("3_lyylo"), ExtResource("4_mlojx"), SubResource("Resource_jmh4t")])
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_pgemf"), ExtResource("4_r1oq1"), ExtResource("2_837od")])
 loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
 server_browser_scene = ExtResource("14_1q3ex")
 

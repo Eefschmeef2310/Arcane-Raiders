@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://d3oo8nlvtnu1f"]
+
+[ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="1_cl7g4"]
+[ext_resource type="Texture2D" uid="uid://b3j4xdfbpv4ku" path="res://multiplayer/multiplayerLobby/raiders/dogplaceholder.png" id="2_fqohj"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_fwle7"]
+
+[resource]
+script = ExtResource("3_fwle7")
+portrait = ExtResource("2_fqohj")
+raider_name = "Wolf"
+raider_desc = "awooooo!"
+color = Color(0.203922, 0.282353, 0.541176, 1)
+head_texture = ExtResource("1_cl7g4")
+skin_color = Color(0.403922, 0.658824, 0.678431, 1)

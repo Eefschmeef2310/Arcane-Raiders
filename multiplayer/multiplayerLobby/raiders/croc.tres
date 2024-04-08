@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://c6esfkvr6if8c"]
+
+[ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="1_o5v4l"]
+[ext_resource type="Texture2D" uid="uid://ckvnyognf84so" path="res://multiplayer/multiplayerLobby/raiders/crocplaceholder.png" id="2_27v4x"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_goleq"]
+
+[resource]
+script = ExtResource("3_goleq")
+portrait = ExtResource("2_27v4x")
+raider_name = "Croc"
+raider_desc = "grr grr!"
+color = Color(0.203922, 0.282353, 0.541176, 1)
+head_texture = ExtResource("1_o5v4l")
+skin_color = Color(0.309804, 0.521569, 0.231373, 1)
