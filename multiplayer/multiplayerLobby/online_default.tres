@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayerCardRes" load_steps=2 format=3 uid="uid://qjsrewtxu7g3"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/playerCardResource.gd" id="1_211ov"]
+
+[resource]
+script = ExtResource("1_211ov")
+portrait_path = "res://icon.svg"
+display_username = true
+username = " "
+raider_name = "???"
+raider_desc = "Join through the lobby"
+raider_number = 0
+loadout_name = "Basic"
+loadout_desc = "1, 2, 3"
+loadout_num = 0
+selected = 0
+ready = false

@@ -1,15 +1,15 @@
 [gd_scene load_steps=17 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
-[ext_resource type="PackedScene" uid="uid://cbmfe52jfiyeb" path="res://rooms/basic/basic_eight.tscn" id="2_myxlf"]
+[ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/basic/basic_eight.tscn" id="2_myxlf"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
-[ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
+[ext_resource type="PackedScene" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
-[ext_resource type="Resource" uid="uid://chy5u5x2b2p0s" path="res://moving_entities/player/player_characters/cat.tres" id="4_igbf8"]
-[ext_resource type="Resource" uid="uid://ctqj8outgmnmw" path="res://moving_entities/player/player_characters/wolf.tres" id="5_wfer1"]
-[ext_resource type="Resource" uid="uid://cd6i43ptcu4a0" path="res://moving_entities/player/player_characters/owl.tres" id="6_sbmub"]
-[ext_resource type="Resource" uid="uid://cqeg737gjxs7g" path="res://moving_entities/player/player_characters/croc.tres" id="7_ilw3s"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="5_ohq6b"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
+[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
+[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d82o0"]
 properties/0/path = NodePath("PlayerData0:peer_id")
@@ -124,22 +124,22 @@ basic_rooms = Array[PackedScene]([ExtResource("2_myxlf"), ExtResource("3_i3kdw")
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
-character = ExtResource("4_igbf8")
+character = ExtResource("5_ohq6b")
 
 [node name="PlayerData1" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.188235, 0.388235, 0.760784, 1)
-character = ExtResource("5_wfer1")
+character = ExtResource("6_sfo2l")
 
 [node name="PlayerData2" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.784314, 0.6, 0.101961, 1)
-character = ExtResource("6_sbmub")
+character = ExtResource("7_ee2cn")
 
 [node name="PlayerData3" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.156863, 0.466667, 0.266667, 1)
-character = ExtResource("7_ilw3s")
+character = ExtResource("8_ds4tw")
 
 [node name="PlayerDataSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_d82o0")

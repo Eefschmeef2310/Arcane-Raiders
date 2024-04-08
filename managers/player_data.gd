@@ -11,12 +11,12 @@ signal device_changed(id: int)
 @export var peer_id : int = 1
 
 @export var health : int = 1000
-@export var spells : Array[Spell]
-@export var spell_cooldowns_max : Array[float]
-@export var spell_cooldowns : Array[float]
+@export var spells : Array[Spell] = [null,null,null]
+@export var spell_cooldowns_max : Array[float] = [0,0,0]
+@export var spell_cooldowns : Array[float] = [0,0,0]
 
 @export var main_color : Color = Color.RED
-@export var character : PlayerCharacter
+@export var character : RaiderRes
 
 func _ready():
 	spells.resize(3)

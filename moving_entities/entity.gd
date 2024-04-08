@@ -44,15 +44,15 @@ func _process(delta):
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
 		#following line ticks down each key's timer, while taking wetness into account
-		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["Wet"] and current_inflictions_dictionary.has(SpellManager.elements["Wet"])) else 1.0))
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["Wet"] and current_inflictions_dictionary.has(SpellManager.elements["wet"])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 		
-		if key == SpellManager.elements["Burn"]:
+		if key == SpellManager.elements["burn"]:
 			burn_effect(delta)
-		elif key == SpellManager.elements["Frost"]:
+		elif key == SpellManager.elements["frost"]:
 			frost_effect(0.5)
-		elif key == SpellManager.elements["Stun"]:
+		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
 #endregion
 
@@ -83,7 +83,7 @@ func on_hurt(hit_node):
 		element = hit_node.element
 		
 	if element:
-		if element != SpellManager.elements["Null"]:
+		if element != SpellManager.elements["null"]:
 			if !current_inflictions_dictionary.has(element):
 				current_inflictions_dictionary[element] = 0
 			current_inflictions_dictionary[element] += infliction_time
@@ -108,7 +108,7 @@ func on_hurt(hit_node):
 							get_tree().root.add_child(reaction)
 
 	#if shocked, run shock effect
-	if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
+	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
 	
 	if do_damage_numbers:
@@ -147,7 +147,7 @@ func shock_effect():
 		shocked_this_frame = true
 		closest.shocked_this_frame = true
 		
-		if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
+		if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 			shock_effect()
 		
 		#draw line between guys
