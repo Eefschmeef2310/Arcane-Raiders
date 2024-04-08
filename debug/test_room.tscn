@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=20 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
@@ -14,7 +14,6 @@
 [ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="9_bw1d1"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="PackedScene" uid="uid://0u08iljqx1w1" path="res://spells/reactions/shock-wind/shock-wind.tscn" id="15_wp10l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i581n"]
 
@@ -103,137 +102,50 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1609, 600)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy2" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1924, 665)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy3" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1484, 768)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy4" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1318, 901)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy5" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1607, 731)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy6" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1487, 667)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy7" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1756, 683)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy8" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1783, 573)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy9" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1380, 816)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy10" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1036, 709)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy11" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(758, 517)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy12" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(467, 888)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy13" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1065, 1208)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DummyEnemy14" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1703, 1240)
-movement_speed = 100.0
-damage = 10
-max_health = 1000
-health = 1000
-do_damage_numbers = true
-knockback_timeout = 20.0
 
 [node name="DynamicCamera" parent="." instance=ExtResource("10_pyvl3")]
 position = Vector2(1094, 310)
 
 [node name="GameOverManager" type="Node" parent="."]
 script = ExtResource("11_4vjuy")
-
-[node name="Shock-wind" parent="." instance=ExtResource("15_wp10l")]
-position = Vector2(1259, 885)
 
 [editable path="Player"]
