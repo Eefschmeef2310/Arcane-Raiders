@@ -27,6 +27,9 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 @export_subgroup("Knockback")
 @export var knockback_timeout : float = 20
 @export var knockback_initial_velocity : float = 2000
+
+@export_subgroup("Attraction")
+@export var attraction_strength : float = 65
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -41,6 +44,8 @@ var can_input : bool = true
 var knockback_velocity : float
 var knockback_direction : Vector2
 
+#for attraction stuff
+var attraction_direction : Vector2
 #endregion
 
 #region Godot methods

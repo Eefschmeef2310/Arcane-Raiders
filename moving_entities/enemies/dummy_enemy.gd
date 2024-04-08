@@ -39,13 +39,12 @@ func _physics_process(delta):
 		var next_path_pos: Vector2 = nav_agent.get_next_path_position()
 		
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
-		nav_agent.set_velocity(intended_velocity)
 		
 		#knockback code
 		if !can_input:
 			nav_agent.set_velocity(Vector2.ZERO)
 			
-		nav_agent.set_velocity(nav_agent.velocity + knockback_velocity * knockback_direction)
+		nav_agent.set_velocity(intended_velocity + knockback_velocity * knockback_direction + attraction_direction * attraction_strength)
 		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_timeout)
 		
 		if knockback_velocity < 0.01:
