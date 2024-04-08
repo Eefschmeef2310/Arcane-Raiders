@@ -10,8 +10,6 @@ extends Node
 #Constants
 
 #Exported Variables
-#@export_group("Group")
-#@export_subgroup("Subgroup")
 @export_group("Card Values")
 @export var username : String
 @export var selected_raider : int = 0
@@ -74,8 +72,8 @@ func _ready():
 
 func _process(delta):
 	#Runs per frame
-	if username != "":
-		show_panels = true
+	#if username != "":
+		#show_panels = true
 	
 	if is_multiplayer_authority():
 		var changed = false

@@ -31,7 +31,6 @@ var sent_first_update : bool = false
 #region Godot methods
 func _ready():
 	##Runs when all children have entered the tree
-	#Steam.lobby_joined.connect(_on_lobby_joined)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	
@@ -75,22 +74,19 @@ func CreateNewCard(peer_id : int):
 
 #region Signal methods
 
-#func _on_lobby_joined():
-	#print("lobby joined")
-	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
-	
 
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
 	CreateNewCard(id)
-	rpc("request_updates", id)
+	#rpc("request_updates", id)
 	pass
 
-
 func _on_connected_to_server():
-	print("connected to server!")
-	#SendNewCard()
+	#get all the data from the other players and spawn their cards too
+	print("I have connected to the server!")
+	pass
+
 #endregion
 
 #region Other methods (please try to separate and organise!)
