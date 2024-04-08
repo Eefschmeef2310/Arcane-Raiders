@@ -17,7 +17,7 @@ var entity
 
 #region Other methods (please try to separate and organise!)
 func deal_damage():
-	entity.health -= base_damage
+	entity.on_hurt(self)
 	queue_free()
 #endregion
 "

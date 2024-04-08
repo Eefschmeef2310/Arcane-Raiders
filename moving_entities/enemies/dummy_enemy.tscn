@@ -65,7 +65,6 @@ grow_vertical = 0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
 
 [node name="NavUpdateTimer" type="Timer" parent="."]
 wait_time = 0.5

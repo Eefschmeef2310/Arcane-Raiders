@@ -1,37 +1,39 @@
-[gd_scene load_steps=19 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=22 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
 [ext_resource type="TileSet" uid="uid://d3m81kgrpb16j" path="res://tilesets/tileset.tres" id="2_m3mqg"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
 [ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
-[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_1jas3"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
+[ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="5_ra27a"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
 [ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_qhx16"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="8_a00af"]
-[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="9_bw1d1"]
+[ext_resource type="Resource" uid="uid://l0pouj41mexa" path="res://elements/stun.tres" id="9_qjtco"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
+[ext_resource type="PackedScene" uid="uid://c4td8rjmyf2lq" path="res://spells/scenes/proj_ball/proj_ball.tscn" id="10_xxhdp"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="11_cfego"]
+[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="11_wkhts"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="12_mr7af"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i581n"]
 
 [sub_resource type="Resource" id="Resource_6r2q7"]
 script = ExtResource("6_82yns")
 scene = ExtResource("6_qhx16")
 ui_texture = ExtResource("8_a00af")
-element = ExtResource("5_1jas3")
+element = ExtResource("5_ra27a")
 
-[sub_resource type="Resource" id="Resource_h2pq2"]
+[sub_resource type="Resource" id="Resource_x7bfs"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
-ui_texture = ExtResource("8_a00af")
-element = ExtResource("9_bw1d1")
+scene = ExtResource("10_xxhdp")
+ui_texture = ExtResource("11_wkhts")
+element = ExtResource("9_qjtco")
 
-[sub_resource type="Resource" id="Resource_ivv85"]
+[sub_resource type="Resource" id="Resource_sjnuj"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
-ui_texture = ExtResource("8_a00af")
-element = ExtResource("11_cfego")
+element = ExtResource("12_mr7af")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
@@ -45,6 +47,7 @@ data_to_fuck_with = NodePath("Player/PlayerData")
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_i581n")
 tile_set = ExtResource("2_m3mqg")
 format = 2
 layer_0/name = "floor"
@@ -67,11 +70,11 @@ position = Vector2(960, 540)
 texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
-position = Vector2(1431, 1023)
+position = Vector2(103, 837)
 debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
-spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_h2pq2"), SubResource("Resource_ivv85")])
+spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_x7bfs"), SubResource("Resource_sjnuj")])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]

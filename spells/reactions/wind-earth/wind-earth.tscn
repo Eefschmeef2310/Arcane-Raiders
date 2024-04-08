@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnvowsw0l752i"]
+
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_ybplo"]
+
+[sub_resource type="GDScript" id="GDScript_fgibt"]
+resource_name = "wind-earth"
+script/source = "extends Area2D
+#Authored by Ethan.
+
+@export var base_damage = 10
+var entity
+
+func _on_timer_timeout():
+	for moving_entity in get_overlapping_bodies():
+		if moving_entity.is_in_group(\"enemy\") and moving_entity != entity:
+			moving_entity.on_hurt(self)
+
+func _on_kill_timer_timeout():
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
+radius = 62.0725
+
+[node name="Wind-earth" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
+script = SubResource("GDScript_fgibt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b2x0x")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.121569, 0.615686, 0.152941, 1)
+scale = Vector2(0.6875, 0.6875)
+texture = ExtResource("1_ybplo")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]
