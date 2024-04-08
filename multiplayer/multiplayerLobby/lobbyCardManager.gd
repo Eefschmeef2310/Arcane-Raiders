@@ -12,6 +12,7 @@ extends Node
 #Exported Variables
 @export_group("Card Values")
 @export var username : String
+@export var peer_id : int
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
 @export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready

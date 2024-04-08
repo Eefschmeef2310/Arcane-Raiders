@@ -60,6 +60,7 @@ func _process(_delta):
 func CreateNewCard(peer_id : int):
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self
+	new_player_card.peer_id = peer_id
 	new_player_card.set_multiplayer_authority(peer_id, true)
 	player_card_hbox.add_child(new_player_card)
 	player_joined.emit()
