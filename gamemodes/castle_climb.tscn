@@ -117,7 +117,6 @@ _data = {
 
 [node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data")]
 script = ExtResource("1_jx40r")
-start_on_spawn = true
 player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
 basic_rooms = Array[PackedScene]([ExtResource("2_myxlf"), ExtResource("3_i3kdw")])
 
@@ -179,9 +178,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 120.0
-offset_right = 1920.0
-offset_bottom = 708.0
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 

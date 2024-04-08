@@ -25,6 +25,7 @@ enum MultiplayerMode {Local,Online}
 @export var player_card_scene : PackedScene
 
 #Onready Variables
+@onready var castle_climb_spawner = $CastleClimbSpawner
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
@@ -108,6 +109,14 @@ func InitLobby(_online_mode : MultiplayerMode):
 
 func StartGame():
 	print("START THE GAME!!!!")
+	castle_climb_spawner.spawn_function = spawn_castle_climb
+	castle_climb_spawner.spawn()
+
+func spawn_castle_climb() -> Node:
+	print(player_card_hbox.get_child(0).peer_id)
+	
+	var node = Node.new()
+	return node
 
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
