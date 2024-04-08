@@ -26,6 +26,7 @@ enum MultiplayerMode {Local,Online}
 
 #Onready Variables
 @onready var castle_climb_spawner = $CastleClimbSpawner
+@onready var CASTLE_CLIMB_SCENE = preload("res://gamemodes/castle_climb.tscn")
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
@@ -115,7 +116,7 @@ func StartGame():
 func spawn_castle_climb() -> Node:
 	print(player_card_hbox.get_child(0).peer_id)
 	
-	var node = Node.new()
+	var node = CASTLE_CLIMB_SCENE.instantiate()
 	return node
 
 #func SendNewCard():
