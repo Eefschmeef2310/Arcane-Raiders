@@ -7,15 +7,6 @@ class_name Entity
 signal zero_health
 signal health_updated(health)
 
-	#Enums
-const elements = {
-	ElementResource.ElementType.Burn : preload("res://elements/burn.tres"),
-	ElementResource.ElementType.Frost : preload("res://elements/frost.tres"),
-	ElementResource.ElementType.Shock : preload("res://elements/shock.tres"),
-	ElementResource.ElementType.Weak : preload("res://elements/weak.tres"),
-	ElementResource.ElementType.Null : preload("res://elements/null.tres")
-}
-
 	#Constants
 const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tscn")
 const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
@@ -35,7 +26,7 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var current_inflictions_dictionary : Dictionary
+var current_inflictions_dictionary : Dictionary #Stores 
 
 var burn_timer : float
 var burn_tick_rate : float = 0.5
@@ -52,19 +43,17 @@ func _process(delta):
 	
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
-		#apply effects
-		if current_inflictions_dictionary.has(ElementResource.ElementType.Frost): frost_effect()
-
-		#following line ticks down each key's timer, while taking weakness into account
-		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != elements[ElementResource.ElementType.Weak] and current_inflictions_dictionary.has(elements[ElementResource.ElementType.Weak])) else 1.0))
+		#following line ticks down each key's timer, while taking wetness into account
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["Wet"] and current_inflictions_dictionary.has(SpellManager.elements["Wet"])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 		
-		match key:
-			elements[ElementResource.ElementType.Burn]:
-				burn_effect(delta)
-			elements[ElementResource.ElementType.Frost]:
-				frost_effect()
+		if key == SpellManager.elements["Burn"]:
+			burn_effect(delta)
+		elif key == SpellManager.elements["Frost"]:
+			frost_effect(0.5)
+		elif key == SpellManager.elements["Stun"]:
+			frost_effect(0)
 #endregion
 
 #region Signal methods
@@ -73,6 +62,9 @@ func _process(delta):
 
 #region Other methods (please try to separate and organise!)
 func on_hurt(hit_node):
+	if !is_multiplayer_authority():
+		return
+
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource
@@ -81,7 +73,7 @@ func on_hurt(hit_node):
 	if "base_damage" in hit_node:
 		damage = hit_node.base_damage
 		health -= hit_node.base_damage
-		infliction_time = hit_node.base_damage / 50
+		infliction_time = hit_node.base_damage / 10
 		
 	
 	#Add element to current inflictions dictionary
@@ -89,15 +81,34 @@ func on_hurt(hit_node):
 		element = hit_node.resource.element
 	elif "element" in hit_node and hit_node.element:
 		element = hit_node.element
+		
 	if element:
-		if element != elements[ElementResource.ElementType.Null]:
+		if element != SpellManager.elements["Null"]:
 			if !current_inflictions_dictionary.has(element):
 				current_inflictions_dictionary[element] = 0
 			current_inflictions_dictionary[element] += infliction_time
 			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
+			
+			#Check if a reaction has occurred, may need to be moved further up the method
+			for key in current_inflictions_dictionary.keys():
+				var reaction = SpellManager.get_reaction(key, element)
+				if reaction:
+					if reaction is StringName:
+						print(reaction) #TODO This is for debug, as not all reactions have scenes yet
+					elif reaction is PackedScene:
+						current_inflictions_dictionary.erase(key)
+						current_inflictions_dictionary.erase(element)
+						
+						reaction = reaction.instantiate()
+						if "entity" in reaction:
+							reaction.entity = self
+							add_child(reaction)
+						else:
+							reaction.global_position = global_position
+							get_tree().root.add_child(reaction)
 
 	#if shocked, run shock effect
-	if current_inflictions_dictionary.has(elements[ElementResource.ElementType.Shock]):
+	if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
 		shock_effect()
 	
 	if do_damage_numbers:
@@ -105,7 +116,6 @@ func on_hurt(hit_node):
 		add_sibling(damage_number)
 		damage_number.global_position = global_position
 		damage_number.set_number(damage)
-		damage_number.set_color(damage)
 		if element:
 			damage_number.set_color(element.colour)
 		damage_number.animate()
@@ -117,8 +127,8 @@ func burn_effect(delta):
 		health -= 20
 		burn_timer = burn_tick_rate
 
-func frost_effect():
-	frost_speed_scale = 0.5
+func frost_effect(amount):
+	frost_speed_scale = amount
 
 func shock_effect():
 	#get closest entity with same tag
@@ -137,7 +147,7 @@ func shock_effect():
 		shocked_this_frame = true
 		closest.shocked_this_frame = true
 		
-		if current_inflictions_dictionary.has(ElementResource.ElementType.Shock):
+		if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
 			shock_effect()
 		
 		#draw line between guys
@@ -147,13 +157,4 @@ func shock_effect():
 		(shock_effect_laser as Line2D).points[1] = closest.global_position
 		(shock_effect_laser as Line2D).points[1].y -= 16
 		add_sibling(shock_effect_laser)
-			
-	#spawn laser
-	#if closest:
-		#var shock_laser_spell = SHOCK_LASER_SPELL.spell_scene.instantiate()
-		#(shock_laser_spell.get_children()[0] as RayCast2D).global_position = global_position
-		#(shock_laser_spell.get_children()[0] as RayCast2D).add_exception(self)
-		#(shock_laser_spell.get_children()[0] as RayCast2D).target_position = closest.global_position #I LOVE DEPENDENCIES
-		#
-		#get_tree().root.add_child(shock_laser_spell)
 #endregion

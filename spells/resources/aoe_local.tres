@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://c3u0d8wsu652a"]
+
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_5bif7"]
+[ext_resource type="PackedScene" uid="uid://dt3a5xl27x1rt" path="res://spells/scenes/aoe_local/aoe_local.tscn" id="1_8wsyp"]
+[ext_resource type="Texture2D" uid="uid://dgn558h1qflav" path="res://spells/sprites/icons/aoe_local.png" id="3_2u0an"]
+
+[resource]
+script = ExtResource("1_5bif7")
+scene = ExtResource("1_8wsyp")
+ui_texture = ExtResource("3_2u0an")

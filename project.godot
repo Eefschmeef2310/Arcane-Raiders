@@ -21,6 +21,7 @@ Game="*res://managers/game_manager.gd"
 SpellManager="*res://managers/spell_manager.tscn"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 PromptManager="*res://managers/prompt_manager.gd"
+ColorblindTester="*res://debug/colorblind_tester.tscn"
 
 [display]
 
@@ -41,6 +42,7 @@ folder_colors={
 "res://managers/": "red",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green",
+"res://rooms/": "pink",
 "res://screens/": "yellow",
 "res://spells/": "purple"
 }
@@ -104,6 +106,11 @@ pause={
 debug_random={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"echo":false,"script":null)
+]
+}
+debug_next_floor={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":true,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":51,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 

@@ -28,6 +28,7 @@ func _ready():
 #region Signal methods
 func _on_enemy_health_updated(amount):
 	value = amount
+	visible = value != max_value
 #endregion
 
 #region Other methods (please try to separate and organise!)

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerCharacter" load_steps=3 format=3 uid="uid://ctqj8outgmnmw"]
+
+[ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="1_32o6q"]
+[ext_resource type="Script" path="res://moving_entities/player/player_characters/player_character.gd" id="2_yt8fd"]
+
+[resource]
+script = ExtResource("2_yt8fd")
+name = "Wolf"
+head_texture = ExtResource("1_32o6q")
+skin_color = Color(0.403922, 0.658824, 0.678431, 1)

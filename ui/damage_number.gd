@@ -20,10 +20,11 @@ func set_number(n: int):
 	label.text = str(n)
 
 func animate():
-	scale
-	print(_number)
+	var dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	var dist = randf_range(0, 24)
 	tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(_s*2, _s*2), 0.1)
+	tween.tween_property(self, "global_position", global_position + (dir*dist), 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, "scale", Vector2(_s*2, _s*2), 0.1)
 	tween.tween_property(self, "scale", Vector2(_s, _s), 0.1)
 	tween.tween_interval(1.0)
 	tween.tween_property(self, "modulate:a", 0, 0.1)

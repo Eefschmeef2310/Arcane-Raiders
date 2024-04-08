@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerCharacter" load_steps=3 format=3 uid="uid://cd6i43ptcu4a0"]
+
+[ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="1_ct402"]
+[ext_resource type="Script" path="res://moving_entities/player/player_characters/player_character.gd" id="2_ib7lk"]
+
+[resource]
+script = ExtResource("2_ib7lk")
+name = "Owl"
+head_texture = ExtResource("1_ct402")
+skin_color = Color(0.74902, 0.494118, 0.333333, 1)

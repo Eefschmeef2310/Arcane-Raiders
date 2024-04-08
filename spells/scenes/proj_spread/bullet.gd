@@ -6,7 +6,6 @@ extends Area2D
 	#Signals
 
 	#Enums
-
 	#Constants
 
 	#Exported Variables

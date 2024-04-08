@@ -27,23 +27,12 @@ func set_target() -> bool:
 
 func _process(delta):
 	super._process(delta)
-	#if nav_server_synced:
-		##set_target()
-		#
-		#if nav_agent.is_navigation_finished():
-			#return
-		#
-		#var current_agent_pos: Vector2 = global_position
-		#var next_path_pos: Vector2 = nav_agent.get_next_path_position()
-		#
-		#velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
-		#move_and_slide()
 		
 func _physics_process(_delta):
 	if nav_server_synced:
 		#set_target()
 		
-		if nav_agent.is_navigation_finished():
+		if !is_multiplayer_authority() or nav_agent.is_navigation_finished():
 			return
 		
 		var current_agent_pos: Vector2 = global_position
@@ -69,9 +58,9 @@ func _on_nav_update_timer_timeout():
 	pass
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-	velocity = safe_velocity
-	move_and_slide()
-	pass # Replace with function body.
+	if is_multiplayer_authority():
+		velocity = safe_velocity
+		move_and_slide()
 
 func _on_zero_health():
 	queue_free()
