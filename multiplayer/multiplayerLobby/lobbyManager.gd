@@ -92,9 +92,9 @@ func _on_connected_to_server():
 #region Other methods (please try to separate and organise!)
 
 ## called after the lobby mode has been decided 
-#func InitLobby(online_mode : MultiplayerMode):
-	#pass
-	#
+func InitLobby(_online_mode : MultiplayerMode):
+	pass
+	
 
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
