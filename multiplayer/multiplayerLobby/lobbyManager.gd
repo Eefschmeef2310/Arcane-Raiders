@@ -39,7 +39,7 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer_spawner.spawn_function = CreateNewCard
-	castle_climb_spawner.spawn_function = spawn_castle_climb
+	#castle_climb_spawner.spawn_function = spawn_castle_climb
 	
 	
 	#get the peer id the player who has just joined (by loading this scenes ready func)
@@ -111,14 +111,16 @@ func InitLobby(_online_mode : MultiplayerMode):
 
 func StartGame():
 	print("START THE GAME!!!!")
-	castle_climb_spawner.spawn()
-
-func spawn_castle_climb() -> Node:
-	print(player_card_hbox.get_child(0).peer_id)
 	
-	var node = castle_climb_scene.instantiate() as CastleClimb
-	print(node)
-	return node
+	var castle_climb = castle_climb_scene.instantiate()
+	add_child(castle_climb)
+
+#func spawn_castle_climb() -> Node:
+	#print(player_card_hbox.get_child(0).peer_id)
+	#
+	#var node = castle_climb_scene.instantiate() as CastleClimb
+	#print(node)
+	#return node
 
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)

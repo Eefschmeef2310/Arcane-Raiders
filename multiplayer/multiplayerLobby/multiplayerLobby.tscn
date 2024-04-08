@@ -131,6 +131,7 @@ text = "Debug Start Game"
 spawn_path = NodePath("../MarginContainer/PlayerCardBox")
 
 [node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
 spawn_path = NodePath("..")
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
