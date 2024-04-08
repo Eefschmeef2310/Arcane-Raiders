@@ -1,21 +1,22 @@
-[gd_scene load_steps=17 format=3 uid="uid://bircxyrmnpixt"]
+[gd_scene load_steps=18 format=3 uid="uid://bircxyrmnpixt"]
 
 [ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="2_d4pfh"]
 [ext_resource type="Resource" uid="uid://camskexplmxsy" path="res://elements/frost.tres" id="3_wyn5f"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="4_g0p7e"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="5_485g6"]
-[ext_resource type="Resource" path="res://spells/resources/aoe_large.tres" id="6_njy4v"]
-[ext_resource type="Resource" path="res://elements/stun.tres" id="6_nscba"]
-[ext_resource type="Resource" path="res://elements/wet.tres" id="7_u88jo"]
-[ext_resource type="Resource" path="res://spells/resources/aoe_local.tres" id="7_vdst2"]
-[ext_resource type="Resource" path="res://elements/wind.tres" id="8_4ef6i"]
-[ext_resource type="Resource" path="res://spells/resources/proj_ball.tres" id="8_6tv1p"]
-[ext_resource type="Resource" path="res://spells/resources/proj_burst.tres" id="9_dbdg1"]
-[ext_resource type="Resource" path="res://spells/resources/laser.tres" id="10_xk4cv"]
-[ext_resource type="Resource" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
-[ext_resource type="PackedScene" path="res://spells/reactions/burn-frost/burn-frost.tscn" id="15_b7v01"]
-[ext_resource type="PackedScene" path="res://spells/reactions/wet-shock/wet-shock.tscn" id="16_d4jnw"]
+[ext_resource type="Resource" uid="uid://bkvdyq3e0uuex" path="res://spells/resources/aoe_large.tres" id="6_njy4v"]
+[ext_resource type="Resource" uid="uid://l0pouj41mexa" path="res://elements/stun.tres" id="6_nscba"]
+[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="7_u88jo"]
+[ext_resource type="Resource" uid="uid://c3u0d8wsu652a" path="res://spells/resources/aoe_local.tres" id="7_vdst2"]
+[ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_4ef6i"]
+[ext_resource type="Resource" uid="uid://cigud4d5voc78" path="res://spells/resources/proj_ball.tres" id="8_6tv1p"]
+[ext_resource type="Resource" uid="uid://ct07iiqxgguov" path="res://spells/resources/proj_burst.tres" id="9_dbdg1"]
+[ext_resource type="Resource" uid="uid://b0smduujsnsld" path="res://spells/resources/laser.tres" id="10_xk4cv"]
+[ext_resource type="Resource" uid="uid://gcjnkbwfebfe" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
+[ext_resource type="PackedScene" uid="uid://cxbx5yeaogymo" path="res://spells/reactions/burn-frost/burn-frost.tscn" id="15_b7v01"]
+[ext_resource type="PackedScene" uid="uid://cgcglkyrpkbs5" path="res://spells/reactions/wet-shock/wet-shock.tscn" id="16_d4jnw"]
+[ext_resource type="PackedScene" uid="uid://cnvowsw0l752i" path="res://spells/reactions/wind-earth/wind-earth.tscn" id="17_kvxt3"]
 
 [node name="SpellManager" type="Node"]
 script = ExtResource("1_dxaf6")
@@ -41,6 +42,6 @@ reactions = {
 [ExtResource("3_wyn5f"), ExtResource("7_u88jo")]: &"Frost and Wet",
 [ExtResource("7_u88jo"), ExtResource("5_485g6")]: ExtResource("16_d4jnw"),
 [ExtResource("5_485g6"), ExtResource("8_4ef6i")]: &"Shock and Wind",
-[ExtResource("8_4ef6i"), ExtResource("6_nscba")]: ExtResource("17_5f1rv"),
+[ExtResource("8_4ef6i"), ExtResource("6_nscba")]: ExtResource("17_kvxt3"),
 [ExtResource("6_nscba"), ExtResource("2_d4pfh")]: &"Stun and Burn"
 }
