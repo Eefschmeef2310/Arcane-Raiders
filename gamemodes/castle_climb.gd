@@ -1,13 +1,15 @@
 extends Node
+class_name CastleClimb
 
-@onready var level_spawner = $LevelSpawner
+@onready var basic_level_spawner = $BasicLevelSpawner
 
 @export var start_on_spawn : bool = false
 @export var player_data : Array[PlayerData]
+@export var player_ui : Array[PlayerUI]
 
 @export var basic_rooms: Array[PackedScene]
 
-var number_of_players = 1
+var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
 var current_floor : int = -1
 
@@ -15,8 +17,10 @@ var current_room_node : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	basic_level_spawner.spawn_function = spawn_basic_level
+	
 	if start_on_spawn:
-		set_number_of_players(number_of_players)
+		set_number_of_players(1)
 		start_climb()
 
 func _process(delta):
@@ -25,6 +29,8 @@ func _process(delta):
 
 func start_climb():
 	# Do any server-sided stuff here
+	if number_of_players <= 0:
+		number_of_players = 1
 	start_next_floor()
 
 func start_next_floor():
@@ -44,8 +50,7 @@ func start_next_floor():
 	
 	# Spawn new room
 	print("Creating new room.")
-	level_spawner.spawn_function = spawn_basic_level
-	level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
+	basic_level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
@@ -86,6 +91,14 @@ func get_floor_name(floor: int) -> String:
 	else:
 		return str(floor) + "F"
 
+@rpc("authority", "call_local", "reliable")
+func setup_from_parent_multiplayer_lobby():
+	var arr = get_parent().get_card_data()
+	var i = 0
+	for dict in arr:
+		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"])
+		i += 1
+
 func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes):
 	var data = player_data[slot]
 	data.device_id = device_id
@@ -97,3 +110,8 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 			data.set_spell_from_string(i, spells[i])
 	
 	data.character = character
+	
+	if number_of_players < slot + 1:
+		number_of_players = slot + 1
+	
+	$GameUI/PlayerUIContainer.get_child(slot).show()

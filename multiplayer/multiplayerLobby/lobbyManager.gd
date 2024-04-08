@@ -23,8 +23,10 @@ enum MultiplayerMode {Local,Online}
 @export var loadouts : Array[LoadoutRes]
 @export var server_browser_scene : PackedScene
 @export var player_card_scene : PackedScene
+@export var castle_climb_scene : PackedScene
 
 #Onready Variables
+@onready var castle_climb_spawner = $CastleClimbSpawner
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
@@ -37,6 +39,7 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer_spawner.spawn_function = CreateNewCard
+	#castle_climb_spawner.spawn_function = spawn_castle_climb
 	
 	
 	#get the peer id the player who has just joined (by loading this scenes ready func)
@@ -108,6 +111,38 @@ func InitLobby(_online_mode : MultiplayerMode):
 
 func StartGame():
 	print("START THE GAME!!!!")
+	
+	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+	add_child(castle_climb)
+	
+	hide_lobby.rpc()
+	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+	
+	castle_climb.start_climb()
+
+@rpc("authority", "call_local", "reliable")
+func hide_lobby():
+	$Lobby.hide()
+	$Lobby.process_mode = PROCESS_MODE_DISABLED
+
+func get_card_data() -> Array:
+	var arr = []
+	for card in player_card_hbox.get_children():
+		arr.append({
+			"device_id": card.device_id,
+			"peer_id": card.peer_id,
+			"spells": loadouts[card.selected_loadout].spell_ids,
+			"raider": raiders[card.selected_raider]
+			})
+	return arr
+	
+
+#func spawn_castle_climb() -> Node:
+	#print(player_card_hbox.get_child(0).peer_id)
+	#
+	#var node = castle_climb_scene.instantiate() as CastleClimb
+	#print(node)
+	#return node
 
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
