@@ -1,7 +1,7 @@
 extends Node
 class_name CastleClimb
 
-@onready var level_spawner = $LevelSpawner
+@onready var basic_level_spawner = $LevelSpawner
 
 @export var start_on_spawn : bool = false
 @export var player_data : Array[PlayerData]
@@ -17,6 +17,8 @@ var current_room_node : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	basic_level_spawner.spawn_function = spawn_basic_level
+	
 	if start_on_spawn:
 		set_number_of_players(1)
 		start_climb()
@@ -48,8 +50,7 @@ func start_next_floor():
 	
 	# Spawn new room
 	print("Creating new room.")
-	level_spawner.spawn_function = spawn_basic_level
-	level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
+	basic_level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
@@ -105,3 +106,5 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	
 	if number_of_players < slot + 1:
 		number_of_players = slot + 1
+	
+	$GameUI/PlayerUIContainer.get_child(slot).show()
