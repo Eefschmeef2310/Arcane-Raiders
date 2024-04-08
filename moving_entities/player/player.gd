@@ -43,11 +43,15 @@ func _process(_delta):
 	else:
 		$SpritesFlip.scale.x = 1
 	
-	if !is_casting and preparing_cast_slot <= 0:
+	if !is_casting and preparing_cast_slot < 0:
 		if move_direction != Vector2.ZERO:
 			animation_player.play("move", -1, 1)
 		else:
 			animation_player.play("idle", -1, 1)
+	
+	if debug:
+		$PrepareCast.text = str(preparing_cast_slot)
+		$CanCast.text = str(can_cast)
 	
 #endregion
 
@@ -80,8 +84,9 @@ func set_input(id: int):
 	$Input.set_device(id)
 
 func prepare_cast(slot: int):
-	if preparing_cast_slot < 0:
+	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0:
 		preparing_cast_slot = slot
+		animation_player.stop()
 		animation_player.play("cast_start")
 
 # Splitting the functions to separate input from action for RPC

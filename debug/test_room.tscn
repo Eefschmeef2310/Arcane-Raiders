@@ -43,6 +43,7 @@ texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
 position = Vector2(1431, 1023)
+debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
