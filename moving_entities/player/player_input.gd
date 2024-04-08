@@ -15,8 +15,10 @@ func _process(_delta):
 	if is_instance_valid(owner.data) and is_multiplayer_authority():
 		var move_dir: Vector2
 		var aim_dir: Vector2
-		var spell: Array[bool] = [false]
-		spell.resize(3)
+		var spell_down: Array[bool] = [false]
+		var spell_release: Array[bool] = [false]
+		spell_down.resize(3)
+		spell_release.resize(3)
 		
 		# If we have an input object, use it
 		if input:
@@ -37,8 +39,9 @@ func _process(_delta):
 					aim_dir = a.normalized()
 			
 			# Buttons
-			for i in spell.size():
-				spell[i] = input.is_action_just_pressed("spell" + str(i))
+			for i in spell_down.size():
+				spell_down[i] = input.is_action_pressed("spell" + str(i))
+				spell_release[i] = input.is_action_just_released("spell" + str(i))
 		
 		# Otherwise, use any connected controller
 		else:
@@ -59,16 +62,18 @@ func _process(_delta):
 					if a.length() > 0:
 						aim_dir = a.normalized()
 					
-				for i in spell.size():
-					if MultiplayerInput.is_action_just_pressed(device, "spell" + str(i)):
-						spell[i] = true
+				for i in spell_down.size():
+					spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
+					spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
 		
 		# Send input to owner
 		owner.move_direction = move_dir
 		if aim_dir != Vector2.ZERO:
 			owner.aim_direction = aim_dir
-		for i in spell.size():
-			if spell[i]:
+		for i in spell_down.size():
+			if spell_down[i]:
+				owner.prepare_cast(i)
+			if spell_release[i]:
 				owner.attempt_cast(i)
 
 func _input(event):
