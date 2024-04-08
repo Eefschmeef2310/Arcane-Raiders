@@ -25,9 +25,12 @@ extends SpellBase
 #region Godot methods
 func _ready():
 	if caster : global_position = caster.global_position
-	await get_tree().create_timer(start_time).timeout
+	# await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
 #endregion
+
+func _process(delta):
+	if caster : global_position = caster.global_position
 
 #region Signal methods
 func _on_wave_timer_timeout():
