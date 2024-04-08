@@ -38,8 +38,9 @@ func _ready():
 	#get the peer id the player who has just joined (by loading this scenes ready func)
 	var incoming_peer_id = multiplayer.get_unique_id()
 	
+	if(multiplayer.is_server()):
 	#CreateNewCard.rpc(incoming_peer_id)
-	CreateNewCard(incoming_peer_id)
+		CreateNewCard(incoming_peer_id)
 	
 		
 	print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
