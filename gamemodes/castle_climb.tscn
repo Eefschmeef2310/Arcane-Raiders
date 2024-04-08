@@ -115,9 +115,10 @@ _data = {
 "next_floor": SubResource("Animation_vgyv8")
 }
 
-[node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data")]
+[node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data", "player_ui")]
 script = ExtResource("1_jx40r")
 player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
+player_ui = [NodePath("GameUI/PlayerUIContainer/PlayerUI0"), NodePath("GameUI/PlayerUIContainer/PlayerUI1"), NodePath("GameUI/PlayerUIContainer/PlayerUI2"), NodePath("GameUI/PlayerUIContainer/PlayerUI3")]
 basic_rooms = Array[PackedScene]([ExtResource("2_myxlf"), ExtResource("3_i3kdw")])
 
 [node name="PlayerData0" type="Node" parent="."]
@@ -178,9 +179,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 120.0
-offset_right = 1920.0
-offset_bottom = 708.0
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -219,18 +221,22 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="PlayerUI0" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData0")
 
 [node name="PlayerUI1" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData1")
 
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData2")
 
 [node name="PlayerUI3" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData3")
 

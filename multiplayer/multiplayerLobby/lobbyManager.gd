@@ -112,9 +112,22 @@ func InitLobby(_online_mode : MultiplayerMode):
 func StartGame():
 	print("START THE GAME!!!!")
 	
-	var castle_climb = castle_climb_scene.instantiate()
+	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
 	add_child(castle_climb)
+	
+	hide_lobby.rpc()
+	var i = 0
+	for card in player_card_hbox.get_children():
+		castle_climb.set_player_data(i, card.device_id, card.peer_id, loadouts[card.selected_loadout].spell_ids, raiders[card.selected_raider])
+		i += 1
+	
+	castle_climb.start_climb()
 
+@rpc("authority", "call_local", "reliable")
+func hide_lobby():
+	$Lobby.hide()
+	$Lobby.process_mode = PROCESS_MODE_DISABLED
+	
 #func spawn_castle_climb() -> Node:
 	#print(player_card_hbox.get_child(0).peer_id)
 	#
