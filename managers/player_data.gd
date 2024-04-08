@@ -44,5 +44,5 @@ func start_cooldown(slot: int, time: float):
 	spell_cooldowns[slot] = time
 
 @rpc("authority", "call_local", "reliable")
-func set_spell(slot: int, string: String):
+func set_spell_from_string(slot: int, string: String):
 	spells[slot] = SpellManager.get_spell_fron_string(string)

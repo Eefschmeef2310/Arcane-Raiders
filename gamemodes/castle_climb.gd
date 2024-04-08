@@ -76,3 +76,15 @@ func get_floor_name(floor: int) -> String:
 		return "Foyer"
 	else:
 		return str(floor) + "F"
+
+func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes):
+	var data = player_data[slot]
+	data.device_id = device_id
+	data.peer_id = peer_id
+	data.set_multiplayer_authority(peer_id)
+	
+	for i in 3:
+		if spells[i] != "":
+			data.set_spell_from_string(i, spells[i])
+	
+	data.character = character
