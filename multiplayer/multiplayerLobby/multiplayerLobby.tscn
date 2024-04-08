@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=19 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
@@ -6,17 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://bxwva5805lusc" path="res://multiplayer/multiplayerLobby/raiders/Dragon.tres" id="3_lyylo"]
 [ext_resource type="Resource" uid="uid://coenguoh1frq" path="res://multiplayer/multiplayerLobby/raiders/Dusty.tres" id="4_mlojx"]
-[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="5_o6wal"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="5_vgbiw"]
-[ext_resource type="Resource" path="res://spells/resources/proj_ball_burn.tres" id="6_ga8an"]
-[ext_resource type="Resource" uid="uid://botx8jw8in1ew" path="res://spells/resources/proj_spread_shock.tres" id="7_aqcis"]
-[ext_resource type="Resource" uid="uid://buptq5orq7jgh" path="res://spells/resources/proj_spread_frost.tres" id="9_l2vf7"]
-[ext_resource type="Resource" path="res://spells/resources/proj_ball_frost.tres" id="10_fv0d8"]
-[ext_resource type="Resource" path="res://spells/resources/aoe_local_frost.tres" id="11_snyc2"]
-[ext_resource type="Resource" uid="uid://qb54g83nsj28" path="res://spells/resources/aoe_large_burn.tres" id="12_jyyjd"]
-[ext_resource type="Resource" path="res://spells/resources/aoe_large_frost.tres" id="13_cdxhx"]
 [ext_resource type="PackedScene" uid="uid://ngf5irvgldhp" path="res://multiplayer/serverBrowser/serverBrowser.tscn" id="14_1q3ex"]
-[ext_resource type="Resource" path="res://spells/resources/aoe_large_shock.tres" id="14_evtpc"]
 
 [sub_resource type="Gradient" id="Gradient_a2n7h"]
 colors = PackedColorArray(0, 0.404969, 0.220992, 1, 1.73271e-06, 0.606315, 0.606363, 1)
@@ -35,24 +26,6 @@ portrait = SubResource("NoiseTexture2D_7qkmn")
 raider_name = "Alex"
 raider_desc = "such a cool person"
 color = Color(0, 0.541176, 0.682353, 1)
-
-[sub_resource type="Resource" id="Resource_78orn"]
-script = ExtResource("5_o6wal")
-loadout_name = "Fire"
-loadout_desc = "Fire Bolt, Force SHot, Burst"
-spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_ga8an"), ExtResource("7_aqcis"), ExtResource("7_aqcis")])
-
-[sub_resource type="Resource" id="Resource_vvqua"]
-script = ExtResource("5_o6wal")
-loadout_name = "Ice"
-loadout_desc = "1, 2, 3"
-spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("9_l2vf7"), ExtResource("10_fv0d8"), ExtResource("11_snyc2")])
-
-[sub_resource type="Resource" id="Resource_t40dh"]
-script = ExtResource("5_o6wal")
-loadout_name = "Cat"
-loadout_desc = "Nya, Meow, uwu"
-spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("12_jyyjd"), ExtResource("13_cdxhx"), ExtResource("14_evtpc")])
 
 [sub_resource type="Gradient" id="Gradient_u4f7k"]
 colors = PackedColorArray(0.477881, 0.47788, 0.47788, 1, 0, 0, 0, 1)
@@ -87,7 +60,6 @@ grow_vertical = 2
 script = ExtResource("1_7ydb8")
 player_card_hbox = NodePath("MarginContainer/HBoxContainer")
 raiders = Array[ExtResource("5_vgbiw")]([ExtResource("2_837od"), ExtResource("3_lyylo"), ExtResource("4_mlojx"), SubResource("Resource_jmh4t")])
-loadouts = Array[ExtResource("5_o6wal")]([SubResource("Resource_78orn"), SubResource("Resource_vvqua"), SubResource("Resource_t40dh")])
 server_browser_scene = ExtResource("14_1q3ex")
 
 [node name="TextureRect" type="TextureRect" parent="."]
