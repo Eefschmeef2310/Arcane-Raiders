@@ -11,17 +11,15 @@ enum MultiplayerMode {Local,Online}
 #Constants
 
 #Exported Variables
-#@export_group("Group")
-#@export_subgroup("Subgroup")
 @export_group("Setup")
 @export var mode : MultiplayerMode
 @export_group("Node References") 
 @export var player_card_hbox : HBoxContainer #hold all the player cards!
 @export_group("Other Resources")
-#@export var default_slot_icon : Texture2D
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
 @export var server_browser_scene : PackedScene
+
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
@@ -36,15 +34,15 @@ func _ready():
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 		
 	print("Player ID: " + str(SteamManager.player_id))
-	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
 	pass
 
 func _process(delta):
+	var changed = false
 	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
 	if (not sent_first_update):
 		sent_first_update = true
 		#set inital card values
-		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
+		SendNewCard()
 	
 	var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
 	var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
@@ -55,31 +53,34 @@ func _process(delta):
 	if(Input.is_action_just_pressed("down")):
 		if not gaming:
 			selection = clampi(selection + 1, 0,2)
-		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+		changed = true
 	
 	if(Input.is_action_just_pressed("up")):
 		if not gaming:
 			selection = clampi(selection - 1, 0,2)
-		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+		changed = true
 	
 	if(Input.is_action_just_pressed("left")):
 		if(selection == 0): #raider panel selected 
 			raider = clampi(raider - 1, 0,raiders.size()-1)
 		elif(selection == 1): #loadout selected
 			loadout = clampi(loadout - 1, 0,loadouts.size()-1)
-		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+		changed = true
 		
 	if(Input.is_action_just_pressed("right")):
 		if(selection == 0): #raider panel selected 
 			raider = clampi(raider + 1, 0,raiders.size()-1)
 		elif(selection == 1): #loadout selected
 			loadout = clampi(loadout + 1, 0,loadouts.size()-1)
-		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+		changed = true
 	
 	if(Input.is_action_just_pressed("lobby_confirm")):
 		if(selection == 2): #ready button selected
 			gaming = !gaming
-		rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+			changed = true
+			
+	if changed:
+		SendCard(raider,loadout,selection,gaming)
 #endregion
 
 @rpc("authority","call_local")
@@ -93,6 +94,7 @@ func request_updates(from : int):
 	
 
 #region Signal methods
+
 #func _on_lobby_joined():
 	#print("lobby joined")
 	#rpc("UpdateCard", SteamManager.player_id, default_slot_icon, "Connected", "This player has successfully connected!", Steam.getPersonaName())
@@ -101,14 +103,14 @@ func request_updates(from : int):
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
-	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
+	SendNewCard()
 	rpc("request_updates", id)
 	pass
 
 
 func _on_connected_to_server():
 	print("connected to server")
-	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
+	SendNewCard()
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -122,6 +124,12 @@ func InitLobby(mode : MultiplayerMode):
 		for card in player_card_hbox.get_children():
 			card.setOnlineDefault()
 	
+
+func SendNewCard():
+	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
+
+func SendCard(raider,loadout,selection,gaming):
+	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 
 @rpc("any_peer","call_local")
 func UpdateCard(playerID : int, username : String, n_raider : int, n_loadout : int, n_selection : int, n_ready : bool):
