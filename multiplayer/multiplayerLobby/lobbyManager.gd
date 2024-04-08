@@ -116,10 +116,7 @@ func StartGame():
 	add_child(castle_climb)
 	
 	hide_lobby.rpc()
-	var i = 0
-	for card in player_card_hbox.get_children():
-		castle_climb.set_player_data.rpc(i, card.device_id, card.peer_id, loadouts[card.selected_loadout].spell_ids, raiders[card.selected_raider])
-		i += 1
+	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
 	
 	castle_climb.start_climb()
 
@@ -127,7 +124,19 @@ func StartGame():
 func hide_lobby():
 	$Lobby.hide()
 	$Lobby.process_mode = PROCESS_MODE_DISABLED
+
+func get_card_data() -> Array:
+	var arr = []
+	for card in player_card_hbox.get_children():
+		arr.append({
+			"device_id": card.device_id,
+			"peer_id": card.peer_id,
+			"spells": loadouts[card.selected_loadout].spell_ids,
+			"raider": raiders[card.selected_raider]
+			})
+	return arr
 	
+
 #func spawn_castle_climb() -> Node:
 	#print(player_card_hbox.get_child(0).peer_id)
 	#
