@@ -70,7 +70,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
 	
 	if data.character:
-		print(data.character.name)
+		print(data.character.raider_name)
 		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
 		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
 		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
