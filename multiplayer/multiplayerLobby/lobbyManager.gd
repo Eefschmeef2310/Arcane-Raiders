@@ -83,7 +83,7 @@ func CreateNewCard(peer_id : int):
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
-	#SendNewCard()
+	CreateNewCard(id)
 	rpc("request_updates", id)
 	pass
 

@@ -6,7 +6,7 @@
 script = ExtResource("1_ih681")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 server_browser = NodePath("ServerBrowser")
-lobbies_vbox = NodePath("ServerBrowser/HSplitContainer/VBoxContainer2")
+lobbies_vbox = NodePath("ServerBrowser/HSplitContainer/LobbyContainer/Lobbies")
 server_count_text = NodePath("ServerBrowser/HSplitContainer/VBoxContainer2/ServerDebugText")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
