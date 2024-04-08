@@ -107,7 +107,7 @@ func InitLobby(_online_mode : MultiplayerMode):
 
 
 func StartGame():
-	pass
+	print("START THE GAME!!!!")
 
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
