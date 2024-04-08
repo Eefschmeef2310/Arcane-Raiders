@@ -19,6 +19,7 @@ enum MultiplayerMode {Local,Online}
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
 @export var server_browser_scene : PackedScene
+@export var player_card_scene : PackedScene
 
 #Onready Variables
 
