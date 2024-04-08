@@ -69,7 +69,6 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	data = new_data
 	
 	set_input(data.device_id)
-	set_multiplayer_authority(data.peer_id, true)
 	$SpellDirection/Sprite2D.modulate = data.main_color
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
 	
@@ -78,6 +77,8 @@ func set_data(new_data: PlayerData, destroy_old := true):
 		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
 		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
 		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
+	
+	call_deferred("set_multiplayer_authority", data.peer_id, true)
 
 func set_input(id: int):
 	print("Setting input" + str(id))
