@@ -32,11 +32,10 @@ element = ExtResource("11_cfego")
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
 
-[node name="TestRoom" type="Node2D" node_paths=PackedStringArray("data_to_fuck_with")]
+[node name="TestRoom" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(-4, 10)
 script = ExtResource("1_iy1p6")
-data_to_fuck_with = NodePath("")
 
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
