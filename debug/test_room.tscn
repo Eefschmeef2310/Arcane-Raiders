@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=20 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
@@ -6,31 +6,34 @@
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
 [ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
-[ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="5_ra27a"]
+[ext_resource type="Resource" uid="uid://l0pouj41mexa" path="res://elements/stun.tres" id="5_ueqp6"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_e83qf"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="8_a00af"]
-[ext_resource type="Resource" path="res://elements/wet.tres" id="9_bw1d1"]
-[ext_resource type="PackedScene" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
+[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="8_s71yi"]
+[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="9_bw1d1"]
+[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="11_wkhts"]
-[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="12_mr7af"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i581n"]
 
 [sub_resource type="Resource" id="Resource_6r2q7"]
 script = ExtResource("6_82yns")
+scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
-element = ExtResource("5_ra27a")
+element = ExtResource("5_ueqp6")
 
 [sub_resource type="Resource" id="Resource_x7bfs"]
 script = ExtResource("6_82yns")
+scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
-element = ExtResource("9_bw1d1")
+element = ExtResource("8_s71yi")
 
 [sub_resource type="Resource" id="Resource_sjnuj"]
 script = ExtResource("6_82yns")
+scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
-element = ExtResource("11_cfego")
+element = ExtResource("9_bw1d1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
