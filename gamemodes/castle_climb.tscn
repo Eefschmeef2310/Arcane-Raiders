@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/basic/basic_eight.tscn" id="2_myxlf"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
-[ext_resource type="PackedScene" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
+[ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="5_ohq6b"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
@@ -124,7 +124,7 @@ basic_rooms = Array[PackedScene]([ExtResource("2_myxlf"), ExtResource("3_i3kdw")
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
-character = ExtResource("5_ohq6b")
+character = ExtResource("7_ee2cn")
 
 [node name="PlayerData1" type="Node" parent="."]
 script = ExtResource("2_tpid8")
@@ -134,7 +134,7 @@ character = ExtResource("6_sfo2l")
 [node name="PlayerData2" type="Node" parent="."]
 script = ExtResource("2_tpid8")
 main_color = Color(0.784314, 0.6, 0.101961, 1)
-character = ExtResource("7_ee2cn")
+character = ExtResource("5_ohq6b")
 
 [node name="PlayerData3" type="Node" parent="."]
 script = ExtResource("2_tpid8")
@@ -150,7 +150,6 @@ replication_config = SubResource("SceneReplicationConfig_d82o0")
 offset_left = 32.0
 offset_right = 115.0
 offset_bottom = 146.0
-text = "1F"
 label_settings = SubResource("LabelSettings_ahfih")
 
 [node name="RoomTransitionUI" type="CanvasLayer" parent="."]

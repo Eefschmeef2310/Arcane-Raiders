@@ -1,19 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=11 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
 [ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="1_66res"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_bk151"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_6stfj"]
 [ext_resource type="Texture2D" uid="uid://byn34gwtakpjl" path="res://multiplayer/multiplayerLobby/pip.png" id="5_lpqe4"]
 [ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="5_w3e0p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
+font = ExtResource("4_bk151")
 font_size = 21
 font_color = Color(0.741176, 0.262745, 1, 1)
 outline_size = 1
 outline_color = Color(0.168627, 0.815686, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
+font = ExtResource("5_6stfj")
 font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_vcbrb"]
+line_spacing = 0.0
+font = ExtResource("4_bk151")
 
 [node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("raider_portrait", "raider_name", "raider_desc", "player_name", "loadout_name", "loadout_desc", "all_panels", "most_panels", "panels_array", "character_pips_box", "loadout_pips_box", "spells_box")]
 custom_minimum_size = Vector2(400, 780)
@@ -67,7 +75,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
-custom_minimum_size = Vector2(59.54, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -83,7 +91,7 @@ label_settings = SubResource("LabelSettings_xtm21")
 horizontal_alignment = 1
 
 [node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
-custom_minimum_size = Vector2(59.54, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
@@ -140,6 +148,7 @@ texture = ExtResource("5_lpqe4")
 layout_mode = 2
 size_flags_vertical = 0
 text = "a dark and mysterious raider, only in it for the gold, known to leave all their teammates behind the moment they see something shiny"
+label_settings = SubResource("LabelSettings_vcbrb")
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -153,7 +162,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector"]
-custom_minimum_size = Vector2(59.54, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -170,7 +179,7 @@ label_settings = SubResource("LabelSettings_xtm21")
 horizontal_alignment = 1
 
 [node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector"]
-custom_minimum_size = Vector2(59.54, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
@@ -250,4 +259,5 @@ texture = ExtResource("5_w3e0p")
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("4_bk151")
 text = "READY"

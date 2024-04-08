@@ -44,7 +44,7 @@ func _process(delta):
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
 		#following line ticks down each key's timer, while taking wetness into account
-		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["Wet"] and current_inflictions_dictionary.has(SpellManager.elements["wet"])) else 1.0))
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["wet"] and current_inflictions_dictionary.has(SpellManager.elements["wet"])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 		
