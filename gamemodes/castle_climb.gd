@@ -1,7 +1,7 @@
 extends Node
 class_name CastleClimb
 
-@onready var basic_level_spawner = $LevelSpawner
+@onready var basic_level_spawner = $BasicLevelSpawner
 
 @export var start_on_spawn : bool = false
 @export var player_data : Array[PlayerData]
