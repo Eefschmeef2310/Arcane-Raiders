@@ -44,7 +44,7 @@ func _ready():
 	print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
 	pass
 
-func _process(delta):
+func _process(_delta):
 	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
 	#if (not sent_first_update):
 		#sent_first_update = true
@@ -92,9 +92,9 @@ func _on_connected_to_server():
 #region Other methods (please try to separate and organise!)
 
 ## called after the lobby mode has been decided 
-func InitLobby(mode : MultiplayerMode):
-	pass
-	
+#func InitLobby(online_mode : MultiplayerMode):
+	#pass
+	#
 
 #func SendNewCard():
 	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)

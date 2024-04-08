@@ -70,7 +70,7 @@ func _ready():
 		loadout_pips_box.add_child(new_pip)
 	pass
 
-func _process(delta):
+func _process(_delta):
 	#Runs per frame
 	#if username != "":
 		#show_panels = true
