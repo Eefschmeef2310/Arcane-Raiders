@@ -74,6 +74,41 @@ func _process(delta):
 	#Runs per frame
 	if username != "":
 		show_panels = true
+	
+	if is_multiplayer_authority():
+		var changed = false
+		if(Input.is_action_just_pressed("down")):
+			if not player_ready:
+				selected_panel = clampi(selected_panel + 1, 0,2)
+			changed = true
+		
+		if(Input.is_action_just_pressed("up")):
+			if not player_ready:
+				selected_panel = clampi(selected_panel - 1, 0,2)
+			changed = true
+		
+		if(Input.is_action_just_pressed("left")):
+			if(selected_panel == 0): #raider panel selected 
+				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
+			elif(selected_panel == 1): #loadout selected
+				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
+			changed = true
+			
+		if(Input.is_action_just_pressed("right")):
+			if(selected_panel == 0): #raider panel selected 
+				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
+			elif(selected_panel == 1): #loadout selected
+				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
+			changed = true
+		
+		if(Input.is_action_just_pressed("lobby_confirm")):
+			if(selected_panel == 2): #ready button selected
+				player_ready = !player_ready
+				changed = true
+				
+		if changed:
+			setValues.rpc(Steam.getPersonaName(),selected_raider,selected_loadout,selected_panel,player_ready)
+	
 	UpdateDisplay()
 
 #endregion

@@ -38,50 +38,13 @@ func _ready():
 	pass
 
 func _process(delta):
-	var changed = false
 	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
 	if (not sent_first_update):
 		sent_first_update = true
 		#set inital card values
 		SendNewCard()
 	
-	var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
-	var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
-	var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
-	var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
 	
-	#it just works 
-	if(Input.is_action_just_pressed("down")):
-		if not gaming:
-			selection = clampi(selection + 1, 0,2)
-		changed = true
-	
-	if(Input.is_action_just_pressed("up")):
-		if not gaming:
-			selection = clampi(selection - 1, 0,2)
-		changed = true
-	
-	if(Input.is_action_just_pressed("left")):
-		if(selection == 0): #raider panel selected 
-			raider = clampi(raider - 1, 0,raiders.size()-1)
-		elif(selection == 1): #loadout selected
-			loadout = clampi(loadout - 1, 0,loadouts.size()-1)
-		changed = true
-		
-	if(Input.is_action_just_pressed("right")):
-		if(selection == 0): #raider panel selected 
-			raider = clampi(raider + 1, 0,raiders.size()-1)
-		elif(selection == 1): #loadout selected
-			loadout = clampi(loadout + 1, 0,loadouts.size()-1)
-		changed = true
-	
-	if(Input.is_action_just_pressed("lobby_confirm")):
-		if(selection == 2): #ready button selected
-			gaming = !gaming
-			changed = true
-			
-	if changed:
-		SendCard(raider,loadout,selection,gaming)
 #endregion
 
 @rpc("authority","call_local")
