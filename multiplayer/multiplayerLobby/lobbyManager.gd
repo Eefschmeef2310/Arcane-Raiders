@@ -4,6 +4,7 @@ extends Node
 
 #region Variables
 #Signals
+signal player_joined
 
 #Enums
 enum MultiplayerMode {Local,Online}
@@ -33,28 +34,43 @@ func _ready():
 	#Steam.lobby_joined.connect(_on_lobby_joined)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	
+	#get the peer id the player who has just joined (by loading this scenes ready func)
+	var incoming_peer_id = multiplayer.get_unique_id()
+	
+	#CreateNewCard.rpc(incoming_peer_id)
+	CreateNewCard(incoming_peer_id)
+	
 		
-	print("Player ID: " + str(SteamManager.player_id))
+	print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
 	pass
 
 func _process(delta):
 	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
-	if (not sent_first_update):
-		sent_first_update = true
-		#set inital card values
-		SendNewCard()
-	
+	#if (not sent_first_update):
+		#sent_first_update = true
+		##set inital card values
+		##SendNewCard()
+	pass
 	
 #endregion
 
-@rpc("authority","call_local")
-func request_updates(from : int):
-	print("Completing an update request for player " + str(from))
-	var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
-	var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
-	var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
-	var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
-	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+@rpc("any_peer", "call_local")
+func CreateNewCard(peer_id : int):
+	var new_player_card = player_card_scene.instantiate()
+	new_player_card.lobby_manager = self
+	new_player_card.set_multiplayer_authority(peer_id, true)
+	player_card_hbox.add_child(new_player_card)
+	player_joined.emit()
+
+#@rpc("authority","call_local")
+#func request_updates(from : int):
+	#print("Completing an update request for player " + str(from))
+	#var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
+	#var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
+	#var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
+	#var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
+	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
 	
 
 #region Signal methods
@@ -67,14 +83,14 @@ func request_updates(from : int):
 func _on_peer_connected(id:int):
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
-	SendNewCard()
+	#SendNewCard()
 	rpc("request_updates", id)
 	pass
 
 
 func _on_connected_to_server():
 	print("connected to server!")
-	SendNewCard()
+	#SendNewCard()
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -84,18 +100,18 @@ func InitLobby(mode : MultiplayerMode):
 	pass
 	
 
-func SendNewCard():
-	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
-
-func SendCard(raider,loadout,selection,gaming):
-	rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
-
-@rpc("any_peer","call_local")
-func UpdateCard(playerID : int, username : String, n_raider : int, n_loadout : int, n_selection : int, n_ready : bool):
-	var cardToSet = player_card_hbox.get_children()[playerID]
-	#cardToSet.rpc("setValues",portrait, raider, description, username)
-	print("Update called by player: " + str(playerID))
-	cardToSet.setValues(username, n_raider, n_loadout, n_selection, n_ready)
+#func SendNewCard():
+	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
+#
+#func SendCard(raider,loadout,selection,gaming):
+	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
+#
+#@rpc("any_peer","call_local")
+#func UpdateCard(playerID : int, username : String, n_raider : int, n_loadout : int, n_selection : int, n_ready : bool):
+	#var cardToSet = player_card_hbox.get_children()[playerID]
+	##cardToSet.rpc("setValues",portrait, raider, description, username)
+	#print("Update called by player: " + str(playerID))
+	#cardToSet.setValues(username, n_raider, n_loadout, n_selection, n_ready)
 
 
 #endregion

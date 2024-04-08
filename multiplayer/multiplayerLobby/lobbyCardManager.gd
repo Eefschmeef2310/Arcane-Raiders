@@ -17,7 +17,7 @@ extends Node
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
 @export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
-@export var show_panels : bool = false #dont show stuff until a player connects
+@export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED
 
@@ -48,6 +48,8 @@ extends Node
 
 #region Godot methods
 func _ready():
+	
+	
 	# create and prepare the ui pips
 	for child in character_pips_box.get_children():
 		child.queue_free()

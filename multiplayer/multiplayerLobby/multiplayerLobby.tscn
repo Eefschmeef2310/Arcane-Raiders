@@ -53,10 +53,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ydb8")
-player_card_hbox = NodePath("MarginContainer/HBoxContainer")
+player_card_hbox = NodePath("MarginContainer/PlayerCardBox")
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_pgemf"), ExtResource("4_r1oq1"), ExtResource("2_837od")])
 loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
 server_browser_scene = ExtResource("14_1q3ex")
+player_card_scene = ExtResource("2_bq112")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -81,25 +82,9 @@ theme_override_constants/margin_top = 200
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="PlayerCardBox" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 40
-
-[node name="PlayerCard" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
-layout_mode = 2
-lobby_manager = NodePath("../../..")
-
-[node name="PlayerCard2" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
-layout_mode = 2
-lobby_manager = NodePath("../../..")
-
-[node name="PlayerCard3" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
-layout_mode = 2
-lobby_manager = NodePath("../../..")
-
-[node name="PlayerCard4" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("2_bq112")]
-layout_mode = 2
-lobby_manager = NodePath("../../..")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 layout_mode = 1
