@@ -23,6 +23,10 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 		health_updated.emit(health)
 
 @export var do_damage_numbers: bool = true
+
+@export_subgroup("Knockback")
+@export var knockback_timeout : float = 20
+@export var knockback_initial_velocity : float = 2000
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -32,6 +36,10 @@ var burn_timer : float
 var burn_tick_rate : float = 0.5
 var frost_speed_scale : float = 1.0
 var shocked_this_frame : bool = false
+
+var can_input : bool = true
+var knockback_velocity : float
+var knockback_direction : Vector2
 
 #endregion
 
@@ -54,6 +62,7 @@ func _process(delta):
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
+			
 #endregion
 
 #region Signal methods
@@ -111,6 +120,9 @@ func on_hurt(hit_node):
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
 	
+	if element == SpellManager.elements["wind"]:
+		wind_effect(hit_node)
+	
 	if do_damage_numbers:
 		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
 		add_sibling(damage_number)
@@ -157,4 +169,9 @@ func shock_effect():
 		(shock_effect_laser as Line2D).points[1] = closest.global_position
 		(shock_effect_laser as Line2D).points[1].y -= 16
 		add_sibling(shock_effect_laser)
+
+func wind_effect(hit_node):
+	knockback_velocity = knockback_initial_velocity
+	knockback_direction = hit_node.global_position.direction_to(global_position)
+	can_input = false
 #endregion

@@ -28,7 +28,7 @@ func set_target() -> bool:
 func _process(delta):
 	super._process(delta)
 		
-func _physics_process(_delta):
+func _physics_process(delta):
 	if nav_server_synced:
 		#set_target()
 		
@@ -40,8 +40,16 @@ func _physics_process(_delta):
 		
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
 		nav_agent.set_velocity(intended_velocity)
-	
-	
+		
+		#knockback code
+		if !can_input:
+			nav_agent.set_velocity(Vector2.ZERO)
+			
+		nav_agent.set_velocity(nav_agent.velocity + knockback_velocity * knockback_direction)
+		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_timeout)
+		
+		if knockback_velocity < 0.01:
+			can_input = true
 #endregion
 
 #region Signal methods

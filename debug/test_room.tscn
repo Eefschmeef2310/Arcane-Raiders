@@ -38,10 +38,11 @@ element = ExtResource("9_bw1d1")
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
 
-[node name="TestRoom" type="Node2D"]
+[node name="TestRoom" type="Node2D" node_paths=PackedStringArray("data_to_fuck_with")]
 y_sort_enabled = true
 position = Vector2(-4, 10)
 script = ExtResource("1_iy1p6")
+data_to_fuck_with = NodePath("Player/PlayerData")
 
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
@@ -101,45 +102,129 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1609, 600)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy2" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1924, 665)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy3" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1484, 768)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy4" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1318, 901)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy5" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1607, 731)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy6" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1487, 667)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy7" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1756, 683)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy8" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1783, 573)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy9" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1380, 816)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy10" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1036, 709)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy11" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(758, 517)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy12" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(467, 888)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy13" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1065, 1208)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DummyEnemy14" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1703, 1240)
+movement_speed = null
+damage = null
+max_health = null
+health = null
+do_damage_numbers = null
+knockback_timeout = null
 
 [node name="DynamicCamera" parent="." instance=ExtResource("10_pyvl3")]
 position = Vector2(1094, 310)
