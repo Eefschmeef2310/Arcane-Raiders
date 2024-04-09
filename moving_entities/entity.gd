@@ -78,7 +78,10 @@ func _process(delta):
 func on_hurt(hit_node):
 	if !is_multiplayer_authority():
 		return
-
+	
+	if "caster" in hit_node and hit_node.caster == self:
+		return
+	
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource

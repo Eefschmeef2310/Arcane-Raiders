@@ -3,7 +3,7 @@ extends Entity
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 @export var movement_speed: float = 100
-@export var damage : int = 10
+@export var base_damage : int = 10
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 var nav_server_synced = false
@@ -19,9 +19,16 @@ func actor_setup():
 	set_target()
 
 func set_target() -> bool:
-	var p = get_tree().get_first_node_in_group("player")
-	if p is Player:
-		nav_agent.target_position = p.global_position
+	var p_arr = get_tree().get_nodes_in_group("player")
+	var target
+	var dist = INF
+	for p in p_arr:
+		if p is Player and global_position.distance_to(p.global_position) < dist:
+			target = p
+			dist = global_position.distance_to(p.global_position)
+	
+	if target:
+		nav_agent.target_position = target.global_position
 		return true
 	return false
 
