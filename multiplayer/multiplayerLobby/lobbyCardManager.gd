@@ -156,7 +156,7 @@ func setValues(new_username : String, new_raider : int, new_color : int, new_loa
 	selected_panel = new_panel
 	player_ready = new_ready
 
-@rpc("any_peer","call_local")
+@rpc("any_peer")
 func resendValues():
 	setValues.rpc(username, selected_raider, selected_color, selected_loadout, selected_panel, player_ready)
 
