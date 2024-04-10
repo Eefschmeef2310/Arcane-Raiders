@@ -57,7 +57,7 @@ var finished_connecting : bool
 
 #region Godot methods
 func _ready():
-	
+	player_name.label_settings = player_name.label_settings.duplicate()
 	
 	# create and prepare the ui pips
 	for child in character_pips_box.get_children():
@@ -167,8 +167,9 @@ func UpdateDisplay():
 	
 	# set some basic values
 	player_name.text = username
-	#player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
-	player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
+	
+	player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
+	#player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
