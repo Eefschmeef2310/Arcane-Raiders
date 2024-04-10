@@ -144,7 +144,7 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-@rpc("any_peer","call_local")
+@rpc("any_peer","call_local","reliable")
 func setValues(new_username : String, new_raider : int, new_color : int, new_loadout : int, new_panel : int, new_ready : bool ):
 	username = new_username
 	
