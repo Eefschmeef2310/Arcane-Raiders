@@ -21,6 +21,7 @@ enum MultiplayerMode {Local,Online}
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
+@export var player_colors : Array[Color]
 @export var server_browser_scene : PackedScene
 @export var player_card_scene : PackedScene
 @export var castle_climb_scene : PackedScene

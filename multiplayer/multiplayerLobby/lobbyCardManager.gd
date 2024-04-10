@@ -16,28 +16,37 @@ extends Node
 @export var device_id : int = -2 # for local multiplayer
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
+@export var selected_color : int = 0
 @export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
 @export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
-@export var highlight_color : Color = Color.RED
+@export var highlight_color : Color = Color.RED # this should be player colour
 
 @export_group("Other Resources")
 @export var pip_texture : Texture2D
 
 @export_group("References")
 @export var lobby_manager : Node
-@export var raider_portrait : TextureRect 
-@export var raider_name : Label 
-@export var raider_desc : Label 
 @export var player_name : Label
-@export var loadout_name : Label
-@export var loadout_desc : Label
 @export var all_panels : VBoxContainer # hide and show this depending on if a player has joined 
 @export var most_panels : VBoxContainer # modulate this to grey when a player is ready to show their choices are "locked"
 @export var panels_array : Array[Control]
+@export_subgroup("raider")
+@export var raider_portrait : TextureRect
+@export var raider_name : Label 
+@export var raider_desc : Label 
 @export var character_pips_box : HBoxContainer
+@export_subgroup("loadout")
+@export var loadout_name : Label
+@export var loadout_desc : Label
 @export var loadout_pips_box : HBoxContainer
 @export var spells_box : HBoxContainer
+@export_subgroup("color")
+@export var color_name : Label
+@export var color_pips_box : HBoxContainer
+
+
+
 
 #Onready Variables
 
@@ -71,6 +80,17 @@ func _ready():
 			new_pip.modulate = Color.DIM_GRAY
 		loadout_pips_box.add_child(new_pip)
 	pass
+	
+	for child in color_pips_box.get_children():
+		child.queue_free()
+		
+	for colorCount in lobby_manager.player_colors.size():
+		var new_pip = TextureRect.new()
+		new_pip.texture = pip_texture
+		if colorCount > 0:
+			new_pip.modulate = Color.DIM_GRAY
+		color_pips_box.add_child(new_pip)
+	pass
 
 func _process(_delta):
 	#Runs per frame
@@ -81,18 +101,20 @@ func _process(_delta):
 		var changed = false
 		if(Input.is_action_just_pressed("down")):
 			if not player_ready:
-				selected_panel = clampi(selected_panel + 1, 0,2)
+				selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
 			changed = true
 		
 		if(Input.is_action_just_pressed("up")):
 			if not player_ready:
-				selected_panel = clampi(selected_panel - 1, 0,2)
+				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			changed = true
 		
 		if(Input.is_action_just_pressed("left")):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
-			elif(selected_panel == 1): #loadout selected
+			elif(selected_panel == 1): #color selected
+				selected_color = clampi(selected_color - 1, 0,lobby_manager.player_colors.size()-1)
+			elif(selected_panel == 2): #loadout selected
 				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 			
@@ -100,16 +122,18 @@ func _process(_delta):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #loadout selected
+				selected_color = clampi(selected_color + 1, 0,lobby_manager.player_colors.size()-1)
+			elif(selected_panel == 2): #loadout selected
 				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 		
 		if(Input.is_action_just_pressed("lobby_confirm")):
-			if(selected_panel == 2): #ready button selected
+			if(selected_panel == 3): #ready button selected
 				player_ready = !player_ready
 				changed = true
 				
 		if changed:
-			setValues.rpc(Steam.getPersonaName(),selected_raider,selected_loadout,selected_panel,player_ready)
+			setValues.rpc(Steam.getPersonaName(),selected_raider,selected_color,selected_loadout,selected_panel,player_ready)
 	
 	UpdateDisplay()
 
@@ -121,12 +145,13 @@ func _process(_delta):
 
 #region Other methods (please try to separate and organise!)
 @rpc("any_peer","call_local")
-func setValues(new_username : String, new_raider : int, new_loadout : int, new_panel : int, new_ready : bool ):
+func setValues(new_username : String, new_raider : int, new_color : int, new_loadout : int, new_panel : int, new_ready : bool ):
 	username = new_username
 	player_name.text = username
 	#raider name, picture and description will be an array get from lobby manager 
 	#loadout name and desc will be an array get from lobby manager 
 	selected_raider = new_raider
+	selected_color = new_color
 	selected_loadout = new_loadout
 	selected_panel = new_panel
 	player_ready = new_ready
@@ -142,6 +167,7 @@ func UpdateDisplay():
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
+	color_name.text = str(selected_color)
 	
 	# prepare spell icons
 	for spell : int in spells_box.get_children().size():
@@ -163,9 +189,15 @@ func UpdateDisplay():
 		else: 
 			loadout_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	
+	for pip in color_pips_box.get_children().size():
+		if pip == selected_color:
+			color_pips_box.get_child(pip).modulate = Color.WHITE
+		else: 
+			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
+	
 	
 	#Highlight the correct panel
-	highlight_color = lobby_manager.raiders[selected_raider].color
+	highlight_color = lobby_manager.player_colors[selected_color]
 	if player_ready:
 		most_panels.modulate = Color.DIM_GRAY
 	else: 
@@ -178,7 +210,7 @@ func UpdateDisplay():
 			pass
 		else:
 			#restore it to normal modulation
-			(panels_array[panel_num] as Control).self_modulate = Color.WHITE
+			(panels_array[panel_num] as Control).self_modulate = Color("363636")
 			pass
 	pass
 

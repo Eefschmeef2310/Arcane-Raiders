@@ -60,6 +60,8 @@ size_flags_horizontal = 3
 [node name="Lobbies" type="VBoxContainer" parent="ServerBrowser/HSplitContainer/LobbyContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 
 [connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Local" to="." method="_on_local_pressed"]
