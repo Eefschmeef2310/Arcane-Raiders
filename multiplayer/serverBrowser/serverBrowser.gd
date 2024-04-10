@@ -80,9 +80,6 @@ func join_lobby(id):
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
 	SteamManager.player_id = Steam.getNumLobbyMembers(id)
-	#$Host.disabled = true
-	#$Refresh.disabled = true
-	#$LobbyContainer/Lobbies.hide()
 	server_browser.hide()
 
 func _on_lobby_created(connected, id):

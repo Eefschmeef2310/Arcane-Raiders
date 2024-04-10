@@ -147,7 +147,7 @@ func _process(_delta):
 @rpc("any_peer","call_local")
 func setValues(new_username : String, new_raider : int, new_color : int, new_loadout : int, new_panel : int, new_ready : bool ):
 	username = new_username
-	player_name.text = username
+	
 	#raider name, picture and description will be an array get from lobby manager 
 	#loadout name and desc will be an array get from lobby manager 
 	selected_raider = new_raider
@@ -162,6 +162,8 @@ func UpdateDisplay():
 	all_panels.visible = show_panels
 	
 	# set some basic values
+	player_name.text = username
+	player_name.label_settings.font_color = highlight_color
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
