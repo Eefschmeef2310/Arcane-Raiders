@@ -5,7 +5,7 @@ extends Node
 #region Variables
 #Signals
 signal player_joined
-
+signal player_left(id:int)
 #Enums
 enum MultiplayerMode {Local,Online}
 
@@ -42,6 +42,7 @@ func _ready():
 	debug_start_button.disabled = not multiplayer.is_server()
 	##Runs when all children have entered the tree
 	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer_spawner.spawn_function = CreateNewCard
 	#castle_climb_spawner.spawn_function = spawn_castle_climb
@@ -118,10 +119,29 @@ func _on_peer_connected(id:int): #this isnt triggering when a client joins
 	#rpc("request_updates", id)
 	pass
 
+func _on_peer_disconnected(id:int):
+	print("Peer " + str(id) + " has disconnected D:")
+	#destroy their player card
+	for card in player_card_hbox.get_children():
+		if card.peer_id == id:
+			card.queue_free()
+	#emit a signal for removing them from the actual game 
+	player_left.emit(id)
+
 func _on_connected_to_server(): #this isnt working at all
 	#get all the data from the other players and spawn their cards too
 	print("I have connected to the server!")
 	pass
+	
+func _on_back_button_pressed():
+	#TODO close server
+	get_tree().change_scene_to_packed(server_browser_scene) 
+	pass # Replace with function body.
+
+
+func _on_start_button_pressed(): 
+	StartGame()
+
 
 #endregion
 
@@ -185,11 +205,3 @@ func get_card_data() -> Array:
 #endregion
 
 
-func _on_back_button_pressed():
-	#TODO close server
-	get_tree().change_scene_to_packed(server_browser_scene) 
-	pass # Replace with function body.
-
-
-func _on_start_button_pressed(): 
-	StartGame()
