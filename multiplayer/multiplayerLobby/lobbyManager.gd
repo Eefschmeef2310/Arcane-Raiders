@@ -35,6 +35,7 @@ enum MultiplayerMode {Local,Online}
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
 var ready_timer : float 
+var lobby_id : int
 #endregion
 
 #region Godot methods
@@ -133,8 +134,16 @@ func _on_connected_to_server(): #this isnt working at all
 	print("I have connected to the server!")
 	pass
 	
+func _on_server_disconnected():
+	# send player to menu / reload server browser scene
+	#also show error?
+	pass
+	
 func _on_back_button_pressed():
 	#TODO close server
+	if multiplayer.is_server():
+		Steam.setLobbyJoinable(lobby_id, false)
+		pass
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_packed(server_browser_scene) 
 	pass # Replace with function body.
@@ -149,12 +158,14 @@ func _on_start_button_pressed():
 #region Other methods (please try to separate and organise!)
 
 ## called after the lobby mode has been decided 
-func InitLobby(_online_mode : MultiplayerMode):
+func InitLobby(_online_mode : MultiplayerMode, new_lobby_id : int):
+	lobby_id = new_lobby_id
 	pass
 	
 
 
 func StartGame():
+	Steam.setLobbyJoinable(lobby_id, false)
 	print("START THE GAME!!!!")
 	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()

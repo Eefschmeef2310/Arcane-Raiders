@@ -67,7 +67,7 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = peer
 	var lobby_scene = multiplayer_spawner.spawn(gameScene)
 	#lobby_scene.mode = lobby_scene.MultiplayerMode.Online
-	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Online)
+	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Online, lobby_id)
 	#$Host.disabled = true
 	#$Refresh.disabled = true
 	#$LobbyContainer/Lobbies.hide()
