@@ -135,6 +135,7 @@ func _on_connected_to_server(): #this isnt working at all
 	
 func _on_back_button_pressed():
 	#TODO close server
+	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_packed(server_browser_scene) 
 	pass # Replace with function body.
 
