@@ -51,7 +51,7 @@ extends Node
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
-
+var finished_connecting : bool
 
 #endregion
 
@@ -93,9 +93,9 @@ func _ready():
 	pass
 
 func _process(_delta):
-	#Runs per frame
-	#if username != "":
-		#show_panels = true
+	if !finished_connecting:
+		resendValues.rpc()
+		finished_connecting = true
 	
 	if is_multiplayer_authority():
 		var changed = false
@@ -144,7 +144,7 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-@rpc("any_peer","call_local","reliable")
+@rpc("any_peer","call_local")
 func setValues(new_username : String, new_raider : int, new_color : int, new_loadout : int, new_panel : int, new_ready : bool ):
 	username = new_username
 	
@@ -156,6 +156,7 @@ func setValues(new_username : String, new_raider : int, new_color : int, new_loa
 	selected_panel = new_panel
 	player_ready = new_ready
 
+@rpc("any_peer","call_local")
 func resendValues():
 	setValues.rpc(username, selected_raider, selected_color, selected_loadout, selected_panel, player_ready)
 
