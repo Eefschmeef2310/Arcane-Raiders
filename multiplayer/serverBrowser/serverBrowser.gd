@@ -11,11 +11,14 @@ extends Node
 #Constants
 
 #Exported Variables
-@export_group("Editor references")
+@export_group("Node references")
 @export var multiplayer_spawner : MultiplayerSpawner
 @export var server_browser : Control
 @export var lobbies_vbox : VBoxContainer
 @export var server_count_text : Label
+@export var loading_text : Label
+
+@export_group("Scenes")
 @export var gameScene : String = "res://multiplayer/multiplayerLobby/multiplayerLobby.tscn"
 
 
@@ -76,6 +79,8 @@ func _on_local_pressed():
 	server_browser.hide()
 
 func join_lobby(id):
+	loading_text.show()
+	loading_text.text = "Loading into...\n" + Steam.getLobbyData(id,"name")
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id

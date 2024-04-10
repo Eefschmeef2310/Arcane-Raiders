@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://multiplayer/serverBrowser/serverBrowser.gd" id="1_ih681"]
 
-[node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text")]
+[node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text")]
 script = ExtResource("1_ih681")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 server_browser = NodePath("ServerBrowser")
 lobbies_vbox = NodePath("ServerBrowser/HSplitContainer/LobbyContainer/Lobbies")
 server_count_text = NodePath("ServerBrowser/HSplitContainer/VBoxContainer2/ServerDebugText")
+loading_text = NodePath("LoadingText")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
@@ -62,6 +63,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
+
+[node name="LoadingText" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "Loading into lobby:
+Clevertop"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Local" to="." method="_on_local_pressed"]
