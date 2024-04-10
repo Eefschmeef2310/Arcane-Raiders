@@ -167,7 +167,8 @@ func UpdateDisplay():
 	
 	# set some basic values
 	player_name.text = username
-	player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
+	#player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
+	player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
