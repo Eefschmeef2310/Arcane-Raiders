@@ -34,6 +34,7 @@ enum MultiplayerMode {Local,Online}
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
+var start_game_called : bool = false
 var ready_timer : float 
 var lobby_id : int
 #endregion
@@ -165,16 +166,18 @@ func InitLobby(_online_mode : MultiplayerMode, new_lobby_id : int):
 
 
 func StartGame():
-	Steam.setLobbyJoinable(lobby_id, false)
-	print("START THE GAME!!!!")
-	
-	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
-	add_child(castle_climb)
-	
-	hide_lobby.rpc()
-	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
-	
-	castle_climb.start_climb()
+	if not start_game_called:
+		start_game_called= true
+		Steam.setLobbyJoinable(lobby_id, false)
+		print("START THE GAME!!!!")
+		
+		var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+		add_child(castle_climb)
+		
+		hide_lobby.rpc()
+		castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+		
+		castle_climb.start_climb()
 
 @rpc("authority", "call_local", "reliable")
 func hide_lobby():

@@ -44,6 +44,11 @@ extends Node
 @export_subgroup("color")
 @export var color_name : Label
 @export var color_pips_box : HBoxContainer
+@export_subgroup("preview")
+@export var pre_head : Sprite2D
+@export var pre_body : Sprite2D
+@export var pre_l_hand : Sprite2D
+@export var pre_r_hand : Sprite2D
 
 
 
@@ -175,7 +180,7 @@ func UpdateDisplay():
 	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
-	color_name.text = str(selected_color)
+	color_name.text ="Color: " + str(selected_color+1)
 	
 	# prepare spell icons
 	for spell : int in spells_box.get_children().size():
@@ -221,5 +226,11 @@ func UpdateDisplay():
 			(panels_array[panel_num] as Control).self_modulate = Color("363636")
 			pass
 	pass
+	
+	#update preview
+	pre_body.self_modulate = highlight_color
+	pre_head.texture = lobby_manager.raiders[selected_raider].head_texture
+	pre_l_hand.self_modulate = lobby_manager.raiders[selected_raider].skin_color
+	pre_r_hand.self_modulate = lobby_manager.raiders[selected_raider].skin_color
 
 #endregion
