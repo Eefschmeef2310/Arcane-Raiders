@@ -156,6 +156,9 @@ func setValues(new_username : String, new_raider : int, new_color : int, new_loa
 	selected_panel = new_panel
 	player_ready = new_ready
 
+func resendValues():
+	setValues.rpc(username, selected_raider, selected_color, selected_loadout, selected_panel, player_ready)
+
 func UpdateDisplay():
 	
 	# hide everything if there isnt a player to use it
