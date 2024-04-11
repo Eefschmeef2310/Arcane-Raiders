@@ -20,6 +20,7 @@ extends Node
 
 @export_group("Scenes")
 @export var gameScene : String = "res://multiplayer/multiplayerLobby/multiplayerLobby.tscn"
+@export var disconnect_scene : PackedScene
 
 
 #@export_group("Group")
@@ -48,35 +49,41 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-
+func _on_refresh_pressed():
+	if lobbies_vbox.get_child_count() >0:
+		for n in lobbies_vbox.get_children():
+			n.queue_free()
+	open_lobby_list()
 
 
-func spawn_level(data):
-	var a = (load(data) as PackedScene).instantiate()
+func _on_back_pressed():
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+
+
+func _on_disconnect_button_pressed():
+	multiplayer.multiplayer_peer = null
+	get_tree().change_scene_to_packed(disconnect_scene) 
 	
-	return a 
-
+	
 func _on_host_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	#lobby_scene.mode = lobby_scene.MultiplayerMode.Online
 	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Online, lobby_id)
-	#$Host.disabled = true
-	#$Refresh.disabled = true
-	#$LobbyContainer/Lobbies.hide()
 	server_browser.hide()
 
 func _on_local_pressed():
 	var lobby_scene = multiplayer_spawner.spawn(gameScene)
 	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Local)
 	server_browser.hide()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+func spawn_level(data):
+	var a = (load(data) as PackedScene).instantiate()
+	
+	return a 
 
 func join_lobby(id):
 	loading_text.show()
@@ -94,7 +101,6 @@ func _on_lobby_created(connected, id):
 		Steam.setLobbyJoinable(lobby_id, true)
 		print(lobby_id)
 		
-
 func open_lobby_list():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.requestLobbyList()
@@ -106,7 +112,6 @@ func on_lobby_match_list(lobbies):
 		var lobby_name = Steam.getLobbyData(lobby,"name")
 		if (lobby_name.contains("Arcane Raiders")):
 			var memb_count = Steam.getNumLobbyMembers(lobby)
-		
 			var button = Button.new()
 			button.set_text(str(lobby_name," | Player Count: ",memb_count))
 			button.set_size(Vector2(100,5))
@@ -115,16 +120,4 @@ func on_lobby_match_list(lobbies):
 			valid_lobbies_count += 1
 	server_count_text.text = str(valid_lobbies_count," / ",all_lobbies_count," Servers Shown")
 
-
-func _on_refresh_pressed():
-	if lobbies_vbox.get_child_count() >0:
-		for n in lobbies_vbox.get_children():
-			n.queue_free()
-	open_lobby_list()
-
-
-func _on_back_pressed():
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
-
-
-
+#endregion
