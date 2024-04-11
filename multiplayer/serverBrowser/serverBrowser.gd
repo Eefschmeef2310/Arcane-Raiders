@@ -62,6 +62,7 @@ func _on_back_pressed():
 
 
 func _on_disconnect_button_pressed():
+	# TODO this doesnt work yet! we should probably have it go back to the menu rather than try and reload te server browser
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_packed(disconnect_scene) 
 	
