@@ -17,6 +17,7 @@ extends Node
 @export var lobbies_vbox : VBoxContainer
 @export var server_count_text : Label
 @export var loading_text : Label
+@export var loading_panel : Node
 
 @export_group("Scenes")
 @export var gameScene : String = "res://multiplayer/multiplayerLobby/multiplayerLobby.tscn"
@@ -86,7 +87,7 @@ func spawn_level(data):
 	return a 
 
 func join_lobby(id):
-	loading_text.show()
+	loading_panel.show()
 	loading_text.text = "Loading into...\n" + Steam.getLobbyData(id,"name")
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
