@@ -31,6 +31,7 @@ extends Node
 @export var all_panels : VBoxContainer # hide and show this depending on if a player has joined 
 @export var most_panels : VBoxContainer # modulate this to grey when a player is ready to show their choices are "locked"
 @export var panels_array : Array[Control]
+@export var ready_button : Button
 @export_subgroup("raider")
 @export var raider_portrait : TextureRect
 @export var raider_name : Label 
@@ -57,6 +58,7 @@ extends Node
 
 #Other Variables (please try to separate and organise!)
 var finished_connecting : bool
+var valid_color : bool
 
 #endregion
 
@@ -133,7 +135,7 @@ func _process(_delta):
 			changed = true
 		
 		if(Input.is_action_just_pressed("lobby_confirm")):
-			if(selected_panel == 3): #ready button selected
+			if(selected_panel == 3 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
 				
@@ -227,6 +229,14 @@ func UpdateDisplay():
 			pass
 	pass
 	
+	#check for valid color
+	valid_color = true
+	ready_button.text = "READY"
+	for card in lobby_manager.player_card_hbox.get_children():
+		if card.selected_color == selected_color and not player_ready:
+			valid_color = false
+			ready_button.text = "CHOOSE A DIFFERENT COLOR"
+
 	#update preview
 	pre_body.self_modulate = highlight_color
 	pre_head.texture = lobby_manager.raiders[selected_raider].head_texture
