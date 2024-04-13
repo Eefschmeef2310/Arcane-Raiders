@@ -4,10 +4,9 @@
 
 [sub_resource type="GDScript" id="GDScript_fgibt"]
 resource_name = "wind-earth"
-script/source = "extends Area2D
+script/source = "extends ReactionArea
 #Authored by Ethan.
 
-@export var base_damage : int = 10
 var entity
 
 func _on_timer_timeout():
@@ -22,7 +21,7 @@ func _on_kill_timer_timeout():
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
 radius = 62.0725
 
-[node name="Wind-earth" type="Area2D"]
+[node name="Wind-earth" type="Area2D" groups=["wind-earth"]]
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_fgibt")

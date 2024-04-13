@@ -4,10 +4,8 @@
 
 [sub_resource type="GDScript" id="GDScript_5c732"]
 resource_name = "stun-burn"
-script/source = "extends Area2D
+script/source = "extends ReactionArea
 #Authored by Ethan.
-
-@export var base_damage : int = 10
 
 func _on_timer_timeout():
 	for moving_entity in get_overlapping_bodies():
@@ -21,7 +19,7 @@ func _on_kill_timer_timeout():
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
 radius = 62.0725
 
-[node name="stun-burn" type="Area2D"]
+[node name="stun-burn" type="Area2D" groups=["stun-burn"]]
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_5c732")

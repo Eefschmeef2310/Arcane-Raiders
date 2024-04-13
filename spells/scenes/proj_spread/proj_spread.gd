@@ -29,7 +29,7 @@ func _ready():
 	_on_wave_timer_timeout()
 #endregion
 
-func _process(delta):
+func _process(_delta):
 	if caster : global_position = caster.global_position
 
 #region Signal methods
@@ -46,7 +46,7 @@ func _on_wave_timer_timeout():
 			bullet.rotation = (caster.aim_direction.angle() if caster else 0.) + rotation_offset
 			
 			bullet.global_position = global_position
-			get_tree().root.add_child(bullet)
+			get_tree().root.call_deferred("add_child", bullet)
 		waves -= 1
 		$WaveTimer.start(0.05)
 	else:

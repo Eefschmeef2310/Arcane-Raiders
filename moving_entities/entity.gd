@@ -91,7 +91,6 @@ func on_hurt(hit_node):
 		damage = hit_node.base_damage
 		health -= hit_node.base_damage
 		infliction_time = hit_node.base_damage / 10
-		
 	
 	#Add element to current inflictions dictionary
 	if "resource" in hit_node and hit_node.resource:
@@ -116,13 +115,13 @@ func on_hurt(hit_node):
 						current_inflictions_dictionary.erase(key)
 						current_inflictions_dictionary.erase(element)
 						
-						reaction = reaction.instantiate()
-						if "entity" in reaction:
-							reaction.entity = self
-							add_child(reaction)
+						var new_reaction = reaction.instantiate()
+						if "entity" in new_reaction:
+							new_reaction.entity = self
+							call_deferred("add_child", new_reaction)
 						else:
-							reaction.global_position = global_position
-							get_tree().root.add_child(reaction)
+							new_reaction.global_position = global_position
+							get_tree().root.call_deferred("add_child", new_reaction)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):

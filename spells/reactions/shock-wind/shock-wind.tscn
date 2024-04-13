@@ -4,7 +4,7 @@
 
 [sub_resource type="GDScript" id="GDScript_gjaf5"]
 resource_name = "shock-wind"
-script/source = "extends Area2D
+script/source = "extends ReactionArea
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Godot methods
@@ -19,16 +19,20 @@ func _physics_process(_delta):
 func _on_body_exited(body):
 	if \"attraction_direction\" in body:
 		body.attraction_direction = Vector2.ZERO
+		
+func _on_kill_timer_timeout():
+	queue_free()
 #endregion
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q5c5n"]
 radius = 140.004
 
-[node name="Shock-wind" type="Area2D"]
+[node name="Shock-wind" type="Area2D" groups=["shock-wind"]]
 collision_layer = 0
 collision_mask = 8
 script = SubResource("GDScript_gjaf5")
+base_damage = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_q5c5n")
@@ -38,4 +42,9 @@ visible = false
 scale = Vector2(1.70312, 1.54688)
 texture = ExtResource("1_pnsqt")
 
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]
