@@ -39,7 +39,7 @@ func get_random_spell():
 	new_spell.element = element
 	return new_spell
 
-func get_spell_fron_string(s: String) -> Spell:
+func get_spell_from_string(s: String) -> Spell:
 	var element_key = s.get_slice("-", 0)
 	var spell_key = s.get_slice("-", 1)
 	

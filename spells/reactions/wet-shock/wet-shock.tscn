@@ -9,7 +9,7 @@ script/source = "extends Node2D
 
 #region Variables
 	#Exported Variables
-@export var base_damage : int = 10
+@export var base_damage: int = 10
 
 	#Other Variables (please try to separate and organise!)
 var entity
@@ -17,7 +17,7 @@ var entity
 
 #region Other methods (please try to separate and organise!)
 func deal_damage():
-	entity.health -= base_damage
+	entity.on_hurt(self)
 	queue_free()
 #endregion
 "
@@ -57,7 +57,7 @@ _data = {
 "default": SubResource("Animation_6i4fy")
 }
 
-[node name="Wet-shock" type="Node2D"]
+[node name="Wet-shock" type="Node2D" groups=["wet-shock"]]
 script = SubResource("GDScript_paxyj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

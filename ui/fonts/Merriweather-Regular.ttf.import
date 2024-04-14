@@ -1,0 +1,38 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://jpoe0li3513x"
+path="res://.godot/imported/Merriweather-Regular.ttf-10d11be5f5697b5e0cd91ea05c3162ed.fontdata"
+
+[deps]
+
+source_file="res://ui/fonts/Merriweather-Regular.ttf"
+dest_files=["res://.godot/imported/Merriweather-Regular.ttf-10d11be5f5697b5e0cd91ea05c3162ed.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=true
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
+language_support={}
+script_support={}
+opentype_features={}

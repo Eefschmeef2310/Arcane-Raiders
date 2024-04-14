@@ -23,6 +23,13 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 		health_updated.emit(health)
 
 @export var do_damage_numbers: bool = true
+
+@export_subgroup("Knockback")
+@export var knockback_timeout : float = 20
+@export var knockback_initial_velocity : float = 2000
+
+@export_subgroup("Attraction")
+@export var attraction_strength : float = 65
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -33,6 +40,12 @@ var burn_tick_rate : float = 0.5
 var frost_speed_scale : float = 1.0
 var shocked_this_frame : bool = false
 
+var can_input : bool = true
+var knockback_velocity : float
+var knockback_direction : Vector2
+
+#for attraction stuff
+var attraction_direction : Vector2
 #endregion
 
 #region Godot methods
@@ -44,16 +57,17 @@ func _process(delta):
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
 		#following line ticks down each key's timer, while taking wetness into account
-		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["Wet"] and current_inflictions_dictionary.has(SpellManager.elements["Wet"])) else 1.0))
+		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["wet"] and current_inflictions_dictionary.has(SpellManager.elements["wet"])) else 1.0))
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 		
-		if key == SpellManager.elements["Burn"]:
+		if key == SpellManager.elements["burn"]:
 			burn_effect(delta)
-		elif key == SpellManager.elements["Frost"]:
+		elif key == SpellManager.elements["frost"]:
 			frost_effect(0.5)
-		elif key == SpellManager.elements["Stun"]:
+		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
+			
 #endregion
 
 #region Signal methods
@@ -64,7 +78,10 @@ func _process(delta):
 func on_hurt(hit_node):
 	if !is_multiplayer_authority():
 		return
-
+	
+	if "caster" in hit_node and hit_node.caster == self:
+		return
+	
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource
@@ -74,7 +91,6 @@ func on_hurt(hit_node):
 		damage = hit_node.base_damage
 		health -= hit_node.base_damage
 		infliction_time = hit_node.base_damage / 10
-		
 	
 	#Add element to current inflictions dictionary
 	if "resource" in hit_node and hit_node.resource:
@@ -83,7 +99,7 @@ func on_hurt(hit_node):
 		element = hit_node.element
 		
 	if element:
-		if element != SpellManager.elements["Null"]:
+		if element != SpellManager.elements["null"]:
 			if !current_inflictions_dictionary.has(element):
 				current_inflictions_dictionary[element] = 0
 			current_inflictions_dictionary[element] += infliction_time
@@ -99,17 +115,20 @@ func on_hurt(hit_node):
 						current_inflictions_dictionary.erase(key)
 						current_inflictions_dictionary.erase(element)
 						
-						reaction = reaction.instantiate()
-						if "entity" in reaction:
-							reaction.entity = self
-							add_child(reaction)
+						var new_reaction = reaction.instantiate()
+						if "entity" in new_reaction:
+							new_reaction.entity = self
+							call_deferred("add_child", new_reaction)
 						else:
-							reaction.global_position = global_position
-							get_tree().root.add_child(reaction)
+							new_reaction.global_position = global_position
+							get_tree().root.call_deferred("add_child", new_reaction)
 
 	#if shocked, run shock effect
-	if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
+	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
+	
+	if element == SpellManager.elements["wind"]:
+		wind_effect(hit_node)
 	
 	if do_damage_numbers:
 		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
@@ -147,7 +166,7 @@ func shock_effect():
 		shocked_this_frame = true
 		closest.shocked_this_frame = true
 		
-		if current_inflictions_dictionary.has(SpellManager.elements["Shock"]):
+		if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 			shock_effect()
 		
 		#draw line between guys
@@ -157,4 +176,9 @@ func shock_effect():
 		(shock_effect_laser as Line2D).points[1] = closest.global_position
 		(shock_effect_laser as Line2D).points[1].y -= 16
 		add_sibling(shock_effect_laser)
+
+func wind_effect(hit_node):
+	knockback_velocity = knockback_initial_velocity
+	knockback_direction = hit_node.global_position.direction_to(global_position)
+	can_input = false
 #endregion

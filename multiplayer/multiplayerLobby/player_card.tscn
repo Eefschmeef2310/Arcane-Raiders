@@ -1,0 +1,393 @@
+[gd_scene load_steps=16 format=3 uid="uid://bg1xa4bpkhjf7"]
+
+[ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
+[ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="1_66res"]
+[ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="4_1ls82"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_bk151"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_6stfj"]
+[ext_resource type="Texture2D" uid="uid://byn34gwtakpjl" path="res://multiplayer/multiplayerLobby/pip.png" id="5_lpqe4"]
+[ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="5_oe6lx"]
+[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="5_qvpg2"]
+[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="5_w3e0p"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_xkijq"]
+[ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_3q2uu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
+font = ExtResource("4_bk151")
+font_size = 21
+
+[sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
+font = ExtResource("5_6stfj")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_vcbrb"]
+line_spacing = 0.0
+font = ExtResource("4_bk151")
+
+[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
+custom_minimum_size = Vector2(400, 780)
+size_flags_horizontal = 3
+script = ExtResource("1_6lvqp")
+pip_texture = ExtResource("5_lpqe4")
+player_name = NodePath("VBoxContainer/VBoxContainer/Username")
+all_panels = NodePath("VBoxContainer")
+most_panels = NodePath("VBoxContainer/VBoxContainer")
+panels_array = [NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/ColorContainer"), NodePath("VBoxContainer/VBoxContainer/LoadoutContainer"), NodePath("VBoxContainer/Button")]
+ready_button = NodePath("VBoxContainer/Button")
+raider_portrait = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait")
+raider_name = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RaiderName")
+raider_desc = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/RaiderDesc")
+character_pips_box = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips")
+loadout_name = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/Loadout Name")
+loadout_desc = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/Loadout Desc")
+loadout_pips_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips")
+spells_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox")
+color_name = NodePath("VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/ColorName")
+color_pips_box = NodePath("VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips")
+pre_head = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/Head")
+pre_body = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/Body")
+pre_l_hand = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/LeftHand")
+pre_r_hand = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/RightHand")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="RaiderPortrait" type="TextureRect" parent="VBoxContainer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 396.86)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_66res")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="SpritesFlip" type="Node2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait"]
+position = Vector2(196, 338)
+
+[node name="SpritesScale" type="Node2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip"]
+scale = Vector2(2.895, 2.895)
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("4_1ls82")
+offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("5_qvpg2")
+
+[node name="Head" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+position = Vector2(2, -75)
+texture = ExtResource("6_xkijq")
+
+[node name="RightHand" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(38, -28)
+texture = ExtResource("7_3q2uu")
+
+[node name="LeftHand" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-37, -28)
+texture = ExtResource("7_3q2uu")
+flip_h = true
+
+[node name="Username" type="Label" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Username*"
+label_settings = SubResource("LabelSettings_nu6df")
+horizontal_alignment = 1
+
+[node name="CharacterContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
+self_modulate = Color(0, 0.584314, 0.45098, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("5_oe6lx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer"]
+layout_mode = 2
+
+[node name="CharacterSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+
+[node name="RaiderName" type="Label" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
+custom_minimum_size = Vector2(249.105, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "RaiderName"
+label_settings = SubResource("LabelSettings_xtm21")
+horizontal_alignment = 1
+
+[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+flip_h = true
+
+[node name="CharacterPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="RaiderDesc" type="Label" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "a dark and mysterious raider, only in it for the gold, known to leave all their teammates behind the moment they see something shiny"
+label_settings = SubResource("LabelSettings_vcbrb")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ColorContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
+self_modulate = Color(0, 0.584314, 0.45098, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("5_oe6lx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer"]
+layout_mode = 2
+
+[node name="ColorSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+
+[node name="ColorName" type="Label" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector"]
+custom_minimum_size = Vector2(249.105, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Green"
+label_settings = SubResource("LabelSettings_xtm21")
+horizontal_alignment = 1
+
+[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+flip_h = true
+
+[node name="ColorPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="LoadoutContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
+self_modulate = Color(0.596078, 0, 0.596078, 1)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_oe6lx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer"]
+layout_mode = 2
+
+[node name="LoadoutSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+
+[node name="Loadout Name" type="Label" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector"]
+custom_minimum_size = Vector2(249.105, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+text = "Fire"
+label_settings = SubResource("LabelSettings_xtm21")
+horizontal_alignment = 1
+
+[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = ExtResource("1_3ms62")
+expand_mode = 4
+flip_h = true
+
+[node name="LoadoutPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="Loadout Desc" type="Label" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Fire Bolt, Force Shot, Burst"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpellsBox" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+alignment = 1
+
+[node name="Spell1" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox"]
+layout_mode = 2
+texture = ExtResource("5_w3e0p")
+
+[node name="Spell2" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox"]
+layout_mode = 2
+texture = ExtResource("5_w3e0p")
+
+[node name="Spell3" type="TextureRect" parent="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox"]
+layout_mode = 2
+texture = ExtResource("5_w3e0p")
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_bk151")
+theme_override_styles/normal = ExtResource("5_oe6lx")
+text = "READY"
