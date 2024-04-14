@@ -23,6 +23,13 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 		health_updated.emit(health)
 
 @export var do_damage_numbers: bool = true
+
+@export_subgroup("Knockback")
+@export var knockback_timeout : float = 20
+@export var knockback_initial_velocity : float = 2000
+
+@export_subgroup("Attraction")
+@export var attraction_strength : float = 65
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -33,6 +40,12 @@ var burn_tick_rate : float = 0.5
 var frost_speed_scale : float = 1.0
 var shocked_this_frame : bool = false
 
+var can_input : bool = true
+var knockback_velocity : float
+var knockback_direction : Vector2
+
+#for attraction stuff
+var attraction_direction : Vector2
 #endregion
 
 #region Godot methods
@@ -54,6 +67,7 @@ func _process(delta):
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
+			
 #endregion
 
 #region Signal methods
@@ -64,7 +78,10 @@ func _process(delta):
 func on_hurt(hit_node):
 	if !is_multiplayer_authority():
 		return
-
+	
+	if "caster" in hit_node and hit_node.caster == self:
+		return
+	
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource
@@ -74,7 +91,6 @@ func on_hurt(hit_node):
 		damage = hit_node.base_damage
 		health -= hit_node.base_damage
 		infliction_time = hit_node.base_damage / 10
-		
 	
 	#Add element to current inflictions dictionary
 	if "resource" in hit_node and hit_node.resource:
@@ -99,17 +115,20 @@ func on_hurt(hit_node):
 						current_inflictions_dictionary.erase(key)
 						current_inflictions_dictionary.erase(element)
 						
-						reaction = reaction.instantiate()
-						if "entity" in reaction:
-							reaction.entity = self
-							add_child(reaction)
+						var new_reaction = reaction.instantiate()
+						if "entity" in new_reaction:
+							new_reaction.entity = self
+							call_deferred("add_child", new_reaction)
 						else:
-							reaction.global_position = global_position
-							get_tree().root.add_child(reaction)
+							new_reaction.global_position = global_position
+							get_tree().root.call_deferred("add_child", new_reaction)
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
+	
+	if element == SpellManager.elements["wind"]:
+		wind_effect(hit_node)
 	
 	if do_damage_numbers:
 		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
@@ -157,4 +176,9 @@ func shock_effect():
 		(shock_effect_laser as Line2D).points[1] = closest.global_position
 		(shock_effect_laser as Line2D).points[1].y -= 16
 		add_sibling(shock_effect_laser)
+
+func wind_effect(hit_node):
+	knockback_velocity = knockback_initial_velocity
+	knockback_direction = hit_node.global_position.direction_to(global_position)
+	can_input = false
 #endregion

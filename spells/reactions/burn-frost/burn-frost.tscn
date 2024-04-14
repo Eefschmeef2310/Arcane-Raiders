@@ -1,20 +1,77 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxbx5yeaogymo"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_3yuf6"]
-[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_m1j4m"]
 [ext_resource type="PackedScene" uid="uid://bp4swe3e1r06c" path="res://spells/reactions/burn-frost/burn-frost-bullet.tscn" id="3_fuemi"]
 
-[node name="burn-frost" instance=ExtResource("1_3yuf6")]
-script = ExtResource("2_m1j4m")
+[sub_resource type="GDScript" id="GDScript_ljwld"]
+resource_name = "brun-frost"
+script/source = "extends ReactionNode
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")s
+@export var BULLET = preload(\"res://spells/scenes/proj_spread/bullet.tscn\")
+@export var waves : int = 10
+@export var bullets_per_wave : int = 5
+@export_range(0, TAU) var max_radians : float = 0.2
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	#if entity : global_position = entity.global_position
+	# await get_tree().create_timer(start_time).timeout
+	if should_continue: _on_wave_timer_timeout()
+#endregion
+
+#region Signal methods
+func _on_wave_timer_timeout():
+	if waves > 0:
+		#spawn
+		var angle_step = max_radians / (bullets_per_wave - 1)
+		
+		for x in bullets_per_wave:
+			var bullet = BULLET.instantiate()
+			transfer_data(bullet)
+			
+			var rotation_offset = angle_step * x - max_radians / 2
+			bullet.rotation = (0.) + rotation_offset
+			
+			bullet.global_position = global_position
+			get_tree().root.call_deferred(\"add_child\", bullet)
+		waves -= 1
+		$WaveTimer.start(0.05)
+	else:
+		queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func transfer_data(new: Node2D):
+	if \"base_damage\" in new:
+		new.base_damage = base_damage
+#endregion
+"
+
+[node name="burn-frost" groups=["burn-frost"] instance=ExtResource("1_3yuf6")]
+script = SubResource("GDScript_ljwld")
 BULLET = ExtResource("3_fuemi")
 waves = 1
 bullets_per_wave = 8
 max_radians = 6.283
-base_damage = 1
-start_time = 0.0
-end_time = 0.0
-cancel_time = 0.0
-cooldown_time = 0.0
+base_damage = 10
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 

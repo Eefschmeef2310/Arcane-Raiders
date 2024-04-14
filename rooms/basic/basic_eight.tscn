@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_pn1qw"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_f0j0y"]
-[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_otn38"]
+[ext_resource type="PackedScene" path="res://dynamic_camera/dynamic_camera.tscn" id="3_otn38"]
 
 [node name="BasicEight" type="Node2D"]
 y_sort_enabled = true
