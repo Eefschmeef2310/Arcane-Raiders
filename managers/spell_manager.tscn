@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://clnarx3akvsqu"]
+[gd_scene load_steps=20 format=3 uid="uid://bircxyrmnpixt"]
 
 [ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="2_d4pfh"]
@@ -16,17 +16,20 @@
 [ext_resource type="Resource" uid="uid://gcjnkbwfebfe" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
 [ext_resource type="PackedScene" uid="uid://cxbx5yeaogymo" path="res://spells/reactions/burn-frost/burn-frost.tscn" id="15_b7v01"]
 [ext_resource type="PackedScene" uid="uid://cgcglkyrpkbs5" path="res://spells/reactions/wet-shock/wet-shock.tscn" id="16_d4jnw"]
+[ext_resource type="PackedScene" uid="uid://0u08iljqx1w1" path="res://spells/reactions/shock-wind/shock-wind.tscn" id="17_aynrb"]
+[ext_resource type="PackedScene" uid="uid://cnvowsw0l752i" path="res://spells/reactions/wind-earth/wind-earth.tscn" id="17_kvxt3"]
+[ext_resource type="PackedScene" uid="uid://bloo38yivbufm" path="res://spells/reactions/stun-burn/stun-burn.tscn" id="18_4t6um"]
 
 [node name="SpellManager" type="Node"]
 script = ExtResource("1_dxaf6")
 elements = {
-"Burn": ExtResource("2_d4pfh"),
-"Frost": ExtResource("3_wyn5f"),
-"Null": ExtResource("4_g0p7e"),
-"Shock": ExtResource("5_485g6"),
-"Stun": ExtResource("6_nscba"),
-"Wet": ExtResource("7_u88jo"),
-"Wind": ExtResource("8_4ef6i")
+"burn": ExtResource("2_d4pfh"),
+"frost": ExtResource("3_wyn5f"),
+"null": ExtResource("4_g0p7e"),
+"shock": ExtResource("5_485g6"),
+"stun": ExtResource("6_nscba"),
+"wet": ExtResource("7_u88jo"),
+"wind": ExtResource("8_4ef6i")
 }
 spell_scenes = {
 "aoe_large": ExtResource("6_njy4v"),
@@ -40,7 +43,7 @@ reactions = {
 [ExtResource("2_d4pfh"), ExtResource("3_wyn5f")]: ExtResource("15_b7v01"),
 [ExtResource("3_wyn5f"), ExtResource("7_u88jo")]: &"Frost and Wet",
 [ExtResource("7_u88jo"), ExtResource("5_485g6")]: ExtResource("16_d4jnw"),
-[ExtResource("5_485g6"), ExtResource("8_4ef6i")]: &"Shock and Wind",
-[ExtResource("8_4ef6i"), ExtResource("6_nscba")]: &"Wind and Stun",
-[ExtResource("6_nscba"), ExtResource("2_d4pfh")]: &"Stun and Burn"
+[ExtResource("5_485g6"), ExtResource("8_4ef6i")]: ExtResource("17_aynrb"),
+[ExtResource("8_4ef6i"), ExtResource("6_nscba")]: ExtResource("17_kvxt3"),
+[ExtResource("6_nscba"), ExtResource("2_d4pfh")]: ExtResource("18_4t6um")
 }

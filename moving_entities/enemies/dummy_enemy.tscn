@@ -24,6 +24,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_04g5f")
 movement_speed = 500.0
+attraction_strength = 70.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -18)
@@ -66,7 +67,7 @@ grow_vertical = 0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
+max_speed = 2000.0
 
 [node name="NavUpdateTimer" type="Timer" parent="."]
 wait_time = 0.5

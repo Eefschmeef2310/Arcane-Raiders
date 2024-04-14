@@ -201,6 +201,8 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_b6wy7"]
 resource_name = "cast_start"
+length = 0.25
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -220,7 +222,7 @@ tracks/1/path = NodePath("SpritesFlip/SpritesScale:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.9, 1.1)]
@@ -232,7 +234,7 @@ tracks/2/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(38, -28), Vector2(-30, -39.0909)]
@@ -244,7 +246,7 @@ tracks/3/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-37, -28), Vector2(-44.4444, -32.7273)]
@@ -491,7 +493,7 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
-spells = Array[Resource("res://spells/spell_base.gd")]([null, null, null])
+debug_spell_strings = Array[String](["burn-proj_ball", "null-proj_ball", "frost-aoe_large"])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -509,6 +511,20 @@ shape = SubResource("CapsuleShape2D_o8khp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b1y77")
+
+[node name="PrepareCast" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -140.0
+offset_right = 20.0
+offset_bottom = -117.0
+horizontal_alignment = 1
+
+[node name="CanCast" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -161.0
+offset_right = 20.0
+offset_bottom = -138.0
+horizontal_alignment = 1
 
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

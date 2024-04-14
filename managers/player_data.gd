@@ -11,12 +11,14 @@ signal device_changed(id: int)
 @export var peer_id : int = 1
 
 @export var health : int = 1000
-@export var spells : Array[Spell]
-@export var spell_cooldowns_max : Array[float]
-@export var spell_cooldowns : Array[float]
+@export var spells : Array[Spell] = [null,null,null]
+@export var spell_cooldowns_max : Array[float] = [0,0,0]
+@export var spell_cooldowns : Array[float] = [0,0,0]
+
+@export var debug_spell_strings : Array[String]
 
 @export var main_color : Color = Color.RED
-@export var character : PlayerCharacter
+@export var character : RaiderRes
 
 func _ready():
 	spells.resize(3)
@@ -26,6 +28,10 @@ func _ready():
 	
 	spell_cooldowns.resize(3)
 	spell_cooldowns.fill(0)
+	
+	if !debug_spell_strings.is_empty():
+		for i in spells.size():
+			spells[i] = SpellManager.get_spell_from_string(debug_spell_strings[i])
 
 func _process(delta):
 	for i in spell_cooldowns.size():
@@ -44,5 +50,6 @@ func start_cooldown(slot: int, time: float):
 	spell_cooldowns[slot] = time
 
 @rpc("authority", "call_local", "reliable")
-func set_spell(slot: int, string: String):
-	spells[slot] = SpellManager.get_spell_fron_string(string)
+func set_spell_from_string(slot: int, string: String):
+	spells[slot] = SpellManager.get_spell_from_string(string)
+	spell_changed.emit()

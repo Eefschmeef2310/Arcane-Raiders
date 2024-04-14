@@ -2,37 +2,37 @@
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
-[ext_resource type="TileSet" uid="uid://d3m81kgrpb16j" path="res://tilesets/tileset.tres" id="2_m3mqg"]
+[ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_m3mqg"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
 [ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
-[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_1jas3"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
-[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_qhx16"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_e83qf"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="8_a00af"]
-[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="9_bw1d1"]
-[ext_resource type="PackedScene" uid="uid://di8bmn2pxre1i" path="res://moving_entities/enemies/SmallFry/small_fry.tscn" id="10_b6pvx"]
+[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="9_1rcvu"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
+[ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="11_cfego"]
 
-[sub_resource type="Resource" id="Resource_6r2q7"]
-script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
-ui_texture = ExtResource("8_a00af")
-element = ExtResource("5_1jas3")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i581n"]
 
-[sub_resource type="Resource" id="Resource_h2pq2"]
+[sub_resource type="Resource" id="Resource_ihywv"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
+scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
-element = ExtResource("9_bw1d1")
+element = ExtResource("9_1rcvu")
 
-[sub_resource type="Resource" id="Resource_ivv85"]
+[sub_resource type="Resource" id="Resource_rcxt8"]
 script = ExtResource("6_82yns")
-scene = ExtResource("6_qhx16")
+scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
-element = ExtResource("11_cfego")
+element = ExtResource("10_qb4mr")
+
+[sub_resource type="Resource" id="Resource_d4xld"]
+script = ExtResource("6_82yns")
+scene = ExtResource("6_e83qf")
+ui_texture = ExtResource("8_a00af")
+element = ExtResource("9_1rcvu")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
@@ -46,6 +46,7 @@ data_to_fuck_with = NodePath("Player/PlayerData")
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_i581n")
 tile_set = ExtResource("2_m3mqg")
 format = 2
 layer_0/name = "floor"
@@ -72,7 +73,8 @@ position = Vector2(1431, 1023)
 debug = true
 
 [node name="PlayerData" parent="Player" index="4"]
-spells = Array[ExtResource("6_82yns")]([SubResource("Resource_6r2q7"), SubResource("Resource_h2pq2"), SubResource("Resource_ivv85")])
+device_id = -1
+spells = Array[ExtResource("6_82yns")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]
@@ -97,6 +99,9 @@ theme_override_constants/separation = 0
 [node name="PlayerUI" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("5_q4kiy")]
 layout_mode = 2
 data = NodePath("../../../Player/PlayerData")
+
+[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" instance=ExtResource("5_q4kiy")]
+layout_mode = 2
 
 [node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1609, 600)

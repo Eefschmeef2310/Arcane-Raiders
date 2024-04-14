@@ -32,7 +32,7 @@ func _process(_delta):
 
 #region Signal methods
 func _on_body_entered(body):
-	player.health -= body.damage
+	player.on_hurt(body)
 #endregion
 
 #region Other methods (please try to separate and organise!)

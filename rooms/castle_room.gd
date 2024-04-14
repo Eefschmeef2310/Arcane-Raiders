@@ -9,11 +9,13 @@ class_name CastleRoom
 
 var player_data
 
+func _ready():
+	player_spawner.spawn_function = spawn_player
+
 # Runs only on the server
 func spawn_players(number_of_players: int):
 	for i in number_of_players:
 		if i < player_data.size():
-			player_spawner.spawn_function = spawn_player
 			player_spawner.spawn(i)
 
 # Runs on all peers

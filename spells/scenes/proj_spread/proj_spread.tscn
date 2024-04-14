@@ -4,13 +4,13 @@
 [ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_6hbed"]
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/proj_spread/bullet.tscn" id="3_a28ln"]
 
-[node name="SpellSceneBase" instance=ExtResource("1_ecc46")]
+[node name="proj_spread" instance=ExtResource("1_ecc46")]
 script = ExtResource("2_6hbed")
 BULLET = ExtResource("3_a28ln")
 waves = 10
 bullets_per_wave = 5
 max_radians = 0.785
-base_damage = 5
+base_damage = 10
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 wait_time = 0.05

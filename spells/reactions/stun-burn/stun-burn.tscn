@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://bloo38yivbufm"]
+
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_0pvq2"]
+
+[sub_resource type="GDScript" id="GDScript_5c732"]
+resource_name = "stun-burn"
+script/source = "extends ReactionArea
+#Authored by Ethan.
+
+func _on_timer_timeout():
+	for moving_entity in get_overlapping_bodies():
+		if moving_entity.is_in_group(\"enemy\"):
+			moving_entity.on_hurt(self)
+
+func _on_kill_timer_timeout():
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
+radius = 62.0725
+
+[node name="stun-burn" type="Area2D" groups=["stun-burn"]]
+collision_layer = 16
+collision_mask = 8
+script = SubResource("GDScript_5c732")
+base_damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b2x0x")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.121569, 0.615686, 0.152941, 1)
+scale = Vector2(0.6875, 0.6875)
+texture = ExtResource("1_0pvq2")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]
