@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_ndrvg"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_op01l"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="5_ik7on"]
-[ext_resource type="Resource" uid="uid://buv6ypad3xuir" path="res://moving_entities/enemies/SmallSlime/SpikeAttackSmall.tres" id="6_d8p1l"]
+[ext_resource type="Resource" uid="uid://buv6ypad3xuir" path="res://moving_entities/enemies/SlimeSmall/SpikeAttackSmall.tres" id="6_d8p1l"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="7_4n8u7"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/enemy_chase.gd" id="8_uvuox"]
 

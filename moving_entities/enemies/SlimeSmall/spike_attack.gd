@@ -15,7 +15,6 @@ extends SpellBase
 
 	#Onready Variables
 @onready var hitbox = $Hitbox
-
 	#Other Variables (please try to separate and organise!)
 
 #endregion
