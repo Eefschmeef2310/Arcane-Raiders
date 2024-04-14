@@ -29,8 +29,7 @@ func _ready():
 	queue_free()
 
 func _process(delta):
-	#Runs per frame
-	pass
+	global_position = caster.global_position
 #endregion
 
 #region Signal methods

@@ -25,9 +25,11 @@ class_name EnemySpells
 #endregion
 
 #region Godot methods
-func _ready():	
+func _ready():
 	spell_cooldowns.resize(spells.size())
 	spell_cooldowns.fill(0)
+	print("filled")
+	
 
 
 func _process(delta):

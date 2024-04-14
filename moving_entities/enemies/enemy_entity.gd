@@ -65,18 +65,14 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 		velocity = safe_velocity
 		move_and_slide()
 	
-func _on_hurtbox_body_entered(body):
-	on_hurt(body as Node2D)
-
 func _on_hurtbox_area_entered(area):
 	on_hurt(area as Node2D)
 	
 func _on_zero_health():
 	queue_free()
 	
-	
 func attempt_cast(slot: int):
-	if can_cast && enemy_spells.spell_cooldowns[slot] == 0:
+	if can_cast && enemy_spells.spell_cooldowns[slot] <= 0:
 		use_spell(slot)
 
 func use_spell(slot: int):

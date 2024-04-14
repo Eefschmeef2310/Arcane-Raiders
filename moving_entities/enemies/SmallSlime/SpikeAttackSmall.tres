@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="1_gfno7"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="1_iwkwo"]
-[ext_resource type="PackedScene" uid="uid://du3bivrhjlrac" path="res://moving_entities/enemies/SmallFry/spike_attack.tscn" id="2_eckfg"]
+[ext_resource type="PackedScene" uid="uid://du3bivrhjlrac" path="res://moving_entities/enemies/SmallSlime/spike_attack.tscn" id="2_eckfg"]
 
 [resource]
 script = ExtResource("1_iwkwo")

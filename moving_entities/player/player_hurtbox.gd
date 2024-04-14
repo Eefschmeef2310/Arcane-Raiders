@@ -36,7 +36,6 @@ func _on_body_entered(body):
 
 func _on_area_entered(area):
 	player.on_hurt(area)
-	print("hit by enemy spell")
 #endregion
 
 #region Other methods (please try to separate and organise!)
