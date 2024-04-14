@@ -112,17 +112,17 @@ func _process(_delta):
 	
 	if (lobby_manager.mode == lobby_manager.MultiplayerMode.Online && is_multiplayer_authority()) || lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
 		var changed = false
-		if(input.is_action_just_pressed("down")):
+		if(input.is_action_just_pressed("lobby_down")):
 			if not player_ready:
 				selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(input.is_action_just_pressed("up")):
+		if(input.is_action_just_pressed("lobby_up")):
 			if not player_ready:
 				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(input.is_action_just_pressed("left")):
+		if(input.is_action_just_pressed("lobby_left")):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #color selected
@@ -131,7 +131,7 @@ func _process(_delta):
 				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 			
-		if(input.is_action_just_pressed("right")):
+		if(input.is_action_just_pressed("lobby_right")):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #loadout selected
@@ -179,7 +179,10 @@ func UpdateDisplay():
 	all_panels.visible = show_panels
 	
 	# set some basic values
-	player_name.text = username
+	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
+		player_name.text = "Device ID: " + str(device_id)
+	else:
+		player_name.text = username
 	
 	player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
 	#player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
