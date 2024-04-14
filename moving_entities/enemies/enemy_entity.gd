@@ -19,6 +19,8 @@ class_name EnemyEntity
 @export var nav_update_timer : Timer
 @export var state_machine : StateMachine
 
+@export var spell : Spell
+
 var nav_server_synced = false
 #endregion
 
@@ -68,5 +70,9 @@ func _on_zero_health():
 
 
 #region Other methods (please try to separate and organise!)
-
+func fire_spell():
+	var spell_node = spell.scene.instantiate()
+	spell_node.resource = spell
+	spell_node.caster = self
+	pass
 #endregion

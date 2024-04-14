@@ -1,10 +1,26 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://ct07iiqxgguov"]
+[gd_resource type="Resource" script_class="Spell" load_steps=7 format=3 uid="uid://ct07iiqxgguov"]
 
-[ext_resource type="PackedScene" uid="uid://ctlrtrpxed1cg" path="res://spells/scenes/proj_burst/proj_burst.tscn" id="1_efoxd"]
+[ext_resource type="PackedScene" uid="uid://cyxupyka7gtay" path="res://spells/scenes/spell_scene_base.tscn" id="1_ogv2f"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="1_pw8uy"]
+[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_gsu7n"]
+[ext_resource type="PackedScene" uid="uid://1db5kat4iwq6" path="res://spells/scenes/proj_burst/proj_burst_bullet.tscn" id="3_6o87o"]
 [ext_resource type="Texture2D" uid="uid://b2xorjixatitx" path="res://spells/sprites/icons/proj_burst.png" id="3_m15wb"]
+
+[sub_resource type="PackedScene" id="PackedScene_o3mae"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 1,
+"conns": PackedInt32Array(1073741826, 1073741825, 13, 12, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("proj_burst", "script", "BULLET", "waves", "bullets_per_wave", "max_radians", "base_damage", "WaveTimer", "Timer", "wait_time", "one_shot", "autostart", "_on_wave_timer_timeout", "timeout"),
+"node_count": 2,
+"node_paths": [NodePath("."), NodePath("."), NodePath("WaveTimer")],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 6, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 0, 1073741824, 0, 8, 262151, -1, 3, 9, 7, 10, 8, 11, 9, 0),
+"variants": [ExtResource("1_ogv2f"), ExtResource("2_gsu7n"), ExtResource("3_6o87o"), 5, 2, 0.0, 10, 0.05, true, true],
+"version": 3
+}
 
 [resource]
 script = ExtResource("1_pw8uy")
-scene = ExtResource("1_efoxd")
+scene = SubResource("PackedScene_o3mae")
 ui_texture = ExtResource("3_m15wb")

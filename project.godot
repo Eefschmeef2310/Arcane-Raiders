@@ -123,6 +123,7 @@ debug_next_floor={
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Spells"
 2d_physics/layer_6="SpellImpact"
+2d_physics/layer_7="Enemy Spell"
 
 [physics]
 
