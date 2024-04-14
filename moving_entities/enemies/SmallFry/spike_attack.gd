@@ -1,6 +1,6 @@
-extends Area2D
-	#class_name
-#Authored by Ethan. Please consult for any modifications or major feature requests.
+extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
 	#Signals
@@ -14,7 +14,7 @@ extends Area2D
 	#@export_subgroup("Subgroup")
 
 	#Onready Variables
-@onready var player = $".."
+@onready var hitbox = $Hitbox
 
 	#Other Variables (please try to separate and organise!)
 
@@ -23,24 +23,21 @@ extends Area2D
 #region Godot methods
 func _ready():
 	#Runs when all children have entered the tree
-	pass
+	transfer_data(hitbox)
+	global_position = caster.global_position
+	await get_tree().create_timer(end_time).timeout
+	queue_free()
 
-func _process(_delta):
+func _process(delta):
 	#Runs per frame
 	pass
 #endregion
 
 #region Signal methods
-func _on_body_entered(body):
-	player.on_hurt(body)
 
-func _on_area_entered(area):
-	player.on_hurt(area)
-	print("hit by enemy spell")
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 #endregion
-
 
