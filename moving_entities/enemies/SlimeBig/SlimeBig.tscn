@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bfrsuqfut2eks"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_ml3r3"]
-[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_g7y80"]
+[ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_m24lk"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/enemy_chase.gd" id="4_jccq1"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
@@ -30,9 +30,9 @@ enemy_spells = NodePath("EnemySpells")
 max_health = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -15)
-scale = Vector2(2, 2)
-texture = ExtResource("2_g7y80")
+position = Vector2(4.76837e-07, -15.5)
+scale = Vector2(0.141026, 0.15508)
+texture = ExtResource("2_vv14m")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -15)
@@ -77,6 +77,7 @@ script = ExtResource("5_gvsgo")
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("8_unwx7")])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
 avoidance_enabled = true
 max_speed = 1000.0
 
