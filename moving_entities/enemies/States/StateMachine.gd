@@ -63,7 +63,7 @@ func start_state_machine(nav_agent: NavigationAgent2D):
 		initial_state.enter()
 		current_state = initial_state
 		
-func update_position():
-	current_state.set_position()
+#func update_position():
+	#current_state.set_position()
 #endregion
 

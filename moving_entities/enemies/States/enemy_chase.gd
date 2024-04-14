@@ -15,7 +15,7 @@ class_name EnemyFollow
 @export var attack_distance: float = 50
 
 #Onready Variables
-
+@onready var small_fry = $"../.."
 #Other Variables (please try to separate and organise!)
 var player: CharacterBody2D
 #endregion
@@ -34,11 +34,14 @@ func enter():
 	#TODO Grab the closest player
 
 func physics_update(delta):
-	#if direction.length() < attack_distance:
-		#print("attack")
-	pass
+	if(navigation_agent):
+		super.physics_update(delta)
+		var distance = player.global_position.distance_to(small_fry.global_position)
+		if distance < attack_distance:
+			small_fry.attempt_cast(0)
 		
 func set_position():
+	#TODO Grab the closest player
 	navigation_agent.target_position = player.global_position
 #endregion
 
