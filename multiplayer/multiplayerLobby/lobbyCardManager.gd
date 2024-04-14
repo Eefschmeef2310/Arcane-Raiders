@@ -59,11 +59,17 @@ extends Node
 #Other Variables (please try to separate and organise!)
 var finished_connecting : bool
 var valid_color : bool
+var input
 
 #endregion
 
 #region Godot methods
 func _ready():
+	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
+		input = DeviceInput.new(device_id)
+	else:
+		input = DeviceInput.new(-2)
+	
 	player_name.label_settings = player_name.label_settings.duplicate()
 	
 	# create and prepare the ui pips
@@ -104,19 +110,19 @@ func _process(_delta):
 		resendValues.rpc()
 		finished_connecting = true
 	
-	if is_multiplayer_authority():
+	if (lobby_manager.mode == lobby_manager.MultiplayerMode.Online && is_multiplayer_authority()) || lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
 		var changed = false
-		if(Input.is_action_just_pressed("down")):
+		if(input.is_action_just_pressed("down")):
 			if not player_ready:
 				selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(Input.is_action_just_pressed("up")):
+		if(input.is_action_just_pressed("up")):
 			if not player_ready:
 				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(Input.is_action_just_pressed("left")):
+		if(input.is_action_just_pressed("left")):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #color selected
@@ -125,7 +131,7 @@ func _process(_delta):
 				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 			
-		if(Input.is_action_just_pressed("right")):
+		if(input.is_action_just_pressed("right")):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #loadout selected
@@ -134,7 +140,7 @@ func _process(_delta):
 				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 		
-		if(Input.is_action_just_pressed("lobby_confirm")):
+		if(input.is_action_just_pressed("lobby_confirm")):
 			if(selected_panel == 3 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
