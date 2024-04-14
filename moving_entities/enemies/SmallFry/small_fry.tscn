@@ -1,37 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://di8bmn2pxre1i"]
+[gd_scene load_steps=9 format=3 uid="uid://di8bmn2pxre1i"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_bxyli"]
-[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="2_1urtk"]
 [ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_8mjcv"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_agrsj"]
-[ext_resource type="PackedScene" uid="uid://cyxupyka7gtay" path="res://spells/scenes/spell_scene_base.tscn" id="3_n5cdn"]
-[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="4_cyh6t"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_ibapj"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="5_8q6a4"]
-[ext_resource type="PackedScene" uid="uid://1db5kat4iwq6" path="res://spells/scenes/proj_burst/proj_burst_bullet.tscn" id="5_ji3kt"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/enemy_chase.gd" id="6_2o2to"]
-[ext_resource type="Script" path="res://spells/spell_base.gd" id="6_jxr6l"]
-[ext_resource type="Texture2D" uid="uid://b2xorjixatitx" path="res://spells/sprites/icons/proj_burst.png" id="7_joioi"]
-
-[sub_resource type="PackedScene" id="PackedScene_o3mae"]
-_bundled = {
-"base_scene": 0,
-"conn_count": 1,
-"conns": PackedInt32Array(1073741826, 1073741825, 13, 12, 2, 0, 0),
-"editable_instances": [],
-"names": PackedStringArray("proj_burst", "script", "BULLET", "waves", "bullets_per_wave", "max_radians", "base_damage", "WaveTimer", "Timer", "wait_time", "one_shot", "autostart", "_on_wave_timer_timeout", "timeout"),
-"node_count": 2,
-"node_paths": [NodePath("."), NodePath("."), NodePath("WaveTimer")],
-"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 6, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 0, 1073741824, 0, 8, 262151, -1, 3, 9, 7, 10, 8, 11, 9, 0),
-"variants": [ExtResource("3_n5cdn"), ExtResource("4_cyh6t"), ExtResource("5_ji3kt"), 5, 2, 0.0, 10, 0.05, true, true],
-"version": 3
-}
-
-[sub_resource type="Resource" id="Resource_bdika"]
-script = ExtResource("6_jxr6l")
-scene = SubResource("PackedScene_o3mae")
-ui_texture = ExtResource("7_joioi")
-element = ExtResource("2_1urtk")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7yp1j"]
 radius = 20.0
@@ -41,7 +15,7 @@ radius = 35.0
 
 [node name="SmallFry" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "nav_update_timer", "state_machine") groups=["enemy"]]
 collision_layer = 8
-collision_mask = 75
+collision_mask = 11
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_bxyli")
@@ -49,7 +23,6 @@ movement_speed = 200.0
 nav_agent = NodePath("NavigationAgent2D")
 nav_update_timer = NodePath("NavUpdateTimer")
 state_machine = NodePath("StateMachine")
-spell = SubResource("Resource_bdika")
 max_health = 300
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

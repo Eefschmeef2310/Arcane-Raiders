@@ -1,6 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://cvlicvm1ejylu"]
 
 [ext_resource type="PackedScene" uid="uid://cyxupyka7gtay" path="res://spells/scenes/spell_scene_base.tscn" id="1_r37sd"]
+=======
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_r37sd"]
+>>>>>>> parent of acfd5f2 (thingo)
 [ext_resource type="Script" path="res://spells/scenes/aoe_large/aoe_large.gd" id="2_6hqll"]
 [ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="3_gt4r0"]
 
