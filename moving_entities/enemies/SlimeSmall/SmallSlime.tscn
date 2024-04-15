@@ -83,6 +83,7 @@ script = ExtResource("8_uvuox")
 path_postprocessing = 1
 avoidance_enabled = true
 max_speed = 1000.0
+avoidance_priority = 0.1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_23fjn")
