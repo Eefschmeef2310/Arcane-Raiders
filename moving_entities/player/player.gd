@@ -31,9 +31,10 @@ func _ready():
 	
 
 func _process(_delta):
+	super._process(_delta)
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
-			velocity = move_direction * movement_speed
+			velocity = move_direction * movement_speed * frost_speed_scale
 			if is_casting or preparing_cast_slot >= 0:
 				velocity *= 0.25
 			move_and_slide()
