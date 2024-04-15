@@ -5,7 +5,7 @@ class_name DamageNumber
 @onready var label: Label = $Label
 
 var _s: float = 1.0
-var _number: int = 100
+var _number: int = 0
 
 var tween: Tween
 
