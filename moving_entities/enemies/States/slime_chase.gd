@@ -1,5 +1,5 @@
 extends State
-class_name EnemyFollow
+class_name SlimeChase
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -15,7 +15,6 @@ class_name EnemyFollow
 @export var attack_distance: float = 50
 
 #Onready Variables
-@onready var small_fry = $"../.."
 #Other Variables (please try to separate and organise!)
 var player: CharacterBody2D
 #endregion
@@ -30,18 +29,18 @@ var player: CharacterBody2D
 
 #region Other methods (please try to separate and organise!)
 func enter():
-	player = get_tree().get_first_node_in_group("player")
-	#TODO Grab the closest player
+	set_position()
 
 func physics_update(delta):
 	if(navigation_agent):
 		super.physics_update(delta)
-		var distance = player.global_position.distance_to(small_fry.global_position)
+		var distance = player.global_position.distance_to(enemy.global_position)
 		if distance < attack_distance:
-			small_fry.attempt_cast(0)
+			enemy.attempt_cast(0)
 		
 func set_position():
-	#TODO Grab the closest player
-	navigation_agent.target_position = player.global_position
+	player = get_closest_player()
+	if(player):
+		navigation_agent.target_position = player.global_position
 #endregion
 

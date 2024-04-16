@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://c8uvt7sepdtkk"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_l62ws"]
+[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_osx1g"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_5m50w"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="4_4f7jg"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_hg75s"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="5_7nlb8"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/bat_attack.gd" id="5_pa536"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="6_uh88h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oaiii"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pbwl"]
+radius = 17.0294
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wf36"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="BatSmall" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells")]
+script = ExtResource("1_l62ws")
+movement_speed = 100.0
+base_damage = 0
+nav_agent = NodePath("NavigationAgent2D")
+state_machine = NodePath("StateMachine")
+enemy_spells = NodePath("EnemySpells")
+max_health = 500
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.5, -14.5)
+texture = ExtResource("2_osx1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_oaiii")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0.5, -14.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_4pbwl")
+debug_color = Color(0.976471, 0, 0.411765, 0.419608)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_5m50w")
+initial_state = NodePath("BatChase")
+
+[node name="BatChase" type="Node" parent="StateMachine"]
+script = ExtResource("4_hg75s")
+
+[node name="BatAttack" type="Node" parent="StateMachine"]
+script = ExtResource("5_pa536")
+nav_timer_interval = 1.0
+
+[node name="EnemySpells" type="Node" parent="."]
+script = ExtResource("4_4f7jg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 3
+avoidance_enabled = true
+max_speed = 1000.0
+avoidance_layers = 2
+avoidance_mask = 2
+debug_enabled = true
+
+[node name="ProgressBar" parent="." instance=ExtResource("5_7nlb8")]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = -39.0
+
+[node name="StatusUI" parent="." instance=ExtResource("6_uh88h")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7wf36")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="5_ik7on"]
 [ext_resource type="Resource" uid="uid://buv6ypad3xuir" path="res://moving_entities/enemies/SlimeSmall/SpikeAttackSmall.tres" id="6_d8p1l"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="7_4n8u7"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/enemy_chase.gd" id="8_uvuox"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="8_siiu7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7yp1j"]
 radius = 20.0
@@ -74,10 +74,10 @@ grow_vertical = 0
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_d8p1l")])
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_4n8u7")]
-initial_state = NodePath("EnemyFollow")
+initial_state = NodePath("SlimeChase")
 
-[node name="EnemyFollow" type="Node" parent="StateMachine"]
-script = ExtResource("8_uvuox")
+[node name="SlimeChase" type="Node" parent="StateMachine"]
+script = ExtResource("8_siiu7")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
