@@ -187,7 +187,8 @@ func get_card_data() -> Array:
 			"device_id": card.device_id,
 			"peer_id": card.peer_id,
 			"spells": loadouts[card.selected_loadout].spell_ids,
-			"raider": raiders[card.selected_raider]
+			"raider": raiders[card.selected_raider],
+			"color": player_colors[card.selected_color]
 			})
 	return arr
 	
@@ -202,7 +203,7 @@ func handle_join_input():
 		if MultiplayerInput.is_action_just_pressed(device, "join"):
 			#run join function (create card)
 			#join(device)
-			var new_card = CreateNewCard(0)
+			var new_card = CreateNewCard(1)
 			new_card.device_id = device
 			player_card_hbox.add_child(new_card)
 			pass
