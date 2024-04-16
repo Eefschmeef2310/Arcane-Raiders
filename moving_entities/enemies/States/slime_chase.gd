@@ -32,7 +32,7 @@ func enter():
 	set_position()
 
 func physics_update(delta):
-	if(navigation_agent):
+	if(navigation_agent and player):
 		super.physics_update(delta)
 		var distance = player.global_position.distance_to(enemy.global_position)
 		if distance < attack_distance:
