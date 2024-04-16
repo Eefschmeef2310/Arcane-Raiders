@@ -76,7 +76,5 @@ replication_config = SubResource("SceneReplicationConfig_ald63")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_dummy_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="timeout" from="NavUpdateTimer" to="." method="_on_nav_update_timer_timeout"]
