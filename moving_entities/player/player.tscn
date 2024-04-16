@@ -439,6 +439,7 @@ motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
 data = NodePath("PlayerData")
+do_damage_numbers = false
 
 [node name="SpellDirection" type="Node2D" parent="."]
 scale = Vector2(1, 0.5)

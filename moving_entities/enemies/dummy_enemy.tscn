@@ -19,10 +19,12 @@ properties/0/replication_mode = 1
 [node name="DummyEnemy" type="CharacterBody2D" groups=["enemy"]]
 y_sort_enabled = true
 collision_layer = 8
-collision_mask = 11
+collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_04g5f")
+max_health = 100
+health = 100
 attraction_strength = 70.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -36,7 +38,7 @@ texture = ExtResource("2_wwupo")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -64)
-collision_layer = 8
+collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

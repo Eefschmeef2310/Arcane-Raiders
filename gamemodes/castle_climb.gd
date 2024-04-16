@@ -1,12 +1,18 @@
 extends Node
 class_name CastleClimb
 
+@onready var foyer_spawner = $FoyerSpawner
 @onready var basic_level_spawner = $BasicLevelSpawner
 
+@export_group("Debug")
 @export var start_on_spawn : bool = false
+
+@export_group("Node References")
 @export var player_data : Array[PlayerData]
 @export var player_ui : Array[PlayerUI]
 
+@export_group("Room Scenes")
+@export var foyer_room: PackedScene
 @export var basic_rooms: Array[PackedScene]
 
 var number_of_players = 0
@@ -17,6 +23,7 @@ var current_room_node : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	foyer_spawner.spawn_function = spawn_foyer
 	basic_level_spawner.spawn_function = spawn_basic_level
 	
 	if start_on_spawn:
@@ -50,15 +57,29 @@ func start_next_floor():
 	
 	# Spawn new room
 	print("Creating new room.")
-	basic_level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
+	if current_floor <= 0:
+		foyer_spawner.spawn(null)
+	else:
+		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
 
+func spawn_foyer(_a) -> Node:
+	current_room_node = foyer_room.instantiate() as CastleRoom
+	current_room_node.player_data = player_data
+	current_room_node.room_exited.connect(_on_room_exited)
+	return current_room_node
+
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_rooms[index].instantiate() as CastleRoom
 	current_room_node.player_data = player_data
+	current_room_node.room_exited.connect(_on_room_exited)
 	return current_room_node
+
+func _on_room_exited():
+	if is_multiplayer_authority():
+		start_next_floor()
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):

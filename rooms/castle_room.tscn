@@ -1,18 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=6 format=3 uid="uid://cuesay1mn2uq8"]
 
-[ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_pn1qw"]
-[ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_f0j0y"]
-[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_otn38"]
-[ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_r8k3w"]
+[ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
+[ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_fuwbx"]
+[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_thfvk"]
+[ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
+[ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
 
-[node name="BasicEight" type="Node2D"]
+[node name="CastleRoom" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_pn1qw")
+script = ExtResource("1_uk66y")
 
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
 y_sort_enabled = true
-tile_set = ExtResource("2_f0j0y")
+tile_set = ExtResource("2_fuwbx")
 format = 2
 layer_0/name = "floor"
 layer_0/modulate = Color(0.458824, 0.513726, 0.635294, 1)
@@ -27,28 +28,28 @@ layer_2/modulate = Color(0.458824, 0.513726, 0.635294, 0)
 layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(1114108, 196610, 2, 1179644, 196610, 2, 1245181, 196610, 2, 1310717, 196610, 2, 1376254, 196610, 2, 1441790, 196610, 2, 1507327, 196610, 2, 1572863, 196610, 2, 1572864, 196610, 2, 1638400, 196610, 2, 1703937, 196610, 2, 1769473, 196610, 2, 1835010, 196610, 2, 1900546, 196610, 2, 1966083, 196610, 2, 2031619, 196610, 2, 1966084, 196610, 2, 1900548, 196610, 2, 1835013, 196610, 2, 1769477, 196610, 2, 1703942, 196610, 2, 1638406, 196610, 2, 1572871, 196610, 2, 1507335, 196610, 2, 1441800, 196610, 2, 1376264, 196610, 2, 1310729, 196610, 2, 1245193, 196610, 2, 1179658, 196610, 2, 1114122, 196610, 2, 1048587, 196610, 2, 983050, 196610, 2, 917514, 196610, 2, 851977, 196610, 2, 786441, 196610, 2, 720904, 196610, 2, 655368, 196610, 2, 1048572, 196610, 2, 983037, 196610, 2, 917501, 196610, 2, 851966, 196610, 2, 786430, 196610, 2, 720895, 196610, 2, 655359, 196610, 2, 524288, 196610, 2, 458752, 196610, 2, 393217, 196610, 2, 327681, 196610, 2, 262146, 196610, 2, 196610, 196610, 2, 131075, 196610, 2, 65539, 196610, 2, 131076, 196610, 2, 196612, 196610, 2, 262149, 196610, 2, 327685, 196610, 2, 393222, 196610, 2, 458758, 196610, 2, 393223, 196610, 2, 327687, 196610, 2, 262152, 196610, 2, 196616, 196610, 2, 131081, 196610, 2, 65545, 196610, 2, 131082, 196610, 2, 196618, 196610, 2, 262155, 196610, 2, 327690, 196610, 2, 393226, 196610, 2, 458761, 196610, 2, 524297, 196610, 2, 589832, 196610, 2, 1245187, 196610, 1, 1310724, 196610, 1, 1376260, 196610, 1, 1310725, 196610, 1, 1245189, 196610, 1, 1179654, 196610, 1, 1114117, 196610, 1, 1048581, 196610, 1, 1114116, 196610, 1, 1179652, 196610, 1, 1245188, 196610, 1, 1179653, 196610, 1, 1048578, 196610, 1, 983041, 196610, 1, 917505, 196610, 1, 851969, 196610, 1, 786434, 196610, 1, 720898, 196610, 1, 786435, 196610, 1, 851971, 196610, 1, 917507, 196610, 1, 983042, 196610, 1, 917506, 196610, 1, 851970, 196610, 1)
 
-[node name="DynamicCamera" parent="." instance=ExtResource("3_otn38")]
+[node name="DynamicCamera" parent="." instance=ExtResource("3_thfvk")]
 position = Vector2(120, 763)
 
 [node name="PlayerSpawn0" type="Sprite2D" parent="." groups=["player_spawn"]]
 visible = false
 position = Vector2(-289, 674)
-texture = ExtResource("4_r8k3w")
+texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawn1" type="Sprite2D" parent="." groups=["player_spawn"]]
 visible = false
 position = Vector2(-178, 598)
-texture = ExtResource("4_r8k3w")
+texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawn2" type="Sprite2D" parent="." groups=["player_spawn"]]
 visible = false
 position = Vector2(-181, 744)
-texture = ExtResource("4_r8k3w")
+texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawn3" type="Sprite2D" parent="." groups=["player_spawn"]]
 visible = false
 position = Vector2(-74, 668)
-texture = ExtResource("4_r8k3w")
+texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
@@ -57,3 +58,9 @@ spawn_path = NodePath("..")
 spawn_path = NodePath("..")
 
 [node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="RoomExit" parent="." instance=ExtResource("5_dh6mk")]
+position = Vector2(1679, 123)
+
+[connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
+[connection signal="player_entered" from="RoomExit" to="." method="_on_room_exit_player_entered"]
