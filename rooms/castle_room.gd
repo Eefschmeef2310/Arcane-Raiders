@@ -2,6 +2,8 @@ extends Node2D
 class_name CastleRoom
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
+signal room_exited
+
 @export var wave_total_difficulty : Array[int]
 
 @onready var dynamic_camera: DynamicCamera = $DynamicCamera
@@ -30,6 +32,11 @@ func _ready():
 			enemy_spawner.spawn(key)
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 
+func _on_enemy_zero_health():
+	var existing_enemies = get_tree().get_nodes_in_group("enemy")
+	if existing_enemies.size() <= 0:
+		room_exited.emit()
+
 # Runs only on the server
 func spawn_players(number_of_players: int):
 	for i in number_of_players:
@@ -49,6 +56,7 @@ func spawn_player(player_number: int) -> Node2D:
 func spawn_enemy(id: String) -> Node2D:
 	print("spawning...")
 	var data = EnemyManager.Data[id]
-	var enemy = data["scene"].instantiate()
+	var enemy: Entity = data["scene"].instantiate()
 	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
+	enemy.zero_health.connect(_on_enemy_zero_health)
 	return enemy
