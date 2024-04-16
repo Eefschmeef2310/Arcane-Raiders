@@ -493,7 +493,6 @@ script = ExtResource("3_h46ns")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
-device_id = 0
 debug_spell_strings = Array[String](["burn-proj_ball", "null-proj_ball", "frost-aoe_large"])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -503,7 +502,7 @@ libraries = {
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 56
+collision_mask = 72
 script = ExtResource("9_cti52")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -529,4 +528,5 @@ horizontal_alignment = 1
 
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]

@@ -38,7 +38,7 @@ func start_next_floor():
 	current_floor += 1
 	print("Current floor: " + str(current_floor))
 	
-	play_room_transition.rpc(current_floor-1, current_floor)
+	play_room_transition.rpc(current_floor)
 	
 	await get_tree().create_timer(1).timeout
 	
@@ -61,9 +61,9 @@ func spawn_basic_level(index: int) -> Node:
 	return current_room_node
 
 @rpc("authority", "call_local", "reliable")
-func play_room_transition(last_floor: int, next_floor: int):
-	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(current_floor)
-	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(current_floor-1)
+func play_room_transition(next_floor: int):
+	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(next_floor)
+	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(next_floor-1)
 	$RoomTransitionUI/AnimationPlayer.play("next_floor")
 	var tween = create_tween()
 	tween.tween_property($RoomTransitionUI/Items, "modulate:a", 1, 0.25)
@@ -71,7 +71,7 @@ func play_room_transition(last_floor: int, next_floor: int):
 	tween.tween_property($RoomTransitionUI/Items, "modulate:a", 0, 0.25)
 	
 	await get_tree().create_timer(0.5).timeout
-	$RunUI/FloorLabel.text = get_floor_name(current_floor)
+	$RunUI/FloorLabel.text = get_floor_name(next_floor)
 
 func set_number_of_players(n: int):
 	number_of_players = n

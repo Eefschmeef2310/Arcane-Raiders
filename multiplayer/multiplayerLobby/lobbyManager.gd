@@ -5,22 +5,27 @@ extends Node
 #region Variables
 #Signals
 signal player_joined
-
+signal player_left(id:int)
 #Enums
 enum MultiplayerMode {Local,Online}
 
 #Constants
+const MAX_PLAYERS = 4
 
 #Exported Variables
 @export_group("Setup")
 @export var mode : MultiplayerMode
+@export var ready_delay : float = 3 #amount in time in seconds the start the game after every player readys up
 @export_group("Node References") 
 @export var player_card_hbox : HBoxContainer #hold all the player cards!
 @export var multiplayer_spawner : MultiplayerSpawner
 @export var debug_start_button : Button
+@export var ready_progress_bar : TextureProgressBar
+@export var lobby_title : Label
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
+@export var player_colors : Array[Color]
 @export var server_browser_scene : PackedScene
 @export var player_card_scene : PackedScene
 @export var castle_climb_scene : PackedScene
@@ -30,6 +35,9 @@ enum MultiplayerMode {Local,Online}
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
+var start_game_called : bool = false
+var ready_timer : float 
+var lobby_id : int
 #endregion
 
 #region Godot methods
@@ -37,29 +45,39 @@ func _ready():
 	debug_start_button.disabled = not multiplayer.is_server()
 	##Runs when all children have entered the tree
 	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	
+	
 	multiplayer_spawner.spawn_function = CreateNewCard
-	#castle_climb_spawner.spawn_function = spawn_castle_climb
 	
 	
-	#get the peer id the player who has just joined (by loading this scenes ready func)
-	var incoming_peer_id = multiplayer.get_unique_id()
-	
-	if(multiplayer.is_server()):
-	#CreateNewCard.rpc(incoming_peer_id)
-		#CreateNewCard(incoming_peer_id)
-		multiplayer_spawner.spawn(incoming_peer_id)
-	
-		
-	print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
-	pass
 
-func _process(_delta):
-	## TODO find a way of checking when the scene is ready to do the first update, _ready(), peer connected, server connected and Init all seem to be too early 
-	#if (not sent_first_update):
-		#sent_first_update = true
-		##set inital card values
-		##SendNewCard()
+func _process(delta):
+	if mode == MultiplayerMode.Local:
+		handle_join_input()
+	
+	
+	## ready timer
+	# determine if all the players are ready
+	var all_players_ready : bool = true
+	if player_card_hbox.get_child_count() < 1:
+		all_players_ready = false
+	for card in player_card_hbox.get_children():
+		if card.player_ready == false:
+			all_players_ready = false
+	# when they are, start the timer, update the progress bar, and change the title 
+	ready_progress_bar.value = ready_timer/ready_delay
+	if all_players_ready:
+		ready_timer -= delta
+		lobby_title.text= "STARTING IN... " + str(roundi(ready_timer)) 
+	else:
+		ready_timer = ready_delay
+		lobby_title.text= "CHOOSE YOUR RAIDER!"
+	# if the timer runs out, start the game 
+	if ready_timer <= 0:
+		StartGame()
+	
 	pass
 	
 #endregion
@@ -73,15 +91,6 @@ func CreateNewCard(peer_id : int):
 	player_joined.emit()
 	return new_player_card
 
-#@rpc("authority","call_local")
-#func request_updates(from : int):
-	#print("Completing an update request for player " + str(from))
-	#var raider : int = player_card_hbox.get_children()[SteamManager.player_id].selected_raider
-	#var loadout : int = player_card_hbox.get_children()[SteamManager.player_id].selected_loadout
-	#var selection : int = player_card_hbox.get_children()[SteamManager.player_id].selected_panel
-	#var gaming : bool = player_card_hbox.get_children()[SteamManager.player_id].player_ready
-	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
-	
 
 #region Signal methods
 
@@ -94,31 +103,77 @@ func _on_peer_connected(id:int): #this isnt triggering when a client joins
 	#rpc("request_updates", id)
 	pass
 
+func _on_peer_disconnected(id:int):
+	print("Peer " + str(id) + " has disconnected D:")
+	#destroy their player card
+	for card in player_card_hbox.get_children():
+		if card.peer_id == id:
+			card.queue_free()
+	#emit a signal for removing them from the actual game 
+	player_left.emit(id)
+
 func _on_connected_to_server(): #this isnt working at all
 	#get all the data from the other players and spawn their cards too
 	print("I have connected to the server!")
 	pass
+	
+func _on_server_disconnected():
+	# send player to menu / reload server browser scene
+	#also show error?
+	pass
+	
+func _on_back_button_pressed():
+	#TODO close server
+	if multiplayer.is_server():
+		Steam.setLobbyJoinable(lobby_id, false)
+		pass
+	multiplayer.multiplayer_peer = null
+	get_tree().change_scene_to_packed(server_browser_scene) 
+	pass # Replace with function body.
+
+
+func _on_start_button_pressed(): 
+	StartGame()
+
 
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 ## called after the lobby mode has been decided 
-func InitLobby(_online_mode : MultiplayerMode):
+func InitLobby(_online_mode : MultiplayerMode, new_lobby_id : int):
+	mode = _online_mode
+	lobby_id = new_lobby_id
+	
+	if mode == MultiplayerMode.Online:
+		#get the peer id the player who has just joined (by loading this scenes ready func)
+		var incoming_peer_id = multiplayer.get_unique_id()
+		
+		if(multiplayer.is_server()):
+		#CreateNewCard.rpc(incoming_peer_id)
+			#CreateNewCard(incoming_peer_id)
+			multiplayer_spawner.spawn(incoming_peer_id)
+		
+			
+		print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
+		pass
 	pass
 	
 
 
 func StartGame():
-	print("START THE GAME!!!!")
-	
-	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
-	add_child(castle_climb)
-	
-	hide_lobby.rpc()
-	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
-	
-	castle_climb.start_climb()
+	if not start_game_called:
+		start_game_called= true
+		Steam.setLobbyJoinable(lobby_id, false)
+		print("START THE GAME!!!!")
+		
+		var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+		add_child(castle_climb)
+		
+		hide_lobby.rpc()
+		castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+		
+		castle_climb.start_climb()
 
 @rpc("authority", "call_local", "reliable")
 func hide_lobby():
@@ -137,35 +192,48 @@ func get_card_data() -> Array:
 	return arr
 	
 
-#func spawn_castle_climb() -> Node:
-	#print(player_card_hbox.get_child(0).peer_id)
-	#
-	#var node = castle_climb_scene.instantiate() as CastleClimb
-	#print(node)
-	#return node
+#endregion
 
-#func SendNewCard():
-	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), 0,0,0,false)
-#
-#func SendCard(raider,loadout,selection,gaming):
-	#rpc("UpdateCard", SteamManager.player_id, Steam.getPersonaName(), raider,loadout,selection,gaming)
-#
-#@rpc("any_peer","call_local")
-#func UpdateCard(playerID : int, username : String, n_raider : int, n_loadout : int, n_selection : int, n_ready : bool):
-	#var cardToSet = player_card_hbox.get_children()[playerID]
-	##cardToSet.rpc("setValues",portrait, raider, description, username)
-	#print("Update called by player: " + str(playerID))
-	#cardToSet.setValues(username, n_raider, n_loadout, n_selection, n_ready)
+#region Local Input Management
+# call this from a loop in the main menu or anywhere they can join
+# this is an example of how to look for an action on all devices
+func handle_join_input():
+	for device in get_unjoined_devices():
+		if MultiplayerInput.is_action_just_pressed(device, "join"):
+			#run join function (create card)
+			#join(device)
+			var new_card = CreateNewCard(0)
+			new_card.device_id = device
+			player_card_hbox.add_child(new_card)
+			pass
+
+func is_device_joined(device: int) -> bool:
+	for card in player_card_hbox.get_children():
+		var d = card.device_id
+		if device == d: return true
+	return false
+
+# returns a valid player integer for a new player.
+# returns -1 if there is no room for a new player.
+func next_player() -> int:
+	var i = player_card_hbox.get_child_count() -1
+	if player_card_hbox.get_child_count() -1 < MAX_PLAYERS:
+		return i
+	return -1
+
+# returns an array of all valid devices that are *not* associated with a joined player
+func get_unjoined_devices():
+	var devices = Input.get_connected_joypads()
+	# also consider keyboard player
+	devices.append(-1)
+	
+	# filter out devices that are joined:
+	return devices.filter(func(device): return !is_device_joined(device))
+
+
+
+
 
 
 #endregion
 
-
-func _on_back_button_pressed():
-	#TODO close server
-	get_tree().change_scene_to_packed(server_browser_scene) 
-	pass # Replace with function body.
-
-
-func _on_start_button_pressed(): 
-	StartGame()

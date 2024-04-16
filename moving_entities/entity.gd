@@ -34,6 +34,7 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 
 	#Other Variables (please try to separate and organise!)
 var current_inflictions_dictionary : Dictionary #Stores 
+var damage_number : DamageNumber
 
 var burn_timer : float
 var burn_tick_rate : float = 0.5
@@ -130,13 +131,13 @@ func on_hurt(hit_node):
 		wind_effect(hit_node)
 	
 	if do_damage_numbers:
-		var damage_number: DamageNumber = DAMAGE_NUMBER.instantiate()
-		add_sibling(damage_number)
+		if !is_instance_valid(damage_number):
+			damage_number = DAMAGE_NUMBER.instantiate()
+			add_sibling(damage_number)
 		damage_number.global_position = global_position
-		damage_number.set_number(damage)
+		damage_number.add(damage)
 		if element:
 			damage_number.set_color(element.colour)
-		damage_number.animate()
 
 func burn_effect(delta):
 	if burn_timer > 0:
