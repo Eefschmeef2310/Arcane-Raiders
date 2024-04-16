@@ -81,6 +81,7 @@ func use_spell(slot: int):
 	#TODO Add initial start up frames so not an instant attack
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()
 	spell_node.caster = self
+	spell_node.resource = enemy_spells.spells[slot]
 	add_sibling(spell_node)
 	
 	#Set cooldown of spell

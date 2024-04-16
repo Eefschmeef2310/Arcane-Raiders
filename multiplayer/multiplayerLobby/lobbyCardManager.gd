@@ -110,7 +110,7 @@ func _process(_delta):
 		resendValues.rpc()
 		finished_connecting = true
 	
-	if (lobby_manager.mode == lobby_manager.MultiplayerMode.Online && is_multiplayer_authority()) || lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
+	if (lobby_manager.mode == lobby_manager.MultiplayerMode.Online && multiplayer.get_unique_id() == peer_id) || lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
 		var changed = false
 		if(input.is_action_just_pressed("lobby_down")):
 			if not player_ready:

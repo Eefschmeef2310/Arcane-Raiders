@@ -28,7 +28,10 @@ func _ready():
 	queue_free()
 
 func _process(delta):
-	global_position = caster.global_position
+	if is_instance_valid(caster):
+		global_position = caster.global_position
+	else:
+		queue_free()
 #endregion
 
 #region Signal methods

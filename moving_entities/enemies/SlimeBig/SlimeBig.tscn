@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_ml3r3"]
 [ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_m24lk"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/enemy_chase.gd" id="4_jccq1"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="6_dnj1x"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="6_haj15"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
 [ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
 
@@ -21,6 +21,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="SlimeBig" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
+collision_layer = 8
 script = ExtResource("1_ml3r3")
 movement_speed = 200.0
 base_damage = 0
@@ -67,10 +68,10 @@ grow_vertical = 0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_m24lk")
-initial_state = NodePath("EnemyFollow")
+initial_state = NodePath("SlimeChase")
 
-[node name="EnemyFollow" type="Node" parent="StateMachine"]
-script = ExtResource("4_jccq1")
+[node name="SlimeChase" type="Node" parent="StateMachine"]
+script = ExtResource("6_haj15")
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("5_gvsgo")
@@ -80,6 +81,7 @@ spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("8_unwx7")])
 path_postprocessing = 1
 avoidance_enabled = true
 max_speed = 1000.0
+debug_enabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_u80kp")

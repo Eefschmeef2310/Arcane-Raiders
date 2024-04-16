@@ -167,6 +167,7 @@ lobby_right={
 2d_physics/layer_1="Impassable Walls"
 2d_navigation/layer_1="Floor"
 2d_physics/layer_2="Unwalkable Floor"
+2d_navigation/layer_2="Hole"
 2d_physics/layer_3="Player"
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Spells"

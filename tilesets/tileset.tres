@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 
@@ -8,6 +8,19 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ypmqk"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_yxyp5"]
+vertices = PackedVector2Array(80, 0, 0, 40, -80, 0, 0, -40)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mb2mv"]
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ykpc1"]
 resource_name = "floor"
@@ -19,18 +32,21 @@ texture_region_size = Vector2i(160, 80)
 3:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_1/angular_velocity = 0.0
 3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_cog72")
+3:0/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_ypmqk")
 3:1/0 = 0
 3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_0/angular_velocity = 0.0
 3:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_1/angular_velocity = 0.0
 3:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)
+3:1/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_yxyp5")
 3:2/0 = 0
 3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_0/angular_velocity = 0.0
 3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)
 3:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_1/angular_velocity = 0.0
+3:2/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_mb2mv")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_16exw"]
 resource_name = "walls"
@@ -141,5 +157,6 @@ physics_layer_0/collision_mask = 0
 physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 0
 navigation_layer_0/layers = 1
+navigation_layer_1/layers = 2
 sources/2 = SubResource("TileSetAtlasSource_ykpc1")
 sources/4 = SubResource("TileSetAtlasSource_16exw")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=21 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -526,6 +527,19 @@ offset_top = -161.0
 offset_right = 20.0
 offset_bottom = -138.0
 horizontal_alignment = 1
+
+[node name="StatusUI" parent="." instance=ExtResource("11_64qh4")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -139.0
+offset_right = 100.0
+offset_bottom = -107.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

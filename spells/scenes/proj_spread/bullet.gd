@@ -32,8 +32,13 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
-func _on_body_entered(_body):
-	queue_free()
+func _on_body_entered(body):
+	if body != caster and "on_hurt" in body:
+		body.on_hurt(self)
+
+func _on_area_entered(area):
+	if area != caster and "on_hurt" in area:
+		area.on_hurt(self)
 
 func _on_kill_timer_timeout():
 	queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bircxyrmnpixt"]
+[gd_scene load_steps=21 format=3 uid="uid://bircxyrmnpixt"]
 
 [ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="2_d4pfh"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://gcjnkbwfebfe" path="res://spells/resources/proj_spread.tres" id="11_oeong"]
 [ext_resource type="PackedScene" uid="uid://cxbx5yeaogymo" path="res://spells/reactions/burn-frost/burn-frost.tscn" id="15_b7v01"]
 [ext_resource type="PackedScene" uid="uid://cgcglkyrpkbs5" path="res://spells/reactions/wet-shock/wet-shock.tscn" id="16_d4jnw"]
+[ext_resource type="PackedScene" uid="uid://b70sy17w68ow1" path="res://spells/reactions/frost-wet/frost-wet.tscn" id="16_wsnsn"]
 [ext_resource type="PackedScene" uid="uid://0u08iljqx1w1" path="res://spells/reactions/shock-wind/shock-wind.tscn" id="17_aynrb"]
 [ext_resource type="PackedScene" uid="uid://cnvowsw0l752i" path="res://spells/reactions/wind-earth/wind-earth.tscn" id="17_kvxt3"]
 [ext_resource type="PackedScene" uid="uid://bloo38yivbufm" path="res://spells/reactions/stun-burn/stun-burn.tscn" id="18_4t6um"]
@@ -41,7 +42,7 @@ spell_scenes = {
 }
 reactions = {
 [ExtResource("2_d4pfh"), ExtResource("3_wyn5f")]: ExtResource("15_b7v01"),
-[ExtResource("3_wyn5f"), ExtResource("7_u88jo")]: &"Frost and Wet",
+[ExtResource("3_wyn5f"), ExtResource("7_u88jo")]: ExtResource("16_wsnsn"),
 [ExtResource("7_u88jo"), ExtResource("5_485g6")]: ExtResource("16_d4jnw"),
 [ExtResource("5_485g6"), ExtResource("8_4ef6i")]: ExtResource("17_aynrb"),
 [ExtResource("8_4ef6i"), ExtResource("6_nscba")]: ExtResource("17_kvxt3"),

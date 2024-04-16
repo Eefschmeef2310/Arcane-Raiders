@@ -59,12 +59,6 @@ func _physics_process(delta):
 #endregion
 
 #region Signal methods
-func _on_hurtbox_body_entered(body):
-	on_hurt(body as Node2D)
-
-func _on_hurtbox_area_entered(area):
-	on_hurt(area as Node2D)
-
 func _on_nav_update_timer_timeout():
 	set_target()
 	pass

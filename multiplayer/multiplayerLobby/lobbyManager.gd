@@ -7,7 +7,7 @@ extends Node
 signal player_joined
 signal player_left(id:int)
 #Enums
-enum MultiplayerMode {Local,Online}
+enum MultiplayerMode {Online,Local}
 
 #Constants
 const MAX_PLAYERS = 4

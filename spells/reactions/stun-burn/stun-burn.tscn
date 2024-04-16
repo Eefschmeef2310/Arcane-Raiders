@@ -9,7 +9,7 @@ script/source = "extends ReactionArea
 
 func _on_timer_timeout():
 	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(\"enemy\"):
+		if moving_entity.is_in_group(\"enemy\") and moving_entity != caster:
 			moving_entity.on_hurt(self)
 
 func _on_kill_timer_timeout():

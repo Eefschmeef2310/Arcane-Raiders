@@ -106,23 +106,22 @@ func on_hurt(hit_node):
 			current_inflictions_dictionary[element] += infliction_time
 			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
 			
-			#Check if a reaction has occurred, may need to be moved further up the method
-			for key in current_inflictions_dictionary.keys():
-				var reaction = SpellManager.get_reaction(key, element)
-				if reaction:
-					if reaction is StringName:
-						print(reaction) #TODO This is for debug, as not all reactions have scenes yet
-					elif reaction is PackedScene:
-						current_inflictions_dictionary.erase(key)
-						current_inflictions_dictionary.erase(element)
-						
-						var new_reaction = reaction.instantiate()
-						if "entity" in new_reaction:
-							new_reaction.entity = self
-							call_deferred("add_child", new_reaction)
-						else:
-							new_reaction.global_position = global_position
-							get_tree().root.call_deferred("add_child", new_reaction)
+	#Check if a reaction has occurred, may need to be moved further up the method
+	for key in current_inflictions_dictionary.keys():
+		var reaction = SpellManager.get_reaction(key, element)
+		if reaction and reaction is PackedScene:
+			current_inflictions_dictionary.erase(key)
+			current_inflictions_dictionary.erase(element)
+			
+			var new_reaction = reaction.instantiate()
+			new_reaction.caster = hit_node.caster
+			if "entity" in new_reaction:
+				new_reaction.entity = self
+				call_deferred("add_child", new_reaction)
+			else:
+				get_tree().root.call_deferred("add_child", new_reaction)
+				new_reaction.global_position = global_position
+							
 
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
