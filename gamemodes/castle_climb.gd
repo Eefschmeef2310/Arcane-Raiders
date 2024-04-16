@@ -44,7 +44,7 @@ func start_next_floor():
 	
 	if current_room_node != null:
 		print("Freeing old room.")
-		current_room_node.queue_free()
+		current_room_node.free()
 	
 	await get_tree().create_timer(0.8).timeout
 	
@@ -96,10 +96,10 @@ func setup_from_parent_multiplayer_lobby():
 	var arr = get_parent().get_card_data()
 	var i = 0
 	for dict in arr:
-		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"])
+		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"], dict["color"])
 		i += 1
 
-func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes):
+func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color):
 	var data = player_data[slot]
 	data.device_id = device_id
 	data.peer_id = peer_id
@@ -110,8 +110,12 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 			data.set_spell_from_string(i, spells[i])
 	
 	data.character = character
+	data.main_color = color
 	
 	if number_of_players < slot + 1:
 		number_of_players = slot + 1
 	
-	$GameUI/PlayerUIContainer.get_child(slot).show()
+	var ui = $GameUI/PlayerUIContainer.get_child(slot)
+	ui.show()
+	ui.set_data(data)
+	print(data.device_id)
