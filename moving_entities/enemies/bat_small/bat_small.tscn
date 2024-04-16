@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://c8uvt7sepdtkk"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_l62ws"]
-[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_osx1g"]
+[ext_resource type="Texture2D" uid="uid://bidj8hsm5os4t" path="res://moving_entities/enemies/bat_small/bat_temp.png" id="2_vycsp"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_5m50w"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="4_4f7jg"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_hg75s"]
@@ -23,7 +23,7 @@ properties/0/replication_mode = 1
 [node name="BatSmall" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells")]
 collision_layer = 8
 script = ExtResource("1_l62ws")
-movement_speed = 100.0
+movement_speed = 150.0
 base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
@@ -31,8 +31,9 @@ enemy_spells = NodePath("EnemySpells")
 max_health = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0.5, -14.5)
-texture = ExtResource("2_osx1g")
+position = Vector2(1, -26)
+scale = Vector2(0.787234, 0.728814)
+texture = ExtResource("2_vycsp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -56,7 +57,7 @@ script = ExtResource("4_hg75s")
 
 [node name="BatAttack" type="Node" parent="StateMachine"]
 script = ExtResource("5_pa536")
-nav_timer_interval = 1.0
+nav_timer_interval = 0.2
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("4_4f7jg")
@@ -68,7 +69,6 @@ avoidance_enabled = true
 max_speed = 1000.0
 avoidance_layers = 2
 avoidance_mask = 2
-debug_enabled = true
 
 [node name="ProgressBar" parent="." instance=ExtResource("5_7nlb8")]
 offset_left = -50.0
