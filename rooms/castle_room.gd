@@ -2,6 +2,8 @@ extends Node2D
 class_name CastleRoom
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
+@export var wave_size : Array[int] = [15]
+
 @onready var dynamic_camera: DynamicCamera = $DynamicCamera
 @onready var player_spawns = [$PlayerSpawn0, $PlayerSpawn1, $PlayerSpawn2, $PlayerSpawn3]
 @onready var player_spawner = $PlayerSpawner
