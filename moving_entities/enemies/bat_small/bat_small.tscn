@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8uvt7sepdtkk"]
+[gd_scene load_steps=13 format=3 uid="uid://c8uvt7sepdtkk"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_l62ws"]
 [ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_osx1g"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="5_7nlb8"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_attack.gd" id="5_pa536"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="6_uh88h"]
+[ext_resource type="Resource" uid="uid://b7nmjad62g41j" path="res://moving_entities/enemies/bat_small/bat_attack.tres" id="7_emiic"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oaiii"]
 
@@ -20,6 +21,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="BatSmall" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells")]
+collision_layer = 8
 script = ExtResource("1_l62ws")
 movement_speed = 100.0
 base_damage = 0
@@ -38,6 +40,8 @@ shape = SubResource("CircleShape2D_oaiii")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0.5, -14.5)
+collision_layer = 0
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_4pbwl")
@@ -56,6 +60,7 @@ nav_timer_interval = 1.0
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("4_4f7jg")
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("7_emiic")])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 navigation_layers = 3

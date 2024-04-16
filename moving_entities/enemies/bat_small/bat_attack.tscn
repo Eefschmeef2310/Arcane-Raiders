@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://dneaed1rm6xx2"]
+
+[ext_resource type="Texture2D" uid="uid://bo23332c4inn1" path="res://build/web/index.apple-touch-icon.png" id="1_xsele"]
+
+[sub_resource type="GDScript" id="GDScript_2efh6"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var projectile_speed: float = 600
+var direction: Vector2
+#endregion
+
+#region Godot methods
+func _ready():
+	direction = caster.aim_direction
+	global_position = caster.global_position
+	look_at(global_position + direction)
+
+func _process(delta):
+	position += direction * projectile_speed * delta
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+
+
+func _on_body_entered(body):
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6avya"]
+
+[node name="BatAttack" type="Area2D"]
+collision_layer = 192
+collision_mask = 5
+script = SubResource("GDScript_2efh6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6avya")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("1_xsele")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

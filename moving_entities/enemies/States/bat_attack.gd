@@ -19,6 +19,7 @@ class_name BatAttack
 
 	#Other Variables (please try to separate and organise!)
 var player: CharacterBody2D
+var strafe_dir: int = 1
 #endregion
 
 #region Godot methods
@@ -41,7 +42,9 @@ func enter():
 	
 func update(delta):
 	super.update(delta)
-	#enemy.attempt_cast(0)
+	enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
+	print("attack")
+	enemy.attempt_cast(0)
 	
 func physics_update(delta):
 	super.physics_update(delta)
@@ -52,13 +55,13 @@ func physics_update(delta):
 	
 func set_position():
 	player = get_closest_player()
-	print("position set")
 	var distance = player.global_position.distance_to(enemy.global_position)
 	var direction = enemy.global_position.direction_to(player.global_position)
 	var final_direction: Vector2 = Vector2.ZERO
 	if(distance < prefered_range): final_direction = -direction
 	else: final_direction = direction
-	#Add "left or right" movement using dotproduct
+	#Add "left or right" diection
+	
 	
 	navigation_agent.target_position = enemy.global_position + 2 * final_direction * nav_timer_interval * enemy.movement_speed
 #endregion
