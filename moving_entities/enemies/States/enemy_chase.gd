@@ -34,7 +34,7 @@ func enter():
 	#TODO Grab the closest player
 
 func physics_update(delta):
-	if(navigation_agent):
+	if(navigation_agent and player):
 		super.physics_update(delta)
 		var distance = player.global_position.distance_to(small_fry.global_position)
 		if distance < attack_distance:
