@@ -145,7 +145,7 @@ func _process(_delta):
 				player_ready = !player_ready
 				changed = true
 				
-		if changed:
+		if changed && lobby_manager.mode == lobby_manager.MultiplayerMode.Online:
 			setValues.rpc(Steam.getPersonaName(),selected_raider,selected_color,selected_loadout,selected_panel,player_ready)
 	
 	UpdateDisplay()
