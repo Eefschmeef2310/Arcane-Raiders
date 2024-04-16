@@ -61,6 +61,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ydb8")
+mode = 1
 player_card_hbox = NodePath("Lobby/MarginContainer/PlayerCardBox")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 debug_start_button = NodePath("Lobby/StartButton")

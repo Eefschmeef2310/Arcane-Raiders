@@ -17,6 +17,7 @@ var player_data
 var current_wave = 0
 var max_waves
 var total_difficulty_left = 0
+var number_of_enemies_left = 0
 
 func _ready():
 	max_waves = wave_total_difficulty.size()
@@ -33,9 +34,10 @@ func _ready():
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 
 func _on_enemy_zero_health():
-	var existing_enemies = get_tree().get_nodes_in_group("enemy")
-	if existing_enemies.size() <= 0:
-		room_exited.emit()
+	if is_multiplayer_authority():
+		number_of_enemies_left -= 1
+		if number_of_enemies_left <= 0:
+			room_exited.emit()
 
 # Runs only on the server
 func spawn_players(number_of_players: int):
@@ -59,4 +61,6 @@ func spawn_enemy(id: String) -> Node2D:
 	var enemy: Entity = data["scene"].instantiate()
 	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
 	enemy.zero_health.connect(_on_enemy_zero_health)
+	number_of_enemies_left += 1
+	print(number_of_enemies_left)
 	return enemy

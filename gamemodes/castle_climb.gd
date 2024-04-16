@@ -58,7 +58,12 @@ func start_next_floor():
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_rooms[index].instantiate() as CastleRoom
 	current_room_node.player_data = player_data
+	current_room_node.room_exited.connect(_on_room_exited)
 	return current_room_node
+
+func _on_room_exited():
+	if is_multiplayer_authority():
+		start_next_floor()
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
