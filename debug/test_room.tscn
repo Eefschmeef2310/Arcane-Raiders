@@ -79,9 +79,6 @@ debug = true
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="Player2" parent="." instance=ExtResource("3_tuxay")]
-position = Vector2(1988, 1158)
-
 [node name="GameUI" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="GameUI"]
@@ -107,7 +104,7 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("5_q4kiy")]
 layout_mode = 2
-data = NodePath("../../../Player2/PlayerData")
+data = NodePath("")
 
 [node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1609, 600)
@@ -167,4 +164,3 @@ position = Vector2(2069, 910)
 script = ExtResource("11_4vjuy")
 
 [editable path="Player"]
-[editable path="Player2"]

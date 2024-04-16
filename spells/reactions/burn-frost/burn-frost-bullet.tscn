@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bp4swe3e1r06c"]
+[gd_scene load_steps=5 format=3 uid="uid://bp4swe3e1r06c"]
 
 [ext_resource type="Script" path="res://spells/scenes/proj_spread/bullet.gd" id="1_xhdt5"]
 [ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_s0hoa"]
+
+[sub_resource type="Curve" id="Curve_grmom"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.94532, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3twl3"]
 radius = 124.101
@@ -10,16 +14,18 @@ radius = 124.101
 scale = Vector2(0.4, 0.4)
 collision_layer = 16
 script = ExtResource("1_xhdt5")
-speed = 5.0
+speed = 10.0
+falloff_curve = SubResource("Curve_grmom")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3twl3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0.92549, 1, 1)
+modulate = Color(0, 0.92549, 1, 0.411765)
 texture = ExtResource("2_s0hoa")
 
 [node name="kill_timer" type="Timer" parent="."]
+wait_time = 0.75
 autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

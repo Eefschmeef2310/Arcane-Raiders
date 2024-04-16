@@ -27,7 +27,7 @@ func _ready():
 	await get_tree().create_timer(end_time).timeout
 	queue_free()
 
-func _process(delta):
+func _process(_delta):
 	if is_instance_valid(caster):
 		global_position = caster.global_position
 	else:

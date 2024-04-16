@@ -109,7 +109,10 @@ func on_hurt(hit_node):
 	#Check if a reaction has occurred, may need to be moved further up the method
 	for key in current_inflictions_dictionary.keys():
 		var reaction = SpellManager.get_reaction(key, element)
-		if reaction and reaction is PackedScene:
+		if reaction:
+			#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
+			health -= 0.25 * hit_node.base_damage
+			
 			current_inflictions_dictionary.erase(key)
 			current_inflictions_dictionary.erase(element)
 			

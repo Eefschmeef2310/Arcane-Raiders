@@ -51,7 +51,6 @@ func _on_wave_timer_timeout():
 			bullet.rotation = (0.) + rotation_offset
 			
 			bullet.global_position = global_position
-			bullet.scale = scale
 			get_tree().root.call_deferred(\"add_child\", bullet)
 		waves -= 1
 		$WaveTimer.start(0.05)

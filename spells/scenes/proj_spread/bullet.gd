@@ -12,8 +12,10 @@ extends Area2D
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var speed : float = 1
+@export var falloff_curve : Curve
 
 	#Onready Variables
+@onready var kill_timer = $kill_timer
 
 	#Other Variables (please try to separate and organise!)
 var base_damage : int
@@ -28,7 +30,8 @@ func _ready():
 		modulate = resource.element.colour
 
 func _process(_delta):
-	position += Vector2(cos(rotation), sin(rotation)) * speed
+	position += Vector2(cos(rotation), sin(rotation)) * speed * \
+		(falloff_curve.sample(kill_timer.time_left/kill_timer.wait_time) if falloff_curve else 1.0)
 #endregion
 
 #region Signal methods

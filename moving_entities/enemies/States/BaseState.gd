@@ -17,7 +17,7 @@ func enter():
 func exit():
 	pass
 	
-func update(delta):
+func update(_delta):
 	pass
 
 #TODO MAKE SURE TO CALL THE SUPER WHEN MAKING A NEW STATE
