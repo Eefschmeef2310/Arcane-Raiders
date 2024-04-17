@@ -2,7 +2,7 @@ extends SpellBase
 #class_name
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
-@onready var EXPLOSION = preload("res://spells/scenes/explosive/explosion.tscn")
+@onready var EXPLOSION = preload("res://spells/scenes/aoe_large/aoe_large_bullet.tscn")
 @onready var raycast = $RayCast2D
 
 var cast_distance: float = 250

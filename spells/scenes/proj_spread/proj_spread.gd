@@ -24,13 +24,14 @@ extends SpellBase
 
 #region Godot methods
 func _ready():
-	if caster : global_position = caster.global_position
+	global_position = caster.global_position + (caster.aim_direction * 40)
 	# await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
 #endregion
 
 func _process(_delta):
-	if caster : global_position = caster.global_position
+	#if caster : global_position = caster.global_position
+	pass
 
 #region Signal methods
 func _on_wave_timer_timeout():

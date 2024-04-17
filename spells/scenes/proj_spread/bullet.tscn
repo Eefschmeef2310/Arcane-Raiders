@@ -9,7 +9,7 @@ radius = 25.0799
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
 script = ExtResource("1_8b4ye")
-speed = 10.0
+speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

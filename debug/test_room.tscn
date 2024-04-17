@@ -102,9 +102,8 @@ theme_override_constants/separation = 0
 layout_mode = 2
 data = NodePath("../../../Player/PlayerData")
 
-[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("5_q4kiy")]
+[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" instance=ExtResource("5_q4kiy")]
 layout_mode = 2
-data = NodePath("")
 
 [node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
 position = Vector2(1609, 600)

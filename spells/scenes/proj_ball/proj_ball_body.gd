@@ -5,10 +5,9 @@ extends RigidBody2D
 
 	#Exported Variables
 @export var move_speed : float = 1000
-@export var explosion_size : float = 1
 
 	#Onready Variables
-@onready var explosion_scene = preload("res://spells/scenes/explosive/explosion.tscn")
+@onready var explosion_scene = preload("res://spells/scenes/proj_ball/proj_ball_bullet.tscn")
 
 var direction : Vector2
 
@@ -21,7 +20,7 @@ var caster : Player
 #region Godot methods
 func _ready():
 	direction = caster.aim_direction
-	global_position = caster.global_position + (direction * 20)
+	global_position = caster.global_position + (direction * 40)
 	look_at(global_position + direction)
 	
 	modulate = resource.element.colour

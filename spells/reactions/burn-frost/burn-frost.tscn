@@ -32,7 +32,7 @@ script/source = "extends ReactionNode
 #region Godot methods
 func _ready():
 	super._ready()
-	#if entity : global_position = entity.global_position
+	#if ensity : global_position = entity.global_position
 	# await get_tree().create_timer(start_time).timeout
 	if should_continue: _on_wave_timer_timeout()
 #endregion

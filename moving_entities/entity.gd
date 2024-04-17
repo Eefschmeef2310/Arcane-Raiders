@@ -146,7 +146,7 @@ func burn_effect(delta):
 	if burn_timer > 0:
 		burn_timer -= delta
 	if burn_timer <= 0:
-		health -= 20
+		health -= 5
 		burn_timer = burn_tick_rate
 
 func frost_effect(amount):
