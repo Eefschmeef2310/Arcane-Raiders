@@ -30,7 +30,7 @@ var starting_scale : Vector2
 
 #endregion
 
-#region Godot methodswww
+#region Godot methods
 func _ready():
 	if resource:
 		modulate = resource.element.colour

@@ -56,16 +56,13 @@ func _on_refresh_pressed():
 			n.queue_free()
 	open_lobby_list()
 
-
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
-
 
 func _on_disconnect_button_pressed():
 	# TODO this doesnt work yet! we should probably have it go back to the menu rather than try and reload te server browser
 	multiplayer.multiplayer_peer = null
 	get_tree().change_scene_to_packed(disconnect_scene) 
-	
 	
 func _on_host_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC) #create lobby on steam
