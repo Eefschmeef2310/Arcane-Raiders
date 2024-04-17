@@ -34,16 +34,18 @@ func enter():
 	
 func physics_update(delta):
 #If within transition range, transition into strafe mode
-	if navigation_agent:
-		super.physics_update(delta)
-		var distance = player.global_position.distance_to(enemy.global_position)
-		if distance < transition_range:
-			Transitioned.emit(self, "batattack")
+	super.physics_update(delta)
+	if !player: return
+	var distance = player.global_position.distance_to(enemy.global_position)
+	if distance < transition_range:
+		Transitioned.emit(self, "batattack")
 	
 func set_position():
 	player = get_closest_player()
 	if(player):
 		navigation_agent.target_position = player.global_position
+	else:
+		navigation_agent.target_position = enemy.global_position
 	
 #endregion
 

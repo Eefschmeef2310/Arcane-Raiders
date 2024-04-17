@@ -31,8 +31,8 @@ func _ready():
 		total_difficulty_left = wave_total_difficulty[0]
 		room_exit.lock()
 		while total_difficulty_left > 0:
-			#var key = EnemyManager.Data.keys().pick_random()
-			var key = "dummy"
+			var key = EnemyManager.Data.keys().pick_random()
+			#var key = "dummy"
 			enemy_spawner.spawn(key)
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 
