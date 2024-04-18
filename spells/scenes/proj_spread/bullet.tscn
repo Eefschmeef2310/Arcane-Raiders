@@ -8,6 +8,7 @@ radius = 25.0799
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
+collision_mask = 13
 script = ExtResource("1_8b4ye")
 speed = 3.0
 
