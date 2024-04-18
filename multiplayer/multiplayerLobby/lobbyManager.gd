@@ -26,7 +26,7 @@ const MAX_PLAYERS = 4
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
 @export var player_colors : Array[Color]
-@export var server_browser_scene : PackedScene
+#@export var server_browser_scene : PackedScene
 @export var player_card_scene : PackedScene
 @export var castle_climb_scene : PackedScene
 
@@ -38,6 +38,8 @@ var sent_first_update : bool = false
 var start_game_called : bool = false
 var ready_timer : float 
 var lobby_id : int
+
+var server_browser_scene : PackedScene
 #endregion
 
 #region Godot methods
@@ -84,6 +86,8 @@ func _process(delta):
 
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
+	$Lobby/MarginContainer/Label.visible = false
+	
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
@@ -141,9 +145,11 @@ func _on_start_button_pressed():
 #region Other methods (please try to separate and organise!)
 
 ## called after the lobby mode has been decided 
-func InitLobby(_online_mode : MultiplayerMode, new_lobby_id : int):
-	mode = _online_mode
+func InitLobby(online_mode : MultiplayerMode, new_lobby_id : int):
+	mode = online_mode
 	lobby_id = new_lobby_id
+	
+	server_browser_scene = preload("res://multiplayer/serverBrowser/serverBrowser.tscn") if mode == MultiplayerMode.Online else preload("res://menus/main_menu.tscn")
 	
 	if mode == MultiplayerMode.Online:
 		#get the peer id the player who has just joined (by loading this scenes ready func)
@@ -201,6 +207,9 @@ func get_card_data() -> Array:
 func handle_join_input():
 	for device in get_unjoined_devices():
 		if MultiplayerInput.is_action_just_pressed(device, "join"):
+			#Destroy the prompt
+			#if()
+			
 			#run join function (create card)
 			#join(device)
 			var new_card = CreateNewCard(1)
@@ -210,7 +219,7 @@ func handle_join_input():
 
 func is_device_joined(device: int) -> bool:
 	for card in player_card_hbox.get_children():
-		var d = card.device_id
+		var d	 = card.device_id
 		if device == d: return true
 	return false
 

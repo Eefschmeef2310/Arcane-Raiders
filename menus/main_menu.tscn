@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3 uid="uid://brmt3xwasqlgc"]
+
+[ext_resource type="Texture2D" uid="uid://b0wd7cki57iq3" path="res://menus/splash2.png" id="1_ag66g"]
+
+[sub_resource type="GDScript" id="GDScript_mpxdx"]
+resource_name = "main_menu"
+script/source = "extends Control
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
+
+#region Godot methods
+func _ready():
+	$VBoxContainer/QuitButton.visible = OS.get_name() != \"Web\"
+#endregion
+
+#region Signal methods
+func _on_quit_button_pressed():
+	get_tree().quit()
+	
+func _on_online_button_pressed():
+	get_tree().change_scene_to_file(\"res://multiplayer/serverBrowser/serverBrowser.tscn\")
+	
+func _on_local_play_button_pressed():
+	var lobby_scene = multiplayer_lobby.instantiate()
+	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Local, 0)
+	get_tree().root.add_child(lobby_scene)
+	
+func _on_settings_button_pressed():
+	
+	get_tree().root.add_child(load(\"res://menus/settings.tscn\").instantiate())
+	
+#endregion
+"
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_mpxdx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1559.0
+offset_top = -877.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_ag66g")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 594.0
+offset_bottom = 673.0
+alignment = 1
+
+[node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 60
+text = "Local Play"
+
+[node name="OnlineButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 60
+text = "Online"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 60
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 60
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
