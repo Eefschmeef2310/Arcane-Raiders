@@ -89,6 +89,9 @@ func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
 	print("This code is running.")
 	use_spell_pickup_server.rpc(player_data.find(d), i, sp.get_path())
 
+# Only called on the server.
+# If multiple players try to pick up the same spell,
+# whoever's packet arrived first gets it.
 @rpc("any_peer", "call_local", "reliable")
 func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
 	if is_multiplayer_authority():
@@ -96,11 +99,17 @@ func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
 		var pickup: SpellPickup = get_node(sp_path)
 		if is_instance_valid(pickup):
 			# Pickup hasn't been claimed yet: claim it and delete.
-			var data = player_data[p_i]
-			data.set_spell_from_string.rpc(i, pickup.spell_string)
+			set_spell_from_string.rpc(p_i, i, pickup.spell_string)
 			pickup.free()
 		else:
+			# Failure.
 			print("Pickup doesn't exist (anymore)!")
+
+# Sets a player's spell slot on all clients.
+@rpc("authority", "call_local", "reliable")
+func set_spell_from_string(p_i: int, i: int, str: String):
+	var data = player_data[p_i]
+	data.set_spell_from_string(i, str)
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):

@@ -77,7 +77,7 @@ func _process(delta):
 		ready_timer = ready_delay
 		lobby_title.text= "CHOOSE YOUR RAIDER!"
 	# if the timer runs out, start the game 
-	if ready_timer <= 0:
+	if ready_timer <= 0 and is_multiplayer_authority():
 		StartGame()
 	
 	pass

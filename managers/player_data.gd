@@ -44,12 +44,10 @@ func _on_player_health_updated(amount):
 	health = amount
 	health_changed.emit(self, health)
 
-@rpc("any_peer", "call_local", "reliable")
 func start_cooldown(slot: int, time: float):
 	spell_cooldowns_max[slot] = time
 	spell_cooldowns[slot] = time
 
-@rpc("authority", "call_local", "reliable")
 func set_spell_from_string(slot: int, string: String):
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0
