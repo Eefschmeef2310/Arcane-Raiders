@@ -23,6 +23,12 @@ func _ready():
 func _process(_delta):
 	if is_instance_valid(owner.data) and is_multiplayer_authority():
 		
+		move_dir = Vector2.ZERO
+		aim_dir = Vector2.ZERO
+		spell_down.fill(false)
+		spell_press.fill(false)
+		spell_release.fill(false)
+		
 		# If we have an input object, use it
 		if input:
 			# Movement
