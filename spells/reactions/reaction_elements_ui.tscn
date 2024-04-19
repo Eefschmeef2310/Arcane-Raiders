@@ -71,11 +71,9 @@ size_flags_vertical = 8
 script = ExtResource("1_ynr2w")
 
 [node name="AnimationContainer" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
-offset_top = -55.0
 offset_right = 40.0
-offset_bottom = -15.0
+offset_bottom = 40.0
 
 [node name="Panel" type="Panel" parent="AnimationContainer"]
 layout_mode = 1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bp4swe3e1r06c"]
 
-[ext_resource type="Script" path="res://spells/scenes/proj_spread/bullet.gd" id="1_xhdt5"]
+[ext_resource type="Script" path="res://spells/scenes/proj_spread/explosion.gd" id="1_xhdt5"]
 [ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_s0hoa"]
 
 [sub_resource type="Curve" id="Curve_30daq"]

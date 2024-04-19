@@ -4,6 +4,7 @@ class_name CastleRoom
 
 signal room_exited
 signal all_waves_cleared
+signal spell_change_requested(Player, int, SpellPickup)
 
 @export var wave_total_difficulty : Array[int]
 
@@ -53,9 +54,13 @@ func spawn_player(player_number: int) -> Node2D:
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.set_data(player_data[player_number])
 	player.global_position = player_spawns[player_number].global_position
+	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	dynamic_camera.add_target(player)
 	print("Spawned player of peer_id " + str(player.data.peer_id))
 	return player
+
+func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
+	spell_change_requested.emit(p.data, i, sp)
 
 @rpc("call_local", "reliable")
 func spawn_enemy(id: String) -> Node2D:

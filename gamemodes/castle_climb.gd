@@ -81,6 +81,21 @@ func _on_room_exited():
 	if is_multiplayer_authority():
 		start_next_floor()
 
+func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
+	use_spell_pickup_server.rpc(d, i, sp)
+
+@rpc("any_peer", "call_remote")
+func use_spell_pickup_server(d: PlayerData, i: int, sp: SpellPickup):
+	if is_instance_valid(sp) and is_instance_valid(d):
+		# Pickup hasn't been claimed yet: claim it and delete.
+		d.set_spell_from_string.rpc(i, sp.spell_string)
+		sp.free()
+		
+	else:
+		# Pickup has been claimed and deleted. Do nothing.
+		pass
+	
+
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
 	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(next_floor)

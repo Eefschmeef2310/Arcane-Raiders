@@ -159,10 +159,12 @@ func shock_effect():
 	#get closest entity with same tag
 	var closest : Node2D
 	var closest_distance : float = INF
-	for entity in get_tree().get_nodes_in_group(get_groups()[0]):
-		if entity != self and global_position.distance_to(entity.global_position) < closest_distance and !entity.shocked_this_frame:
-			closest = entity
-			closest_distance = global_position.distance_to(entity.global_position)
+	
+	if(get_groups().size() > 0):
+		for entity in get_tree().get_nodes_in_group(get_groups()[0]):
+			if entity != self and global_position.distance_to(entity.global_position) < closest_distance and !entity.shocked_this_frame:
+				closest = entity
+				closest_distance = global_position.distance_to(entity.global_position)
 	
 	if closest:
 		#damage closest enemy

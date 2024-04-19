@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmxs62fwihysk"]
+[gd_scene load_steps=6 format=3 uid="uid://bmxs62fwihysk"]
 
 [ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball_body.gd" id="1_x5adh"]
+[ext_resource type="PackedScene" uid="uid://6hpw555slkv6" path="res://spells/scenes/proj_ball/proj_ball_explosion.tscn" id="2_1pp8o"]
 [ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="2_ir44m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
@@ -13,6 +14,7 @@ y_sort_enabled = true
 collision_layer = 32
 gravity_scale = 0.0
 script = ExtResource("1_x5adh")
+explosion_scene = ExtResource("2_1pp8o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ogc0g")

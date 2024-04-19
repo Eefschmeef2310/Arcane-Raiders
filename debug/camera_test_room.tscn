@@ -16,7 +16,6 @@ device_id = -1
 
 [node name="DynamicCamera" parent="." instance=ExtResource("1_4pd5d")]
 position = Vector2(979, 409)
-zoom_speed = 10.0
 max_zoom = 0.3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

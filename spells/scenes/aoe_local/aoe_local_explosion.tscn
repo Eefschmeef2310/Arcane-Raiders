@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c20ykcgg3e6nd"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/proj_spread/explosion.tscn" id="1_a2ij5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sidjm"]
+radius = 50.0
+
+[node name="aoe_local_explosion" instance=ExtResource("1_a2ij5")]
+speed = 5.0
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.316406, 0.320312)
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_sidjm")
