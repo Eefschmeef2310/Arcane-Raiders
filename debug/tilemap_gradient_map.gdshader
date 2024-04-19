@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform sampler2D gradient;
 
-uniform float final_saturation: hint_range(0.0, 1.0, 0.01);
+uniform float final_saturation: hint_range(0.0, 1.0, 0.01) = 1;
 
 void fragment() {
 	vec4 tex_color = texture(TEXTURE, UV);

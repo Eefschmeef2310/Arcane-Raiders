@@ -19,8 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://c8uvt7sepdtkk" path="res://moving_entities/enemies/bat_small/bat_small.tscn" id="15_rebi8"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
-offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.586331, 0.877698, 1)
-colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_d11d3"]
 gradient = SubResource("Gradient_rnyub")

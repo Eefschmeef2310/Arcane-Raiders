@@ -7,7 +7,7 @@ extends RigidBody2D
 @export var move_speed : float = 1000
 
 	#Onready Variables
-@onready var explosion_scene = preload("res://spells/scenes/proj_ball/proj_ball_bullet.tscn")
+@export var explosion_scene : PackedScene
 
 var direction : Vector2
 

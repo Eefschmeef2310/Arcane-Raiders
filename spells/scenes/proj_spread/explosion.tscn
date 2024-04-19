@@ -1,26 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://ofooer4yvw4x"]
+[gd_scene load_steps=4 format=3 uid="uid://cxv6ps3wfo0nu"]
 
-[ext_resource type="Script" path="res://spells/scenes/proj_spread/bullet.gd" id="1_i8dhe"]
-[ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_gkuwm"]
+[ext_resource type="Script" path="res://spells/scenes/proj_spread/explosion.gd" id="1_u0isd"]
+[ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_mphhg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3twl3"]
-radius = 124.101
+radius = 97.0824
 
-[node name="Bullet" type="Area2D"]
-scale = Vector2(0.4, 0.4)
+[node name="explosion_base" type="Area2D"]
+y_sort_enabled = true
 collision_layer = 16
 collision_mask = 13
-script = ExtResource("1_i8dhe")
-speed = 5.0
+script = ExtResource("1_u0isd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_gkuwm")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_mphhg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3twl3")
 
 [node name="kill_timer" type="Timer" parent="."]
-wait_time = 0.2
 autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
