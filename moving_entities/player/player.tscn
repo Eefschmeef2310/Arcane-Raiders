@@ -20,7 +20,7 @@ script/source = "extends Node
 
 @export var detect_pickups: bool = true
 var closest_pickup: SpellPickup = null
-var max_distance = 64
+var max_distance = 80
 
 func _physics_process(delta):
 	closest_pickup = null

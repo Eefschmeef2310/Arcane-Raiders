@@ -23,7 +23,8 @@ func _process(delta):
 		i -= 360
 	$Sprite2D.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 
-func set_spell_from_string(spell_string):
+func set_spell_from_string(s):
+	spell_string = s
 	spell = SpellManager.get_spell_from_string(spell_string)
 	$Sprite2D.texture = spell.ui_texture
 	$Sprite2D.self_modulate = spell.element.colour

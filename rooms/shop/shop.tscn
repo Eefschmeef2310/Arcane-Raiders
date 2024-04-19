@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b01k41p44far4"]
+[gd_scene load_steps=3 format=3 uid="uid://b01k41p44far4"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_777ke"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_an1k0"]
-[ext_resource type="PackedScene" uid="uid://c2sydwom5yb2y" path="res://spells/pickups/spell_pickup.tscn" id="3_135qx"]
 
 [node name="CastleRoom" instance=ExtResource("1_777ke")]
 script = ExtResource("2_an1k0")
@@ -24,9 +23,19 @@ position = Vector2(311, 755)
 [node name="PlayerSpawn3" parent="." index="5"]
 position = Vector2(418, 679)
 
-[node name="RoomExit" parent="." index="9"]
+[node name="RoomExit" parent="." index="10"]
 position = Vector2(1439, 84)
 
-[node name="SpellPickup" parent="." index="10" instance=ExtResource("3_135qx")]
-position = Vector2(621, 313)
-spell_string = "frost-proj_ball"
+[node name="ShopSpawns" type="Node2D" parent="." index="11"]
+
+[node name="Spawn0" type="Marker2D" parent="ShopSpawns" index="0"]
+position = Vector2(480, 360)
+
+[node name="Spawn1" type="Marker2D" parent="ShopSpawns" index="1"]
+position = Vector2(640, 280)
+
+[node name="Spawn2" type="Marker2D" parent="ShopSpawns" index="2"]
+position = Vector2(800, 200)
+
+[node name="Spawn3" type="Marker2D" parent="ShopSpawns" index="3"]
+position = Vector2(960, 120)

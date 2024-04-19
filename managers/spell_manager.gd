@@ -39,6 +39,20 @@ func get_random_spell():
 	new_spell.element = element
 	return new_spell
 
+func get_random_spell_string():
+	#Get random element
+	var element = elements.keys().pick_random()
+	while element == null:
+		elements.keys().pick_random()
+		
+	#Get random spell
+	var spell = spell_scenes.keys().pick_random()
+	while spell == null:
+		spell = spell_scenes.keys().pick_random()
+	
+	#Concatenate
+	return element + "-" + spell
+
 func get_spell_from_string(s: String) -> Spell:
 	var element_key = s.get_slice("-", 0)
 	var spell_key = s.get_slice("-", 1)
