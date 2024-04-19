@@ -16,6 +16,8 @@ extends SpellBase
 @export var bullets_per_wave : int = 5
 @export_range(0, TAU) var max_radians : float = 0.2
 
+@export var distance_from_caster : float = 40
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -24,14 +26,14 @@ extends SpellBase
 
 #region Godot methods
 func _ready():
-	global_position = caster.global_position + (caster.aim_direction * 40)
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
 	# await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
 #endregion
 
 func _process(_delta):
 	#if caster : global_position = caster.global_position
-	global_position = caster.global_position + (caster.aim_direction * 40)
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
 	pass
 
 #region Signal methods
