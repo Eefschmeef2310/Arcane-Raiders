@@ -26,3 +26,4 @@ func _process(delta):
 func set_spell_from_string(spell_string):
 	spell = SpellManager.get_spell_from_string(spell_string)
 	$Sprite2D.texture = spell.ui_texture
+	$Sprite2D.self_modulate = spell.element.colour

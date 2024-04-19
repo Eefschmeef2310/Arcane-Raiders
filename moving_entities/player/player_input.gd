@@ -3,22 +3,25 @@ extends Node
 var input: DeviceInput
 var devices: Array[int]
 
+var move_dir: Vector2
+var aim_dir: Vector2
+var spell_down: Array[bool] = [false]
+var spell_press: Array[bool] = [false]
+var spell_release: Array[bool] = [false]
+
 var is_keyb: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
 	update_device_list(0, true)
+	spell_down.resize(3)
+	spell_press.resize(3)
+	spell_release.resize(3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if is_instance_valid(owner.data) and is_multiplayer_authority():
-		var move_dir: Vector2
-		var aim_dir: Vector2
-		var spell_down: Array[bool] = [false]
-		var spell_release: Array[bool] = [false]
-		spell_down.resize(3)
-		spell_release.resize(3)
 		
 		# If we have an input object, use it
 		if input:
@@ -41,6 +44,7 @@ func _process(_delta):
 			# Buttons
 			for i in spell_down.size():
 				spell_down[i] = input.is_action_pressed("spell" + str(i))
+				spell_press[i] = input.is_action_just_pressed("spell" + str(i))
 				spell_release[i] = input.is_action_just_released("spell" + str(i))
 		
 		# Otherwise, use any connected controller
@@ -64,6 +68,7 @@ func _process(_delta):
 					
 				for i in spell_down.size():
 					spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
+					spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
 					spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
 		
 		# Send input to owner
@@ -71,13 +76,14 @@ func _process(_delta):
 		if aim_dir != Vector2.ZERO:
 			owner.aim_direction = aim_dir
 		for i in spell_down.size():
-			if spell_down[i]:
-				if $"../SpellPickupDetector".closest_pickup == null:
+			if spell_press[i] and $"../SpellPickupDetector".closest_pickup != null:
+				print("Picking up spell.")
+				owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
+			else:
+				if spell_down[i]:
 					owner.prepare_cast(i)
-				else:
-					owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
-			if spell_release[i]:
-				owner.attempt_cast(i)
+				if spell_release[i]:
+					owner.attempt_cast(i)
 					
 
 func _input(event):

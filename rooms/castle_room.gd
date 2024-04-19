@@ -60,6 +60,7 @@ func spawn_player(player_number: int) -> Node2D:
 	return player
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
+	print("Sending spell change request.")
 	spell_change_requested.emit(p.data, i, sp)
 
 @rpc("call_local", "reliable")

@@ -67,34 +67,40 @@ func start_next_floor():
 
 func spawn_foyer(_a) -> Node:
 	current_room_node = foyer_room.instantiate() as CastleRoom
-	current_room_node.player_data = player_data
-	current_room_node.room_exited.connect(_on_room_exited)
+	inject_data_to_current_room_node()
 	return current_room_node
 
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_rooms[index].instantiate() as CastleRoom
+	inject_data_to_current_room_node()
+	return current_room_node
+
+func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.room_exited.connect(_on_room_exited)
-	return current_room_node
+	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
+	
 
 func _on_room_exited():
 	if is_multiplayer_authority():
 		start_next_floor()
 
 func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
-	use_spell_pickup_server.rpc(d, i, sp)
+	print("This code is running.")
+	use_spell_pickup_server.rpc(player_data.find(d), i, sp.get_path())
 
-@rpc("any_peer", "call_remote")
-func use_spell_pickup_server(d: PlayerData, i: int, sp: SpellPickup):
-	if is_instance_valid(sp) and is_instance_valid(d):
-		# Pickup hasn't been claimed yet: claim it and delete.
-		d.set_spell_from_string.rpc(i, sp.spell_string)
-		sp.free()
-		
-	else:
-		# Pickup has been claimed and deleted. Do nothing.
-		pass
-	
+@rpc("any_peer", "call_local", "reliable")
+func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
+	if is_multiplayer_authority():
+		print("Attempting to use pickup at pathL " + sp_path)
+		var pickup: SpellPickup = get_node(sp_path)
+		if is_instance_valid(pickup):
+			# Pickup hasn't been claimed yet: claim it and delete.
+			var data = player_data[p_i]
+			data.set_spell_from_string.rpc(i, pickup.spell_string)
+			pickup.free()
+		else:
+			print("Pickup doesn't exist (anymore)!")
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):

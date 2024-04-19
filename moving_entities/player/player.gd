@@ -98,7 +98,7 @@ func prepare_cast(slot: int):
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
-	if can_cast and data.spell_cooldowns[slot] <= 0 and $SpellPickupDetector.closest_pickup == null:
+	if can_cast and data.spell_cooldowns[slot] <= 0:
 		cast_spell.rpc(slot)
 	preparing_cast_slot = -1
 
