@@ -31,6 +31,7 @@ func _ready():
 
 func _process(_delta):
 	#if caster : global_position = caster.global_position
+	global_position = caster.global_position + (caster.aim_direction * 40)
 	pass
 
 #region Signal methods

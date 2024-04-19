@@ -8,6 +8,7 @@ class_name ReactionArea
 	#Enums
 
 	#Constants
+const REACTION_ELEMENTS_UI = preload("res://spells/reactions/reaction_elements_ui.tscn")
 
 	#Exported Variables
 	#@export_group("Group")
@@ -19,6 +20,8 @@ class_name ReactionArea
 	#Other Variables (please try to separate and organise!)
 var should_continue: bool = true
 var caster : Node2D
+
+var elements : Array
 
 #for calculating everages
 
@@ -33,6 +36,14 @@ func _ready():
 			remove_from_group(get_groups()[0])
 			should_continue = false
 			queue_free()
+			
+	if should_continue:
+		var reaction_elements_ui = REACTION_ELEMENTS_UI.instantiate()
+		reaction_elements_ui.global_position = global_position
+		get_tree().root.add_child(reaction_elements_ui)
+		
+		reaction_elements_ui.element_1.texture = elements[0].pip_texture
+		reaction_elements_ui.element_2.texture = elements[1].pip_texture
 #endregion
 
 #region Signal methods

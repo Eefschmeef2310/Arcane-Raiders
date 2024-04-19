@@ -117,7 +117,10 @@ func on_hurt(hit_node):
 			current_inflictions_dictionary.erase(element)
 			
 			var new_reaction = reaction.instantiate()
+			
 			new_reaction.caster = hit_node.caster
+			new_reaction.elements = [key, element]
+			
 			if "entity" in new_reaction:
 				new_reaction.entity = self
 				call_deferred("add_child", new_reaction)
