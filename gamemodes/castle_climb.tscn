@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
-[ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_fmjhf"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
+[ext_resource type="PackedScene" uid="uid://b01k41p44far4" path="res://rooms/shop/shop.tscn" id="2_ynx3r"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
 [ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
@@ -119,7 +119,7 @@ _data = {
 script = ExtResource("1_jx40r")
 player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
 player_ui = [NodePath("GameUI/PlayerUIContainer/PlayerUI0"), NodePath("GameUI/PlayerUIContainer/PlayerUI1"), NodePath("GameUI/PlayerUIContainer/PlayerUI2"), NodePath("GameUI/PlayerUIContainer/PlayerUI3")]
-foyer_room = ExtResource("2_fmjhf")
+foyer_room = ExtResource("2_ynx3r")
 basic_rooms = Array[PackedScene]([ExtResource("3_i3kdw")])
 
 [node name="PlayerData0" type="Node" parent="."]
