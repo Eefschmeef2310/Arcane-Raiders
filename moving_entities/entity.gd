@@ -90,7 +90,6 @@ func on_hurt(hit_node):
 	#Apply base damage
 	if "base_damage" in hit_node:
 		damage = hit_node.base_damage
-		health -= hit_node.base_damage
 		infliction_time = hit_node.base_damage / 10
 	
 	#Add element to current inflictions dictionary
@@ -98,20 +97,34 @@ func on_hurt(hit_node):
 		element = hit_node.resource.element
 	elif "element" in hit_node and hit_node.element:
 		element = hit_node.element
-		
-	if element:
-		if element != SpellManager.elements["null"]:
-			if !current_inflictions_dictionary.has(element):
-				current_inflictions_dictionary[element] = 0
-			current_inflictions_dictionary[element] += infliction_time
-			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
+	
+	# RPC call for damage
+	deal_damage.rpc(hit_node.caster.get_path(), damage, SpellManager.elements.find_key[element], infliction_time)
 			
+	#if shocked, run shock effect
+	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
+		shock_effect()
+	
+	if element == SpellManager.elements["wind"]:
+		wind_effect.rpc(hit_node)
+
+@rpc("authority", "call_local", "reliable")
+func deal_damage(hit_node_path, damage, element_string, infliction_time):
+	var hit_node = get_node(hit_node_path)
+	
+	var element = SpellManager.elements[element_string]
+	if element != SpellManager.elements["null"]:
+		if !current_inflictions_dictionary.has(element):
+			current_inflictions_dictionary[element] = 0
+		current_inflictions_dictionary[element] += infliction_time
+		current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
+	
 	#Check if a reaction has occurred, may need to be moved further up the method
 	for key in current_inflictions_dictionary.keys():
 		var reaction = SpellManager.get_reaction(key, element)
 		if reaction:
 			#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
-			health -= 0.25 * hit_node.base_damage
+			damage *= 1.25
 			
 			current_inflictions_dictionary.erase(key)
 			current_inflictions_dictionary.erase(element)
@@ -120,6 +133,7 @@ func on_hurt(hit_node):
 			
 			new_reaction.caster = hit_node.caster
 			new_reaction.elements = [key, element]
+			new_reaction.set_multiplayer_authority(hit_node.get_multiplayer_authority())
 			
 			if "entity" in new_reaction:
 				new_reaction.entity = self
@@ -127,14 +141,8 @@ func on_hurt(hit_node):
 			else:
 				get_tree().root.call_deferred("add_child", new_reaction)
 				new_reaction.global_position = global_position
-							
-
-	#if shocked, run shock effect
-	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
-		shock_effect()
 	
-	if element == SpellManager.elements["wind"]:
-		wind_effect(hit_node)
+	health -= damage
 	
 	if do_damage_numbers:
 		if !is_instance_valid(damage_number):
@@ -185,6 +193,7 @@ func shock_effect():
 		(shock_effect_laser as Line2D).points[1].y -= 16
 		add_sibling(shock_effect_laser)
 
+@rpc("authority", "call_local", "reliable")
 func wind_effect(hit_node):
 	knockback_velocity = knockback_initial_velocity
 	knockback_direction = hit_node.global_position.direction_to(global_position)

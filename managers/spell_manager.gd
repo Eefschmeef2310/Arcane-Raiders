@@ -61,7 +61,7 @@ func get_spell_from_string(s: String) -> Spell:
 	new_spell.element = elements[element_key]
 	
 	return new_spell
-	
+
 
 func get_reaction(element_1, element_2):
 	if element_1 != element_2:
