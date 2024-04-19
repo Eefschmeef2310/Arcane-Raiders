@@ -26,7 +26,7 @@ const MAX_PLAYERS = 4
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
 @export var player_colors : Array[Color]
-#@export var server_browser_scene : PackedScene
+@export var server_browser_scene : PackedScene
 @export var player_card_scene : PackedScene
 @export var castle_climb_scene : PackedScene
 
@@ -39,7 +39,7 @@ var start_game_called : bool = false
 var ready_timer : float 
 var lobby_id : int
 
-var server_browser_scene : PackedScene
+#var server_browser_scene : PackedScene
 #endregion
 
 #region Godot methods
@@ -149,7 +149,7 @@ func InitLobby(online_mode : MultiplayerMode, new_lobby_id : int):
 	mode = online_mode
 	lobby_id = new_lobby_id
 	
-	server_browser_scene = preload("res://multiplayer/serverBrowser/serverBrowser.tscn") if mode == MultiplayerMode.Online else preload("res://menus/main_menu.tscn")
+	#server_browser_scene = preload("res://multiplayer/serverBrowser/serverBrowser.tscn") if mode == MultiplayerMode.Online else preload("res://menus/main_menu.tscn")
 	
 	if mode == MultiplayerMode.Online:
 		#get the peer id the player who has just joined (by loading this scenes ready func)
