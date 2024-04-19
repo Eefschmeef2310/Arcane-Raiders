@@ -2,14 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_4le16"]
 [ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_qrfy8"]
-[ext_resource type="PackedScene" uid="uid://1db5kat4iwq6" path="res://spells/scenes/proj_burst/proj_burst_bullet.tscn" id="3_jtqi4"]
+[ext_resource type="PackedScene" uid="uid://br01dtr66kciu" path="res://spells/scenes/proj_burst/proj_burst_explosion.tscn" id="3_qeevp"]
 
 [node name="proj_burst" instance=ExtResource("1_4le16")]
 script = ExtResource("2_qrfy8")
-BULLET = ExtResource("3_jtqi4")
+EXPLOSION = ExtResource("3_qeevp")
 waves = 5
-bullets_per_wave = 2
+explosions_per_wave = 5
 max_radians = 0.0
+distance_from_caster = 40.0
 base_damage = 10
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]

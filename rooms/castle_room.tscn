@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=10 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_fuwbx"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_w7cyl"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_thfvk"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
+
+[sub_resource type="Gradient" id="Gradient_rnyub"]
+offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
+gradient = SubResource("Gradient_rnyub")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_otd6u"]
+shader = ExtResource("2_w7cyl")
+shader_parameter/final_saturation = 0.6
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [node name="CastleRoom" type="Node2D"]
 y_sort_enabled = true
@@ -13,6 +26,7 @@ script = ExtResource("1_uk66y")
 [node name="TileMapFloor" type="TileMap" parent="."]
 z_index = -1
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_otd6u")
 tile_set = ExtResource("2_fuwbx")
 format = 2
 layer_0/name = "floor"

@@ -36,16 +36,16 @@ func _ready():
 		modulate = resource.element.colour
 	sprite_2d.rotation_degrees = randf_range(0, 360)
 	starting_scale = scale
-	scale = starting_scale * (scale_falloff_curve.sample(1.0 - kill_timer.time_left/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
 
 func _process(_delta):
 	#print(speed_falloff_curve.sample((1.0 - (kill_timer.time_left/kill_timer.wait_time))))
-	position += Vector2(cos(rotation), sin(rotation)) * speed * \
-		((speed_falloff_curve.sample(1.0 - kill_timer.time_left/kill_timer.wait_time) if speed_falloff_curve else 1.0))
-	scale = starting_scale * (scale_falloff_curve.sample(1.0 - kill_timer.time_left/kill_timer.wait_time) if scale_falloff_curve else 1.0)
-	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(1.0 - kill_timer.time_left/kill_timer.wait_time) if sprite_rotation_falloff_curve else 1.0
+	position += Vector2(cos(rotation), sin(rotation)/2) * speed * \
+		((speed_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if speed_falloff_curve else 1.0))
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if sprite_rotation_falloff_curve else 1.0
 	
-	sprite_2d.modulate.a = transparency_falloff_curve.sample(1.0 - kill_timer.time_left/kill_timer.wait_time) if transparency_falloff_curve else 1.
+	sprite_2d.modulate.a = transparency_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if transparency_falloff_curve else 1.
 #endregion
 
 #region Signal methods

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://br01dtr66kciu"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/proj_spread/explosion.tscn" id="1_b0pts"]
+
+[node name="proj_burst_explosion" instance=ExtResource("1_b0pts")]
+speed = 10.0
