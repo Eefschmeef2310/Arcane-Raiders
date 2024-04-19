@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=21 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
@@ -13,27 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
-
-[sub_resource type="GDScript" id="GDScript_qs58w"]
-resource_name = "spell_pickup_detector"
-script/source = "extends Node
-
-@export var detect_pickups: bool = true
-var closest_pickup: SpellPickup = null
-var max_distance = 64
-
-func _physics_process(delta):
-	closest_pickup = null
-	if detect_pickups:
-		var all_pickups = get_tree().get_nodes_in_group(\"spell_pickup\")
-		if all_pickups.size() > 0:
-			var closest = max_distance
-			for pickup in all_pickups:
-				var dist = owner.global_position.distance_to(pickup.global_position)
-				if dist < closest:
-					closest = dist
-					closest_pickup = pickup
-"
 
 [sub_resource type="Animation" id="Animation_y4ic7"]
 length = 0.001
@@ -459,7 +438,6 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
-debug = true
 data = NodePath("PlayerData")
 do_damage_numbers = false
 
@@ -515,8 +493,7 @@ shape = SubResource("CircleShape2D_6gabg")
 [node name="Input" type="Node" parent="."]
 script = ExtResource("3_h46ns")
 
-[node name="SpellPickupDetector" type="Node" parent="."]
-script = SubResource("GDScript_qs58w")
+[node name="Node2D" type="Node" parent="."]
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")

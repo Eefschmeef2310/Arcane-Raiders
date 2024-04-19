@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2sydwom5yb2y"]
+
+[ext_resource type="Script" path="res://spells/pickups/spell_pickup.gd" id="1_ey1r6"]
+[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="2_mepcn"]
+
+[node name="SpellPickup" type="Node2D" groups=["spell_pickup"]]
+script = ExtResource("1_ey1r6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("2_mepcn")

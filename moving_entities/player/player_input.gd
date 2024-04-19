@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var input: DeviceInput
 var devices: Array[int]
@@ -31,7 +31,7 @@ func _process(_delta):
 			
 			# Aim
 			if input.is_keyboard():
-				aim_dir = get_global_mouse_position() - owner.global_position
+				aim_dir = owner.get_global_mouse_position() - owner.global_position
 				aim_dir = aim_dir.normalized()
 			else:
 				var a : Vector2 = input.get_vector("left", "right", "up", "down")
@@ -55,7 +55,7 @@ func _process(_delta):
 						move_dir = move_dir.normalized()
 					
 				if is_keyb:
-					aim_dir = get_global_mouse_position() - owner.global_position
+					aim_dir = owner.get_global_mouse_position() - owner.global_position
 					aim_dir = aim_dir.normalized()
 				else:
 					var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
@@ -72,9 +72,13 @@ func _process(_delta):
 			owner.aim_direction = aim_dir
 		for i in spell_down.size():
 			if spell_down[i]:
-				owner.prepare_cast(i)
+				if $"../SpellPickupDetector".closest_pickup == null:
+					owner.prepare_cast(i)
+				else:
+					owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
 			if spell_release[i]:
 				owner.attempt_cast(i)
+					
 
 func _input(event):
 	if !input:

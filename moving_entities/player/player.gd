@@ -2,6 +2,8 @@ extends Entity
 class_name Player
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
+signal spell_pickup_requested(Player, int, SpellPickup)
+
 @export var debug : bool = false
 @export var data: PlayerData
 
@@ -68,6 +70,9 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
+	health_updated.connect(data._on_player_health_updated)
+	
+	health = data.health
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
@@ -93,7 +98,7 @@ func prepare_cast(slot: int):
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
-	if can_cast and data.spell_cooldowns[slot] <= 0:
+	if can_cast and data.spell_cooldowns[slot] <= 0 and $SpellPickupDetector.closest_pickup == null:
 		cast_spell.rpc(slot)
 	preparing_cast_slot = -1
 
