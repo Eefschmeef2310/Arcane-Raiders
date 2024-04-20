@@ -74,13 +74,11 @@ func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	spell_change_requested.emit(p.data, i, sp)
 
 func spawn_enemy(id: String) -> Node2D:
-	print("spawning...")
 	var data = EnemyManager.Data[id]
 	var enemy: Entity = data["scene"].instantiate()
 	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
 	enemy.zero_health.connect(_on_enemy_zero_health)
 	number_of_enemies_left += 1
-	print(number_of_enemies_left)
 	return enemy
 
 func spawn_spell_pickup(spell_string: String):
