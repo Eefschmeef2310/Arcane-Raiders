@@ -20,6 +20,7 @@ script/source = "extends Node
 
 @export var detect_pickups: bool = true
 var closest_pickup: SpellPickup = null
+var had_closest_last_frame = false
 var max_distance = 100
 
 func _physics_process(_delta):
@@ -33,6 +34,12 @@ func _physics_process(_delta):
 				if dist < closest:
 					closest = dist
 					closest_pickup = pickup
+		
+		if had_closest_last_frame and closest_pickup:
+			owner.data.pickup_proximity_changed.emit(true)
+		elif had_closest_last_frame and !closest_pickup:
+			owner.data.pickup_proximity_changed.emit(false)
+		had_closest_last_frame = (closest_pickup != null)
 "
 
 [sub_resource type="Animation" id="Animation_y4ic7"]
@@ -520,6 +527,7 @@ script = SubResource("GDScript_qs58w")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
+spell_strings = Array[String](["", "", ""])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
