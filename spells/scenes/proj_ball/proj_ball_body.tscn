@@ -7,10 +7,11 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_selhr"]
-radius = 29.0172
+radius = 23.0
 
 [node name="ProjBallBody" type="RigidBody2D"]
 y_sort_enabled = true
+position = Vector2(0, -16)
 collision_layer = 32
 gravity_scale = 0.0
 script = ExtResource("1_x5adh")

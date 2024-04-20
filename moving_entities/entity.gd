@@ -99,7 +99,6 @@ func on_hurt(attack):
 		element = attack.element
 	
 	# RPC call for damage
-	print(attack.get_path())
 	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
 			
 	#if shocked, run shock effect

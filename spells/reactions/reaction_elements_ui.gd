@@ -23,8 +23,6 @@ extends Control
 #endregion
 
 #region Godot methods
-func _ready():
-	print(global_position)
 #endregion
 
 #region Signal methods
