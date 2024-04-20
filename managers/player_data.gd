@@ -6,6 +6,7 @@ enum {DEVICE_NONE = -3, DEVICE_ANY = -2, DEVICE_KEYB = -1}
 signal health_changed(object, health)
 signal spell_changed()
 signal device_changed(id: int)
+signal pickup_proximity_changed(bool)
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
@@ -21,6 +22,7 @@ signal device_changed(id: int)
 @export var character : RaiderRes
 
 func _ready():
+	spell_strings.resize(3)
 	spells.resize(3)
 	
 	spell_cooldowns_max.resize(3)
@@ -29,8 +31,8 @@ func _ready():
 	spell_cooldowns.resize(3)
 	spell_cooldowns.fill(0)
 	
-	if !spell_strings.is_empty():
-		for i in spells.size():
+	for i in spells.size():
+		if spell_strings[i] != "":
 			spells[i] = SpellManager.get_spell_from_string(spell_strings[i])
 
 func _process(delta):

@@ -53,6 +53,7 @@ tint_under = Color(0.32549, 0.32549, 0.32549, 1)
 tint_progress = Color(0.992157, 0, 0.254902, 1)
 
 [node name="EquipUI" type="Node2D" parent="."]
+visible = false
 position = Vector2(139, 50)
 
 [node name="Label" type="Label" parent="EquipUI"]

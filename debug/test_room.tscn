@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://debug/test_room.gd" id="1_iy1p6"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_m3mqg"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="3_tuxay"]
-[ext_resource type="PackedScene" uid="uid://n76plus8syht" path="res://moving_entities/enemies/dummy_enemy.tscn" id="4_01ml2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="5_q4kiy"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_82yns"]
 [ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_e83qf"]
@@ -15,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
+[ext_resource type="PackedScene" uid="uid://bfrsuqfut2eks" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="13_c2gsj"]
 [ext_resource type="PackedScene" uid="uid://c8uvt7sepdtkk" path="res://moving_entities/enemies/bat_small/bat_small.tscn" id="15_rebi8"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
@@ -83,7 +83,7 @@ position = Vector2(1431, 1023)
 
 [node name="PlayerData" parent="Player" index="5"]
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["burn-proj_ball", "wind-proj_ball", "stun-proj_ball"])
+spell_strings = Array[String](["burn-proj_ball", "null-proj_spread", "shock-aoe_local"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]
@@ -112,50 +112,8 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" instance=ExtResource("5_q4kiy")]
 layout_mode = 2
 
-[node name="DummyEnemy" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1609, 600)
-
-[node name="DummyEnemy2" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1924, 665)
-
-[node name="DummyEnemy3" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1484, 768)
-
-[node name="DummyEnemy4" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1318, 901)
-
-[node name="DummyEnemy5" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1607, 731)
-
-[node name="DummyEnemy6" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1487, 667)
-
-[node name="DummyEnemy7" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1756, 683)
-
-[node name="DummyEnemy8" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1783, 573)
-
-[node name="DummyEnemy9" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1380, 816)
-
-[node name="DummyEnemy10" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1036, 709)
-
-[node name="DummyEnemy11" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(758, 517)
-
-[node name="DummyEnemy12" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(467, 888)
-
-[node name="DummyEnemy13" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1065, 1208)
-
-[node name="DummyEnemy14" parent="." instance=ExtResource("4_01ml2")]
-position = Vector2(1703, 1240)
-
-[node name="SmallFry" parent="." instance=ExtResource("10_b6pvx")]
-position = Vector2(1437, 1181)
+[node name="SlimeBig" parent="." instance=ExtResource("13_c2gsj")]
+position = Vector2(1159, 1015)
 
 [node name="DynamicCamera" parent="." instance=ExtResource("10_pyvl3")]
 position = Vector2(1094, 310)
@@ -165,5 +123,23 @@ position = Vector2(2069, 910)
 
 [node name="GameOverManager" type="Node" parent="."]
 script = ExtResource("11_4vjuy")
+
+[node name="SmallSlime" parent="." instance=ExtResource("10_b6pvx")]
+position = Vector2(1318, 885)
+
+[node name="SmallSlime2" parent="." instance=ExtResource("10_b6pvx")]
+position = Vector2(1519, 695)
+
+[node name="SmallSlime3" parent="." instance=ExtResource("10_b6pvx")]
+position = Vector2(1007, 701)
+
+[node name="SmallSlime4" parent="." instance=ExtResource("10_b6pvx")]
+position = Vector2(1211, 610)
+
+[node name="SmallSlime5" parent="." instance=ExtResource("10_b6pvx")]
+position = Vector2(1474, 503)
+
+[node name="SmallSlime6" parent="." instance=ExtResource("10_b6pvx")]
+position = Vector2(1816, 690)
 
 [editable path="Player"]

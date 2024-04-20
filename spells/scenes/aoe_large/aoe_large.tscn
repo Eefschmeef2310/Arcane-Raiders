@@ -9,6 +9,7 @@
 y_sort_enabled = true
 script = ExtResource("2_6hqll")
 EXPLOSION = ExtResource("3_8s1x3")
+base_damage = 250
 start_time = 0.05
 cooldown_time = 7.0
 

@@ -30,6 +30,7 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="EquipArrow" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(35, -2)
 texture = ExtResource("4_cbfbj")

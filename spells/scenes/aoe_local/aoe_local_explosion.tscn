@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_a2ij5"]
 
 [sub_resource type="Curve" id="Curve_la55t"]
+max_value = 24.91
 _data = [Vector2(0, 0), 0.0, 18.0997, 0, 0, Vector2(0.271, 10), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 

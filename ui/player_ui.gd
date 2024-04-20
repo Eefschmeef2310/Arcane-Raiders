@@ -45,6 +45,10 @@ func update_prompts(id: int):
 
 func _on_player_health_updated(_player_data, _amount):
 	health_bar.value = data.health
+
+func _pickup_proximity_changed(b: bool):
+	show_equip_ui() if b else hide_equip_ui()
+
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -53,12 +57,27 @@ func set_data(d: PlayerData):
 		data.device_changed.disconnect(update_prompts)
 		data.spell_changed.disconnect(update_spells)
 		data.health_changed.disconnect(_on_player_health_updated)
+		data.pickup_proximity_changed.disconnect(_pickup_proximity_changed)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
 	data.health_changed.connect(_on_player_health_updated)
+	data.pickup_proximity_changed.connect(_pickup_proximity_changed)
 	update_prompts(data.device_id)
 	update_spells()
 	$HBox/Stats/HealthBar.tint_progress = data.main_color
+
+# TODO RUNS EVERY FRAME
+# convert to signals if possible
+func show_equip_ui():
+	$EquipUI.show()
+	$EquipUI/Label.text = "Press to equip!"
+	for spell in spells:
+		spell.show_arrow()
+
+func hide_equip_ui():
+	$EquipUI.hide()
+	for spell in spells:
+		spell.hide_arrow()
 
 #endregion
