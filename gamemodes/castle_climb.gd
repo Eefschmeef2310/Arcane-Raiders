@@ -1,7 +1,7 @@
 extends Node
 class_name CastleClimb
 
-@onready var foyer_spawner = $FoyerSpawner
+@onready var common_level_spawner = $CommonLevelSpawner
 @onready var basic_level_spawner = $BasicLevelSpawner
 
 @export_group("Debug")
@@ -11,19 +11,25 @@ class_name CastleClimb
 @export var player_data : Array[PlayerData]
 @export var player_ui : Array[PlayerUI]
 
-@export_group("Room Scenes")
-@export var foyer_room: PackedScene
-@export var basic_rooms: Array[PackedScene]
+@export_group("Level Scenes")
+@export var common_levels: Dictionary
+@export var basic_levels: Array[PackedScene]
+
+@export_group("Sector Data")
+@export var total_floors: int
+@export var sector_start_floors: Array[int]
+@export var shop_floors: Array[int]
+@export var sector_gradient_maps: Array[GradientTexture1D]
 
 var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
 var current_floor : int = -1
 
-var current_room_node : Node2D
+var current_room_node : CastleRoom
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	foyer_spawner.spawn_function = spawn_foyer
+	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	
 	if start_on_spawn:
@@ -62,20 +68,24 @@ func start_next_floor():
 	# Spawn new room
 	print("Creating new room.")
 	if current_floor <= 0:
-		foyer_spawner.spawn(null)
+		common_level_spawner.spawn("foyer")
+	elif current_floor == total_floors:
+		common_level_spawner.spawn("final")
+	elif current_floor in shop_floors:
+		common_level_spawner.spawn("shop")
 	else:
-		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_rooms.size() - 1))
+		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
 
-func spawn_foyer(_a) -> Node:
-	current_room_node = foyer_room.instantiate() as CastleRoom
+func spawn_common_level(key) -> Node:
+	current_room_node = common_levels[key].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
 	return current_room_node
 
 func spawn_basic_level(index: int) -> Node:
-	current_room_node = basic_rooms[index].instantiate() as CastleRoom
+	current_room_node = basic_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
 	return current_room_node
 
@@ -83,6 +93,14 @@ func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
+	
+	var i = 0
+	while i < sector_start_floors.size():
+		if i == sector_start_floors.size()-1 or current_floor < sector_start_floors[i+1]:
+			print("Using Sector "+ str(i) +" data.")
+			current_room_node.gradient_map = sector_gradient_maps[i]
+			break
+		i += 1
 	
 
 func _on_room_exited():
@@ -99,7 +117,7 @@ func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
 @rpc("any_peer", "call_local", "reliable")
 func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
 	if is_multiplayer_authority():
-		print("Attempting to use pickup at pathL " + sp_path)
+		print("Attempting to use pickup at path: " + sp_path)
 		var pickup: SpellPickup = get_node(sp_path)
 		if is_instance_valid(pickup):
 			# Pickup hasn't been claimed yet: claim it and delete.
@@ -117,6 +135,8 @@ func set_spell_from_string(p_i: int, i: int, str: String):
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
+	current_floor = next_floor
+	
 	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(next_floor)
 	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(next_floor-1)
 	$RoomTransitionUI/AnimationPlayer.play("next_floor")

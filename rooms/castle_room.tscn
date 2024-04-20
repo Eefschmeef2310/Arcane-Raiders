@@ -23,7 +23,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 y_sort_enabled = true
 script = ExtResource("1_uk66y")
 
-[node name="TileMapFloor" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="."]
 z_index = -1
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_otd6u")
