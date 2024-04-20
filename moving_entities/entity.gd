@@ -111,9 +111,8 @@ func on_hurt(attack):
 
 @rpc("authority", "call_local", "reliable")
 func deal_damage(attack_path, damage, element_string, infliction_time):
-	var attack = get_node(attack_path)
-	
 	if element_string != null:
+		var attack = get_node(attack_path)
 		var element = SpellManager.elements[element_string]
 		if element != SpellManager.elements["null"]:
 			if !current_inflictions_dictionary.has(element):
@@ -133,8 +132,10 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 				
 				var new_reaction = reaction.instantiate()
 				
-				new_reaction.caster = attack
-				new_reaction.elements = [key, element]
+				if "caster" in new_reaction:
+					new_reaction.caster = attack
+				if "elements" in new_reaction:
+					new_reaction.elements = [key, element]
 				new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				
 				if "entity" in new_reaction:
