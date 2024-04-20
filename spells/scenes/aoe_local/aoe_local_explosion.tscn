@@ -20,8 +20,8 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_i6u15"]
-_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 1
+_data = [Vector2(0.194656, 1), 0.0, 0.0, 0, 0, Vector2(0.221374, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sidjm"]
 radius = 50.0
