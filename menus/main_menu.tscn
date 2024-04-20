@@ -8,6 +8,8 @@ script/source = "extends Control
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
+#w@export var menu : Node
+
 
 #region Godot methods
 func _ready():
@@ -22,6 +24,7 @@ func _on_online_button_pressed():
 	get_tree().change_scene_to_file(\"res://multiplayer/serverBrowser/serverBrowser.tscn\")
 	
 func _on_local_play_button_pressed():
+	hide()
 	var lobby_scene = multiplayer_lobby.instantiate()
 	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Local, 0)
 	get_tree().root.add_child(lobby_scene)
