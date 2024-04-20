@@ -1,19 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2sydwom5yb2y"]
+[gd_scene load_steps=7 format=3 uid="uid://c2sydwom5yb2y"]
 
 [ext_resource type="Script" path="res://spells/pickups/spell_pickup.gd" id="1_ey1r6"]
-[ext_resource type="Texture2D" uid="uid://yu01ce7fyhi1" path="res://spells/sprites/icons/proj_ball.png" id="2_mepcn"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_dhynh"]
+[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="3_y5wrp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pd843"]
+resource_local_to_scene = true
+shader = ExtResource("2_dhynh")
+shader_parameter/outline_width = 0.0
+shader_parameter/outline_color = Color(0.0352941, 1, 0, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wsr7e"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dj34"]
+radius = 100.0
+
 [node name="SpellPickup" type="Node2D" groups=["spell_pickup"]]
 script = ExtResource("1_ey1r6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pd843")
 position = Vector2(0, -32)
-texture = ExtResource("2_mepcn")
+texture = ExtResource("3_y5wrp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wsr7e")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -35)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7dj34")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

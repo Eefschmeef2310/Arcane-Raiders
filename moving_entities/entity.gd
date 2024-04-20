@@ -76,11 +76,11 @@ func _process(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func on_hurt(hit_node):
+func on_hurt(attack):
 	if !is_multiplayer_authority():
 		return
 	
-	if "caster" in hit_node and hit_node.caster == self:
+	if "caster" in attack and attack.caster == self:
 		return
 	
 	var damage: int = 0
@@ -88,59 +88,60 @@ func on_hurt(hit_node):
 	var element: ElementResource
 	
 	#Apply base damage
-	if "base_damage" in hit_node:
-		damage = hit_node.base_damage
-		infliction_time = hit_node.base_damage / 10
+	if "base_damage" in attack:
+		damage = attack.base_damage
+		infliction_time = attack.base_damage / 10
 	
 	#Add element to current inflictions dictionary
-	if "resource" in hit_node and hit_node.resource:
-		element = hit_node.resource.element
-	elif "element" in hit_node and hit_node.element:
-		element = hit_node.element
+	if "resource" in attack and attack.resource:
+		element = attack.resource.element
+	elif "element" in attack and attack.element:
+		element = attack.element
 	
 	# RPC call for damage
-	deal_damage.rpc(hit_node.caster.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
+	deal_damage.rpc(attack.caster.get_path() if ("caster" in attack) else attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
 	
 	if element == SpellManager.elements["wind"]:
-		wind_effect.rpc(hit_node)
+		wind_effect.rpc(attack)
 
 @rpc("authority", "call_local", "reliable")
 func deal_damage(hit_node_path, damage, element_string, infliction_time):
 	var hit_node = get_node(hit_node_path)
 	
-	var element = SpellManager.elements[element_string]
-	if element != SpellManager.elements["null"]:
-		if !current_inflictions_dictionary.has(element):
-			current_inflictions_dictionary[element] = 0
-		current_inflictions_dictionary[element] += infliction_time
-		current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
-	
-	#Check if a reaction has occurred, may need to be moved further up the method
-	for key in current_inflictions_dictionary.keys():
-		var reaction = SpellManager.get_reaction(key, element)
-		if reaction:
-			#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
-			damage *= 1.25
-			
-			current_inflictions_dictionary.erase(key)
-			current_inflictions_dictionary.erase(element)
-			
-			var new_reaction = reaction.instantiate()
-			
-			new_reaction.caster = hit_node.caster
-			new_reaction.elements = [key, element]
-			new_reaction.set_multiplayer_authority(hit_node.get_multiplayer_authority())
-			
-			if "entity" in new_reaction:
-				new_reaction.entity = self
-				call_deferred("add_child", new_reaction)
-			else:
-				get_tree().root.call_deferred("add_child", new_reaction)
-				new_reaction.global_position = global_position
+	if element_string:
+		var element = SpellManager.elements[element_string]
+		if element != SpellManager.elements["null"]:
+			if !current_inflictions_dictionary.has(element):
+				current_inflictions_dictionary[element] = 0
+			current_inflictions_dictionary[element] += infliction_time
+			current_inflictions_dictionary[element] = clamp(current_inflictions_dictionary[element], 0, element.max_infliction_time)
+		
+		#Check if a reaction has occurred, may need to be moved further up the method
+		for key in current_inflictions_dictionary.keys():
+			var reaction = SpellManager.get_reaction(key, element)
+			if reaction:
+				#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
+				damage *= 1.25
+				
+				current_inflictions_dictionary.erase(key)
+				current_inflictions_dictionary.erase(element)
+				
+				var new_reaction = reaction.instantiate()
+				
+				new_reaction.caster = hit_node
+				new_reaction.elements = [key, element]
+				new_reaction.set_multiplayer_authority(hit_node.get_multiplayer_authority())
+				
+				if "entity" in new_reaction:
+					new_reaction.entity = self
+					call_deferred("add_child", new_reaction)
+				else:
+					get_tree().root.call_deferred("add_child", new_reaction)
+					new_reaction.global_position = global_position
 	
 	health -= damage
 	
@@ -150,8 +151,8 @@ func deal_damage(hit_node_path, damage, element_string, infliction_time):
 			add_sibling(damage_number)
 		damage_number.global_position = global_position
 		damage_number.add(damage)
-		if element:
-			damage_number.set_color(element.colour)
+		if element_string and SpellManager.elements[element_string]:
+			damage_number.set_color(SpellManager.elements[element_string].colour)
 
 func burn_effect(delta):
 	if burn_timer > 0:

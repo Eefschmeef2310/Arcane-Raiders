@@ -22,5 +22,5 @@ position = Vector2(247, 962)
 [node name="PlayerSpawn3" parent="." index="5"]
 position = Vector2(354, 902)
 
-[node name="RoomExit" parent="." index="9"]
+[node name="RoomExit" parent="." index="10"]
 position = Vector2(1359, 203)

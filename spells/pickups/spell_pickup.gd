@@ -28,3 +28,11 @@ func set_spell_from_string(s):
 	spell = SpellManager.get_spell_from_string(spell_string)
 	$Sprite2D.texture = spell.ui_texture
 	$Sprite2D.self_modulate = spell.element.colour
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group("player"):
+		($Sprite2D.material as ShaderMaterial).set_shader_parameter("outline_width", 1)
+
+func _on_area_2d_body_exited(body):
+	if body.is_in_group("player"):
+		($Sprite2D.material as ShaderMaterial).set_shader_parameter("outline_width", 0)

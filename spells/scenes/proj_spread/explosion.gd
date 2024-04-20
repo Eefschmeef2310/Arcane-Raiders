@@ -11,7 +11,6 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var speed : float = 1
 @export var speed_falloff_curve : Curve
 @export var sprite_rotation_falloff_curve : Curve
 @export var scale_falloff_curve : Curve
@@ -40,7 +39,7 @@ func _ready():
 
 func _process(_delta):
 	#print(speed_falloff_curve.sample((1.0 - (kill_timer.time_left/kill_timer.wait_time))))
-	position += Vector2(cos(rotation), sin(rotation)/2) * speed * \
+	position += Vector2(cos(rotation), sin(rotation)/2) * \
 		((speed_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if speed_falloff_curve else 1.0))
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
 	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if sprite_rotation_falloff_curve else 1.0
