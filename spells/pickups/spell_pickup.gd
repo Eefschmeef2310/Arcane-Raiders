@@ -36,5 +36,13 @@ func _on_area_2d_body_entered(body):
 		$Outline.show()
 
 func _on_area_2d_body_exited(body):
+	$Outline.hide()
+	
+	if $Area2D.get_overlapping_bodies().size() <= 0:
+		pass
+	
+	for thing in $Area2D.get_overlapping_bodies():
+		if thing.is_in_group("player"):
+			$Outline.show()
 	if body.is_in_group("player"):
 		$Outline.hide()

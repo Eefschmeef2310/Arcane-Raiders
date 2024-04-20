@@ -38,6 +38,8 @@ func _ready():
 			queue_free()
 			
 	if should_continue:
+		#remove_from_group(get_groups()[0])
+		
 		var reaction_elements_ui = REACTION_ELEMENTS_UI.instantiate()
 		reaction_elements_ui.global_position = global_position
 		get_tree().root.add_child(reaction_elements_ui)

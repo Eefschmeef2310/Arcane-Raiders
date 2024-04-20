@@ -20,6 +20,7 @@ func _on_kill_timer_timeout():
 radius = 62.0725
 
 [node name="stun-burn" type="Area2D" groups=["stun-burn"]]
+z_index = -1
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_5c732")
