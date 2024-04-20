@@ -112,7 +112,7 @@ func on_hurt(attack):
 func deal_damage(attack_path, damage, element_string, infliction_time):
 	var attack = get_node(attack_path)
 	
-	if element_string != "":
+	if element_string != null:
 		var element = SpellManager.elements[element_string]
 		if element != SpellManager.elements["null"]:
 			if !current_inflictions_dictionary.has(element):
@@ -151,7 +151,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 			add_sibling(damage_number)
 		damage_number.global_position = global_position
 		damage_number.add(damage)
-		if element_string != "" and SpellManager.elements[element_string]:
+		if element_string != null and SpellManager.elements[element_string]:
 			damage_number.set_color(SpellManager.elements[element_string].colour)
 
 func burn_effect(delta):
@@ -177,7 +177,7 @@ func shock_effect():
 	
 	if closest:
 		#damage closest enemy
-		closest.deal_damage.rpc(null, 50, "", null)
+		closest.deal_damage.rpc(null, 50, null, null)
 		
 		# stop ourselves and the other guy from getting shocked again
 		shocked_this_frame = true

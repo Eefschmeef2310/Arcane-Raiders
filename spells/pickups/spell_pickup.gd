@@ -22,6 +22,7 @@ func _process(delta):
 	if i > 360:
 		i -= 360
 	$Sprite2D.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
+	$Outline.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 
 func set_spell_from_string(s):
 	spell_string = s
@@ -31,8 +32,9 @@ func set_spell_from_string(s):
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
-		($Sprite2D.material as ShaderMaterial).set_shader_parameter("outline_width", 1)
+		$Outline.self_modulate = body.data.main_color
+		$Outline.show()
 
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("player"):
-		($Sprite2D.material as ShaderMaterial).set_shader_parameter("outline_width", 0)
+		$Outline.hide()
