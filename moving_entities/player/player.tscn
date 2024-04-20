@@ -520,7 +520,6 @@ script = SubResource("GDScript_qs58w")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
-debug_spell_strings = Array[String](["burn-proj_ball", "null-proj_ball", "frost-aoe_large"])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

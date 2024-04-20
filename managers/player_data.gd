@@ -15,7 +15,7 @@ signal device_changed(id: int)
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 @export var spell_cooldowns : Array[float] = [0,0,0]
 
-@export var debug_spell_strings : Array[String]
+@export var spell_strings : Array[String]
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
@@ -29,9 +29,9 @@ func _ready():
 	spell_cooldowns.resize(3)
 	spell_cooldowns.fill(0)
 	
-	if !debug_spell_strings.is_empty():
+	if !spell_strings.is_empty():
 		for i in spells.size():
-			spells[i] = SpellManager.get_spell_from_string(debug_spell_strings[i])
+			spells[i] = SpellManager.get_spell_from_string(spell_strings[i])
 
 func _process(delta):
 	for i in spell_cooldowns.size():
@@ -49,6 +49,7 @@ func start_cooldown(slot: int, time: float):
 	spell_cooldowns[slot] = time
 
 func set_spell_from_string(slot: int, string: String):
+	spell_strings[slot] = string
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0
 	spell_changed.emit()
