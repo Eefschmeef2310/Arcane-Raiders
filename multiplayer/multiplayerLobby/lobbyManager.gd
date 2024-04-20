@@ -72,7 +72,7 @@ func _process(delta):
 	ready_progress_bar.value = ready_timer/ready_delay
 	if all_players_ready:
 		ready_timer -= delta
-		lobby_title.text= "STARTING IN... " + str(roundi(ready_timer)) 
+		lobby_title.text= "STARTING IN... " + str(ceil(ready_timer)) 
 	else:
 		ready_timer = ready_delay
 		lobby_title.text= "CHOOSE YOUR RAIDER!"

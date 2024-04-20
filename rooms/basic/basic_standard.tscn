@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfdsvgq51s380"]
+
+[ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_koy3u"]
+[ext_resource type="Texture2D" uid="uid://ikk12brjvn6d" path="res://debug/enemy_spawn.png" id="2_ootn2"]
+
+[node name="CastleRoom" instance=ExtResource("1_koy3u")]
+wave_total_difficulty = Array[int]([16])
+
+[node name="EnemySpawn0" type="Sprite2D" parent="EnemySpawns" index="0"]
+position = Vector2(633, 288)
+texture = ExtResource("2_ootn2")
+
+[node name="EnemySpawn1" type="Sprite2D" parent="EnemySpawns" index="1"]
+position = Vector2(1376, 661)
+texture = ExtResource("2_ootn2")
+
+[node name="EnemySpawn2" type="Sprite2D" parent="EnemySpawns" index="2"]
+position = Vector2(631, 1045)
+texture = ExtResource("2_ootn2")

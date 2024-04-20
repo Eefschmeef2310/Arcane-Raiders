@@ -7,10 +7,10 @@ extends Node
 	},
 	"slime_big" : {
 		"scene" : preload("res://moving_entities/enemies/SlimeBig/SlimeBig.tscn"),
-		"difficulty" : 2
+		"difficulty" : 4
 	},
 	"bat_small" : {
 		"scene" : preload("res://moving_entities/enemies/bat_small/bat_small.tscn"),
-		"difficulty" : 2
+		"difficulty" : 4
 	}
 }

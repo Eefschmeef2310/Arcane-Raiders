@@ -44,23 +44,19 @@ layer_2/tile_data = PackedInt32Array(1114108, 196610, 2, 1179644, 196610, 2, 124
 position = Vector2(120, 763)
 
 [node name="PlayerSpawn0" type="Sprite2D" parent="." groups=["player_spawn"]]
-visible = false
 position = Vector2(-289, 674)
 texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawn1" type="Sprite2D" parent="." groups=["player_spawn"]]
-visible = false
-position = Vector2(-178, 598)
+position = Vector2(-178, 614)
 texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawn2" type="Sprite2D" parent="." groups=["player_spawn"]]
-visible = false
 position = Vector2(-181, 744)
 texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawn3" type="Sprite2D" parent="." groups=["player_spawn"]]
-visible = false
-position = Vector2(-74, 668)
+position = Vector2(-74, 684)
 texture = ExtResource("4_va2wi")
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
