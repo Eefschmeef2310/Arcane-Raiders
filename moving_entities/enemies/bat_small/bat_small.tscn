@@ -20,7 +20,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="BatSmall" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells")]
+[node name="BatSmall" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
 collision_layer = 8
 script = ExtResource("1_l62ws")
 movement_speed = 150.0
