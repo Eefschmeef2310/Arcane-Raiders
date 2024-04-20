@@ -16,7 +16,7 @@ position = Vector2(214, 877)
 
 [node name="PlayerSpawn1" parent="." index="3"]
 visible = true
-position = Vector2(325, 801)
+position = Vector2(341, 817)
 
 [node name="PlayerSpawn2" parent="." index="4"]
 visible = true
@@ -24,7 +24,7 @@ position = Vector2(322, 947)
 
 [node name="PlayerSpawn3" parent="." index="5"]
 visible = true
-position = Vector2(429, 871)
+position = Vector2(445, 887)
 
 [node name="RoomExit" parent="." index="10"]
 position = Vector2(2208, -31)
