@@ -99,20 +99,20 @@ func on_hurt(attack):
 		element = attack.element
 	
 	# RPC call for damage
-	deal_damage.rpc(attack.caster.get_path() if ("caster" in attack) else attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
+	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
 	
 	if element == SpellManager.elements["wind"]:
-		wind_effect.rpc(attack)
+		wind_effect.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
-func deal_damage(hit_node_path, damage, element_string, infliction_time):
-	var hit_node = get_node(hit_node_path)
+func deal_damage(attack_path, damage, element_string, infliction_time):
+	var attack = get_node(attack_path)
 	
-	if element_string:
+	if element_string != null:
 		var element = SpellManager.elements[element_string]
 		if element != SpellManager.elements["null"]:
 			if !current_inflictions_dictionary.has(element):
@@ -132,9 +132,9 @@ func deal_damage(hit_node_path, damage, element_string, infliction_time):
 				
 				var new_reaction = reaction.instantiate()
 				
-				new_reaction.caster = hit_node
+				new_reaction.caster = attack
 				new_reaction.elements = [key, element]
-				new_reaction.set_multiplayer_authority(hit_node.get_multiplayer_authority())
+				new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				
 				if "entity" in new_reaction:
 					new_reaction.entity = self
@@ -151,7 +151,7 @@ func deal_damage(hit_node_path, damage, element_string, infliction_time):
 			add_sibling(damage_number)
 		damage_number.global_position = global_position
 		damage_number.add(damage)
-		if element_string and SpellManager.elements[element_string]:
+		if element_string != null and SpellManager.elements[element_string]:
 			damage_number.set_color(SpellManager.elements[element_string].colour)
 
 func burn_effect(delta):
@@ -177,7 +177,7 @@ func shock_effect():
 	
 	if closest:
 		#damage closest enemy
-		closest.health -= 50
+		closest.deal_damage.rpc(null, 50, null, null)
 		
 		# stop ourselves and the other guy from getting shocked again
 		shocked_this_frame = true
@@ -187,16 +187,21 @@ func shock_effect():
 			shock_effect()
 		
 		#draw line between guys
-		var shock_effect_laser = SHOCK_EFFECT_LASER.instantiate()
-		(shock_effect_laser as Line2D).points[0] = global_position
-		(shock_effect_laser as Line2D).points[0].y -= 16
-		(shock_effect_laser as Line2D).points[1] = closest.global_position
-		(shock_effect_laser as Line2D).points[1].y -= 16
-		add_sibling(shock_effect_laser)
+		spawn_shock_laser.rpc(global_position, closest.global_position)
+
+# TODO: if too laggy, change to unreliable
+@rpc("authority", "call_local", "reliable")
+func spawn_shock_laser(p1: Vector2, p2: Vector2):
+	var shock_effect_laser: Line2D = SHOCK_EFFECT_LASER.instantiate()
+	shock_effect_laser.points[0] = p1
+	shock_effect_laser.points[0].y -= 16
+	shock_effect_laser.points[1] = p2
+	shock_effect_laser.points[1].y -= 16
+	add_sibling(shock_effect_laser)
 
 @rpc("authority", "call_local", "reliable")
-func wind_effect(hit_node):
+func wind_effect(attack_path):
 	knockback_velocity = knockback_initial_velocity
-	knockback_direction = hit_node.global_position.direction_to(global_position)
+	knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
 	can_input = false
 #endregion

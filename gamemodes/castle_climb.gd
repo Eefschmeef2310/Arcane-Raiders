@@ -36,11 +36,15 @@ func _process(delta):
 
 func start_climb():
 	# Do any server-sided stuff here
+	print("Number of players: " + str(number_of_players))
 	if number_of_players <= 0:
 		number_of_players = 1
 	start_next_floor()
 
 func start_next_floor():
+	if !is_multiplayer_authority():
+		return
+	
 	# Increase floor count
 	current_floor += 1
 	print("Current floor: " + str(current_floor))
