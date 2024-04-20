@@ -75,7 +75,7 @@ func _on_zero_health():
 func attempt_cast(slot: int):
 	if is_multiplayer_authority():
 		if can_cast && enemy_spells.spell_cooldowns[slot] <= 0:
-			use_spell(slot)
+			use_spell.rpc(slot)
 
 @rpc("authority", "call_local", "reliable")
 func use_spell(slot: int):
