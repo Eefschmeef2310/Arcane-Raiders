@@ -11,14 +11,16 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var speed_falloff_curve : Curve
+@export var speed_curve : Curve
 @export var sprite_rotation_falloff_curve : Curve
 @export var scale_falloff_curve : Curve
 @export var transparency_falloff_curve: Curve
+@export var area_enabled_curve : Curve
 
 	#Onready Variables
 @onready var kill_timer = $kill_timer
 @onready var sprite_2d = $Sprite2D
+@onready var collision_shape_2d = $CollisionShape2D
 
 	#Other Variables (please try to separate and organise!)
 var base_damage : int
@@ -26,6 +28,8 @@ var resource : Spell
 var caster : Player
 
 var starting_scale : Vector2
+
+var lifetime_progress : float
 
 #endregion
 
@@ -38,13 +42,18 @@ func _ready():
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
 
 func _process(_delta):
-	#print(speed_falloff_curve.sample((1.0 - (kill_timer.time_left/kill_timer.wait_time))))
-	position += Vector2(cos(rotation), sin(rotation)/2) * \
-		((speed_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if speed_falloff_curve else 1.0))
-	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
-	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if sprite_rotation_falloff_curve else 1.0
+	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
 	
-	sprite_2d.modulate.a = transparency_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if transparency_falloff_curve else 1.
+	position += Vector2(cos(rotation), sin(rotation)/2) * \
+		((speed_curve.sample(lifetime_progress) if speed_curve else 0.0))
+	scale = starting_scale * (scale_falloff_curve.sample(lifetime_progress) if scale_falloff_curve else 1.0)
+	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(lifetime_progress) if sprite_rotation_falloff_curve else 1.0
+	
+	sprite_2d.modulate.a = transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.
+	
+	#1.0 - so you can set the curve to 0 for disabled and 1 for enabled
+	collision_shape_2d.disabled = 1.0 - area_enabled_curve.sample(lifetime_progress) if area_enabled_curve else 0.0
+
 #endregion
 
 #region Signal methods

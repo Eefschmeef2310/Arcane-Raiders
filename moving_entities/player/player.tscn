@@ -22,7 +22,7 @@ script/source = "extends Node
 var closest_pickup: SpellPickup = null
 var max_distance = 100
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	closest_pickup = null
 	if detect_pickups:
 		var all_pickups = get_tree().get_nodes_in_group(\"spell_pickup\")

@@ -43,9 +43,10 @@ func _ready():
 		get_tree().root.add_child(reaction_elements_ui)
 		
 		reaction_elements_ui.element_1.texture = elements[0].pip_texture
-		reaction_elements_ui.element_1.self_modulate = elements[0].colour
+		reaction_elements_ui.element_1.modulate = elements[0].colour
+		
 		reaction_elements_ui.element_2.texture = elements[1].pip_texture
-		reaction_elements_ui.element_2.self_modulate = elements[1].colour
+		reaction_elements_ui.element_2.modulate = elements[1].colour
 		
 #endregion
 

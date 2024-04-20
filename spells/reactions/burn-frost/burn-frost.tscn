@@ -51,7 +51,7 @@ func _on_wave_timer_timeout():
 			explosion.rotation = (0.) + rotation_offset
 			
 			explosion.global_position = global_position
-			get_tree().root.call_deferred(\"add_child\", explosion)
+			call_deferred(\"add_sibling\", explosion)
 		waves -= 1
 		$WaveTimer.start(0.05)
 	else:
