@@ -4,5 +4,6 @@ extends TextureRect
 
 func set_data(element: ElementResource, time_left: float):
 	texture = element.pip_texture
+	modulate = element.colour
 	$TextureProgressBar.tint_progress = element.colour
 	$TextureProgressBar.value = (time_left / element.max_infliction_time) * 100

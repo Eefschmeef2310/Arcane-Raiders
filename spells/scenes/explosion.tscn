@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxv6ps3wfo0nu"]
 
-[ext_resource type="Script" path="res://spells/scenes/proj_spread/explosion.gd" id="1_u0isd"]
-[ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_mphhg"]
+[ext_resource type="Script" path="res://spells/scenes/explosion.gd" id="1_5ldg7"]
+[ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_08nyf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3twl3"]
 radius = 97.0824
@@ -10,11 +10,11 @@ radius = 97.0824
 y_sort_enabled = true
 collision_layer = 16
 collision_mask = 13
-script = ExtResource("1_u0isd")
+script = ExtResource("1_5ldg7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_mphhg")
+texture = ExtResource("2_08nyf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3twl3")
