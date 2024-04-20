@@ -167,7 +167,7 @@ func frost_effect(amount):
 	frost_speed_scale = amount
 
 func shock_effect():
-	print("I've been shocked already.") if shocked_this_frame else print("I have NOT been shocked yet.")
+	# print("I've been shocked already.") if shocked_this_frame else print("I have NOT been shocked yet.")
 	
 	#get closest entity with same tag
 	var closest : Node2D
