@@ -40,19 +40,22 @@ func _on_area_entered(area):
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_706xi"]
-radius = 150.0
+radius = 300.0
 
 [node name="Frost-wet" type="Area2D"]
+y_sort_enabled = true
+position = Vector2(0, -150)
 collision_layer = 16
 collision_mask = 129
 script = SubResource("GDScript_nfow1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_706xi")
 
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0.992157, 1)
-scale = Vector2(1.775, 1.775)
+scale = Vector2(4.5625, 1.89062)
 texture = ExtResource("1_f2auv")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
