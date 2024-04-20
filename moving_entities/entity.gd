@@ -157,11 +157,12 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 			damage_number.set_color(SpellManager.elements[element_string].colour)
 
 func burn_effect(delta):
-	if burn_timer > 0:
-		burn_timer -= delta
-	if burn_timer <= 0:
-		health -= 5
-		burn_timer = burn_tick_rate
+	if is_multiplayer_authority():
+		if burn_timer > 0:
+			burn_timer -= delta
+		if burn_timer <= 0:
+			deal_damage.rpc(null, 5, null, null)
+			burn_timer = burn_tick_rate
 
 func frost_effect(amount):
 	frost_speed_scale = amount
