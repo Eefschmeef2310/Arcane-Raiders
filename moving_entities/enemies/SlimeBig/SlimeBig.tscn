@@ -29,7 +29,8 @@ base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
 enemy_spells = NodePath("EnemySpells")
-max_health = 500
+max_health = 800
+health = 800
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4.76837e-07, -15.5)

@@ -123,6 +123,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 
@@ -139,6 +140,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 flip_h = true
@@ -213,6 +215,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 
@@ -229,6 +232,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 flip_h = true
@@ -294,6 +298,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 
@@ -311,6 +316,7 @@ custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 flip_h = true
@@ -385,9 +391,23 @@ layout_mode = 2
 texture = ExtResource("5_w3e0p")
 
 [node name="Button" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_vertical = 10
+mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_bk151")
 theme_override_styles/normal = ExtResource("5_oe6lx")
 text = "READY"
+
+[connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
+[connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
+[connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/LoadoutContainer" to="." method="_on_loadout_container_mouse_entered"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
+[connection signal="mouse_entered" from="VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

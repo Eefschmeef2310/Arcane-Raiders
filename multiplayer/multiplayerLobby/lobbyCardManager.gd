@@ -60,6 +60,7 @@ extends Node
 var finished_connecting : bool
 var valid_color : bool
 var input
+var mouse_input: Array[String]
 
 #endregion
 
@@ -122,7 +123,7 @@ func _process(_delta):
 				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(input.is_action_just_pressed("lobby_left")):
+		if(input.is_action_just_pressed("lobby_left") or "left" in mouse_input):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #color selected
@@ -131,7 +132,7 @@ func _process(_delta):
 				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 			
-		if(input.is_action_just_pressed("lobby_right")):
+		if(input.is_action_just_pressed("lobby_right") or "right" in mouse_input):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #loadout selected
@@ -140,7 +141,7 @@ func _process(_delta):
 				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 		
-		if(input.is_action_just_pressed("lobby_confirm")):
+		if(input.is_action_just_pressed("lobby_confirm") or "confirm" in mouse_input):
 			if(selected_panel == 3 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
@@ -149,6 +150,7 @@ func _process(_delta):
 			setValues.rpc(Steam.getPersonaName(),selected_raider,selected_color,selected_loadout,selected_panel,player_ready)
 	
 	UpdateDisplay()
+	mouse_input.clear()
 
 #endregion
 
@@ -253,3 +255,28 @@ func UpdateDisplay():
 	pre_r_hand.self_modulate = lobby_manager.raiders[selected_raider].skin_color
 
 #endregion
+func is_event_click(event):
+	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
+
+func _on_character_container_mouse_entered():
+	selected_panel = 0
+
+func _on_color_container_mouse_entered():
+	selected_panel = 1
+
+func _on_loadout_container_mouse_entered():
+	selected_panel = 2
+
+func _on_button_mouse_entered():
+	selected_panel = 3
+
+func _on_left_arrow_clicked(event):
+	if is_event_click(event):
+		mouse_input.append("left")
+
+func _on_right_arrow_clicked(event):
+	if is_event_click(event):
+		mouse_input.append("right")
+
+func _on_button_pressed():
+	mouse_input.append("confirm")

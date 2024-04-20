@@ -29,6 +29,7 @@ nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
 enemy_spells = NodePath("EnemySpells")
 max_health = 500
+health = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -26)
