@@ -17,10 +17,11 @@ func _on_kill_timer_timeout():
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
-radius = 62.0725
+radius = 200.0
 
 [node name="stun-burn" type="Area2D" groups=["stun-burn"]]
 z_index = -1
+scale = Vector2(1, 0.5)
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_5c732")
@@ -33,8 +34,8 @@ shape = SubResource("CircleShape2D_b2x0x")
 autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.121569, 0.615686, 0.152941, 1)
-scale = Vector2(0.6875, 0.6875)
+modulate = Color(0.8, 0.223529, 0.141176, 1)
+scale = Vector2(2.54688, 2.15625)
 texture = ExtResource("1_0pvq2")
 
 [node name="KillTimer" type="Timer" parent="."]

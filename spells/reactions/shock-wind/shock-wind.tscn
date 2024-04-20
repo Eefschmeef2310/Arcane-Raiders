@@ -29,6 +29,7 @@ func _on_kill_timer_timeout():
 radius = 140.004
 
 [node name="Shock-wind" type="Area2D" groups=["shock-wind"]]
+z_index = -1
 collision_layer = 0
 collision_mask = 8
 script = SubResource("GDScript_gjaf5")
@@ -38,7 +39,7 @@ base_damage = 0
 shape = SubResource("CircleShape2D_q5c5n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+modulate = Color(0.984314, 1, 0, 1)
 scale = Vector2(1.70312, 1.54688)
 texture = ExtResource("1_pnsqt")
 

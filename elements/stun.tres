@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=2 format=3 uid="uid://l0pouj41mexa"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://l0pouj41mexa"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_lr73f"]
+[ext_resource type="Texture2D" uid="uid://baml53o2wog5l" path="res://elements/icons/stun_icon.png" id="1_n5tmm"]
 
 [resource]
 script = ExtResource("1_lr73f")
 colour = Color(0.560784, 0.254902, 0.0901961, 1)
+pip_texture = ExtResource("1_n5tmm")
 max_infliction_time = 5.0

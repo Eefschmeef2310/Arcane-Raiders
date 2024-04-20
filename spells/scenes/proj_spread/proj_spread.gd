@@ -26,7 +26,7 @@ extends SpellBase
 
 #region Godot methods
 func _ready():
-	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster) + Vector2(0,-16)
 	# await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
 #endregion

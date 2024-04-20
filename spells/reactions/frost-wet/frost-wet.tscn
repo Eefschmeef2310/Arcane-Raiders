@@ -5,28 +5,12 @@
 [sub_resource type="GDScript" id="GDScript_nfow1"]
 resource_name = "frost-wet"
 script/source = "extends ReactionArea
-	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-#endregion
+func _process(_delta):
+	for body in get_overlapping_bodies():
+		if \"frost_speed_scale\" in body:
+			body.frost_effect(0.1)
 
 #region Signal methods
 func _on_area_entered(area):
@@ -36,21 +20,9 @@ func _on_area_entered(area):
 func _on_area_exited(area):
 	if \"projectile_speed\" in area:
 		area.projectile_speed /= 0.5
-		
-func _on_body_entered(body):
-	if \"frost_speed_scale\" in body:
-		body.frost_speed_scale = 0
-		
-func _on_body_exited(body):
-	if \"frost_speed_scale\" in body:
-		body.frost_speed_scale /= 0.1
 
 func _on_kill_timer_timeout():
 	queue_free()
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
 #endregion
 "
 
@@ -60,7 +32,6 @@ radius = 200.0
 [node name="Frost-wet" type="Area2D" groups=["frost-wet"]]
 z_index = -1
 y_sort_enabled = true
-position = Vector2(0, -100)
 collision_layer = 16
 collision_mask = 137
 script = SubResource("GDScript_nfow1")
@@ -71,7 +42,7 @@ shape = SubResource("CircleShape2D_706xi")
 
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0.992157, 1)
-scale = Vector2(3, 1.545)
+scale = Vector2(2.38281, 1.22656)
 texture = ExtResource("1_f2auv")
 
 [node name="KillTimer" type="Timer" parent="."]
@@ -80,6 +51,4 @@ autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

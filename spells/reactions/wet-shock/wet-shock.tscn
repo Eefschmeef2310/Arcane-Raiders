@@ -17,8 +17,9 @@ var entity
 
 #region Other methods (please try to separate and organise!)
 func deal_damage():
-	entity.on_hurt(self)
-	queue_free()
+	if is_multiplayer_authority():
+		entity.on_hurt(self)
+		queue_free()
 #endregion
 "
 
@@ -69,4 +70,3 @@ texture = ExtResource("1_k5iwr")
 libraries = {
 "": SubResource("AnimationLibrary_jsakn")
 }
-autoplay = "default"
