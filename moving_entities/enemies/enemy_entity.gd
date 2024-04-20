@@ -69,12 +69,15 @@ func _on_hurtbox_area_entered(area):
 	on_hurt(area as Node2D)
 	
 func _on_zero_health():
-	queue_free()
+	if is_multiplayer_authority():
+		queue_free()
 	
 func attempt_cast(slot: int):
-	if can_cast && enemy_spells.spell_cooldowns[slot] <= 0:
-		use_spell(slot)
+	if is_multiplayer_authority():
+		if can_cast && enemy_spells.spell_cooldowns[slot] <= 0:
+			use_spell(slot)
 
+@rpc("authority", "call_local", "reliable")
 func use_spell(slot: int):
 	can_input = false
 	can_cast = false
@@ -85,9 +88,7 @@ func use_spell(slot: int):
 	add_sibling(spell_node)
 	
 	#Set cooldown of spell
-	
 	enemy_spells.spell_cooldowns[slot] = spell_node.cooldown_time
-	
 	
 	await get_tree().create_timer(spell_node.end_time).timeout
 	can_cast = true
