@@ -103,6 +103,7 @@ func on_hurt(attack):
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
+		print("Running shock effect for the first time.")
 		shock_effect()
 	
 	if element == SpellManager.elements["wind"]:
@@ -166,6 +167,8 @@ func frost_effect(amount):
 	frost_speed_scale = amount
 
 func shock_effect():
+	print("I've been shocked already.") if shocked_this_frame else print("I have NOT been shocked yet.")
+	
 	#get closest entity with same tag
 	var closest : Node2D
 	var closest_distance : float = INF
@@ -184,8 +187,8 @@ func shock_effect():
 		shocked_this_frame = true
 		closest.shocked_this_frame = true
 		
-		if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
-			shock_effect()
+		if closest.current_inflictions_dictionary.has(SpellManager.elements["shock"]):
+			closest.shock_effect()
 		
 		#draw line between guys
 		spawn_shock_laser.rpc(global_position, closest.global_position)
