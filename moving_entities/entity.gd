@@ -136,12 +136,11 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 				
 				var new_reaction = reaction.instantiate()
 				
-				if "caster" in new_reaction:
+				if "caster" in new_reaction and attack != null:
 					new_reaction.caster = attack
+					new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				if "elements" in new_reaction:
 					new_reaction.elements = [key, element]
-				
-				new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				
 				if "entity" in new_reaction:
 					new_reaction.entity = self
