@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ngf5irvgldhp"]
+[gd_scene load_steps=3 format=3 uid="uid://ngf5irvgldhp"]
 
 [ext_resource type="Script" path="res://multiplayer/serverBrowser/serverBrowser.gd" id="1_ih681"]
+[ext_resource type="PackedScene" uid="uid://brmt3xwasqlgc" path="res://menus/main_menu.tscn" id="2_gq6d0"]
 
 [node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel")]
 script = ExtResource("1_ih681")
@@ -10,6 +11,7 @@ lobbies_vbox = NodePath("ServerBrowser/Margin/LobbyContainer/Lobbies")
 server_count_text = NodePath("ServerBrowser/Margin/VBoxContainer2/ServerDebugText")
 loading_text = NodePath("LoadingPanel/LoadingText")
 loading_panel = NodePath("LoadingPanel")
+disconnect_scene = ExtResource("2_gq6d0")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
@@ -68,6 +70,7 @@ alignment = 1
 
 [node name="LoadingPanel" type="VBoxContainer" parent="."]
 visible = false
+z_index = -999
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -80,6 +83,7 @@ offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 
 [node name="LoadingText" type="Label" parent="LoadingPanel"]
 layout_mode = 2

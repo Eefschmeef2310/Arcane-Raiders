@@ -85,7 +85,7 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Every player is dead :("
+text = "Someone has died :("
 label_settings = SubResource("LabelSettings_5kgo8")
 horizontal_alignment = 1
 

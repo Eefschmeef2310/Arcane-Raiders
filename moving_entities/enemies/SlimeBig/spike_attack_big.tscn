@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bae5iobkx4kyi"]
+[gd_scene load_steps=4 format=3 uid="uid://bae5iobkx4kyi"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/SlimeSmall/spike_attack.gd" id="1_5a1au"]
 [ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="2_a686b"]
-[ext_resource type="Texture2D" uid="uid://bo23332c4inn1" path="res://build/web/index.apple-touch-icon.png" id="3_we1x3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wksjm"]
 radius = 79.3095
@@ -24,4 +23,3 @@ shape = SubResource("CircleShape2D_wksjm")
 modulate = Color(0.596078, 0, 0, 0.647059)
 position = Vector2(0, -16)
 scale = Vector2(0.838889, 0.838889)
-texture = ExtResource("3_we1x3")
