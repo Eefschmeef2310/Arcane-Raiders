@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://j1inr063fhkx"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_a1xq3"]
+
+[sub_resource type="Curve" id="Curve_tnq6n"]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_1tdt7"]
+_data = [Vector2(0, 0), 0.0, 13.5163, 0, 0, Vector2(0.160305, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_rwygp"]
+_data = [Vector2(0.751908, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_m0ekg"]
+_data = [Vector2(0.755725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="proj_spread_explosion" instance=ExtResource("1_a1xq3")]
+speed_curve = SubResource("Curve_tnq6n")
+scale_falloff_curve = SubResource("Curve_1tdt7")
+transparency_falloff_curve = SubResource("Curve_rwygp")
+area_enabled_curve = SubResource("Curve_m0ekg")
+
+[node name="kill_timer" parent="." index="2"]
+wait_time = 0.5

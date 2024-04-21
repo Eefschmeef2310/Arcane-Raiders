@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://bn5wynfsgplge"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://mreb46qhdtv2"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_btad0"]
 [ext_resource type="Texture2D" uid="uid://bgpdq58unaoti" path="res://elements/icons/shock_icon.png" id="1_qyye0"]
 
 [resource]
-resource_name = "shock"
 script = ExtResource("1_btad0")
-colour = Color(1, 0.764706, 0.219608, 1)
+colour = Color(0.913725, 0.866667, 0, 1)
 pip_texture = ExtResource("1_qyye0")
-element_type = 2
 max_infliction_time = 5.0

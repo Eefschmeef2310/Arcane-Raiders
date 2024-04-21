@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://0u08iljqx1w1"]
+
+[ext_resource type="Texture2D" uid="uid://dv5iywijn4olv" path="res://spells/reactions/sprites/cyclone.png" id="1_co3h4"]
+
+[sub_resource type="GDScript" id="GDScript_gjaf5"]
+resource_name = "shock-wind"
+script/source = "extends ReactionArea
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+@export var rotation_speed : float
+
+#region Godot methods
+func _process(delta):
+	$Sprite2D.rotation_degrees += rotation_speed * delta
+	
+#Must be in physics process, as the direction changes every frame
+func _physics_process(_delta):
+	for entity in get_overlapping_bodies():
+		if \"attraction_direction\" in entity:
+			entity.attraction_direction = entity.global_position.direction_to(global_position)
+#endregion
+
+#region Signal methods
+func _on_body_exited(body):
+	if \"attraction_direction\" in body:
+		body.attraction_direction = Vector2.ZERO
+		
+func _on_kill_timer_timeout():
+	queue_free()
+#endregion
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q5c5n"]
+radius = 140.004
+
+[node name="Shock-wind" type="Area2D" groups=["shock-wind"]]
+z_index = -1
+collision_layer = 0
+collision_mask = 8
+script = SubResource("GDScript_gjaf5")
+rotation_speed = 10.0
+base_damage = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q5c5n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.992157, 1, 0.505882, 1)
+scale = Vector2(1.095, 1.095)
+texture = ExtResource("1_co3h4")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

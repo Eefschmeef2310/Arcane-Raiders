@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://bloo38yivbufm"]
+
+[ext_resource type="Shader" path="res://shaders/lava.gdshader" id="1_mo1qg"]
+[ext_resource type="Texture2D" uid="uid://bbadgo1708msl" path="res://spells/reactions/sprites/lava_pool.png" id="1_vcsdy"]
+
+[sub_resource type="GDScript" id="GDScript_5c732"]
+resource_name = "stun-burn"
+script/source = "extends ReactionArea
+#Authored by Ethan.
+
+func _on_timer_timeout():
+	for moving_entity in get_overlapping_bodies():
+		if moving_entity.is_in_group(\"enemy\") and moving_entity != caster:
+			moving_entity.on_hurt(self)
+
+func _on_kill_timer_timeout():
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
+radius = 200.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ymlg"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ls7es"]
+seamless = true
+noise = SubResource("FastNoiseLite_3ymlg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tng5n"]
+shader = ExtResource("1_mo1qg")
+shader_parameter/noise = SubResource("NoiseTexture2D_ls7es")
+
+[node name="stun-burn" type="Area2D" groups=["stun-burn"]]
+z_index = -1
+scale = Vector2(1, 0.5)
+collision_layer = 16
+collision_mask = 8
+script = SubResource("GDScript_5c732")
+base_damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b2x0x")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tng5n")
+position = Vector2(-13, -7)
+scale = Vector2(1.67188, 1.61719)
+texture = ExtResource("1_vcsdy")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

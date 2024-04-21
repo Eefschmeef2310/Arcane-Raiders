@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://b51xvgm1i81ut"]
+
+[ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
+[ext_resource type="PackedScene" uid="uid://cbmfe52jfiyeb" path="res://rooms/basic/basic_eyeball.tscn" id="2_myxlf"]
+[ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
+[ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d82o0"]
+
+[node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data")]
+script = ExtResource("1_jx40r")
+start_on_spawn = true
+player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
+basic_rooms = Array[PackedScene]([ExtResource("2_myxlf")])
+
+[node name="PlayerData0" type="Node" parent="."]
+script = ExtResource("2_tpid8")
+main_color = Color(0.737255, 0.231373, 0.192157, 1)
+
+[node name="PlayerData1" type="Node" parent="."]
+script = ExtResource("2_tpid8")
+main_color = Color(0.188235, 0.388235, 0.760784, 1)
+
+[node name="PlayerData2" type="Node" parent="."]
+script = ExtResource("2_tpid8")
+main_color = Color(0.784314, 0.6, 0.101961, 1)
+
+[node name="PlayerData3" type="Node" parent="."]
+script = ExtResource("2_tpid8")
+main_color = Color(0.156863, 0.466667, 0.266667, 1)
+
+[node name="PlayerDataSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_d82o0")
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -900.0
+offset_top = -190.0
+offset_right = 900.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PlayerUI0" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData0")
+
+[node name="PlayerUI1" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData1")
+
+[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData2")
+
+[node name="PlayerUI3" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+layout_mode = 2
+data = NodePath("../../../PlayerData3")

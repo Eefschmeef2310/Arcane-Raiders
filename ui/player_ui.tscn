@@ -1,11 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=6 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="1_nkl1q"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_b30oo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ml2ad"]
+font = ExtResource("4_b30oo")
+font_size = 32
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.784314)
+shadow_offset = Vector2(2, 2)
 
 [node name="PlayerUI" type="VBoxContainer"]
-custom_minimum_size = Vector2(480, 190)
+custom_minimum_size = Vector2(450, 190)
 alignment = 1
 script = ExtResource("1_cbyu2")
 
@@ -43,3 +51,16 @@ texture_under = ExtResource("1_nkl1q")
 texture_progress = ExtResource("1_nkl1q")
 tint_under = Color(0.32549, 0.32549, 0.32549, 1)
 tint_progress = Color(0.992157, 0, 0.254902, 1)
+
+[node name="EquipUI" type="Node2D" parent="."]
+visible = false
+position = Vector2(139, 50)
+
+[node name="Label" type="Label" parent="EquipUI"]
+offset_left = -139.0
+offset_top = -84.0
+offset_right = 311.0
+offset_bottom = -42.0
+text = "Press to equip!"
+label_settings = SubResource("LabelSettings_ml2ad")
+horizontal_alignment = 1

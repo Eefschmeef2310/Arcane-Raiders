@@ -24,7 +24,7 @@ func _ready():
 	$Line2D.default_color = owner.resource.element.colour
 	$Line2D.width = 5
 	
-	await get_tree().create_timer(owner.start_time).timeout
+	#await get_tree().create_timer(owner.start_time).timeout
 	track_aim = false
 	
 	target_position = global_position + (caster.aim_direction * 999999)
@@ -40,6 +40,7 @@ func _ready():
 		
 	$Line2D.points[1] = cast_point
 	$Line2D.width = beam_width
+	$Area2D.monitorable = true
 	$Area2D/CollisionShape2D.position = (position + cast_point)/2
 	$Area2D/CollisionShape2D.rotation = position.direction_to(cast_point).angle()
 	$Area2D/CollisionShape2D.shape.size = Vector2(cast_length, beam_width)

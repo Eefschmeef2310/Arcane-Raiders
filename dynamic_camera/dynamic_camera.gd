@@ -1,4 +1,5 @@
 extends Camera2D
+class_name DynamicCamera
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -11,7 +12,7 @@ extends Camera2D
 
 	#Onready Variables
 @onready var screen_size = get_viewport_rect().size
-@onready var targets = get_tree().get_nodes_in_group("player")
+var targets: Array[Node] = []
 #endregion
 
 #region Godot methods
@@ -60,5 +61,5 @@ func add_target(object):
 #Helper function to remove targets at runtime
 func remove_target(object):
 	if object in targets:
-		targets.remove(object)
+		targets.erase(object)
 #endregion

@@ -2,13 +2,12 @@ extends SpellBase
 #class_name
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
-@onready var EXPLOSION = preload("res://spells/scenes/explosive/explosion.tscn")
+@export var EXPLOSION : PackedScene
 @onready var raycast = $RayCast2D
 
 var cast_distance: float = 250
 
 func _ready():
-	print(resource.element.resource_name)
 	
 	# Set modulation
 	$Ring/Sprite2D.modulate = resource.element.colour

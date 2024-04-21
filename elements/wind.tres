@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://bpyrqdxfyvpku"]
+
+[ext_resource type="Script" path="res://elements/element.gd" id="1_moo0l"]
+[ext_resource type="Texture2D" uid="uid://t13216wk8eap" path="res://elements/icons/wind_icon.png" id="1_stng8"]
+
+[resource]
+script = ExtResource("1_moo0l")
+colour = Color(0.364706, 0.784314, 0.337255, 1)
+pip_texture = ExtResource("1_stng8")
+max_infliction_time = 5.0

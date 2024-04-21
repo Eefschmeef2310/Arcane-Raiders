@@ -1,26 +1,268 @@
-[gd_scene load_steps=3 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=26 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
+[ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
+[ext_resource type="PackedScene" uid="uid://b01k41p44far4" path="res://rooms/shop/shop.tscn" id="2_ynx3r"]
+[ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
+[ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
+[ext_resource type="PackedScene" uid="uid://bs14qtk2at5lb" path="res://rooms/final_room.tscn" id="4_xewuu"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="5_ohq6b"]
+[ext_resource type="PackedScene" uid="uid://cjtf6hsua8mls" path="res://rooms/basic/basic_luti.tscn" id="6_8eavx"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
+[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
+[ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
+[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
 
-[node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data")]
+[sub_resource type="Gradient" id="Gradient_t5pcq"]
+offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oyho1"]
+gradient = SubResource("Gradient_t5pcq")
+
+[sub_resource type="Gradient" id="Gradient_2j3od"]
+offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
+colors = PackedColorArray(0, 0.08, 0.00933334, 1, 0.0033, 0.33, 0.226545, 1, 0.018, 0.6, 0.5806, 1, 0.2079, 0.77, 0.676317, 1, 0.7392, 0.96, 0.82384, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
+gradient = SubResource("Gradient_2j3od")
+
+[sub_resource type="Gradient" id="Gradient_tk1wv"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o17fi"]
+gradient = SubResource("Gradient_tk1wv")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ahfih"]
+font = ExtResource("4_ft2nk")
+font_size = 96
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wuave"]
+font = ExtResource("4_ft2nk")
+font_size = 192
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_gfsvk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items/VBoxContainer/LastFloorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items/VBoxContainer/NextFloorLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Items/VBoxContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 120)]
+}
+
+[sub_resource type="Animation" id="Animation_vgyv8"]
+resource_name = "next_floor"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items/VBoxContainer/LastFloorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items/VBoxContainer/NextFloorLabel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Items/VBoxContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, -3, 1),
+"update": 0,
+"values": [Vector2(0, 120), Vector2(0, 120), Vector2(0, 420)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4q6c3"]
+_data = {
+"RESET": SubResource("Animation_gfsvk"),
+"next_floor": SubResource("Animation_vgyv8")
+}
+
+[node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data", "player_ui")]
 script = ExtResource("1_jx40r")
 player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
+player_ui = [NodePath("GameUI/PlayerUIContainer/PlayerUI0"), NodePath("GameUI/PlayerUIContainer/PlayerUI1"), NodePath("GameUI/PlayerUIContainer/PlayerUI2"), NodePath("GameUI/PlayerUIContainer/PlayerUI3")]
+common_levels = {
+"final": ExtResource("4_xewuu"),
+"foyer": ExtResource("2_0olmr"),
+"shop": ExtResource("2_ynx3r")
+}
+basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1")])
+total_floors = 10
+sector_start_floors = Array[int]([0, 3, 6])
+shop_floors = Array[int]([3, 6])
+sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
 
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0.737255, 0.231373, 0.192157, 1)
+character = ExtResource("7_ee2cn")
 
 [node name="PlayerData1" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0.188235, 0.388235, 0.760784, 1)
+character = ExtResource("6_sfo2l")
 
 [node name="PlayerData2" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0.784314, 0.6, 0.101961, 1)
+character = ExtResource("5_ohq6b")
 
 [node name="PlayerData3" type="Node" parent="."]
 script = ExtResource("2_tpid8")
+main_color = Color(0.156863, 0.466667, 0.266667, 1)
+character = ExtResource("8_ds4tw")
 
-[node name="PlayerDataSync" type="MultiplayerSynchronizer" parent="."]
+[node name="RunUI" type="CanvasLayer" parent="."]
 
-[node name="Level" type="Node2D" parent="."]
+[node name="FloorLabel" type="Label" parent="RunUI"]
+offset_left = 32.0
+offset_right = 115.0
+offset_bottom = 146.0
+label_settings = SubResource("LabelSettings_ahfih")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="RoomTransitionUI" type="CanvasLayer" parent="."]
+
+[node name="Items" type="Control" parent="RoomTransitionUI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="RoomTransitionUI/Items"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RoomTransitionUI/Items"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NextFloorLabel" type="Label" parent="RoomTransitionUI/Items/VBoxContainer"]
+layout_mode = 2
+text = "2F"
+label_settings = SubResource("LabelSettings_wuave")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LastFloorLabel" type="Label" parent="RoomTransitionUI/Items/VBoxContainer"]
+layout_mode = 2
+text = "1F"
+label_settings = SubResource("LabelSettings_wuave")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoomTransitionUI"]
+libraries = {
+"": SubResource("AnimationLibrary_4q6c3")
+}
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -900.0
+offset_top = -190.0
+offset_right = 900.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PlayerUI0" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
+layout_mode = 2
+data = NodePath("../../../PlayerData0")
+
+[node name="PlayerUI1" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
+layout_mode = 2
+data = NodePath("../../../PlayerData1")
+
+[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
+layout_mode = 2
+data = NodePath("../../../PlayerData2")
+
+[node name="PlayerUI3" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
+visible = false
+layout_mode = 2
+data = NodePath("../../../PlayerData3")
+
+[node name="CommonLevelSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="BasicLevelSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")

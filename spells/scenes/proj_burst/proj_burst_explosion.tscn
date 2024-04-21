@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://br01dtr66kciu"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_pkplm"]
+
+[sub_resource type="Curve" id="Curve_v48oq"]
+_data = [Vector2(0, 7), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fjpuw"]
+_data = [Vector2(0, 0), 0.0, 1.712, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_6x5nu"]
+_data = [Vector2(0.744275, 0.990046), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tu2u5"]
+radius = 50.0
+
+[node name="proj_burst_explosion" instance=ExtResource("1_pkplm")]
+speed_curve = SubResource("Curve_v48oq")
+scale_falloff_curve = SubResource("Curve_fjpuw")
+transparency_falloff_curve = SubResource("Curve_6x5nu")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.394531, 0.40625)
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_tu2u5")
+
+[node name="kill_timer" parent="." index="2"]
+wait_time = 0.75

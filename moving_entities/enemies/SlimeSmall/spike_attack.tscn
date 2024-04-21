@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://du3bivrhjlrac"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/SlimeSmall/spike_attack.gd" id="1_6txop"]
+[ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="2_atneh"]
+[ext_resource type="Texture2D" uid="uid://bo23332c4inn1" path="res://build/web/index.apple-touch-icon.png" id="3_kd6pk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5on1h"]
+radius = 53.0377
+
+[node name="SpikeAttack" type="Node2D"]
+script = ExtResource("1_6txop")
+end_time = 0.8
+cooldown_time = 2.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -64)
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("2_atneh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 46)
+shape = SubResource("CircleShape2D_5on1h")
+debug_color = Color(0.219608, 0.313726, 0.760784, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.596078, 0, 0, 0.647059)
+position = Vector2(0.500001, -15.5)
+scale = Vector2(0.494444, 0.483333)
+texture = ExtResource("3_kd6pk")

@@ -1,7 +1,13 @@
-extends Node2D
+extends Node
 
 var input: DeviceInput
 var devices: Array[int]
+
+var move_dir: Vector2
+var aim_dir: Vector2
+var spell_down: Array[bool] = [false]
+var spell_press: Array[bool] = [false]
+var spell_release: Array[bool] = [false]
 
 var is_keyb: bool
 
@@ -9,14 +15,19 @@ var is_keyb: bool
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
 	update_device_list(0, true)
+	spell_down.resize(3)
+	spell_press.resize(3)
+	spell_release.resize(3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if is_instance_valid(owner.data) and owner.get_multiplayer_authority() == owner.data.peer_id:
-		var move_dir: Vector2
-		var aim_dir: Vector2
-		var spell: Array[bool]
-		spell.resize(3)
+	if is_instance_valid(owner.data) and is_multiplayer_authority():
+		
+		move_dir = Vector2.ZERO
+		aim_dir = Vector2.ZERO
+		spell_down.fill(false)
+		spell_press.fill(false)
+		spell_release.fill(false)
 		
 		# If we have an input object, use it
 		if input:
@@ -29,7 +40,7 @@ func _process(_delta):
 			
 			# Aim
 			if input.is_keyboard():
-				aim_dir = get_global_mouse_position() - owner.global_position
+				aim_dir = owner.get_global_mouse_position() - owner.global_position
 				aim_dir = aim_dir.normalized()
 			else:
 				var a : Vector2 = input.get_vector("left", "right", "up", "down")
@@ -37,8 +48,10 @@ func _process(_delta):
 					aim_dir = a.normalized()
 			
 			# Buttons
-			for i in spell.size():
-				spell[i] = input.is_action_just_pressed("spell" + str(i))
+			for i in spell_down.size():
+				spell_down[i] = input.is_action_pressed("spell" + str(i))
+				spell_press[i] = input.is_action_just_pressed("spell" + str(i))
+				spell_release[i] = input.is_action_just_released("spell" + str(i))
 		
 		# Otherwise, use any connected controller
 		else:
@@ -52,24 +65,32 @@ func _process(_delta):
 						move_dir = move_dir.normalized()
 					
 				if is_keyb:
-					aim_dir = get_global_mouse_position() - owner.global_position
+					aim_dir = owner.get_global_mouse_position() - owner.global_position
 					aim_dir = aim_dir.normalized()
 				else:
 					var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
 					if a.length() > 0:
 						aim_dir = a.normalized()
 					
-				for i in spell.size():
-					if MultiplayerInput.is_action_just_pressed(device, "spell" + str(i)):
-						spell[i] = true
+				for i in spell_down.size():
+					spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
+					spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
+					spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
 		
 		# Send input to owner
 		owner.move_direction = move_dir
 		if aim_dir != Vector2.ZERO:
 			owner.aim_direction = aim_dir
-		for i in spell.size():
-			if spell[i]:
-				owner.attempt_cast(i)
+		for i in spell_down.size():
+			if spell_press[i] and $"../SpellPickupDetector".closest_pickup != null:
+				print("Picking up spell.")
+				owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
+			else:
+				if spell_down[i]:
+					owner.prepare_cast(i)
+				if spell_release[i]:
+					owner.attempt_cast(i)
+					
 
 func _input(event):
 	if !input:

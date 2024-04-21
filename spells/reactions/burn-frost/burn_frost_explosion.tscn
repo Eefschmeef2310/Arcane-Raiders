@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cr1h1dxl5yo6r"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_7af4y"]
+
+[sub_resource type="Curve" id="Curve_k1vg2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_utc6f"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.492958, 0.965129), 0.0, 0.0, 0, 0, Vector2(0.757746, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_35l1m"]
+_data = [Vector2(0, 0), 0.0, 0.0403308, 0, 0, Vector2(0.121127, 1), 0.0, 0.0, 0, 0, Vector2(0.760563, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_n40j6"]
+_data = [Vector2(0, 0.467884), 0.0, 0.0, 0, 0, Vector2(0.255663, 0.741566), 0.0, 0.0, 0, 0, Vector2(0.495146, 0.738035), 0.0, 0.0, 0, 0, Vector2(0.752113, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7huk8"]
+radius = 100.0
+
+[node name="burn_frost_explosion" instance=ExtResource("1_7af4y")]
+speed_curve = SubResource("Curve_k1vg2")
+sprite_rotation_falloff_curve = SubResource("Curve_utc6f")
+scale_falloff_curve = SubResource("Curve_35l1m")
+transparency_falloff_curve = SubResource("Curve_n40j6")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.558594, 0.507812)
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_7huk8")
+
+[node name="kill_timer" parent="." index="2"]
+wait_time = 0.75

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://mtsb3s55vgti"]
+
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="1_f1oy7"]
+[ext_resource type="PackedScene" uid="uid://bae5iobkx4kyi" path="res://moving_entities/enemies/SlimeBig/spike_attack_big.tscn" id="2_nabct"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="3_mu2a4"]
+
+[resource]
+script = ExtResource("3_mu2a4")
+scene = ExtResource("2_nabct")
+element = ExtResource("1_f1oy7")

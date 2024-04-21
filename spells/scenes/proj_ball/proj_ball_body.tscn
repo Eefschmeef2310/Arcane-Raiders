@@ -1,18 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmxs62fwihysk"]
+[gd_scene load_steps=6 format=3 uid="uid://bmxs62fwihysk"]
 
 [ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball_body.gd" id="1_x5adh"]
+[ext_resource type="PackedScene" uid="uid://6hpw555slkv6" path="res://spells/scenes/proj_ball/proj_ball_explosion.tscn" id="2_1pp8o"]
 [ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="2_ir44m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_selhr"]
-radius = 29.0172
+radius = 23.0
 
 [node name="ProjBallBody" type="RigidBody2D"]
 y_sort_enabled = true
+position = Vector2(0, -16)
 collision_layer = 32
 gravity_scale = 0.0
 script = ExtResource("1_x5adh")
+explosion_scene = ExtResource("2_1pp8o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ogc0g")
@@ -23,7 +26,7 @@ texture = ExtResource("2_ir44m")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 9
+collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_selhr")

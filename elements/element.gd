@@ -6,13 +6,6 @@ class_name ElementResource
 	#Signals
 
 	#Enums
-enum ElementType {
-	Burn,
-	Frost,
-	Shock,
-	Weak,
-	Null
-}
 
 	#Constants
 
@@ -21,8 +14,7 @@ enum ElementType {
 
 @export var colour : Color
 @export var particle_texture : Texture2D
-@export var pip_texture : Texture2D #May be deleted later - E
-@export var element_type : ElementType
+@export var pip_texture : Texture2D
 @export var max_infliction_time : float = 5
 
 	#Onready Variables

@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnvowsw0l752i"]
+
+[ext_resource type="Texture2D" uid="uid://dv5iywijn4olv" path="res://spells/reactions/sprites/cyclone.png" id="1_tspbn"]
+[ext_resource type="Texture2D" uid="uid://ciwqdrmt6qc3w" path="res://spells/reactions/sprites/sandstorm_sheet.png" id="2_6u4pa"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_p4oge"]
+
+[sub_resource type="GDScript" id="GDScript_fgibt"]
+resource_name = "wind-earth"
+script/source = "extends ReactionArea
+#Authored by Ethan.
+
+var entity
+
+func _process(delta):
+	$Sprite2D.rotation += 1 * delta
+
+func _on_timer_timeout():
+	for moving_entity in get_overlapping_bodies():
+		if moving_entity.is_in_group(\"enemy\") and moving_entity != entity:
+			moving_entity.on_hurt(self)
+
+func _on_kill_timer_timeout():
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
+radius = 148.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0qdfs"]
+resource_local_to_scene = true
+shader = ExtResource("2_p4oge")
+shader_parameter/outline_width = 0.25
+shader_parameter/outline_color = null
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u80t5"]
+particle_flag_disable_z = true
+angular_velocity_min = 81.95
+angular_velocity_max = 199.03
+gravity = Vector3(0, -200, 0)
+scale_max = 1.5
+
+[node name="Wind-earth" type="Area2D" groups=["wind-earth"]]
+scale = Vector2(1, 0.5)
+collision_layer = 16
+collision_mask = 8
+script = SubResource("GDScript_fgibt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b2x0x")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.988235, 0.968627, 0.745098, 0.623529)
+y_sort_enabled = true
+scale = Vector2(1.20312, 1.14062)
+texture = ExtResource("1_tspbn")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_0qdfs")
+amount = 21
+process_material = SubResource("ParticleProcessMaterial_u80t5")
+texture = ExtResource("2_6u4pa")
+randomness = 1.0
+local_coords = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

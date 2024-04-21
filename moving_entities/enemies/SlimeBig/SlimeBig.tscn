@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://bfrsuqfut2eks"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_ml3r3"]
+[ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_m24lk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="6_dnj1x"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="6_haj15"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
+[ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1c6bp"]
+radius = 60.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bioj2"]
+radius = 29.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u80kp"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="SlimeBig" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_ml3r3")
+movement_speed = 200.0
+base_damage = 0
+nav_agent = NodePath("NavigationAgent2D")
+state_machine = NodePath("StateMachine")
+enemy_spells = NodePath("EnemySpells")
+max_health = 800
+health = 800
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, -15.5)
+scale = Vector2(0.141026, 0.15508)
+texture = ExtResource("2_vv14m")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -15)
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_1c6bp")
+debug_color = Color(1, 0, 0, 0.258824)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bioj2")
+
+[node name="ProgressBar" parent="." instance=ExtResource("6_dnj1x")]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = -39.0
+
+[node name="StatusUI" parent="." instance=ExtResource("7_p52cc")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_m24lk")
+initial_state = NodePath("SlimeChase")
+
+[node name="SlimeChase" type="Node" parent="StateMachine"]
+script = ExtResource("6_haj15")
+
+[node name="EnemySpells" type="Node" parent="."]
+script = ExtResource("5_gvsgo")
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("8_unwx7")])
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+max_speed = 1000.0
+debug_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_u80kp")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

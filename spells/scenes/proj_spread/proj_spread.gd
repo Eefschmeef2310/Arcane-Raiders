@@ -10,11 +10,13 @@ extends SpellBase
 
 	#Exported Variables
 	#@export_group("Group")
-	#@export_subgroup("Subgroup")
-@export var BULLET = preload("res://spells/scenes/proj_spread/bullet.tscn")
+	#@export_subgroup("Subgroup")s
+@export var EXPLOSION = preload("res://spells/scenes/proj_burst/proj_burst_explosion.tscn")
 @export var waves : int = 10
-@export var bullets_per_wave : int = 5
+@export var explosions_per_wave : int = 5
 @export_range(0, TAU) var max_radians : float = 0.2
+
+@export var distance_from_caster : float = 40
 
 	#Onready Variables
 
@@ -24,25 +26,31 @@ extends SpellBase
 
 #region Godot methods
 func _ready():
-	await get_tree().create_timer(start_time).timeout
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster) + Vector2(0,-16)
+	# await get_tree().create_timer(start_time).timeout
 	_on_wave_timer_timeout()
 #endregion
+
+func _process(_delta):
+	#if caster : global_position = caster.global_position
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
+	pass
 
 #region Signal methods
 func _on_wave_timer_timeout():
 	if waves > 0:
 		#spawn
-		var angle_step = max_radians / (bullets_per_wave - 1)
+		var angle_step = max_radians / (explosions_per_wave - 1)
 		
-		for x in bullets_per_wave:
-			var bullet = BULLET.instantiate()
-			transfer_data(bullet)
+		for x in explosions_per_wave:
+			var explosion = EXPLOSION.instantiate()
+			transfer_data(explosion)
 			
 			var rotation_offset = angle_step * x - max_radians / 2
-			bullet.rotation = caster.aim_direction.angle() + rotation_offset
+			explosion.rotation = (caster.aim_direction.angle() if caster else 0.) + rotation_offset
 			
-			bullet.global_position = caster.global_position
-			get_tree().root.add_child(bullet)
+			explosion.global_position = global_position
+			call_deferred("add_sibling", explosion)
 		waves -= 1
 		$WaveTimer.start(0.05)
 	else:
