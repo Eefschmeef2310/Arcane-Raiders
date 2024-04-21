@@ -210,7 +210,9 @@ func spawn_shock_laser(p1: Vector2, p2: Vector2):
 
 @rpc("authority", "call_local", "reliable")
 func wind_effect(attack_path):
+	var attack = get_node(attack_path)
 	knockback_velocity = knockback_initial_velocity
-	knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
+	if attack:
+		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
 	can_input = false
 #endregion
