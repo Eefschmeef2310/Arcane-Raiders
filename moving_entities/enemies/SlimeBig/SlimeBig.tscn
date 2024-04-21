@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfrsuqfut2eks"]
+[gd_scene load_steps=13 format=3 uid="uid://bfrsuqfut2eks"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_ml3r3"]
 [ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
@@ -8,12 +8,13 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="6_haj15"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
 [ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
+[ext_resource type="Texture2D" uid="uid://c01cck3klbq2" path="res://moving_entities/enemies/SlimeBig/beefier_slime.png" id="9_kra2g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1c6bp"]
 radius = 60.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bioj2"]
-radius = 29.0
+radius = 28.0179
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u80kp"]
 properties/0/path = NodePath(".:position")
@@ -32,7 +33,12 @@ enemy_spells = NodePath("EnemySpells")
 max_health = 800
 health = 800
 
+[node name="BeefierSlime" type="Sprite2D" parent="."]
+position = Vector2(5, -41)
+texture = ExtResource("9_kra2g")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(4.76837e-07, -15.5)
 scale = Vector2(0.141026, 0.15508)
 texture = ExtResource("2_vv14m")
@@ -43,17 +49,21 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(2, -23)
+scale = Vector2(1.56, 1.08)
 shape = SubResource("CircleShape2D_1c6bp")
 debug_color = Color(1, 0, 0, 0.258824)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -5)
+scale = Vector2(2.84, 1.12)
 shape = SubResource("CircleShape2D_bioj2")
 
 [node name="ProgressBar" parent="." instance=ExtResource("6_dnj1x")]
 offset_left = -50.0
-offset_top = -46.0
+offset_top = -116.0
 offset_right = 50.0
-offset_bottom = -39.0
+offset_bottom = -109.0
 
 [node name="StatusUI" parent="." instance=ExtResource("7_p52cc")]
 anchors_preset = 7
@@ -62,9 +72,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -150.0
 offset_right = 100.0
-offset_bottom = -48.0
+offset_bottom = -118.0
 grow_horizontal = 2
 grow_vertical = 0
 

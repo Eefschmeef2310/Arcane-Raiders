@@ -71,7 +71,7 @@ spawn_path = NodePath("..")
 [node name="EnemySpawns" type="Node2D" parent="."]
 
 [node name="RoomExit" parent="." instance=ExtResource("5_dh6mk")]
-position = Vector2(1679, 123)
+position = Vector2(1686, 96)
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="player_entered" from="RoomExit" to="." method="_on_room_exit_player_entered"]

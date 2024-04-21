@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8uvt7sepdtkk"]
+[gd_scene load_steps=14 format=3 uid="uid://c8uvt7sepdtkk"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_l62ws"]
 [ext_resource type="Texture2D" uid="uid://bidj8hsm5os4t" path="res://moving_entities/enemies/bat_small/bat_temp.png" id="2_vycsp"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_5m50w"]
+[ext_resource type="Texture2D" uid="uid://by5ilqlhkdeaq" path="res://moving_entities/enemies/bat_small/bat_small.png" id="3_bkt04"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="4_4f7jg"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_hg75s"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="5_7nlb8"]
@@ -13,7 +14,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_oaiii"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4pbwl"]
-radius = 17.0294
+radius = 11.5634
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7wf36"]
 properties/0/path = NodePath(".:position")
@@ -32,12 +33,19 @@ max_health = 500
 health = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1, -26)
 scale = Vector2(0.787234, 0.728814)
 texture = ExtResource("2_vycsp")
 
+[node name="BatSmall" type="Sprite2D" parent="."]
+position = Vector2(3, -18)
+scale = Vector2(0.559999, 0.559999)
+texture = ExtResource("3_bkt04")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(1, -6)
+scale = Vector2(1.36, 1.1028)
 shape = SubResource("CircleShape2D_oaiii")
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -46,8 +54,13 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+scale = Vector2(1.12, 1.72)
 shape = SubResource("CircleShape2D_4pbwl")
 debug_color = Color(0.976471, 0, 0.411765, 0.419608)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtbox"]
+scale = Vector2(1.00313, 0.926282)
+polygon = PackedVector2Array(59.3146, -12.4152, 39.3769, -18.8927, 22.4299, -21.0519, 18.4423, -7.0173, -0.498442, 0.539792, -21.433, -2.69896, -26.4174, -11.3356, -41.3707, -2.69896, -55.327, 5.93772, -32.3987, 2.69896, -26.4174, 9.17647, -19.4392, 7.0173, 2.49221, 17.8132, 22.4299, -3.77855, 38.38, -2.69896, 38.38, -10.2561)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_5m50w")

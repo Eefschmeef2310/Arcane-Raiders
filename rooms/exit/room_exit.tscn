@@ -1,25 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://dff12rdqx482b"]
+[gd_scene load_steps=4 format=3 uid="uid://dff12rdqx482b"]
 
 [ext_resource type="Script" path="res://rooms/exit/room_exit.gd" id="1_fmsr6"]
-[ext_resource type="Texture2D" uid="uid://dufxby23y78mt" path="res://rooms/exit/exit_locked.png" id="2_230uf"]
-[ext_resource type="Texture2D" uid="uid://cb77lume0sc8l" path="res://rooms/exit/exit_unlocked.png" id="3_iamef"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_u32c5"]
-radius = 64.0
+[ext_resource type="Texture2D" uid="uid://r2gf37mnk185" path="res://rooms/exit/exit_locked2.png" id="2_esy68"]
+[ext_resource type="Texture2D" uid="uid://dmhbueqf27y88" path="res://rooms/exit/exit_unlocked2.png" id="3_2xi6p"]
 
 [node name="RoomExit" type="Area2D"]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_fmsr6")
-locked_texture = ExtResource("2_230uf")
-unlocked_texture = ExtResource("3_iamef")
+locked_texture = ExtResource("2_esy68")
+unlocked_texture = ExtResource("3_2xi6p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_iamef")
+position = Vector2(0, -18)
+texture = ExtResource("3_2xi6p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_u32c5")
-debug_color = Color(0.0980392, 0.647059, 0, 0.419608)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-81, 26, 62, 98, 66, -33, -77, -89)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

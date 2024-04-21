@@ -7,7 +7,7 @@ signal player_entered(player: Player)
 @export var locked_texture : Texture2D
 @export var unlocked_texture : Texture2D
 @onready var sprite = $Sprite2D
-@onready var collision = $CollisionShape2D
+@onready var collision = $CollisionPolygon2D
 
 func _ready():
 	if is_locked:

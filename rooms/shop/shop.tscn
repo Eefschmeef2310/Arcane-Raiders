@@ -33,7 +33,7 @@ position = Vector2(311, 755)
 position = Vector2(418, 679)
 
 [node name="RoomExit" parent="." index="11"]
-position = Vector2(1439, 84)
+position = Vector2(1439, 52)
 
 [node name="ShopSpawns" type="Node2D" parent="." index="12"]
 

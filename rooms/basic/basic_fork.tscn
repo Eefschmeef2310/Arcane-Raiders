@@ -44,4 +44,4 @@ position = Vector2(1122, 1120)
 texture = ExtResource("2_1otxo")
 
 [node name="RoomExit" parent="." index="10"]
-position = Vector2(1597, 163)
+position = Vector2(1597, 133)
