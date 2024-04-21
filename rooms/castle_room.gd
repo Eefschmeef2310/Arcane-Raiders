@@ -48,17 +48,20 @@ func _ready():
 		n.hide()
 	
 	if is_multiplayer_authority() and max_waves > 0:
+		number_of_enemies_left = 0
 		total_difficulty_left = wave_total_difficulty[0]
 		room_exit.lock()
 		while total_difficulty_left > 0:
 			var key = EnemyManager.Data.keys().pick_random()
-			#var key = "dummy"
 			enemy_spawner.spawn(key)
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
+			number_of_enemies_left += 1
+			print("New total: " + str(number_of_enemies_left))
 
 func _on_enemy_zero_health():
 	if is_multiplayer_authority():
 		number_of_enemies_left -= 1
+		print("Enemies left: " + str(number_of_enemies_left))
 		if number_of_enemies_left <= 0:
 			all_waves_cleared.emit()
 
@@ -83,11 +86,11 @@ func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	spell_change_requested.emit(p.data, i, sp)
 
 func spawn_enemy(id: String) -> Node2D:
+	print("Spawning " + str(id))
 	var data = EnemyManager.Data[id]
 	var enemy: Entity = data["scene"].instantiate()
 	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
 	enemy.zero_health.connect(_on_enemy_zero_health)
-	number_of_enemies_left += 1
 	return enemy
 
 func spawn_spell_pickup(spell_string: String):

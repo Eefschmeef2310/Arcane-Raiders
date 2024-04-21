@@ -22,6 +22,7 @@ point_count = 4
 [sub_resource type="Curve" id="Curve_i6u15"]
 _data = [Vector2(0.385445, 1), 0.0, 0.0, 0, 0, Vector2(0.51752, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+metadata/_snap_count = 20
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sidjm"]
 radius = 50.0
