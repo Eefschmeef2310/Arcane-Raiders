@@ -7,12 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
 
-[sub_resource type="Gradient" id="Gradient_rnyub"]
-offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
-colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
+[sub_resource type="Gradient" id="Gradient_mkddu"]
+offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
-gradient = SubResource("Gradient_rnyub")
+gradient = SubResource("Gradient_mkddu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_otd6u"]
 shader = ExtResource("2_w7cyl")
