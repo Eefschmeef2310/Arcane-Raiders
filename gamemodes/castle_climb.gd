@@ -94,6 +94,7 @@ func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
+	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
 	
 	var i = 0
 	while i < sector_start_floors.size():
@@ -108,6 +109,10 @@ func inject_data_to_current_room_node():
 func _on_room_exited():
 	if is_multiplayer_authority():
 		start_next_floor()
+
+func _on_room_all_players_dead():
+	# Ethan do something here
+	pass
 
 func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
 	print("This code is running.")
