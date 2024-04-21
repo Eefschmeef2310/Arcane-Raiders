@@ -6,8 +6,8 @@
 script = ExtResource("1_ih681")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 server_browser = NodePath("ServerBrowser")
-lobbies_vbox = NodePath("ServerBrowser/HSplitContainer/LobbyContainer/Lobbies")
-server_count_text = NodePath("ServerBrowser/HSplitContainer/VBoxContainer2/ServerDebugText")
+lobbies_vbox = NodePath("ServerBrowser/Margin/LobbyContainer/Lobbies")
+server_count_text = NodePath("ServerBrowser/Margin/VBoxContainer2/ServerDebugText")
 loading_text = NodePath("LoadingPanel/LoadingText")
 loading_panel = NodePath("LoadingPanel")
 
@@ -22,45 +22,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="ServerBrowser"]
+[node name="Margin" type="MarginContainer" parent="ServerBrowser"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_right = 1755
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ServerBrowser/HSplitContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="ServerBrowser/Margin"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Host" type="Button" parent="ServerBrowser/HSplitContainer/VBoxContainer2"]
+[node name="Host" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
 layout_mode = 2
 text = "Host"
 
-[node name="Local" type="Button" parent="ServerBrowser/HSplitContainer/VBoxContainer2"]
+[node name="Local" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
 visible = false
 layout_mode = 2
 text = "Local"
 
-[node name="Refresh" type="Button" parent="ServerBrowser/HSplitContainer/VBoxContainer2"]
+[node name="Refresh" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
 layout_mode = 2
 text = "Refresh"
 
-[node name="Back" type="Button" parent="ServerBrowser/HSplitContainer/VBoxContainer2"]
+[node name="Back" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
 layout_mode = 2
 text = "Back"
 
-[node name="ServerDebugText" type="Label" parent="ServerBrowser/HSplitContainer/VBoxContainer2"]
+[node name="ServerDebugText" type="Label" parent="ServerBrowser/Margin/VBoxContainer2"]
 layout_mode = 2
 text = "1/100 Servers Shown"
 
-[node name="LobbyContainer" type="ScrollContainer" parent="ServerBrowser/HSplitContainer"]
+[node name="LobbyContainer" type="ScrollContainer" parent="ServerBrowser/Margin"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Lobbies" type="VBoxContainer" parent="ServerBrowser/HSplitContainer/LobbyContainer"]
+[node name="Lobbies" type="VBoxContainer" parent="ServerBrowser/Margin/LobbyContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -94,8 +95,8 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 text = "Disconnect"
 
-[connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Local" to="." method="_on_local_pressed"]
-[connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Refresh" to="." method="_on_refresh_pressed"]
-[connection signal="pressed" from="ServerBrowser/HSplitContainer/VBoxContainer2/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Local" to="." method="_on_local_pressed"]
+[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Refresh" to="." method="_on_refresh_pressed"]
+[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="LoadingPanel/DisconnectButton" to="." method="_on_disconnect_button_pressed"]
