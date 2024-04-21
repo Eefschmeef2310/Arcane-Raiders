@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b70sy17w68ow1"]
+[gd_scene load_steps=6 format=3 uid="uid://b70sy17w68ow1"]
 
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_f2auv"]
+[ext_resource type="Shader" path="res://shaders/cartoon_reflection.gdshader" id="1_a5fky"]
+[ext_resource type="Texture2D" uid="uid://b705viwnuoca5" path="res://spells/reactions/sprites/ice_circle.png" id="1_km2fu"]
 
 [sub_resource type="GDScript" id="GDScript_nfow1"]
 resource_name = "frost-wet"
@@ -10,7 +11,7 @@ script/source = "extends ReactionArea
 func _process(_delta):
 	for body in get_overlapping_bodies():
 		if \"frost_speed_scale\" in body:
-			body.frost_effect(0.1)
+			body.frost_effect(0.5)
 
 #region Signal methods
 func _on_area_entered(area):
@@ -29,6 +30,12 @@ func _on_kill_timer_timeout():
 [sub_resource type="CircleShape2D" id="CircleShape2D_706xi"]
 radius = 200.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n6hm5"]
+shader = ExtResource("1_a5fky")
+shader_parameter/line_thickness = 30.0
+shader_parameter/cos_threshold = -0.5
+shader_parameter/overlay_colour = Color(1, 1, 1, 1)
+
 [node name="Frost-wet" type="Area2D" groups=["frost-wet"]]
 z_index = -1
 y_sort_enabled = true
@@ -41,9 +48,9 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_706xi")
 
 [node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 0.992157, 1)
-scale = Vector2(2.38281, 1.22656)
-texture = ExtResource("1_f2auv")
+material = SubResource("ShaderMaterial_n6hm5")
+scale = Vector2(3.09375, 1.52344)
+texture = ExtResource("1_km2fu")
 
 [node name="KillTimer" type="Timer" parent="."]
 wait_time = 5.0

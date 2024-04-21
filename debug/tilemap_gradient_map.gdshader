@@ -13,7 +13,7 @@ void fragment() {
 	//Use lumincance to get final desaturated pixel
 	vec3 recoloured_pixel = texture(gradient, vec2(luminance,0)).rgb;
 	
-	COLOR.rgb = mix(vec3(dot(recoloured_pixel, vec3(0.299, 0.587, 0.114))), recoloured_pixel, final_saturation);
+	COLOR.rgb = mix(vec3(dot(recoloured_pixel, vec3(0.2126,0.7152,0.0722))), recoloured_pixel, final_saturation);
 	
 	//Makes sure transparency is maintained
 	COLOR.a = tex_color.a;
