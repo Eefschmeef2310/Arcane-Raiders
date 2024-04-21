@@ -547,6 +547,7 @@ shape = SubResource("CapsuleShape2D_o8khp")
 replication_config = SubResource("SceneReplicationConfig_b1y77")
 
 [node name="PrepareCast" type="Label" parent="."]
+visible = false
 offset_left = -20.0
 offset_top = -140.0
 offset_right = 20.0
@@ -554,6 +555,7 @@ offset_bottom = -117.0
 horizontal_alignment = 1
 
 [node name="CanCast" type="Label" parent="."]
+visible = false
 offset_left = -20.0
 offset_top = -161.0
 offset_right = 20.0
