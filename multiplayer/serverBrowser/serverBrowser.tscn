@@ -22,14 +22,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="ServerBrowser"]
+[node name="Margin" type="HSplitContainer" parent="ServerBrowser"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_right = 1755
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="ServerBrowser/Margin"]
 layout_mode = 2
