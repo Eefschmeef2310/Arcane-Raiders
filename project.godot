@@ -29,7 +29,6 @@ PromptManager="*res://managers/prompt_manager.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
-window/size/initial_position_type=2
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
@@ -182,3 +181,4 @@ lobby_right={
 [rendering]
 
 textures/vram_compression/import_s3tc_bptc=true
+anti_aliasing/quality/msaa_2d=2
