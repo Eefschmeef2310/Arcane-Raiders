@@ -140,6 +140,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 					new_reaction.caster = attack
 				if "elements" in new_reaction:
 					new_reaction.elements = [key, element]
+				
 				new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				
 				if "entity" in new_reaction:
