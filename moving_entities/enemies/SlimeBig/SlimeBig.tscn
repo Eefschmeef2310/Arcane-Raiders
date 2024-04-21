@@ -25,7 +25,7 @@ properties/0/replication_mode = 1
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_ml3r3")
-movement_speed = 150.0
+movement_speed = 100.0
 base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
@@ -56,7 +56,6 @@ debug_color = Color(1, 0, 0, 0.258824)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -5)
-scale = Vector2(2.84, 1.12)
 shape = SubResource("CircleShape2D_bioj2")
 
 [node name="ProgressBar" parent="." instance=ExtResource("6_dnj1x")]

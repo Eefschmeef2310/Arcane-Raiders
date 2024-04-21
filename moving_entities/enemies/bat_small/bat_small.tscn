@@ -45,7 +45,6 @@ texture = ExtResource("3_bkt04")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -6)
-scale = Vector2(1.36, 1.1028)
 shape = SubResource("CircleShape2D_oaiii")
 
 [node name="Hurtbox" type="Area2D" parent="."]

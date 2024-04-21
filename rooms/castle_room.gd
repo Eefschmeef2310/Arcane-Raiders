@@ -104,10 +104,8 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	
 	(tile_map.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(tile_map.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
-	
-	#lauren tried
-	#(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
-	#(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
+	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
+	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	
 
 func _on_room_exit_player_entered(player):
