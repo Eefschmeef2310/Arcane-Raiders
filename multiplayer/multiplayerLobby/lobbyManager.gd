@@ -26,7 +26,6 @@ const MAX_PLAYERS = 4
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
 @export var player_colors : Array[Color]
-@export var server_browser_scene : PackedScene
 #@export var menu_scene : PackedScene
 @export var player_card_scene : PackedScene
 @export var castle_climb_scene : PackedScene
@@ -134,7 +133,7 @@ func _on_back_button_pressed():
 		pass
 	multiplayer.multiplayer_peer = null
 	if (mode == MultiplayerMode.Online):
-		get_tree().change_scene_to_packed(server_browser_scene) 
+		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
 	elif (mode == MultiplayerMode.Local):
 		get_tree().change_scene_to_file("res://menus/main_menu.tscn")
 		queue_free()
