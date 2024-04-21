@@ -31,6 +31,8 @@ var starting_scale : Vector2
 
 var lifetime_progress : float
 
+var infliction_time : float
+
 #endregion
 
 #region Godot methods

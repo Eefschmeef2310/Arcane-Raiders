@@ -14,11 +14,13 @@ var direction : Vector2
 var base_damage : int
 var resource : Spell
 var caster : Player
+var infliction_time : float
 
 #endregion
 
 #region Godot methods
 func _ready():
+	print(infliction_time)
 	direction = caster.aim_direction
 	global_position = caster.global_position + (direction * 40)
 	look_at(global_position + direction)
@@ -45,6 +47,7 @@ func create_explosion():
 	explosion.resource = resource
 	explosion.caster = caster
 	explosion.position = position
+	explosion.infliction_time = infliction_time
 	explosion.visible = true
 	call_deferred("add_sibling", explosion)
 	

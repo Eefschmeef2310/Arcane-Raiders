@@ -8,10 +8,11 @@
 script = ExtResource("2_qrfy8")
 EXPLOSION = ExtResource("3_qeevp")
 waves = 5
-explosions_per_wave = 5
+explosions_per_wave = 2
 max_radians = 0.0
 distance_from_caster = 40.0
 base_damage = 10
+infliction_time = 0.1
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 wait_time = 0.05

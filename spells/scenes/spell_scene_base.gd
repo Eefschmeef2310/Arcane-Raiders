@@ -14,6 +14,9 @@ class_name SpellBase
 # Damage the spell deals.
 @export var base_damage : int = 50
 
+#How long the entity will be affected for
+@export var infliction_time : float = 1
+
 # The time the player's startup animation plays for.
 @export var start_time : float = 0.2
 
@@ -41,3 +44,5 @@ func transfer_data(new: Node2D):
 		new.resource = resource
 	if "caster" in new:
 		new.caster = caster
+	if "infliction_time" in new:
+		new.infliction_time = infliction_time

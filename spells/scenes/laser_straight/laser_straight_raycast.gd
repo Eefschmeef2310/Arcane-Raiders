@@ -13,6 +13,7 @@ var beam_width = 30
 var base_damage : int
 var resource : Spell
 var caster : Player
+var infliction_time : float
 #endregion
 
 #region Godot methods

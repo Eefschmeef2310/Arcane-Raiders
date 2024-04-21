@@ -90,7 +90,10 @@ func on_hurt(attack):
 	#Apply base damage
 	if "base_damage" in attack:
 		damage = attack.base_damage
-		infliction_time = attack.base_damage / 10
+	
+	if "infliction_time" in attack:
+		print("dingus")
+		infliction_time = attack.infliction_time
 	
 	#Add element to current inflictions dictionary
 	if "resource" in attack and attack.resource:

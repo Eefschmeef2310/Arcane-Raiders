@@ -24,7 +24,7 @@ properties/0/replication_mode = 1
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_ml3r3")
-movement_speed = 200.0
+movement_speed = 150.0
 base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
@@ -83,7 +83,6 @@ spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("8_unwx7")])
 path_postprocessing = 1
 avoidance_enabled = true
 max_speed = 1000.0
-debug_enabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_u80kp")

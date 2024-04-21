@@ -6,3 +6,4 @@
 [node name="ProjBall" instance=ExtResource("1_iaq8n")]
 script = ExtResource("2_0bmxd")
 base_damage = 20
+infliction_time = 1.5
