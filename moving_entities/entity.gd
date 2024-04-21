@@ -18,9 +18,11 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 @export var health : int = 1000:
 	set(value):
 		health = clamp(value, 0, max_health)
-		if health == 0:
+		if health <= 0 and !is_dead:
+			is_dead = true
 			zero_health.emit()
 		health_updated.emit(health)
+var is_dead: bool = false
 
 @export var do_damage_numbers: bool = true
 
