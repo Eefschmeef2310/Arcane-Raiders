@@ -94,7 +94,6 @@ func on_hurt(attack):
 		damage = attack.base_damage
 	
 	if "infliction_time" in attack:
-		print("dingus")
 		infliction_time = attack.infliction_time
 	
 	#Add element to current inflictions dictionary

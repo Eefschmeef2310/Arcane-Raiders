@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds0o4uwiv3jp0"]
+[gd_scene load_steps=5 format=3 uid="uid://cxaxsbgla7imf"]
 
 [sub_resource type="GDScript" id="GDScript_1hf64"]
 resource_name = "game_over_screen"
@@ -34,7 +34,6 @@ func _ready():
 func _on_quit_button_pressed():
 	get_tree().paused = false
 	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
-	print(game)
 	game.queue_free()
 	queue_free()
 #endregion
@@ -53,7 +52,7 @@ font_size = 50
 [sub_resource type="LabelSettings" id="LabelSettings_c0pkf"]
 font_size = 80
 
-[node name="GameOverScreen" type="CanvasLayer"]
+[node name="WinScreen" type="CanvasLayer"]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 
@@ -79,11 +78,12 @@ alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "GAME OVER"
+text = "YOU WIN"
 label_settings = SubResource("LabelSettings_0nyan")
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Every player is dead :("
 label_settings = SubResource("LabelSettings_5kgo8")
