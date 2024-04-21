@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=30 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
@@ -15,19 +15,33 @@
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
 
-[sub_resource type="Gradient" id="Gradient_t5pcq"]
-offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
-colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
+[sub_resource type="Gradient" id="Gradient_5svcn"]
+offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
+colors = PackedColorArray(0.0247597, 3.85648e-06, 0.174761, 1, 0.101563, 0.185751, 0.361241, 1, 0.223729, 0.316877, 0.453421, 1, 0.324294, 0.452832, 0.578206, 1, 0.449958, 0.630796, 0.687492, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_oyho1"]
-gradient = SubResource("Gradient_t5pcq")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6w63w"]
+gradient = SubResource("Gradient_5svcn")
 
-[sub_resource type="Gradient" id="Gradient_2j3od"]
-offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
-colors = PackedColorArray(0, 0.08, 0.00933334, 1, 0.0033, 0.33, 0.226545, 1, 0.018, 0.6, 0.5806, 1, 0.2079, 0.77, 0.676317, 1, 0.7392, 0.96, 0.82384, 1)
+[sub_resource type="Gradient" id="Gradient_lm115"]
+offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
+colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
-gradient = SubResource("Gradient_2j3od")
+gradient = SubResource("Gradient_lm115")
+
+[sub_resource type="Gradient" id="Gradient_kafx6"]
+offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
+colors = PackedColorArray(0.00508165, 0.0467314, 0.0573292, 1, 0.0718044, 0.225771, 0.18516, 1, 0.22987, 0.375025, 0.228897, 1, 0.349816, 0.480189, 0.333625, 1, 0.543861, 0.637279, 0.403251, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s26q1"]
+gradient = SubResource("Gradient_kafx6")
+
+[sub_resource type="Gradient" id="Gradient_57svc"]
+offsets = PackedFloat32Array(0, 0.212121, 0.393939, 0.535354, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oyho1"]
+gradient = SubResource("Gradient_57svc")
 
 [sub_resource type="Gradient" id="Gradient_tk1wv"]
 
@@ -143,8 +157,8 @@ basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"
 total_floors = 10
 sector_start_floors = Array[int]([0, 3, 6])
 shop_floors = Array[int]([3, 6])
-sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
-sector_gradient_saturations = Array[float]([0.5, 0.5, 0.5])
+sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_o17fi")])
+sector_gradient_saturations = Array[float]([0.62, 0.5, 0.8, 0.5])
 
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
