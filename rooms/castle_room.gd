@@ -48,6 +48,7 @@ func _ready():
 		n.hide()
 	
 	if is_multiplayer_authority() and max_waves > 0:
+		number_of_enemies_left = 0
 		total_difficulty_left = wave_total_difficulty[0]
 		room_exit.lock()
 		while total_difficulty_left > 0:
@@ -55,6 +56,7 @@ func _ready():
 			#var key = "dummy"
 			enemy_spawner.spawn(key)
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
+			number_of_enemies_left += 1
 
 func _on_enemy_zero_health():
 	if is_multiplayer_authority():
@@ -87,7 +89,6 @@ func spawn_enemy(id: String) -> Node2D:
 	var enemy: Entity = data["scene"].instantiate()
 	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
 	enemy.zero_health.connect(_on_enemy_zero_health)
-	number_of_enemies_left += 1
 	return enemy
 
 func spawn_spell_pickup(spell_string: String):
