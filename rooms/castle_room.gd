@@ -26,7 +26,8 @@ const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
 
-
+var all_players_dead_triggered := false
+var room_exited_triggered := false
 
 var player_data
 var current_wave = 0
@@ -84,7 +85,9 @@ func spawn_player(player_number: int) -> Node2D:
 	return player
 
 func report_player_death():
-	all_players_dead.emit()
+	if !all_players_dead_triggered:
+		all_players_dead_triggered = true
+		all_players_dead.emit()
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	print("Sending spell change request.")
@@ -115,5 +118,6 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 
 func _on_room_exit_player_entered(player):
 	print("Exit detected. Telling climb...")
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() and !room_exited_triggered:
+		room_exited_triggered = true
 		room_exited.emit()
