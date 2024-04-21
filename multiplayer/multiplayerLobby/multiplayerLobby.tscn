@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=18 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="4_r1oq1"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
 [ext_resource type="PackedScene" uid="uid://ngf5irvgldhp" path="res://multiplayer/serverBrowser/serverBrowser.tscn" id="7_6hjgf"]
+[ext_resource type="PackedScene" uid="uid://cjiy01k2ig52v" path="res://multiplayer/multiplayerLobby/menuLoader.tscn" id="8_c1n6q"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
 
 [sub_resource type="Resource" id="Resource_gs5db"]
@@ -57,6 +58,7 @@ raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([Ex
 loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
 player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.686275, 0.00392157, 0.886275, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
 server_browser_scene = ExtResource("7_6hjgf")
+menu_scene = ExtResource("8_c1n6q")
 player_card_scene = ExtResource("2_bq112")
 castle_climb_scene = ExtResource("9_fkiis")
 
