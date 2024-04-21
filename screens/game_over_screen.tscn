@@ -26,18 +26,14 @@ script/source = "extends CanvasLayer
 #region Godot methods
 func _ready():
 	get_tree().paused = true
-	
-	$MarginContainer/VBoxContainer/MarginContainer/QuitButton.visible = OS.get_name() != \"Web\"
 #endregion
 
 #region Signal methods
-func _on_restart_button_pressed():
-	get_tree().paused = false
-	get_tree().change_scene_to_file(\"res://debug/test_room.tscn\")
-	queue_free()
 
 func _on_quit_button_pressed():
-	get_tree().quit()
+	get_tree().paused = false
+	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
+	queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -86,14 +82,13 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "You either lost all your health or 
-defeated every foe."
+text = "Every player is dead :("
 label_settings = SubResource("LabelSettings_5kgo8")
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Thanks for playing the tech demo!"
+text = "Thanks for playing!"
 label_settings = SubResource("LabelSettings_c0pkf")
 horizontal_alignment = 1
 
@@ -102,15 +97,9 @@ layout_mode = 2
 theme_override_constants/margin_left = 600
 theme_override_constants/margin_right = 600
 
-[node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 81
-text = "RESET"
-
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 81
-text = "RESET"
+text = "Quit to Menu"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
