@@ -190,7 +190,7 @@ func UpdateDisplay():
 	#player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
-	raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
+	#raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
 	color_name.text ="Color: " + str(selected_color+1)

@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=15 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
-[ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="1_66res"]
 [ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="4_1ls82"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_bk151"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_6stfj"]
@@ -27,6 +26,8 @@ font = ExtResource("4_bk151")
 
 [node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
 custom_minimum_size = Vector2(400, 780)
+offset_right = 400.0
+offset_bottom = 898.0
 size_flags_horizontal = 3
 script = ExtResource("1_6lvqp")
 pip_texture = ExtResource("5_lpqe4")
@@ -45,16 +46,17 @@ loadout_pips_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxCo
 spells_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox")
 color_name = NodePath("VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/ColorName")
 color_pips_box = NodePath("VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips")
-pre_head = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/Head")
-pre_body = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/Body")
-pre_l_hand = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/LeftHand")
-pre_r_hand = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale/RightHand")
+pre_head = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/Head")
+pre_body = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/Body")
+pre_l_hand = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/LeftHand")
+pre_r_hand = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/RightHand")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="RaiderPortrait" type="TextureRect" parent="VBoxContainer/VBoxContainer"]
 texture_filter = 1
@@ -62,38 +64,38 @@ custom_minimum_size = Vector2(0, 396.86)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("1_66res")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="SpritesFlip" type="Node2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait"]
-position = Vector2(196, 338)
+[node name="SpritesFlip" type="Control" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="SpritesScale" type="Node2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip"]
+[node name="SpritesScale" type="Node2D" parent="VBoxContainer/VBoxContainer/SpritesFlip"]
 scale = Vector2(2.895, 2.895)
 
-[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
 visible = false
 position = Vector2(0, 11)
 texture = ExtResource("4_1ls82")
 offset = Vector2(0, -60)
 flip_h = true
 
-[node name="Body" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+[node name="Body" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
 self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
 position = Vector2(0, -22)
 texture = ExtResource("5_qvpg2")
 
-[node name="Head" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+[node name="Head" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
 position = Vector2(2, -75)
 texture = ExtResource("6_xkijq")
 
-[node name="RightHand" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+[node name="RightHand" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
 position = Vector2(38, -28)
 texture = ExtResource("7_3q2uu")
 
-[node name="LeftHand" type="Sprite2D" parent="VBoxContainer/VBoxContainer/RaiderPortrait/SpritesFlip/SpritesScale"]
+[node name="LeftHand" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
 position = Vector2(-37, -28)
 texture = ExtResource("7_3q2uu")

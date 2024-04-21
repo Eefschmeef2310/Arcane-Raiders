@@ -1,7 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=17 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
-[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/backgroundAnimator.gd" id="1_woy3j"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
@@ -22,18 +21,6 @@ script = ExtResource("6_mpv8m")
 loadout_name = "Frost"
 loadout_desc = ""
 spell_ids = Array[String](["frost-aoe_local", "null-proj_ball", "null-proj_burst"])
-
-[sub_resource type="Gradient" id="Gradient_u4f7k"]
-colors = PackedColorArray(0.477881, 0.47788, 0.47788, 1, 0, 0, 0, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_f7i7a"]
-frequency = 0.005
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sx2ub"]
-seamless = true
-seamless_blend_skirt = 1.0
-color_ramp = SubResource("Gradient_u4f7k")
-noise = SubResource("FastNoiseLite_f7i7a")
 
 [sub_resource type="Gradient" id="Gradient_tnrv2"]
 colors = PackedColorArray(0.679015, 1.16717e-06, 3.85046e-07, 1, 0.33331, 3.13452e-06, 1.70864e-06, 1)
@@ -81,16 +68,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Lobby"]
+[node name="Background" type="ColorRect" parent="Lobby"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("NoiseTexture2D_sx2ub")
-stretch_mode = 1
-script = ExtResource("1_woy3j")
+color = Color(0, 0, 0, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Lobby"]
 layout_mode = 1
