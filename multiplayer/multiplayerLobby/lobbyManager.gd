@@ -27,7 +27,7 @@ const MAX_PLAYERS = 4
 @export var loadouts : Array[LoadoutRes]
 @export var player_colors : Array[Color]
 @export var server_browser_scene : PackedScene
-@export var menu_scene : PackedScene
+#@export var menu_scene : PackedScene
 @export var player_card_scene : PackedScene
 @export var castle_climb_scene : PackedScene
 
@@ -136,7 +136,8 @@ func _on_back_button_pressed():
 	if (mode == MultiplayerMode.Online):
 		get_tree().change_scene_to_packed(server_browser_scene) 
 	elif (mode == MultiplayerMode.Local):
-		get_tree().change_scene_to_packed(menu_scene) 
+		get_tree().change_scene_to_file("res://menus/main_menu.tscn")
+		queue_free()
 	pass # Replace with function body.
 
 
