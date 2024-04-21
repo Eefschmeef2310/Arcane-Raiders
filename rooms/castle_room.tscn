@@ -16,7 +16,7 @@ gradient = SubResource("Gradient_rnyub")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_otd6u"]
 shader = ExtResource("2_w7cyl")
-shader_parameter/final_saturation = 0.6
+shader_parameter/final_saturation = 0.5
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [node name="CastleRoom" type="Node2D"]

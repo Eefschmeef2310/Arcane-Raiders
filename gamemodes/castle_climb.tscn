@@ -144,6 +144,7 @@ total_floors = 10
 sector_start_floors = Array[int]([0, 3, 6])
 shop_floors = Array[int]([3, 6])
 sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
+sector_gradient_saturations = Array[float]([0.5, 0.5, 0.5])
 
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")

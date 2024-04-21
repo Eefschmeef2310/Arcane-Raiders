@@ -20,6 +20,7 @@ class_name CastleClimb
 @export var sector_start_floors: Array[int]
 @export var shop_floors: Array[int]
 @export var sector_gradient_maps: Array[GradientTexture1D]
+@export var sector_gradient_saturations : Array[float]
 
 var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -99,6 +100,7 @@ func inject_data_to_current_room_node():
 		if i == sector_start_floors.size()-1 or current_floor < sector_start_floors[i+1]:
 			print("Using Sector "+ str(i) +" data.")
 			current_room_node.gradient_map = sector_gradient_maps[i]
+			current_room_node.saturation = sector_gradient_saturations[i]
 			break
 		i += 1
 	

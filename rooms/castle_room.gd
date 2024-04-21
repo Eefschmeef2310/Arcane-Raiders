@@ -8,6 +8,7 @@ signal spell_change_requested(Player, int, SpellPickup)
 
 @export var wave_total_difficulty : Array[int]
 @export var gradient_map : GradientTexture1D
+@export var saturation : float
 
 @onready var dynamic_camera: DynamicCamera = $DynamicCamera
 
@@ -35,7 +36,7 @@ var number_of_enemies_left = 0
 func _ready():
 	max_waves = wave_total_difficulty.size()
 	if gradient_map:
-		set_gradient_map(gradient_map)
+		set_gradient_map(gradient_map, saturation)
 	
 	player_spawner.spawn_function = spawn_player
 	enemy_spawner.spawn_function = spawn_enemy
@@ -94,9 +95,13 @@ func spawn_spell_pickup(spell_string: String):
 	pickup.set_spell_from_string(spell_string)
 	return pickup
 	
-func set_gradient_map(new_map: GradientTexture1D):
+func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	gradient_map = new_map
+	saturation = saturation_value
+	
 	(tile_map.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
+	(tile_map.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
+	
 
 func _on_room_exit_player_entered(player):
 	print("Exit detected. Telling climb...")
