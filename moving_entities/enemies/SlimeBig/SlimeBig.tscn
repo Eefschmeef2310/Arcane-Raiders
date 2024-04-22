@@ -1,6 +1,5 @@
 [gd_scene load_steps=13 format=3 uid="uid://bfrsuqfut2eks"]
 
-[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_ml3r3"]
 [ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_m24lk"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
@@ -9,6 +8,60 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
 [ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
 [ext_resource type="Texture2D" uid="uid://c01cck3klbq2" path="res://moving_entities/enemies/SlimeBig/beefier_slime.png" id="9_kra2g"]
+
+[sub_resource type="GDScript" id="GDScript_x4875"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+const SMALL_SLIME = preload(\"res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn\")
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+@onready var multiplayer_spawner = $MultiplayerSpawner
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	#Set up the multiplayer spawning thingo
+	multiplayer_spawner.spawn_function = spawn_split
+	multiplayer_spawner.spawn_path = get_parent().get_path()
+
+
+#endregion
+
+#region Signal methods
+func _on_zero_health():
+	if is_multiplayer_authority():
+		#Anim here
+		print(str(global_position))
+		multiplayer_spawner.call_deferred(\"spawn\", null)
+		multiplayer_spawner.call_deferred(\"spawn\", null)
+		queue_free()
+		
+	
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func spawn_split(_a) -> Node2D:
+	var slime = SMALL_SLIME.instantiate()
+	slime.global_position = global_position
+	return slime
+	
+#endregion
+
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1c6bp"]
 radius = 60.0
@@ -24,14 +77,13 @@ properties/0/replication_mode = 1
 [node name="SlimeBig" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 3
-script = ExtResource("1_ml3r3")
-movement_speed = 100.0
+script = SubResource("GDScript_x4875")
+movement_speed = 150.0
 base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
 enemy_spells = NodePath("EnemySpells")
-max_health = 800
-health = 800
+max_health = 300
 
 [node name="BeefierSlime" type="Sprite2D" parent="."]
 position = Vector2(5, -41)
@@ -95,6 +147,8 @@ max_speed = 1000.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_u80kp")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
