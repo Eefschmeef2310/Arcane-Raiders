@@ -43,7 +43,7 @@ func _ready():
 	starting_scale = scale
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
 
-func _process(_delta):
+func _physics_process(_delta):
 	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
 	
 	position += Vector2(cos(rotation), sin(rotation)/2) * \

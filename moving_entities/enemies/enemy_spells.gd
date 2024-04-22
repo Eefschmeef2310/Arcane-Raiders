@@ -28,7 +28,6 @@ class_name EnemySpells
 func _ready():
 	spell_cooldowns.resize(spells.size())
 	spell_cooldowns.fill(0)
-	print("filled")
 	
 
 
