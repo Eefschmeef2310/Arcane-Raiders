@@ -113,7 +113,7 @@ func on_hurt(attack):
 		element = attack.element
 	
 	# RPC call for damage
-	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
+	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time, false)
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
@@ -123,7 +123,7 @@ func on_hurt(attack):
 	add_knockback.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
-func deal_damage(attack_path, damage, element_string, infliction_time):
+func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
 	if element_string != null:
 		var attack = get_node(attack_path)
 		var element = SpellManager.elements[element_string]
@@ -161,7 +161,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 	health -= damage
 	
 	if do_damage_numbers:
-		if !is_instance_valid(damage_number):
+		if !is_instance_valid(damage_number) or create_new:
 			damage_number = DAMAGE_NUMBER.instantiate()
 			add_sibling(damage_number)
 		damage_number.global_position = global_position
@@ -174,7 +174,7 @@ func burn_effect(delta):
 		if burn_timer > 0:
 			burn_timer -= delta
 		if burn_timer <= 0:
-			deal_damage.rpc(null, 5, null, null)
+			deal_damage.rpc(null, 5, null, null, true)
 			burn_timer = burn_tick_rate
 
 func frost_effect(amount):

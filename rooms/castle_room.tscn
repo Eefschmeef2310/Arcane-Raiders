@@ -24,7 +24,7 @@ y_sort_enabled = true
 script = ExtResource("1_uk66y")
 
 [node name="TileMap" type="TileMap" parent="."]
-z_index = -1
+z_index = -5
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_otd6u")
 tile_set = ExtResource("2_fuwbx")

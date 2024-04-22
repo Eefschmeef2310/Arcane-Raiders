@@ -105,6 +105,8 @@ func _ready():
 			new_pip.modulate = Color.DIM_GRAY
 		color_pips_box.add_child(new_pip)
 	pass
+	
+	UpdateDisplay()
 
 func _process(_delta):
 	if !finished_connecting:
@@ -182,7 +184,10 @@ func UpdateDisplay():
 	
 	# set some basic values
 	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
-		player_name.text = "Device ID: " + str(device_id)
+		var s = "Keyboard"
+		if device_id >= 0:
+			s = Input.get_joy_name(device_id)
+		player_name.text = s
 	else:
 		player_name.text = username
 	
