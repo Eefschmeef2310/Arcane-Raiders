@@ -21,6 +21,8 @@ var is_casting := false
 var can_cast := true
 var cast_end_time : float
 
+var is_invincible = false;
+
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
@@ -36,9 +38,12 @@ func _process(_delta):
 	super._process(_delta)
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
-			velocity = move_direction * movement_speed * frost_speed_scale
-			if is_casting or preparing_cast_slot >= 0:
-				velocity *= 0.25
+			velocity = get_knockback_velocity() + get_attraction_velocity()
+			if can_input:
+				var input_velocity = move_direction * movement_speed * frost_speed_scale
+				if is_casting or preparing_cast_slot >= 0:
+					input_velocity *= 0.25
+				velocity += input_velocity
 			move_and_slide()
 	
 	if aim_direction.x < 0:
@@ -128,8 +133,23 @@ func cast_spell(slot: int):
 		# (only the authority uses this though)
 		await get_tree().create_timer(spell_node.cancel_time).timeout
 		can_cast = true
-		
 
+func on_hurt(attack):
+	if is_invincible:
+		return
+	super.on_hurt(attack)
+	start_invincibility.rpc()
 
+@rpc("authority", "call_local", "reliable")
+func start_invincibility():
+	is_invincible = true
+	$InvincibilityAnimation.play("flashing")
+	$InvincibilityTimer.stop()
+	$InvincibilityTimer.start()
 
 #endregion
+
+func _on_invincibility_timer_timeout():
+	is_invincible = false
+	$InvincibilityAnimation.play("RESET")
+	$InvincibilityTimer.stop()
