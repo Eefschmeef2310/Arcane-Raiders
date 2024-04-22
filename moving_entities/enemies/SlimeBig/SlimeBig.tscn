@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c01cck3klbq2" path="res://moving_entities/enemies/SlimeBig/beefier_slime.png" id="9_kra2g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1c6bp"]
-radius = 60.0
+radius = 73.7412
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bioj2"]
 radius = 28.0179

@@ -25,10 +25,11 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 var is_dead: bool = false
 
 @export var do_damage_numbers: bool = true
+@export var print_velocity: bool = false
 
 @export_subgroup("Knockback")
-@export var knockback_timeout : float = 20
-@export var knockback_initial_velocity : float = 2000
+@export var knockback_lerp_strength : float = 20
+@export var knockback_initial_velocity : float = 300
 
 @export_subgroup("Attraction")
 @export var attraction_strength : float = 65
@@ -46,6 +47,8 @@ var shocked_this_frame : bool = false
 var can_input : bool = true
 var knockback_velocity : float
 var knockback_direction : Vector2
+var knockback_floor : float = 0.5
+var knockback_hold_timer = 0
 
 #for attraction stuff
 var attraction_direction : Vector2
@@ -70,7 +73,14 @@ func _process(delta):
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
-			
+
+func _physics_process(delta):
+	if knockback_hold_timer > 0:
+		knockback_hold_timer -= delta
+	else:
+		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_lerp_strength)
+		if knockback_velocity <= knockback_floor:
+			can_input = true
 #endregion
 
 #region Signal methods
@@ -110,8 +120,7 @@ func on_hurt(attack):
 		print("Running shock effect for the first time.")
 		shock_effect()
 	
-	if element == SpellManager.elements["wind"]:
-		wind_effect.rpc(attack.get_path())
+	add_knockback.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
 func deal_damage(attack_path, damage, element_string, infliction_time):
@@ -209,10 +218,23 @@ func spawn_shock_laser(p1: Vector2, p2: Vector2):
 	add_sibling(shock_effect_laser)
 
 @rpc("authority", "call_local", "reliable")
-func wind_effect(attack_path):
+func add_knockback(attack_path):
 	var attack = get_node(attack_path)
 	knockback_velocity = knockback_initial_velocity
+	if current_inflictions_dictionary.has(SpellManager.elements["wind"]):
+		knockback_velocity *= 3
+		knockback_hold_timer = 0.1
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
+		if "knockback" in attack:
+			knockback_velocity *= attack.knockback
 	can_input = false
+
+func get_knockback_velocity():
+	if print_velocity:
+		print(can_input)
+	return knockback_direction * knockback_velocity
+
+func get_attraction_velocity():
+	return attraction_direction * attraction_strength
 #endregion

@@ -98,7 +98,6 @@ func spawn_enemy(id: String) -> Node2D:
 	var data = EnemyManager.Data[id]
 	var enemy: Entity = data["scene"].instantiate()
 	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
-	enemy.zero_health.connect(_on_enemy_zero_health)
 	return enemy
 
 func spawn_spell_pickup(spell_string: String):

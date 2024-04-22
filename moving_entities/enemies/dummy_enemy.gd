@@ -52,10 +52,10 @@ func _physics_process(delta):
 			nav_agent.set_velocity(Vector2.ZERO)
 			
 		nav_agent.set_velocity(intended_velocity + knockback_velocity * knockback_direction + attraction_direction * attraction_strength)
-		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_timeout)
-		
-		if knockback_velocity < 0.01:
-			can_input = true
+		#knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_timeout)
+		#
+		#if knockback_velocity < 0.01:
+			#can_input = true
 #endregion
 
 #region Signal methods

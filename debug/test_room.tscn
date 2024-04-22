@@ -83,7 +83,7 @@ position = Vector2(1431, 1023)
 
 [node name="PlayerData" parent="Player" index="5"]
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["burn-proj_ball", "burn-proj_ball", "burn-proj_spread"])
+spell_strings = Array[String](["burn-proj_ball", "wind-aoe_local", "burn-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]
@@ -114,6 +114,7 @@ layout_mode = 2
 
 [node name="SlimeBig" parent="." instance=ExtResource("13_c2gsj")]
 position = Vector2(1159, 1015)
+print_velocity = true
 
 [node name="DynamicCamera" parent="." instance=ExtResource("10_pyvl3")]
 position = Vector2(1094, 310)

@@ -29,6 +29,11 @@ func _ready():
 	call_deferred("actor_setup")
 	health = max_health
 	nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
+	
+	# Connect to room
+	var room: CastleRoom = get_parent() as CastleRoom
+	if room:
+		zero_health.connect(room._on_enemy_zero_health)
 
 func actor_setup():
 	await get_tree().physics_frame
@@ -50,13 +55,14 @@ func _physics_process(delta):
 		if !can_input:
 			#nav_agent.set_velocity(Vector2.ZERO)
 			intended_velocity = Vector2.ZERO
-			
-		nav_agent.set_velocity(intended_velocity + knockback_velocity * knockback_direction + attraction_direction * attraction_strength)
-
-		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_timeout)
+			velocity = get_knockback_velocity() + get_attraction_velocity()
+			move_and_slide()
 		
-		if knockback_velocity < 0.01 && can_cast:
-			can_input = true
+		else:
+			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
+	
+	super._physics_process(delta)
+	
 #endregion
 
 #region Signal methods

@@ -119,10 +119,8 @@ func game_over():
 	var game_over_screen = load("res://screens/game_over_screen.tscn").instantiate()
 	game_over_screen.game = get_parent()
 	get_tree().root.call_deferred("add_child", game_over_screen)
-	
 
 func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
-	print("This code is running.")
 	use_spell_pickup_server.rpc(player_data.find(d), i, sp.get_path())
 
 # Only called on the server.
