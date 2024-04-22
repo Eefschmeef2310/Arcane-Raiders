@@ -222,7 +222,7 @@ func add_knockback(attack_path):
 	var attack = get_node(attack_path)
 	knockback_velocity = knockback_initial_velocity
 	if current_inflictions_dictionary.has(SpellManager.elements["wind"]):
-		knockback_velocity *= 3
+		knockback_velocity *= 2
 		knockback_hold_timer = 0.1
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
@@ -231,8 +231,8 @@ func add_knockback(attack_path):
 	can_input = false
 
 func get_knockback_velocity():
-	if print_velocity:
-		print(can_input)
+	#if print_velocity:
+		#print(can_input)
 	return knockback_direction * knockback_velocity
 
 func get_attraction_velocity():

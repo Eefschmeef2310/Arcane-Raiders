@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_a1xq3"]
 
 [sub_resource type="Curve" id="Curve_tnq6n"]
-_data = [Vector2(0, 5), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0]
 point_count = 1
 
 [sub_resource type="Curve" id="Curve_1tdt7"]
