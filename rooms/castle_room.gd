@@ -57,8 +57,10 @@ func _ready():
 			var key = EnemyManager.Data.keys().pick_random()
 			enemy_spawner.spawn(key)
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
-			number_of_enemies_left += 1
 			print("New total: " + str(number_of_enemies_left))
+
+func _process(delta):
+	$CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
 	if is_multiplayer_authority():

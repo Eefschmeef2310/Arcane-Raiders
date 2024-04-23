@@ -34,6 +34,7 @@ func _ready():
 	var room: CastleRoom = get_parent() as CastleRoom
 	if room:
 		zero_health.connect(room._on_enemy_zero_health)
+		room.number_of_enemies_left += 1
 
 func actor_setup():
 	await get_tree().physics_frame
