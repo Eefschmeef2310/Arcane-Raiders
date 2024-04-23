@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dneaed1rm6xx2"]
 
-[ext_resource type="Texture2D" uid="uid://giayl1yq5y0l" path="res://icon2.png" id="1_ruytb"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_qopj0"]
 
 [sub_resource type="GDScript" id="GDScript_2efh6"]
 script/source = "extends SpellBase
@@ -61,6 +61,6 @@ shape = SubResource("CircleShape2D_6avya")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.11, 0.11)
-texture = ExtResource("1_ruytb")
+texture = ExtResource("1_qopj0")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
