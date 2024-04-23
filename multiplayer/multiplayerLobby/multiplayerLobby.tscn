@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=20 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
@@ -9,17 +9,41 @@
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
 
-[sub_resource type="Resource" id="Resource_gs5db"]
+[sub_resource type="Resource" id="Resource_1emuh"]
 script = ExtResource("6_mpv8m")
-loadout_name = "Flame"
+loadout_name = "Burn"
 loadout_desc = ""
-spell_ids = Array[String](["burn-proj_ball", "null-proj_spread", "null-aoe_large"])
+spell_ids = Array[String](["burn-proj_ball", "frost-proj_spread", "null-aoe_large"])
 
 [sub_resource type="Resource" id="Resource_if0ax"]
 script = ExtResource("6_mpv8m")
 loadout_name = "Frost"
 loadout_desc = ""
 spell_ids = Array[String](["frost-aoe_local", "null-proj_ball", "null-proj_burst"])
+
+[sub_resource type="Resource" id="Resource_6npna"]
+script = ExtResource("6_mpv8m")
+loadout_name = "Shock"
+loadout_desc = ""
+spell_ids = Array[String](["shock-proj_spread", "wind-proj_ball", "null-aoe_large"])
+
+[sub_resource type="Resource" id="Resource_3u8nv"]
+script = ExtResource("6_mpv8m")
+loadout_name = "Wet"
+loadout_desc = ""
+spell_ids = Array[String](["wet-proj_burst", "frost-aoe_local", "null-proj_ball"])
+
+[sub_resource type="Resource" id="Resource_gs5db"]
+script = ExtResource("6_mpv8m")
+loadout_name = "Wind"
+loadout_desc = ""
+spell_ids = Array[String](["wind-proj_spread", "shock-proj_ball", "null-aoe_large"])
+
+[sub_resource type="Resource" id="Resource_l3taw"]
+script = ExtResource("6_mpv8m")
+loadout_name = "Stun"
+loadout_desc = ""
+spell_ids = Array[String](["stun-proj_ball", "wind-aoe_local", "null-proj_burst"])
 
 [sub_resource type="Gradient" id="Gradient_tnrv2"]
 colors = PackedColorArray(0.679015, 1.16717e-06, 3.85046e-07, 1, 0.33331, 3.13452e-06, 1.70864e-06, 1)
@@ -53,7 +77,7 @@ debug_start_button = NodePath("Lobby/StartButton")
 ready_progress_bar = NodePath("Lobby/ReadyProgress")
 lobby_title = NodePath("Lobby/ReadyProgress/Label")
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_pgemf"), ExtResource("4_r1oq1"), ExtResource("2_837od")])
-loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
+loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_1emuh"), SubResource("Resource_if0ax"), SubResource("Resource_6npna"), SubResource("Resource_3u8nv"), SubResource("Resource_gs5db"), SubResource("Resource_l3taw")])
 player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.686275, 0.00392157, 0.886275, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
 player_card_scene = ExtResource("2_bq112")
 castle_climb_scene = ExtResource("9_fkiis")
