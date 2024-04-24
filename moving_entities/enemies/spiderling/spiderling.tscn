@@ -1,0 +1,142 @@
+[gd_scene load_steps=13 format=3 uid="uid://b3330t2cjyl2o"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="1_is8s0"]
+[ext_resource type="Texture2D" uid="uid://dfr0ol368upg4" path="res://moving_entities/enemies/spiderling/spiderling_temp.png" id="1_ouyrb"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="2_t0nul"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_j64qt"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_pb4nr"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_ms5hq"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/spider_chase.gd" id="4_xijow"]
+[ext_resource type="Resource" uid="uid://i1l3rxlb3iec" path="res://moving_entities/enemies/spiderling/spider_leap.tres" id="6_vx5h5"]
+
+[sub_resource type="GDScript" id="GDScript_nn55k"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var attack_movespeed: float = 500
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var attacking: bool = false
+var dash_speed:float
+#endregion
+
+#region Godot methods
+func _physics_process(delta):
+	super._physics_process(delta)
+	if attacking:
+		velocity = aim_direction * dash_speed
+		dash_speed = lerp(dash_speed, 0.0, 0.05)
+		move_and_slide()
+		if dash_speed < 50:
+			attacking = false
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_agdd5"]
+radius = 38.0132
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dli8d"]
+radius = 8.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oygli"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Spiderling" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
+collision_layer = 8
+collision_mask = 3
+script = SubResource("GDScript_nn55k")
+attack_movespeed = 800.0
+movement_speed = 250.0
+nav_agent = NodePath("NavigationAgent2D")
+state_machine = NodePath("StateMachine")
+enemy_spells = NodePath("EnemySpells")
+max_health = 50
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -12)
+texture = ExtResource("1_ouyrb")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(1, -12)
+collision_layer = 0
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_agdd5")
+debug_color = Color(0.972549, 0, 0.431373, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_dli8d")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_is8s0")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_pb4nr")
+actual_first_state = NodePath("../SpiderChase")
+
+[node name="SpiderChase" type="Node" parent="StateMachine"]
+script = ExtResource("4_xijow")
+attack_distance = 200.0
+nav_timer_interval = 0.4
+
+[node name="EnemySpells" type="Node" parent="."]
+script = ExtResource("2_t0nul")
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_vx5h5")])
+cast_time = Array[float]([0.2, 0.2, 0.2])
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 20.0
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_j64qt")]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = -39.0
+
+[node name="StatusUI" parent="." instance=ExtResource("4_ms5hq")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_oygli")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

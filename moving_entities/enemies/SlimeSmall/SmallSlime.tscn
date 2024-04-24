@@ -1,13 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://di8bmn2pxre1i"]
+[gd_scene load_steps=19 format=3 uid="uid://di8bmn2pxre1i"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_7b1uj"]
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="2_4e0km"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_ndrvg"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_op01l"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="5_ik7on"]
-[ext_resource type="Resource" uid="uid://buv6ypad3xuir" path="res://moving_entities/enemies/SlimeSmall/SpikeAttackSmall.tres" id="6_d8p1l"]
+[ext_resource type="Script" path="res://elements/element.gd" id="6_hty68"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="7_4n8u7"]
+[ext_resource type="Script" path="res://moving_entities/enemies/SlimeSmall/spike_attack.gd" id="7_g4v3m"]
+[ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="8_8ny0b"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="8_siiu7"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="9_lrlrc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7yp1j"]
 radius = 20.0
@@ -15,54 +18,36 @@ radius = 20.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqqxc"]
 radius = 53.0377
 
+[sub_resource type="Resource" id="Resource_dmda5"]
+script = ExtResource("6_hty68")
+colour = Color(1, 1, 1, 1)
+max_infliction_time = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5on1h"]
+radius = 53.0377
+
+[sub_resource type="PackedScene" id="PackedScene_fs1hg"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("SpikeAttack", "Node2D", "script", "base_damage", "end_time", "cooldown_time", "Hitbox", "Area2D", "position", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Sprite2D", "Sprite2D", "modulate", "position", "scale"),
+"node_count": 4,
+"node_paths": [NodePath("."), NodePath("./Hitbox"), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 2, 0, 3, 1, 4, 2, 5, 3, 0, 1073741824, 0, 7, 6, -1, 4, 8, 4, 9, 5, 10, 6, 11, 7, 0, 1073741825, 0, 13, 12, -1, 3, 14, 8, 15, 9, 16, 10, 0, 1073741826, 0, 18, 17, -1, 3, 19, 11, 20, 12, 21, 13, 0),
+"variants": [ExtResource("7_g4v3m"), 25, 0.8, 2.0, Vector2(0, -64), 64, 0, ExtResource("8_8ny0b"), Vector2(0, 46), SubResource("CircleShape2D_5on1h"), Color(0.219608, 0.313726, 0.760784, 0.419608), Color(0.596078, 0, 0, 0.647059), Vector2(0.500001, -15.5), Vector2(0.494444, 0.483333)],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_mcqin"]
+script = ExtResource("9_lrlrc")
+scene = SubResource("PackedScene_fs1hg")
+element = SubResource("Resource_dmda5")
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_23fjn"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-
-[sub_resource type="GDScript" id="GDScript_0qeh8"]
-script/source = "extends Node
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	print(\"I am somewhere alive\")
-	print(str(owner.global_position))
-	pass
-
-func _process(delta):
-	#Runs per frame
-	pass
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-
-"
 
 [node name="SmallSlime" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
 collision_layer = 8
@@ -71,7 +56,6 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_7b1uj")
 movement_speed = 150.0
-base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
 enemy_spells = NodePath("EnemySpells")
@@ -116,7 +100,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="EnemySpells" parent="." instance=ExtResource("5_ik7on")]
-spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_d8p1l")])
+spells = Array[ExtResource("9_lrlrc")]([SubResource("Resource_mcqin")])
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_4n8u7")]
 initial_state = NodePath("SlimeChase")
@@ -133,9 +117,6 @@ avoidance_priority = 0.1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_23fjn")
-
-[node name="Node" type="Node" parent="."]
-script = SubResource("GDScript_0qeh8")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]

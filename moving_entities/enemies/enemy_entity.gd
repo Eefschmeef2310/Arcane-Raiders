@@ -11,7 +11,7 @@ class_name EnemyEntity
 #Constants
 @export_group("Enemy Stats")
 @export var movement_speed: float = 500
-@export var base_damage: int = 100
+@export var base_damage: int = 0
 
 @export_group("Required Nodes")
 @export var nav_agent: NavigationAgent2D
@@ -56,6 +56,7 @@ func _physics_process(delta):
 		if !can_input:
 			#nav_agent.set_velocity(Vector2.ZERO)
 			intended_velocity = Vector2.ZERO
+			nav_agent.set_velocity(Vector2.ZERO)
 			velocity = get_knockback_velocity() + get_attraction_velocity()
 			move_and_slide()
 		
@@ -86,9 +87,9 @@ func attempt_cast(slot: int):
 
 @rpc("authority", "call_local", "reliable")
 func use_spell(slot: int):
-	can_input = false
 	can_cast = false
-	#TODO Add initial start up frames so not an instant attack
+	nav_agent.avoidance_enabled = false
+	await get_tree().create_timer(enemy_spells.cast_time[slot]).timeout
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()
 	spell_node.caster = self
 	spell_node.resource = enemy_spells.spells[slot]
@@ -99,6 +100,7 @@ func use_spell(slot: int):
 	
 	await get_tree().create_timer(spell_node.end_time).timeout
 	can_cast = true
+	nav_agent.avoidance_enabled = true
 #endregion
 
 

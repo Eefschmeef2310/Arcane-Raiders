@@ -17,6 +17,7 @@ class_name EnemySpells
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var spells : Array[Spell] = [null]
+@export var cast_time: Array[float] = [0.2, 0.2, 0.2]
 @export var spell_cooldowns : Array[float] = [0]
 	#Onready Variables
 

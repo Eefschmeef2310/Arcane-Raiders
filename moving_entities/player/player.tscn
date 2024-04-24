@@ -581,7 +581,7 @@ autoplay = "RESET"
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 72
+collision_mask = 64
 script = ExtResource("9_cti52")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
