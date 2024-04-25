@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl6evd5eokmpu"]
+[gd_scene load_steps=8 format=3 uid="uid://cl6evd5eokmpu"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
 [ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
@@ -41,23 +41,41 @@ script/source = "extends EnemyEntity
 
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
+radius = 27.1662
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_keh3l"]
+
 [node name="BasicNest" instance=ExtResource("1_2tj8e")]
 script = SubResource("GDScript_p1xr3")
 movement_speed = 0.0
-max_health = 500
+max_health = 100
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(3, -18)
 texture = ExtResource("2_74bdc")
 
-[node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -12)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 46)
+shape = SubResource("CircleShape2D_1hq56")
+debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_keh3l")
 
 [node name="EnemySpells" parent="." index="5"]
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("3_ff0n2")])
+spell_cooldowns = Array[float]([5.0, 0.0, 0.0])
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("NestSpawn")
 
 [node name="NestSpawn" type="Node" parent="StateMachine" index="0"]
 script = ExtResource("3_sgy3j")
+
+[node name="NavigationAgent2D" parent="." index="7"]
+radius = 5.0
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]

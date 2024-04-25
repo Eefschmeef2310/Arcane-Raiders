@@ -1,0 +1,118 @@
+[gd_scene load_steps=11 format=3 uid="uid://ckoux1a8woan8"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
+[ext_resource type="Texture2D" uid="uid://bmi2knc8yb56p" path="res://moving_entities/enemies/large_spider/LargeSpider_temp.png" id="2_sjih4"]
+[ext_resource type="Resource" uid="uid://dkx8pk1j6atmv" path="res://moving_entities/enemies/large_spider/create_nest.tres" id="3_745ch"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_passive.gd" id="3_p7ngy"]
+[ext_resource type="Resource" uid="uid://de4m0mx15x57t" path="res://moving_entities/enemies/large_spider/web_attack.tres" id="4_23t6e"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_aggro.gd" id="4_xehv5"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_retreat.gd" id="5_veoge"]
+
+[sub_resource type="GDScript" id="GDScript_a4am7"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export_group(\"Movespeed Variables\")
+@export var passive_movespeed: float = 100
+@export var agrro_movespeed: float = 200
+@export var retreat_movespeed: float = 250
+
+@export_group(\"Distance Variables\")
+@export var zone_radius:float = 300 #How far the spider is willing to go out when passive
+@export var aggro_range: float = 400 #How close the player must be to the zone when the spider aggros
+@export var too_far: float = 800 #How far to go from aggro to retreat state
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var zone_pos: Vector2
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	zone_pos = global_position
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dfw82"]
+radius = 73.0069
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o3555"]
+radius = 25.02
+
+[node name="LargeSpider" instance=ExtResource("1_dvtpw")]
+script = SubResource("GDScript_a4am7")
+passive_movespeed = 150.0
+agrro_movespeed = 250.0
+zone_radius = 100.0
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(8, -21)
+texture = ExtResource("2_sjih4")
+
+[node name="Hurtbox" parent="." index="1"]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -23)
+shape = SubResource("CircleShape2D_dfw82")
+debug_color = Color(0.964706, 0, 0.498039, 0.282353)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -23)
+shape = SubResource("CircleShape2D_o3555")
+
+[node name="ProgressBar" parent="." index="3"]
+offset_top = -83.0
+offset_bottom = -76.0
+
+[node name="StatusUI" parent="." index="4"]
+offset_top = -117.0
+offset_bottom = -85.0
+
+[node name="EnemySpells" parent="." index="5"]
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("3_745ch"), ExtResource("4_23t6e")])
+spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
+
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("LSpiderPassive")
+
+[node name="LSpiderPassive" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("3_p7ngy")
+nav_timer_interval = 1.0
+
+[node name="LSpiderAggro" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("4_xehv5")
+nav_timer_interval = 0.4
+
+[node name="LSpiderRetreat" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("5_veoge")
+nav_timer_interval = 99.0
+nav_timer = 99
+
+[node name="NavigationAgent2D" parent="." index="7"]
+avoidance_priority = 0.7
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]

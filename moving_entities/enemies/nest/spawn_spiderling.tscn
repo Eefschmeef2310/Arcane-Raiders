@@ -23,23 +23,16 @@ const SPIDERLING = preload(\"res://moving_entities/enemies/spiderling/spiderling
 	
 #Dummy stuff if this spell is somehow cast with no caster
 var dummy_pos
-var dummy_node
 #endregion
 
 #region Godot methods
 func _ready():
 	if(caster): dummy_pos = caster.global_position
-	else: 
-		dummy_pos = global_position
-		var dummy_node = Node2D.new()
-		add_sibling(dummy_node)
+	else: dummy_pos = global_position
 		
 	if is_multiplayer_authority():
 		multiplayer_spawner.spawn_function = spawn_spiderling
-		if caster:
-			multiplayer_spawner.spawn_path = caster.get_parent().get_path()
-		else:
-			multiplayer_spawner.spawn_path = get_parent().get_path()
+		multiplayer_spawner.spawn_path = get_parent().get_path()
 		while(spawn_amount > 0):
 			var direction = Vector2.UP.rotated(randi() % 360)
 			multiplayer_spawner.call_deferred(\"spawn\", direction)
@@ -57,6 +50,8 @@ func spawn_spiderling(direction: Vector2) -> Node2D:
 
 [node name="SpawnSpiderling" type="Node2D"]
 script = SubResource("GDScript_j3pek")
+base_damage = 0
+end_time = 1.0
 cooldown_time = 8.0
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

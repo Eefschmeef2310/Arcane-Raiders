@@ -13,10 +13,9 @@ class_name EnemyEntity
 @export var movement_speed: float = 500
 @export var base_damage: int = 0
 
-@export_group("Required Nodes")
-@export var nav_agent: NavigationAgent2D
-@export var state_machine : StateMachine
-@export var enemy_spells: EnemySpells
+@onready var state_machine = $StateMachine
+@onready var enemy_spells = $EnemySpells
+@onready var nav_agent = $NavigationAgent2D
 
 var aim_direction: Vector2
 var can_cast: bool = true

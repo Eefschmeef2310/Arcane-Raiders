@@ -7,7 +7,7 @@ signal Transitioned
 @export var nav_timer_interval: float = 0.5
 @export var nav_timer = 0
 
-@onready var enemy = $"../.."
+@onready var enemy: EnemyEntity = $"../.."
 
 var navigation_agent: NavigationAgent2D
 #region Other methods

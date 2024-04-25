@@ -18,7 +18,9 @@ class_name EnemySpells
 	#@export_subgroup("Subgroup")
 @export var spells : Array[Spell] = [null]
 @export var cast_time: Array[float] = [0.2, 0.2, 0.2]
-@export var spell_cooldowns : Array[float] = [0]
+@export var spell_cooldowns : Array[float] = [0, 0, 0]
+#Change spell_cooldowns if you want a spell to START OFF on cooldown
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -26,11 +28,6 @@ class_name EnemySpells
 #endregion
 
 #region Godot methods
-func _ready():
-	spell_cooldowns.resize(spells.size())
-	spell_cooldowns.fill(0)
-	
-
 
 func _process(delta):
 	for i in spell_cooldowns.size():
