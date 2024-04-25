@@ -18,9 +18,7 @@ script/source = "extends EnemyEntity
 	#Constants
 
 	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
+@export var spawn_amount: int = 1 #How many spiders spawn at a time
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -42,27 +40,41 @@ script/source = "extends EnemyEntity
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
-radius = 27.1662
+radius = 56.0357
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_keh3l"]
+radius = 16.0312
 
 [node name="BasicNest" instance=ExtResource("1_2tj8e")]
 script = SubResource("GDScript_p1xr3")
-movement_speed = 0.0
+movement_speed = 10.0
 max_health = 100
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(3, -18)
+position = Vector2(4, -30)
+scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_74bdc")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(0, 46)
+position = Vector2(-1, 24)
 shape = SubResource("CircleShape2D_1hq56")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_keh3l")
+
+[node name="ProgressBar" parent="." index="3"]
+offset_left = -51.0
+offset_top = -81.0
+offset_right = 49.0
+offset_bottom = -74.0
+
+[node name="StatusUI" parent="." index="4"]
+offset_left = -101.0
+offset_top = -115.0
+offset_right = 99.0
+offset_bottom = -83.0
 
 [node name="EnemySpells" parent="." index="5"]
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("3_ff0n2")])

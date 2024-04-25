@@ -87,6 +87,7 @@ script = SubResource("GDScript_a4am7")
 passive_movespeed = 150.0
 agrro_movespeed = 250.0
 zone_radius = 100.0
+max_health = 600
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(8, -21)
