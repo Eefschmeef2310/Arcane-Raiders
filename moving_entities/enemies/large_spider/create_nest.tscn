@@ -30,6 +30,7 @@ func _ready():
 		multiplayer_spawner.spawn_function = nest_spawn
 		multiplayer_spawner.spawn_path = get_parent().get_path()
 		multiplayer_spawner.call_deferred(\"spawn\", null)
+		caster.add_nest()
 		queue_free()
 #endregion
 
@@ -40,8 +41,11 @@ func _ready():
 #region Other methods (please try to separate and organise!)
 func nest_spawn(a) -> Node2D:
 	var nest = BASIC_NEST.instantiate()
-	if(caster):nest.global_position = caster.global_position
-	else: nest.global_position = global_position
+	if(caster):
+		nest.global_position = caster.global_position
+		nest.zero_health.connect(caster.dead_nest)
+	else: 
+		nest.global_position = global_position
 	return nest
 #endregion
 

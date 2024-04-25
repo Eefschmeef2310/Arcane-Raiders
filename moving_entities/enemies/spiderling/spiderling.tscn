@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://b3330t2cjyl2o"]
 
-[ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="1_is8s0"]
 [ext_resource type="Texture2D" uid="uid://dfr0ol368upg4" path="res://moving_entities/enemies/spiderling/spiderling_temp.png" id="1_ouyrb"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_nkjso"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="2_t0nul"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_j64qt"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_pb4nr"]
@@ -64,15 +64,12 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Spiderling" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
+[node name="Spiderling" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 3
 script = SubResource("GDScript_nn55k")
 attack_movespeed = 800.0
 movement_speed = 200.0
-nav_agent = NodePath("NavigationAgent2D")
-state_machine = NodePath("StateMachine")
-enemy_spells = NodePath("EnemySpells")
 max_health = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -93,7 +90,7 @@ position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_dli8d")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("1_is8s0")
+script = ExtResource("2_nkjso")
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
@@ -113,6 +110,7 @@ spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_vx5h5")])
 path_postprocessing = 1
 avoidance_enabled = true
 radius = 20.0
+avoidance_priority = 0.2
 
 [node name="ProgressBar" parent="." instance=ExtResource("3_j64qt")]
 offset_left = -50.0

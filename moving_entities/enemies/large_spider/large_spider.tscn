@@ -32,25 +32,46 @@ script/source = "extends EnemyEntity
 @export var zone_radius:float = 300 #How far the spider is willing to go out when passive
 @export var aggro_range: float = 400 #How close the player must be to the zone when the spider aggros
 @export var too_far: float = 800 #How far to go from aggro to retreat state
+
+@export_group(\"Spawn Limit\")
+@export var spawn_limit: int = 2
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var can_spawn: bool = true
 var zone_pos: Vector2
+var nests: Array
 #endregion
 
 #region Godot methods
 func _ready():
 	super._ready()
 	zone_pos = global_position
+	nests.resize(spawn_limit)
+	nests.fill(false)
 
 #endregion
 
 #region Signal methods
-
+func dead_nest():
+	for nest in nests:
+		if nest == true:
+			nest = false
+			break
+	can_spawn = true
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func add_nest():
+	for i in nests.size():
+		if(!nests[i]):
+			nests[i] = true
+			break
+	
+	can_spawn = false
+	for nest in nests:
+		if(!nest):
+			can_spawn = true
 #endregion
 
 "

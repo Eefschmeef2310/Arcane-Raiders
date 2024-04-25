@@ -36,7 +36,8 @@ func enter():
 	
 func update(_delta):
 	super.update(_delta)
-	enemy.attempt_cast(0)
+	if(enemy.can_spawn):
+		enemy.attempt_cast(0)
 	
 func physics_update(_delta):
 	super.physics_update(_delta)

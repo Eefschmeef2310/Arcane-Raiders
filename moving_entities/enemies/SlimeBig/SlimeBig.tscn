@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://bfrsuqfut2eks"]
 
 [ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="3_m24lk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_m24lk"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="6_dnj1x"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="6_haj15"]

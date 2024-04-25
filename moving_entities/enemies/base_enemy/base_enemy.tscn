@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_03lay"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/StateMachine.gd" id="6_onv01"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="6_onv01"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
