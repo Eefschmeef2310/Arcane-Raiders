@@ -25,7 +25,6 @@ properties/0/replication_mode = 1
 collision_layer = 8
 script = ExtResource("1_l62ws")
 movement_speed = 150.0
-base_damage = 0
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
 enemy_spells = NodePath("EnemySpells")

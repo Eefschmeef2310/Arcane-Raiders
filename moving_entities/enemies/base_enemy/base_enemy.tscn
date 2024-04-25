@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4dyl3ppwa1rc"]
+[gd_scene load_steps=10 format=3 uid="uid://b4dyl3ppwa1rc"]
 
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_03lay"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="6_ag7tc"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
 
 [sub_resource type="GDScript" id="GDScript_puw2l"]
@@ -35,7 +34,6 @@ func _ready():
 	pass
 
 func _process(delta):
-	#Runs per frame
 	pass
 #endregion
 
@@ -49,11 +47,11 @@ func _process(delta):
 
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6x68w"]
-radius = 20.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
-radius = 53.0377
+radius = 29.0172
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6x68w"]
+radius = 11.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
 properties/0/path = NodePath(".:position")
@@ -61,14 +59,11 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="BaseEnemy" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
+collision_layer = 8
 script = SubResource("GDScript_puw2l")
 nav_agent = NodePath("NavigationAgent2D")
 state_machine = NodePath("StateMachine")
 enemy_spells = NodePath("EnemySpells")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -18)
-shape = SubResource("CircleShape2D_6x68w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -18)
@@ -83,6 +78,10 @@ collision_mask = 16
 position = Vector2(0, 46)
 shape = SubResource("CircleShape2D_1hq56")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_6x68w")
 
 [node name="ProgressBar" parent="." instance=ExtResource("2_03lay")]
 offset_left = -50.0
@@ -107,11 +106,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="EnemySpells" parent="." instance=ExtResource("4_bakas")]
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("9_sqryx")]
-initial_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("6_ag7tc")
+[node name="StateMachine" parent="." instance=ExtResource("9_sqryx")]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=24 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_7w5fa"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
 [ext_resource type="PackedScene" uid="uid://b3330t2cjyl2o" path="res://moving_entities/enemies/spiderling/spiderling.tscn" id="15_72r8b"]
 [ext_resource type="PackedScene" uid="uid://c8uvt7sepdtkk" path="res://moving_entities/enemies/bat_small/bat_small.tscn" id="15_rebi8"]
+[ext_resource type="PackedScene" uid="uid://cl6evd5eokmpu" path="res://moving_entities/enemies/nest/basic_nest.tscn" id="16_c0pfd"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -130,5 +131,8 @@ position = Vector2(1458, 692)
 
 [node name="Spiderling3" parent="." instance=ExtResource("15_72r8b")]
 position = Vector2(688, 868)
+
+[node name="BasicNest" parent="." instance=ExtResource("16_c0pfd")]
+position = Vector2(1022, 1021)
 
 [editable path="Player"]

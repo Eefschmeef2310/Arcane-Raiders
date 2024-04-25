@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpmywahil36ui"]
+
+[sub_resource type="GDScript" id="GDScript_j3pek"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+const SPIDERLING = preload(\"res://moving_entities/enemies/spiderling/spiderling.tscn\")
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var spawn_distance: float = 10
+@export var spawn_amount: int = 1
+	#Onready Variables
+@onready var multiplayer_spawner = $MultiplayerSpawner
+	#Other Variables (please try to separate and organise!)
+	
+#Dummy stuff if this spell is somehow cast with no caster
+var dummy_pos
+var dummy_node
+#endregion
+
+#region Godot methods
+func _ready():
+	if(caster): dummy_pos = caster.global_position
+	else: 
+		dummy_pos = global_position
+		var dummy_node = Node2D.new()
+		add_sibling(dummy_node)
+		
+	if is_multiplayer_authority():
+		multiplayer_spawner.spawn_function = spawn_spiderling
+		if caster:
+			multiplayer_spawner.spawn_path = caster.get_parent().get_path()
+		else:
+			multiplayer_spawner.spawn_path = get_parent().get_path()
+		while(spawn_amount > 0):
+			var direction = Vector2.UP.rotated(randi() % 360)
+			multiplayer_spawner.call_deferred(\"spawn\", direction)
+			spawn_amount -= 1 
+		queue_free()
+
+#region Other methods (please try to separate and organise!)
+func spawn_spiderling(direction: Vector2) -> Node2D:
+	var spider = SPIDERLING.instantiate()
+	spider.global_position = dummy_pos + spawn_distance*direction
+	return spider
+#endregion
+
+"
+
+[node name="SpawnSpiderling" type="Node2D"]
+script = SubResource("GDScript_j3pek")
+cooldown_time = 8.0
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

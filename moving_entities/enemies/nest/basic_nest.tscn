@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl6evd5eokmpu"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
+[ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
+[ext_resource type="Resource" uid="uid://cdfq07sp0pvwx" path="res://moving_entities/enemies/nest/spawn_spiderling.tres" id="3_ff0n2"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/nest_spawn.gd" id="3_sgy3j"]
+
+[sub_resource type="GDScript" id="GDScript_p1xr3"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[node name="BasicNest" instance=ExtResource("1_2tj8e")]
+script = SubResource("GDScript_p1xr3")
+movement_speed = 0.0
+max_health = 500
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(3, -18)
+texture = ExtResource("2_74bdc")
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -12)
+
+[node name="EnemySpells" parent="." index="5"]
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("3_ff0n2")])
+
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("NestSpawn")
+
+[node name="NestSpawn" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("3_sgy3j")
