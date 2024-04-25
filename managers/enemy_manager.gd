@@ -13,10 +13,6 @@ extends Node
 		"scene" : preload("res://moving_entities/enemies/bat_small/bat_small.tscn"),
 		"difficulty" : 4
 	},
-	"spider_small" : {
-		"scene" :preload("res://moving_entities/enemies/spiderling/spiderling.tscn"),
-		"difficulty" : 1
-	},
 	"nest" : {
 		"scene" : preload("res://moving_entities/enemies/nest/basic_nest.tscn"),
 		"difficulty" : 3
