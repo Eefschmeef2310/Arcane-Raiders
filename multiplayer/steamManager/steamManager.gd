@@ -23,6 +23,7 @@ func _process(_delta):
 	Steam.run_callbacks()
 
 func upload_acheivememt(acheivement_name : String):
+	#Note: if you want to have an acheievemtn with a progress bar then it needs to be setup with a corresponding stat!
 	if (live_mode):
 		print("Giving acheivement: " + acheivement_name)
 		Steam.setAchievement(acheivement_name)
@@ -30,9 +31,29 @@ func upload_acheivememt(acheivement_name : String):
 	else:
 		print("Would have given acheievement " + acheivement_name + " but live_mode is false!")
 
-func upload_leaderboard(score, keep_best, details, handle):
+func upload_leaderboard(score, keep_best : bool, details, handle):
 	if (live_mode):
 		# actually update the leaderbaord
-		Steam.uploadLeaderboardScore( score, keep_best, details, handle )
+		Steam.uploadLeaderboardScore(score, keep_best , details, handle)
+		#score - the highscore itself
+		#keep_best - should the scoreonly update if it is higher than the previously saved score
+		#details - extra integers which we can use for 'basically anything'
+		#handle - name of the leaderboard to apply this score to
 	else:
 		print("Leaderboard " + handle + " not updated because the game is not in live_mode!")
+
+func download_stat_int(stat_name : String) -> int:
+	return Steam.getStatInt(stat_name)
+
+func download_stat_float(stat_name : String) -> float:
+	return Steam.getStatFloat(stat_name)
+
+func upload_stat_int(stat_name : String, stat_value : int):
+	if(live_mode):
+		Steam.setStatInt(stat_name, stat_value)
+		Steam.storeStats()
+
+func upload_stat_float(stat_name : String, stat_value : float):
+	if(live_mode):
+		Steam.setStatFloat(stat_name, stat_value)
+		Steam.storeStats()
