@@ -3,6 +3,7 @@ class_name Player
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
 signal spell_pickup_requested(Player, int, SpellPickup)
+signal dead(Player)
 
 @export var debug : bool = false
 @export var data: PlayerData
@@ -46,20 +47,22 @@ func _process(_delta):
 				velocity += input_velocity
 			move_and_slide()
 	
-	if aim_direction.x < 0:
-		$SpritesFlip.scale.x = -1
-	else:
-		$SpritesFlip.scale.x = 1
-	
-	if !is_casting and preparing_cast_slot < 0:
-		if move_direction != Vector2.ZERO:
-			animation_player.play("move", -1, 1)
+	# only animate if we are alive
+	if !is_dead:
+		if aim_direction.x < 0:
+			$SpritesFlip.scale.x = -1
 		else:
-			animation_player.play("idle", -1, 1)
-	
-	if debug:
-		$PrepareCast.text = str(preparing_cast_slot)
-		$CanCast.text = str(can_cast)
+			$SpritesFlip.scale.x = 1
+		
+		if !is_casting and preparing_cast_slot < 0:
+			if move_direction != Vector2.ZERO:
+				animation_player.play("move", -1, 1)
+			else:
+				animation_player.play("idle", -1, 1)
+		
+		if debug:
+			$PrepareCast.text = str(preparing_cast_slot)
+			$CanCast.text = str(can_cast)
 	
 #endregion
 
@@ -137,8 +140,22 @@ func cast_spell(slot: int):
 func on_hurt(attack):
 	if is_invincible:
 		return
-	super.on_hurt(attack)
-	start_invincibility.rpc()
+		
+	if !is_dead:
+		super.on_hurt(attack)
+		
+	if is_dead:
+		toggle_dead(true);
+	else:
+		start_invincibility.rpc()
+
+func toggle_dead(b):
+	if b:
+		$AnimationPlayer.play("die");
+		dead.emit(self)
+		$CollisionShape2D.disabled = true;
+	else:
+		$CollisionShape2D.disabled = false;
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():

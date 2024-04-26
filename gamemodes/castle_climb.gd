@@ -66,6 +66,11 @@ func start_next_floor():
 	
 	await get_tree().create_timer(0.8).timeout
 	
+	# Reset player healths
+	for data in player_data:
+		if data.health <= 0:
+			data.health = 500
+	
 	# Spawn new room
 	print("Creating new room.")
 	if current_floor <= 0:
@@ -116,6 +121,7 @@ func _on_room_all_players_dead():
 
 @rpc("authority", "call_local", "reliable")
 func game_over():
+	await get_tree().create_timer(2.0).timeout
 	var game_over_screen = load("res://screens/game_over_screen.tscn").instantiate()
 	game_over_screen.game = get_parent()
 	get_tree().root.call_deferred("add_child", game_over_screen)

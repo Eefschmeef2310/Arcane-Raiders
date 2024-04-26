@@ -21,7 +21,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if is_instance_valid(owner.data) and is_multiplayer_authority():
+	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
 		move_dir = Vector2.ZERO
 		aim_dir = Vector2.ZERO

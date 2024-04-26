@@ -34,6 +34,7 @@ var current_wave = 0
 var max_waves
 var total_difficulty_left = 0
 var number_of_enemies_left = 0
+var live_players = 0
 
 func _ready():
 	max_waves = wave_total_difficulty.size()
@@ -81,13 +82,15 @@ func spawn_player(player_number: int) -> Node2D:
 	player.set_data(player_data[player_number])
 	player.global_position = player_spawns[player_number].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
-	player.zero_health.connect(report_player_death)
+	player.dead.connect(report_player_death)
 	dynamic_camera.add_target(player)
+	live_players += 1
 	print("Spawned player of peer_id " + str(player.data.peer_id))
 	return player
 
-func report_player_death():
-	if !all_players_dead_triggered:
+func report_player_death(player):
+	live_players -= 1
+	if live_players <= 0 and !all_players_dead_triggered:
 		all_players_dead_triggered = true
 		all_players_dead.emit()
 
