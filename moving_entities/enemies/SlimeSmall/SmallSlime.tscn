@@ -49,16 +49,13 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="SmallSlime" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "state_machine", "enemy_spells") groups=["enemy"]]
+[node name="SmallSlime" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_7b1uj")
 movement_speed = 150.0
-nav_agent = NodePath("NavigationAgent2D")
-state_machine = NodePath("StateMachine")
-enemy_spells = NodePath("EnemySpells")
 max_health = 300
 attraction_strength = 100.0
 

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://yrm45a54jqh1"]
+
+[ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="1_dmlwy"]
+[ext_resource type="Texture2D" uid="uid://b3j4xdfbpv4ku" path="res://multiplayer/multiplayerLobby/raiders/dogplaceholder.png" id="2_mjf0h"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_dpl52"]
+
+[resource]
+script = ExtResource("3_dpl52")
+portrait = ExtResource("2_mjf0h")
+raider_name = "Squid"
+raider_desc = "woomy!!"
+color = Color(0.203922, 0.282353, 0.541176, 1)
+head_texture = ExtResource("1_dmlwy")
+skin_color = Color(0.956863, 0.458824, 0.278431, 1)
