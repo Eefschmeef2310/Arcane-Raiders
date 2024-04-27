@@ -15,7 +15,7 @@ const SPIDERLING = preload(\"res://moving_entities/enemies/spiderling/spiderling
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
-@export var spawn_distance: float = 10
+@export var spawn_distance: float = 0
 	#Onready Variables
 @onready var multiplayer_spawner = $MultiplayerSpawner
 	#Other Variables (please try to separate and organise!)

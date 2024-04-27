@@ -21,9 +21,7 @@ script/source = "extends EnemyEntity
 	#Constants
 
 	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-@export_group(\"Movespeed Variables\")
+@export_group(\"Movespeed Variables\") #Different movement speed variables depending on the state the spider is in
 @export var passive_movespeed: float = 100
 @export var agrro_movespeed: float = 200
 @export var retreat_movespeed: float = 250
@@ -33,45 +31,43 @@ script/source = "extends EnemyEntity
 @export var aggro_range: float = 400 #How close the player must be to the zone when the spider aggros
 @export var too_far: float = 800 #How far to go from aggro to retreat state
 
-@export_group(\"Spawn Limit\")
-@export var spawn_limit: int = 2
+@export_group(\"Spawning\")
+@export var spawn_limit: int = 2 #How many nests can be spawned in a level at once (killing a nest will have the spider respawn it after a while)
+@export var respawn: bool = true #Determines if the spider can respawn nests
+@export var nest_spawn_cd: float = 10 #This CD sets the nest spawn spell when all nests have been spawned
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
 var can_spawn: bool = true
 var zone_pos: Vector2
-var nests: Array
+var nests_count: int = 0
 #endregion
 
 #region Godot methods
 func _ready():
 	super._ready()
 	zone_pos = global_position
-	nests.resize(spawn_limit)
-	nests.fill(false)
 
 #endregion
 
 #region Signal methods
+
+#Called when any of the spider's nests die. Frees up a slot IF respawn is set to true
 func dead_nest():
-	for nest in nests:
-		if nest == true:
-			nest = false
-			break
+	if(!respawn): return
+	nests_count -= 1
+	
+	#Only called when all nests have been spawned and one is killed
+	if(!can_spawn):
+		enemy_spells.spell_cooldowns[0] = nest_spawn_cd
+	
 	can_spawn = true
 #endregion
 
 #region Other methods (please try to separate and organise!)
 func add_nest():
-	for i in nests.size():
-		if(!nests[i]):
-			nests[i] = true
-			break
-	
-	can_spawn = false
-	for nest in nests:
-		if(!nest):
-			can_spawn = true
+	nests_count += 1
+	can_spawn = false if nests_count == spawn_limit else true
 #endregion
 
 "
@@ -83,10 +79,12 @@ radius = 73.0069
 radius = 25.02
 
 [node name="LargeSpider" instance=ExtResource("1_dvtpw")]
+collision_mask = 3
 script = SubResource("GDScript_a4am7")
 passive_movespeed = 150.0
 agrro_movespeed = 250.0
 zone_radius = 100.0
+spawn_limit = 1
 max_health = 600
 
 [node name="Sprite2D" parent="." index="0"]

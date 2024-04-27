@@ -46,6 +46,7 @@ radius = 56.0357
 radius = 16.0312
 
 [node name="BasicNest" instance=ExtResource("1_2tj8e")]
+collision_mask = 3
 script = SubResource("GDScript_p1xr3")
 movement_speed = 10.0
 max_health = 100
