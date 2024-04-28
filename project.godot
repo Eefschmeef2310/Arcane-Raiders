@@ -47,6 +47,7 @@ folder_colors={
 "res://rooms/": "pink",
 "res://screens/": "yellow",
 "res://shaders/": "green",
+"res://sounds/": "green",
 "res://spells/": "purple",
 "res://spells/scenes/explosive/": "red"
 }
