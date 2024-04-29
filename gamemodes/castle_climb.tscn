@@ -1,19 +1,20 @@
-[gd_scene load_steps=30 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=31 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 [ext_resource type="PackedScene" uid="uid://b01k41p44far4" path="res://rooms/shop/shop.tscn" id="2_ynx3r"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
-[ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
+[ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_spider.tscn" id="3_i3kdw"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
 [ext_resource type="PackedScene" uid="uid://bs14qtk2at5lb" path="res://rooms/final_room.tscn" id="4_xewuu"]
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="5_ohq6b"]
 [ext_resource type="PackedScene" uid="uid://cjtf6hsua8mls" path="res://rooms/basic/basic_luti.tscn" id="6_8eavx"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="6_sfo2l"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
+[ext_resource type="PackedScene" uid="uid://bt57ofq0aafgj" path="res://rooms/basic/basic_quad.tscn" id="8_wfbew"]
 
 [sub_resource type="Gradient" id="Gradient_5svcn"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
@@ -153,7 +154,7 @@ common_levels = {
 "foyer": ExtResource("2_0olmr"),
 "shop": ExtResource("2_ynx3r")
 }
-basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1")])
+basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wfbew")])
 total_floors = 10
 sector_start_floors = Array[int]([0, 3, 6])
 shop_floors = Array[int]([3, 6])
@@ -224,10 +225,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -420.0
-offset_right = 960.0
-offset_bottom = 168.0
+offset_top = 120.0
+offset_right = 1920.0
+offset_bottom = 708.0
 grow_horizontal = 2
 grow_vertical = 2
 
