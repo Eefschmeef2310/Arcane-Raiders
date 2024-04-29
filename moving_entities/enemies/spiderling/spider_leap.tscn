@@ -29,7 +29,7 @@ func _ready():
 		caster.dash_speed = caster.attack_movespeed
 		global_position = caster.global_position
 
-func _process(delta):
+func _process(_delta):
 	if is_instance_valid(caster):
 		global_position = caster.global_position
 		if(!caster.attacking):

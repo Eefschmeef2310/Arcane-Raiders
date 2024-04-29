@@ -39,7 +39,7 @@ func _ready():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func nest_spawn(a) -> Node2D:
+func nest_spawn(_a) -> Node2D:
 	var nest = BASIC_NEST.instantiate()
 	if(caster):
 		nest.global_position = caster.global_position

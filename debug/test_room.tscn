@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=25 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_7w5fa"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="14_qvb71"]
 [ext_resource type="PackedScene" uid="uid://b3330t2cjyl2o" path="res://moving_entities/enemies/spiderling/spiderling.tscn" id="15_tn3nr"]
 [ext_resource type="PackedScene" uid="uid://cl6evd5eokmpu" path="res://moving_entities/enemies/nest/basic_nest.tscn" id="16_frqeu"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="17_bowhb"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -83,8 +84,9 @@ texture = ExtResource("1_7v575")
 position = Vector2(1431, 1023)
 
 [node name="PlayerData" parent="Player" index="5"]
+device_id = 0
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["burn-aoe_large", "wind-aoe_local", "burn-proj_spread"])
+spell_strings = Array[String](["wet-aoe_large", "shock-aoe_local", "burn-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]
@@ -121,11 +123,27 @@ script = ExtResource("11_4vjuy")
 
 [node name="LargeSpider" parent="." instance=ExtResource("14_qvb71")]
 position = Vector2(1230, 517)
+agrro_movespeed = 0.0
+max_health = 10000000
+health = 1000000
 
 [node name="Spiderling" parent="." instance=ExtResource("15_tn3nr")]
 position = Vector2(1630, 561)
 
 [node name="BasicNest" parent="." instance=ExtResource("16_frqeu")]
 position = Vector2(1439, 559)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1011, 690)
+texture = ExtResource("17_bowhb")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(436.5, 248)
+scale = Vector2(5.57031, 3.92188)
+energy = 2.63
+texture = ExtResource("17_bowhb")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
 
 [editable path="Player"]

@@ -20,7 +20,7 @@ var player: CharacterBody2D
 #endregion
 
 #region Godot methods
-func update(delta):
+func update(_delta):
 	#if enemy is close to the targeted player, attack em
 	if(!player): return
 	if(enemy.global_position.distance_to(player.global_position) < 100):

@@ -60,7 +60,7 @@ func _ready():
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 			print("New total: " + str(number_of_enemies_left))
 
-func _process(delta):
+func _process(_delta):
 	$CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
@@ -88,7 +88,7 @@ func spawn_player(player_number: int) -> Node2D:
 	print("Spawned player of peer_id " + str(player.data.peer_id))
 	return player
 
-func report_player_death(player):
+func report_player_death(_player):
 	live_players -= 1
 	if live_players <= 0 and !all_players_dead_triggered:
 		all_players_dead_triggered = true
@@ -120,7 +120,7 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	
 
-func _on_room_exit_player_entered(player):
+func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")
 	if is_multiplayer_authority() and !room_exited_triggered:
 		room_exited_triggered = true

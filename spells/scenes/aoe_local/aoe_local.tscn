@@ -12,7 +12,7 @@ explosions_per_wave = 10
 max_radians = 6.282
 distance_from_caster = 0.0
 base_damage = 10
-infliction_time = 0.5
+infliction_time = 1.5
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 

@@ -12,6 +12,7 @@ script/source = "extends Node
 	#Enums
 
 	#Constants
+const POINT_AUDIO_2D = preload(\"res://managers/point_audio_2d.tscn\")
 
 	#Exported Variables
 	#@export_group(\"Group\")
@@ -24,13 +25,6 @@ script/source = "extends Node
 #endregion
 
 #region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods
@@ -38,7 +32,12 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func play_audio2D_at_point(position : Vector2, stream : AudioStream):
+	#This method creates 2D audio with a given position and sound source
+	var new_player : AudioStreamPlayer2D = POINT_AUDIO_2D.instantiate()
+	new_player.position = position
+	new_player.stream = stream
+	get_tree().root.add_child(new_player)
 #endregion
 "
 
