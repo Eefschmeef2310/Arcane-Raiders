@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=27 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
+[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_2byeo"]
 [ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="4_mc0f7"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="5_gj6bf"]
@@ -661,6 +662,11 @@ offset = Vector2(16.5, 0)
 modulate = Color(0.564706, 0.286275, 1, 1)
 texture = ExtResource("3_fuo50")
 offset = Vector2(16.5, 0)
+
+[node name="Sprite2DProjection" type="Sprite2D" parent="SpellDirection"]
+modulate = Color(0.564706, 0.286275, 1, 0.501961)
+texture = ExtResource("4_2byeo")
+offset = Vector2(162, 0)
 
 [node name="SpritesFlip" type="Node2D" parent="."]
 

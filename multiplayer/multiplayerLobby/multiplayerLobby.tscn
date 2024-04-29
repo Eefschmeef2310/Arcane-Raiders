@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="4_r1oq1"]
-[ext_resource type="Resource" path="res://multiplayer/multiplayerLobby/raiders/horse.tres" id="6_bfemw"]
+[ext_resource type="Resource" uid="uid://nclgt66btvdo" path="res://multiplayer/multiplayerLobby/raiders/horse.tres" id="6_bfemw"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
-[ext_resource type="Resource" path="res://multiplayer/multiplayerLobby/raiders/lizard.tres" id="7_p8g7q"]
-[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="8_q78au"]
+[ext_resource type="Resource" uid="uid://wunw15qbe5he" path="res://multiplayer/multiplayerLobby/raiders/lizard.tres" id="7_p8g7q"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="8_q78au"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
-[ext_resource type="Resource" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
+[ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
 
 [sub_resource type="Resource" id="Resource_1emuh"]
 script = ExtResource("6_mpv8m")
