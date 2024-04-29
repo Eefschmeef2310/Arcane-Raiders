@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4u2wuk1f06f7"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
+[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_s3t78"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
+radius = 134.093
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
+radius = 37.0
+
+[node name="GiantSlime" instance=ExtResource("1_148eg")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -88)
+scale = Vector2(4.685, 4.685)
+texture = ExtResource("2_s3t78")
+
+[node name="Hurtbox" parent="." index="1"]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-2, -82)
+shape = SubResource("CircleShape2D_1ih77")
+debug_color = Color(1, 0, 0.137255, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+position = Vector2(0, -34)
+shape = SubResource("CircleShape2D_bbex3")

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4dyl3ppwa1rc"]
+[gd_scene load_steps=7 format=3 uid="uid://b4dyl3ppwa1rc"]
 
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_03lay"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="6_onv01"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
@@ -48,7 +47,6 @@ metadata/_edit_use_anchors_ = true
 [node name="EnemySpells" parent="." instance=ExtResource("4_bakas")]
 
 [node name="StateMachine" parent="." instance=ExtResource("9_sqryx")]
-script = ExtResource("6_onv01")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
