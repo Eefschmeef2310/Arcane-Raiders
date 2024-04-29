@@ -1,6 +1,10 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
+[ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7wt37"]
+scenes/1/scene = ExtResource("1_imgdy")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_25rff"]
 vertices = PackedVector2Array(80, 0, 0, 40, -80, 0, 0, -40)
@@ -149,3 +153,4 @@ navigation_layer_0/layers = 1
 navigation_layer_1/layers = 2
 sources/2 = SubResource("TileSetAtlasSource_ykpc1")
 sources/4 = SubResource("TileSetAtlasSource_16exw")
+sources/0 = SubResource("TileSetScenesCollectionSource_7wt37")

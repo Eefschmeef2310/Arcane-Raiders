@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=4 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://b0wd7cki57iq3" path="res://menus/splash2.png" id="1_ag66g"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_hcuag"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
@@ -31,8 +32,7 @@ func _on_local_play_button_pressed():
 	get_tree().root.add_child(lobby_scene)
 	queue_free()
 	
-func _on_settings_button_pressed():
-	
+func _on_settings_button_pressed():	
 	get_tree().root.add_child(load(\"res://menus/settings.tscn\").instantiate())
 	
 #endregion
@@ -83,6 +83,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 60
 text = "Local Play"
+script = ExtResource("2_hcuag")
 
 [node name="OnlineButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

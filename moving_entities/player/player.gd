@@ -32,8 +32,6 @@ func _ready():
 	# TODO temporary lines here
 	if debug:
 		set_data(data, false)
-		
-	
 
 func _process(_delta):
 	super._process(_delta)
