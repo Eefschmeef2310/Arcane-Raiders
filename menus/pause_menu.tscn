@@ -4,7 +4,7 @@
 
 [sub_resource type="GDScript" id="GDScript_gacho"]
 resource_name = "pause_menu"
-script/source = "extends Control
+script/source = "extends CanvasLayer
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -52,6 +52,7 @@ func _on_settings_button_pressed():
 func _on_quit_button_pressed():
 	if is_multiplayer_authority():
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
+		queue_free()
 	else:
 		get_tree().root.add_child(load(\"res://menus/quit_warning.tscn\").instantiate())
 "
@@ -63,17 +64,10 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[node name="PauseMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PauseMenu" type="CanvasLayer"]
 script = SubResource("GDScript_gacho")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -83,7 +77,6 @@ color = Color(0.152941, 0.152941, 0.152941, 0.505882)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 process_mode = 3
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

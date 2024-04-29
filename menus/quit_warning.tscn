@@ -4,7 +4,7 @@
 
 [sub_resource type="GDScript" id="GDScript_85fue"]
 resource_name = "quit_warning"
-script/source = "extends Control
+script/source = "extends CanvasLayer
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -41,6 +41,7 @@ func _on_back_button_pressed():
 
 func _on_quit_button_pressed():
 	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
+	queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -48,18 +49,11 @@ func _on_quit_button_pressed():
 #endregion
 "
 
-[node name="QuitWarning" type="Control"]
+[node name="QuitWarning" type="CanvasLayer"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 script = SubResource("GDScript_85fue")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,7 +62,6 @@ grow_vertical = 2
 color = Color(0.207843, 0.207843, 0.207843, 0.603922)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

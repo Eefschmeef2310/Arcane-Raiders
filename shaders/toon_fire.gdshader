@@ -5,7 +5,7 @@ Converted to Godot Shader Language by Godot Shaders - godotshaders.com/shader/2D
 
 shader_type canvas_item;
 
-uniform sampler2D noise_tex;
+uniform sampler2D noise_tex : repeat_enable;
 uniform sampler2D gradient_tex;
 
 uniform vec4 brighter_color : source_color = vec4(1.0, 0.8, 0.0, 1.0);
@@ -14,9 +14,11 @@ uniform vec4 darker_color : source_color  = vec4(0.64, 0.2, 0.05, 1.0);
 
 uniform float spread : hint_range(0.0, 1.0) = 0.5;
 
+uniform float speed = 1;
+
 void fragment()
 {
-	float noise_value = texture(noise_tex, UV + vec2(0.0, TIME)).y;
+	float noise_value = texture(noise_tex, UV + vec2(0.0, TIME * speed)).y;
 	// The .yx swizzle is when using the built in horizontal gradient texture. If you have a vertical gradient texture remove .yx
 	float gradient_value = texture(gradient_tex, UV.yx).x;
 	

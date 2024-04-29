@@ -51,13 +51,8 @@ element = ExtResource("9_1rcvu")
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
 
-[sub_resource type="Environment" id="Environment_eo0tx"]
-background_mode = 3
-glow_enabled = true
-glow_intensity = 1.0
-glow_strength = 1.43
-glow_blend_mode = 1
-glow_hdr_threshold = 0.5
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jyrin"]
+polygon = PackedVector2Array(638, 159, 627, 186, 659, 201, 669, 170)
 
 [node name="TestRoom" type="Node2D" node_paths=PackedStringArray("data_to_fuck_with")]
 y_sort_enabled = true
@@ -89,7 +84,6 @@ position = Vector2(960, 540)
 texture = ExtResource("1_7v575")
 
 [node name="Player" parent="." instance=ExtResource("3_tuxay")]
-modulate = Color(3, 3, 3, 1)
 position = Vector2(1431, 1023)
 
 [node name="PlayerData" parent="Player" index="5"]
@@ -143,13 +137,14 @@ position = Vector2(1630, 561)
 position = Vector2(1439, 559)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.501961, 0.501961, 0.501961, 1)
+color = Color(0.756863, 0.756863, 0.756863, 1)
 
 [node name="Torch" parent="." instance=ExtResource("18_2a1tg")]
 self_modulate = Color(9.722, 13.889, 19.444, 1)
 position = Vector2(1007, 78)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_eo0tx")
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(102, -36)
+occluder = SubResource("OccluderPolygon2D_jyrin")
 
 [editable path="Player"]
