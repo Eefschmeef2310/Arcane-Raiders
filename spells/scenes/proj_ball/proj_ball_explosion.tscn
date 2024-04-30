@@ -19,7 +19,7 @@ _data = [Vector2(0.0992366, 1), 0.0, 0.0, 0, 0, Vector2(0.103053, 0), 0.0, 0.0, 
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hacmf"]
-radius = 100.0
+radius = 74.0068
 
 [node name="proj_ball_explosion" instance=ExtResource("1_so2fm")]
 sprite_rotation_falloff_curve = SubResource("Curve_nmexx")

@@ -20,6 +20,7 @@ extends Area2D
 	#Onready Variables
 @onready var kill_timer = $kill_timer
 @onready var sprite_2d = $Sprite2D
+@onready var point_light_2d = $PointLight2D
 @onready var collision_shape_2d = $CollisionShape2D
 
 	#Other Variables (please try to separate and organise!)
@@ -39,16 +40,19 @@ var infliction_time : float
 func _ready():
 	if resource:
 		modulate = resource.element.colour
+		point_light_2d.color = resource.element.colour
 	sprite_2d.rotation_degrees = randf_range(0, 360)
 	starting_scale = scale
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
 
 func _physics_process(_delta):
 	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
 	
 	position += Vector2(cos(rotation), sin(rotation)/2) * \
 		((speed_curve.sample(lifetime_progress) if speed_curve else 0.0))
-	scale = starting_scale * (scale_falloff_curve.sample(lifetime_progress) if scale_falloff_curve else 1.0)
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
 	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(lifetime_progress) if sprite_rotation_falloff_curve else 1.0
 	
 	sprite_2d.modulate.a = transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.

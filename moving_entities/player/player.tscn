@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=28 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_2byeo"]
@@ -647,6 +648,12 @@ script = ExtResource("1_wrxev")
 debug = true
 data = NodePath("PlayerData")
 do_damage_numbers = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -42)
+energy = 0.1
+texture = ExtResource("2_1yn5g")
 
 [node name="SpellDirection" type="Node2D" parent="."]
 scale = Vector2(1, 0.5)

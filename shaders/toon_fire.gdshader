@@ -1,37 +1,42 @@
-/* 
-Original shader from Fubucci – https://www.febucci.com/2019/05/fire-shader/ 
-Converted to Godot Shader Language by Godot Shaders - godotshaders.com/shader/2D-fire/
-*/
-
 shader_type canvas_item;
 
 uniform sampler2D noise_tex : repeat_enable;
 uniform sampler2D gradient_tex;
-
-uniform vec4 brighter_color : source_color = vec4(1.0, 0.8, 0.0, 1.0);
-uniform vec4 middle_color : source_color  = vec4(1.0, 0.56, 0.0, 1.0);
-uniform vec4 darker_color : source_color  = vec4(0.64, 0.2, 0.05, 1.0);
+uniform sampler2D gradient_map;
 
 uniform float spread : hint_range(0.0, 1.0) = 0.5;
-
 uniform float speed = 1;
+uniform float final_saturation: hint_range(0.0, 1.0, 0.01) = 0.5;
+uniform float alpha : hint_range(0.0, 1.0) = 0.5; // Add uniform for alpha control
 
-void fragment()
-{
-	float noise_value = texture(noise_tex, UV + vec2(0.0, TIME * speed)).y;
-	// The .yx swizzle is when using the built in horizontal gradient texture. If you have a vertical gradient texture remove .yx
-	float gradient_value = texture(gradient_tex, UV.yx).x;
+void fragment() {
+    float noise_value = texture(noise_tex, UV + vec2(0.0, TIME * speed)).r;
+    // Sample the gradient map texture at UV coordinates
+    float gradient_value = texture(gradient_tex, UV).x;
+
+    gradient_value -= smoothstep(spread, spread + 0.5, length(UV + vec2(-0.5, -0.5)) / spread);
+
+    float step1 = step(noise_value, gradient_value);
+    float step2 = step(noise_value, gradient_value - 0.2);
+    float step3 = step(noise_value, gradient_value - 0.4);
+
+    // Sample the gradient map texture at different points
+    vec4 gradient_map_color1 = texture(gradient_map, vec2(1.));
+    vec4 gradient_map_color2 = texture(gradient_map, vec2(0.55));
+    vec4 gradient_map_color3 = texture(gradient_map, vec2(0.5));
+
+    vec4 bd_color = mix(gradient_map_color1, gradient_map_color3, step1 - step2);
 	
-	gradient_value -= smoothstep(spread, spread + 0.5, length(UV + vec2(-0.5, -0.5)) / spread);
-	
-	float step1 = step(noise_value, gradient_value);
-	float step2 = step(noise_value, gradient_value - 0.2);
-	float step3 = step(noise_value, gradient_value - 0.4);
-	
-	vec3 bd_color = mix(brighter_color.rgb, darker_color.rgb, step1 - step2);
-	
-	vec4 color = vec4(bd_color, step1);
-	color.rgb = mix(color.rgb, middle_color.rgb, step2 - step3);
-	
-	COLOR = color;
+    vec4 color = vec4(bd_color.rgb, step1);
+    color = mix(color, gradient_map_color2, step2 - step3);
+
+    // Desaturate the final color
+    float luminance = dot(color.rgb, vec3(0.2126,0.7152,0.0722));
+    vec3 desaturated_color = color.rgb;
+    color.rgb = mix(vec3(dot(desaturated_color, vec3(0.2126,0.7152,0.0722))), desaturated_color, final_saturation);
+
+    // Apply alpha control
+    color.a *= alpha;
+
+    COLOR = color;
 }
