@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4u2wuk1f06f7"]
+[gd_scene load_steps=15 format=3 uid="uid://b4u2wuk1f06f7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
 [ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_s3t78"]
 [ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="3_0j38g"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_wndsv"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="4_cjbbm"]
-[ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/gslime_lobbing.tscn" id="4_ldvr4"]
+[ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn" id="4_m3r0o"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_3k4qm"]
+[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="6_11tbp"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime.gd" id="7_i4h5n"]
+[ext_resource type="PackedScene" uid="uid://bk05qc623b2ye" path="res://moving_entities/enemies/boss_slime/giant_slime/g_slime_spike.tscn" id="7_thqtl"]
 
 [sub_resource type="GDScript" id="GDScript_3ka3a"]
 script/source = "extends EnemyEntity
@@ -52,8 +54,13 @@ radius = 124.409
 
 [sub_resource type="Resource" id="Resource_ct66w"]
 script = ExtResource("5_3k4qm")
-scene = ExtResource("4_ldvr4")
+scene = ExtResource("4_m3r0o")
 element = ExtResource("3_0j38g")
+
+[sub_resource type="Resource" id="Resource_hqf66"]
+script = ExtResource("5_3k4qm")
+scene = ExtResource("7_thqtl")
+element = ExtResource("6_11tbp")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
 radius = 37.0
@@ -77,18 +84,16 @@ shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
 
 [node name="EnemySpells" parent="." index="4"]
-spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w")])
+spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66")])
 
 [node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
 script = ExtResource("3_wndsv")
-actual_first_state = NodePath("../BasicChase")
 
-[node name="BasicChase" type="Node" parent="StateMachine" index="1"]
-script = ExtResource("4_cjbbm")
-attack_distance = 800.0
+[node name="GSlime" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("7_i4h5n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(0, -34)

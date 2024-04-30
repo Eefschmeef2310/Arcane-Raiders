@@ -46,7 +46,6 @@ func _ready():
 func _on_zero_health():
 	if is_multiplayer_authority():
 		#Anim here
-		print(str(global_position))
 		multiplayer_spawner.call_deferred(\"spawn\", null)
 		multiplayer_spawner.call_deferred(\"spawn\", null)
 		queue_free()

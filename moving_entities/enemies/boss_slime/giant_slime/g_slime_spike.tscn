@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk05qc623b2ye"]
+
+[sub_resource type="GDScript" id="GDScript_5vy0t"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	if(caster):global_position = caster.global_position
+	await get_tree().create_timer(end_time).timeout
+	queue_free()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wdddt"]
+radius = 162.316
+
+[node name="GSlimeSpike" type="Area2D"]
+script = SubResource("GDScript_5vy0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -73)
+scale = Vector2(1.27, 1)
+shape = SubResource("CircleShape2D_wdddt")
+debug_color = Color(1, 0, 0.137255, 0.419608)

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3vylmhj1ttfl"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_jbpe8"]
+
+[node name="WaterSlime" instance=ExtResource("1_jbpe8")]

@@ -19,18 +19,19 @@ script/source = "extends SpellBase
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-
+var caster_path
 #endregion
 
 #region Godot methods
 func _ready():
 	if caster:
+		caster_path = get_path_to(caster)
 		caster.attacking = true
 		caster.dash_speed = caster.attack_movespeed
 		global_position = caster.global_position
 
-func _process(delta):
-	if is_instance_valid(caster):
+func _process(_delta):
+	if has_node(caster_path) && caster:
 		global_position = caster.global_position
 		if(!caster.attacking):
 			queue_free()

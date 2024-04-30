@@ -17,10 +17,10 @@ script/source = "extends Area2D
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
-
+@export var field_damage: int = 5
 	#Onready Variables
 
-	#Other Variables (please try to separate and organise!)		
+	#Other Variables (please try to separate and organise!)
 var base_damage
 var resource 
 var caster 
@@ -28,7 +28,8 @@ var infliction_time
 #endregion
 
 #region Godot methods
-
+func _ready():
+	base_damage = field_damage
 #endregion
 
 #region Signal methods
@@ -48,15 +49,13 @@ func _on_timer_timeout():
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
 radius = 123.004
 
-[node name="SlimeField" type="Area2D" groups=["enemy"]]
+[node name="SlimeField" type="Area2D" groups=["slime_field"]]
 collision_layer = 0
 collision_mask = 4
 script = SubResource("GDScript_g2p4w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.137255, 1, 1, 1)
-z_index = -1
-y_sort_enabled = true
 position = Vector2(-8, -9)
 scale = Vector2(1, 0.735)
 texture = ExtResource("1_hjgf5")
@@ -67,6 +66,7 @@ scale = Vector2(1, 0.725)
 shape = SubResource("CircleShape2D_ft1mc")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
