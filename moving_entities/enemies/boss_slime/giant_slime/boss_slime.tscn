@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4u2wuk1f06f7"]
+[gd_scene load_steps=12 format=3 uid="uid://b4u2wuk1f06f7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
 [ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_s3t78"]
+[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="3_0j38g"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_wndsv"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="4_cjbbm"]
+[ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/gslime_lobbing.tscn" id="4_ldvr4"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_3k4qm"]
 
 [sub_resource type="GDScript" id="GDScript_3ka3a"]
 script/source = "extends EnemyEntity
@@ -47,11 +50,17 @@ func on_zero_health():
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
 radius = 124.409
 
+[sub_resource type="Resource" id="Resource_ct66w"]
+script = ExtResource("5_3k4qm")
+scene = ExtResource("4_ldvr4")
+element = ExtResource("3_0j38g")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
 radius = 37.0
 
 [node name="GiantSlime" instance=ExtResource("1_148eg")]
 script = SubResource("GDScript_3ka3a")
+movement_speed = 100.0
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -74)
@@ -67,11 +76,15 @@ scale = Vector2(1.27, 1)
 shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
 
+[node name="EnemySpells" parent="." index="4"]
+spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w")])
+
 [node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" index="0"]
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_wndsv")
+actual_first_state = NodePath("../BasicChase")
 
 [node name="BasicChase" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("4_cjbbm")

@@ -35,9 +35,9 @@ func physics_update(_delta):
 	super.physics_update(_delta)
 	if !player: return
 	var distance = player.global_position.distance_to(enemy.global_position)
-	if (distance < attack_distance && !enemy.attacking):
+	if (distance < attack_distance && enemy.can_cast):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-		enemy.target_direction = player.global_position
+		enemy.target_area = player.global_position
 		enemy.attempt_cast(0)
 
 func enter():

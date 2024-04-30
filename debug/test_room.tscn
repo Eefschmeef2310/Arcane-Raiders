@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=22 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_7w5fa"]
@@ -13,9 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="14_qvb71"]
-[ext_resource type="PackedScene" uid="uid://b3330t2cjyl2o" path="res://moving_entities/enemies/spiderling/spiderling.tscn" id="15_tn3nr"]
-[ext_resource type="PackedScene" uid="uid://cl6evd5eokmpu" path="res://moving_entities/enemies/nest/basic_nest.tscn" id="16_frqeu"]
+[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="14_ub6fm"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -119,13 +117,7 @@ position = Vector2(1094, 310)
 [node name="GameOverManager" type="Node" parent="."]
 script = ExtResource("11_4vjuy")
 
-[node name="LargeSpider" parent="." instance=ExtResource("14_qvb71")]
-position = Vector2(1230, 517)
-
-[node name="Spiderling" parent="." instance=ExtResource("15_tn3nr")]
-position = Vector2(1630, 561)
-
-[node name="BasicNest" parent="." instance=ExtResource("16_frqeu")]
-position = Vector2(1439, 559)
+[node name="GiantSlime" parent="." instance=ExtResource("14_ub6fm")]
+position = Vector2(1470, 588)
 
 [editable path="Player"]

@@ -45,7 +45,7 @@ func _ready():
 		global_position = caster.global_position
 		target_area = caster.target_area
 	var mid = (target_area + global_position)/2
-	var position_high = Vector2(mid.x, mid.y - projectile_height)
+	var position_high = Vector2(mid.x, mid.y + projectile_height)
 	#mid.y + global_position.y + projectile_height
 	ring.global_position = target_area
 	tween.tween_property(projectile, \"global_position:x\", position_high.x, half_d)
