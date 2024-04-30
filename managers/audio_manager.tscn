@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg6tte1kosjqg"]
+[gd_scene load_steps=2 format=3 uid="uid://b43rmoyeaummk"]
 
 [sub_resource type="GDScript" id="GDScript_np84d"]
 resource_name = "audio_manager"
@@ -14,13 +14,29 @@ script/source = "extends Node
 	#Constants
 const POINT_AUDIO_2D = preload(\"res://managers/point_audio_2d.tscn\")
 
+const MUSIC = {
+	\"sector\": [
+		{
+			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
+			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\")
+		}
+	]
+}
+
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
 	
 	#Onready Variables
+@onready var music_stream = $MusicStream
+@onready var calm_stream = $CalmStream
+@onready var battle_stream = $BattleStream
+
+	
 
 	#Other Variables (please try to separate and organise!)
+var fade_tween: Tween
+var current_sector = -1
 
 #endregion
 
@@ -38,8 +54,81 @@ func play_audio2D_at_point(position : Vector2, stream : AudioStream):
 	new_player.position = position
 	new_player.stream = stream
 	get_tree().root.add_child(new_player)
+
+func play_track_fade(key: String):
+	current_sector = -1
+	
+	if fade_tween:
+		fade_tween.kill()
+	fade_tween = create_tween()
+	fade_tween.set_parallel()
+	fade_tween.tween_property(calm_stream, \"volume_db\", -80, 0.5)
+	fade_tween.tween_property(battle_stream, \"volume_db\", -80, 0.5)
+	fade_tween.tween_property(music_stream, \"volume_db\", -80, 0.5)
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	play_track_instant(key)
+
+func play_track_instant(key: String):
+	current_sector = -1
+	
+	calm_stream.stop()
+	battle_stream.stop()
+	
+	music_stream.stream = MUSIC[key]
+	music_stream.volume_db = 0
+	music_stream.stop()
+	music_stream.play()
+
+func play_sector(sector: int):
+	if sector != current_sector and sector < MUSIC.sector.size():
+		
+		current_sector = sector
+		
+		if fade_tween:
+			fade_tween.kill()
+		fade_tween = create_tween()
+		fade_tween.tween_property(music_stream, \"volume_db\", -80, 0.5)
+		
+		await get_tree().create_timer(0.5).timeout
+		
+		music_stream.stop()
+		
+		calm_stream.stream = MUSIC.sector[sector].calm
+		calm_stream.volume_db = 0
+		calm_stream.stop()
+		calm_stream.play()
+		
+		battle_stream.stream = MUSIC.sector[sector].battle
+		battle_stream.volume_db = -80
+		battle_stream.stop()
+		battle_stream.play()
+
+func switch_to_calm():
+	if fade_tween:
+		fade_tween.kill()
+	fade_tween = create_tween()
+	fade_tween.set_parallel()
+	fade_tween.tween_property(calm_stream, \"volume_db\", 0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	fade_tween.tween_property(battle_stream, \"volume_db\", -80, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
+func switch_to_battle():
+	if fade_tween:
+		fade_tween.kill()
+	fade_tween = create_tween()
+	fade_tween.set_parallel()
+	fade_tween.tween_property(battle_stream, \"volume_db\", 0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	fade_tween.tween_property(calm_stream, \"volume_db\", -80, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
 #endregion
 "
 
 [node name="AudioManager" type="Node"]
 script = SubResource("GDScript_np84d")
+
+[node name="MusicStream" type="AudioStreamPlayer" parent="."]
+
+[node name="CalmStream" type="AudioStreamPlayer" parent="."]
+
+[node name="BattleStream" type="AudioStreamPlayer" parent="."]

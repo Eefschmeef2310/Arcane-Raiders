@@ -68,7 +68,12 @@ func _on_enemy_zero_health():
 		number_of_enemies_left -= 1
 		print("Enemies left: " + str(number_of_enemies_left))
 		if number_of_enemies_left <= 0:
-			all_waves_cleared.emit()
+			on_floor_cleared.rpc()
+
+@rpc("authority", "call_local", "reliable")
+func on_floor_cleared():
+	all_waves_cleared.emit()
+	AudioManager.switch_to_calm()
 
 # Runs only on the server
 func spawn_players(number_of_players: int):
