@@ -1,5 +1,5 @@
 extends State
-class_name SpiderChase
+class_name BasicChase
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -37,6 +37,7 @@ func physics_update(_delta):
 	var distance = player.global_position.distance_to(enemy.global_position)
 	if (distance < attack_distance && !enemy.attacking):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
+		enemy.target_direction = player.global_position
 		enemy.attempt_cast(0)
 
 func enter():

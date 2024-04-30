@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="2_t0nul"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="3_j64qt"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_pb4nr"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="4_4etky"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_ms5hq"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/spider_chase.gd" id="4_xijow"]
 [ext_resource type="Resource" uid="uid://i1l3rxlb3iec" path="res://moving_entities/enemies/spiderling/spider_leap.tres" id="6_vx5h5"]
 
 [sub_resource type="GDScript" id="GDScript_nn55k"]
@@ -97,10 +97,10 @@ initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_pb4nr")
-actual_first_state = NodePath("../SpiderChase")
+actual_first_state = NodePath("../BasicChase")
 
-[node name="SpiderChase" type="Node" parent="StateMachine"]
-script = ExtResource("4_xijow")
+[node name="BasicChase" type="Node" parent="StateMachine"]
+script = ExtResource("4_4etky")
 attack_distance = 200.0
 nav_timer_interval = 0.4
 

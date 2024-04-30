@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfrsuqfut2eks"]
+[gd_scene load_steps=14 format=3 uid="uid://bfrsuqfut2eks"]
 
 [ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_m24lk"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="6_2mlgd"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="6_dnj1x"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="6_haj15"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="7_hcoo1"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
 [ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
 [ext_resource type="Texture2D" uid="uid://c01cck3klbq2" path="res://moving_entities/enemies/SlimeBig/beefier_slime.png" id="9_kra2g"]
@@ -127,10 +128,15 @@ grow_vertical = 0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_m24lk")
-initial_state = NodePath("SlimeChase")
+initial_state = NodePath("Idle")
 
-[node name="SlimeChase" type="Node" parent="StateMachine"]
-script = ExtResource("6_haj15")
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("6_2mlgd")
+actual_first_state = NodePath("../BasicChase")
+
+[node name="BasicChase" type="Node" parent="StateMachine"]
+script = ExtResource("7_hcoo1")
+attack_distance = 100.0
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("5_gvsgo")

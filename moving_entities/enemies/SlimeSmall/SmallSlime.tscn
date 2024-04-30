@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://di8bmn2pxre1i"]
+[gd_scene load_steps=20 format=3 uid="uid://di8bmn2pxre1i"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_7b1uj"]
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="2_4e0km"]
@@ -9,8 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="7_4n8u7"]
 [ext_resource type="Script" path="res://moving_entities/enemies/SlimeSmall/spike_attack.gd" id="7_g4v3m"]
 [ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="8_8ny0b"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/slime_chase.gd" id="8_siiu7"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="9_lrlrc"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="11_bubdh"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="12_wx3v3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7yp1j"]
 radius = 20.0
@@ -100,10 +101,14 @@ grow_vertical = 0
 spells = Array[ExtResource("9_lrlrc")]([SubResource("Resource_mcqin")])
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_4n8u7")]
-initial_state = NodePath("SlimeChase")
+initial_state = NodePath("Idle")
 
-[node name="SlimeChase" type="Node" parent="StateMachine"]
-script = ExtResource("8_siiu7")
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("11_bubdh")
+actual_first_state = NodePath("../BasicChase")
+
+[node name="BasicChase" type="Node" parent="StateMachine"]
+script = ExtResource("12_wx3v3")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1

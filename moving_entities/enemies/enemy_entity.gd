@@ -18,6 +18,7 @@ class_name EnemyEntity
 @onready var nav_agent = $NavigationAgent2D
 
 var aim_direction: Vector2
+var target_area: Vector2
 var can_cast: bool = true
 var nav_server_synced = false
 #endregion
