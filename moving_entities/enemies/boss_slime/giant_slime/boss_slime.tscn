@@ -130,9 +130,6 @@ attack_distance = 130.0
 [node name="GSlimeEnraged" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("10_ewnqd")
 
-[node name="NavigationAgent2D" parent="." index="6"]
-debug_enabled = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_bbex3")
