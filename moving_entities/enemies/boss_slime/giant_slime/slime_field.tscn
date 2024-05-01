@@ -24,7 +24,7 @@ script/source = "extends Area2D
 var base_damage
 var resource 
 var caster 
-var infliction_time
+var infliction_time = 1
 #endregion
 
 #region Godot methods

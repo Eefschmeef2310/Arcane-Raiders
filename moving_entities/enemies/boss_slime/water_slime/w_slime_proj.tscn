@@ -48,7 +48,7 @@ func _process(delta):
 func set_direction(direction: Vector2):
 	self.direction = direction
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	create_explosion()
 
 func create_explosion():
@@ -60,18 +60,20 @@ func create_explosion():
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tyulw"]
-radius = 23.0
+radius = 32.0
 
 [node name="WSlimeProj" type="Area2D"]
 position = Vector2(75, 81)
 collision_layer = 128
 collision_mask = 5
 script = SubResource("GDScript_0bil4")
+projectile_speed = 600.0
 base_damage = 100
 infliction_time = 2.0
 end_time = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_mgwnb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

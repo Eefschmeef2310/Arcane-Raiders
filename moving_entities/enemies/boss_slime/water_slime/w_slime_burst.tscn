@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgu0y64hgxpkh"]
-
-[ext_resource type="Texture2D" uid="uid://bq0x8mvs6f27s" path="res://moving_entities/enemies/boss_slime/water_slime/large_bullet.png" id="1_uq564"]
+[gd_scene load_steps=2 format=3 uid="uid://bgu0y64hgxpkh"]
 
 [sub_resource type="GDScript" id="GDScript_7nbxi"]
 script/source = "extends SpellBase
@@ -26,10 +24,11 @@ var direction0: Vector2 = Vector2.RIGHT
 
 #region Godot methods
 func _ready():
-	if caster: direction0 = caster.aim_direction
+	if caster: 
+		direction0 = caster.aim_direction
+		if \"burst_amount\" in caster: burst_amount = caster.burst_amount
 	for n in burst_amount:
 		var proj = W_SLIME_PROJ.instantiate()
-		var new_dir = direction0
 		proj.set_direction(direction0.rotated(deg_to_rad(360/burst_amount*n)))
 		transfer_data(proj)
 		call_deferred(\"add_sibling\", proj)
@@ -54,8 +53,5 @@ script = SubResource("GDScript_7nbxi")
 burst_amount = 8
 base_damage = 100
 infliction_time = 5.0
-end_time = 3.0
-cooldown_time = 10.0
-
-[node name="LargeBullet" type="Sprite2D" parent="."]
-texture = ExtResource("1_uq564")
+end_time = 0.8
+cooldown_time = 5.0

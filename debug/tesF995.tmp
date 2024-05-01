@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=22 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_7w5fa"]
@@ -13,8 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="PackedScene" uid="uid://d3ysm2lr7sn5t" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_field.tscn" id="14_x7les"]
-[ext_resource type="PackedScene" uid="uid://d3vylmhj1ttfl" path="res://moving_entities/enemies/boss_slime/water_slime/water_slime.tscn" id="15_feyqc"]
+[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="14_ub6fm"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -118,13 +117,15 @@ position = Vector2(1094, 310)
 [node name="GameOverManager" type="Node" parent="."]
 script = ExtResource("11_4vjuy")
 
-[node name="SlimeField" parent="." instance=ExtResource("14_x7les")]
-position = Vector2(866, 1013)
-
-[node name="SlimeField2" parent="." instance=ExtResource("14_x7les")]
-position = Vector2(1742, 1200)
-
-[node name="WaterSlime" parent="." instance=ExtResource("15_feyqc")]
-position = Vector2(1493, 666)
+[node name="GiantSlime" parent="." instance=ExtResource("14_ub6fm")]
+position = Vector2(1470, 588)
+base_damage = 0
+max_health = 1000
+health = 1000
+do_damage_numbers = true
+print_velocity = false
+knockback_lerp_strength = 20.0
+knockback_initial_velocity = 300.0
+attraction_strength = 65.0
 
 [editable path="Player"]

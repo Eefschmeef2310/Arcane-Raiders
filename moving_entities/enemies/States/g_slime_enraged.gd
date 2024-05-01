@@ -16,9 +16,7 @@ class_name GSlimeEnraged
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var player0
-var player1
-var player2
+
 #endregion
 
 #region Godot methods

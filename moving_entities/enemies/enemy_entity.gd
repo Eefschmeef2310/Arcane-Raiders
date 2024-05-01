@@ -14,8 +14,8 @@ class_name EnemyEntity
 @export var base_damage: int = 0
 
 @onready var state_machine = $StateMachine
-@onready var enemy_spells = $EnemySpells
 @onready var nav_agent = $NavigationAgent2D
+@onready var enemy_spells = $EnemySpells
 
 var aim_direction: Vector2
 var target_area: Vector2

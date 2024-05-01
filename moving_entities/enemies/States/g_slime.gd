@@ -31,11 +31,14 @@ var player: Player
 func enter():
 	set_position()
 
-func physics_update(_delta):
-	super.physics_update(_delta)
+func physics_update(delta):
+	super.physics_update(delta)
+	
 	if !player: return
 	
-	if enemy.enraged: Transitioned.emit(self, "gslimeenraged")
+	if enemy.enraged: 
+		Transitioned.emit(self, "gslimeenraged")
+		print("enraged")
 	
 	var distance = player.global_position.distance_to(enemy.global_position)
 	if (enemy.can_cast):
