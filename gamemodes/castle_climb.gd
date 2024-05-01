@@ -93,6 +93,7 @@ func spawn_common_level(key) -> Node:
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
+	AudioManager.switch_to_battle()
 	return current_room_node
 
 func inject_data_to_current_room_node():
@@ -107,9 +108,9 @@ func inject_data_to_current_room_node():
 			print("Using Sector "+ str(i) +" data.")
 			current_room_node.gradient_map = sector_gradient_maps[i]
 			current_room_node.saturation = sector_gradient_saturations[i]
+			AudioManager.play_sector(i)
 			break
 		i += 1
-	
 
 func _on_room_exited():
 	if is_multiplayer_authority():

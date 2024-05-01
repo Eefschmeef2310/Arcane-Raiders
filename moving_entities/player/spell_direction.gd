@@ -27,6 +27,7 @@ func _ready():
 func _process(_delta):
 	$Sprite2D.look_at($Sprite2D.global_position + owner.aim_direction)
 	$Sprite2DShadow.look_at($Sprite2DShadow.global_position + owner.aim_direction)
+	$Sprite2DProjection.look_at($Sprite2DProjection.global_position + owner.aim_direction)
 #endregion
 
 #region Signal methods

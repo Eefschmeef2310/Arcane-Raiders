@@ -22,6 +22,7 @@ var should_continue: bool = true
 var caster : Node2D
 
 var elements : Array
+var should_make_new_numbers : bool = true
 
 #for calculating everages
 

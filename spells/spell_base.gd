@@ -6,5 +6,6 @@ class_name Spell
 	#Exported Variables
 @export var scene : PackedScene
 @export var ui_texture : Texture2D
+@export var projection_texture : Texture2D
 @export var element : ElementResource
 #endregion

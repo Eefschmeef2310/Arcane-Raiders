@@ -98,6 +98,7 @@ func on_hurt(attack):
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource
+	var should_make_new_numbers : bool = false
 	
 	#Apply base damage
 	if "base_damage" in attack:
@@ -111,9 +112,12 @@ func on_hurt(attack):
 		element = attack.resource.element
 	elif "element" in attack and attack.element:
 		element = attack.element
-	
+		
+	if "should_make_new_numbers" in attack:
+		should_make_new_numbers = attack.should_make_new_numbers
+		
 	# RPC call for damage
-	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time, false)
+	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time, should_make_new_numbers)
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
@@ -195,7 +199,7 @@ func shock_effect():
 	
 	if closest:
 		#damage closest enemy
-		closest.deal_damage.rpc(null, 50, null, null)
+		closest.deal_damage.rpc(null, 50, null, null, true)
 		
 		# stop ourselves and the other guy from getting shocked again
 		shocked_this_frame = true

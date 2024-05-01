@@ -22,11 +22,11 @@ speed_curve = SubResource("Curve_v48oq")
 scale_falloff_curve = SubResource("Curve_fjpuw")
 transparency_falloff_curve = SubResource("Curve_6x5nu")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.394531, 0.40625)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_tu2u5")
 
-[node name="kill_timer" parent="." index="2"]
+[node name="kill_timer" parent="." index="3"]
 wait_time = 0.75

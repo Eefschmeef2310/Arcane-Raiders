@@ -32,8 +32,6 @@ func _ready():
 	# TODO temporary lines here
 	if debug:
 		set_data(data, false)
-		
-	
 
 func _process(_delta):
 	super._process(_delta)
@@ -60,6 +58,8 @@ func _process(_delta):
 			else:
 				animation_player.play("idle", -1, 1)
 		
+		$SpellDirection/Sprite2DProjection.visible = preparing_cast_slot >= 0
+		
 		if debug:
 			$PrepareCast.text = str(preparing_cast_slot)
 			$CanCast.text = str(can_cast)
@@ -84,6 +84,8 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
+	$SpellDirection/Sprite2DProjection.modulate = data.main_color
+	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
 	
 	if data.character:
@@ -101,6 +103,7 @@ func set_input(id: int):
 func prepare_cast(slot: int):
 	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0:
 		preparing_cast_slot = slot
+		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
 		animation_player.play("cast_start")
 

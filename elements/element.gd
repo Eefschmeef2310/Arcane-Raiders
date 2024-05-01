@@ -16,6 +16,7 @@ class_name ElementResource
 @export var particle_texture : Texture2D
 @export var pip_texture : Texture2D
 @export var max_infliction_time : float = 5
+@export var sound : AudioStream
 
 	#Onready Variables
 

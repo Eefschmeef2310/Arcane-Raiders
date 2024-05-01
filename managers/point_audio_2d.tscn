@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmrv6r8nkl4fe"]
+
+[sub_resource type="GDScript" id="GDScript_tav6y"]
+resource_name = "point_audio_2d"
+script/source = "extends AudioStreamPlayer2D
+
+func _on_finished():
+	queue_free()
+"
+
+[node name="PointAudio2d" type="AudioStreamPlayer2D"]
+autoplay = true
+script = SubResource("GDScript_tav6y")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
