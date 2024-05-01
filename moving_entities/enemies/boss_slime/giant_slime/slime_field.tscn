@@ -47,10 +47,10 @@ func _on_timer_timeout():
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
-radius = 123.004
+radius = 85.1007
 
 [node name="SlimeField" type="Area2D" groups=["slime_field"]]
-collision_layer = 0
+collision_layer = 64
 collision_mask = 4
 script = SubResource("GDScript_g2p4w")
 

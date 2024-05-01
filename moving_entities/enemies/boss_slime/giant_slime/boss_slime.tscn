@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4u2wuk1f06f7"]
+[gd_scene load_steps=18 format=3 uid="uid://b4u2wuk1f06f7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
 [ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_s3t78"]
@@ -9,6 +9,8 @@
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="6_11tbp"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime.gd" id="7_i4h5n"]
 [ext_resource type="PackedScene" uid="uid://bk05qc623b2ye" path="res://moving_entities/enemies/boss_slime/giant_slime/g_slime_spike.tscn" id="7_thqtl"]
+[ext_resource type="PackedScene" uid="uid://b36hyhxebhoon" path="res://moving_entities/enemies/boss_slime/giant_slime/ex_slime_lob.tscn" id="8_fopfk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime_enraged.gd" id="10_ewnqd"]
 
 [sub_resource type="GDScript" id="GDScript_3ka3a"]
 script/source = "extends EnemyEntity
@@ -29,7 +31,7 @@ script/source = "extends EnemyEntity
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-
+var enraged = false
 #endregion
 
 #region Godot methods
@@ -39,12 +41,16 @@ script/source = "extends EnemyEntity
 #region Signal methods
 func on_zero_health():
 	if is_multiplayer_authority():
+		
 		#TODO Spawn the Electricc and Water Slime
 		pass
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func _on_hurtbox_area_entered(area):
+	if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldowns[2] == 0:
+		enraged = true
+	
 #endregion
 
 "
@@ -62,6 +68,11 @@ script = ExtResource("5_3k4qm")
 scene = ExtResource("7_thqtl")
 element = ExtResource("6_11tbp")
 
+[sub_resource type="Resource" id="Resource_u84hp"]
+script = ExtResource("5_3k4qm")
+scene = ExtResource("8_fopfk")
+element = ExtResource("3_0j38g")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
 radius = 37.0
 
@@ -76,6 +87,7 @@ texture = ExtResource("2_s3t78")
 
 [node name="Hurtbox" parent="." index="1"]
 position = Vector2(0, 0)
+collision_mask = 80
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(-2, -73)
@@ -84,16 +96,21 @@ shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
 
 [node name="EnemySpells" parent="." index="4"]
-spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66")])
+spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
 
 [node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" index="0"]
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_wndsv")
+actual_first_state = NodePath("../GSlime")
 
 [node name="GSlime" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("7_i4h5n")
+attack_distance = 200.0
+
+[node name="GSlimeEnraged" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("10_ewnqd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(0, -34)

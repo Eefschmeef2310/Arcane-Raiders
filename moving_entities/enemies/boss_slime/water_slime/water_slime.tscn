@@ -1,5 +1,128 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3vylmhj1ttfl"]
+[gd_scene load_steps=8 format=3 uid="uid://d3vylmhj1ttfl"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_jbpe8"]
+[ext_resource type="Texture2D" uid="uid://nwavnffxkgc6" path="res://moving_entities/enemies/boss_slime/water_slime/image8.png" id="2_e5vdm"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_c3r4d"]
+
+[sub_resource type="GDScript" id="GDScript_8xenb"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nocle"]
+radius = 145.003
+
+[sub_resource type="GDScript" id="GDScript_ouh22"]
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lyw2w"]
+radius = 30.0167
 
 [node name="WaterSlime" instance=ExtResource("1_jbpe8")]
+script = SubResource("GDScript_8xenb")
+movement_speed = 150.0
+max_health = 800
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -60)
+scale = Vector2(0.285, 0.285)
+texture = ExtResource("2_e5vdm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 9)
+scale = Vector2(1, 0.75)
+shape = SubResource("CircleShape2D_nocle")
+
+[node name="ProgressBar" parent="." index="2"]
+offset_top = -111.0
+offset_bottom = -104.0
+
+[node name="StatusUI" parent="." index="3"]
+offset_top = -145.0
+offset_bottom = -113.0
+
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("3_c3r4d")
+
+[node name="WSlimeChase" type="Node" parent="StateMachine" index="1"]
+script = SubResource("GDScript_ouh22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+position = Vector2(0, -23)
+shape = SubResource("CircleShape2D_lyw2w")

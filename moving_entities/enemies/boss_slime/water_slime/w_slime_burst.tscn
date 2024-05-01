@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgu0y64hgxpkh"]
+
+[ext_resource type="Texture2D" uid="uid://bq0x8mvs6f27s" path="res://moving_entities/enemies/boss_slime/water_slime/large_bullet.png" id="1_uq564"]
+
+[sub_resource type="GDScript" id="GDScript_7nbxi"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+const W_SLIME_PROJ = preload(\"res://moving_entities/enemies/boss_slime/water_slime/w_slime_proj.tscn\")
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var burst_amount: int = 4
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var direction0: Vector2 = Vector2.RIGHT
+#endregion
+
+#region Godot methods
+func _ready():
+	if caster: direction0 = caster.aim_direction
+	for n in burst_amount:
+		var proj = W_SLIME_PROJ.instantiate()
+		var new_dir = direction0
+		proj.set_direction(direction0.rotated(deg_to_rad(360/burst_amount*n)))
+		transfer_data(proj)
+		call_deferred(\"add_sibling\", proj)
+		
+		if !caster: proj.global_position = global_position #Debug purposes
+	queue_free()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[node name="WSlimeBurst" type="Node2D"]
+position = Vector2(743, 457)
+script = SubResource("GDScript_7nbxi")
+burst_amount = 8
+base_damage = 100
+infliction_time = 5.0
+end_time = 3.0
+cooldown_time = 10.0
+
+[node name="LargeBullet" type="Sprite2D" parent="."]
+texture = ExtResource("1_uq564")

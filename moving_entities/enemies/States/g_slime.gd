@@ -27,13 +27,16 @@ var player: Player
 
 #endregion
 
-#region Other methods (please try to separate and organise!)
-func update(_delta):
-	super.update(_delta)
-	
+#region Other methods (please try to separate and organise!)	
+func enter():
+	set_position()
+
 func physics_update(_delta):
 	super.physics_update(_delta)
 	if !player: return
+	
+	if enemy.enraged: Transitioned.emit(self, "gslimeenraged")
+	
 	var distance = player.global_position.distance_to(enemy.global_position)
 	if (enemy.can_cast):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
@@ -41,9 +44,6 @@ func physics_update(_delta):
 		enemy.attempt_cast(0)
 		if(distance < attack_distance):
 			enemy.attempt_cast(1)
-
-func enter():
-	set_position()
 
 func set_position():
 	player = get_closest_player()
