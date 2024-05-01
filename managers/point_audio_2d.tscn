@@ -10,6 +10,7 @@ func _on_finished():
 
 [node name="PointAudio2d" type="AudioStreamPlayer2D"]
 autoplay = true
+bus = &"SFX"
 script = SubResource("GDScript_tav6y")
 
 [connection signal="finished" from="." to="." method="_on_finished"]

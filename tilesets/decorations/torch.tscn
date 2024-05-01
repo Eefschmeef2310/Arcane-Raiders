@@ -26,12 +26,12 @@ colors = PackedColorArray(1, 0, 0, 1, 0, 0.176471, 1, 1, 0.215686, 1, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_px3ax"]
 gradient = SubResource("Gradient_s7mgp")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_r1qkg"]
-seed = 100
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ttldr"]
+seed = 86
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fi743"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ltec"]
 seamless = true
-noise = SubResource("FastNoiseLite_r1qkg")
+noise = SubResource("FastNoiseLite_ttldr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hr8de"]
 resource_local_to_scene = true
@@ -40,7 +40,7 @@ shader_parameter/spread = 0.283
 shader_parameter/speed = 0.1
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 0.66
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_fi743")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
 shader_parameter/gradient_map = SubResource("GradientTexture1D_px3ax")
 
 [node name="Torch" type="Node2D"]
