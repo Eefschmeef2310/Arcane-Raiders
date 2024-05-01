@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_j27cw")
+prefix = "Frost-"
 colour = Color(0.219608, 0.666667, 0.839216, 1)
 pip_texture = ExtResource("1_wea5a")
 max_infliction_time = 5.0

@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_moo0l")
+prefix = "Wind-"
 colour = Color(0.364706, 0.784314, 0.337255, 1)
 pip_texture = ExtResource("1_stng8")
 max_infliction_time = 5.0

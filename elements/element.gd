@@ -12,6 +12,7 @@ class_name ElementResource
 	#Exported Variables
 @export_group("Element Parameters")
 
+@export var prefix : String
 @export var colour : Color
 @export var particle_texture : Texture2D
 @export var pip_texture : Texture2D

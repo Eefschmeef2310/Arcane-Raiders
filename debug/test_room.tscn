@@ -30,18 +30,24 @@ shader_parameter/gradient = SubResource("GradientTexture1D_d11d3")
 
 [sub_resource type="Resource" id="Resource_ihywv"]
 script = ExtResource("6_82yns")
+suffix = ""
+description = ""
 scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("9_1rcvu")
 
 [sub_resource type="Resource" id="Resource_rcxt8"]
 script = ExtResource("6_82yns")
+suffix = ""
+description = ""
 scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("10_qb4mr")
 
 [sub_resource type="Resource" id="Resource_d4xld"]
 script = ExtResource("6_82yns")
+suffix = ""
+description = ""
 scene = ExtResource("6_e83qf")
 ui_texture = ExtResource("8_a00af")
 element = ExtResource("9_1rcvu")

@@ -4,6 +4,9 @@ class_name Spell
 
 #region Variables
 	#Exported Variables
+@export var suffix : String
+@export_multiline var description : String
+	
 @export var scene : PackedScene
 @export var ui_texture : Texture2D
 @export var projection_texture : Texture2D

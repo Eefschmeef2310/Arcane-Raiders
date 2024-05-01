@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://b4754t80xtmh8"]
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://gcjnkbwfebfe"]
 
 [ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="1_3yfcu"]
 [ext_resource type="PackedScene" uid="uid://bhx2svxx4h6ay" path="res://spells/scenes/proj_spread/proj_spread.tscn" id="1_07iu8"]
@@ -7,6 +7,8 @@
 
 [resource]
 script = ExtResource("1_foi5g")
+suffix = "Spread"
+description = "Cast a cone of rapid-damage magic."
 scene = ExtResource("1_07iu8")
 ui_texture = ExtResource("3_i0q2r")
 projection_texture = ExtResource("1_3yfcu")
