@@ -23,30 +23,48 @@ script/source = "extends EnemyEntity
 	#Enums
 
 	#Constants
-
+const WATER_SLIME = preload(\"res://moving_entities/enemies/boss_slime/water_slime/water_slime.tscn\")
+const ELEC_SLIME = preload(\"res://moving_entities/enemies/boss_slime/elec_slime/elec_slime.tscn\")
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
 
 	#Onready Variables
+@onready var multiplayer_spawner = $MultiplayerSpawner
 
 	#Other Variables (please try to separate and organise!)
 var enraged = false
 #endregion
 
 #region Godot methods
-
+func _ready():
+	super._ready()
+	multiplayer_spawner.spawn_path = get_parent().get_path()
+	multiplayer_spawner.spawn_function = spawn_slimes;
 #endregion
 
 #region Signal methods
-func on_zero_health():
+func _on_zero_health():
 	if is_multiplayer_authority():
-		
 		#TODO Spawn the Electricc and Water Slime
+		$Sprite2D.hide()
+		multiplayer_spawner.call_deferred(\"spawn\", true)
+		multiplayer_spawner.call_deferred(\"spawn\", false)
+		queue_free()
 		pass
 #endregion
 
 #region Other methods (please try to separate and organise!)
+func spawn_slimes(water: bool) -> Node2D:
+	var slime
+	if(water):
+		slime = WATER_SLIME.instantiate()
+		slime.global_position = global_position
+	else:
+		slime = ELEC_SLIME.instantiate()
+		slime.global_position = global_position
+	return slime
+
 func _on_field_detector_area_entered(area):
 	if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldowns[2] <= 0:
 		enraged = true
@@ -127,6 +145,8 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FieldDetector" index="0"]
 position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_v60l1")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="10"]
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
