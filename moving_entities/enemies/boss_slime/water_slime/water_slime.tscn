@@ -221,9 +221,10 @@ func set_position():
 radius = 30.0167
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8r4p3"]
-radius = 13.1529
+radius = 35.0571
 
 [node name="WaterSlime" instance=ExtResource("1_jbpe8")]
+collision_mask = 3
 script = SubResource("GDScript_8xenb")
 burst_amount = 12
 movement_speed = 150.0
@@ -278,7 +279,7 @@ collision_layer = 0
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FieldDetector" index="0"]
-position = Vector2(1, -34)
+position = Vector2(1, -40)
 shape = SubResource("CircleShape2D_8r4p3")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

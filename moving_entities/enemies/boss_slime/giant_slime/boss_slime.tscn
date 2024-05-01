@@ -78,6 +78,7 @@ radius = 37.0
 radius = 48.0937
 
 [node name="GiantSlime" instance=ExtResource("1_148eg")]
+collision_mask = 3
 script = SubResource("GDScript_3ka3a")
 movement_speed = 100.0
 
