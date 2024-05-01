@@ -90,7 +90,7 @@ scene = ExtResource("8_fopfk")
 element = ExtResource("3_0j38g")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
-radius = 37.0
+radius = 22.2036
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v60l1"]
 radius = 48.0937
@@ -125,7 +125,7 @@ actual_first_state = NodePath("../GSlime")
 
 [node name="GSlime" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("7_i4h5n")
-attack_distance = 200.0
+attack_distance = 130.0
 
 [node name="GSlimeEnraged" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("10_ewnqd")
@@ -134,7 +134,7 @@ script = ExtResource("10_ewnqd")
 debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
-position = Vector2(0, -34)
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_bbex3")
 
 [node name="FieldDetector" type="Area2D" parent="." index="9"]
