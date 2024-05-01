@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b05susa6dm2te"]
+[gd_scene load_steps=25 format=3 uid="uid://b05susa6dm2te"]
 
 [ext_resource type="Texture2D" uid="uid://duj4hmyf1q5io" path="res://debug/sb_regular.png" id="1_7v575"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_7w5fa"]
@@ -11,10 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="6_e83qf"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="8_a00af"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="9_1rcvu"]
-[ext_resource type="PackedScene" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
+[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
 [ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="14_7ukee"]
+[ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="16_3ipsq"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -48,22 +49,6 @@ element = ExtResource("9_1rcvu")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cuxm"]
 font_size = 24
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2fii6"]
-seed = 56
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ccqjh"]
-seamless = true
-noise = SubResource("FastNoiseLite_2fii6")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_el65p"]
-resource_local_to_scene = true
-shader = ExtResource("18_xilwd")
-shader_parameter/spread = 0.5
-shader_parameter/speed = 0.1
-shader_parameter/final_saturation = 0.5
-shader_parameter/alpha = 0.5
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_ccqjh")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jyrin"]
 polygon = PackedVector2Array(638, 159, 627, 186, 659, 201, 669, 170)
@@ -143,23 +128,13 @@ script = ExtResource("11_4vjuy")
 position = Vector2(1436, 590)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.65098, 0.65098, 0.65098, 1)
-
-[node name="Torch" parent="." instance=ExtResource("18_2a1tg")]
-self_modulate = Color(9.722, 13.889, 19.444, 1)
-position = Vector2(1007, 78)
-
-[node name="Flame" parent="Torch" index="1"]
-material = SubResource("ShaderMaterial_el65p")
-position = Vector2(50, 126)
+color = Color(0.486275, 0.486275, 0.486275, 1)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 position = Vector2(102, -36)
 occluder = SubResource("OccluderPolygon2D_jyrin")
 
-[node name="aoe_large_explosion" parent="." instance=ExtResource("20_u42k8")]
-visible = false
-position = Vector2(1159, 977)
+[node name="Window" parent="." instance=ExtResource("16_3ipsq")]
+position = Vector2(1090, 4)
 
 [editable path="Player"]
-[editable path="Torch"]
