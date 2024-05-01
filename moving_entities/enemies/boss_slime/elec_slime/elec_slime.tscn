@@ -40,12 +40,15 @@ var enraged: bool = false
 #endregion
 
 #region Signal methods
-
+func _on_zero_health():
+	if is_multiplayer_authority():
+		get_tree().call_group(\"boss_slime\", \"set_perma_enraged\")
+		queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)
 func swap_modulate(swap: bool):
-	#$Sprite2D.modulate = Color(0, 0, 1, 1) if swap else Color(1, 1, 1, 1)
+	$Sprite2D.modulate = Color(1, 0.8, 0, 1) if swap else Color(1, 1, 1, 1)
 	pass
 
 func set_perma_enraged():
@@ -54,6 +57,8 @@ func set_perma_enraged():
 func _on_field_detector_area_entered(area):
 	if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldowns[1] <= 0:
 		enraged = true
+		
+
 #endregion
 
 "
@@ -77,7 +82,7 @@ radius = 35.0571
 [sub_resource type="CircleShape2D" id="CircleShape2D_ofg1l"]
 radius = 33.0606
 
-[node name="ElecSlime" instance=ExtResource("1_5w74h")]
+[node name="ElecSlime" groups=["boss_slime"] instance=ExtResource("1_5w74h")]
 script = SubResource("GDScript_fiano")
 movement_speed = 250.0
 
