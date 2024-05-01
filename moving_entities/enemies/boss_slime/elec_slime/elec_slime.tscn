@@ -1,15 +1,85 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqrikojyhum53"]
+[gd_scene load_steps=17 format=3 uid="uid://cqrikojyhum53"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_5w74h"]
 [ext_resource type="Texture2D" uid="uid://ddmtu418wpdmu" path="res://moving_entities/enemies/boss_slime/elec_slime/image5.png" id="2_o7y6s"]
+[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="3_hxtkw"]
+[ext_resource type="PackedScene" uid="uid://bh1cqio80y7vl" path="res://moving_entities/enemies/boss_slime/elec_slime/e_slime_spike.tscn" id="4_cvh5a"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_wcgqx"]
+[ext_resource type="PackedScene" uid="uid://cqjft3xurg4aq" path="res://moving_entities/enemies/boss_slime/elec_slime/slime_explosion.tscn" id="6_w5ukb"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="7_hl6d3"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_chase.gd" id="8_qca0p"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_temp.gd" id="9_yqopp"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_sarmi"]
+
+[sub_resource type="GDScript" id="GDScript_fiano"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var attack_range = 120
+var perma_enraged: bool = false
+var enraged: bool = false
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func swap_modulate(swap: bool):
+	#$Sprite2D.modulate = Color(0, 0, 1, 1) if swap else Color(1, 1, 1, 1)
+	pass
+
+func set_perma_enraged():
+	perma_enraged = true
+	
+func _on_field_detector_area_entered(area):
+	if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldowns[1] <= 0:
+		enraged = true
+#endregion
+
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wose4"]
 radius = 136.0
 
+[sub_resource type="Resource" id="Resource_s8rm7"]
+script = ExtResource("5_wcgqx")
+scene = ExtResource("4_cvh5a")
+element = ExtResource("3_hxtkw")
+
+[sub_resource type="Resource" id="Resource_xoaik"]
+script = ExtResource("5_wcgqx")
+scene = ExtResource("6_w5ukb")
+element = ExtResource("3_hxtkw")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_5lnls"]
 radius = 35.0571
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ofg1l"]
+radius = 33.0606
+
 [node name="ElecSlime" instance=ExtResource("1_5w74h")]
+script = SubResource("GDScript_fiano")
+movement_speed = 250.0
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-9, -65)
@@ -30,6 +100,39 @@ offset_bottom = -144.0
 offset_top = -185.0
 offset_bottom = -153.0
 
+[node name="EnemySpells" parent="." index="4"]
+spells = Array[ExtResource("5_wcgqx")]([SubResource("Resource_s8rm7"), SubResource("Resource_xoaik")])
+
+[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("7_hl6d3")
+actual_first_state = NodePath("../ESlimeChase")
+
+[node name="ESlimeChase" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("8_qca0p")
+prefix = "e"
+
+[node name="ESlimeTemp" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("9_yqopp")
+prefix = "e"
+
+[node name="ESlimePerma" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("10_sarmi")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(-4, -20)
 shape = SubResource("CircleShape2D_5lnls")
+
+[node name="FieldDetector" type="Area2D" parent="." index="9"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FieldDetector" index="0"]
+position = Vector2(0, -38)
+shape = SubResource("CircleShape2D_ofg1l")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]

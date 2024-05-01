@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://chlb2qldo07sj" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_proj.tscn" id="4_ydkkn"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_wh80d"]
 [ext_resource type="PackedScene" uid="uid://bgu0y64hgxpkh" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_burst.tscn" id="6_42na5"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_chase.gd" id="8_2v68o"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_temp.gd" id="9_4suod"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_54m7u"]
 
 [sub_resource type="GDScript" id="GDScript_8xenb"]
 script/source = "extends EnemyEntity
@@ -64,159 +67,6 @@ script = ExtResource("5_wh80d")
 scene = ExtResource("6_42na5")
 element = ExtResource("3_fpw8p")
 
-[sub_resource type="GDScript" id="GDScript_ouh22"]
-script/source = "extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-var player: Entity
-#endregion
-
-#region Godot methods
-func physics_update(delta):
-	super.physics_update(delta)
-	if !player: return
-	
-	if enemy.perma_enraged:
-		Transitioned.emit(self, \"wslimeperma\")
-	enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-	if enemy.can_cast:
-		if(enemy.enraged):
-			Transitioned.emit(self, \"wslimetemp\")
-			return
-		else:
-			enemy.attempt_cast(0)
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-func set_position():
-	player = get_closest_player()
-	print(\"whar\")
-	if(player): navigation_agent.target_position = player.global_position
-	else: Transitioned.emit(self, \"idle\")
-#endregion
-
-"
-
-[sub_resource type="GDScript" id="GDScript_i3l6d"]
-script/source = "extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-func enter():
-	#TODO enraged anim
-	enemy.swap_modulate(true)
-	enemy.aim_direction = enemy.global_position.direction_to(get_closest_player().global_position)
-	enemy.attempt_cast(1)
-
-func physics_update(delta):
-	super.physics_update(delta)
-	if(enemy.can_cast):
-		Transitioned.emit(self,\"wslimechase\")
-
-func exit():
-	enemy.enraged = false
-	enemy.swap_modulate(false)
-#endregion
-
-"
-
-[sub_resource type="GDScript" id="GDScript_cpkik"]
-script/source = "extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-var player: Entity
-#endregion
-
-#region Godot methods
-func physics_update(delta):
-	super.physics_update(delta)
-	if !player: return
-	if enemy.can_cast:
-		enemy.target_area = player.global_position
-		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-		enemy.attempt_cast(1)
-		enemy.attempt_cast(0)
-		
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-func enter():
-	enemy.swap_modulate(true)
-	#Some funny animation to show that he is pissed off real bad
-	
-func set_position():
-	player = get_closest_player()
-	if(player): navigation_agent.target_position = player.global_position
-	else: navigation_agent.target_position = enemy.global_position
-#endregion
-
-"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_lyw2w"]
 radius = 30.0167
 
@@ -224,7 +74,6 @@ radius = 30.0167
 radius = 35.0571
 
 [node name="WaterSlime" instance=ExtResource("1_jbpe8")]
-collision_mask = 3
 script = SubResource("GDScript_8xenb")
 burst_amount = 12
 movement_speed = 150.0
@@ -262,13 +111,13 @@ script = ExtResource("3_c3r4d")
 actual_first_state = NodePath("../WSlimeChase")
 
 [node name="WSlimeChase" type="Node" parent="StateMachine" index="1"]
-script = SubResource("GDScript_ouh22")
+script = ExtResource("8_2v68o")
 
 [node name="WSlimeTemp" type="Node" parent="StateMachine" index="2"]
-script = SubResource("GDScript_i3l6d")
+script = ExtResource("9_4suod")
 
 [node name="WSlimePerma" type="Node" parent="StateMachine" index="3"]
-script = SubResource("GDScript_cpkik")
+script = ExtResource("10_54m7u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(0, -23)

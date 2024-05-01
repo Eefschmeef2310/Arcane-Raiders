@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
 [ext_resource type="PackedScene" uid="uid://d3ysm2lr7sn5t" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_field.tscn" id="14_x7les"]
-[ext_resource type="PackedScene" uid="uid://d3vylmhj1ttfl" path="res://moving_entities/enemies/boss_slime/water_slime/water_slime.tscn" id="15_feyqc"]
+[ext_resource type="PackedScene" uid="uid://cqrikojyhum53" path="res://moving_entities/enemies/boss_slime/elec_slime/elec_slime.tscn" id="15_vgv4s"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -124,7 +124,7 @@ position = Vector2(866, 1013)
 [node name="SlimeField2" parent="." instance=ExtResource("14_x7les")]
 position = Vector2(1742, 1200)
 
-[node name="WaterSlime" parent="." instance=ExtResource("15_feyqc")]
-position = Vector2(1493, 666)
+[node name="ElecSlime" parent="." instance=ExtResource("15_vgv4s")]
+position = Vector2(1540, 589)
 
 [editable path="Player"]
