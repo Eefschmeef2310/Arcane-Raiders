@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="14_7ukee"]
+[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="15_fo7j3"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -126,10 +126,10 @@ position = Vector2(1094, 310)
 [node name="GameOverManager" type="Node" parent="."]
 script = ExtResource("11_4vjuy")
 
-[node name="GiantSlime" parent="." instance=ExtResource("14_7ukee")]
-position = Vector2(1436, 590)
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.643137, 0.643137, 0.643137, 1)
+color = Color(0.631373, 0.631373, 0.631373, 1)
+
+[node name="LargeSpider" parent="." instance=ExtResource("15_fo7j3")]
+position = Vector2(1500, 615)
 
 [editable path="Player"]

@@ -32,12 +32,13 @@ var direction: Vector2
 #region Other methods (please try to separate and organise!)
 func enter():
 	enemy.movement_speed = enemy.passive_movespeed
+	play_anim()
 	set_position()
 	
 func update(_delta):
 	super.update(_delta)
-	if(enemy.can_spawn):
-		enemy.attempt_cast(0)
+	if(can_cast_spell(0) && enemy.can_spawn):
+		Transitioned.emit(self, "spawnnest")
 	
 func physics_update(_delta):
 	super.physics_update(_delta)
@@ -51,7 +52,6 @@ func set_position():
 	player = get_closest_player()
 	if(enemy.global_position.distance_to(enemy.zone_pos) > enemy.zone_radius):
 		direction = enemy.global_position.direction_to(enemy.zone_pos).rotated(deg_to_rad((randi() % 45) - 22.5))
-		print(direction)
 	else: direction = Vector2.UP.rotated(randi() % 360)
 	target_pos = enemy.global_position + direction * distance
 	navigation_agent.target_position = target_pos

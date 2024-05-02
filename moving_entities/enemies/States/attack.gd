@@ -1,5 +1,5 @@
 extends State
-class_name GSlimeEnraged
+class_name Attack
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -12,31 +12,31 @@ class_name GSlimeEnraged
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-
+@export var spell_num: int = 0
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var attacked: bool = false
+var previous_state= ""
 #endregion
 
 #region Godot methods
+func enter():
+	play_anim()
+	set_position()
+	enemy.attempt_cast(spell_num)
 
+func physics_update(delta):
+	super.physics_update(delta)
+	if enemy.can_cast:
+		Transitioned.emit(self, previous_state)
+		
 #endregion
 
 #region Signal methods
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == animation:
-		attacked = true
-		Transitioned.emit(self,"lobattackex")
+
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func enter():
-	play_anim()
 
-func physics_update(delta):
-	if attacked == true && enemy.can_cast: 
-		attacked = false
-		Transitioned.emit(self,"calmdown")
 #endregion
 

@@ -31,11 +31,12 @@ func physics_update(delta):
 		if(enemy.enraged):
 			Transitioned.emit(self, prefix+"slimetemp")
 			return
-		
-		elif !("attack_range" in enemy):
-			enemy.attempt_cast(0)
-		elif (enemy.global_position.distance_to(player.global_position) <= enemy.attack_range):
-			enemy.attempt_cast(0)
+			
+		if(can_cast_spell(0)):
+			if !("attack_range" in enemy):
+				enemy.attempt_cast(0)
+			elif (enemy.global_position.distance_to(player.global_position) <= enemy.attack_range):
+				enemy.attempt_cast(0)
 #endregion
 
 #region Signal methods

@@ -34,6 +34,7 @@ func physics_update(delta):
 func enter():
 	enemy.movement_speed = enemy.retreat_movespeed
 	set_position()
+	play_anim()
 	
 func set_position():
 	navigation_agent.target_position = enemy.zone_pos

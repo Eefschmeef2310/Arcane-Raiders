@@ -62,11 +62,15 @@ radius = 145.003
 
 [sub_resource type="Resource" id="Resource_6jm38"]
 script = ExtResource("5_wh80d")
+suffix = ""
+description = ""
 scene = ExtResource("4_ydkkn")
 element = ExtResource("3_fpw8p")
 
 [sub_resource type="Resource" id="Resource_k0v1e"]
 script = ExtResource("5_wh80d")
+suffix = ""
+description = ""
 scene = ExtResource("6_42na5")
 element = ExtResource("3_fpw8p")
 

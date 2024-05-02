@@ -30,7 +30,7 @@ func _ready():
 	else: dummy_pos = global_position
 	
 	var num = caster.spawn_amount
-	
+	await get_tree().create_timer(end_time).timeout
 	if is_multiplayer_authority():
 		multiplayer_spawner.spawn_function = spawn_spiderling
 		multiplayer_spawner.spawn_path = get_parent().get_path()

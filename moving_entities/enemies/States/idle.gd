@@ -26,6 +26,7 @@ class_name Idle
 #region Signal methods
 func enter():
 	navigation_agent.target_position = enemy.global_position
+	play_anim()
 #endregion
 
 #region Other methods (please try to separate and organise!)

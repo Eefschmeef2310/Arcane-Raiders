@@ -40,19 +40,25 @@ func on_child_transition(state, new_state_name):
 
 @rpc("authority", "call_local", "reliable")
 func transition_state(relative_state_path, new_state_name):
-	var state = get_node(relative_state_path)
-	if state != current_state:
-		return
-	var new_state = states.get(new_state_name.to_lower())
-	if !new_state:
-		return
+	if has_node(relative_state_path):
+		var state = get_node(relative_state_path)
+		if state != current_state:
+			return
+		var new_state = states.get(new_state_name.to_lower())
+		if !new_state:
+			return
+			
+		if current_state:
+			current_state.exit()
+			
+		if "previous_state" in new_state:
+			new_state.previous_state = current_state.name.to_lower()
+			
+		new_state.enter()
 		
-	if current_state:
-		current_state.exit()
-		
-	new_state.enter()
-	
-	current_state = new_state
+		current_state = new_state
+	else:
+		print("fk")
 #endregion
 
 #region Other methods (please try to separate and organise!)

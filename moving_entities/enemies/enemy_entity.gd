@@ -88,7 +88,6 @@ func attempt_cast(slot: int):
 @rpc("authority", "call_local", "reliable")
 func use_spell(slot: int):
 	can_cast = false
-	nav_agent.avoidance_enabled = false
 	await get_tree().create_timer(enemy_spells.cast_time[slot]).timeout
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()
 	spell_node.caster = self
@@ -100,7 +99,11 @@ func use_spell(slot: int):
 	
 	await get_tree().create_timer(spell_node.end_time).timeout
 	can_cast = true
-	nav_agent.avoidance_enabled = true
+	
+	
+func attempt_anim(anim: String):
+	#TODO Do some stuff here to the play the animation
+	pass
 #endregion
 
 

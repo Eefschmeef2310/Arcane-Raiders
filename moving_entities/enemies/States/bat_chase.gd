@@ -31,6 +31,7 @@ var player: CharacterBody2D
 #region Other methods (please try to separate and organise!)
 func enter():
 	set_position()
+	play_anim()
 	
 func physics_update(delta):
 #If within transition range, transition into strafe mode
@@ -42,10 +43,7 @@ func physics_update(delta):
 	
 func set_position():
 	player = get_closest_player()
-	if(player):
-		navigation_agent.target_position = player.global_position
-	else:
-		navigation_agent.target_position = enemy.global_position
-	
+	if player: navigation_agent.target_position = player.global_position
+	else: Transitioned.emit(self, "idle")
 #endregion
 

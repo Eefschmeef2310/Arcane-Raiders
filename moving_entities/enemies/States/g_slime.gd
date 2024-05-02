@@ -30,6 +30,7 @@ var player: Player
 #region Other methods (please try to separate and organise!)	
 func enter():
 	set_position()
+	play_anim()
 
 func physics_update(delta):
 	super.physics_update(delta)
@@ -37,16 +38,15 @@ func physics_update(delta):
 	if !player: return
 	
 	if enemy.enraged: 
-		Transitioned.emit(self, "gslimeenraged")
-		print("enraged")
+		Transitioned.emit(self, "enraged")
+		return
 	
 	var distance = player.global_position.distance_to(enemy.global_position)
 	if (enemy.can_cast):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 		enemy.target_area = player.global_position
-		enemy.attempt_cast(0)
-		if(distance < attack_distance):
-			enemy.attempt_cast(1)
+		if(can_cast_spell(0)): Transitioned.emit(self, "lobattack")
+		elif(distance < attack_distance && can_cast_spell(1)): Transitioned.emit(self, "spikeattack")
 
 func set_position():
 	player = get_closest_player()

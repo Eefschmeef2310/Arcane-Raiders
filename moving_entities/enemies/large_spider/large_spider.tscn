@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckoux1a8woan8"]
+[gd_scene load_steps=12 format=3 uid="uid://ckoux1a8woan8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
 [ext_resource type="Texture2D" uid="uid://bmi2knc8yb56p" path="res://moving_entities/enemies/large_spider/LargeSpider_temp.png" id="2_sjih4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://de4m0mx15x57t" path="res://moving_entities/enemies/large_spider/web_attack.tres" id="4_23t6e"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_aggro.gd" id="4_xehv5"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_retreat.gd" id="5_veoge"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_fbxky"]
 
 [sub_resource type="GDScript" id="GDScript_a4am7"]
 script/source = "extends EnemyEntity
@@ -79,7 +80,6 @@ radius = 73.0069
 radius = 25.02
 
 [node name="LargeSpider" instance=ExtResource("1_dvtpw")]
-collision_mask = 3
 script = SubResource("GDScript_a4am7")
 passive_movespeed = 150.0
 agrro_movespeed = 250.0
@@ -130,6 +130,13 @@ nav_timer_interval = 0.4
 script = ExtResource("5_veoge")
 nav_timer_interval = 99.0
 nav_timer = 99
+
+[node name="SpawnNest" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("8_fbxky")
+
+[node name="WebAttack" type="Node" parent="StateMachine" index="4"]
+script = ExtResource("8_fbxky")
+spell_num = 1
 
 [node name="NavigationAgent2D" parent="." index="7"]
 avoidance_priority = 0.7

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfrsuqfut2eks"]
+[gd_scene load_steps=15 format=3 uid="uid://bfrsuqfut2eks"]
 
 [ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_m24lk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="7_hcoo1"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
 [ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_wlcbw"]
 [ext_resource type="Texture2D" uid="uid://c01cck3klbq2" path="res://moving_entities/enemies/SlimeBig/beefier_slime.png" id="9_kra2g"]
 
 [sub_resource type="GDScript" id="GDScript_x4875"]
@@ -48,6 +49,7 @@ func _on_zero_health():
 		#Anim here
 		multiplayer_spawner.call_deferred(\"spawn\", null)
 		multiplayer_spawner.call_deferred(\"spawn\", null)
+		
 		queue_free()
 		
 	
@@ -57,6 +59,7 @@ func _on_zero_health():
 func spawn_split(_a) -> Node2D:
 	var slime = SMALL_SLIME.instantiate()
 	slime.global_position = global_position
+	#make Invincible for a bit
 	return slime
 	
 #endregion
@@ -136,6 +139,9 @@ actual_first_state = NodePath("../BasicChase")
 [node name="BasicChase" type="Node" parent="StateMachine"]
 script = ExtResource("7_hcoo1")
 attack_distance = 100.0
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("8_wlcbw")
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("5_gvsgo")

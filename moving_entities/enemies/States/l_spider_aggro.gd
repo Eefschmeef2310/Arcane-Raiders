@@ -23,9 +23,9 @@ var player: CharacterBody2D
 func update(_delta):
 	#if enemy is close to the targeted player, attack em
 	if(!player): return
-	if(enemy.global_position.distance_to(player.global_position) < 100):
+	if(enemy.global_position.distance_to(player.global_position) < 100 && can_cast_spell(1)):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-		enemy.attempt_cast(1)
+		Transitioned.emit(self, "webattack")
 
 func physics_update(delta):
 	super.physics_update(delta)
@@ -43,6 +43,7 @@ func physics_update(delta):
 #region Other methods (please try to separate and organise!)
 func enter():
 	enemy.movement_speed = enemy.agrro_movespeed
+	play_anim()
 	set_position()
 	
 func set_position():

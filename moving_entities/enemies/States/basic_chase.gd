@@ -30,18 +30,21 @@ var player: Player
 #region Other methods (please try to separate and organise!)
 func update(_delta):
 	super.update(_delta)
+	if !player: return
+	var distance = player.global_position.distance_to(enemy.global_position)
+	if (distance < attack_distance && can_cast_spell(0)):
+		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
+		enemy.target_area = player.global_position
+		#TODO call primary attack
+		Transitioned.emit(self, "attack")
+		#enemy.attempt_cast(0)
 	
 func physics_update(_delta):
 	super.physics_update(_delta)
-	if !player: return
-	var distance = player.global_position.distance_to(enemy.global_position)
-	if (distance < attack_distance && enemy.can_cast):
-		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-		enemy.target_area = player.global_position
-		enemy.attempt_cast(0)
 
 func enter():
 	set_position()
+	play_anim()
 
 func set_position():
 	player = get_closest_player()
