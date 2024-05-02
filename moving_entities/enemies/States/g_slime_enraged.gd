@@ -32,7 +32,7 @@ func enter():
 	#TODO enraged anim
 	pass
 
-func physics_update(delta):
+func physics_update(_delta):
 	if(enemy.can_cast):
 		enemy.attempt_cast(2)
 		Transitioned.emit(self,"gslime")

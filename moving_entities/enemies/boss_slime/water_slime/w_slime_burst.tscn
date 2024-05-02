@@ -29,7 +29,7 @@ func _ready():
 		if \"burst_amount\" in caster: burst_amount = caster.burst_amount
 	for n in burst_amount:
 		var proj = W_SLIME_PROJ.instantiate()
-		proj.set_direction(direction0.rotated(deg_to_rad(360/burst_amount*n)))
+		proj.set_direction(direction0.rotated(deg_to_rad(360./burst_amount*n)))
 		transfer_data(proj)
 		call_deferred(\"add_sibling\", proj)
 		

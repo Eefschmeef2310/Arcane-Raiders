@@ -76,16 +76,22 @@ radius = 124.409
 
 [sub_resource type="Resource" id="Resource_ct66w"]
 script = ExtResource("5_3k4qm")
+suffix = ""
+description = ""
 scene = ExtResource("4_m3r0o")
 element = ExtResource("3_0j38g")
 
 [sub_resource type="Resource" id="Resource_hqf66"]
 script = ExtResource("5_3k4qm")
+suffix = ""
+description = ""
 scene = ExtResource("7_thqtl")
 element = ExtResource("6_11tbp")
 
 [sub_resource type="Resource" id="Resource_u84hp"]
 script = ExtResource("5_3k4qm")
+suffix = ""
+description = ""
 scene = ExtResource("8_fopfk")
 element = ExtResource("3_0j38g")
 
@@ -100,6 +106,7 @@ script = SubResource("GDScript_3ka3a")
 movement_speed = 100.0
 
 [node name="Sprite2D" parent="." index="0"]
+texture_filter = 1
 position = Vector2(0, -74)
 scale = Vector2(5, 5)
 texture = ExtResource("2_s3t78")

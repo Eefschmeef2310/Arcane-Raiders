@@ -40,7 +40,7 @@ var duration = 2
 #region Godot methods
 func _ready():
 	var tween = get_tree().create_tween()
-	var half_d = duration/2
+	var half_d = duration/2.
 	if(caster): 
 		global_position = caster.global_position
 		if(target_area == null):

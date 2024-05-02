@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckoux1a8woan8"]
+[gd_scene load_steps=20 format=3 uid="uid://ckoux1a8woan8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
 [ext_resource type="Texture2D" uid="uid://bmi2knc8yb56p" path="res://moving_entities/enemies/large_spider/LargeSpider_temp.png" id="2_sjih4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://de4m0mx15x57t" path="res://moving_entities/enemies/large_spider/web_attack.tres" id="4_23t6e"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_aggro.gd" id="4_xehv5"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_retreat.gd" id="5_veoge"]
+[ext_resource type="Texture2D" uid="uid://ex48ev3rqiaq" path="res://moving_entities/enemies/large_spider/spider_sketch.png" id="8_koum2"]
 
 [sub_resource type="GDScript" id="GDScript_a4am7"]
 script/source = "extends EnemyEntity
@@ -78,8 +79,99 @@ radius = 73.0069
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3555"]
 radius = 25.02
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bxw3"]
+atlas = ExtResource("8_koum2")
+region = Rect2(0, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpewn"]
+atlas = ExtResource("8_koum2")
+region = Rect2(250, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qni2q"]
+atlas = ExtResource("8_koum2")
+region = Rect2(500, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi35v"]
+atlas = ExtResource("8_koum2")
+region = Rect2(750, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlkrp"]
+atlas = ExtResource("8_koum2")
+region = Rect2(1000, 0, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp2lp"]
+atlas = ExtResource("8_koum2")
+region = Rect2(1250, 0, 250, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6uxq2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bxw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpewn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qni2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi35v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlkrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp2lp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_sjtr7"]
+resource_name = "spider_test"
+script/source = "extends AnimatedSprite2D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(_delta):
+	speed_scale = 1.0 if owner.nav_agent.velocity.y > 0 else -1.
+	print(speed_scale)
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
 [node name="LargeSpider" instance=ExtResource("1_dvtpw")]
-collision_mask = 3
 script = SubResource("GDScript_a4am7")
 passive_movespeed = 150.0
 agrro_movespeed = 250.0
@@ -88,6 +180,7 @@ spawn_limit = 1
 max_health = 600
 
 [node name="Sprite2D" parent="." index="0"]
+visible = false
 position = Vector2(8, -21)
 texture = ExtResource("2_sjih4")
 
@@ -133,6 +226,12 @@ nav_timer = 99
 
 [node name="NavigationAgent2D" parent="." index="7"]
 avoidance_priority = 0.7
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="9"]
+sprite_frames = SubResource("SpriteFrames_6uxq2")
+autoplay = "default"
+frame_progress = 0.646599
+script = SubResource("GDScript_sjtr7")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]

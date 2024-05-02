@@ -51,7 +51,7 @@ func set_position():
 	player = get_closest_player()
 	if(enemy.global_position.distance_to(enemy.zone_pos) > enemy.zone_radius):
 		direction = enemy.global_position.direction_to(enemy.zone_pos).rotated(deg_to_rad((randi() % 45) - 22.5))
-		print(direction)
+		#print(direction)
 	else: direction = Vector2.UP.rotated(randi() % 360)
 	target_pos = enemy.global_position + direction * distance
 	navigation_agent.target_position = target_pos
