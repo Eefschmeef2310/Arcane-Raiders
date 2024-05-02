@@ -8,6 +8,7 @@ var aim_dir: Vector2
 var spell_down: Array[bool] = [false]
 var spell_press: Array[bool] = [false]
 var spell_release: Array[bool] = [false]
+var do_dash: bool = false
 
 var is_keyb: bool
 
@@ -39,6 +40,7 @@ func _process(_delta):
 		spell_down.fill(false)
 		spell_press.fill(false)
 		spell_release.fill(false)
+		do_dash = false
 		
 		# If we have an input object, use it
 		if input:
@@ -63,6 +65,7 @@ func _process(_delta):
 				spell_down[i] = input.is_action_pressed("spell" + str(i))
 				spell_press[i] = input.is_action_just_pressed("spell" + str(i))
 				spell_release[i] = input.is_action_just_released("spell" + str(i))
+			do_dash = input.is_action_pressed("dash")
 		
 		# Otherwise, use any connected controller
 		else:
@@ -90,6 +93,8 @@ func _process(_delta):
 						spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
 					if spell_release[i] == false:
 						spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
+				if do_dash == false:
+					do_dash = MultiplayerInput.is_action_just_pressed(device, "dash")
 		
 		# Send input to owner
 		owner.move_direction = move_dir
@@ -104,7 +109,8 @@ func _process(_delta):
 					owner.prepare_cast(i)
 				if spell_release[i]:
 					owner.attempt_cast(i)
-					
+		if do_dash:
+			owner.attempt_dash()
 
 func _input(event):
 	if !input:
