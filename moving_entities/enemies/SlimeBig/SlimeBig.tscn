@@ -47,8 +47,11 @@ func _ready():
 func _on_zero_health():
 	if is_multiplayer_authority():
 		#Anim here
-		multiplayer_spawner.call_deferred(\"spawn\", null)
-		multiplayer_spawner.call_deferred(\"spawn\", null)
+		
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room:
+			room.enemy_spawner.spawn({\"key\": \"slime_small\", \"pos\": global_position})
+			room.enemy_spawner.spawn({\"key\": \"slime_small\", \"pos\": global_position})
 		
 		queue_free()
 		

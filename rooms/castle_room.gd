@@ -56,7 +56,8 @@ func _ready():
 		room_exit.lock()
 		while total_difficulty_left > 0:
 			var key = EnemyManager.Data.keys().pick_random()
-			enemy_spawner.spawn(key, enemy_spawns.get_children().pick_random().global_position)
+			var spawn_pos = enemy_spawns.get_children().pick_random().global_position
+			enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 			print("New total: " + str(number_of_enemies_left))
 
@@ -103,10 +104,13 @@ func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	print("Sending spell change request.")
 	spell_change_requested.emit(p.data, i, sp)
 
-func spawn_enemy(id: String, pos: Vector2) -> Node2D:
+func spawn_enemy(data) -> Node2D:
+	var id = data.key
+	var pos = data.pos
+	
 	print("Spawning " + str(id))
-	var data = EnemyManager.Data[id]
-	var enemy: Entity = data["scene"].instantiate()
+	var enemy_data = EnemyManager.Data[id]
+	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
 	return enemy
 

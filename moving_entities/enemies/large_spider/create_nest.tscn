@@ -27,10 +27,13 @@ const BASIC_NEST = preload(\"res://moving_entities/enemies/nest/basic_nest.tscn\
 func _ready():
 	#Runs when all children have entered the tree
 	if is_multiplayer_authority():
-		multiplayer_spawner.spawn_function = nest_spawn
-		multiplayer_spawner.spawn_path = get_parent().get_path()
-		multiplayer_spawner.call_deferred(\"spawn\", null)
+		
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room:
+			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": global_position})
+			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": global_position})
 		caster.add_nest()
+		
 		queue_free()
 #endregion
 

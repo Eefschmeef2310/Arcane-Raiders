@@ -20,5 +20,9 @@ extends Node
 	"spider_big" : {
 		"scene" : preload("res://moving_entities/enemies/large_spider/large_spider.tscn"),
 		"difficulty" : 10
+	},
+	"spiderling" : {
+		"scene" : preload("res://moving_entities/enemies/spiderling/spiderling.tscn"),
+		"difficulty" : 0.5
 	}
 }
