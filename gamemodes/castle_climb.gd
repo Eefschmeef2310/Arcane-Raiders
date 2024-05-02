@@ -101,7 +101,7 @@ func spawn_basic_level(index: int) -> Node:
 
 func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
-	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(current_floor/total_floors)
+	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(float(current_floor)/float(total_floors))
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
