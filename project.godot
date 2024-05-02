@@ -21,7 +21,6 @@ buses/default_bus_layout="res://managers/default_audio_buses.tres"
 
 [autoload]
 
-Game="*res://managers/game_manager.gd"
 EnemyManager="*res://managers/enemy_manager.tscn"
 SpellManager="*res://managers/spell_manager.tscn"
 MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
@@ -29,6 +28,7 @@ SteamManager="*res://multiplayer/steamManager/steamManager.tscn"
 PromptManager="*res://managers/prompt_manager.gd"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
 AudioManager="*res://managers/audio_manager.tscn"
+GameManager="*res://managers/game_manager.gd"
 
 [display]
 

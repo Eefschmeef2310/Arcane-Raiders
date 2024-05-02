@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ckoux1a8woan8"]
+[gd_scene load_steps=21 format=3 uid="uid://ckoux1a8woan8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
 [ext_resource type="Texture2D" uid="uid://bmi2knc8yb56p" path="res://moving_entities/enemies/large_spider/LargeSpider_temp.png" id="2_sjih4"]
