@@ -10,6 +10,7 @@ signal spell_change_requested(Player, int, SpellPickup)
 @export var wave_total_difficulty : Array[int]
 @export var gradient_map : GradientTexture1D
 @export var saturation : float
+@export var track_id : String
 
 @onready var dynamic_camera: DynamicCamera = $DynamicCamera
 
@@ -65,8 +66,13 @@ func _ready():
 			enemy.zero_health.connect(_on_enemy_zero_health)
 			number_of_enemies_left += 1
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
+			
+			AudioManager.switch_to_battle()
 			# print("New total: " + str(number_of_enemies_left))
-
+		
+	if track_id != "":
+		AudioManager.play_track_fade(track_id)
+		
 func _process(_delta):
 	pass
 	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)

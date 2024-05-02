@@ -6,6 +6,8 @@ extends CastleRoom
 func _ready():
 	super._ready()
 	
+	AudioManager.switch_to_boss()
+	
 	if is_multiplayer_authority() and boss_id != "":
 		number_of_enemies_left = bosses_to_kill
 		

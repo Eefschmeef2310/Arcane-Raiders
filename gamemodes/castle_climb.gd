@@ -80,13 +80,13 @@ func start_next_floor():
 	
 	# Spawn new room
 	print("Creating new room.")
+	AudioManager.play_sector(get_current_sector())
 	if current_floor <= 0:
 		common_level_spawner.spawn("foyer")
 	elif current_floor == total_floors:
 		common_level_spawner.spawn("final")
 	elif current_floor in shop_floors:
 		common_level_spawner.spawn("shop")
-		AudioManager.play_track_instant("shop")
 	elif current_floor in boss_floors:
 		boss_level_spawner.spawn(rng_floors.randi_range(0, boss_levels.size() - 1))
 	else:
@@ -103,13 +103,11 @@ func spawn_common_level(key) -> Node:
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
-	AudioManager.switch_to_battle()
 	return current_room_node
 
 func spawn_boss_level(index: int) -> Node:
 	current_room_node = boss_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
-	AudioManager.switch_to_boss()
 	return current_room_node
 
 func inject_data_to_current_room_node():
@@ -119,13 +117,16 @@ func inject_data_to_current_room_node():
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
 	
+	var i = get_current_sector()
+	print("Using Sector "+ str(i) +" data.")
+	current_room_node.gradient_map = sector_gradient_maps[i]
+	current_room_node.saturation = sector_gradient_saturations[i]
+
+func get_current_sector():
 	var i = 0
 	while i < sector_start_floors.size():
 		if i == sector_start_floors.size()-1 or current_floor < sector_start_floors[i+1]:
-			print("Using Sector "+ str(i) +" data.")
-			current_room_node.gradient_map = sector_gradient_maps[i]
-			current_room_node.saturation = sector_gradient_saturations[i]
-			AudioManager.play_sector(i)
+			return i
 			break
 		i += 1
 
