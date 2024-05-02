@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckoux1a8woan8"]
+[gd_scene load_steps=15 format=3 uid="uid://ckoux1a8woan8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
-[ext_resource type="Texture2D" uid="uid://bmi2knc8yb56p" path="res://moving_entities/enemies/large_spider/LargeSpider_temp.png" id="2_sjih4"]
+[ext_resource type="Texture2D" uid="uid://ctlnjks063l3g" path="res://moving_entities/enemies/large_spider/large_spider_move.png" id="2_kpkts"]
 [ext_resource type="Resource" uid="uid://dkx8pk1j6atmv" path="res://moving_entities/enemies/large_spider/create_nest.tres" id="3_745ch"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_passive.gd" id="3_p7ngy"]
 [ext_resource type="Resource" uid="uid://de4m0mx15x57t" path="res://moving_entities/enemies/large_spider/web_attack.tres" id="4_23t6e"]
@@ -79,6 +79,92 @@ radius = 73.0069
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3555"]
 radius = 25.02
 
+[sub_resource type="Animation" id="Animation_rcq5u"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_kpkts")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_aadst"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_kpkts")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ffq3"]
+_data = {
+"RESET": SubResource("Animation_aadst"),
+"idle": SubResource("Animation_rcq5u")
+}
+
 [node name="LargeSpider" instance=ExtResource("1_dvtpw")]
 script = SubResource("GDScript_a4am7")
 passive_movespeed = 150.0
@@ -89,7 +175,8 @@ max_health = 600
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(8, -21)
-texture = ExtResource("2_sjih4")
+texture = ExtResource("2_kpkts")
+hframes = 6
 
 [node name="Hurtbox" parent="." index="1"]
 position = Vector2(0, 0)
@@ -133,13 +220,20 @@ nav_timer = 99
 
 [node name="SpawnNest" type="Node" parent="StateMachine" index="3"]
 script = ExtResource("8_fbxky")
+transition_out_when_can_cast = true
 
 [node name="WebAttack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("8_fbxky")
 spell_num = 1
+transition_out_when_can_cast = true
 
 [node name="NavigationAgent2D" parent="." index="7"]
 avoidance_priority = 0.7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+libraries = {
+"": SubResource("AnimationLibrary_5ffq3")
+}
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
