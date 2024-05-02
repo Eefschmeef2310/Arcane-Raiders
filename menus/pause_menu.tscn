@@ -22,14 +22,14 @@ script/source = "extends CanvasLayer
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var pauser_id : int
+var pauser_device : DeviceInput
 
 #endregion
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
-	pass
+	#Pause the game if we're LOCAL ONLY
+	get_tree().paused = GameManager.isLocal()
 
 func _process(_delta):
 	#Runs per frame
@@ -37,24 +37,35 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
+func _on_continue_button_pressed():
+	if get_tree().paused:
+		get_tree().paused = false
+	queue_free()
+	
 func _on_settings_button_pressed():
 	get_tree().root.add_child(load(\"res://menus/settings.tscn\").instantiate())
+	
+func _on_quit_button_pressed():
+	if GameManager.isOnline():
+		var quit_warning = load(\"res://menus/quit_warning.tscn\").instantiate()
+		
+		if is_multiplayer_authority():
+			quit_warning.set_text(\"By quitting, you will close the server. \\nAre you sure you want to quit?\")
+
+		get_tree().root.add_child(quit_warning)
+	else:
+		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
+		queue_free()
+		
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 #endregion
 
-#TODO: 1. Check for local. if we're in local, onyl the pausing player should be able to control the menu, and the game should be paused (like Smash)
+#TODO: 1. Check for local. if we're in local. Only the pausing player should be able to control the menu, and the game should be paused (like Smash)
 #2. Test to make sure that online, the pause screen shouldnt pause at all if we're online
 #3. a warning to the host to say the server will shut. for every other player, a quitting warning will be displayed (should be implemented)
-
-func _on_quit_button_pressed():
-	if is_multiplayer_authority():
-		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
-		queue_free()
-	else:
-		get_tree().root.add_child(load(\"res://menus/quit_warning.tscn\").instantiate())
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
@@ -65,6 +76,7 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
 script = SubResource("GDScript_gacho")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -125,5 +137,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "QUIT"
 
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

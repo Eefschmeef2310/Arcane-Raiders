@@ -23,14 +23,14 @@ func _ready():
 func _process(_delta):
 	var do_pause = false
 	if input: # For local
-		input.is_action_just_pressed("pause")
+		do_pause = input.is_action_just_pressed("pause")
 	else: # For online
 		for device in devices:
-			MultiplayerInput.is_action_pressed(device, "pause")
+			if !do_pause:
+				do_pause = MultiplayerInput.is_action_pressed(device, "pause")
 	
 	if do_pause:
 		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
-		print(get_tree().get_current_scene())
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		

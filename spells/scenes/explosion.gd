@@ -11,6 +11,7 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var match_tilemap_angle : bool = false
 @export var speed_curve : Curve
 @export var sprite_rotation_falloff_curve : Curve
 @export var scale_falloff_curve : Curve
@@ -49,7 +50,7 @@ func _ready():
 func _physics_process(_delta):
 	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
 	
-	position += Vector2(cos(rotation), sin(rotation)/2) * \
+	position += Vector2(cos(rotation), sin(rotation)/(2 if match_tilemap_angle else 1)) * \
 		((speed_curve.sample(lifetime_progress) if speed_curve else 0.0))
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
 	point_light_2d.texture_scale = scale.x * 1.5
