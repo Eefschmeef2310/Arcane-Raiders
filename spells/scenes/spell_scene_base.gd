@@ -38,7 +38,10 @@ var caster : Entity #This is also set in code
 #endregion
 
 func _enter_tree():
-	AudioManager.play_audio2D_at_point(caster.global_position, resource.element.sound)
+	var pos = global_position
+	if caster:
+		pos = caster.global_position
+	AudioManager.play_audio2D_at_point(pos, resource.element.sound)
 
 func transfer_data(new: Node2D):
 	if "base_damage" in new:

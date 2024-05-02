@@ -96,6 +96,8 @@ _data = {
 [node name="GiantSlime" instance=ExtResource("1_148eg")]
 script = SubResource("GDScript_3ka3a")
 movement_speed = 100.0
+is_boss = true
+boss_name = "Poisonous Amalgamate"
 
 [node name="Sprite2D" parent="." index="0"]
 texture_filter = 1

@@ -87,8 +87,8 @@ radius = 35.0571
 [sub_resource type="CircleShape2D" id="CircleShape2D_ofg1l"]
 radius = 33.0606
 
-[sub_resource type="Animation" id="Animation_dxsx4"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_gannn"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -102,8 +102,8 @@ tracks/0/keys = {
 "values": [1]
 }
 
-[sub_resource type="Animation" id="Animation_gannn"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_dxsx4"]
+resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -126,6 +126,8 @@ _data = {
 [node name="ElecSlime" groups=["boss_slime"] instance=ExtResource("1_5w74h")]
 script = SubResource("GDScript_fiano")
 movement_speed = 300.0
+is_boss = true
+boss_name = "Shock Daughter Slime"
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-9, -65)

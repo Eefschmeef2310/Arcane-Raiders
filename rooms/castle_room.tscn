@@ -84,6 +84,15 @@ color = Color(0.65098, 0.65098, 0.65098, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="BossBars" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 125.0
+grow_horizontal = 2
+theme_override_constants/separation = 32
+alignment = 1
+
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 40.0
 offset_top = 141.0

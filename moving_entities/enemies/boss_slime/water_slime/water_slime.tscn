@@ -81,8 +81,8 @@ radius = 30.0167
 [sub_resource type="CircleShape2D" id="CircleShape2D_8r4p3"]
 radius = 35.0571
 
-[sub_resource type="Animation" id="Animation_po6pj"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_kfd3f"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -96,8 +96,8 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_kfd3f"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_po6pj"]
+resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -121,6 +121,8 @@ _data = {
 script = SubResource("GDScript_8xenb")
 burst_amount = 12
 movement_speed = 150.0
+is_boss = true
+boss_name = "Aqua Daughter Slime"
 max_health = 800
 
 [node name="Sprite2D" parent="." index="0"]
