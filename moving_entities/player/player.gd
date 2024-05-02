@@ -186,7 +186,7 @@ func on_hurt(attack):
 		
 	if is_dead:
 		toggle_dead(true);
-	else:
+	elif !("base_damage" in attack and attack.base_damage <= 0):
 		start_invincibility.rpc()
 
 func toggle_dead(b):
