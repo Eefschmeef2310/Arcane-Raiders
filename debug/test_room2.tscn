@@ -1,0 +1,101 @@
+[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
+
+[ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
+[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
+[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="3_fc8ef"]
+[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="4_1txtx"]
+[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="5_xmyeo"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
+[ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
+[ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
+[ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+
+[sub_resource type="GDScript" id="GDScript_tg365"]
+script/source = "extends Node
+#class_name
+#Authored by Xander. Please consult for any modifications or major feature requests.
+@onready var data_to_fuck_with = $\"../Player/PlayerData\"
+@onready var dynamic_camera = $\"../DynamicCamera\"
+
+func _ready():
+	for player in get_tree().get_nodes_in_group(\"player\"):
+		dynamic_camera.add_target(player)
+
+func _process(_delta):
+	if Input.is_action_just_pressed(\"debug_random\") and data_to_fuck_with:
+		for i in data_to_fuck_with.spells.size():
+			data_to_fuck_with.spells[i] = SpellManager.get_random_spell()
+			data_to_fuck_with.spell_changed.emit()
+"
+
+[sub_resource type="Resource" id="Resource_ihywv"]
+script = ExtResource("6_ud4mg")
+suffix = ""
+description = ""
+scene = ExtResource("5_xmyeo")
+ui_texture = ExtResource("7_amtw5")
+element = ExtResource("4_1txtx")
+
+[sub_resource type="Resource" id="Resource_rcxt8"]
+script = ExtResource("6_ud4mg")
+suffix = ""
+description = ""
+scene = ExtResource("5_xmyeo")
+ui_texture = ExtResource("7_amtw5")
+element = ExtResource("8_nlbb2")
+
+[sub_resource type="Resource" id="Resource_d4xld"]
+script = ExtResource("6_ud4mg")
+suffix = ""
+description = ""
+scene = ExtResource("5_xmyeo")
+ui_texture = ExtResource("7_amtw5")
+element = ExtResource("4_1txtx")
+
+[sub_resource type="LabelSettings" id="LabelSettings_vu12a"]
+font_size = 24
+
+[node name="CastleRoom" instance=ExtResource("1_fdu1f")]
+
+[node name="DebugBrain" type="Node" parent="." index="13"]
+script = SubResource("GDScript_tg365")
+
+[node name="LargeSpider" parent="." index="14" instance=ExtResource("3_fc8ef")]
+position = Vector2(1015, 438)
+
+[node name="Player" parent="." index="15" instance=ExtResource("2_177bf")]
+position = Vector2(96, 800)
+
+[node name="PlayerData" parent="Player" index="6"]
+device_id = -1
+spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
+spell_strings = Array[String](["wet-aoe_large", "shock-aoe_local", "burn-proj_spread"])
+main_color = Color(0.737255, 0.231373, 0.192157, 1)
+
+[node name="GameUI" type="CanvasLayer" parent="." index="16"]
+
+[node name="Label" type="Label" parent="GameUI" index="0"]
+offset_left = 421.0
+offset_top = 1010.0
+offset_right = 830.0
+offset_bottom = 1044.0
+text = "Press R to randomise spell loadout!"
+label_settings = SubResource("LabelSettings_vu12a")
+
+[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="1"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PlayerUI" parent="GameUI/PlayerUIContainer" index="0" node_paths=PackedStringArray("data") instance=ExtResource("9_qlfqa")]
+layout_mode = 2
+data = NodePath("../../../Player/PlayerData")
+
+[node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
+layout_mode = 2
+
+[editable path="Player"]

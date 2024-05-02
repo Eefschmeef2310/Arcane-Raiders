@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bs14qtk2at5lb" path="res://rooms/final_room.tscn" id="4_xewuu"]
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="5_ohq6b"]
 [ext_resource type="PackedScene" uid="uid://cjtf6hsua8mls" path="res://rooms/basic/basic_luti.tscn" id="6_8eavx"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="6_sfo2l"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
