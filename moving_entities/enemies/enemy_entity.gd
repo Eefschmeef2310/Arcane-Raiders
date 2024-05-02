@@ -103,8 +103,9 @@ func use_spell(slot: int):
 	
 	
 func attempt_anim(anim: String):
-	animation_player.stop()
-	animation_player.play(anim)
+	if animation_player:
+		animation_player.stop()
+		animation_player.play(anim)
 #endregion
 
 

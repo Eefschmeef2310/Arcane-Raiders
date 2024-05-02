@@ -244,6 +244,7 @@ grow_vertical = 0
 
 [node name="EnemySpells" parent="." instance=ExtResource("5_ik7on")]
 spells = Array[ExtResource("9_lrlrc")]([SubResource("Resource_p6y1p")])
+cast_time = Array[float]([0.2, 0.2, 0.2])
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_4n8u7")]
 initial_state = NodePath("Idle")
