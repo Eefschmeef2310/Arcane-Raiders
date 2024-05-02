@@ -45,8 +45,8 @@ func _process(delta):
 
 #endregion
 
-func set_direction(direction: Vector2):
-	self.direction = direction
+func set_direction(new_direction: Vector2):
+	self.direction = new_direction
 
 func _on_body_entered(_body):
 	create_explosion()

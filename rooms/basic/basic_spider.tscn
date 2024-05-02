@@ -45,3 +45,6 @@ texture = ExtResource("2_41jdf")
 
 [node name="RoomExit" parent="." index="10"]
 position = Vector2(1597, 133)
+
+[node name="CanvasModulate" parent="." index="11"]
+color = Color(0.65098, 0.65098, 0.65098, 1)
