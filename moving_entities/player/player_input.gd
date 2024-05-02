@@ -21,7 +21,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if Input.is_action_just_pressed("pause"):
+	var do_pause = false
+	if input: # For local
+		input.is_action_just_pressed("pause")
+	else: # For online
+		for device in devices:
+			MultiplayerInput.is_action_pressed(device, "pause")
+	
+	if do_pause:
 		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
 		print(get_tree().get_current_scene())
 	

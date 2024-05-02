@@ -32,6 +32,7 @@ var room_exited_triggered := false
 var player_data
 var current_wave = 0
 var max_waves
+var difficulty_modifier = 1
 var total_difficulty_left = 0
 var number_of_enemies_left = 0
 var live_players = 0
@@ -52,17 +53,19 @@ func _ready():
 	
 	if is_multiplayer_authority() and max_waves > 0:
 		number_of_enemies_left = 0
-		total_difficulty_left = wave_total_difficulty[0]
+		total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier
+		print("Difficulty modifier: " + str(difficulty_modifier))
 		room_exit.lock()
 		while total_difficulty_left > 0:
 			var key = EnemyManager.Data.keys().pick_random()
 			var spawn_pos = enemy_spawns.get_children().pick_random().global_position
 			enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
-			print("New total: " + str(number_of_enemies_left))
+			# print("New total: " + str(number_of_enemies_left))
 
 func _process(_delta):
-	$CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
+	pass
+	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
 	if is_multiplayer_authority():

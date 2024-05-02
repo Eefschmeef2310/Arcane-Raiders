@@ -89,7 +89,6 @@ offset_left = 40.0
 offset_top = 141.0
 offset_right = 157.0
 offset_bottom = 164.0
-text = "Enemies Left: 0"
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="player_entered" from="RoomExit" to="." method="_on_room_exit_player_entered"]

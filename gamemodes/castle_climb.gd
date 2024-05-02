@@ -22,6 +22,9 @@ class_name CastleClimb
 @export var sector_gradient_maps: Array[GradientTexture1D]
 @export var sector_gradient_saturations : Array[float]
 
+@export_group("Difficulty")
+@export var wave_difficulty_curve : Curve
+
 var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
 var current_floor : int = -1
@@ -98,6 +101,7 @@ func spawn_basic_level(index: int) -> Node:
 
 func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
+	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(current_floor/total_floors)
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
