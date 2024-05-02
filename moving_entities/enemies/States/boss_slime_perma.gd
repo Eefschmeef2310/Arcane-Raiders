@@ -3,19 +3,6 @@ extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
 var player: Entity
 #endregion
 
@@ -26,12 +13,13 @@ func physics_update(delta):
 	if enemy.can_cast:
 		enemy.target_area = player.global_position
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-		enemy.attempt_cast(1)
-		if !("attack_range" in enemy):
-			enemy.attempt_cast(0)
-		elif (enemy.global_position.distance_to(player.global_position) <= enemy.attack_range):
-			enemy.attempt_cast(0)
-		
+		if(can_cast_spell(1)):
+			Transitioned.emit(self, "secondaryattack")
+		elif(can_cast_spell(0)):
+			if !("attack_range" in enemy):
+				Transitioned.emit(self, "primaryattack")
+			elif (enemy.global_position.distance_to(player.global_position) <= enemy.attack_range):
+				Transitioned.emit(self, "primaryattack")
 #endregion
 
 #region Signal methods
@@ -41,7 +29,6 @@ func physics_update(delta):
 #region Other methods (please try to separate and organise!)
 func enter():
 	enemy.swap_modulate(true)
-	#Some funny animation to show that he is pissed off real bad
 	
 func set_position():
 	player = get_closest_player()
