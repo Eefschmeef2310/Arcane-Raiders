@@ -78,7 +78,7 @@ func _process(delta):
 			else:
 				animation_player.play("idle", -1, 1)
 	
-	$SpellDirection/Sprite2DProjection.visible = preparing_cast_slot >= 0
+	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
 	if debug:
 		$PrepareCast.text = str(preparing_cast_slot)
@@ -138,7 +138,7 @@ func start_dash(dir: Vector2):
 	animation_player.play("dash")
 
 func prepare_cast(slot: int):
-	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0:
+	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
 		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
@@ -146,7 +146,7 @@ func prepare_cast(slot: int):
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
-	if can_cast and data.spell_cooldowns[slot] <= 0:
+	if can_cast and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		cast_spell.rpc(slot)
 	preparing_cast_slot = -1
 
@@ -210,3 +210,6 @@ func _on_invincibility_timer_timeout():
 	is_invincible = false
 	$InvincibilityAnimation.play("RESET")
 	$InvincibilityTimer.stop()
+
+func is_near_pickup():
+	return $SpellPickupDetector.closest_pickup != null
