@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
-[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="3_fc8ef"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="4_1txtx"]
 [ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="5_xmyeo"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
+[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="9_5s0xn"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
@@ -57,13 +57,13 @@ font_size = 24
 
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
 
+[node name="RoomExit" parent="." index="10"]
+position = Vector2(1934, -45)
+
 [node name="DebugBrain" type="Node" parent="." index="13"]
 script = SubResource("GDScript_tg365")
 
-[node name="LargeSpider" parent="." index="14" instance=ExtResource("3_fc8ef")]
-position = Vector2(1015, 438)
-
-[node name="Player" parent="." index="15" instance=ExtResource("2_177bf")]
+[node name="Player" parent="." index="14" instance=ExtResource("2_177bf")]
 position = Vector2(96, 800)
 
 [node name="PlayerData" parent="Player" index="6"]
@@ -72,7 +72,7 @@ spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResour
 spell_strings = Array[String](["wet-aoe_large", "shock-aoe_local", "burn-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="GameUI" type="CanvasLayer" parent="." index="16"]
+[node name="GameUI" type="CanvasLayer" parent="." index="15"]
 
 [node name="Label" type="Label" parent="GameUI" index="0"]
 offset_left = 421.0
@@ -97,5 +97,8 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
+
+[node name="GiantSlime" parent="." index="16" instance=ExtResource("9_5s0xn")]
+position = Vector2(1006, 507)
 
 [editable path="Player"]

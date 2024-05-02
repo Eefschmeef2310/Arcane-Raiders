@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3vylmhj1ttfl"]
+[gd_scene load_steps=21 format=3 uid="uid://d3vylmhj1ttfl"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_jbpe8"]
 [ext_resource type="Texture2D" uid="uid://nwavnffxkgc6" path="res://moving_entities/enemies/boss_slime/water_slime/image8.png" id="2_e5vdm"]
@@ -8,8 +8,9 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_wh80d"]
 [ext_resource type="PackedScene" uid="uid://bgu0y64hgxpkh" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_burst.tscn" id="6_42na5"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_chase.gd" id="8_2v68o"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_temp.gd" id="9_4suod"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/slime_solo.gd" id="9_fq70r"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_54m7u"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="11_2g4eq"]
 
 [sub_resource type="GDScript" id="GDScript_8xenb"]
 script/source = "extends EnemyEntity
@@ -80,6 +81,42 @@ radius = 30.0167
 [sub_resource type="CircleShape2D" id="CircleShape2D_8r4p3"]
 radius = 35.0571
 
+[sub_resource type="Animation" id="Animation_po6pj"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_kfd3f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p5jhn"]
+_data = {
+"RESET": SubResource("Animation_kfd3f"),
+"idle": SubResource("Animation_po6pj")
+}
+
 [node name="WaterSlime" groups=["boss_slime"] instance=ExtResource("1_jbpe8")]
 script = SubResource("GDScript_8xenb")
 burst_amount = 12
@@ -110,21 +147,31 @@ spells = Array[ExtResource("5_wh80d")]([SubResource("Resource_6jm38"), SubResour
 cast_time = Array[float]([0.2, 0.5, 0.2])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
+debug_label = NodePath("../Label")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_c3r4d")
-actual_first_state = NodePath("../WSlimeChase")
+actual_first_state = NodePath("../BSlimeChase")
 
-[node name="WSlimeChase" type="Node" parent="StateMachine" index="1"]
+[node name="BSlimeChase" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("8_2v68o")
 
-[node name="WSlimeTemp" type="Node" parent="StateMachine" index="2"]
-script = ExtResource("9_4suod")
+[node name="BSlimeSolo" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("9_fq70r")
 
-[node name="WSlimePerma" type="Node" parent="StateMachine" index="3"]
+[node name="BSlimePerma" type="Node" parent="StateMachine" index="3"]
 script = ExtResource("10_54m7u")
+
+[node name="PrimaryAttack" type="Node" parent="StateMachine" index="4"]
+script = ExtResource("11_2g4eq")
+transition_out_when_can_cast = true
+
+[node name="SecondaryAttack" type="Node" parent="StateMachine" index="5"]
+script = ExtResource("11_2g4eq")
+spell_num = 1
+transition_out_when_can_cast = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(0, -23)
@@ -138,6 +185,22 @@ collision_mask = 64
 position = Vector2(1, -40)
 shape = SubResource("CircleShape2D_8r4p3")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_p5jhn")
+}
+
+[node name="Label" type="Label" parent="." index="11"]
+offset_left = 62.0
+offset_top = -144.0
+offset_right = 189.0
+offset_bottom = -121.0
+text = "aaa"
+horizontal_alignment = 1
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/BSlimeSolo" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PrimaryAttack" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/SecondaryAttack" method="_on_animation_player_animation_finished"]
