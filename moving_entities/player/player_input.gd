@@ -94,6 +94,8 @@ func _process(_delta):
 							spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
 						if spell_release[i] == false:
 							spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
+					if do_dash == false:
+						do_dash = MultiplayerInput.is_action_just_pressed(device, "dash")
 		
 		# Send input to owner
 		owner.move_direction = move_dir
