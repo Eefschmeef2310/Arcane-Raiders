@@ -29,7 +29,8 @@ func _process(_delta):
 			if !do_pause:
 				do_pause = MultiplayerInput.is_action_pressed(device, "pause")
 	
-	if do_pause:
+	if do_pause and !GameManager.isPaused:
+		GameManager.isPaused = true
 		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
@@ -41,55 +42,56 @@ func _process(_delta):
 		spell_release.fill(false)
 		
 		# If we have an input object, use it
-		if input:
-			# Movement
-			move_dir = input.get_vector("left", "right", "up", "down").normalized()
-			if input.is_keyboard():
-				if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
-					move_dir.y *= 0.5
-					move_dir = move_dir.normalized()
-			
-			# Aim
-			if input.is_keyboard():
-				aim_dir = owner.get_global_mouse_position() - owner.global_position
-				aim_dir = aim_dir.normalized()
-			else:
-				var a : Vector2 = input.get_vector("left", "right", "up", "down")
-				if a.length() > 0:
-					aim_dir = a.normalized()
-			
-			# Buttons
-			for i in spell_down.size():
-				spell_down[i] = input.is_action_pressed("spell" + str(i))
-				spell_press[i] = input.is_action_just_pressed("spell" + str(i))
-				spell_release[i] = input.is_action_just_released("spell" + str(i))
-		
-		# Otherwise, use any connected controller
-		else:
-			for device in devices:
-				var d: Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
-				if d.length() > move_dir.length():
-					move_dir = d
-				if is_keyb:
+		if !GameManager.isPaused:
+			if input and !GameManager.isPaused:
+				# Movement
+				move_dir = input.get_vector("left", "right", "up", "down").normalized()
+				if input.is_keyboard():
 					if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
 						move_dir.y *= 0.5
 						move_dir = move_dir.normalized()
-					
-				if is_keyb:
+				
+				# Aim
+				if input.is_keyboard():
 					aim_dir = owner.get_global_mouse_position() - owner.global_position
 					aim_dir = aim_dir.normalized()
 				else:
-					var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+					var a : Vector2 = input.get_vector("left", "right", "up", "down")
 					if a.length() > 0:
 						aim_dir = a.normalized()
-					
+				
+				# Buttons
 				for i in spell_down.size():
-					if spell_down[i] == false:
-						spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
-					if spell_press[i] == false:
-						spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
-					if spell_release[i] == false:
-						spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
+					spell_down[i] = input.is_action_pressed("spell" + str(i))
+					spell_press[i] = input.is_action_just_pressed("spell" + str(i))
+					spell_release[i] = input.is_action_just_released("spell" + str(i))
+			
+			# Otherwise, use any connected controller
+			else:
+				for device in devices:
+					var d: Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+					if d.length() > move_dir.length():
+						move_dir = d
+					if is_keyb:
+						if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
+							move_dir.y *= 0.5
+							move_dir = move_dir.normalized()
+						
+					if is_keyb:
+						aim_dir = owner.get_global_mouse_position() - owner.global_position
+						aim_dir = aim_dir.normalized()
+					else:
+						var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+						if a.length() > 0:
+							aim_dir = a.normalized()
+						
+					for i in spell_down.size():
+						if spell_down[i] == false:
+							spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
+						if spell_press[i] == false:
+							spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
+						if spell_release[i] == false:
+							spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
 		
 		# Send input to owner
 		owner.move_direction = move_dir

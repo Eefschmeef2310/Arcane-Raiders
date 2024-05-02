@@ -40,6 +40,7 @@ func _process(_delta):
 func _on_continue_button_pressed():
 	if get_tree().paused:
 		get_tree().paused = false
+	GameManager.isPaused = false
 	queue_free()
 	
 func _on_settings_button_pressed():
@@ -52,7 +53,7 @@ func _on_quit_button_pressed():
 		if is_multiplayer_authority():
 			quit_warning.set_text(\"By quitting, you will close the server. \\nAre you sure you want to quit?\")
 
-		get_tree().root.add_child(quit_warning)
+		add_child(quit_warning)
 	else:
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()

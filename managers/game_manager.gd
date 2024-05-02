@@ -3,6 +3,7 @@ extends Node
 
 enum MultiplayerMode {Online ,Local}
 var mode : MultiplayerMode
+var isPaused : bool
 
 func isLocal() -> bool:
 	return mode == MultiplayerMode.Local
