@@ -16,6 +16,7 @@ class_name EnemyEntity
 @onready var state_machine = $StateMachine
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_spells = $EnemySpells
+@onready var animation_player = $AnimationPlayer
 
 var aim_direction: Vector2
 var target_area: Vector2
@@ -102,8 +103,8 @@ func use_spell(slot: int):
 	
 	
 func attempt_anim(anim: String):
-	#TODO Do some stuff here to the play the animation
-	pass
+	animation_player.stop()
+	animation_player.play(anim)
 #endregion
 
 

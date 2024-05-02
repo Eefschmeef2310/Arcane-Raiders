@@ -27,13 +27,15 @@ func enter():
 
 func physics_update(delta):
 	super.physics_update(delta)
-	if enemy.can_cast:
-		Transitioned.emit(self, previous_state)
+		
 		
 #endregion
 
 #region Signal methods
-
+func _on_animation_player_animation_finished(anim_name):
+	if get_parent().current_state == self:
+		Transitioned.emit(self, previous_state)
+	
 #endregion
 
 #region Other methods (please try to separate and organise!)
