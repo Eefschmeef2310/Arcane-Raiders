@@ -21,9 +21,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	#if Input.is_action_just_pressed("pause"):
-		#owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
-		#print(get_tree().get_current_scene())
+	if Input.is_action_just_pressed("pause"):
+		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
+		print(get_tree().get_current_scene())
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
