@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://bfrsuqfut2eks"]
+[gd_scene load_steps=19 format=3 uid="uid://bfrsuqfut2eks"]
 
-[ext_resource type="Texture2D" uid="uid://do3wqsgayie1g" path="res://moving_entities/enemies/SlimeBig/BeefierSlimeTemp.png" id="2_vv14m"]
+[ext_resource type="Texture2D" uid="uid://dtl3tdgkt2cbe" path="res://moving_entities/enemies/SlimeBig/slime_big_idle.png" id="1_b5ovk"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_m24lk"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="6_2mlgd"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
 [ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_wlcbw"]
-[ext_resource type="Texture2D" uid="uid://c01cck3klbq2" path="res://moving_entities/enemies/SlimeBig/beefier_slime.png" id="9_kra2g"]
+[ext_resource type="Texture2D" uid="uid://wnms02d8lafe" path="res://moving_entities/enemies/SlimeBig/slime_big_attack.png" id="10_oma2s"]
 
 [sub_resource type="GDScript" id="GDScript_x4875"]
 script/source = "extends EnemyEntity
@@ -77,22 +77,195 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="Animation" id="Animation_lk3yk"]
+resource_name = "idle"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_b5ovk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_vkrvw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_b5ovk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, -41)]
+}
+
+[sub_resource type="Animation" id="Animation_45tuv"]
+resource_name = "attack"
+length = 1.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_oma2s")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.7, 0.75, 0.8, 0.85, 0.95, 1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 13, 12, 13, 14, 15]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.65, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.2), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3, 0.65, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -41), Vector2(5, -55), Vector2(5, -41)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mkull"]
+_data = {
+"RESET": SubResource("Animation_vkrvw"),
+"attack": SubResource("Animation_45tuv"),
+"idle": SubResource("Animation_lk3yk")
+}
+
 [node name="SlimeBig" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 3
 script = SubResource("GDScript_x4875")
-movement_speed = 150.0
+movement_speed = 125.0
 max_health = 300
 
-[node name="BeefierSlime" type="Sprite2D" parent="."]
-position = Vector2(5, -41)
-texture = ExtResource("9_kra2g")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(4.76837e-07, -15.5)
-scale = Vector2(0.141026, 0.15508)
-texture = ExtResource("2_vv14m")
+clip_children = 2
+position = Vector2(5, -41)
+texture = ExtResource("1_b5ovk")
+hframes = 6
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -15)
@@ -138,14 +311,16 @@ actual_first_state = NodePath("../BasicChase")
 
 [node name="BasicChase" type="Node" parent="StateMachine"]
 script = ExtResource("7_hcoo1")
-attack_distance = 100.0
+attack_distance = 200.0
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("8_wlcbw")
+animation = "attack"
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("5_gvsgo")
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("8_unwx7")])
+cast_time = Array[float]([0.8, 0.8, 0.8])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
@@ -157,6 +332,12 @@ replication_config = SubResource("SceneReplicationConfig_u80kp")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mkull")
+}
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
