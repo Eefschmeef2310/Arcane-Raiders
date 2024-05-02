@@ -25,6 +25,10 @@ extends Node
 		"scene" : preload("res://moving_entities/enemies/spiderling/spiderling.tscn"),
 		"difficulty" : 0.5
 	},
+	"boss_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn"),
+		"difficulty" : 999
+	},
 	"water_slime": {
 		"scene" : preload("res://moving_entities/enemies/boss_slime/water_slime/water_slime.tscn"),
 		"difficulty" : 999

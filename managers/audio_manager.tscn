@@ -18,9 +18,24 @@ const MUSIC = {
 	\"sector\": [
 		{
 			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
-			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\")
-		}
-	]
+			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
+			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
+			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
+		},
+		{
+			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
+			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
+			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
+			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
+		},
+		{
+			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
+			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
+			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
+			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
+		},
+	],
+	\"shop\": preload(\"res://sounds/music/thatoneplace.ogg\")
 }
 
 	#Exported Variables
@@ -120,6 +135,30 @@ func switch_to_battle():
 	fade_tween.set_parallel()
 	fade_tween.tween_property(battle_stream, \"volume_db\", 0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	fade_tween.tween_property(calm_stream, \"volume_db\", -80, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
+func switch_to_boss():
+	current_sector = -1
+	
+	music_stream.stop()
+	calm_stream.stop()
+	battle_stream.stop()
+	
+	music_stream.stream = MUSIC.sector[current_sector].boss
+	music_stream.volume_db = 0
+	music_stream.stop()
+	music_stream.play()
+
+func switch_to_end():
+	current_sector = -1
+	
+	music_stream.stop()
+	calm_stream.stop()
+	battle_stream.stop()
+	
+	music_stream.stream = MUSIC.sector[current_sector].end
+	music_stream.volume_db = 0
+	music_stream.stop()
+	music_stream.play()
 
 #endregion
 "

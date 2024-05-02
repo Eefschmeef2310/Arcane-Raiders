@@ -8,6 +8,7 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i5xkl"]
 
 [node name="BossBar" type="VBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
 alignment = 1
 script = ExtResource("1_pycwm")
 

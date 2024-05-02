@@ -78,6 +78,9 @@ func _on_enemy_zero_health():
 		if number_of_enemies_left <= 0:
 			on_floor_cleared.rpc()
 
+func _on_boss_zero_health():
+	pass
+
 @rpc("authority", "call_local", "reliable")
 func on_floor_cleared():
 	all_waves_cleared.emit()
@@ -119,6 +122,9 @@ func spawn_enemy(data) -> Node2D:
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
+	
+	if enemy.is_in_group("boss"):
+		enemy.zero_health.connect(_on_boss_zero_health)
 
 	return enemy
 

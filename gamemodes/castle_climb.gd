@@ -3,6 +3,7 @@ class_name CastleClimb
 
 @onready var common_level_spawner = $CommonLevelSpawner
 @onready var basic_level_spawner = $BasicLevelSpawner
+@onready var boss_level_spawner = $BossLevelSpawner
 
 @export_group("Debug")
 @export var start_on_spawn : bool = false
@@ -14,11 +15,13 @@ class_name CastleClimb
 @export_group("Level Scenes")
 @export var common_levels: Dictionary
 @export var basic_levels: Array[PackedScene]
+@export var boss_levels: Array[PackedScene]
 
 @export_group("Sector Data")
 @export var total_floors: int
 @export var sector_start_floors: Array[int]
 @export var shop_floors: Array[int]
+@export var boss_floors: Array[int]
 @export var sector_gradient_maps: Array[GradientTexture1D]
 @export var sector_gradient_saturations : Array[float]
 
@@ -35,6 +38,7 @@ var current_room_node : CastleRoom
 func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
+	boss_level_spawner.spawn_function = spawn_boss_level
 	
 	if start_on_spawn:
 		set_number_of_players(1)
@@ -82,6 +86,9 @@ func start_next_floor():
 		common_level_spawner.spawn("final")
 	elif current_floor in shop_floors:
 		common_level_spawner.spawn("shop")
+		AudioManager.play_track_instant("shop")
+	elif current_floor in boss_floors:
+		boss_level_spawner.spawn(rng_floors.randi_range(0, boss_levels.size() - 1))
 	else:
 		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
 	
@@ -97,6 +104,12 @@ func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
 	AudioManager.switch_to_battle()
+	return current_room_node
+
+func spawn_boss_level(index: int) -> Node:
+	current_room_node = boss_levels[index].instantiate() as CastleRoom
+	inject_data_to_current_room_node()
+	AudioManager.switch_to_boss()
 	return current_room_node
 
 func inject_data_to_current_room_node():

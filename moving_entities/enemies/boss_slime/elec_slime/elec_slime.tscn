@@ -123,7 +123,7 @@ _data = {
 "idle": SubResource("Animation_dxsx4")
 }
 
-[node name="ElecSlime" groups=["boss_slime"] instance=ExtResource("1_5w74h")]
+[node name="ElecSlime" groups=["boss", "boss_slime"] instance=ExtResource("1_5w74h")]
 script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true

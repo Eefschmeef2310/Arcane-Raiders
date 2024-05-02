@@ -117,7 +117,7 @@ _data = {
 "idle": SubResource("Animation_po6pj")
 }
 
-[node name="WaterSlime" groups=["boss_slime"] instance=ExtResource("1_jbpe8")]
+[node name="WaterSlime" groups=["boss", "boss_slime"] instance=ExtResource("1_jbpe8")]
 script = SubResource("GDScript_8xenb")
 burst_amount = 12
 movement_speed = 150.0
