@@ -1,4 +1,11 @@
 extends Node
 # authored by Xander
 
-var multiplayer_lobby : Node2D
+enum MultiplayerMode {Online ,Local}
+var mode : MultiplayerMode
+
+func isLocal() -> bool:
+	return mode == MultiplayerMode.Local
+	
+func isOnline() -> bool:
+	return mode == MultiplayerMode.Online
