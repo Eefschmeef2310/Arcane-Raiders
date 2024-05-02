@@ -58,6 +58,9 @@ func transition_state(relative_state_path, new_state_name):
 		current_state = new_state
 		
 		current_state.enter()
+		
+		if debug_label:
+			debug_label.text = current_state.name
 	else:
 		print("fk")
 #endregion

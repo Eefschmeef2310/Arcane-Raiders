@@ -24,6 +24,12 @@ var cast_end_time : float
 
 var is_invincible = false;
 
+var is_dashing: bool = false
+var dash_cooldown: float = 0.0
+var dash_cooldown_max: float = 1.0
+var dash_direction: Vector2
+var dash_speed = 800
+
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
@@ -33,20 +39,34 @@ func _ready():
 	if debug:
 		set_data(data, false)
 
-func _process(_delta):
-	super._process(_delta)
+func _process(delta):
+	super._process(delta)
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
-			velocity = get_knockback_velocity() + get_attraction_velocity()
-			if can_input:
-				var input_velocity = move_direction * movement_speed * frost_speed_scale
-				if is_casting or preparing_cast_slot >= 0:
-					input_velocity *= 0.25
-				velocity += input_velocity
+			if is_dashing:
+				velocity = dash_direction * dash_speed
+			else:
+				velocity = get_knockback_velocity() + get_attraction_velocity()
+				if can_input:
+					var input_velocity = move_direction * movement_speed * frost_speed_scale
+					if is_casting or preparing_cast_slot >= 0:
+						input_velocity *= 0.25
+					velocity += input_velocity
+					
 			move_and_slide()
 	
-	# only animate if we are alive
-	if !is_dead:
+	# Dashing and invincibility
+	if dash_cooldown > 0:
+		dash_cooldown -= delta
+		
+	if data and is_dashing:
+		$SpritesFlip.modulate = data.main_color.lightened(0.5)
+	else:
+		$SpritesFlip.modulate = Color.WHITE
+		
+	$Hurtbox.monitoring = !(is_invincible or is_dashing)
+	
+	if !is_dead and !is_dashing:
 		if aim_direction.x < 0:
 			$SpritesFlip.scale.x = -1
 		else:
@@ -57,12 +77,12 @@ func _process(_delta):
 				animation_player.play("move", -1, 1)
 			else:
 				animation_player.play("idle", -1, 1)
-		
-		$SpellDirection/Sprite2DProjection.visible = preparing_cast_slot >= 0
-		
-		if debug:
-			$PrepareCast.text = str(preparing_cast_slot)
-			$CanCast.text = str(can_cast)
+	
+	$SpellDirection/Sprite2DProjection.visible = preparing_cast_slot >= 0
+	
+	if debug:
+		$PrepareCast.text = str(preparing_cast_slot)
+		$CanCast.text = str(can_cast)
 	
 #endregion
 
@@ -71,6 +91,9 @@ func _on_animation_player_animation_finished(anim_name: String):
 	if anim_name.contains("cast_end"):
 		animation_player.play("idle", -1, 1)
 		is_casting = false
+	elif anim_name.contains("dash"):
+		animation_player.play("idle", -1, 1)
+		is_dashing = false
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -99,6 +122,20 @@ func set_data(new_data: PlayerData, destroy_old := true):
 func set_input(id: int):
 	print("Setting input" + str(id))
 	$Input.set_device(id)
+
+func attempt_dash():
+	if !is_casting and dash_cooldown <= 0:
+		start_dash.rpc(move_direction)
+		
+@rpc("authority", "call_local", "reliable")
+func start_dash(dir: Vector2):
+	print("dash!")
+	if dir == Vector2.ZERO:
+		dir = Vector2(1, 0)
+	dash_cooldown = dash_cooldown_max
+	dash_direction = dir
+	is_dashing = true
+	animation_player.play("dash")
 
 func prepare_cast(slot: int):
 	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0:
@@ -141,7 +178,7 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
-	if is_invincible:
+	if is_invincible or is_dashing:
 		return
 		
 	if !is_dead:
@@ -149,7 +186,7 @@ func on_hurt(attack):
 		
 	if is_dead:
 		toggle_dead(true);
-	else:
+	elif !("base_damage" in attack and attack.base_damage <= 0):
 		start_invincibility.rpc()
 
 func toggle_dead(b):

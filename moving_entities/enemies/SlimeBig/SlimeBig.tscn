@@ -22,24 +22,12 @@ script/source = "extends EnemyEntity
 	#Enums
 
 	#Constants
-const SMALL_SLIME = preload(\"res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn\")
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
 
 	#Onready Variables
-@onready var multiplayer_spawner = $MultiplayerSpawner
 	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-func _ready():
-	super._ready()
-	#Set up the multiplayer spawning thingo
-	multiplayer_spawner.spawn_function = spawn_split
-	multiplayer_spawner.spawn_path = get_parent().get_path()
-
 
 #endregion
 
@@ -59,12 +47,6 @@ func _on_zero_health():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func spawn_split(_a) -> Node2D:
-	var slime = SMALL_SLIME.instantiate()
-	slime.global_position = global_position
-	#make Invincible for a bit
-	return slime
-	
 #endregion
 
 "
@@ -271,6 +253,7 @@ texture = ExtResource("1_b5ovk")
 hframes = 6
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -15)
 collision_layer = 0
 collision_mask = 16
@@ -332,8 +315,6 @@ max_speed = 1000.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_u80kp")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

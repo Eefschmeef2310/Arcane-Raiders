@@ -8,6 +8,7 @@ var aim_dir: Vector2
 var spell_down: Array[bool] = [false]
 var spell_press: Array[bool] = [false]
 var spell_release: Array[bool] = [false]
+var do_dash: bool = false
 
 var is_keyb: bool
 
@@ -40,6 +41,7 @@ func _process(_delta):
 		spell_down.fill(false)
 		spell_press.fill(false)
 		spell_release.fill(false)
+		do_dash = false
 		
 		# If we have an input object, use it
 		if !GameManager.isPaused:
@@ -106,7 +108,8 @@ func _process(_delta):
 					owner.prepare_cast(i)
 				if spell_release[i]:
 					owner.attempt_cast(i)
-					
+		if do_dash:
+			owner.attempt_dash()
 
 func _input(event):
 	if !input:
