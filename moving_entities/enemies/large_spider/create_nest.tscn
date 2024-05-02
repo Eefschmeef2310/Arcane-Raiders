@@ -29,10 +29,10 @@ func _ready():
 	if is_multiplayer_authority():
 		
 		var room: CastleRoom = get_parent() as CastleRoom
-		if room:
-			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": global_position})
-			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": global_position})
-		caster.add_nest()
+		if room and caster:
+			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": caster.global_position})
+			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": caster.global_position})
+			caster.add_nest()
 		
 		queue_free()
 #endregion

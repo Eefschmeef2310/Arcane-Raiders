@@ -35,7 +35,7 @@ func _ready():
 		for i in num:
 			var room: CastleRoom = get_parent() as CastleRoom
 			if room:
-				room.enemy_spawner.spawn({\"key\": \"spiderling\", \"pos\": global_position})
+				room.enemy_spawner.spawn({\"key\": \"spiderling\", \"pos\": dummy_pos})
 		queue_free()
 
 #region Other methods (please try to separate and organise!)
