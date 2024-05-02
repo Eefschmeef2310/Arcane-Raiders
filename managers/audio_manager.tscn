@@ -128,7 +128,10 @@ func switch_to_battle():
 script = SubResource("GDScript_np84d")
 
 [node name="MusicStream" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
 
 [node name="CalmStream" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
 
 [node name="BattleStream" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
