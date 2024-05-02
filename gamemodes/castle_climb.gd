@@ -143,8 +143,12 @@ func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
 		print("Attempting to use pickup at path: " + sp_path)
 		var pickup: SpellPickup = get_node(sp_path)
 		if is_instance_valid(pickup):
-			# Pickup hasn't been claimed yet: claim it and delete.
+			# Pickup hasn't been claimed yet. Claim it!
+			var new_pickup = current_room_node.spell_pickup_spawner.spawn(player_data[p_i].spell_strings[i])
+			new_pickup.global_position = pickup.global_position
+			
 			set_spell_from_string.rpc(p_i, i, pickup.spell_string)
+			
 			pickup.free()
 		else:
 			# Failure.
