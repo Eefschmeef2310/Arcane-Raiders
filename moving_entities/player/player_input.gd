@@ -24,14 +24,15 @@ func _ready():
 func _process(_delta):
 	var do_pause = false
 	if input: # For local
-		input.is_action_just_pressed("pause")
+		do_pause = input.is_action_just_pressed("pause")
 	else: # For online
 		for device in devices:
-			MultiplayerInput.is_action_pressed(device, "pause")
+			if !do_pause:
+				do_pause = MultiplayerInput.is_action_pressed(device, "pause")
 	
-	if do_pause:
+	if do_pause and !GameManager.isPaused:
+		GameManager.isPaused = true
 		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
-		print(get_tree().get_current_scene())
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
@@ -43,7 +44,7 @@ func _process(_delta):
 		do_dash = false
 		
 		# If we have an input object, use it
-		if input:
+		if input and !GameManager.isPaused:
 			# Movement
 			move_dir = input.get_vector("left", "right", "up", "down").normalized()
 			if input.is_keyboard():
@@ -110,6 +111,7 @@ func _process(_delta):
 				if spell_release[i]:
 					owner.attempt_cast(i)
 		if do_dash:
+			print("!!")
 			owner.attempt_dash()
 
 func _input(event):
