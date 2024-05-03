@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="10_pyvl3"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="10_qb4mr"]
 [ext_resource type="Script" path="res://managers/gameover_manager.gd" id="11_4vjuy"]
-[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="15_rlu8l"]
+[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="15_fo7j3"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -89,9 +89,9 @@ texture = ExtResource("1_7v575")
 position = Vector2(1431, 1023)
 
 [node name="PlayerData" parent="Player" index="6"]
-device_id = -1
+device_id = 0
 spells = Array[ExtResource("6_82yns")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["wet-aoe_large", "shock-aoe_local", "burn-proj_spread"])
+spell_strings = Array[String](["wet-aoe_large", "shock-aoe_local", "burn-proj_burst"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="."]
@@ -127,9 +127,9 @@ position = Vector2(1094, 310)
 script = ExtResource("11_4vjuy")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.643137, 0.643137, 0.643137, 1)
+color = Color(0.631373, 0.631373, 0.631373, 1)
 
-[node name="LargeSpider" parent="." instance=ExtResource("15_rlu8l")]
-position = Vector2(1255, 536)
+[node name="LargeSpider" parent="." instance=ExtResource("15_fo7j3")]
+position = Vector2(1483, 702)
 
 [editable path="Player"]

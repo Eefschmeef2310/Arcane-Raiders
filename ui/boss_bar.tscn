@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyojdie2kn8xv"]
+
+[ext_resource type="Script" path="res://ui/boss_bar.gd" id="1_pycwm"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_vjt7w"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rmjs0"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i5xkl"]
+
+[node name="BossBar" type="VBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+alignment = 1
+script = ExtResource("1_pycwm")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vjt7w")
+theme_override_font_sizes/font_size = 48
+text = "Perpendicular Fiction"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(800, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("PlaceholderTexture2D_rmjs0")
+texture_progress = SubResource("PlaceholderTexture2D_i5xkl")
+tint_under = Color(0.14902, 0.14902, 0.14902, 0.270588)
