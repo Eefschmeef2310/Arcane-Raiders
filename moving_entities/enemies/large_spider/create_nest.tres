@@ -6,5 +6,7 @@
 
 [resource]
 script = ExtResource("1_8fjb4")
+suffix = ""
+description = ""
 scene = ExtResource("2_ws3dv")
 element = ExtResource("1_ua7m1")

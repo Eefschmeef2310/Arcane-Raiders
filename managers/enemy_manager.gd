@@ -20,5 +20,21 @@ extends Node
 	"spider_big" : {
 		"scene" : preload("res://moving_entities/enemies/large_spider/large_spider.tscn"),
 		"difficulty" : 10
+	},
+	"spiderling" : {
+		"scene" : preload("res://moving_entities/enemies/spiderling/spiderling.tscn"),
+		"difficulty" : 0.5
+	},
+	"boss_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn"),
+		"difficulty" : 999
+	},
+	"water_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/water_slime/water_slime.tscn"),
+		"difficulty" : 999
+	},
+	"electric_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/elec_slime/elec_slime.tscn"),
+		"difficulty" : 999
 	}
 }

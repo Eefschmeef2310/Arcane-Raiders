@@ -1,6 +1,12 @@
 extends Node
 # authored by Xander
 
-func _process(_delta):
-	if MultiplayerInput.is_action_just_pressed(-1, "pause") && OS.get_name() != "Web":
-		get_tree().root.add_child(load("res://menus/pause_menu.tscn").instantiate())
+enum MultiplayerMode {Online ,Local}
+var mode : MultiplayerMode
+var isPaused : bool
+
+func isLocal() -> bool:
+	return mode == MultiplayerMode.Local
+	
+func isOnline() -> bool:
+	return mode == MultiplayerMode.Online

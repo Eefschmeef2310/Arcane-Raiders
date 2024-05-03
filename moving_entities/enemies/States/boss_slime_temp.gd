@@ -3,34 +3,15 @@ extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
 @export var prefix: String = "w"
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
+var attacked:bool = false
 #endregion
 
-#region Godot methods
-
-#endregion
-
-#region Signal methods
-
-#endregion
 
 #region Other methods (please try to separate and organise!)
 func enter():
-	#TODO enraged anim
-	enemy.swap_modulate(true)
+	play_anim()
+	enemy.swap_modulate(true) #May be something else later
 	enemy.aim_direction = enemy.global_position.direction_to(get_closest_player().global_position)
 	enemy.attempt_cast(1)
 

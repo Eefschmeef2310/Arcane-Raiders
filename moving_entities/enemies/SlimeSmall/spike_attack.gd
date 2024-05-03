@@ -23,7 +23,13 @@ extends SpellBase
 func _ready():
 	#Runs when all children have entered the tree
 	transfer_data(hitbox)
+	hitbox.monitorable = false
+	
+	#await get_tree().create_timer(start_time).timeout
+	hitbox.monitorable = true
+	
 	if(caster):global_position = caster.global_position
+	
 	await get_tree().create_timer(end_time).timeout
 	queue_free()
 
