@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckoux1a8woan8"]
+[gd_scene load_steps=15 format=3 uid="uid://ckoux1a8woan8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
 [ext_resource type="Texture2D" uid="uid://ctlnjks063l3g" path="res://moving_entities/enemies/large_spider/large_spider_move.png" id="2_kpkts"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_aggro.gd" id="4_xehv5"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_retreat.gd" id="5_veoge"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_fbxky"]
-[ext_resource type="AudioStream" uid="uid://dpvavhup0uhk6" path="res://sounds/effects/enemies/spider-squeek-85399.wav" id="9_meo6t"]
 
 [sub_resource type="GDScript" id="GDScript_a4am7"]
 script/source = "extends EnemyEntity
@@ -170,13 +169,8 @@ _data = {
 script = SubResource("GDScript_a4am7")
 passive_movespeed = 150.0
 agrro_movespeed = 250.0
-retreat_movespeed = 250.0
 zone_radius = 100.0
-aggro_range = 400.0
-too_far = 800.0
 spawn_limit = 1
-respawn = true
-nest_spawn_cd = 10.0
 max_health = 600
 
 [node name="Sprite2D" parent="." index="0"]
@@ -240,10 +234,6 @@ avoidance_priority = 0.7
 libraries = {
 "": SubResource("AnimationLibrary_5ffq3")
 }
-
-[node name="AttackSound" parent="." index="10"]
-stream = ExtResource("9_meo6t")
-pitch_scale = 0.75
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
