@@ -2,11 +2,11 @@ extends Node
 
 @onready var Data: Dictionary = {
 	"slime_small" : {
-		"scene" : preload("res://moving_entities/enemies/SlimeSmall/small_slime.tscn"),
+		"scene" : preload("res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn"),
 		"difficulty" : 1
 	},
 	"slime_big" : {
-		"scene" : preload("res://moving_entities/enemies/SlimeBig/slime_big.tscn"),
+		"scene" : preload("res://moving_entities/enemies/SlimeBig/SlimeBig.tscn"),
 		"difficulty" : 4
 	},
 	"bat_small" : {
