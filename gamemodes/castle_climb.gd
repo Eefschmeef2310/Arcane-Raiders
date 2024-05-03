@@ -80,7 +80,6 @@ func start_next_floor():
 	
 	# Spawn new room
 	print("Creating new room.")
-	AudioManager.play_sector(get_current_sector())
 	if current_floor <= 0:
 		common_level_spawner.spawn("foyer")
 	elif current_floor == total_floors:
@@ -96,11 +95,13 @@ func start_next_floor():
 	current_room_node.spawn_players(number_of_players)
 
 func spawn_common_level(key) -> Node:
+	AudioManager.play_sector(get_current_sector())
 	current_room_node = common_levels[key].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
 	return current_room_node
 
 func spawn_basic_level(index: int) -> Node:
+	AudioManager.play_sector(get_current_sector())
 	current_room_node = basic_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
 	return current_room_node
