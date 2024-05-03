@@ -1,16 +1,29 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=18 format=3 uid="uid://c8uvt7sepdtkk"]
+=======
+[gd_scene load_steps=19 format=3 uid="uid://c8uvt7sepdtkk"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_l62ws"]
 [ext_resource type="Texture2D" uid="uid://dhllwaahe1u1j" path="res://moving_entities/enemies/bat_small/bat_small_idle.png" id="2_2wyck"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_5m50w"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="4_4f7jg"]
+=======
+[ext_resource type="AudioStream" uid="uid://bls73kgbrc7t" path="res://sounds/effects/enemies/019 FS030602.wav" id="2_c1m08"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_hf4el"]
+>>>>>>> Stashed changes
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_hg75s"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="5_7nlb8"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_attack.gd" id="5_pa536"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="5_r41an"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="6_uh88h"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="7_3lavh"]
+<<<<<<< Updated upstream
 [ext_resource type="Resource" uid="uid://b7nmjad62g41j" path="res://moving_entities/enemies/bat_small/bat_attack.tres" id="7_emiic"]
+=======
+[ext_resource type="AudioStream" uid="uid://cui1uktq4206a" path="res://sounds/effects/enemies/Single Bat Call - QuickSounds.com.wav" id="10_6v6r0"]
+>>>>>>> Stashed changes
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oaiii"]
 
@@ -112,8 +125,13 @@ _data = {
 collision_layer = 8
 script = ExtResource("1_l62ws")
 movement_speed = 150.0
+<<<<<<< Updated upstream
 max_health = 300
 health = 300
+=======
+hurt_sound = ExtResource("2_c1m08")
+max_health = 200
+>>>>>>> Stashed changes
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, -18)
@@ -209,6 +227,9 @@ offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 0
 horizontal_alignment = 1
+
+[node name="AttackSound" parent="." index="10"]
+stream = ExtResource("10_6v6r0")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
