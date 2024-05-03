@@ -27,6 +27,21 @@ class_name CastleClimb
 
 @export_group("Difficulty")
 @export var wave_difficulty_curve : Curve
+var enemy_types_per_floor : Array = [
+	[], # foyer
+	["slime_small", "slime_big"],
+	["slime_small", "slime_big", "bat_small"],
+	[], # boss
+	[], # shop
+	["slime_small", "slime_big", "nest"],
+	["slime_small", "bat_small", "spider_big"],
+	[], # boss
+	[], # shop
+	["slime_small", "slime_big", "bat_small", "nest"],
+	["slime_small", "bat_small", "bat_small", "spider_big"],
+	[], # boss
+	[], # shop
+]
 
 var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -117,6 +132,9 @@ func inject_data_to_current_room_node():
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
+	
+	if current_floor > 0 and current_floor < enemy_types_per_floor.size():
+		current_room_node.spawn_keys = enemy_types_per_floor[current_floor]
 	
 	var i = get_current_sector()
 	print("Using Sector "+ str(i) +" data.")

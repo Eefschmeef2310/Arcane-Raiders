@@ -40,6 +40,8 @@ var total_difficulty_left = 0
 var number_of_enemies_left = 0
 var live_players = 0
 
+var spawn_keys = []
+
 func _ready():
 	max_waves = wave_total_difficulty.size()
 	if gradient_map:
@@ -60,8 +62,12 @@ func _ready():
 		print("Difficulty modifier: " + str(difficulty_modifier))
 		room_exit.lock()
 		AudioManager.switch_to_battle()
+		
+		var arr = EnemyManager.Data.keys()
+		if !spawn_keys.is_empty():
+			arr = spawn_keys
 		while total_difficulty_left > 0:
-			var key = EnemyManager.Data.keys().pick_random()
+			var key = arr.pick_random()
 			var spawn_pos = enemy_spawns.get_children().pick_random().global_position
 			var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 			enemy.zero_health.connect(_on_enemy_zero_health)

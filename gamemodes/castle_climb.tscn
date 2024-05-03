@@ -54,13 +54,6 @@ colors = PackedColorArray(0.0247597, 3.85648e-06, 0.174761, 1, 0.101563, 0.18575
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6w63w"]
 gradient = SubResource("Gradient_5svcn")
 
-[sub_resource type="Gradient" id="Gradient_lm115"]
-offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
-colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
-gradient = SubResource("Gradient_lm115")
-
 [sub_resource type="Gradient" id="Gradient_kafx6"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
 colors = PackedColorArray(0.00508165, 0.0467314, 0.0573292, 1, 0.0718044, 0.225771, 0.18516, 1, 0.22987, 0.375025, 0.228897, 1, 0.349816, 0.480189, 0.333625, 1, 0.543861, 0.637279, 0.403251, 1)
@@ -74,6 +67,13 @@ colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.2592
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_oyho1"]
 gradient = SubResource("Gradient_57svc")
+
+[sub_resource type="Gradient" id="Gradient_lm115"]
+offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
+colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
+gradient = SubResource("Gradient_lm115")
 
 [sub_resource type="Gradient" id="Gradient_tk1wv"]
 
@@ -193,11 +193,11 @@ common_levels = {
 }
 basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1")])
 boss_levels = Array[PackedScene]([SubResource("PackedScene_i3utp")])
-total_floors = 10
-sector_start_floors = Array[int]([0, 3, 6])
-shop_floors = Array[int]([3, 6])
-boss_floors = Array[int]([2, 5, 9])
-sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_o17fi")])
+total_floors = 12
+sector_start_floors = Array[int]([0, 4, 8])
+shop_floors = Array[int]([4, 8])
+boss_floors = Array[int]([3, 7, 11])
+sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
 sector_gradient_saturations = Array[float]([0.62, 0.5, 0.8, 0.5])
 wave_difficulty_curve = SubResource("Curve_1si0i")
 
@@ -265,9 +265,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 120.0
-offset_right = 1920.0
-offset_bottom = 708.0
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 
