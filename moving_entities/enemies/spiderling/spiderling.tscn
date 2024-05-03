@@ -1,5 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of d22d03e (lots of audio changes)
 <<<<<<< Updated upstream
 >>>>>>> parent of 5ea2f5b (lots of audio changes)
 [gd_scene load_steps=17 format=3 uid="uid://b3330t2cjyl2o"]
@@ -17,7 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ljokn"]
 [ext_resource type="AudioStream" uid="uid://bls73kgbrc7t" path="res://sounds/effects/enemies/019 FS030602.wav" id="2_dhmkp"]
 >>>>>>> Stashed changes
+<<<<<<< HEAD
 >>>>>>> parent of 5ea2f5b (lots of audio changes)
+=======
+>>>>>>> parent of d22d03e (lots of audio changes)
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_pb4nr"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="4_4etky"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="4_ms5hq"]
@@ -264,7 +270,10 @@ grow_horizontal = 2
 grow_vertical = 0
 horizontal_alignment = 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of d22d03e (lots of audio changes)
 
 [node name="AttackSound" parent="." index="10"]
 stream = ExtResource("7_p0fi4")

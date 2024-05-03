@@ -1,5 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of d22d03e (lots of audio changes)
 <<<<<<< Updated upstream:moving_entities/enemies/SlimeSmall/SmallSlime.tscn
 >>>>>>> parent of 5ea2f5b (lots of audio changes)
 [gd_scene load_steps=23 format=3 uid="uid://di8bmn2pxre1i"]
@@ -35,7 +38,10 @@
 [ext_resource type="AudioStream" uid="uid://bltk7bw0u5iid" path="res://sounds/effects/enemies/SLIME SQUISHY - (Sound Effect).wav" id="11_y7ane"]
 >>>>>>> Stashed changes:moving_entities/enemies/SlimeSmall/small_slime.tscn
 
+<<<<<<< HEAD
 >>>>>>> parent of 5ea2f5b (lots of audio changes)
+=======
+>>>>>>> parent of d22d03e (lots of audio changes)
 [sub_resource type="CircleShape2D" id="CircleShape2D_7yp1j"]
 radius = 20.0
 
