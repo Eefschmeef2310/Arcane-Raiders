@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_fuwbx"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_w7cyl"]
-[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_thfvk"]
+[ext_resource type="PackedScene" path="res://dynamic_camera/dynamic_camera.tscn" id="3_thfvk"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
 
@@ -84,20 +84,12 @@ color = Color(0.65098, 0.65098, 0.65098, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="BossBars" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 16.0
-offset_bottom = 125.0
-grow_horizontal = 2
-theme_override_constants/separation = 32
-alignment = 1
-
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 40.0
 offset_top = 141.0
 offset_right = 157.0
 offset_bottom = 164.0
+text = "Enemies Left: 0"
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="player_entered" from="RoomExit" to="." method="_on_room_exit_player_entered"]

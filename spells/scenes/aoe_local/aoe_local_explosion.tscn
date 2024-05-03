@@ -28,18 +28,17 @@ metadata/_snap_count = 20
 radius = 50.0
 
 [node name="aoe_local_explosion" instance=ExtResource("1_a2ij5")]
-match_tilemap_angle = true
 speed_curve = SubResource("Curve_la55t")
 sprite_rotation_falloff_curve = SubResource("Curve_a830g")
 scale_falloff_curve = SubResource("Curve_v353t")
 transparency_falloff_curve = SubResource("Curve_4nmss")
 area_enabled_curve = SubResource("Curve_i6u15")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 scale = Vector2(0.316406, 0.320312)
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_sidjm")
 
-[node name="kill_timer" parent="." index="3"]
+[node name="kill_timer" parent="." index="2"]
 wait_time = 0.25

@@ -32,10 +32,12 @@ func _ready():
 	var num = caster.spawn_amount
 	await get_tree().create_timer(end_time).timeout
 	if is_multiplayer_authority():
-		for i in num:
-			var room: CastleRoom = get_parent() as CastleRoom
-			if room:
-				room.enemy_spawner.spawn({\"key\": \"spiderling\", \"pos\": dummy_pos})
+		multiplayer_spawner.spawn_function = spawn_spiderling
+		multiplayer_spawner.spawn_path = get_parent().get_path()
+		while(num > 0):
+			var direction = Vector2.UP.rotated(randi() % 360)
+			multiplayer_spawner.call_deferred(\"spawn\", direction)
+			num -= 1 
 		queue_free()
 
 #region Other methods (please try to separate and organise!)

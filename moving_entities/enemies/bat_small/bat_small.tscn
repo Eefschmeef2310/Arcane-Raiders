@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8uvt7sepdtkk"]
+[gd_scene load_steps=16 format=3 uid="uid://c8uvt7sepdtkk"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_l62ws"]
-[ext_resource type="Texture2D" uid="uid://dhllwaahe1u1j" path="res://moving_entities/enemies/bat_small/bat_small_idle.png" id="2_2wyck"]
+[ext_resource type="Texture2D" uid="uid://bidj8hsm5os4t" path="res://moving_entities/enemies/bat_small/bat_temp.png" id="2_vycsp"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_5m50w"]
+[ext_resource type="Texture2D" uid="uid://by5ilqlhkdeaq" path="res://moving_entities/enemies/bat_small/bat_small.png" id="3_bkt04"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="4_4f7jg"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_hg75s"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="5_7nlb8"]
@@ -22,92 +23,6 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[sub_resource type="Animation" id="Animation_73jvt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_2wyck")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_nrjp5"]
-resource_name = "idle"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_2wyck")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jtvvf"]
-_data = {
-"RESET": SubResource("Animation_73jvt"),
-"idle": SubResource("Animation_nrjp5")
-}
-
 [node name="BatSmall" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 script = ExtResource("1_l62ws")
@@ -116,10 +31,15 @@ max_health = 300
 health = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, -26)
+scale = Vector2(0.787234, 0.728814)
+texture = ExtResource("2_vycsp")
+
+[node name="BatSmall" type="Sprite2D" parent="."]
 position = Vector2(3, -18)
 scale = Vector2(0.559999, 0.559999)
-texture = ExtResource("2_2wyck")
-hframes = 7
+texture = ExtResource("3_bkt04")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -6)
@@ -137,10 +57,9 @@ scale = Vector2(1, 0.42)
 shape = SubResource("CircleShape2D_4pbwl")
 debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_5m50w")
 initial_state = NodePath("Idle")
-debug_label = NodePath("../Label")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("5_r41an")
@@ -156,7 +75,6 @@ nav_timer_interval = 1.0
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("7_3lavh")
-transition_out_instantly = true
 
 [node name="EnemySpells" type="Node" parent="."]
 script = ExtResource("4_4f7jg")
@@ -168,6 +86,7 @@ avoidance_enabled = true
 max_speed = 1000.0
 avoidance_layers = 2
 avoidance_mask = 2
+debug_enabled = true
 
 [node name="ProgressBar" parent="." instance=ExtResource("5_7nlb8")]
 offset_left = -50.0
@@ -190,25 +109,6 @@ grow_vertical = 0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_7wf36")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_jtvvf")
-}
-
-[node name="Label" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -108.0
-offset_right = 150.0
-offset_bottom = -85.0
-grow_horizontal = 2
-grow_vertical = 0
-horizontal_alignment = 1
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]

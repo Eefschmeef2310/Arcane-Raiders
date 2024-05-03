@@ -3,6 +3,19 @@ extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group("Group")
+	#@export_subgroup("Subgroup")
+@export var prefix: String = "w"
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
 var player: Entity
 #endregion
 
@@ -12,20 +25,18 @@ func physics_update(delta):
 	if !player: return
 	
 	if enemy.perma_enraged:
-		Transitioned.emit(self, "bslimesolo")
+		Transitioned.emit(self, prefix + "slimeperma")
 	enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 	if enemy.can_cast:
-		if(enemy.enraged && can_cast_spell(1)):
-			enemy.swap_modulate(true)
-			enemy.enraged = false
-			Transitioned.emit(self, "secondaryattack")
+		if(enemy.enraged):
+			Transitioned.emit(self, prefix+"slimetemp")
 			return
 			
 		if(can_cast_spell(0)):
 			if !("attack_range" in enemy):
-				Transitioned.emit(self, "primaryattack")
+				enemy.attempt_cast(0)
 			elif (enemy.global_position.distance_to(player.global_position) <= enemy.attack_range):
-				Transitioned.emit(self, "primaryattack")
+				enemy.attempt_cast(0)
 #endregion
 
 #region Signal methods
@@ -33,9 +44,6 @@ func physics_update(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func enter():
-	enemy.swap_modulate(false)
-	play_anim()
 
 func set_position():
 	player = get_closest_player()

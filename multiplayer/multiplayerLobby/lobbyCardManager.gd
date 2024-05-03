@@ -66,7 +66,7 @@ var mouse_input: Array[String]
 
 #region Godot methods
 func _ready():
-	if GameManager.isLocal():
+	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
 		input = DeviceInput.new(device_id)
 	else:
 		input = DeviceInput.new(-2)
@@ -113,7 +113,7 @@ func _process(_delta):
 		resendValues.rpc()
 		finished_connecting = true
 	
-	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
+	if (lobby_manager.mode == lobby_manager.MultiplayerMode.Online && multiplayer.get_unique_id() == peer_id) || lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
 		var changed = false
 		if(input.is_action_just_pressed("lobby_down")):
 			if not player_ready:
@@ -183,7 +183,7 @@ func UpdateDisplay():
 	all_panels.visible = show_panels
 	
 	# set some basic values
-	if GameManager.isLocal():
+	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
 		var s = "Keyboard"
 		if device_id >= 0:
 			s = Input.get_joy_name(device_id)
@@ -261,7 +261,6 @@ func UpdateDisplay():
 
 #endregion
 func is_event_click(event):
-	print("dingus")
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
 func _on_character_container_mouse_entered():

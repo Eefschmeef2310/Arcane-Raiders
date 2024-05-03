@@ -18,24 +18,9 @@ const MUSIC = {
 	\"sector\": [
 		{
 			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
-			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
-			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
-			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
-		},
-		{
-			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
-			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
-			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
-			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
-		},
-		{
-			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
-			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
-			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
-			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
-		},
-	],
-	\"shop\": preload(\"res://sounds/music/thatoneplace.ogg\")
+			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\")
+		}
+	]
 }
 
 	#Exported Variables
@@ -44,7 +29,7 @@ const MUSIC = {
 	
 	#Onready Variables
 @onready var music_stream = $MusicStream
-@onready var calm_stream: AudioStreamPlayer = $CalmStream
+@onready var calm_stream = $CalmStream
 @onready var battle_stream = $BattleStream
 
 	
@@ -76,14 +61,16 @@ func play_track_fade(key: String):
 	if fade_tween:
 		fade_tween.kill()
 	fade_tween = create_tween()
+	fade_tween.set_parallel()
 	fade_tween.tween_property(calm_stream, \"volume_db\", -80, 0.5)
-	fade_tween.parallel().tween_property(battle_stream, \"volume_db\", -80, 0.5)
-	fade_tween.parallel().tween_property(music_stream, \"volume_db\", -80, 0.5)
-	fade_tween.tween_callback(play_track_instant.bind(key))
+	fade_tween.tween_property(battle_stream, \"volume_db\", -80, 0.5)
+	fade_tween.tween_property(music_stream, \"volume_db\", -80, 0.5)
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	play_track_instant(key)
 
 func play_track_instant(key: String):
-	if fade_tween:
-		fade_tween.kill()
 	current_sector = -1
 	
 	calm_stream.stop()
@@ -95,7 +82,7 @@ func play_track_instant(key: String):
 	music_stream.play()
 
 func play_sector(sector: int):
-	if !calm_stream.playing or (sector != current_sector and sector < MUSIC.sector.size()):
+	if sector != current_sector and sector < MUSIC.sector.size():
 		
 		current_sector = sector
 		
@@ -103,21 +90,20 @@ func play_sector(sector: int):
 			fade_tween.kill()
 		fade_tween = create_tween()
 		fade_tween.tween_property(music_stream, \"volume_db\", -80, 0.5)
-		fade_tween.tween_callback(start_sector_music.bind(sector))
-
-# PRIVATE FUNCTION, DO NOT CALL OUTSIDE
-func start_sector_music(sector):
-	music_stream.stop()
 		
-	calm_stream.stream = MUSIC.sector[sector].calm
-	calm_stream.volume_db = 0
-	calm_stream.stop()
-	calm_stream.play()
-	
-	battle_stream.stream = MUSIC.sector[sector].battle
-	battle_stream.volume_db = -80
-	battle_stream.stop()
-	battle_stream.play()
+		await get_tree().create_timer(0.5).timeout
+		
+		music_stream.stop()
+		
+		calm_stream.stream = MUSIC.sector[sector].calm
+		calm_stream.volume_db = 0
+		calm_stream.stop()
+		calm_stream.play()
+		
+		battle_stream.stream = MUSIC.sector[sector].battle
+		battle_stream.volume_db = -80
+		battle_stream.stop()
+		battle_stream.play()
 
 func switch_to_calm():
 	if fade_tween:
@@ -135,34 +121,6 @@ func switch_to_battle():
 	fade_tween.tween_property(battle_stream, \"volume_db\", 0, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	fade_tween.tween_property(calm_stream, \"volume_db\", -80, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 
-func switch_to_boss():
-	if fade_tween:
-		fade_tween.kill()
-	current_sector = -1
-	
-	music_stream.stop()
-	calm_stream.stop()
-	battle_stream.stop()
-	
-	music_stream.stream = MUSIC.sector[current_sector].boss
-	music_stream.volume_db = 0
-	music_stream.stop()
-	music_stream.play()
-
-func switch_to_end():
-	if fade_tween:
-		fade_tween.kill()
-	current_sector = -1
-	
-	music_stream.stop()
-	calm_stream.stop()
-	battle_stream.stop()
-	
-	music_stream.stream = MUSIC.sector[current_sector].end
-	music_stream.volume_db = 0
-	music_stream.stop()
-	music_stream.play()
-
 #endregion
 "
 
@@ -170,10 +128,7 @@ func switch_to_end():
 script = SubResource("GDScript_np84d")
 
 [node name="MusicStream" type="AudioStreamPlayer" parent="."]
-bus = &"Music"
 
 [node name="CalmStream" type="AudioStreamPlayer" parent="."]
-bus = &"Music"
 
 [node name="BattleStream" type="AudioStreamPlayer" parent="."]
-bus = &"Music"

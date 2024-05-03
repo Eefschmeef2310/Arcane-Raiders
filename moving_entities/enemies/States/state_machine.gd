@@ -13,7 +13,6 @@ class_name StateMachine
 #@export_group("Group")
 #@export_subgroup("Subgroup")
 @export var initial_state : State
-@export var debug_label : Label
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
@@ -55,12 +54,9 @@ func transition_state(relative_state_path, new_state_name):
 		if "previous_state" in new_state:
 			new_state.previous_state = current_state.name.to_lower()
 			
+		new_state.enter()
+		
 		current_state = new_state
-		
-		current_state.enter()
-		
-		if debug_label:
-			debug_label.text = current_state.name
 	else:
 		print("fk")
 #endregion

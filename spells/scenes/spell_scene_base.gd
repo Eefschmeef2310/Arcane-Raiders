@@ -29,6 +29,9 @@ class_name SpellBase
 # The time before this spell can be cast again.
 @export var cooldown_time : float = 3.0
 
+#Controls whether or not sound plays either on spawn or on explosion. If false, sound will play on impact
+@export var play_sound_on_cast : bool = true
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -38,10 +41,16 @@ var caster : Entity #This is also set in code
 #endregion
 
 func _enter_tree():
+<<<<<<< Updated upstream
+	AudioManager.play_audio2D_at_point(global_position, resource.element.sound)
+=======
 	var pos = global_position
 	if caster:
 		pos = caster.global_position
-	AudioManager.play_audio2D_at_point(pos, resource.element.sound)
+		
+	if play_sound_on_cast:
+		AudioManager.play_audio2D_at_point(pos, resource.element.sound)
+>>>>>>> Stashed changes
 
 func transfer_data(new: Node2D):
 	if "base_damage" in new:
@@ -52,3 +61,6 @@ func transfer_data(new: Node2D):
 		new.caster = caster
 	if "infliction_time" in new:
 		new.infliction_time = infliction_time
+		
+	if "play_element_sound" in new && !play_sound_on_cast:
+		new.play_element_sound = true

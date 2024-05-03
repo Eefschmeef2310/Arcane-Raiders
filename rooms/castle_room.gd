@@ -10,7 +10,6 @@ signal spell_change_requested(Player, int, SpellPickup)
 @export var wave_total_difficulty : Array[int]
 @export var gradient_map : GradientTexture1D
 @export var saturation : float
-@export var track_id : String
 
 @onready var dynamic_camera: DynamicCamera = $DynamicCamera
 
@@ -20,8 +19,6 @@ signal spell_change_requested(Player, int, SpellPickup)
 
 @onready var enemy_spawns = $EnemySpawns
 @onready var enemy_spawner = $EnemySpawner
-@onready var boss_bars = $CanvasLayer/BossBars
-@onready var BOSSBAR_SCENE = preload("res://ui/boss_bar.tscn")
 
 @onready var spell_pickup_spawner = $SpellPickupSpawner
 const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
@@ -35,7 +32,6 @@ var room_exited_triggered := false
 var player_data
 var current_wave = 0
 var max_waves
-var difficulty_modifier = 1
 var total_difficulty_left = 0
 var number_of_enemies_left = 0
 var live_players = 0
@@ -56,26 +52,16 @@ func _ready():
 	
 	if is_multiplayer_authority() and max_waves > 0:
 		number_of_enemies_left = 0
-		total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier
-		print("Difficulty modifier: " + str(difficulty_modifier))
+		total_difficulty_left = wave_total_difficulty[0]
 		room_exit.lock()
 		while total_difficulty_left > 0:
 			var key = EnemyManager.Data.keys().pick_random()
-			var spawn_pos = enemy_spawns.get_children().pick_random().global_position
-			var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
-			enemy.zero_health.connect(_on_enemy_zero_health)
-			number_of_enemies_left += 1
+			enemy_spawner.spawn(key)
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
-			
-			AudioManager.switch_to_battle()
-			# print("New total: " + str(number_of_enemies_left))
-		
-	if track_id != "":
-		AudioManager.play_track_fade(track_id)
-		
+			print("New total: " + str(number_of_enemies_left))
+
 func _process(_delta):
-	pass
-	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
+	$CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
 	if is_multiplayer_authority():
@@ -83,9 +69,6 @@ func _on_enemy_zero_health():
 		print("Enemies left: " + str(number_of_enemies_left))
 		if number_of_enemies_left <= 0:
 			on_floor_cleared.rpc()
-
-func _on_boss_zero_health():
-	pass
 
 @rpc("authority", "call_local", "reliable")
 func on_floor_cleared():
@@ -120,18 +103,11 @@ func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	print("Sending spell change request.")
 	spell_change_requested.emit(p.data, i, sp)
 
-func spawn_enemy(data) -> Node2D:
-	var id = data.key
-	var pos = data.pos
-	
+func spawn_enemy(id: String) -> Node2D:
 	print("Spawning " + str(id))
-	var enemy_data = EnemyManager.Data[id]
-	var enemy: Entity = enemy_data["scene"].instantiate()
-	enemy.global_position = pos
-	
-	if enemy.is_in_group("boss"):
-		enemy.zero_health.connect(_on_boss_zero_health)
-
+	var data = EnemyManager.Data[id]
+	var enemy: Entity = data["scene"].instantiate()
+	enemy.global_position = enemy_spawns.get_children().pick_random().global_position
 	return enemy
 
 func spawn_spell_pickup(spell_string: String):
@@ -148,15 +124,9 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	
+
 func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")
 	if is_multiplayer_authority() and !room_exited_triggered:
 		room_exited_triggered = true
 		room_exited.emit()
-
-func create_boss_bar(e: Entity):
-	if e:
-		var bossbar: BossBar = BOSSBAR_SCENE.instantiate()
-		bossbar.set_entity(e)
-		boss_bars.add_child(bossbar)
-		

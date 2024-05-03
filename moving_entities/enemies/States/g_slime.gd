@@ -37,8 +37,9 @@ func physics_update(delta):
 	
 	if !player: return
 	
-	if enemy.enraged && can_cast_spell(2): 
-		Transitioned.emit(self, "lobattackex")
+	if enemy.enraged: 
+		Transitioned.emit(self, "enraged")
+		return
 	
 	var distance = player.global_position.distance_to(enemy.global_position)
 	if (enemy.can_cast):

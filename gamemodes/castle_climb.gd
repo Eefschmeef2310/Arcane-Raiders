@@ -3,7 +3,6 @@ class_name CastleClimb
 
 @onready var common_level_spawner = $CommonLevelSpawner
 @onready var basic_level_spawner = $BasicLevelSpawner
-@onready var boss_level_spawner = $BossLevelSpawner
 
 @export_group("Debug")
 @export var start_on_spawn : bool = false
@@ -15,18 +14,13 @@ class_name CastleClimb
 @export_group("Level Scenes")
 @export var common_levels: Dictionary
 @export var basic_levels: Array[PackedScene]
-@export var boss_levels: Array[PackedScene]
 
 @export_group("Sector Data")
 @export var total_floors: int
 @export var sector_start_floors: Array[int]
 @export var shop_floors: Array[int]
-@export var boss_floors: Array[int]
 @export var sector_gradient_maps: Array[GradientTexture1D]
 @export var sector_gradient_saturations : Array[float]
-
-@export_group("Difficulty")
-@export var wave_difficulty_curve : Curve
 
 var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -38,7 +32,6 @@ var current_room_node : CastleRoom
 func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
-	boss_level_spawner.spawn_function = spawn_boss_level
 	
 	if start_on_spawn:
 		set_number_of_players(1)
@@ -80,15 +73,12 @@ func start_next_floor():
 	
 	# Spawn new room
 	print("Creating new room.")
-	AudioManager.play_sector(get_current_sector())
 	if current_floor <= 0:
 		common_level_spawner.spawn("foyer")
 	elif current_floor == total_floors:
 		common_level_spawner.spawn("final")
 	elif current_floor in shop_floors:
 		common_level_spawner.spawn("shop")
-	elif current_floor in boss_floors:
-		boss_level_spawner.spawn(rng_floors.randi_range(0, boss_levels.size() - 1))
 	else:
 		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
 	
@@ -103,30 +93,22 @@ func spawn_common_level(key) -> Node:
 func spawn_basic_level(index: int) -> Node:
 	current_room_node = basic_levels[index].instantiate() as CastleRoom
 	inject_data_to_current_room_node()
-	return current_room_node
-
-func spawn_boss_level(index: int) -> Node:
-	current_room_node = boss_levels[index].instantiate() as CastleRoom
-	inject_data_to_current_room_node()
+	AudioManager.switch_to_battle()
 	return current_room_node
 
 func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
-	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(float(current_floor)/float(total_floors))
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
 	
-	var i = get_current_sector()
-	print("Using Sector "+ str(i) +" data.")
-	current_room_node.gradient_map = sector_gradient_maps[i]
-	current_room_node.saturation = sector_gradient_saturations[i]
-
-func get_current_sector():
 	var i = 0
 	while i < sector_start_floors.size():
 		if i == sector_start_floors.size()-1 or current_floor < sector_start_floors[i+1]:
-			return i
+			print("Using Sector "+ str(i) +" data.")
+			current_room_node.gradient_map = sector_gradient_maps[i]
+			current_room_node.saturation = sector_gradient_saturations[i]
+			AudioManager.play_sector(i)
 			break
 		i += 1
 
@@ -157,12 +139,8 @@ func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
 		print("Attempting to use pickup at path: " + sp_path)
 		var pickup: SpellPickup = get_node(sp_path)
 		if is_instance_valid(pickup):
-			# Pickup hasn't been claimed yet. Claim it!
-			var new_pickup = current_room_node.spell_pickup_spawner.spawn(player_data[p_i].spell_strings[i])
-			new_pickup.global_position = pickup.global_position
-			
+			# Pickup hasn't been claimed yet: claim it and delete.
 			set_spell_from_string.rpc(p_i, i, pickup.spell_string)
-			
 			pickup.free()
 		else:
 			# Failure.

@@ -11,6 +11,7 @@ script/source = "extends SpellBase
 	#Enums
 
 	#Constants
+const BASIC_NEST = preload(\"res://moving_entities/enemies/nest/basic_nest.tscn\")
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
@@ -26,12 +27,10 @@ script/source = "extends SpellBase
 func _ready():
 	#Runs when all children have entered the tree
 	if is_multiplayer_authority():
-		
-		var room: CastleRoom = get_parent() as CastleRoom
-		if room and caster:
-			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": caster.global_position})
-			caster.add_nest()
-		
+		multiplayer_spawner.spawn_function = nest_spawn
+		multiplayer_spawner.spawn_path = get_parent().get_path()
+		multiplayer_spawner.call_deferred(\"spawn\", null)
+		caster.add_nest()
 		queue_free()
 #endregion
 
@@ -40,7 +39,14 @@ func _ready():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func nest_spawn(_a) -> Node2D:
+	var nest = BASIC_NEST.instantiate()
+	if(caster):
+		nest.global_position = caster.global_position
+		nest.zero_health.connect(caster.dead_nest)
+	else: 
+		nest.global_position = global_position
+	return nest
 #endregion
 
 "

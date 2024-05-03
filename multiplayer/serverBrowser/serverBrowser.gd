@@ -68,12 +68,12 @@ func _on_host_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC) #create lobby on steam
 	multiplayer.multiplayer_peer = peer
 	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	lobby_scene.InitLobby(lobby_id)
+	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Online, lobby_id)
 	server_browser.hide()
 
 func _on_local_pressed():
 	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	lobby_scene.InitLobby(0)
+	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Local, 0)
 	server_browser.hide()
 #endregion
 

@@ -13,14 +13,9 @@ class_name EnemyEntity
 @export var movement_speed: float = 500
 @export var base_damage: int = 0
 
-@export_group("Boss Data")
-@export var is_boss: bool = false
-@export var boss_name: String
-
 @onready var state_machine = $StateMachine
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_spells = $EnemySpells
-@onready var animation_player = $AnimationPlayer
 
 var aim_direction: Vector2
 var target_area: Vector2
@@ -36,11 +31,10 @@ func _ready():
 	nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	
 	# Connect to room
-	if is_boss:
-		$ProgressBar.hide()
-		var room: CastleRoom = get_parent() as CastleRoom
-		if room:
-			room.create_boss_bar.call_deferred(self)
+	var room: CastleRoom = get_parent() as CastleRoom
+	if room:
+		zero_health.connect(room._on_enemy_zero_health)
+		room.number_of_enemies_left += 1
 
 func actor_setup():
 	await get_tree().physics_frame
@@ -108,9 +102,8 @@ func use_spell(slot: int):
 	
 	
 func attempt_anim(anim: String):
-	if animation_player:
-		animation_player.stop()
-		animation_player.play(anim)
+	#TODO Do some stuff here to the play the animation
+	pass
 #endregion
 
 
