@@ -1,7 +1,10 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://buk0c2mlefx8i"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://buk0c2mlefx8i"]
 
 [sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_bpge6"]
 resource_name = "Limiter"
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_x0noe"]
+resource_name = "Compressor"
 
 [resource]
 bus/0/volume_db = 0.0672607
@@ -18,4 +21,6 @@ bus/2/bypass_fx = false
 bus/2/volume_db = 0.0672607
 bus/2/send = &"Master"
 bus/2/effect/0/effect = SubResource("AudioEffectLimiter_bpge6")
-bus/2/effect/0/enabled = true
+bus/2/effect/0/enabled = false
+bus/2/effect/1/effect = SubResource("AudioEffectCompressor_x0noe")
+bus/2/effect/1/enabled = false
