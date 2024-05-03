@@ -1,15 +1,15 @@
 [gd_scene load_steps=19 format=3 uid="uid://bfrsuqfut2eks"]
 
-[ext_resource type="Texture2D" uid="uid://dtl3tdgkt2cbe" path="res://moving_entities/enemies/SlimeBig/slime_big_idle.png" id="1_b5ovk"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_m24lk"]
-[ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="6_2mlgd"]
-[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="6_dnj1x"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="7_hcoo1"]
-[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
-[ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_wlcbw"]
-[ext_resource type="Texture2D" uid="uid://wnms02d8lafe" path="res://moving_entities/enemies/SlimeBig/slime_big_attack.png" id="10_oma2s"]
+[ext_resource type="Texture2D" uid="uid://dtl3tdgkt2cbe" path="res://moving_entities/enemies/SlimeBig/slime_big_idle.png" id="1_1s1dn"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_f5w4p"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_sn35s"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="4_20j0r"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="5_vl21v"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="6_kyd02"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="7_6qvv4"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="8_dnokt"]
+[ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="9_x5ek7"]
+[ext_resource type="Texture2D" uid="uid://wnms02d8lafe" path="res://moving_entities/enemies/SlimeBig/slime_big_attack.png" id="10_ul1eb"]
 
 [sub_resource type="GDScript" id="GDScript_x4875"]
 script/source = "extends EnemyEntity
@@ -74,7 +74,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_b5ovk")]
+"values": [ExtResource("1_1s1dn")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("10_oma2s")]
+"values": [ExtResource("10_ul1eb")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -205,7 +205,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_b5ovk")]
+"values": [ExtResource("1_1s1dn")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -249,7 +249,7 @@ max_health = 300
 [node name="Sprite2D" type="Sprite2D" parent="."]
 clip_children = 2
 position = Vector2(5, -41)
-texture = ExtResource("1_b5ovk")
+texture = ExtResource("1_1s1dn")
 hframes = 6
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -268,13 +268,13 @@ debug_color = Color(1, 0, 0, 0.258824)
 position = Vector2(1, -5)
 shape = SubResource("CircleShape2D_bioj2")
 
-[node name="ProgressBar" parent="." instance=ExtResource("6_dnj1x")]
+[node name="ProgressBar" parent="." instance=ExtResource("2_f5w4p")]
 offset_left = -50.0
 offset_top = -116.0
 offset_right = 50.0
 offset_bottom = -109.0
 
-[node name="StatusUI" parent="." instance=ExtResource("7_p52cc")]
+[node name="StatusUI" parent="." instance=ExtResource("3_sn35s")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -288,24 +288,24 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_m24lk")
+script = ExtResource("4_20j0r")
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("actual_first_state")]
-script = ExtResource("6_2mlgd")
+script = ExtResource("5_vl21v")
 actual_first_state = NodePath("../BasicChase")
 
 [node name="BasicChase" type="Node" parent="StateMachine"]
-script = ExtResource("7_hcoo1")
+script = ExtResource("6_kyd02")
 attack_distance = 200.0
 
 [node name="Attack" type="Node" parent="StateMachine"]
-script = ExtResource("8_wlcbw")
+script = ExtResource("7_6qvv4")
 animation = "attack"
 
 [node name="EnemySpells" type="Node" parent="."]
-script = ExtResource("5_gvsgo")
-spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("8_unwx7")])
+script = ExtResource("8_dnokt")
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("9_x5ek7")])
 cast_time = Array[float]([0.8, 0.8, 0.8])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
