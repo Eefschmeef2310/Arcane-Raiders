@@ -216,6 +216,7 @@ script = ExtResource("3_bbg3t")
 
 [node name="Attack" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("4_gjrx5")
+transition_out_when_can_cast = true
 animation = "attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]

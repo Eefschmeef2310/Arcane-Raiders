@@ -262,6 +262,7 @@ attack_distance = 200.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("8_rnblt")
+transition_out_when_can_cast = true
 animation = "attack"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
