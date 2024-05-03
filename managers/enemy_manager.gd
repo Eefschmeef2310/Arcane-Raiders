@@ -6,7 +6,7 @@ extends Node
 		"difficulty" : 1
 	},
 	"slime_big" : {
-		"scene" : preload("res://moving_entities/enemies/SlimeBig/SlimeBig.tscn"),
+		"scene" : preload("res://moving_entities/enemies/SlimeBig/slime_big.tscn"),
 		"difficulty" : 4
 	},
 	"bat_small" : {

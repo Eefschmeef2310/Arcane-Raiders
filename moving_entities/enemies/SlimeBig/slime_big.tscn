@@ -1,0 +1,268 @@
+[gd_scene load_steps=18 format=3 uid="uid://clt4qye3cjvyg"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_q1i3n"]
+[ext_resource type="Texture2D" uid="uid://dtl3tdgkt2cbe" path="res://moving_entities/enemies/SlimeBig/slime_big_idle.png" id="2_41i6g"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_4g0lo"]
+[ext_resource type="PackedScene" uid="uid://bae5iobkx4kyi" path="res://moving_entities/enemies/SlimeBig/spike_attack_big.tscn" id="4_p7ncs"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_1fbef"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="6_7nrmq"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="7_c4a5i"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_rnblt"]
+[ext_resource type="Texture2D" uid="uid://wnms02d8lafe" path="res://moving_entities/enemies/SlimeBig/slime_big_attack.png" id="9_hldcq"]
+
+[sub_resource type="GDScript" id="GDScript_u8aon"]
+resource_name = "slime_big"
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Signal methods
+func _on_zero_health():
+	if is_multiplayer_authority():
+		#Anim here
+		
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room:
+			room.enemy_spawner.spawn({\"key\": \"slime_small\", \"pos\": global_position})
+			room.enemy_spawner.spawn({\"key\": \"slime_small\", \"pos\": global_position})
+		
+		queue_free()
+#endregion
+
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1j12m"]
+radius = 73.7412
+
+[sub_resource type="Resource" id="Resource_ciovy"]
+script = ExtResource("5_1fbef")
+suffix = ""
+description = ""
+scene = ExtResource("4_p7ncs")
+element = ExtResource("3_4g0lo")
+
+[sub_resource type="Animation" id="Animation_vkrvw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_41i6g")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, -41)]
+}
+
+[sub_resource type="Animation" id="Animation_45tuv"]
+resource_name = "attack"
+length = 1.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_hldcq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.7, 0.75, 0.8, 0.85, 0.95, 1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 13, 12, 13, 14, 15]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.65, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.2), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3, 0.65, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, -41), Vector2(5, -55), Vector2(5, -41)]
+}
+
+[sub_resource type="Animation" id="Animation_lk3yk"]
+resource_name = "idle"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_41i6g")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mkull"]
+_data = {
+"RESET": SubResource("Animation_vkrvw"),
+"attack": SubResource("Animation_45tuv"),
+"idle": SubResource("Animation_lk3yk")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_my4h2"]
+radius = 28.0179
+
+[node name="SlimeBig" instance=ExtResource("1_q1i3n")]
+script = SubResource("GDScript_u8aon")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(5, -41)
+texture = ExtResource("2_41i6g")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(2, -23)
+scale = Vector2(1.56, 1.08)
+shape = SubResource("CircleShape2D_1j12m")
+debug_color = Color(1, 0, 0, 0.258824)
+
+[node name="EnemySpells" parent="." index="4"]
+spells = Array[ExtResource("5_1fbef")]([SubResource("Resource_ciovy")])
+
+[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("6_7nrmq")
+actual_first_state = NodePath("../BasicChase")
+
+[node name="BasicChase" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("7_c4a5i")
+attack_distance = 200.0
+
+[node name="Attack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("8_rnblt")
+animation = "attack"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+"": SubResource("AnimationLibrary_mkull")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
+position = Vector2(1, -5)
+shape = SubResource("CircleShape2D_my4h2")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
