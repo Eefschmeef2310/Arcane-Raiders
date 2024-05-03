@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=28 format=3 uid="uid://bp3p5hgbn2t6t"]
+=======
+[gd_scene load_steps=30 format=3 uid="uid://bp3p5hgbn2t6t"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -13,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
+[ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="14_0bwx2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -573,6 +578,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WalkingSound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dg52v"]
 _data = {
@@ -773,6 +792,9 @@ grow_vertical = 0
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_0bwx2")
 
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

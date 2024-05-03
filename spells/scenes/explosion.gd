@@ -34,6 +34,8 @@ var lifetime_progress : float
 
 var infliction_time : float
 
+var play_element_sound : bool = false
+
 #endregion
 
 #region Godot methods
@@ -41,6 +43,8 @@ func _ready():
 	if resource:
 		modulate = resource.element.colour
 		point_light_2d.color = resource.element.colour
+		if play_element_sound:
+			AudioManager.play_audio2D_at_point(global_position, resource.element.sound)
 	sprite_2d.rotation_degrees = randf_range(0, 360)
 	starting_scale = scale
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)

@@ -12,6 +12,7 @@ EXPLOSION = ExtResource("3_8s1x3")
 base_damage = 250
 start_time = 0.05
 cooldown_time = 7.0
+play_sound_on_cast = false
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 

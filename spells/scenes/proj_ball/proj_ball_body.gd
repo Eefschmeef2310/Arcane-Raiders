@@ -16,6 +16,8 @@ var resource : Spell
 var caster : Player
 var infliction_time : float
 
+var play_element_sound : bool = false
+
 #endregion
 
 #region Godot methods
@@ -49,6 +51,7 @@ func create_explosion():
 	explosion.position = position
 	explosion.infliction_time = infliction_time
 	explosion.visible = true
+	explosion.play_element_sound = play_element_sound
 	call_deferred("add_sibling", explosion)
 	
 	queue_free()

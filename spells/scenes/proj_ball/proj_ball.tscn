@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4td8rjmyf2lq"]
-
-[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_iaq8n"]
-[ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball.gd" id="2_0bmxd"]
-
-[node name="ProjBall" instance=ExtResource("1_iaq8n")]
-script = ExtResource("2_0bmxd")
-base_damage = 20
-infliction_time = 1.5

@@ -34,6 +34,9 @@ var dash_speed:float
 #endregion
 
 #region Godot methods
+func _enter_tree():
+	AudioManager.play_audio2D_at_point(global_position, load(\"res://sounds/effects/enemies/egg-cracking-6844.wav\"))
+	
 func _physics_process(delta):
 	super._physics_process(delta)
 	if attacking:
