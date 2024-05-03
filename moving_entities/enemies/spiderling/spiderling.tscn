@@ -146,6 +146,9 @@ radius = 8.0
 
 [node name="Spiderling" instance=ExtResource("1_ljokn")]
 script = SubResource("GDScript_dbbaf")
+attack_movespeed = 600.0
+movement_speed = 200.0
+max_health = 20
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(2, -12)
@@ -154,7 +157,7 @@ texture = ExtResource("1_3vw24")
 hframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(0, -1)
+position = Vector2(-10, 54)
 shape = SubResource("CircleShape2D_26476")
 debug_color = Color(0.972549, 0, 0.431373, 0.419608)
 

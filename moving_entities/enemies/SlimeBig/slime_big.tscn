@@ -224,6 +224,8 @@ radius = 28.0179
 
 [node name="SlimeBig" instance=ExtResource("1_q1i3n")]
 script = SubResource("GDScript_u8aon")
+movement_speed = 125.0
+max_health = 400
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(5, -41)
@@ -231,10 +233,18 @@ texture = ExtResource("2_41i6g")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(2, -23)
+position = Vector2(10, 31)
 scale = Vector2(1.56, 1.08)
 shape = SubResource("CircleShape2D_1j12m")
 debug_color = Color(1, 0, 0, 0.258824)
+
+[node name="ProgressBar" parent="." index="2"]
+offset_top = -114.0
+offset_bottom = -107.0
+
+[node name="StatusUI" parent="." index="3"]
+offset_top = -148.0
+offset_bottom = -116.0
 
 [node name="EnemySpells" parent="." index="4"]
 spells = Array[ExtResource("5_1fbef")]([SubResource("Resource_ciovy")])

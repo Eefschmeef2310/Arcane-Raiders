@@ -115,6 +115,8 @@ _data = {
 
 [node name="BatSmall" instance=ExtResource("1_ceawg")]
 script = SubResource("GDScript_pwqtp")
+movement_speed = 150.0
+max_health = 200
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(3, -18)
@@ -123,7 +125,7 @@ texture = ExtResource("2_2wyck")
 hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(0.5, -1.5)
+position = Vector2(-1, 47)
 rotation = -0.113446
 scale = Vector2(1, 0.42)
 shape = SubResource("CircleShape2D_6k7pk")
