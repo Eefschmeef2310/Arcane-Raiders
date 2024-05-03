@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
@@ -7,13 +7,8 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
-[ext_resource type="PackedScene" uid="uid://ckoux1a8woan8" path="res://moving_entities/enemies/large_spider/large_spider.tscn" id="9_3md6a"]
-[ext_resource type="PackedScene" uid="uid://ijxu84lyomhr" path="res://moving_entities/enemies/spiderling/spiderling.tscn" id="9_ay6pi"]
-[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/slime_big.tscn" id="9_mtqs4"]
-[ext_resource type="PackedScene" uid="uid://byabxygfvnpvx" path="res://moving_entities/enemies/SlimeSmall/small_slime.tscn" id="9_orqqx"]
-[ext_resource type="PackedScene" uid="uid://c8uvt7sepdtkk" path="res://moving_entities/enemies/bat_small/bat_small.tscn" id="9_ql0im"]
+[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="9_5s0xn"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://cl6evd5eokmpu" path="res://moving_entities/enemies/nest/basic_nest.tscn" id="11_da3c0"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
 script/source = "extends Node
@@ -103,23 +98,7 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="LargeSpider" parent="." index="16" instance=ExtResource("9_3md6a")]
-position = Vector2(824, 502)
-
-[node name="BatSmall" parent="." index="17" instance=ExtResource("9_ql0im")]
-position = Vector2(278, 417)
-
-[node name="BasicNest" parent="." index="18" instance=ExtResource("11_da3c0")]
-position = Vector2(612, 455)
-spawn_amount = 1
-
-[node name="SlimeBig" parent="." index="19" instance=ExtResource("9_mtqs4")]
-position = Vector2(1069, 610)
-
-[node name="SmallSlime" parent="." index="20" instance=ExtResource("9_orqqx")]
-position = Vector2(745, 639)
-
-[node name="Spiderling" parent="." index="21" instance=ExtResource("9_ay6pi")]
-position = Vector2(408, 372)
+[node name="GiantSlime" parent="." index="16" instance=ExtResource("9_5s0xn")]
+position = Vector2(1006, 507)
 
 [editable path="Player"]

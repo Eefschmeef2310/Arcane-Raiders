@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cl6evd5eokmpu"]
+[gd_scene load_steps=12 format=3 uid="uid://cl6evd5eokmpu"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
 [ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
-[ext_resource type="AudioStream" uid="uid://bls73kgbrc7t" path="res://sounds/effects/enemies/019 FS030602.wav" id="2_fm7e4"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_gbedi"]
 [ext_resource type="PackedScene" uid="uid://bpmywahil36ui" path="res://moving_entities/enemies/nest/spawn_spiderling.tscn" id="4_p16fd"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_undgi"]
@@ -102,7 +101,6 @@ func physics_update(delta):
 [node name="BasicNest" instance=ExtResource("1_2tj8e")]
 script = SubResource("GDScript_p1xr3")
 movement_speed = 10.0
-hurt_sound = ExtResource("2_fm7e4")
 max_health = 100
 
 [node name="Sprite2D" parent="." index="0"]

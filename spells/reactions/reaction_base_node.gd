@@ -39,8 +39,7 @@ func _ready():
 			queue_free()
 			
 	if should_continue:
-		#play sound
-		AudioManager.play_audio2D_at_point(global_position, load("res://sounds/effects/reactions/Free Sound Effect (Magic Boom Explosion) HD.mp3"))
+		#remove_from_group(get_groups()[0])
 		
 		var reaction_elements_ui = REACTION_ELEMENTS_UI.instantiate()
 		reaction_elements_ui.global_position = global_position

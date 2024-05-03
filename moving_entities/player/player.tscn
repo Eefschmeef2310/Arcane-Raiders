@@ -1,8 +1,7 @@
-[gd_scene load_steps=33 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=29 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
-[ext_resource type="AudioStream" uid="uid://b6gwh366dnkab" path="res://sounds/effects/player/018 FS030601.wav" id="2_fb3ec"]
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_2byeo"]
@@ -14,9 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
-[ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
-[ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
-[ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -719,7 +715,6 @@ wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
 debug = true
 data = NodePath("PlayerData")
-death_sound = ExtResource("15_74n7w")
 do_damage_numbers = false
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
@@ -848,16 +843,6 @@ grow_vertical = 0
 wait_time = 3.0
 
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_qpnkh")
-bus = &"SFX"
-
-[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_fb3ec")
-
-[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("16_n6b8a")
-volume_db = -2.0
-bus = &"SFX"
 
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

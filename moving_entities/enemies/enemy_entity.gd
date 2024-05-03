@@ -21,7 +21,6 @@ class_name EnemyEntity
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_spells = $EnemySpells
 @onready var animation_player = $AnimationPlayer
-@onready var attack_sound = $AttackSound
 
 var aim_direction: Vector2
 var target_area: Vector2
@@ -94,10 +93,6 @@ func attempt_cast(slot: int):
 
 @rpc("authority", "call_local", "reliable")
 func use_spell(slot: int):
-	#play sound
-	if is_instance_valid(attack_sound):
-		attack_sound.play()
-	
 	can_cast = false
 	await get_tree().create_timer(enemy_spells.cast_time[slot]).timeout
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()

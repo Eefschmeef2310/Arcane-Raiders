@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4dyl3ppwa1rc"]
+[gd_scene load_steps=7 format=3 uid="uid://b4dyl3ppwa1rc"]
 
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
-[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_vpuq0"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_03lay"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
-[ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="7_qxifu"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
@@ -16,8 +14,6 @@ properties/0/replication_mode = 1
 [node name="BaseEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 3
-script = ExtResource("1_vpuq0")
-death_sound = ExtResource("7_qxifu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -18)
@@ -64,9 +60,5 @@ avoidance_priority = 0.1
 replication_config = SubResource("SceneReplicationConfig_hcj8c")
 
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
-bus = &"SFX"
-
-[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
-bus = &"SFX"
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
