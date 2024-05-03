@@ -1,3 +1,17 @@
+<<<<<<< Updated upstream:moving_entities/enemies/SlimeBig/SlimeBig.tscn
+[gd_scene load_steps=19 format=3 uid="uid://bfrsuqfut2eks"]
+
+[ext_resource type="Texture2D" uid="uid://dtl3tdgkt2cbe" path="res://moving_entities/enemies/SlimeBig/slime_big_idle.png" id="1_b5ovk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="3_m24lk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_spells.gd" id="5_gvsgo"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="6_2mlgd"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="6_dnj1x"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="7_hcoo1"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="7_p52cc"]
+[ext_resource type="Resource" uid="uid://mtsb3s55vgti" path="res://moving_entities/enemies/SlimeBig/SpikeAttackBig.tres" id="8_unwx7"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_wlcbw"]
+[ext_resource type="Texture2D" uid="uid://wnms02d8lafe" path="res://moving_entities/enemies/SlimeBig/slime_big_attack.png" id="10_oma2s"]
+=======
 [gd_scene load_steps=20 format=3 uid="uid://clt4qye3cjvyg"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_q1i3n"]
@@ -11,6 +25,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="8_rnblt"]
 [ext_resource type="Texture2D" uid="uid://wnms02d8lafe" path="res://moving_entities/enemies/SlimeBig/slime_big_attack.png" id="9_hldcq"]
 [ext_resource type="AudioStream" uid="uid://bltk7bw0u5iid" path="res://sounds/effects/enemies/SLIME SQUISHY - (Sound Effect).wav" id="10_ojc3y"]
+>>>>>>> Stashed changes:moving_entities/enemies/SlimeBig/slime_big.tscn
 
 [sub_resource type="GDScript" id="GDScript_x4875"]
 script/source = "extends EnemyEntity
@@ -245,8 +260,12 @@ collision_layer = 8
 collision_mask = 3
 script = SubResource("GDScript_x4875")
 movement_speed = 125.0
+<<<<<<< Updated upstream:moving_entities/enemies/SlimeBig/SlimeBig.tscn
+max_health = 300
+=======
 hurt_sound = ExtResource("2_4r4tj")
 max_health = 400
+>>>>>>> Stashed changes:moving_entities/enemies/SlimeBig/slime_big.tscn
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 clip_children = 2
@@ -323,6 +342,8 @@ libraries = {
 "": SubResource("AnimationLibrary_mkull")
 }
 
+<<<<<<< Updated upstream:moving_entities/enemies/SlimeBig/SlimeBig.tscn
+=======
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
 position = Vector2(1, -5)
 shape = SubResource("CircleShape2D_my4h2")
@@ -331,6 +352,7 @@ shape = SubResource("CircleShape2D_my4h2")
 stream = ExtResource("10_ojc3y")
 pitch_scale = 0.8
 
+>>>>>>> Stashed changes:moving_entities/enemies/SlimeBig/slime_big.tscn
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
