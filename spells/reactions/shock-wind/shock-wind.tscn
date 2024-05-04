@@ -34,7 +34,7 @@ func _on_kill_timer_timeout():
 radius = 140.004
 
 [node name="Shock-wind" type="Area2D" groups=["shock-wind"]]
-z_index = -1
+z_index = -2
 collision_layer = 0
 collision_mask = 8
 script = SubResource("GDScript_gjaf5")

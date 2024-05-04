@@ -1,16 +1,77 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpcidonkfink0"]
+[gd_scene load_steps=6 format=3 uid="uid://cpcidonkfink0"]
 
 [ext_resource type="Texture2D" uid="uid://diqvpage0ccnk" path="res://moving_entities/enemies/sparkle2.png" id="1_jvdld"]
+
+[sub_resource type="Curve" id="Curve_jndnr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.751613, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sg8sw"]
+curve = SubResource("Curve_jndnr")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_av03x"]
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
 angle_max = 360.0
-gravity = Vector3(0, 98, 0)
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_sg8sw")
+
+[sub_resource type="GDScript" id="GDScript_fclcm"]
+resource_name = "bingus"
+script/source = "extends GPUParticles2D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	emitting = true
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+
+func _on_finished():
+	queue_free()
+"
 
 [node name="EnemyDeathParticles" type="GPUParticles2D"]
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_av03x")
 texture = ExtResource("1_jvdld")
+lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
+randomness = 0.5
+fixed_fps = 60
+script = SubResource("GDScript_fclcm")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

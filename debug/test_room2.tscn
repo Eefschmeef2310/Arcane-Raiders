@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
-[ext_resource type="PackedScene" uid="uid://ijxu84lyomhr" path="res://moving_entities/enemies/spiderling/spiderling.tscn" id="9_gwivl"]
+[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="9_f74t1"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+[ext_resource type="PackedScene" uid="uid://b70sy17w68ow1" path="res://spells/reactions/frost-wet/frost-wet.tscn" id="10_s6lum"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
 script/source = "extends Node
@@ -52,10 +53,14 @@ scene = ExtResource("5_xmyeo")
 ui_texture = ExtResource("7_amtw5")
 element = ExtResource("4_1txtx")
 
-[sub_resource type="LabelSettings" id="LabelSettings_vu12a"]
-font_size = 24
-
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
+
+[node name="TileMap" parent="." index="0"]
+layer_1/z_index = -3
+layer_3/tile_data = PackedInt32Array(655358, 0, 65536, 720894, 0, 65536, 393216, 0, 65536)
+
+[node name="ParallaxBackground" parent="DynamicCamera" index="0"]
+visible = false
 
 [node name="RoomExit" parent="." index="10"]
 position = Vector2(1934, -45)
@@ -69,20 +74,12 @@ position = Vector2(96, 800)
 [node name="PlayerData" parent="Player" index="6"]
 device_id = -1
 spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["wet-aoe_large", "shock-aoe_local", "burn-proj_spread"])
+spell_strings = Array[String](["wet-aoe_large", "frost-proj_ball", "burn-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="GameUI" type="CanvasLayer" parent="." index="15"]
 
-[node name="Label" type="Label" parent="GameUI" index="0"]
-offset_left = 421.0
-offset_top = 1010.0
-offset_right = 830.0
-offset_bottom = 1044.0
-text = "Press R to randomise spell loadout!"
-label_settings = SubResource("LabelSettings_vu12a")
-
-[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="1"]
+[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="0"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -98,7 +95,11 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="Spiderling" parent="." index="16" instance=ExtResource("9_gwivl")]
-position = Vector2(831, 572)
+[node name="SlimeBig" parent="." index="16" instance=ExtResource("9_f74t1")]
+position = Vector2(780, 442)
 
+[node name="Frost-wet" parent="." index="17" instance=ExtResource("10_s6lum")]
+position = Vector2(126, 588)
+
+[editable path="DynamicCamera"]
 [editable path="Player"]

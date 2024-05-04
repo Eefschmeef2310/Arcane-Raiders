@@ -44,6 +44,7 @@ shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
 shader_parameter/gradient_map = SubResource("GradientTexture1D_px3ax")
 
 [node name="Torch" type="Node2D"]
+z_index = 2
 material = SubResource("ShaderMaterial_061cr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
