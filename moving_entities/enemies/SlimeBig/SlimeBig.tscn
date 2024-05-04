@@ -226,7 +226,7 @@ radius = 28.0179
 [node name="SlimeBig" instance=ExtResource("1_q1i3n")]
 script = SubResource("GDScript_u8aon")
 movement_speed = 125.0
-max_health = 400
+max_health = 750
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(5, -41)

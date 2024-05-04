@@ -10,9 +10,7 @@ func _ready():
 	
 	if is_multiplayer_authority() and boss_id != "":
 		number_of_enemies_left = bosses_to_kill
-		
 		var boss = enemy_spawner.spawn({"key": boss_id, "pos":enemy_spawns.get_child(0).global_position})
-		
 		room_exit.lock()
 
 func on_floor_cleared():
@@ -25,3 +23,6 @@ func _on_boss_zero_health():
 		print("Bosses left: " + str(bosses_to_kill))
 		if bosses_to_kill <= 0:
 			on_floor_cleared.rpc()
+
+func _on_enemy_zero_health():
+	pass
