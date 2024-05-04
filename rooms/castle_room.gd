@@ -72,8 +72,6 @@ func _ready():
 			var key = arr.pick_random()
 			var spawn_pos = enemy_spawns.get_children().pick_random().global_position
 			var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
-			enemy.zero_health.connect(_on_enemy_zero_health)
-			number_of_enemies_left += 1
 			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 			# print("New total: " + str(number_of_enemies_left))
 		
@@ -85,6 +83,7 @@ func _process(_delta):
 	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
+	await get_tree().process_frame
 	if is_multiplayer_authority():
 		number_of_enemies_left -= 1
 		print("Enemies left: " + str(number_of_enemies_left))
@@ -135,6 +134,8 @@ func spawn_enemy(data) -> Node2D:
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
+	enemy.zero_health.connect(_on_enemy_zero_health)
+	number_of_enemies_left += 1
 	
 	if enemy.is_in_group("boss"):
 		enemy.max_health *= number_of_players_health_scale

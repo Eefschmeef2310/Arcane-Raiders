@@ -23,3 +23,6 @@ func _on_boss_zero_health():
 		print("Bosses left: " + str(bosses_to_kill))
 		if bosses_to_kill <= 0:
 			on_floor_cleared.rpc()
+
+func _on_enemy_zero_health():
+	pass

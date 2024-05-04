@@ -177,7 +177,7 @@ too_far = 800.0
 spawn_limit = 1
 respawn = true
 nest_spawn_cd = 10.0
-max_health = 600
+max_health = 900
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(8, -21)

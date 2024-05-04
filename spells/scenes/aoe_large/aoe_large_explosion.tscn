@@ -19,7 +19,7 @@ _data = [Vector2(0.1, 1), 10.0769, 0.109853, 0, 0, Vector2(0.11, 0), 0.0, 0.0, 0
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u14su"]
-radius = 150.0
+radius = 200.0
 
 [node name="aoe_large_explosion" instance=ExtResource("1_lap4g")]
 sprite_rotation_falloff_curve = SubResource("Curve_6prme")
@@ -35,6 +35,7 @@ texture_scale = 2.0
 scale = Vector2(0.972656, 1.09766)
 
 [node name="CollisionShape2D" parent="." index="2"]
+scale = Vector2(1, 0.6)
 shape = SubResource("CircleShape2D_u14su")
 
 [node name="kill_timer" parent="." index="3"]

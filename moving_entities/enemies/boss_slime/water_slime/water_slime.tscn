@@ -123,6 +123,7 @@ burst_amount = 12
 movement_speed = 150.0
 is_boss = true
 boss_name = "Aqua Daughter Slime"
+max_health = 1500
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -60)
