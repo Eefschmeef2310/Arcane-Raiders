@@ -56,7 +56,7 @@ func _on_field_detector_area_entered(area):
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
-radius = 124.409
+radius = 150.0
 
 [sub_resource type="Resource" id="Resource_ct66w"]
 script = ExtResource("5_3k4qm")
@@ -99,7 +99,7 @@ calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
 boss_name = "Poisonous Amalgamate"
-max_health = 2000
+max_health = 3000
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -70)

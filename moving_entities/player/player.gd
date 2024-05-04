@@ -29,6 +29,7 @@ var dash_cooldown: float = 0.0
 var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
 var dash_speed = 800
+var dash_duration = 0.22 # Is only used for checking if a dash will end in a wall
 
 #region Godot methods
 func _ready():
@@ -43,7 +44,9 @@ func _process(delta):
 	super._process(delta)
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
-			if is_dashing:
+			if is_dead:
+				velocity = Vector2.ZERO
+			elif is_dashing:
 				velocity = dash_direction * dash_speed
 			else:
 				velocity = get_knockback_velocity() + get_attraction_velocity()
@@ -96,6 +99,7 @@ func _on_animation_player_animation_finished(anim_name: String):
 	elif anim_name.contains("dash"):
 		animation_player.play("idle", -1, 1)
 		is_dashing = false
+		$CollisionShape2D.disabled = false
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -143,6 +147,13 @@ func start_dash(dir: Vector2):
 	dash_direction = dir
 	is_dashing = true
 	animation_player.play("dash")
+	
+	# Check if we're going to end in a wall or not
+	var pp = PhysicsPointQueryParameters2D.new()
+	pp.collision_mask = collision_mask
+	pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
+	if !get_world_2d().direct_space_state.intersect_point(pp, 1):
+		$CollisionShape2D.disabled = true
 
 func prepare_cast(slot: int):
 	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():

@@ -219,7 +219,7 @@ func shock_effect():
 	
 	if closest:
 		#damage closest enemy
-		closest.deal_damage.rpc(null, 50, null, null, true)
+		closest.deal_damage.rpc(null, 5, null, null, true)
 		
 		# stop ourselves and the other guy from getting shocked again
 		shocked_this_frame = true

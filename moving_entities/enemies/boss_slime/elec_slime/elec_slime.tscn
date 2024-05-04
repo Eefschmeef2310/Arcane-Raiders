@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqrikojyhum53"]
+[gd_scene load_steps=25 format=3 uid="uid://cqrikojyhum53"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_5w74h"]
 [ext_resource type="Texture2D" uid="uid://cjtt5301dlgj0" path="res://moving_entities/enemies/boss_slime/elec_slime/electric_slime_idle.png" id="2_io1qd"]
@@ -126,6 +126,95 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-9, -65)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_v2ifn"]
+resource_name = "attack_spike"
+length = 1.85
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_pxxlq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 11, 12, 11, 12, 13, 14, 15]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-9, -65), Vector2(-9, -68.3333), Vector2(-9, -71.6667), Vector2(-9, -75), Vector2(-9, -65)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.15, 0.2, 0.25, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(1, 1.05667), Vector2(1, 1.11333), Vector2(1, 1.17), Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_dxsx4"]
 resource_name = "idle"
@@ -169,9 +258,10 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_v2ifn"]
-resource_name = "attack_spike"
-length = 1.85
+[sub_resource type="Animation" id="Animation_cs5ti"]
+resource_name = "attack_burst"
+length = 0.3
+loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -204,16 +294,107 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.7, 0.75, 0.8, 0.85, 0.95, 1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 11, 12, 11, 12, 13, 14, 15]
+"values": [3, 4, 5, 6, 5, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_prylh"]
+[sub_resource type="Animation" id="Animation_p4ntb"]
+resource_name = "enrage"
+length = 0.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_pxxlq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 5, 4, 3, 4, 5, 6, 5, 4, 3, 4, 5, 6, 5, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_coowq"]
 _data = {
 "RESET": SubResource("Animation_gannn"),
+"attack_burst": SubResource("Animation_cs5ti"),
 "attack_spike": SubResource("Animation_v2ifn"),
+"enrage": SubResource("Animation_p4ntb"),
 "idle": SubResource("Animation_dxsx4")
 }
 
@@ -222,19 +403,15 @@ script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Shock Daughter Slime"
-max_health = 1500
+max_health = 2000
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)
-energy = 0.2
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(-9, -65)
 texture = ExtResource("2_io1qd")
 hframes = 6
-
-[node name="Hurtbox" parent="." index="1"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(-6, 16)
@@ -252,6 +429,7 @@ offset_bottom = -153.0
 
 [node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_wcgqx")]([SubResource("Resource_s8rm7"), SubResource("Resource_xoaik")])
+cast_time = Array[float]([0.45, 0.0, 0.2])
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
@@ -272,12 +450,13 @@ script = ExtResource("10_sarmi")
 
 [node name="PrimaryAttack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_j5u2e")
-transition_out_when_can_cast = true
+animation = "attack_spike"
 
 [node name="SecondaryAttack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("11_j5u2e")
 spell_num = 1
 transition_out_when_can_cast = true
+animation = "attack_blurst"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 position = Vector2(-4, -20)
@@ -293,7 +472,7 @@ shape = SubResource("CircleShape2D_ofg1l")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {
-"": SubResource("AnimationLibrary_prylh")
+"": SubResource("AnimationLibrary_coowq")
 }
 
 [node name="Label" type="Label" parent="." index="11"]
@@ -307,3 +486,4 @@ text = "asda"
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/BSlimeSolo" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PrimaryAttack" method="_on_animation_player_animation_finished"]

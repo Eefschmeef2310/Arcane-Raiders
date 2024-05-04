@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bv803buhsotdn" path="res://ui/element_status/status_icon.tscn" id="2_4kame"]
 
 [node name="StatusUI" type="HBoxContainer"]
+z_index = 50
 offset_right = 200.0
 offset_bottom = 32.0
 alignment = 1
