@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ms3gxuyvlyl8"
-path="res://.godot/imported/water_slime_attack.png-8d70d5ba5d055914c024bd9124fe39eb.ctex"
+uid="uid://y7ao60ysrm2n"
+path="res://.godot/imported/electric_slime_attack.png-e6e101e74009ede44d6c3aecf480e333.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://moving_entities/enemies/SlimeBig/water_slime_attack.png"
-dest_files=["res://.godot/imported/water_slime_attack.png-8d70d5ba5d055914c024bd9124fe39eb.ctex"]
+source_file="res://moving_entities/enemies/boss_slime/elec_slime/electric_slime_attack.png"
+dest_files=["res://.godot/imported/electric_slime_attack.png-e6e101e74009ede44d6c3aecf480e333.ctex"]
 
 [params]
 

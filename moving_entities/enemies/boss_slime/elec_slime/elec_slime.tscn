@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqrikojyhum53"]
+[gd_scene load_steps=23 format=3 uid="uid://cqrikojyhum53"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_5w74h"]
-[ext_resource type="Texture2D" uid="uid://ddmtu418wpdmu" path="res://moving_entities/enemies/boss_slime/elec_slime/image5.png" id="2_o7y6s"]
+[ext_resource type="Texture2D" uid="uid://cjtt5301dlgj0" path="res://moving_entities/enemies/boss_slime/elec_slime/electric_slime_idle.png" id="2_io1qd"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="3_hxtkw"]
 [ext_resource type="PackedScene" uid="uid://bh1cqio80y7vl" path="res://moving_entities/enemies/boss_slime/elec_slime/e_slime_spike.tscn" id="4_cvh5a"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_wcgqx"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_solo.gd" id="9_2us5t"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_sarmi"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="11_j5u2e"]
+[ext_resource type="Texture2D" uid="uid://y7ao60ysrm2n" path="res://moving_entities/enemies/boss_slime/elec_slime/electric_slime_attack.png" id="12_pxxlq"]
 
 [sub_resource type="GDScript" id="GDScript_fiano"]
 script/source = "extends EnemyEntity
@@ -92,34 +93,127 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [ExtResource("2_io1qd")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_dxsx4"]
 resource_name = "idle"
+length = 0.9
+loop_mode = 1
+step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:hframes")
+tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [ExtResource("2_io1qd")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_v2ifn"]
+resource_name = "attack_spike"
+length = 1.85
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_pxxlq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.7, 0.75, 0.8, 0.85, 0.95, 1.05, 1.15, 1.25, 1.35, 1.45, 1.55, 1.65, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 11, 12, 11, 12, 13, 14, 15]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_prylh"]
 _data = {
 "RESET": SubResource("Animation_gannn"),
+"attack_spike": SubResource("Animation_v2ifn"),
 "idle": SubResource("Animation_dxsx4")
 }
 
@@ -131,9 +225,13 @@ boss_name = "Shock Daughter Slime"
 max_health = 1500
 
 [node name="Sprite2D" parent="." index="0"]
+clip_children = 2
 position = Vector2(-9, -65)
-scale = Vector2(0.28, 0.28)
-texture = ExtResource("2_o7y6s")
+texture = ExtResource("2_io1qd")
+hframes = 6
+
+[node name="Hurtbox" parent="." index="1"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(-6, 16)

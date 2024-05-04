@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6ggw6qy0a0a6"
-path="res://.godot/imported/water_slime_idle.png-c93a34432baa9da311078db8af17eefa.ctex"
+uid="uid://b6gfgaotgw3g5"
+path="res://.godot/imported/giant_slime_idle_sketch.png-b4abb6926940c1b037aa833fbe8acd28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://moving_entities/enemies/SlimeBig/water_slime_idle.png"
-dest_files=["res://.godot/imported/water_slime_idle.png-c93a34432baa9da311078db8af17eefa.ctex"]
+source_file="res://moving_entities/enemies/boss_slime/giant_slime/giant_slime_idle_sketch.png"
+dest_files=["res://.godot/imported/giant_slime_idle_sketch.png-b4abb6926940c1b037aa833fbe8acd28.ctex"]
 
 [params]
 
