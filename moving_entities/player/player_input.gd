@@ -111,7 +111,6 @@ func _process(_delta):
 				if spell_release[i]:
 					owner.attempt_cast(i)
 		if do_dash:
-			$"../DashSound".play()
 			owner.attempt_dash()
 
 func _input(event):

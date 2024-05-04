@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=32 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c36llf4bmhdys" path="res://moving_entities/player/player_pointer.svg" id="3_fuo50"]
 [ext_resource type="Script" path="res://moving_entities/player/player_input.gd" id="3_h46ns"]
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_2byeo"]
-[ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="4_mc0f7"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="4_srdhb"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="5_gj6bf"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_2udvh"]
@@ -752,32 +751,77 @@ offset = Vector2(162, 0)
 
 [node name="SpritesScale" type="Node2D" parent="SpritesFlip"]
 
-[node name="Sprite2D" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
-visible = false
-position = Vector2(0, 11)
-texture = ExtResource("4_mc0f7")
-offset = Vector2(0, -60)
-flip_h = true
-
 [node name="Body" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+clip_children = 2
 position = Vector2(0, -22)
 texture = ExtResource("5_gj6bf")
 
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/Body"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
 [node name="Head" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+clip_children = 2
 position = Vector2(2, -75)
 texture = ExtResource("6_2udvh")
 
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/Head"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -75.0
+offset_right = -75.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
 [node name="RightHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+clip_children = 2
 position = Vector2(38, -28)
 texture = ExtResource("7_xrgo1")
 
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/RightHand"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
 [node name="LeftHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+clip_children = 2
 position = Vector2(-37, -28)
 texture = ExtResource("7_xrgo1")
 flip_h = true
+
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/LeftHand"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6gabg")
