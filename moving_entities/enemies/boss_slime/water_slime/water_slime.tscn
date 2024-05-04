@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://d3vylmhj1ttfl"]
+[gd_scene load_steps=22 format=3 uid="uid://d3vylmhj1ttfl"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_jbpe8"]
 [ext_resource type="Texture2D" uid="uid://nwavnffxkgc6" path="res://moving_entities/enemies/boss_slime/water_slime/image8.png" id="2_e5vdm"]
+[ext_resource type="AudioStream" uid="uid://bls73kgbrc7t" path="res://sounds/effects/enemies/019 FS030602.wav" id="2_hockp"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_c3r4d"]
 [ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="3_fpw8p"]
 [ext_resource type="PackedScene" uid="uid://chlb2qldo07sj" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_proj.tscn" id="4_ydkkn"]
@@ -123,6 +124,7 @@ burst_amount = 12
 movement_speed = 150.0
 is_boss = true
 boss_name = "Aqua Daughter Slime"
+hurt_sound = ExtResource("2_hockp")
 max_health = 800
 
 [node name="Sprite2D" parent="." index="0"]
