@@ -134,6 +134,8 @@ func on_hurt(attack):
 
 @rpc("authority", "call_local", "reliable")
 func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
+	var is_critical = false
+	
 	#Play hurt sound
 	if hit_sound:
 		hit_sound.play()
@@ -153,6 +155,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 			if reaction:
 				#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
 				damage *= 1.25
+				is_critical = true
 				
 				current_inflictions_dictionary.erase(key)
 				current_inflictions_dictionary.erase(element)
@@ -175,20 +178,27 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	health -= damage
 	
 	if do_damage_numbers:
-		if !is_instance_valid(damage_number) or create_new:
-			damage_number = DAMAGE_NUMBER.instantiate()
-			add_sibling(damage_number)
-		damage_number.global_position = global_position
-		damage_number.add(damage)
+		var dm: DamageNumber
+		if !is_instance_valid(damage_number) or create_new or is_critical:
+			dm = DAMAGE_NUMBER.instantiate()
+			add_sibling(dm)
+			if !create_new and !is_critical:
+				print(str(is_critical) + ", " + str(create_new))
+				damage_number = dm
+		else:
+			dm = damage_number
+		dm.global_position = global_position
 		if element_string != null and SpellManager.elements[element_string]:
-			damage_number.set_color(SpellManager.elements[element_string].colour)
+			dm.set_color(SpellManager.elements[element_string].colour)
+		dm.set_critical(is_critical)
+		dm.add(damage)
 
 func burn_effect(delta):
 	if is_multiplayer_authority():
 		if burn_timer > 0:
 			burn_timer -= delta
 		if burn_timer <= 0:
-			deal_damage.rpc(null, 5, null, null, true)
+			deal_damage.rpc(null, 10, null, null, true)
 			burn_timer = burn_tick_rate
 
 func frost_effect(amount):

@@ -9,6 +9,7 @@ size = Vector2(0, 0)
 
 [node name="LaserStraight" instance=ExtResource("1_lamno")]
 y_sort_enabled = true
+base_damage = 100
 infliction_time = 3.0
 end_time = 0.2
 

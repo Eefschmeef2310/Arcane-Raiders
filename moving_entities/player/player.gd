@@ -58,12 +58,14 @@ func _process(delta):
 	# Dashing and invincibility
 	if dash_cooldown > 0:
 		dash_cooldown -= delta
-		
+	
+	var overlay_col = Color.WHITE
 	if data and is_dashing:
-		$SpritesFlip.modulate = data.main_color.lightened(0.5)
+		overlay_col.a = 0.25
 	else:
-		$SpritesFlip.modulate = Color.WHITE
-		
+		overlay_col.a = 0
+	set_sprite_overlay(overlay_col)
+	
 	$Hurtbox.monitoring = !(is_invincible or is_dashing)
 	
 	if !is_dead and !is_dashing:
@@ -123,6 +125,10 @@ func set_input(id: int):
 	print("Setting input" + str(id))
 	$Input.set_device(id)
 
+func set_sprite_overlay(c: Color):
+	for sprite in $SpritesFlip/SpritesScale.get_children():
+		sprite.get_child(0).color = c
+
 func attempt_dash():
 	if !is_casting and dash_cooldown <= 0:
 		start_dash.rpc(move_direction)
@@ -130,6 +136,7 @@ func attempt_dash():
 @rpc("authority", "call_local", "reliable")
 func start_dash(dir: Vector2):
 	print("dash!")
+	$DashSound.play()
 	if dir == Vector2.ZERO:
 		dir = Vector2(1, 0)
 	dash_cooldown = dash_cooldown_max
@@ -138,7 +145,7 @@ func start_dash(dir: Vector2):
 	animation_player.play("dash")
 
 func prepare_cast(slot: int):
-	if can_cast and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
+	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
 		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
@@ -146,7 +153,7 @@ func prepare_cast(slot: int):
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
-	if can_cast and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
+	if can_cast and !is_dashing and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		cast_spell.rpc(slot)
 	preparing_cast_slot = -1
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4u2wuk1f06f7"]
+[gd_scene load_steps=21 format=3 uid="uid://b4u2wuk1f06f7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
 [ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_s3t78"]
-[ext_resource type="AudioStream" uid="uid://bls73kgbrc7t" path="res://sounds/effects/enemies/019 FS030602.wav" id="2_u21sh"]
 [ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="3_0j38g"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_wndsv"]
 [ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn" id="4_m3r0o"]
@@ -96,10 +95,11 @@ _data = {
 
 [node name="GiantSlime" groups=["boss"] instance=ExtResource("1_148eg")]
 script = SubResource("GDScript_3ka3a")
+calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
 boss_name = "Poisonous Amalgamate"
-hurt_sound = ExtResource("2_u21sh")
+max_health = 2000
 
 [node name="Sprite2D" parent="." index="0"]
 texture_filter = 1

@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_attack.gd" id="5_pa536"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="5_r41an"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="7_3lavh"]
-[ext_resource type="AudioStream" uid="uid://cui1uktq4206a" path="res://sounds/effects/enemies/Single Bat Call - QuickSounds.com.wav" id="10_tekme"]
+[ext_resource type="AudioStream" uid="uid://bpcm3il7ov3bm" path="res://sounds/effects/enemies/Single Bat Call - QuickSounds.com.wav" id="10_tekme"]
 
 [sub_resource type="GDScript" id="GDScript_pwqtp"]
 resource_name = "bat_small"
@@ -117,8 +117,8 @@ _data = {
 [node name="BatSmall" instance=ExtResource("1_ceawg")]
 script = SubResource("GDScript_pwqtp")
 movement_speed = 150.0
-max_health = 200
-health = 200
+max_health = 400
+health = 300
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(3, -18)
