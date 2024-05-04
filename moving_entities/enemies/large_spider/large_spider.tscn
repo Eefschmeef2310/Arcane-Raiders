@@ -74,11 +74,11 @@ func add_nest():
 
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dfw82"]
-radius = 73.0069
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3555"]
 radius = 25.02
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dfw82"]
+radius = 73.0069
 
 [sub_resource type="Animation" id="Animation_aadst"]
 length = 0.001
@@ -179,12 +179,21 @@ respawn = true
 nest_spawn_cd = 10.0
 max_health = 900
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -23)
+energy = 0.2
+texture_scale = 0.75
+
+[node name="Sprite2D" parent="." index="1"]
 position = Vector2(8, -21)
 texture = ExtResource("2_kpkts")
 hframes = 6
 
-[node name="Hurtbox" parent="." index="1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -23)
+shape = SubResource("CircleShape2D_o3555")
+
+[node name="Hurtbox" parent="." index="3"]
 position = Vector2(0, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
@@ -192,23 +201,19 @@ position = Vector2(0, -23)
 shape = SubResource("CircleShape2D_dfw82")
 debug_color = Color(0.964706, 0, 0.498039, 0.282353)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -23)
-shape = SubResource("CircleShape2D_o3555")
-
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -83.0
 offset_bottom = -76.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -117.0
 offset_bottom = -85.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("3_745ch"), ExtResource("4_23t6e")])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("LSpiderPassive")
 
 [node name="LSpiderPassive" type="Node" parent="StateMachine" index="0"]
@@ -233,7 +238,7 @@ script = ExtResource("8_fbxky")
 spell_num = 1
 transition_out_when_can_cast = true
 
-[node name="NavigationAgent2D" parent="." index="7"]
+[node name="NavigationAgent2D" parent="." index="8"]
 avoidance_priority = 0.7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
@@ -241,7 +246,7 @@ libraries = {
 "": SubResource("AnimationLibrary_5ffq3")
 }
 
-[node name="AttackSound" parent="." index="10"]
+[node name="AttackSound" parent="." index="11"]
 stream = ExtResource("9_meo6t")
 pitch_scale = 0.75
 

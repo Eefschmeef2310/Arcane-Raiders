@@ -41,11 +41,11 @@ script/source = "extends EnemyEntity
 
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
-radius = 56.0357
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_keh3l"]
 radius = 16.0312
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
+radius = 56.0357
 
 [sub_resource type="Resource" id="Resource_prk6q"]
 script = ExtResource("5_g4ndh")
@@ -104,37 +104,41 @@ spawn_amount = 1
 movement_speed = 10.0
 max_health = 200
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -40)
+texture_scale = 0.5
+
+[node name="Sprite2D" parent="." index="1"]
 position = Vector2(4, -30)
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_74bdc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_keh3l")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(-1, 24)
 shape = SubResource("CircleShape2D_1hq56")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -11)
-shape = SubResource("CircleShape2D_keh3l")
-
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 offset_left = -51.0
 offset_top = -81.0
 offset_right = 49.0
 offset_bottom = -74.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_left = -101.0
 offset_top = -115.0
 offset_right = 99.0
 offset_bottom = -83.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_g4ndh")]([SubResource("Resource_prk6q")])
 spell_cooldowns = Array[float]([5.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("NestIdle")
 
 [node name="NestIdle" type="Node" parent="StateMachine" index="0"]
@@ -143,7 +147,7 @@ script = SubResource("GDScript_6aaa5")
 [node name="Attack" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("4_undgi")
 
-[node name="NavigationAgent2D" parent="." index="7"]
+[node name="NavigationAgent2D" parent="." index="8"]
 radius = 5.0
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

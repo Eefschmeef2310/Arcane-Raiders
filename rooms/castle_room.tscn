@@ -79,7 +79,7 @@ spawn_path = NodePath("..")
 position = Vector2(1686, 96)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.65098, 0.65098, 0.65098, 1)
+color = Color(0.756863, 0.756863, 0.756863, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -101,13 +101,17 @@ is_boss = true
 boss_name = "Poisonous Amalgamate"
 max_health = 2000
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -70)
+texture_scale = 1.5
+
+[node name="Sprite2D" parent="." index="1"]
 texture_filter = 1
 position = Vector2(0, -74)
 scale = Vector2(5, 5)
 texture = ExtResource("2_s3t78")
 
-[node name="Hurtbox" parent="." index="1"]
+[node name="Hurtbox" parent="." index="2"]
 position = Vector2(0, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
@@ -116,10 +120,10 @@ scale = Vector2(1.27, 1)
 shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
 
-[node name="EnemySpells" parent="." index="4"]
+[node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
 
-[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
