@@ -26,6 +26,7 @@ class_name CastleClimb
 @export var sector_gradient_saturations : Array[float]
 
 @export_group("Difficulty")
+@export var number_of_players_health_scale : Array = [1.0, 1.5, 2.0, 2.4]
 @export var wave_difficulty_curve : Curve
 var enemy_types_per_floor : Array = [
 	[], # foyer
@@ -129,6 +130,7 @@ func spawn_boss_level(index: int) -> Node:
 func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(float(current_floor)/float(total_floors))
+	current_room_node.number_of_players_health_scale = number_of_players_health_scale[number_of_players]
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)

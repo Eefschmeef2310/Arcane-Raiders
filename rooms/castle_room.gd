@@ -41,6 +41,7 @@ var number_of_enemies_left = 0
 var live_players = 0
 
 var spawn_keys = []
+var number_of_players_health_scale: float = 1.0
 
 func _ready():
 	max_waves = wave_total_difficulty.size()
@@ -133,6 +134,7 @@ func spawn_enemy(data) -> Node2D:
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
+	enemy.max_health *= number_of_players_health_scale
 	
 	if enemy.is_in_group("boss"):
 		enemy.zero_health.connect(_on_boss_zero_health)
