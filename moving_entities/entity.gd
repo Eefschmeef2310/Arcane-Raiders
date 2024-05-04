@@ -14,16 +14,11 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var death_sound : AudioStream
 @export var max_health : int = 1000
 @export var health : int = 1000:
 	set(value):
 		health = clamp(value, 0, max_health)
 		if health <= 0 and !is_dead:
-			
-			#Play death sound
-			AudioManager.play_audio2D_at_point(global_position, death_sound)
-			
 			is_dead = true
 			zero_health.emit()
 		health_updated.emit(health)
@@ -38,9 +33,7 @@ var is_dead: bool = false
 
 @export_subgroup("Attraction")
 @export var attraction_strength : float = 65
-
 	#Onready Variables
-@onready var hit_sound = $HitSound
 
 	#Other Variables (please try to separate and organise!)
 var current_inflictions_dictionary : Dictionary #Stores 
@@ -128,16 +121,13 @@ func on_hurt(attack):
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
+		print("Running shock effect for the first time.")
 		shock_effect()
 	
 	add_knockback.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
 func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
-	#Play hurt sound
-	if hit_sound:
-		hit_sound.play()
-		
 	if element_string != null:
 		var attack = get_node(attack_path)
 		var element = SpellManager.elements[element_string]

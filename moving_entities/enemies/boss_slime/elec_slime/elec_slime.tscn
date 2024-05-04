@@ -1,8 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://cqrikojyhum53"]
+[gd_scene load_steps=21 format=3 uid="uid://cqrikojyhum53"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_5w74h"]
 [ext_resource type="Texture2D" uid="uid://ddmtu418wpdmu" path="res://moving_entities/enemies/boss_slime/elec_slime/image5.png" id="2_o7y6s"]
-[ext_resource type="AudioStream" uid="uid://bls73kgbrc7t" path="res://sounds/effects/enemies/019 FS030602.wav" id="2_ywcoj"]
 [ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="3_hxtkw"]
 [ext_resource type="PackedScene" uid="uid://bh1cqio80y7vl" path="res://moving_entities/enemies/boss_slime/elec_slime/e_slime_spike.tscn" id="4_cvh5a"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_wcgqx"]
@@ -129,7 +128,6 @@ script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Shock Daughter Slime"
-hurt_sound = ExtResource("2_ywcoj")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-9, -65)
