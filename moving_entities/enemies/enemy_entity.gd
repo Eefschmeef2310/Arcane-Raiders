@@ -85,7 +85,10 @@ func _on_hurtbox_area_entered(area):
 	
 func _on_zero_health():
 	if is_multiplayer_authority():
-		queue_free()
+		var particles = load("res://moving_entities/enemies/enemy_death_particles.tscn").instantiate()
+		particles.global_position = global_position
+		get_tree().root.add_child(particles)
+		call_deferred("queue_free")
 	
 func attempt_cast(slot: int):
 	if is_multiplayer_authority():

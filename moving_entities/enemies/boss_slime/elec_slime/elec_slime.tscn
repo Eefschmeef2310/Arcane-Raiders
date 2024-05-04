@@ -224,8 +224,11 @@ is_boss = true
 boss_name = "Shock Daughter Slime"
 max_health = 1500
 
-[node name="Sprite2D" parent="." index="0"]
-clip_children = 2
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -55)
+energy = 0.2
+
+[node name="Sprite2D" parent="." index="1"]
 position = Vector2(-9, -65)
 texture = ExtResource("2_io1qd")
 hframes = 6
@@ -239,18 +242,18 @@ scale = Vector2(1, 0.75)
 shape = SubResource("CircleShape2D_wose4")
 debug_color = Color(0.976471, 0, 0.415686, 0.419608)
 
-[node name="ProgressBar" parent="." index="2"]
+[node name="ProgressBar" parent="." index="3"]
 offset_top = -151.0
 offset_bottom = -144.0
 
-[node name="StatusUI" parent="." index="3"]
+[node name="StatusUI" parent="." index="4"]
 offset_top = -185.0
 offset_bottom = -153.0
 
-[node name="EnemySpells" parent="." index="4"]
+[node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_wcgqx")]([SubResource("Resource_s8rm7"), SubResource("Resource_xoaik")])
 
-[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
 debug_label = NodePath("../Label")
 

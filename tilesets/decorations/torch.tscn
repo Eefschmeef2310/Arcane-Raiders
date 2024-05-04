@@ -2,9 +2,9 @@
 
 [ext_resource type="Shader" path="res://shaders/toon_fire.gdshader" id="1_tmson"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_gl3o8"]
+[ext_resource type="Script" path="res://tilesets/decorations/torch.gd" id="2_v84hn"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="3_5nbkh"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="3_llv6y"]
-[ext_resource type="Script" path="res://tilesets/decorations/flame.gd" id="5_v4u7r"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -44,7 +44,9 @@ shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
 shader_parameter/gradient_map = SubResource("GradientTexture1D_px3ax")
 
 [node name="Torch" type="Node2D"]
+z_index = 2
 material = SubResource("ShaderMaterial_061cr")
+script = ExtResource("2_v84hn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-8, 21)
@@ -55,7 +57,6 @@ texture = ExtResource("3_5nbkh")
 [node name="Flame" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_hr8de")
 texture = ExtResource("3_5nbkh")
-script = ExtResource("5_v4u7r")
 metadata/_edit_lock_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]

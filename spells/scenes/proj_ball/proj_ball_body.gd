@@ -22,12 +22,12 @@ var play_element_sound : bool = false
 
 #region Godot methods
 func _ready():
-	print(infliction_time)
 	direction = caster.aim_direction
 	global_position = caster.global_position + (direction * 40)
 	look_at(global_position + direction)
 	
 	modulate = resource.element.colour
+	$PointLight2D.color = resource.element.colour
 
 func _process(delta):
 	position += direction * move_speed * delta

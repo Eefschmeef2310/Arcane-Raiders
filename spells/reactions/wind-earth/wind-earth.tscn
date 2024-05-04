@@ -40,6 +40,7 @@ gravity = Vector3(0, -200, 0)
 scale_max = 1.5
 
 [node name="Wind-earth" type="Area2D" groups=["wind-earth"]]
+z_index = -2
 scale = Vector2(1, 0.5)
 collision_layer = 16
 collision_mask = 8
@@ -63,6 +64,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_0qdfs")
 amount = 21
 process_material = SubResource("ParticleProcessMaterial_u80t5")

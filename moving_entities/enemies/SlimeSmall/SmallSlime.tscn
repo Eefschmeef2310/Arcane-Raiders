@@ -197,15 +197,19 @@ script = SubResource("GDScript_60b0v")
 movement_speed = 150.0
 max_health = 400
 
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -20)
+texture_scale = 0.5
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 46)
 shape = SubResource("CircleShape2D_o3s8j")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
-[node name="EnemySpells" parent="." index="4"]
+[node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("4_yunfq")]([SubResource("Resource_xj5x0")])
 
-[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -228,7 +232,7 @@ libraries = {
 "": SubResource("AnimationLibrary_xr58l")
 }
 
-[node name="AttackSound" parent="." index="10"]
+[node name="AttackSound" parent="." index="11"]
 stream = ExtResource("11_k22ys")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

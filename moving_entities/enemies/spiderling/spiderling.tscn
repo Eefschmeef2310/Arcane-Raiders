@@ -151,7 +151,11 @@ attack_movespeed = 600.0
 movement_speed = 200.0
 max_health = 100
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -7)
+texture_scale = 0.3
+
+[node name="Sprite2D" parent="." index="1"]
 position = Vector2(2, -12)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_3vw24")
@@ -162,10 +166,10 @@ position = Vector2(-10, 54)
 shape = SubResource("CircleShape2D_26476")
 debug_color = Color(0.972549, 0, 0.431373, 0.419608)
 
-[node name="EnemySpells" parent="." index="4"]
+[node name="EnemySpells" parent="." index="5"]
 spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_vx5h5")])
 
-[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -190,7 +194,7 @@ libraries = {
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_033am")
 
-[node name="AttackSound" parent="." index="10"]
+[node name="AttackSound" parent="." index="11"]
 stream = ExtResource("7_wiqno")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

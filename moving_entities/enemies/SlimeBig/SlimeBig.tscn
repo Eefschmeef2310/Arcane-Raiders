@@ -228,8 +228,11 @@ script = SubResource("GDScript_u8aon")
 movement_speed = 125.0
 max_health = 750
 
-[node name="Sprite2D" parent="." index="0"]
-clip_children = 2
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -30)
+texture_scale = 0.75
+
+[node name="Sprite2D" parent="." index="1"]
 position = Vector2(5, -41)
 texture = ExtResource("2_41i6g")
 hframes = 6
@@ -243,18 +246,18 @@ scale = Vector2(1.56, 1.08)
 shape = SubResource("CircleShape2D_1j12m")
 debug_color = Color(1, 0, 0, 0.258824)
 
-[node name="ProgressBar" parent="." index="2"]
+[node name="ProgressBar" parent="." index="3"]
 offset_top = -114.0
 offset_bottom = -107.0
 
-[node name="StatusUI" parent="." index="3"]
+[node name="StatusUI" parent="." index="4"]
 offset_top = -148.0
 offset_bottom = -116.0
 
-[node name="EnemySpells" parent="." index="4"]
+[node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_1fbef")]([SubResource("Resource_ciovy")])
 
-[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -278,7 +281,7 @@ libraries = {
 position = Vector2(1, -5)
 shape = SubResource("CircleShape2D_my4h2")
 
-[node name="AttackSound" parent="." index="10"]
+[node name="AttackSound" parent="." index="11"]
 stream = ExtResource("10_sctqr")
 pitch_scale = 0.75
 

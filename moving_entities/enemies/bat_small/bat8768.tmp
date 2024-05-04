@@ -121,7 +121,7 @@ max_health = 400
 health = 300
 
 [node name="PointLight2D" parent="." index="0"]
-position = Vector2(0, -6.91)
+position = Vector2(0, -8.055)
 texture_scale = 0.5
 
 [node name="Sprite2D" parent="." index="1"]
