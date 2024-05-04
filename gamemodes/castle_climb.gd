@@ -27,6 +27,7 @@ class_name CastleClimb
 
 @export_group("Difficulty")
 @export var number_of_players_health_scale : Array = [1.0, 1.5, 2.0, 2.4]
+@export var number_of_players_difficulty_scale : Array = [1.0, 1.3, 1.6, 1.9]
 @export var wave_difficulty_curve : Curve
 var enemy_types_per_floor : Array = [
 	[], # foyer
@@ -60,7 +61,7 @@ func _ready():
 		set_number_of_players(1)
 		start_climb()
 
-func _process(delta):
+func _process(_delta):
 	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
 
@@ -131,6 +132,7 @@ func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(float(current_floor)/float(total_floors))
 	current_room_node.number_of_players_health_scale = number_of_players_health_scale[number_of_players]
+	current_room_node.number_of_players_difficulty_scale = number_of_players_difficulty_scale[number_of_players]
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
@@ -148,7 +150,6 @@ func get_current_sector():
 	while i < sector_start_floors.size():
 		if i == sector_start_floors.size()-1 or current_floor < sector_start_floors[i+1]:
 			return i
-			break
 		i += 1
 
 func _on_room_exited():
@@ -191,9 +192,9 @@ func use_spell_pickup_server(p_i: int, i: int, sp_path: String):
 
 # Sets a player's spell slot on all clients.
 @rpc("authority", "call_local", "reliable")
-func set_spell_from_string(p_i: int, i: int, str: String):
+func set_spell_from_string(p_i: int, i: int, s: String):
 	var data = player_data[p_i]
-	data.set_spell_from_string(i, str)
+	data.set_spell_from_string(i, s)
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
@@ -220,13 +221,13 @@ func set_number_of_players(n: int):
 			child.show()
 		i += 1
 
-func get_floor_name(floor: int) -> String:
-	if floor < 0:
+func get_floor_name(fl: int) -> String:
+	if fl < 0:
 		return ""
-	elif floor == 0:
+	elif fl == 0:
 		return "Foyer"
 	else:
-		return str(floor) + "F"
+		return str(fl) + "F"
 
 @rpc("authority", "call_local", "reliable")
 func setup_from_parent_multiplayer_lobby():

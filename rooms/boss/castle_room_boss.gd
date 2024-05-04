@@ -10,9 +10,7 @@ func _ready():
 	
 	if is_multiplayer_authority() and boss_id != "":
 		number_of_enemies_left = bosses_to_kill
-		
 		var boss = enemy_spawner.spawn({"key": boss_id, "pos":enemy_spawns.get_child(0).global_position})
-		
 		room_exit.lock()
 
 func on_floor_cleared():

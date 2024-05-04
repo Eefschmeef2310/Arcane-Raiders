@@ -42,6 +42,7 @@ var live_players = 0
 
 var spawn_keys = []
 var number_of_players_health_scale: float = 1.0
+var number_of_players_difficulty_scale: float = 1.0
 
 func _ready():
 	max_waves = wave_total_difficulty.size()
@@ -59,7 +60,7 @@ func _ready():
 	
 	if is_multiplayer_authority() and max_waves > 0:
 		number_of_enemies_left = 0
-		total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier
+		total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
 		print("Difficulty modifier: " + str(difficulty_modifier))
 		room_exit.lock()
 		AudioManager.switch_to_battle()
@@ -134,9 +135,9 @@ func spawn_enemy(data) -> Node2D:
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
-	enemy.max_health *= number_of_players_health_scale
 	
 	if enemy.is_in_group("boss"):
+		enemy.max_health *= number_of_players_health_scale
 		enemy.zero_health.connect(_on_boss_zero_health)
 
 	return enemy
