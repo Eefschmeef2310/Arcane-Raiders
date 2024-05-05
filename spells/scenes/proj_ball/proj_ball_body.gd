@@ -35,7 +35,8 @@ func _process(delta):
 
 #region Signal methods
 func _on_hitbox_body_entered(_body):
-	create_explosion()
+	if(_body.owner != caster):
+		create_explosion()
 
 func _on_explosion_timer_timeout():
 	create_explosion()

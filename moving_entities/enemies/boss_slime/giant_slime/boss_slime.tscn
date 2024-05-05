@@ -56,7 +56,7 @@ func _on_field_detector_area_entered(area):
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
-radius = 150.0
+radius = 170.878
 
 [sub_resource type="Resource" id="Resource_ct66w"]
 script = ExtResource("5_3k4qm")
@@ -80,7 +80,7 @@ scene = ExtResource("8_fopfk")
 element = ExtResource("3_0j38g")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
-radius = 22.2036
+radius = 55.0091
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v60l1"]
 radius = 48.0937
@@ -116,10 +116,18 @@ frame = 1
 position = Vector2(0, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(-2, -73)
+position = Vector2(0, -73)
 scale = Vector2(1.27, 1)
 shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
+
+[node name="ProgressBar" parent="." index="3"]
+offset_top = -214.0
+offset_bottom = -207.0
+
+[node name="StatusUI" parent="." index="4"]
+offset_top = -248.0
+offset_bottom = -216.0
 
 [node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
@@ -150,17 +158,17 @@ spell_num = 2
 transition_out_when_can_cast = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
-position = Vector2(0, -1)
+position = Vector2(0, -21)
 shape = SubResource("CircleShape2D_bbex3")
 
 [node name="FieldDetector" type="Area2D" parent="." index="9"]
-position = Vector2(0, -19)
 collision_layer = 0
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FieldDetector" index="0"]
-position = Vector2(0, -32)
+position = Vector2(0, -52)
 shape = SubResource("CircleShape2D_v60l1")
+debug_color = Color(0, 0.647059, 0.215686, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 libraries = {

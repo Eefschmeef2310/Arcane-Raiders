@@ -92,7 +92,7 @@ data = NodePath("../../../Player/PlayerData")
 layout_mode = 2
 
 [node name="GiantSlime" parent="." index="16" instance=ExtResource("9_4etpv")]
-position = Vector2(906, 525)
+position = Vector2(882, 564)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
