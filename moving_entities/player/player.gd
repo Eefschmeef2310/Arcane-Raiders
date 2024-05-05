@@ -86,7 +86,7 @@ func _process(delta):
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
 	if is_multiplayer_authority():
-		if data.health > 0:
+		if is_dead and data.health > 0:
 			toggle_dead.rpc(false);
 	
 	if debug:
@@ -158,6 +158,9 @@ func start_dash(dir: Vector2):
 	pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
 	if !get_world_2d().direct_space_state.intersect_point(pp, 1):
 		$CollisionShape2D.disabled = true
+		print("Gap check passed.")
+	else:
+		print("Gap check failed.")
 
 func prepare_cast(slot: int):
 	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
