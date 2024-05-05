@@ -11,6 +11,7 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var match_tilemap_angle : bool = false
 @export var speed_curve : Curve
 @export var sprite_rotation_falloff_curve : Curve
 @export var scale_falloff_curve : Curve
@@ -20,6 +21,7 @@ extends Area2D
 	#Onready Variables
 @onready var kill_timer = $kill_timer
 @onready var sprite_2d = $Sprite2D
+@onready var point_light_2d = $PointLight2D
 @onready var collision_shape_2d = $CollisionShape2D
 
 	#Other Variables (please try to separate and organise!)
@@ -33,22 +35,29 @@ var lifetime_progress : float
 
 var infliction_time : float
 
+var play_element_sound : bool = false
+
 #endregion
 
 #region Godot methods
 func _ready():
 	if resource:
 		modulate = resource.element.colour
+		point_light_2d.color = resource.element.colour
+		if play_element_sound and resource.element.sound:
+			AudioManager.play_audio2D_at_point(global_position, resource.element.sound)
 	sprite_2d.rotation_degrees = randf_range(0, 360)
 	starting_scale = scale
 	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
 
-func _process(_delta):
+func _physics_process(_delta):
 	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
 	
-	position += Vector2(cos(rotation), sin(rotation)/2) * \
+	position += Vector2(cos(rotation), sin(rotation)/(2 if match_tilemap_angle else 1)) * \
 		((speed_curve.sample(lifetime_progress) if speed_curve else 0.0))
-	scale = starting_scale * (scale_falloff_curve.sample(lifetime_progress) if scale_falloff_curve else 1.0)
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
 	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(lifetime_progress) if sprite_rotation_falloff_curve else 1.0
 	
 	sprite_2d.modulate.a = transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.

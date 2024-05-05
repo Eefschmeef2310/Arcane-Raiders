@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4dyl3ppwa1rc"]
+
+[ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_vpuq0"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_03lay"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="3_y0btb"]
+[ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
+[ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="7_qxifu"]
+[ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:max_health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[node name="BaseEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_vpuq0")
+death_sound = ExtResource("7_qxifu")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.2
+texture = ExtResource("3_y0btb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("1_nu363")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -64)
+collision_layer = 8
+collision_mask = 16
+
+[node name="ProgressBar" parent="." instance=ExtResource("2_03lay")]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = -39.0
+metadata/_edit_use_anchors_ = true
+
+[node name="StatusUI" parent="." instance=ExtResource("3_rokae")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemySpells" parent="." instance=ExtResource("4_bakas")]
+
+[node name="StateMachine" parent="." instance=ExtResource("9_sqryx")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+max_speed = 1000.0
+avoidance_priority = 0.1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hcj8c")
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

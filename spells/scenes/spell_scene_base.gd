@@ -35,7 +35,18 @@ class_name SpellBase
 var resource : Spell #This is set in code
 var caster : Entity #This is also set in code
 
+#Controls whether or not sound plays either on spawn or on explosion. If false, sound will play on impact
+@export var play_sound_on_cast : bool = true
+
 #endregion
+
+func _enter_tree():
+	var pos = global_position
+	if caster:
+		pos = caster.global_position
+		
+	if play_sound_on_cast && resource.element.sound:
+		AudioManager.play_audio2D_at_point(pos, resource.element.sound)
 
 func transfer_data(new: Node2D):
 	if "base_damage" in new:
@@ -46,3 +57,5 @@ func transfer_data(new: Node2D):
 		new.caster = caster
 	if "infliction_time" in new:
 		new.infliction_time = infliction_time
+	if "play_element_sound" in new && !play_sound_on_cast:
+		new.play_element_sound = true

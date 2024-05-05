@@ -34,7 +34,8 @@ func dynamic_camera(delta):
 	# Keep the camera centered among all targets
 	var p = Vector2.ZERO
 	for target in targets:
-		p += target.position
+		if is_instance_valid(target):
+			p += target.position
 	p /= targets.size()
 	position = lerp(position, p, move_speed * delta)
 

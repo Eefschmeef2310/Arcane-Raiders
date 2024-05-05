@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
-[ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="1_nkl1q"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
+[ext_resource type="Texture2D" uid="uid://cjnod02s0jvku" path="res://elements/sprites/white.png" id="3_e57h4"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_b30oo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ml2ad"]
@@ -47,8 +47,10 @@ layout_mode = 2
 max_value = 1000.0
 value = 1000.0
 nine_patch_stretch = true
-texture_under = ExtResource("1_nkl1q")
-texture_progress = ExtResource("1_nkl1q")
+stretch_margin_left = 12
+stretch_margin_right = 12
+texture_under = ExtResource("3_e57h4")
+texture_progress = ExtResource("3_e57h4")
 tint_under = Color(0.32549, 0.32549, 0.32549, 1)
 tint_progress = Color(0.992157, 0, 0.254902, 1)
 

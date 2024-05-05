@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmxs62fwihysk"]
+[gd_scene load_steps=7 format=3 uid="uid://bmxs62fwihysk"]
 
 [ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball_body.gd" id="1_x5adh"]
 [ext_resource type="PackedScene" uid="uid://6hpw555slkv6" path="res://spells/scenes/proj_ball/proj_ball_explosion.tscn" id="2_1pp8o"]
 [ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="2_ir44m"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="4_isauo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
 
@@ -26,10 +27,16 @@ texture = ExtResource("2_ir44m")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 13
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_selhr")
 debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("4_isauo")
+texture_scale = 0.3
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -14,25 +14,33 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var death_sound : AudioStream
 @export var max_health : int = 1000
 @export var health : int = 1000:
 	set(value):
 		health = clamp(value, 0, max_health)
 		if health <= 0 and !is_dead:
+			
+			#Play death sound
+			AudioManager.play_audio2D_at_point(global_position, death_sound)
+			
 			is_dead = true
 			zero_health.emit()
 		health_updated.emit(health)
 var is_dead: bool = false
 
 @export var do_damage_numbers: bool = true
+@export var print_velocity: bool = false
 
 @export_subgroup("Knockback")
-@export var knockback_timeout : float = 20
-@export var knockback_initial_velocity : float = 2000
+@export var knockback_lerp_strength : float = 20
+@export var knockback_initial_velocity : float = 300
 
 @export_subgroup("Attraction")
 @export var attraction_strength : float = 65
+
 	#Onready Variables
+@onready var hit_sound = $HitSound
 
 	#Other Variables (please try to separate and organise!)
 var current_inflictions_dictionary : Dictionary #Stores 
@@ -46,6 +54,8 @@ var shocked_this_frame : bool = false
 var can_input : bool = true
 var knockback_velocity : float
 var knockback_direction : Vector2
+var knockback_floor : float = 0.5
+var knockback_hold_timer = 0
 
 #for attraction stuff
 var attraction_direction : Vector2
@@ -70,7 +80,14 @@ func _process(delta):
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
-			
+
+func _physics_process(delta):
+	if knockback_hold_timer > 0:
+		knockback_hold_timer -= delta
+	else:
+		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_lerp_strength)
+		if knockback_velocity <= knockback_floor:
+			can_input = true
 #endregion
 
 #region Signal methods
@@ -88,6 +105,7 @@ func on_hurt(attack):
 	var damage: int = 0
 	var infliction_time: float
 	var element: ElementResource
+	var should_make_new_numbers : bool = false
 	
 	#Apply base damage
 	if "base_damage" in attack:
@@ -101,20 +119,28 @@ func on_hurt(attack):
 		element = attack.resource.element
 	elif "element" in attack and attack.element:
 		element = attack.element
-	
+		
+	if "should_make_new_numbers" in attack:
+		should_make_new_numbers = attack.should_make_new_numbers
+		
 	# RPC call for damage
-	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time)
+	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time, should_make_new_numbers)
 			
 	#if shocked, run shock effect
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
-		print("Running shock effect for the first time.")
 		shock_effect()
 	
-	if element == SpellManager.elements["wind"]:
-		wind_effect.rpc(attack.get_path())
+	if damage != 0:
+		add_knockback.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
-func deal_damage(attack_path, damage, element_string, infliction_time):
+func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
+	var is_critical = false
+	
+	#Play hurt sound
+	if hit_sound:
+		hit_sound.play()
+		
 	if element_string != null:
 		var attack = get_node(attack_path)
 		var element = SpellManager.elements[element_string]
@@ -130,6 +156,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 			if reaction:
 				#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
 				damage *= 1.25
+				is_critical = true
 				
 				current_inflictions_dictionary.erase(key)
 				current_inflictions_dictionary.erase(element)
@@ -152,20 +179,27 @@ func deal_damage(attack_path, damage, element_string, infliction_time):
 	health -= damage
 	
 	if do_damage_numbers:
-		if !is_instance_valid(damage_number):
-			damage_number = DAMAGE_NUMBER.instantiate()
-			add_sibling(damage_number)
-		damage_number.global_position = global_position
-		damage_number.add(damage)
+		var dm: DamageNumber
+		if !is_instance_valid(damage_number) or create_new or is_critical:
+			dm = DAMAGE_NUMBER.instantiate()
+			add_sibling(dm)
+			if !create_new and !is_critical:
+				print(str(is_critical) + ", " + str(create_new))
+				damage_number = dm
+		else:
+			dm = damage_number
+		dm.global_position = global_position
 		if element_string != null and SpellManager.elements[element_string]:
-			damage_number.set_color(SpellManager.elements[element_string].colour)
+			dm.set_color(SpellManager.elements[element_string].colour)
+		dm.set_critical(is_critical)
+		dm.add(damage)
 
 func burn_effect(delta):
 	if is_multiplayer_authority():
 		if burn_timer > 0:
 			burn_timer -= delta
 		if burn_timer <= 0:
-			deal_damage.rpc(null, 5, null, null)
+			deal_damage.rpc(null, 10, null, null, true)
 			burn_timer = burn_tick_rate
 
 func frost_effect(amount):
@@ -186,7 +220,7 @@ func shock_effect():
 	
 	if closest:
 		#damage closest enemy
-		closest.deal_damage.rpc(null, 50, null, null)
+		closest.deal_damage.rpc(null, 5, null, null, true)
 		
 		# stop ourselves and the other guy from getting shocked again
 		shocked_this_frame = true
@@ -209,10 +243,23 @@ func spawn_shock_laser(p1: Vector2, p2: Vector2):
 	add_sibling(shock_effect_laser)
 
 @rpc("authority", "call_local", "reliable")
-func wind_effect(attack_path):
+func add_knockback(attack_path):
 	var attack = get_node(attack_path)
 	knockback_velocity = knockback_initial_velocity
+	if current_inflictions_dictionary.has(SpellManager.elements["wind"]):
+		knockback_velocity *= 2
+		knockback_hold_timer = 0.1
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
+		if "knockback" in attack:
+			knockback_velocity *= attack.knockback
 	can_input = false
+
+func get_knockback_velocity():
+	#if print_velocity:
+		#print(can_input)
+	return knockback_direction * knockback_velocity
+
+func get_attraction_velocity():
+	return attraction_direction * attraction_strength
 #endregion

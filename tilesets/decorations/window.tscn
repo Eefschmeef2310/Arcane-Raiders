@@ -1,0 +1,57 @@
+[gd_scene load_steps=12 format=3 uid="uid://7ackwtsdw4us"]
+
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_aj5py"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_71ocd"]
+[ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="3_db250"]
+[ext_resource type="Texture2D" uid="uid://cfvo71m485f0q" path="res://tilesets/decorations/window.png" id="3_r0xoi"]
+
+[sub_resource type="Gradient" id="Gradient_oh054"]
+offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5jg5c"]
+gradient = SubResource("Gradient_oh054")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87xtg"]
+shader = ExtResource("1_aj5py")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture2D_5jg5c")
+
+[sub_resource type="Gradient" id="Gradient_mkddu"]
+offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
+gradient = SubResource("Gradient_mkddu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5vdj"]
+shader = ExtResource("1_aj5py")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fi3n"]
+polygon = PackedVector2Array(-56, 104, 130, 183.44, -50, 95.44, -52, -38.56, 56, -92.56, 222, -25.56, 59, -100.56, -57, -43)
+
+[node name="Window" type="Node2D"]
+material = SubResource("ShaderMaterial_87xtg")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, -43.44)
+color = Color(0.454902, 0.541176, 0.596078, 1)
+polygon = PackedVector2Array(-55, -42, 58, -97, 59, 48, -54, 101)
+
+[node name="Window" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_q5vdj")
+position = Vector2(2, -41.44)
+texture = ExtResource("3_r0xoi")
+script = ExtResource("3_db250")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-48, -78.44)
+shadow_enabled = true
+texture = ExtResource("2_71ocd")
+texture_scale = 1.77
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(0, -43.44)
+occluder = SubResource("OccluderPolygon2D_7fi3n")

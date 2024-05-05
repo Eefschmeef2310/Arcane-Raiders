@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_4mdce")
+prefix = ""
 colour = Color(1, 1, 1, 1)
 max_infliction_time = 5.0

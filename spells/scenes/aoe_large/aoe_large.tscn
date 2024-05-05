@@ -9,9 +9,10 @@
 y_sort_enabled = true
 script = ExtResource("2_6hqll")
 EXPLOSION = ExtResource("3_8s1x3")
-base_damage = 250
+base_damage = 160
 start_time = 0.05
 cooldown_time = 7.0
+play_sound_on_cast = false
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 
@@ -20,7 +21,7 @@ one_shot = true
 autostart = true
 
 [node name="Ring" type="Node2D" parent="." index="2"]
-scale = Vector2(1, 0.75)
+scale = Vector2(1, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ring" index="0"]
 scale = Vector2(1.75, 1.75)

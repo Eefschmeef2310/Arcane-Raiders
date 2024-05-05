@@ -9,14 +9,14 @@ resource_name = "wind-earth"
 script/source = "extends ReactionArea
 #Authored by Ethan.
 
-var entity
+var entity : Node2D
 
 func _process(delta):
 	$Sprite2D.rotation += 1 * delta
 
 func _on_timer_timeout():
 	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(\"enemy\") and moving_entity != entity:
+		if moving_entity.is_in_group(entity.get_groups()[0]):
 			moving_entity.on_hurt(self)
 
 func _on_kill_timer_timeout():
@@ -29,7 +29,7 @@ radius = 148.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0qdfs"]
 resource_local_to_scene = true
 shader = ExtResource("2_p4oge")
-shader_parameter/outline_width = 0.25
+shader_parameter/outline_width = 0.15
 shader_parameter/outline_color = null
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u80t5"]
@@ -40,6 +40,7 @@ gravity = Vector3(0, -200, 0)
 scale_max = 1.5
 
 [node name="Wind-earth" type="Area2D" groups=["wind-earth"]]
+z_index = -2
 scale = Vector2(1, 0.5)
 collision_layer = 16
 collision_mask = 8
@@ -63,6 +64,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_0qdfs")
 amount = 21
 process_material = SubResource("ParticleProcessMaterial_u80t5")

@@ -1,0 +1,139 @@
+[gd_scene load_steps=19 format=3 uid="uid://b4u2wuk1f06f7"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
+[ext_resource type="Texture2D" uid="uid://detapk2a6weqj" path="res://moving_entities/enemies/dummy_enemy.png" id="2_s3t78"]
+[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="3_0j38g"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_wndsv"]
+[ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn" id="4_m3r0o"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_3k4qm"]
+[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="6_11tbp"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime.gd" id="7_i4h5n"]
+[ext_resource type="PackedScene" uid="uid://bk05qc623b2ye" path="res://moving_entities/enemies/boss_slime/giant_slime/g_slime_spike.tscn" id="7_thqtl"]
+[ext_resource type="PackedScene" uid="uid://b36hyhxebhoon" path="res://moving_entities/enemies/boss_slime/giant_slime/ex_slime_lob.tscn" id="8_fopfk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime_enraged.gd" id="10_ewnqd"]
+
+[sub_resource type="GDScript" id="GDScript_3ka3a"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var enraged = false
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+func on_zero_health():
+	if is_multiplayer_authority():
+		
+		#TODO Spawn the Electricc and Water Slime
+		pass
+#endregion
+
+#region Other methods (please try to separate and organise!)
+#func _on_hurtbox_area_entered(area):
+	#if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldows[2] == 0:
+		#enraged = true
+	
+#endregion
+
+
+
+func _on_field_detector_area_entered(area):
+	if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldows[2] == 0:
+		enraged = true
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
+radius = 124.409
+
+[sub_resource type="Resource" id="Resource_ct66w"]
+script = ExtResource("5_3k4qm")
+scene = ExtResource("4_m3r0o")
+element = ExtResource("3_0j38g")
+
+[sub_resource type="Resource" id="Resource_hqf66"]
+script = ExtResource("5_3k4qm")
+scene = ExtResource("7_thqtl")
+element = ExtResource("6_11tbp")
+
+[sub_resource type="Resource" id="Resource_u84hp"]
+script = ExtResource("5_3k4qm")
+scene = ExtResource("8_fopfk")
+element = ExtResource("3_0j38g")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
+radius = 37.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v60l1"]
+radius = 48.0937
+
+[node name="GiantSlime" instance=ExtResource("1_148eg")]
+script = SubResource("GDScript_3ka3a")
+movement_speed = 100.0
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -74)
+scale = Vector2(5, 5)
+texture = ExtResource("2_s3t78")
+
+[node name="Hurtbox" parent="." index="1"]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-2, -73)
+scale = Vector2(1.27, 1)
+shape = SubResource("CircleShape2D_1ih77")
+debug_color = Color(1, 0, 0.137255, 0.419608)
+
+[node name="EnemySpells" parent="." index="4"]
+spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
+
+[node name="StateMachine" parent="." index="5" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_wndsv")
+actual_first_state = NodePath("../GSlime")
+
+[node name="GSlime" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("7_i4h5n")
+attack_distance = 200.0
+
+[node name="GSlimeEnraged" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("10_ewnqd")
+
+[node name="NavigationAgent2D" parent="." index="6"]
+debug_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+position = Vector2(0, -34)
+shape = SubResource("CircleShape2D_bbex3")
+
+[node name="FieldDetector" type="Area2D" parent="." index="9"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FieldDetector" index="0"]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_v60l1")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]

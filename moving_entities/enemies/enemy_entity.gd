@@ -11,14 +11,20 @@ class_name EnemyEntity
 #Constants
 @export_group("Enemy Stats")
 @export var movement_speed: float = 500
-@export var base_damage: int = 100
+@export var base_damage: int = 0
 
-@export_group("Required Nodes")
-@export var nav_agent: NavigationAgent2D
-@export var state_machine : StateMachine
-@export var enemy_spells: EnemySpells
+@export_group("Boss Data")
+@export var is_boss: bool = false
+@export var boss_name: String
+
+@onready var state_machine = $StateMachine
+@onready var nav_agent = $NavigationAgent2D
+@onready var enemy_spells = $EnemySpells
+@onready var animation_player = $AnimationPlayer
+@onready var attack_sound = $AttackSound
 
 var aim_direction: Vector2
+var target_area: Vector2
 var can_cast: bool = true
 var nav_server_synced = false
 #endregion
@@ -29,6 +35,13 @@ func _ready():
 	call_deferred("actor_setup")
 	health = max_health
 	nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
+	
+	# Connect to room
+	if is_boss:
+		$ProgressBar.hide()
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room:
+			room.create_boss_bar.call_deferred(self)
 
 func actor_setup():
 	await get_tree().physics_frame
@@ -50,13 +63,15 @@ func _physics_process(delta):
 		if !can_input:
 			#nav_agent.set_velocity(Vector2.ZERO)
 			intended_velocity = Vector2.ZERO
-			
-		nav_agent.set_velocity(intended_velocity + knockback_velocity * knockback_direction + attraction_direction * attraction_strength)
-
-		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_timeout)
+			nav_agent.set_velocity(Vector2.ZERO)
+			velocity = get_knockback_velocity() + get_attraction_velocity()
+			move_and_slide()
 		
-		if knockback_velocity < 0.01 && can_cast:
-			can_input = true
+		else:
+			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
+	
+	super._physics_process(delta)
+	
 #endregion
 
 #region Signal methods
@@ -70,7 +85,10 @@ func _on_hurtbox_area_entered(area):
 	
 func _on_zero_health():
 	if is_multiplayer_authority():
-		queue_free()
+		var particles = load("res://moving_entities/enemies/enemy_death_particles.tscn").instantiate()
+		particles.global_position = global_position
+		get_tree().root.add_child(particles)
+		call_deferred("queue_free")
 	
 func attempt_cast(slot: int):
 	if is_multiplayer_authority():
@@ -79,9 +97,12 @@ func attempt_cast(slot: int):
 
 @rpc("authority", "call_local", "reliable")
 func use_spell(slot: int):
-	can_input = false
+	#play sound
+	if is_instance_valid(attack_sound):
+		attack_sound.play()
+	
 	can_cast = false
-	#TODO Add initial start up frames so not an instant attack
+	await get_tree().create_timer(enemy_spells.cast_time[slot]).timeout
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()
 	spell_node.caster = self
 	spell_node.resource = enemy_spells.spells[slot]
@@ -92,6 +113,12 @@ func use_spell(slot: int):
 	
 	await get_tree().create_timer(spell_node.end_time).timeout
 	can_cast = true
+	
+	
+func attempt_anim(anim: String):
+	if animation_player:
+		animation_player.stop()
+		animation_player.play(anim)
 #endregion
 
 

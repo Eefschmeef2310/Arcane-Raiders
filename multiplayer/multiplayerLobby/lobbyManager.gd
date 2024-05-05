@@ -7,14 +7,14 @@ extends Node
 signal player_joined
 signal player_left(id:int)
 #Enums
-enum MultiplayerMode {Online,Local}
+
 
 #Constants
 const MAX_PLAYERS = 4
 
 #Exported Variables
 @export_group("Setup")
-@export var mode : MultiplayerMode
+##@export var mode : GameManager.MultiplayerMode 
 @export var ready_delay : float = 3 #amount in time in seconds the start the game after every player readys up
 @export_group("Node References") 
 @export var player_card_hbox : HBoxContainer #hold all the player cards!
@@ -56,7 +56,7 @@ func _ready():
 	
 
 func _process(delta):
-	if mode == MultiplayerMode.Local:
+	if GameManager.isLocal():
 		handle_join_input()
 	
 	
@@ -132,11 +132,11 @@ func _on_back_button_pressed():
 		Steam.setLobbyJoinable(lobby_id, false)
 		pass
 	multiplayer.multiplayer_peer = null
-	if (mode == MultiplayerMode.Online):
+	if (GameManager.isOnline()):
 		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
-	elif (mode == MultiplayerMode.Local):
+	elif (GameManager.isLocal()):
 		get_tree().change_scene_to_file("res://menus/main_menu.tscn")
-		queue_free()
+		#queue_free()
 	pass # Replace with function body.
 
 
@@ -149,13 +149,13 @@ func _on_start_button_pressed():
 #region Other methods (please try to separate and organise!)
 
 ## called after the lobby mode has been decided 
-func InitLobby(online_mode : MultiplayerMode, new_lobby_id : int):
-	mode = online_mode
+func InitLobby(new_lobby_id : int):
+	#mode = online_mode
 	lobby_id = new_lobby_id
 	
 	#server_browser_scene = preload("res://multiplayer/serverBrowser/serverBrowser.tscn") if mode == MultiplayerMode.Online else preload("res://menus/main_menu.tscn")
 	
-	if mode == MultiplayerMode.Online:
+	if GameManager.isOnline():
 		#get the peer id the player who has just joined (by loading this scenes ready func)
 		var incoming_peer_id = multiplayer.get_unique_id()
 		

@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://beuaa0kmpyqds"]
+
+[sub_resource type="GDScript" id="GDScript_ky60p"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var caster_path
+#endregion
+
+#region Godot methods
+func _ready():
+	if caster:
+		caster_path = get_path_to(caster)
+		caster.attacking = true
+		caster.dash_speed = caster.attack_movespeed
+		global_position = caster.global_position
+
+func _process(_delta):
+	if has_node(caster_path) && caster:
+		global_position = caster.global_position
+		if(!caster.attacking):
+			queue_free()
+	else:
+		queue_free()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dspdp"]
+radius = 25.0
+
+[node name="SpiderLeap" type="Area2D"]
+collision_layer = 64
+collision_mask = 0
+script = SubResource("GDScript_ky60p")
+base_damage = 25
+end_time = 1.0
+cooldown_time = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_dspdp")
+debug_color = Color(0.972549, 0, 0.431373, 0.419608)

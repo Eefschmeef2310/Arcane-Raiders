@@ -66,7 +66,7 @@ var mouse_input: Array[String]
 
 #region Godot methods
 func _ready():
-	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
+	if GameManager.isLocal():
 		input = DeviceInput.new(device_id)
 	else:
 		input = DeviceInput.new(-2)
@@ -105,13 +105,15 @@ func _ready():
 			new_pip.modulate = Color.DIM_GRAY
 		color_pips_box.add_child(new_pip)
 	pass
+	
+	UpdateDisplay()
 
 func _process(_delta):
 	if !finished_connecting:
 		resendValues.rpc()
 		finished_connecting = true
 	
-	if (lobby_manager.mode == lobby_manager.MultiplayerMode.Online && multiplayer.get_unique_id() == peer_id) || lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
+	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
 		var changed = false
 		if(input.is_action_just_pressed("lobby_down")):
 			if not player_ready:
@@ -181,8 +183,11 @@ func UpdateDisplay():
 	all_panels.visible = show_panels
 	
 	# set some basic values
-	if lobby_manager.mode == lobby_manager.MultiplayerMode.Local:
-		player_name.text = "Device ID: " + str(device_id)
+	if GameManager.isLocal():
+		var s = "Keyboard"
+		if device_id >= 0:
+			s = Input.get_joy_name(device_id)
+		player_name.text = s
 	else:
 		player_name.text = username
 	

@@ -15,6 +15,17 @@ func set_s(s: float):
 func set_color(c: Color):
 	label.add_theme_color_override("font_color", c)
 
+func set_critical(crit: bool):
+	if crit:
+		set_s(1.5)
+		label.add_theme_color_override("font_outline_color", Color.LIGHT_YELLOW)
+		z_index += 1
+	else:
+		pass
+		#set_s(1.0)
+		#label.add_theme_color_override("font_outline_color", Color.BLACK)
+		
+
 func add(n: int):
 	_number += n
 	label.text = str(_number)

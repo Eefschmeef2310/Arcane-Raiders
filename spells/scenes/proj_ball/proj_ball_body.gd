@@ -16,16 +16,18 @@ var resource : Spell
 var caster : Player
 var infliction_time : float
 
+var play_element_sound : bool = false
+
 #endregion
 
 #region Godot methods
 func _ready():
-	print(infliction_time)
 	direction = caster.aim_direction
 	global_position = caster.global_position + (direction * 40)
 	look_at(global_position + direction)
 	
 	modulate = resource.element.colour
+	$PointLight2D.color = resource.element.colour
 
 func _process(delta):
 	position += direction * move_speed * delta
@@ -33,7 +35,8 @@ func _process(delta):
 
 #region Signal methods
 func _on_hitbox_body_entered(_body):
-	create_explosion()
+	if(_body.owner != caster):
+		create_explosion()
 
 func _on_explosion_timer_timeout():
 	create_explosion()
@@ -49,6 +52,7 @@ func create_explosion():
 	explosion.position = position
 	explosion.infliction_time = infliction_time
 	explosion.visible = true
+	explosion.play_element_sound = play_element_sound
 	call_deferred("add_sibling", explosion)
 	
 	queue_free()

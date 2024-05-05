@@ -22,6 +22,7 @@ var should_continue: bool = true
 var caster: Node2D
 #var bonus_points : int #Stores however many reactions were destroyed to make room (tying this to damage bonuses and stuff)
 var elements : Array
+var should_make_new_numbers : bool = true
 
 #for calculating everages
 
@@ -38,11 +39,13 @@ func _ready():
 			queue_free()
 			
 	if should_continue:
-		#remove_from_group(get_groups()[0])
+		#play sound
+		AudioManager.play_audio2D_at_point(global_position, load("res://sounds/effects/reactions/Free Sound Effect (Magic Boom Explosion) HD.mp3"))
 		
 		var reaction_elements_ui = REACTION_ELEMENTS_UI.instantiate()
 		reaction_elements_ui.global_position = global_position
-		get_tree().root.add_child(reaction_elements_ui)
+		reaction_elements_ui.z_index = z_index + 1
+		add_sibling(reaction_elements_ui)
 		
 		reaction_elements_ui.element_1.texture = elements[0].pip_texture
 		reaction_elements_ui.element_1.modulate = elements[0].colour

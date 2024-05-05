@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://mnbm7kxwpqxc"]
+
+[sub_resource type="GDScript" id="GDScript_fpp2t"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+@onready var multiplayer_spawner = $MultiplayerSpawner
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	if is_multiplayer_authority():
+		
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room and caster:
+			room.enemy_spawner.spawn({\"key\": \"nest\", \"pos\": caster.global_position})
+			caster.add_nest()
+		
+		queue_free()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[node name="LSpiderSpawn" type="Node2D"]
+position = Vector2(0, 1)
+script = SubResource("GDScript_fpp2t")
+base_damage = 0
+end_time = 1.0
+cooldown_time = 10.0
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
