@@ -59,33 +59,31 @@ func _ready():
 	for n in enemy_spawns.get_children():
 		n.hide()
 	
-	if is_multiplayer_authority() and max_waves > 0:
-		number_of_enemies_left = 0
-		total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
-		print("Difficulty modifier: " + str(difficulty_modifier))
-		start_combat.rpc()
+	if max_waves > 0:
+		room_exit.lock()
+		AudioManager.switch_to_battle()
 		
-		var arr = EnemyManager.Data.keys()
-		if !spawn_keys.is_empty():
-			arr = spawn_keys
-		while total_difficulty_left > 0:
-			var key = arr.pick_random()
-			var spawn_pos = enemy_spawns.get_children().pick_random().global_position
-			var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
-			total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
-			# print("New total: " + str(number_of_enemies_left))
-		
+		if is_multiplayer_authority():
+			number_of_enemies_left = 0
+			total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
+			print("Difficulty modifier: " + str(difficulty_modifier))
+			
+			var arr = EnemyManager.Data.keys()
+			if !spawn_keys.is_empty():
+				arr = spawn_keys
+			while total_difficulty_left > 0:
+				var key = arr.pick_random()
+				var spawn_pos = enemy_spawns.get_children().pick_random().global_position
+				var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
+				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
+				# print("New total: " + str(number_of_enemies_left))
+			
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
 		
 func _process(_delta):
 	pass
 	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
-
-@rpc("authority", "call_local", "reliable")
-func start_combat():
-	room_exit.lock()
-	AudioManager.switch_to_battle()
 
 func _on_enemy_zero_health():
 	await get_tree().process_frame
