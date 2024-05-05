@@ -149,7 +149,7 @@ radius = 8.0
 script = SubResource("GDScript_dbbaf")
 attack_movespeed = 600.0
 movement_speed = 200.0
-max_health = 100
+max_health = 25
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -7)

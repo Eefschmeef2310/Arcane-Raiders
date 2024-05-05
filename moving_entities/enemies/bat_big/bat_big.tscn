@@ -94,47 +94,6 @@ description = ""
 scene = ExtResource("6_qhgr4")
 element = ExtResource("3_j407q")
 
-[sub_resource type="Animation" id="Animation_c8kpd"]
-resource_name = "idle"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_ckdw4")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
-}
-
 [sub_resource type="Animation" id="Animation_vcnon"]
 length = 0.001
 tracks/0/type = "value"
@@ -238,6 +197,47 @@ tracks/3/keys = {
 "values": [0.0, 6.28319]
 }
 
+[sub_resource type="Animation" id="Animation_c8kpd"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ckdw4")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dmerj"]
 _data = {
 "RESET": SubResource("Animation_vcnon"),
@@ -289,7 +289,7 @@ spells = Array[ExtResource("5_03nfp")]([SubResource("Resource_2frcj"), SubResour
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
-debug_label = NodePath("../Label")
+debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_ljwno")
@@ -323,24 +323,16 @@ avoidance_mask = 2
 [node name="AttackSound" parent="." index="9"]
 stream = ExtResource("11_13pvv")
 
-[node name="Label" type="Label" parent="." index="11"]
-offset_left = -71.0
-offset_right = 66.0
-offset_bottom = 23.0
-text = "State
-"
-horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
 libraries = {
 "": SubResource("AnimationLibrary_dmerj")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="13"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="12"]
 position = Vector2(0, -15)
 shape = SubResource("CircleShape2D_wux1d")
 
-[node name="Dodge Detection" type="Area2D" parent="." index="14"]
+[node name="Dodge Detection" type="Area2D" parent="." index="13"]
 collision_layer = 0
 collision_mask = 48
 
@@ -348,7 +340,7 @@ collision_mask = 48
 position = Vector2(-3, -61)
 shape = SubResource("CircleShape2D_a15i4")
 
-[node name="RayCast2D" type="RayCast2D" parent="." index="15"]
+[node name="RayCast2D" type="RayCast2D" parent="." index="14"]
 hit_from_inside = true
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

@@ -131,6 +131,7 @@ offset_bottom = -216.0
 
 [node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
+spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
