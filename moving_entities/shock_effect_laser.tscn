@@ -5,7 +5,7 @@
 
 [node name="ShockEffectLaser" type="Line2D"]
 texture_repeat = 2
-points = PackedVector2Array(0, 0, 291, -10)
+points = PackedVector2Array(0, 0, 417, 0)
 width = 100.0
 texture = ExtResource("1_kdbb7")
 texture_mode = 1
