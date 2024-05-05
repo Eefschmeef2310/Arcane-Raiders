@@ -37,7 +37,14 @@ func physics_update(delta):
 #If within transition range, transition into strafe mode
 	super.physics_update(delta)
 	if !player: return
+	
+	if "can_dodge" in enemy:
+		if enemy.can_dodge && can_cast_spell(1):
+			enemy.aim_direction = enemy.global_position.direction_to(enemy.dodge_spell_pos).rotated(deg_to_rad(90))
+			Transitioned.emit(self, "dodge")
+	
 	var distance = player.global_position.distance_to(enemy.global_position)
+			
 	if distance < transition_range:
 		Transitioned.emit(self, "batattack")
 	

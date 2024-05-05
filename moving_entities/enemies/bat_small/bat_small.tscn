@@ -17,7 +17,7 @@ script/source = "extends EnemyEntity
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6k7pk"]
-radius = 73.0388
+radius = 39.3236
 
 [sub_resource type="Resource" id="Resource_3gbb5"]
 script = ExtResource("5_h17s1")
@@ -63,6 +63,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_nrjp5"]
@@ -117,7 +129,7 @@ _data = {
 [node name="BatSmall" instance=ExtResource("1_ceawg")]
 script = SubResource("GDScript_pwqtp")
 movement_speed = 150.0
-max_health = 400
+max_health = 250
 health = 300
 
 [node name="PointLight2D" parent="." index="0"]
@@ -131,9 +143,9 @@ texture = ExtResource("2_2wyck")
 hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(-1, 47)
+position = Vector2(1, 52)
 rotation = -0.113446
-scale = Vector2(1, 0.42)
+scale = Vector2(1, 0.685)
 shape = SubResource("CircleShape2D_6k7pk")
 debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 

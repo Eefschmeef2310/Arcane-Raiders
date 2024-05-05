@@ -29,6 +29,7 @@ const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
 
+var dead_players : Array = []
 var all_players_dead_triggered := false
 var room_exited_triggered := false
 
@@ -116,11 +117,12 @@ func spawn_player(player_number: int) -> Node2D:
 	print("Spawned player of peer_id " + str(player.data.peer_id))
 	return player
 
-func report_player_death(_player):
-	live_players -= 1
-	if live_players <= 0 and !all_players_dead_triggered:
-		all_players_dead_triggered = true
-		all_players_dead.emit()
+func report_player_death(player):
+	if !(player in dead_players):
+		dead_players.append(player)
+		if dead_players.size() >= live_players and !all_players_dead_triggered:
+			all_players_dead_triggered = true
+			all_players_dead.emit()
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	print("Sending spell change request.")

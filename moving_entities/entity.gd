@@ -130,7 +130,8 @@ func on_hurt(attack):
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
 	
-	add_knockback.rpc(attack.get_path())
+	if damage != 0:
+		add_knockback.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
 func deal_damage(attack_path, damage, element_string, infliction_time, create_new):

@@ -17,7 +17,7 @@ script/source = "extends Area2D
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
-@export var field_damage: int = 5
+@export var field_damage: int = 0
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)

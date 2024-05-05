@@ -38,4 +38,5 @@ energy = 0.3
 texture = ExtResource("4_isauo")
 texture_scale = 0.3
 
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -13,9 +13,13 @@ extends Node
 		"scene" : preload("res://moving_entities/enemies/bat_small/bat_small.tscn"),
 		"difficulty" : 4
 	},
+	"bat_big" : {
+		"scene" : preload("res://moving_entities/enemies/bat_big/bat_big.tscn"),
+		"difficulty" : 8
+	},
 	"nest" : {
 		"scene" : preload("res://moving_entities/enemies/nest/basic_nest.tscn"),
-		"difficulty" : 3
+		"difficulty" : 6
 	},
 	"spider_big" : {
 		"scene" : preload("res://moving_entities/enemies/large_spider/large_spider.tscn"),

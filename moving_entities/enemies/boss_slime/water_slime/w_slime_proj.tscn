@@ -70,7 +70,6 @@ script = SubResource("GDScript_0bil4")
 projectile_speed = 600.0
 base_damage = 100
 infliction_time = 2.0
-end_time = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)

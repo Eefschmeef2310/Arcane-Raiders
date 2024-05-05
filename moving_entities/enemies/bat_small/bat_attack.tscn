@@ -21,35 +21,39 @@ script/source = "extends SpellBase
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var initial_distance = 20
 var projectile_speed: float = 600
-var direction: Vector2
+var direction: Vector2 = Vector2.RIGHT
 #endregion
 
 #region Godot methods
 func _ready():
-	direction = caster.aim_direction
-	global_position = caster.global_position
-	look_at(global_position + direction)
+	if caster: 
+		direction = caster.aim_direction if direction == Vector2.RIGHT else direction
+		global_position = caster.global_position + direction * initial_distance
+		look_at(global_position + direction)
 
 func _process(delta):
 	position += direction * projectile_speed * delta
 #endregion
 
 #region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-
-
+func _on_area_entered(area):
+	queue_free()
 
 func _on_body_entered(_body):
 	queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+#Called by triple shot
+func set_direction(new_direction: Vector2):
+	self.direction = new_direction
+#endregion
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6avya"]
+radius = 13.0384
 
 [node name="BatAttack" type="Area2D"]
 collision_layer = 192
@@ -57,10 +61,10 @@ collision_mask = 5
 script = SubResource("GDScript_2efh6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_33lrw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6avya")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
