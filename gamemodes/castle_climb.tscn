@@ -188,6 +188,18 @@ _data = {
 properties/0/path = NodePath(".:current_floor")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath("PlayerData0:health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("PlayerData1:health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("PlayerData2:health")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("PlayerData3:health")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data", "player_ui")]
 script = ExtResource("1_jx40r")

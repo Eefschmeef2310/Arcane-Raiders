@@ -85,6 +85,9 @@ func _process(delta):
 	
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
+	if data.health > 0:
+		toggle_dead.rpc(false);
+	
 	if debug:
 		$PrepareCast.text = str(preparing_cast_slot)
 		$CanCast.text = str(can_cast)

@@ -88,12 +88,12 @@ func start_next_floor():
 		print("Freeing old room.")
 		current_room_node.free()
 	
-	await get_tree().create_timer(0.8).timeout
-	
-	# Reset player healths
+	# Reset player health
 	for data in player_data:
 		if data.health <= 0:
-			data.health = 500
+			data.health = 100
+	
+	await get_tree().create_timer(0.8).timeout
 	
 	# Spawn new room
 	print("Creating new room.")
