@@ -1,5 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ds0o4uwiv3jp0"]
 
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="1_q0aqo"]
+
 [sub_resource type="GDScript" id="GDScript_1hf64"]
 resource_name = "game_over_screen"
 script/source = "extends CanvasLayer
@@ -47,9 +49,6 @@ func _on_quit_button_pressed():
 [sub_resource type="LabelSettings" id="LabelSettings_0nyan"]
 font_size = 191
 
-[sub_resource type="LabelSettings" id="LabelSettings_5kgo8"]
-font_size = 50
-
 [sub_resource type="LabelSettings" id="LabelSettings_c0pkf"]
 font_size = 80
 
@@ -83,12 +82,6 @@ text = "GAME OVER"
 label_settings = SubResource("LabelSettings_0nyan")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Someone has died :("
-label_settings = SubResource("LabelSettings_5kgo8")
-horizontal_alignment = 1
-
 [node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Thanks for playing!"
@@ -104,5 +97,6 @@ theme_override_constants/margin_right = 600
 layout_mode = 2
 theme_override_font_sizes/font_size = 81
 text = "Quit to Menu"
+script = ExtResource("1_q0aqo")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]

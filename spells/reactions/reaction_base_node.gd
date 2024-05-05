@@ -44,7 +44,8 @@ func _ready():
 		
 		var reaction_elements_ui = REACTION_ELEMENTS_UI.instantiate()
 		reaction_elements_ui.global_position = global_position
-		get_tree().root.add_child(reaction_elements_ui)
+		reaction_elements_ui.z_index = z_index + 1
+		add_sibling(reaction_elements_ui)
 		
 		reaction_elements_ui.element_1.texture = elements[0].pip_texture
 		reaction_elements_ui.element_1.modulate = elements[0].colour
