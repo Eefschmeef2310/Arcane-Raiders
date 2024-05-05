@@ -261,7 +261,6 @@ func UpdateDisplay():
 
 #endregion
 func is_event_click(event):
-	print("dingus")
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
 func _on_character_container_mouse_entered():

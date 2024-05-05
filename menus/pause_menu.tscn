@@ -55,6 +55,8 @@ func _on_quit_button_pressed():
 
 		add_child(quit_warning)
 	else:
+		if get_tree().paused:
+			get_tree().paused = false
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
 		

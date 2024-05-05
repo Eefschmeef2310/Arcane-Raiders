@@ -90,7 +90,8 @@ func play_track_instant(key: String):
 	calm_stream.stop()
 	battle_stream.stop()
 	
-	music_stream.stream = MUSIC[key]
+	if key != \"\":
+		music_stream.stream = MUSIC[key]
 	music_stream.volume_db = 0
 	music_stream.stop()
 	music_stream.play()

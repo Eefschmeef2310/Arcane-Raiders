@@ -16,6 +16,8 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 func _ready():
 	$VBoxContainer/QuitButton.visible = OS.get_name() != \"Web\"
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
+	
+	AudioManager.play_track_instant(\"\")
 #endregion
 
 #region Signal methods
