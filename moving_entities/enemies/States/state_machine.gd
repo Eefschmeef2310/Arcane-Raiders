@@ -37,7 +37,8 @@ func _physics_process(delta):
 #region Signal methods
 
 func on_child_transition(state, new_state_name):
-	transition_state.rpc(get_path_to(state), new_state_name)
+	if is_multiplayer_authority():
+		transition_state.rpc(get_path_to(state), new_state_name)
 
 @rpc("authority", "call_local", "reliable")
 func transition_state(relative_state_path, new_state_name):

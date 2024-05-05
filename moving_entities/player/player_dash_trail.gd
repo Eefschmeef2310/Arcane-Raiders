@@ -24,7 +24,7 @@ var point : Vector2
 
 #region Godot methods
 func _ready():
-	gradient.colors[1] = owner.data.main_color
+	gradient.colors[1] = get_parent().data.main_color
 
 func _process(_delta):
 	global_position = Vector2.ZERO

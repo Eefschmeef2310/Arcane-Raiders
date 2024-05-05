@@ -1,13 +1,17 @@
-[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=14 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
 [ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
+[ext_resource type="PackedScene" uid="uid://bhexq08sb2msk" path="res://tilesets/decorations/torch_other_way.tscn" id="3_vx6cj"]
+[ext_resource type="PackedScene" uid="uid://b104gplmpfim4" path="res://tilesets/decorations/window_other_way.tscn" id="4_6n5bn"]
 [ext_resource type="Texture2D" uid="uid://reyrua0dcxmu" path="res://tilesets/decorations/cracks_tileset.png" id="4_ew2ml"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7wt37"]
 scenes/1/scene = ExtResource("1_imgdy")
 scenes/2/scene = ExtResource("2_cvrec")
+scenes/3/scene = ExtResource("3_vx6cj")
+scenes/4/scene = ExtResource("4_6n5bn")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3454w"]
 vertices = PackedVector2Array(80, 0, 0, 40, -80, 0, 0, -40)

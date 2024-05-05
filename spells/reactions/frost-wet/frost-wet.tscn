@@ -57,6 +57,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="Icon" type="Sprite2D" parent="."]
+texture_filter = 1
 material = SubResource("ShaderMaterial_n6hm5")
 scale = Vector2(3.09375, 1.52344)
 texture = ExtResource("1_km2fu")
