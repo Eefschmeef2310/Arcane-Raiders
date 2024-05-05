@@ -47,7 +47,7 @@ var enemy_types_per_floor : Array = [
 
 var number_of_players = 0
 var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
-var current_floor : int = -1
+@export var current_floor : int = -1
 
 var current_room_node : CastleRoom
 

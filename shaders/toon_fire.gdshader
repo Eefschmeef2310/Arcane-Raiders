@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform sampler2D noise_tex : repeat_enable;
 uniform sampler2D gradient_tex;
-uniform sampler2D gradient_map;
+uniform sampler2D gradient;
 
 uniform float spread : hint_range(0.0, 1.0) = 0.5;
 uniform float speed = 1;
@@ -21,14 +21,14 @@ void fragment() {
     float step3 = step(noise_value, gradient_value - 0.4);
 
     // Sample the gradient map texture at different points
-    vec4 gradient_map_color1 = texture(gradient_map, vec2(1.));
-    vec4 gradient_map_color2 = texture(gradient_map, vec2(0.55));
-    vec4 gradient_map_color3 = texture(gradient_map, vec2(0.5));
+    vec4 gradient_color1 = texture(gradient, vec2(1.));
+    vec4 gradient_color2 = texture(gradient, vec2(0.55));
+    vec4 gradient_color3 = texture(gradient, vec2(0.5));
 
-    vec4 bd_color = mix(gradient_map_color1, gradient_map_color3, step1 - step2);
+    vec4 bd_color = mix(gradient_color1, gradient_color3, step1 - step2);
 	
     vec4 color = vec4(bd_color.rgb, step1);
-    color = mix(color, gradient_map_color2, step2 - step3);
+    color = mix(color, gradient_color2, step2 - step3);
 
     // Desaturate the final color
     float luminance = dot(color.rgb, vec3(0.2126,0.7152,0.0722));
