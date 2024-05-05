@@ -203,17 +203,20 @@ func on_hurt(attack):
 		super.on_hurt(attack)
 		
 	if is_dead:
-		toggle_dead(true);
+		toggle_dead.rpc(true);
 	elif !("base_damage" in attack and attack.base_damage <= 0):
 		start_invincibility.rpc()
 
+@rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
 	if b:
 		$AnimationPlayer.play("die");
 		dead.emit(self)
 		$CollisionShape2D.disabled = true;
+		remove_from_group("player")
 	else:
 		$CollisionShape2D.disabled = false;
+		add_to_group("player")
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
