@@ -164,7 +164,6 @@ func _on_room_all_players_dead():
 func game_over():
 	await get_tree().create_timer(2.0).timeout
 	var game_over_screen = load("res://screens/game_over_screen.tscn").instantiate()
-	game_over_screen.game = get_parent()
 	get_tree().root.call_deferred("add_child", game_over_screen)
 
 func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):

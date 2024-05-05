@@ -22,7 +22,6 @@ script/source = "extends CanvasLayer
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var game : Control
 
 #endregion
 
@@ -36,8 +35,6 @@ func _ready():
 func _on_quit_button_pressed():
 	get_tree().paused = false
 	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
-	print(game)
-	game.queue_free()
 	queue_free()
 #endregion
 
