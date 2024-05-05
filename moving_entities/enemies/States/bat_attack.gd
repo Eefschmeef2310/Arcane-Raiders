@@ -44,6 +44,12 @@ func enter():
 func update(delta):
 	super.update(delta)
 	if player:
+		if "can_dodge" in enemy:
+			if enemy.can_dodge && can_cast_spell(1):
+				enemy.aim_direction = enemy.global_position.direction_to(enemy.dodge_spell_pos).rotated(deg_to_rad(90))
+				Transitioned.emit(self, "dodge")
+				return
+				
 		if(can_cast_spell(0)):
 			enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 			Transitioned.emit(self, "attack")
