@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bs50gcb1skgp4"]
+[gd_scene load_steps=15 format=3 uid="uid://bs50gcb1skgp4"]
 
 [ext_resource type="Shader" path="res://shaders/toon_fire.gdshader" id="1_tmson"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_gl3o8"]
 [ext_resource type="Script" path="res://tilesets/decorations/torch.gd" id="2_v84hn"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="3_5nbkh"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="3_llv6y"]
+[ext_resource type="Texture2D" uid="uid://ca301pyfbxaie" path="res://tilesets/decorations/torch.png" id="4_mgxeh"]
 
 [sub_resource type="Gradient" id="Gradient_rnyub"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -49,18 +50,25 @@ material = SubResource("ShaderMaterial_061cr")
 script = ExtResource("2_v84hn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-8, 21)
+visible = false
+position = Vector2(30, -6)
 scale = Vector2(0.0888123, 0.34592)
 skew = 0.382227
 texture = ExtResource("3_5nbkh")
 
+[node name="Torch" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(31, -12)
+rotation = -0.0564448
+texture = ExtResource("4_mgxeh")
+
 [node name="Flame" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_hr8de")
+position = Vector2(34, -45)
 texture = ExtResource("3_5nbkh")
-metadata/_edit_lock_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(38, -27)
 energy = 0.5
 shadow_enabled = true
 texture = ExtResource("2_gl3o8")
-metadata/_edit_lock_ = true
