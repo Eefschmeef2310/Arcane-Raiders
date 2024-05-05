@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
-[ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
+[ext_resource type="PackedScene" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
 [ext_resource type="Texture2D" uid="uid://reyrua0dcxmu" path="res://tilesets/decorations/cracks_tileset.png" id="4_ew2ml"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7wt37"]
@@ -16,7 +16,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(0, -40, -80, 0, 0, 40, 
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_5cfj8"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8jwi0"]
 vertices = PackedVector2Array(80, 0, 0, 40, -80, 0, 0, -40)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)])
@@ -44,7 +44,7 @@ texture_region_size = Vector2i(160, 117)
 3:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_1/angular_velocity = 0.0
 3:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)
-3:1/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_5cfj8")
+3:1/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_8jwi0")
 3:0/0 = 0
 3:0/0/texture_origin = Vector2i(0, -17)
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
