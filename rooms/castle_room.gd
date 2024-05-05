@@ -63,8 +63,6 @@ func _ready():
 		number_of_enemies_left = 0
 		total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
 		print("Difficulty modifier: " + str(difficulty_modifier))
-		room_exit.lock()
-		AudioManager.switch_to_battle()
 		
 		var arr = EnemyManager.Data.keys()
 		if !spawn_keys.is_empty():
@@ -82,6 +80,11 @@ func _ready():
 func _process(_delta):
 	pass
 	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
+
+@rpc("authority", "call_local", "reliable")
+func start_combat():
+	room_exit.lock()
+	AudioManager.switch_to_battle()
 
 func _on_enemy_zero_health():
 	await get_tree().process_frame

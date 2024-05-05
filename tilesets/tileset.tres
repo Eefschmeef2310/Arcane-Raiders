@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
-[ext_resource type="PackedScene" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
+[ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
 [ext_resource type="Texture2D" uid="uid://reyrua0dcxmu" path="res://tilesets/decorations/cracks_tileset.png" id="4_ew2ml"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7wt37"]
