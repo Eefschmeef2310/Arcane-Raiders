@@ -148,7 +148,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_65ys2"]
 resource_name = "attack_burst"
-length = 2.0
+length = 1.7
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -213,7 +213,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_5sjx8"]
 resource_name = "attack_proj"
-length = 2.0
+length = 1.1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -400,7 +400,7 @@ offset_bottom = -159.0
 
 [node name="EnemySpells" parent="." index="5"]
 spells = Array[ExtResource("5_wh80d")]([SubResource("Resource_6jm38"), SubResource("Resource_k0v1e")])
-cast_time = Array[float]([0.4, 0.0, 0.2])
+cast_time = Array[float]([0.1, 0.0, 0.2])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
