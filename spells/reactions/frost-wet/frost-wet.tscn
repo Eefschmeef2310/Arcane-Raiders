@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b70sy17w68ow1"]
+[gd_scene load_steps=8 format=3 uid="uid://b70sy17w68ow1"]
 
 [ext_resource type="Shader" path="res://shaders/cartoon_reflection.gdshader" id="1_a5fky"]
 [ext_resource type="Shader" path="res://spells/reactions/burn-frost/reaction_hider.gdshader" id="1_g8vvg"]
 [ext_resource type="Texture2D" uid="uid://b705viwnuoca5" path="res://spells/reactions/sprites/ice_circle.png" id="1_km2fu"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="2_wgdmu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rb1g"]
 shader = ExtResource("1_g8vvg")
@@ -57,14 +56,8 @@ shape = SubResource("CircleShape2D_706xi")
 wait_time = 5.0
 autostart = true
 
-[node name="Icon2" type="Sprite2D" parent="."]
-clip_children = 2
-position = Vector2(-24, -4)
-texture = ExtResource("2_wgdmu")
-
-[node name="Icon" type="Sprite2D" parent="Icon2"]
+[node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_n6hm5")
-position = Vector2(24, 4)
 scale = Vector2(3.09375, 1.52344)
 texture = ExtResource("1_km2fu")
 
