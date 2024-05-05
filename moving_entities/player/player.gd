@@ -29,7 +29,7 @@ var dash_cooldown: float = 0.0
 var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
 var dash_speed = 1000
-var dash_duration = 0.22 # Is only used for checking if a dash will end in a wall
+var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
 #region Godot methods
 func _ready():
@@ -85,8 +85,9 @@ func _process(delta):
 	
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
-	if data.health > 0:
-		toggle_dead.rpc(false);
+	if is_multiplayer_authority():
+		if is_dead and data.health > 0:
+			toggle_dead.rpc(false);
 	
 	if debug:
 		$PrepareCast.text = str(preparing_cast_slot)
@@ -157,6 +158,9 @@ func start_dash(dir: Vector2):
 	pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
 	if !get_world_2d().direct_space_state.intersect_point(pp, 1):
 		$CollisionShape2D.disabled = true
+		print("Gap check passed.")
+	else:
+		print("Gap check failed.")
 
 func prepare_cast(slot: int):
 	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
@@ -205,10 +209,11 @@ func on_hurt(attack):
 	if !is_dead:
 		super.on_hurt(attack)
 		
-	if is_dead:
-		toggle_dead.rpc(true);
-	elif !("base_damage" in attack and attack.base_damage <= 0):
-		start_invincibility.rpc()
+	if is_multiplayer_authority():
+		if is_dead:
+				toggle_dead.rpc(true)
+		elif !("base_damage" in attack and attack.base_damage <= 0):
+				start_invincibility.rpc()
 
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
