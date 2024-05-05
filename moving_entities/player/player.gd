@@ -28,7 +28,7 @@ var is_dashing: bool = false
 var dash_cooldown: float = 0.0
 var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
-var dash_speed = 800
+var dash_speed = 1000
 var dash_duration = 0.22 # Is only used for checking if a dash will end in a wall
 
 #region Godot methods

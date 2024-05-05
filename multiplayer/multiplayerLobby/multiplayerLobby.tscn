@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=24 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="8_q78au"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
 [ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
+[ext_resource type="Texture2D" uid="uid://b5jb61vijlub3" path="res://ui/wheel of reactions.png" id="12_b1r1k"]
 
 [sub_resource type="Resource" id="Resource_1emuh"]
 script = ExtResource("6_mpv8m")
@@ -48,19 +49,18 @@ loadout_name = "Stun"
 loadout_desc = ""
 spell_ids = Array[String](["stun-proj_ball", "wind-aoe_local", "null-proj_burst"])
 
-[sub_resource type="Gradient" id="Gradient_tnrv2"]
-colors = PackedColorArray(0.679015, 1.16717e-06, 3.85046e-07, 1, 0.33331, 3.13452e-06, 1.70864e-06, 1)
+[sub_resource type="Gradient" id="Gradient_4iwjm"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m1bvv"]
-gradient = SubResource("Gradient_tnrv2")
-fill_from = Vector2(1, 1)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1ge7i"]
+gradient = SubResource("Gradient_4iwjm")
 
-[sub_resource type="Gradient" id="Gradient_c8thl"]
-colors = PackedColorArray(1, 0.28472, 0.959037, 1, 0.989239, 0, 0.277317, 1)
+[sub_resource type="Gradient" id="Gradient_4lc54"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.254856, 0, 0.371015, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mkxvn"]
-gradient = SubResource("Gradient_c8thl")
-fill_from = Vector2(1, 1)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rsc3f"]
+gradient = SubResource("Gradient_4lc54")
 
 [sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
 font_size = 90
@@ -136,8 +136,8 @@ max_value = 1.0
 step = 0.0
 value = 1.0
 nine_patch_stretch = true
-texture_under = SubResource("GradientTexture2D_m1bvv")
-texture_progress = SubResource("GradientTexture2D_mkxvn")
+texture_under = SubResource("GradientTexture1D_1ge7i")
+texture_progress = SubResource("GradientTexture1D_rsc3f")
 
 [node name="Label" type="Label" parent="Lobby/ReadyProgress"]
 layout_mode = 1
@@ -151,6 +151,11 @@ grow_horizontal = 2
 text = "CHOOSE YOUR RAIDER!"
 label_settings = SubResource("LabelSettings_dkcho")
 horizontal_alignment = 1
+
+[node name="WheelOfReactions" type="Sprite2D" parent="Lobby/ReadyProgress"]
+position = Vector2(1856.5, 63.5)
+scale = Vector2(0.115741, 0.115741)
+texture = ExtResource("12_b1r1k")
 
 [node name="BackButton" type="Button" parent="Lobby"]
 layout_mode = 1

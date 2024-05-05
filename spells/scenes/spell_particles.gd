@@ -1,4 +1,4 @@
-extends Node2D
+extends GPUParticles2D
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -21,14 +21,13 @@ extends Node2D
 
 #region Godot methods
 func _ready():
-	var noise = NoiseTexture2D.new()
-	noise.noise = FastNoiseLite.new()
-	noise.seamless = true
-	noise.noise.seed = randi_range(0,100)
-	(material as ShaderMaterial).set_shader_parameter("noise_tex", noise)
-
+	if get_parent().resource.element:
+		texture = get_parent().resource.element.pip_texture
+		modulate = get_parent().resource.element.colour
+		
 func _process(_delta):
-	$PointLight2D.energy = randf_range(0.4, 0.5)
+	for particle in get_children():
+		print("dingus")
 #endregion
 
 #region Signal methods

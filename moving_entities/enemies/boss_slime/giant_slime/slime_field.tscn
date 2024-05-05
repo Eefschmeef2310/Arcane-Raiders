@@ -50,6 +50,7 @@ func _on_timer_timeout():
 radius = 85.1007
 
 [node name="SlimeField" type="Area2D" groups=["slime_field"]]
+z_index = -2
 collision_layer = 64
 collision_mask = 4
 script = SubResource("GDScript_g2p4w")

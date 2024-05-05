@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=44 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
@@ -15,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
 [ext_resource type="Script" path="res://rooms/boss/castle_room_boss.gd" id="8_uuipb"]
+[ext_resource type="PackedScene" uid="uid://dutidxrbw7ab7" path="res://rooms/basic/basic_butterfly.tscn" id="8_wyblb"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="9_om814"]
+[ext_resource type="PackedScene" uid="uid://bv47kko8wdikc" path="res://rooms/basic/basic_rigid.tscn" id="9_wet5w"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="10_k7a1l"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="11_1p3id"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="12_agjct"]
@@ -191,7 +193,7 @@ common_levels = {
 "foyer": ExtResource("2_0olmr"),
 "shop": ExtResource("2_ynx3r")
 }
-basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1")])
+basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w")])
 boss_levels = Array[PackedScene]([SubResource("PackedScene_i3utp")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
