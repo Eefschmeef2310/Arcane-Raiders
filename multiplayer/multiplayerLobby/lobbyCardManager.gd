@@ -127,19 +127,32 @@ func _process(_delta):
 		
 		if((input.is_action_just_pressed("lobby_left") or "left" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
-				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
+				if selected_raider == 0:
+					selected_raider = lobby_manager.raiders.size()-1
+				else: 
+					selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #color selected
-				selected_color = clampi(selected_color - 1, 0,lobby_manager.player_colors.size()-1)
+				if selected_color == 0:
+					selected_color = lobby_manager.player_colors.size()-1
+				else: 
+					selected_color = clampi(selected_color - 1, 0,lobby_manager.player_colors.size()-1)
 			elif(selected_panel == 2): #loadout selected
 				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 			
 		if((input.is_action_just_pressed("lobby_right") or "right" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
-				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
+				if selected_raider == lobby_manager.raiders.size()-1:
+					selected_raider = 0
+				else:
+					selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #loadout selected
-				selected_color = clampi(selected_color + 1, 0,lobby_manager.player_colors.size()-1)
+				if selected_color == lobby_manager.player_colors.size()-1:
+					selected_color = 0
+				else: 
+					selected_color = clampi(selected_color + 1, 0,lobby_manager.player_colors.size()-1)
 			elif(selected_panel == 2): #loadout selected
+				## i havent bothered implementing it for loadout since were getting rid of this option anyway
 				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 		
