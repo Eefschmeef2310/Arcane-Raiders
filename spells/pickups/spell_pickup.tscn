@@ -64,6 +64,7 @@ pivot_offset = Vector2(100, 150)
 theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="InfoBox"]
+visible = false
 occluder = SubResource("OccluderPolygon2D_30e0m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InfoBox"]
