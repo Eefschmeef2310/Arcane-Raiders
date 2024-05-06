@@ -125,7 +125,7 @@ func _process(_delta):
 				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(input.is_action_just_pressed("lobby_left") or "left" in mouse_input):
+		if((input.is_action_just_pressed("lobby_left") or "left" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #color selected
@@ -134,7 +134,7 @@ func _process(_delta):
 				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
 			changed = true
 			
-		if(input.is_action_just_pressed("lobby_right") or "right" in mouse_input):
+		if((input.is_action_just_pressed("lobby_right") or "right" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
 			elif(selected_panel == 1): #loadout selected
