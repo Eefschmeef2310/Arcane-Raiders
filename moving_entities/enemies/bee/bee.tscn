@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxqqvk2eqvo5u"]
+[gd_scene load_steps=9 format=3 uid="uid://cxqqvk2eqvo5u"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_pqo33"]
 [ext_resource type="Texture2D" uid="uid://cvf3eftmmhjk1" path="res://moving_entities/enemies/bee/bee_temp.png" id="2_5ffqf"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="2_x7mqn"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/bee_chase.gd" id="4_77b3c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cwxf7"]
 radius = 48.0937
@@ -20,7 +21,7 @@ _data = {
 
 [node name="Bee" instance=ExtResource("1_pqo33")]
 collision_mask = 1
-movement_speed = 300.0
+movement_speed = 350.0
 max_health = 200
 
 [node name="Sprite2D" parent="." index="1"]
@@ -43,12 +44,20 @@ offset_bottom = -101.0
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" index="0"]
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("2_x7mqn")
+actual_first_state = NodePath("../BeeChase")
+
+[node name="BeeChase" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("4_77b3c")
+nav_timer_interval = 1.0
 
 [node name="NavigationAgent2D" parent="." index="7"]
+navigation_layers = 3
+path_postprocessing = 0
 avoidance_layers = 2
 avoidance_mask = 2
+debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
 position = Vector2(0, -36)
@@ -58,3 +67,5 @@ shape = SubResource("CircleShape2D_j44su")
 libraries = {
 "": SubResource("AnimationLibrary_i7tm6")
 }
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="StateMachine/BeeChase" method="_on_navigation_agent_2d_target_reached"]
