@@ -33,20 +33,21 @@ script/source = "extends EnemyEntity
 @onready var ray_cast_2d = $RayCast2D
 	#Other Variables (please try to separate and organise!)
 var can_dodge: bool = false
-
 var dodge_spell_pos: Vector2
-var is_dashing: bool = false
-var dash_duration: float = 0.3
-var dash_direction: Vector2
-var dash_speed = 800
+
 #endregion
 
 #region Godot methods
 func _physics_process(delta):
 	super._physics_process(delta)
-	if is_dashing:
+	if dash_timer >= 0:
 		velocity = dash_direction * dash_speed
+		dash_duration -= delta
 		move_and_slide()
+	elif is_dashing == true:
+		dash_duration = 0
+		is_dashing = false
+		nav_agent.avoidance_enabled = true
 
 
 #endregion
@@ -63,17 +64,9 @@ func check_wall(dir: Vector2) -> bool:
 	ray_cast_2d.target_position = dir*dash_speed*0.2
 	return ray_cast_2d.is_colliding()
 
-func dash(dir: Vector2):
+func dash(dir: Vector2, duration: float):
 	can_dodge = false
-	dash_direction = dir
-	is_dashing = true
-	nav_agent.avoidance_enabled = false
-	velocity = dash_direction * dash_speed
-	move_and_slide()
-	await get_tree().create_timer(dash_duration).timeout
-	
-	is_dashing = false
-	nav_agent.avoidance_enabled = true
+	super.dash(dir, duration)
 #endregion
 "
 

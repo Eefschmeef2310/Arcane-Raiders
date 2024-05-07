@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxqqvk2eqvo5u"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_pqo33"]
+[ext_resource type="Texture2D" uid="uid://cvf3eftmmhjk1" path="res://moving_entities/enemies/bee/bee_temp.png" id="2_5ffqf"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="2_x7mqn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwxf7"]
+radius = 48.0937
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j44su"]
+radius = 14.0
+
+[sub_resource type="Animation" id="Animation_2ikja"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i7tm6"]
+_data = {
+"idle": SubResource("Animation_2ikja")
+}
+
+[node name="Bee" instance=ExtResource("1_pqo33")]
+collision_mask = 1
+movement_speed = 300.0
+max_health = 200
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -43)
+texture = ExtResource("2_5ffqf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-6, 27)
+shape = SubResource("CircleShape2D_cwxf7")
+debug_color = Color(0.976471, 0, 0.407843, 0.172549)
+
+[node name="ProgressBar" parent="." index="3"]
+offset_top = -99.0
+offset_bottom = -92.0
+
+[node name="StatusUI" parent="." index="4"]
+offset_top = -133.0
+offset_bottom = -101.0
+
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0"]
+script = ExtResource("2_x7mqn")
+
+[node name="NavigationAgent2D" parent="." index="7"]
+avoidance_layers = 2
+avoidance_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
+position = Vector2(0, -36)
+shape = SubResource("CircleShape2D_j44su")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
+libraries = {
+"": SubResource("AnimationLibrary_i7tm6")
+}

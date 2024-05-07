@@ -27,6 +27,12 @@ var aim_direction: Vector2
 var target_area: Vector2
 var can_cast: bool = true
 var nav_server_synced = false
+
+var is_dashing: bool = false
+var dash_duration: float = 0.3
+var dash_timer: float = 0.0
+var dash_direction: Vector2
+var dash_speed = 800
 #endregion
 
 #region Godot methods
@@ -72,6 +78,15 @@ func _physics_process(delta):
 	
 	super._physics_process(delta)
 	
+	#Dash code
+	if dash_timer >= 0:
+		velocity = dash_direction * dash_speed
+		dash_timer -= delta
+		move_and_slide()
+	elif is_dashing == true:
+		dash_timer = 0
+		is_dashing = false
+		nav_agent.avoidance_enabled = true
 #endregion
 
 #region Signal methods
@@ -119,6 +134,14 @@ func attempt_anim(anim: String):
 	if animation_player:
 		animation_player.stop()
 		animation_player.play(anim)
+		
+func dash(dir: Vector2, duration: float):
+	dash_direction = dir
+	nav_agent.avoidance_enabled = false
+	dash_timer = duration
+	is_dashing = true
+	velocity = dash_direction * dash_speed
+	move_and_slide()
 #endregion
 
 
