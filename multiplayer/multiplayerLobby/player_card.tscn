@@ -403,6 +403,12 @@ theme_override_fonts/font = ExtResource("4_bk151")
 theme_override_styles/normal = ExtResource("5_oe6lx")
 text = "READY"
 
+[node name="RemovePlayerButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
@@ -414,3 +420,4 @@ text = "READY"
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
 [connection signal="mouse_entered" from="VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="RemovePlayerButton" to="." method="_remove_player"]

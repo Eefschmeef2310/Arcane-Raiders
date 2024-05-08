@@ -297,3 +297,7 @@ func _on_right_arrow_clicked(event):
 
 func _on_button_pressed():
 	mouse_input.append("confirm")
+
+
+func _remove_player():
+	queue_free()
