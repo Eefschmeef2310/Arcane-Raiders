@@ -127,33 +127,20 @@ func _process(_delta):
 		
 		if((input.is_action_just_pressed("lobby_left") or "left" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
-				if selected_raider == 0:
-					selected_raider = lobby_manager.raiders.size()-1
-				else: 
-					selected_raider = clampi(selected_raider - 1, 0,lobby_manager.raiders.size()-1)
+				selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 			elif(selected_panel == 1): #color selected
-				if selected_color == 0:
-					selected_color = lobby_manager.player_colors.size()-1
-				else: 
-					selected_color = clampi(selected_color - 1, 0,lobby_manager.player_colors.size()-1)
+				selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 			elif(selected_panel == 2): #loadout selected
-				selected_loadout = clampi(selected_loadout - 1, 0,lobby_manager.loadouts.size()-1)
+				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 			changed = true
 			
 		if((input.is_action_just_pressed("lobby_right") or "right" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
-				if selected_raider == lobby_manager.raiders.size()-1:
-					selected_raider = 0
-				else:
-					selected_raider = clampi(selected_raider + 1, 0,lobby_manager.raiders.size()-1)
+				selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 			elif(selected_panel == 1): #loadout selected
-				if selected_color == lobby_manager.player_colors.size()-1:
-					selected_color = 0
-				else: 
-					selected_color = clampi(selected_color + 1, 0,lobby_manager.player_colors.size()-1)
+				selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 			elif(selected_panel == 2): #loadout selected
-				## i havent bothered implementing it for loadout since were getting rid of this option anyway
-				selected_loadout = clampi(selected_loadout + 1, 0,lobby_manager.loadouts.size()-1)
+				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			changed = true
 		
 		if(input.is_action_just_pressed("lobby_confirm") or "confirm" in mouse_input):
