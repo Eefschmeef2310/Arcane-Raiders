@@ -224,6 +224,8 @@ func UpdateDisplay():
 	for pip in character_pips_box.get_children().size():
 		if pip == selected_raider:
 			character_pips_box.get_child(pip).modulate = Color.WHITE
+		elif lobby_manager.picked_raiders.has(pip):
+			character_pips_box.get_child(pip).modulate = Color.BLACK
 		else: 
 			character_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 			
@@ -236,6 +238,8 @@ func UpdateDisplay():
 	for pip in color_pips_box.get_children().size():
 		if pip == selected_color:
 			color_pips_box.get_child(pip).modulate = Color.WHITE
+		elif lobby_manager.picked_colors.has(pip):
+			color_pips_box.get_child(pip).modulate = Color.BLACK
 		else: 
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	

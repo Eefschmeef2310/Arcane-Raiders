@@ -38,6 +38,8 @@ var sent_first_update : bool = false
 var start_game_called : bool = false
 var ready_timer : float 
 var lobby_id : int
+var picked_colors : Array[int]
+var picked_raiders : Array[int]
 
 #var server_browser_scene : PackedScene
 #endregion
@@ -65,7 +67,12 @@ func _process(delta):
 	var all_players_ready : bool = true
 	if player_card_hbox.get_child_count() < 1:
 		all_players_ready = false
+	
+	picked_colors.clear()
+	picked_raiders.clear()
 	for card in player_card_hbox.get_children():
+		picked_colors.append(card.selected_color)
+		picked_raiders.append(card.selected_raider)
 		if card.player_ready == false:
 			all_players_ready = false
 	# when they are, start the timer, update the progress bar, and change the title 
