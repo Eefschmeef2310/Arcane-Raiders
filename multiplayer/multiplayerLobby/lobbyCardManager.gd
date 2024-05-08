@@ -32,6 +32,7 @@ extends Node
 @export var most_panels : VBoxContainer # modulate this to grey when a player is ready to show their choices are "locked"
 @export var panels_array : Array[Control]
 @export var ready_button : Button
+@export var remove_button : Button
 @export_subgroup("raider")
 @export var raider_portrait : TextureRect
 @export var raider_name : Label 
@@ -70,6 +71,8 @@ func _ready():
 		input = DeviceInput.new(device_id)
 	else:
 		input = DeviceInput.new(-2)
+	
+	remove_button.visible = GameManager.isLocal()
 	
 	player_name.label_settings = player_name.label_settings.duplicate()
 	
