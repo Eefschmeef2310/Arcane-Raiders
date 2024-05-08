@@ -29,6 +29,7 @@ PromptManager="*res://managers/prompt_manager.gd"
 AudioManager="*res://managers/audio_manager.tscn"
 GameManager="*res://managers/game_manager.gd"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
+ColorblindTester="*res://debug/colorblind_tester.tscn"
 
 [display]
 

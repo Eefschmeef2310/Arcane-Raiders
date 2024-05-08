@@ -52,6 +52,8 @@ func _ready():
 		
 		reaction_elements_ui.element_2.texture = elements[1].pip_texture
 		reaction_elements_ui.element_2.modulate = elements[1].colour
+		
+		remove_from_group(get_groups()[0])
 #endregion
 
 #region Signal methods
