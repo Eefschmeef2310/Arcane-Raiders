@@ -128,11 +128,11 @@ func _process(_delta):
 		if((input.is_action_just_pressed("lobby_left") or "left" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
-				while lobby_manager.picked_raiders.has(selected_raider):
+				while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
 					selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 			elif(selected_panel == 1): #color selected
 				selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
-				while lobby_manager.picked_colors.has(selected_color):
+				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 			elif(selected_panel == 2): #loadout selected
 				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
@@ -141,11 +141,11 @@ func _process(_delta):
 		if((input.is_action_just_pressed("lobby_right") or "right" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
-				while lobby_manager.picked_raiders.has(selected_raider):
+				while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
 					selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 			elif(selected_panel == 1): #loadout selected
 				selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
-				while lobby_manager.picked_colors.has(selected_color):
+				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 			elif(selected_panel == 2): #loadout selected
 				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
@@ -219,7 +219,7 @@ func UpdateDisplay():
 	for pip in character_pips_box.get_children().size():
 		if pip == selected_raider:
 			character_pips_box.get_child(pip).modulate = Color.WHITE
-		elif lobby_manager.picked_raiders.has(pip):
+		elif lobby_manager.picked_raiders.has(pip) and not lobby_manager.allow_duplicate_animals:
 			character_pips_box.get_child(pip).modulate = Color.BLACK
 		else: 
 			character_pips_box.get_child(pip).modulate = Color.DIM_GRAY
@@ -233,7 +233,7 @@ func UpdateDisplay():
 	for pip in color_pips_box.get_children().size():
 		if pip == selected_color:
 			color_pips_box.get_child(pip).modulate = Color.WHITE
-		elif lobby_manager.picked_colors.has(pip):
+		elif lobby_manager.picked_colors.has(pip) and not lobby_manager.allow_duplicate_colors:
 			color_pips_box.get_child(pip).modulate = Color.BLACK
 		else: 
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY

@@ -13,9 +13,10 @@ signal player_left(id:int)
 const MAX_PLAYERS = 4
 
 #Exported Variables
-@export_group("Setup")
-##@export var mode : GameManager.MultiplayerMode 
+@export_group("Configuration")
 @export var ready_delay : float = 3 #amount in time in seconds the start the game after every player readys up
+@export var allow_duplicate_animals : bool = false
+@export var allow_duplicate_colors : bool = false
 @export_group("Node References") 
 @export var player_card_hbox : HBoxContainer #hold all the player cards!
 @export var multiplayer_spawner : MultiplayerSpawner
