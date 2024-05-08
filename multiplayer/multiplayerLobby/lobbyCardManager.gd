@@ -128,8 +128,12 @@ func _process(_delta):
 		if((input.is_action_just_pressed("lobby_left") or "left" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
+				while lobby_manager.picked_raiders.has(selected_raider):
+					selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 			elif(selected_panel == 1): #color selected
 				selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
+				while lobby_manager.picked_colors.has(selected_color):
+					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 			elif(selected_panel == 2): #loadout selected
 				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 			changed = true
@@ -137,8 +141,12 @@ func _process(_delta):
 		if((input.is_action_just_pressed("lobby_right") or "right" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
+				while lobby_manager.picked_raiders.has(selected_raider):
+					selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 			elif(selected_panel == 1): #loadout selected
 				selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
+				while lobby_manager.picked_colors.has(selected_color):
+					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 			elif(selected_panel == 2): #loadout selected
 				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			changed = true
