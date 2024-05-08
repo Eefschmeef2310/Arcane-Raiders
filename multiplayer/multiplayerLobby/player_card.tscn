@@ -72,6 +72,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="SpritesScale" type="Node2D" parent="VBoxContainer/VBoxContainer/SpritesFlip"]
+position = Vector2(0, -52)
 scale = Vector2(2.895, 2.895)
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
