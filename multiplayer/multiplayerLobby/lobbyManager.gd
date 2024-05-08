@@ -91,6 +91,33 @@ func CreateNewCard(peer_id : int):
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
+	
+	# select new player color
+	var color_found = -1
+	for i in player_colors.size():
+		if color_found == -1:
+			print ("checking: " + str(i))
+			color_found = i
+			for card in player_card_hbox.get_children():
+				if card.selected_color == i:
+					# match found check next
+					color_found = -1
+	if color_found != -1:
+		new_player_card.selected_color = color_found
+	
+	# select new animal
+	var animal_found = -1
+	for i in raiders.size():
+		if animal_found == -1:
+			print ("checking: " + str(i))
+			animal_found = i
+			for card in player_card_hbox.get_children():
+				if card.selected_raider == i:
+					# match found check next
+					animal_found = -1
+	if animal_found != -1:
+		new_player_card.selected_raider = animal_found
+	
 	new_player_card.set_multiplayer_authority(peer_id, true)
 	player_joined.emit()
 	return new_player_card
