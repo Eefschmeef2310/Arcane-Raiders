@@ -39,6 +39,7 @@ var revival_time_max : float = 5
 func _ready():
 	aim_direction = Vector2(1,1)
 	animation_player.play("idle", -1, 1)
+	$RevivalMeter.max_value = revival_time_max
 	
 	# TODO temporary lines here
 	if debug:
@@ -90,19 +91,27 @@ func _process(delta):
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
 	# Death logic
-	if is_multiplayer_authority() and is_dead:
-		var number_of_friends = friends_nearby.size()
-		if number_of_friends > 0:
-			revival_time += delta + (0.25 * (number_of_friends - 1))
-			if revival_time >= revival_time_max:
-				data.health += 100
-		else:
-			revival_time -= delta
-			if revival_time <= 0:
-				revival_time = 0
+	if is_dead:
+		$HelpLabel.show()
+		$RevivalMeter.show()
+		$RevivalMeter.value = revival_time
+		if is_multiplayer_authority():
+			var number_of_friends = friends_nearby.size()
+			if number_of_friends > 0:
+				revival_time += delta + (0.25 * (number_of_friends - 1))
+				if revival_time >= revival_time_max:
+					data.health += 100
+			else:
+				revival_time -= delta
+				if revival_time <= 0:
+					revival_time = 0
+			
+			if data.health > 0:
+				toggle_dead.rpc(false);
+	else:
+		$HelpLabel.hide()
+		$RevivalMeter.hide()
 		
-		if data.health > 0:
-			toggle_dead.rpc(false);
 	
 	if debug:
 		$PrepareCast.text = str(preparing_cast_slot)
@@ -135,6 +144,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	$SpellDirection/Sprite2DProjection.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
+	$HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
 		print(data.character.raider_name)
@@ -218,26 +228,29 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
+	var not_dead_yet = !is_dead
+	
 	if is_invincible or is_dashing or is_dead:
 		return
 		
 	super.on_hurt(attack)
 		
 	if is_multiplayer_authority():
-		if is_dead:
+		if is_dead and not_dead_yet:
 				toggle_dead.rpc(true)
 		elif !("base_damage" in attack and attack.base_damage <= 0):
 				start_invincibility.rpc()
 
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
-	if b and !is_dead:
+	if b:
 		$AnimationPlayer.play("die");
 		dead.emit(self)
 		$CollisionShape2D.disabled = true;
 		revival_time = 0
 		remove_from_group("player")
-	elif is_dead:
+	else:
+		is_dead = false
 		$CollisionShape2D.disabled = false;
 		revival_time = 0
 		add_to_group("player")
@@ -261,8 +274,10 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	friends_nearby.append(body)
+	if body != self:
+		friends_nearby.append(body)
 
 
 func _on_revival_zone_body_exited(body):
-	friends_nearby.erase(body)
+	if body != self:
+		friends_nearby.erase(body)
