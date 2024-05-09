@@ -45,14 +45,27 @@ layout_mode = 2
 custom_minimum_size = Vector2(300, 24)
 layout_mode = 2
 max_value = 1000.0
-value = 1000.0
+value = 800.0
+nine_patch_stretch = true
+stretch_margin_left = 12
+stretch_margin_right = 12
+texture_progress = ExtResource("3_e57h4")
+tint_progress = Color(0.992157, 0, 0.254902, 1)
+
+[node name="HealthBarLinger" type="TextureProgressBar" parent="HBox/Stats/HealthBar"]
+show_behind_parent = true
+custom_minimum_size = Vector2(300, 24)
+layout_mode = 2
+offset_right = 300.0
+offset_bottom = 24.0
+max_value = 1000.0
+value = 900.0
 nine_patch_stretch = true
 stretch_margin_left = 12
 stretch_margin_right = 12
 texture_under = ExtResource("3_e57h4")
 texture_progress = ExtResource("3_e57h4")
-tint_under = Color(0.32549, 0.32549, 0.32549, 1)
-tint_progress = Color(0.992157, 0, 0.254902, 1)
+tint_under = Color(0, 0, 0, 0.196078)
 
 [node name="EquipUI" type="Node2D" parent="."]
 visible = false
