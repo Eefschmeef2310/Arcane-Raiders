@@ -19,6 +19,7 @@ class_name EnemySpells
 @export var spells : Array[Spell] = [null]
 @export var cast_time: Array[float] = [0.2, 0.2, 0.2]
 @export var spell_cooldowns : Array[float] = [0, 0, 0]
+@export var spell_is_child: Array[bool] = [false, false, false]
 #Change spell_cooldowns if you want a spell to START OFF on cooldown
 
 	#Onready Variables

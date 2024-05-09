@@ -121,7 +121,7 @@ func use_spell(slot: int):
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()
 	spell_node.caster = self
 	spell_node.resource = enemy_spells.spells[slot]
-	add_sibling(spell_node)
+	add_sibling(spell_node) if !enemy_spells.spell_is_child[slot] else add_child(spell_node)
 	
 	#Set cooldown of spell
 	enemy_spells.spell_cooldowns[slot] = spell_node.cooldown_time
