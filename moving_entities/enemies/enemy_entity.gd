@@ -13,6 +13,9 @@ class_name EnemyEntity
 @export var movement_speed: float = 500
 @export var base_damage: int = 0
 
+@export_group("Dash Stats")
+@export var dash_speed = 800
+
 @export_group("Boss Data")
 @export var is_boss: bool = false
 @export var boss_name: String
@@ -26,13 +29,13 @@ class_name EnemyEntity
 var aim_direction: Vector2
 var target_area: Vector2
 var can_cast: bool = true
+var cast_timer_end: float = 0
+
 var nav_server_synced = false
 
 var is_dashing: bool = false
-var dash_duration: float = 0.3
 var dash_timer: float = 0.0
 var dash_direction: Vector2
-var dash_speed = 800
 #endregion
 
 #region Godot methods
@@ -57,7 +60,7 @@ func actor_setup():
 
 func _physics_process(delta):
 	if nav_server_synced:
-		if !is_multiplayer_authority() or nav_agent.is_navigation_finished():
+		if !is_multiplayer_authority() or (nav_agent.is_navigation_finished() && nav_agent.avoidance_enabled):
 			return
 		
 		var current_agent_pos: Vector2 = global_position
@@ -75,18 +78,15 @@ func _physics_process(delta):
 		
 		else:
 			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
+			
+		
+		
+		#Update timers
+		update_dash(delta)
 	
 	super._physics_process(delta)
 	
 	#Dash code
-	if dash_timer >= 0:
-		velocity = dash_direction * dash_speed
-		dash_timer -= delta
-		move_and_slide()
-	elif is_dashing == true:
-		dash_timer = 0
-		is_dashing = false
-		nav_agent.avoidance_enabled = true
 #endregion
 
 #region Signal methods
@@ -122,10 +122,8 @@ func use_spell(slot: int):
 	spell_node.caster = self
 	spell_node.resource = enemy_spells.spells[slot]
 	add_sibling(spell_node) if !enemy_spells.spell_is_child[slot] else add_child(spell_node)
-	
 	#Set cooldown of spell
 	enemy_spells.spell_cooldowns[slot] = spell_node.cooldown_time
-	
 	await get_tree().create_timer(spell_node.end_time).timeout
 	can_cast = true
 	
@@ -141,10 +139,17 @@ func dash(dir: Vector2, duration: float):
 	dash_timer = duration
 	is_dashing = true
 	velocity = dash_direction * dash_speed
-	move_and_slide()
 #endregion
 
 
 #region Other methods (please try to separate and organise!)
-
+func update_dash(delta):
+	if dash_timer > 0:
+		velocity = dash_direction * dash_speed
+		dash_timer -= delta
+		move_and_slide()
+	elif is_dashing == true:
+		dash_timer = 0
+		is_dashing = false
+		nav_agent.avoidance_enabled = true
 #endregion

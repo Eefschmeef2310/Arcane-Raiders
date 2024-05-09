@@ -16,11 +16,11 @@ class_name EnemySpells
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var spells : Array[Spell] = [null]
-@export var cast_time: Array[float] = [0.2, 0.2, 0.2]
-@export var spell_cooldowns : Array[float] = [0, 0, 0]
-@export var spell_is_child: Array[bool] = [false, false, false]
-#Change spell_cooldowns if you want a spell to START OFF on cooldown
+@export var spells : Array[Spell] = [null] #Just the spell resource
+@export var cast_time: Array[float] = [0.2, 0.2, 0.2] #Change cast_time to add startup frames before an attack
+@export var spell_cooldowns : Array[float] = [1, 1, 1] #Change spell_cooldowns if you want a spell to START OFF on cooldown
+@export var spell_is_child: Array[bool] = [false, false, false] #Adds the spell as child or sibling of enemy
+
 
 	#Onready Variables
 

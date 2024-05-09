@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
-[ext_resource type="PackedScene" uid="uid://cxqqvk2eqvo5u" path="res://moving_entities/enemies/bee/bee.tscn" id="9_kjcog"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+[ext_resource type="PackedScene" uid="uid://jnglr8tluu0q" path="res://moving_entities/enemies/bat_big/bat_big.tscn" id="10_bfiui"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
 script/source = "extends Node
@@ -104,8 +104,8 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="Bee" parent="." index="16" instance=ExtResource("9_kjcog")]
-position = Vector2(755, 295)
+[node name="BatBig" parent="." index="16" instance=ExtResource("10_bfiui")]
+position = Vector2(1033, 587)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
