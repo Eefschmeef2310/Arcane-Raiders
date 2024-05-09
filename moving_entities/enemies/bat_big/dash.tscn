@@ -25,7 +25,7 @@ script/source = "extends SpellBase
 func _ready():
 	if caster:
 		if caster.has_method(\"dash\"):
-			caster.dash(caster.aim_direction if !caster.check_wall(caster.aim_direction) else caster.aim_direction.rotated(deg_to_rad(180)), end_time)
+			caster.dash(caster.aim_direction if !caster.check_wall(caster.aim_direction) else caster.aim_direction.rotated(deg_to_rad(180)), caster.dash_duration)
 	queue_free()
 #endregion
 
@@ -41,5 +41,4 @@ func _ready():
 
 [node name="Dash" type="Node2D"]
 script = SubResource("GDScript_5sxyk")
-end_time = 0.2
 cooldown_time = 5.0

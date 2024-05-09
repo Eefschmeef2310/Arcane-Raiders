@@ -28,7 +28,7 @@ script/source = "extends EnemyEntity
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
-
+@export var dash_duration: float = 0.3
 	#Onready Variables
 @onready var ray_cast_2d = $RayCast2D
 	#Other Variables (please try to separate and organise!)
@@ -236,7 +236,9 @@ radius = 379.033
 [node name="BatBig" instance=ExtResource("1_thfql")]
 collision_mask = 1
 script = SubResource("GDScript_t3owp")
+dash_duration = 0.3
 movement_speed = 150.0
+dash_speed = 700
 death_sound = null
 max_health = 400
 
