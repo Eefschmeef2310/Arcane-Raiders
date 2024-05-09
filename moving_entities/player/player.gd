@@ -31,6 +31,10 @@ var dash_direction: Vector2
 var dash_speed = 1000
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
+var friends_nearby : Array = []
+var revival_time : float
+var revival_time_max : float = 5
+
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
@@ -85,8 +89,19 @@ func _process(delta):
 	
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
-	if is_multiplayer_authority():
-		if is_dead and data.health > 0:
+	# Death logic
+	if is_multiplayer_authority() and is_dead:
+		var number_of_friends = friends_nearby.size()
+		if number_of_friends > 0:
+			revival_time += delta + (0.25 * (number_of_friends - 1))
+			if revival_time >= revival_time_max:
+				data.health += 100
+		else:
+			revival_time -= delta
+			if revival_time <= 0:
+				revival_time = 0
+		
+		if data.health > 0:
 			toggle_dead.rpc(false);
 	
 	if debug:
@@ -203,11 +218,10 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
-	if is_invincible or is_dashing:
+	if is_invincible or is_dashing or is_dead:
 		return
 		
-	if !is_dead:
-		super.on_hurt(attack)
+	super.on_hurt(attack)
 		
 	if is_multiplayer_authority():
 		if is_dead:
@@ -217,13 +231,15 @@ func on_hurt(attack):
 
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
-	if b:
+	if b and !is_dead:
 		$AnimationPlayer.play("die");
 		dead.emit(self)
 		$CollisionShape2D.disabled = true;
+		revival_time = 0
 		remove_from_group("player")
-	else:
+	elif is_dead:
 		$CollisionShape2D.disabled = false;
+		revival_time = 0
 		add_to_group("player")
 
 @rpc("authority", "call_local", "reliable")
@@ -242,3 +258,11 @@ func _on_invincibility_timer_timeout():
 
 func is_near_pickup():
 	return $SpellPickupDetector.closest_pickup != null
+
+
+func _on_revival_zone_body_entered(body):
+	friends_nearby.append(body)
+
+
+func _on_revival_zone_body_exited(body):
+	friends_nearby.erase(body)

@@ -61,15 +61,19 @@ var finished_connecting : bool
 var valid_color : bool
 var input
 var mouse_input: Array[String]
+var devices: Array[int]
 
 #endregion
 
 #region Godot methods
 func _ready():
+	Input.joy_connection_changed.connect(update_device_list)
+	update_device_list(0, true)
+	
 	if GameManager.isLocal():
 		input = DeviceInput.new(device_id)
 	else:
-		input = DeviceInput.new(-2)
+		input = null
 	
 	player_name.label_settings = player_name.label_settings.duplicate()
 	
@@ -113,19 +117,21 @@ func _process(_delta):
 		resendValues.rpc()
 		finished_connecting = true
 	
+	get_controller_input()
+	
 	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
 		var changed = false
-		if(input.is_action_just_pressed("lobby_down")):
+		if("down" in mouse_input):
 			if not player_ready:
 				selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if(input.is_action_just_pressed("lobby_up")):
+		if("up" in mouse_input):
 			if not player_ready:
 				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			changed = true
 		
-		if((input.is_action_just_pressed("lobby_left") or "left" in mouse_input) and not player_ready):
+		if(("left" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 				while lobby_manager.picked_raiders.has(selected_raider):
@@ -138,7 +144,7 @@ func _process(_delta):
 				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 			changed = true
 			
-		if((input.is_action_just_pressed("lobby_right") or "right" in mouse_input) and not player_ready):
+		if(("right" in mouse_input) and not player_ready):
 			if(selected_panel == 0): #raider panel selected 
 				selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 				while lobby_manager.picked_raiders.has(selected_raider):
@@ -151,7 +157,7 @@ func _process(_delta):
 				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			changed = true
 		
-		if(input.is_action_just_pressed("lobby_confirm") or "confirm" in mouse_input):
+		if("confirm" in mouse_input):
 			if(selected_panel == 3 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
@@ -272,6 +278,41 @@ func UpdateDisplay():
 	pre_r_hand.self_modulate = lobby_manager.raiders[selected_raider].skin_color
 
 #endregion
+
+func get_controller_input():
+	if input:
+		if input.is_action_just_pressed("lobby_up"):
+			mouse_input.append("up")
+		if input.is_action_just_pressed("lobby_down"):
+			mouse_input.append("down")
+		if input.is_action_just_pressed("lobby_left"):
+			mouse_input.append("left")
+		if input.is_action_just_pressed("lobby_right"):
+			mouse_input.append("right")
+		if input.is_action_just_pressed("lobby_confirm"):
+			mouse_input.append("confirm")
+		if input.is_action_just_pressed("lobby_cancel"):
+			mouse_input.append("cancel")
+	else:
+		for device in devices:
+			if MultiplayerInput.is_action_just_pressed(device, "lobby_up"):
+				mouse_input.append("up")
+			if MultiplayerInput.is_action_just_pressed(device, "lobby_down"):
+				mouse_input.append("down")
+			if MultiplayerInput.is_action_just_pressed(device, "lobby_left"):
+				mouse_input.append("left")
+			if MultiplayerInput.is_action_just_pressed(device, "lobby_right"):
+				mouse_input.append("right")
+			if MultiplayerInput.is_action_just_pressed(device, "lobby_confirm"):
+				mouse_input.append("confirm")
+			if MultiplayerInput.is_action_just_pressed(device, "lobby_cancel"):
+				mouse_input.append("cancel")
+
+func update_device_list(_device: int, _connected: bool):
+	devices.clear()
+	devices = Input.get_connected_joypads()
+	devices.append(-1)
+
 func is_event_click(event):
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
