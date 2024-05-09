@@ -12,6 +12,7 @@ signal dead(Player)
 @export var movement_speed : float = 300
 
 @onready var animation_player = $AnimationPlayer
+@onready var dash_ray = $DashRay
 
 # Normalised vectors
 @export var move_direction: Vector2
@@ -177,15 +178,18 @@ func start_dash(dir: Vector2):
 	is_dashing = true
 	animation_player.play("dash")
 	
-	# Check if we're going to end in a wall or not
-	var pp = PhysicsPointQueryParameters2D.new()
-	pp.collision_mask = collision_mask
-	pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
-	if !get_world_2d().direct_space_state.intersect_point(pp, 1):
-		$CollisionShape2D.disabled = true
-		print("Gap check passed.")
-	else:
-		print("Gap check failed.")
+	# Check if we're going to end in a wall or not.
+	# Raycast with unwalkables:
+	dash_ray.target_position = (dir.normalized() * dash_speed * dash_duration)
+	dash_ray.force_raycast_update()
+	if !dash_ray.is_colliding():
+		# Point check for walkable floor:
+		var pp = PhysicsPointQueryParameters2D.new()
+		pp.collision_mask = collision_mask
+		pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
+		if !get_world_2d().direct_space_state.intersect_point(pp, 1):
+			# Disable collision and allow passthrough colliders.
+			$CollisionShape2D.disabled = true
 
 func prepare_cast(slot: int):
 	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
