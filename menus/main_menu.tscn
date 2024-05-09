@@ -22,7 +22,7 @@ func _ready():
 
 #region Signal methods
 func _on_quit_button_pressed():
-	await Analytics.handle_exit() #sends exit game event to analytics
+	#await Analytics.handle_exit() #sends exit game event to analytics
 	get_tree().quit()
 	
 func _on_online_button_pressed():

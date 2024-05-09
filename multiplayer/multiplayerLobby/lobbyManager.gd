@@ -38,6 +38,8 @@ var sent_first_update : bool = false
 var start_game_called : bool = false
 var ready_timer : float 
 var lobby_id : int
+var picked_colors : Array[int]
+var picked_raiders : Array[int]
 
 #var server_browser_scene : PackedScene
 #endregion
@@ -65,7 +67,12 @@ func _process(delta):
 	var all_players_ready : bool = true
 	if player_card_hbox.get_child_count() < 1:
 		all_players_ready = false
+	
+	picked_colors.clear()
+	picked_raiders.clear()
 	for card in player_card_hbox.get_children():
+		picked_colors.append(card.selected_color)
+		picked_raiders.append(card.selected_raider)
 		if card.player_ready == false:
 			all_players_ready = false
 	# when they are, start the timer, update the progress bar, and change the title 
@@ -91,6 +98,33 @@ func CreateNewCard(peer_id : int):
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
+	
+	# select new player color
+	var color_found = -1
+	for i in player_colors.size():
+		if color_found == -1:
+			print ("checking: " + str(i))
+			color_found = i
+			for card in player_card_hbox.get_children():
+				if card.selected_color == i:
+					# match found check next
+					color_found = -1
+	if color_found != -1:
+		new_player_card.selected_color = color_found
+	
+	# select new animal
+	var animal_found = -1
+	for i in raiders.size():
+		if animal_found == -1:
+			print ("checking: " + str(i))
+			animal_found = i
+			for card in player_card_hbox.get_children():
+				if card.selected_raider == i:
+					# match found check next
+					animal_found = -1
+	if animal_found != -1:
+		new_player_card.selected_raider = animal_found
+	
 	new_player_card.set_multiplayer_authority(peer_id, true)
 	player_joined.emit()
 	return new_player_card

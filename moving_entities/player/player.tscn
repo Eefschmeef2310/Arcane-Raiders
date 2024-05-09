@@ -727,6 +727,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_gaksd"]
+resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.546053)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 

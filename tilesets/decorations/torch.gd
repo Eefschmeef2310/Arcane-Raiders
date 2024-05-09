@@ -25,7 +25,7 @@ func _ready():
 	noise.noise = FastNoiseLite.new()
 	noise.seamless = true
 	noise.noise.seed = randi_range(0,100)
-	(material as ShaderMaterial).set_shader_parameter("noise_tex", noise)
+	($Flame.material as ShaderMaterial).set_shader_parameter("noise_tex", noise)
 
 func _process(_delta):
 	$PointLight2D.energy = randf_range(0.4, 0.5)
