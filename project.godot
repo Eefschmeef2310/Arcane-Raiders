@@ -30,6 +30,7 @@ AudioManager="*res://managers/audio_manager.tscn"
 GameManager="*res://managers/game_manager.gd"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
 ColorblindTester="*res://debug/colorblind_tester.tscn"
+PlayerPreferenceManager="*res://managers/player_preference_manager.gd"
 
 [display]
 
@@ -51,6 +52,7 @@ folder_colors={
 "res://moving_entities/player/": "green",
 "res://online/": "pink",
 "res://rooms/": "pink",
+"res://saves/": "green",
 "res://screens/": "yellow",
 "res://shaders/": "green",
 "res://sounds/": "green",

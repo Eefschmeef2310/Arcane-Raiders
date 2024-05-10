@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=14 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
@@ -51,6 +51,11 @@ scene = ExtResource("5_xmyeo")
 ui_texture = ExtResource("7_amtw5")
 element = ExtResource("4_1txtx")
 
+[sub_resource type="Gradient" id="Gradient_8fnr6"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.546053)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
 
 [node name="TileMap" parent="." index="0"]
@@ -78,6 +83,9 @@ device_id = -1
 spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
 spell_strings = Array[String](["wet-aoe_large", "frost-laser", "burn-proj_burst"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
+
+[node name="DashTrail" parent="Player" index="21"]
+gradient = SubResource("Gradient_8fnr6")
 
 [node name="GameUI" type="CanvasLayer" parent="." index="15"]
 

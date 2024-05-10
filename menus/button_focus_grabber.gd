@@ -1,4 +1,4 @@
-extends Button
+extends Control
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 

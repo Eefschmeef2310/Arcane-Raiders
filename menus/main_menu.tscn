@@ -9,8 +9,7 @@ script/source = "extends Control
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
-#w@export var menu : Node
-
+#@export var menu : Node
 
 #region Godot methods
 func _ready():
