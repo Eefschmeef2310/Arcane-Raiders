@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
+[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="9_fchnc"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
@@ -81,7 +82,7 @@ position = Vector2(96, 800)
 [node name="PlayerData" parent="Player" index="6"]
 device_id = -1
 spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["wet-aoe_large", "frost-laser", "burn-proj_burst"])
+spell_strings = Array[String](["wet-aoe_large", "frost-aoe_local", "burn-proj_burst"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="DashTrail" parent="Player" index="21"]
@@ -104,6 +105,9 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
+
+[node name="SlimeBig" parent="." index="16" instance=ExtResource("9_fchnc")]
+position = Vector2(516, 737)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

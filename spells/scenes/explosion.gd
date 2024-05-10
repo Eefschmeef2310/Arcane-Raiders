@@ -17,6 +17,7 @@ extends Area2D
 @export var scale_falloff_curve : Curve
 @export var transparency_falloff_curve: Curve
 @export var area_enabled_curve : Curve
+@export var knockback : float = 1
 
 	#Onready Variables
 @onready var kill_timer = $kill_timer
