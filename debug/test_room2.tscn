@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=26 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
@@ -7,8 +7,13 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
-[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="9_fchnc"]
+[ext_resource type="PackedScene" uid="uid://d3ysm2lr7sn5t" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_field.tscn" id="9_ewc54"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+[ext_resource type="Shader" path="res://shaders/water_shader.gdshader" id="10_h644p"]
+[ext_resource type="Texture2D" uid="uid://giayl1yq5y0l" path="res://icon2.png" id="10_rckiv"]
+[ext_resource type="Shader" path="res://shaders/corrosion.gdshader" id="10_usy0g"]
+[ext_resource type="Script" path="res://debug/clip_test.gd" id="12_ftiv2"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="15_m7lub"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
 script/source = "extends Node
@@ -56,6 +61,38 @@ element = ExtResource("4_1txtx")
 resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.546053)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xld3f"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dnigk"]
+seamless = true
+noise = SubResource("FastNoiseLite_xld3f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2tbce"]
+shader = ExtResource("10_h644p")
+shader_parameter/horizon = 0.139
+shader_parameter/wave_frequency = 0.0
+shader_parameter/wave_magnitude = 0.3
+shader_parameter/tides_magnitude = 0.036
+shader_parameter/noise_wave = 0.506
+shader_parameter/tides_speed = 0.0
+shader_parameter/wave_speed = 0.0
+shader_parameter/shine_position = 0.175
+shader_parameter/shine_itensity = 0.169
+shader_parameter/shine_width = 0.169
+shader_parameter/shine_color = null
+shader_parameter/water_color = Color(1, 0, 0, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_dnigk")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jwayn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iojv7"]
+noise = SubResource("FastNoiseLite_jwayn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jm7od"]
+shader = ExtResource("10_usy0g")
+shader_parameter/fade_scale = 0.35
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_iojv7")
 
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
 
@@ -106,8 +143,47 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="SlimeBig" parent="." index="16" instance=ExtResource("9_fchnc")]
-position = Vector2(516, 737)
+[node name="SlimeField2" parent="." index="16" instance=ExtResource("9_ewc54")]
+position = Vector2(517, 780)
+scale = Vector2(1, 0.999997)
+
+[node name="Sprite2D" parent="SlimeField2" index="0"]
+clip_children = 1
+z_index = 5
+texture = ExtResource("15_m7lub")
+
+[node name="Sprite2D" type="Sprite2D" parent="SlimeField2/Sprite2D" index="0"]
+material = SubResource("ShaderMaterial_2tbce")
+position = Vector2(-509, -1048.98)
+scale = Vector2(7.90234, 8.75853)
+texture = ExtResource("10_rckiv")
+centered = false
+script = ExtResource("12_ftiv2")
+
+[node name="SlimeField" parent="." index="17" instance=ExtResource("9_ewc54")]
+visible = false
+y_sort_enabled = true
+position = Vector2(638, 695)
+scale = Vector2(1, 0.999997)
+
+[node name="Sprite2D" parent="SlimeField" index="0"]
+clip_children = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="SlimeField/Sprite2D" index="0"]
+material = SubResource("ShaderMaterial_jm7od")
+position = Vector2(-630, -933.336)
+scale = Vector2(7.90234, 8.75853)
+texture = ExtResource("10_rckiv")
+centered = false
+script = ExtResource("12_ftiv2")
+
+[node name="Icon" type="Sprite2D" parent="." index="18"]
+position = Vector2(510, 691)
+texture = ExtResource("15_m7lub")
+
+[connection signal="item_rect_changed" from="SlimeField2/Sprite2D" to="SlimeField2/Sprite2D" method="_on_item_rect_changed"]
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
+[editable path="SlimeField2"]
+[editable path="SlimeField"]

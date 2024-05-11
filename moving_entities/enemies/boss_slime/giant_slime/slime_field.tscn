@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3ysm2lr7sn5t"]
+[gd_scene load_steps=7 format=3 uid="uid://d3ysm2lr7sn5t"]
 
-[ext_resource type="Texture2D" uid="uid://bbadgo1708msl" path="res://spells/reactions/sprites/lava_pool.png" id="1_hjgf5"]
+[ext_resource type="Texture2D" uid="uid://dxa0s2yn7n6hc" path="res://moving_entities/enemies/boss_slime/water_puddle.png" id="2_hqs00"]
 
 [sub_resource type="GDScript" id="GDScript_g2p4w"]
 script/source = "extends Area2D
@@ -44,30 +44,105 @@ func _on_timer_timeout():
 	for moving_entity in get_overlapping_bodies():
 		if moving_entity.is_in_group(\"player\") and moving_entity != caster:
 			moving_entity.on_hurt(self)
+
+
+func _on_kill_timer_timeout():
+	$AnimationPlayer.play(\"kill\")
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
 radius = 85.1007
 
+[sub_resource type="Animation" id="Animation_ew3gm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/fade_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_oaxwp"]
+resource_name = "kill"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/fade_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tls52"]
+_data = {
+"RESET": SubResource("Animation_ew3gm"),
+"kill": SubResource("Animation_oaxwp")
+}
+
 [node name="SlimeField" type="Area2D" groups=["slime_field"]]
-z_index = -2
 collision_layer = 64
 collision_mask = 4
 script = SubResource("GDScript_g2p4w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.137255, 1, 1, 1)
 position = Vector2(-8, -9)
 scale = Vector2(1, 0.735)
-texture = ExtResource("1_hjgf5")
+texture = ExtResource("2_hqs00")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 scale = Vector2(1, 0.725)
 shape = SubResource("CircleShape2D_ft1mc")
+disabled = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tls52")
+}
+
+[connection signal="timeout" from="HurtTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]
