@@ -15,6 +15,7 @@ class_name Attack
 @export var spell_num: int = 0
 @export var transition_out_instantly: bool = false
 @export var transition_out_when_can_cast: bool = false
+@export var next_state: String = ""
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -27,22 +28,24 @@ func enter():
 	set_position()
 	enemy.attempt_cast(spell_num)
 	if transition_out_instantly:
-		Transitioned.emit(self, previous_state)
+		transition()
 
 func physics_update(delta):
 	super.physics_update(delta)
 	if transition_out_when_can_cast and enemy.can_cast:
-		Transitioned.emit(self, previous_state)
+		transition()
 #endregion
 
 #region Signal methods
 func _on_animation_player_animation_finished(anim_name):
 	if get_parent().current_state == self:
-		Transitioned.emit(self, previous_state)
+		transition()
 	
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func transition():
+	if next_state != "": Transitioned.emit(self, next_state)
+	else: Transitioned.emit(self, previous_state)
 #endregion
 

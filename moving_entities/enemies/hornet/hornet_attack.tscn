@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://phgt7ys1vnat"]
+
+[sub_resource type="GDScript" id="GDScript_o4i1l"]
+script/source = "extends BasicDashEnemy
+
+@onready var ray_cast_2d = $RayCast2D
+
+func _ready():
+	if !caster: queue_free()
+	global_position = caster.global_position
+	if caster.has_method(\"dash\"):
+		duration = get_wall_pos().distance_to(caster.global_position)/caster.dash_speed -0.1
+		end_time = duration + 0.1
+	super._ready()
+
+
+func get_wall_pos() -> Vector2:
+	ray_cast_2d.target_position = caster.aim_direction * 9999
+	ray_cast_2d.force_raycast_update()
+	if ray_cast_2d.is_colliding():
+		return ray_cast_2d.get_collision_point()
+	return Vector2.ZERO
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fid0"]
+radius = 27.0185
+
+[node name="HornetAttack" type="Area2D"]
+collision_layer = 64
+collision_mask = 0
+script = SubResource("GDScript_o4i1l")
+base_damage = 100
+end_time = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_2fid0")
+debug_color = Color(0.964706, 0, 0.501961, 0.164706)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false

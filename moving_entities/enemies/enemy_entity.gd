@@ -60,7 +60,7 @@ func actor_setup():
 
 func _physics_process(delta):
 	if nav_server_synced:
-		if !is_multiplayer_authority() or (nav_agent.is_navigation_finished() && nav_agent.avoidance_enabled):
+		if !is_multiplayer_authority() or (nav_agent.is_navigation_finished() && can_cast):
 			return
 		
 		var current_agent_pos: Vector2 = global_position
@@ -121,7 +121,7 @@ func use_spell(slot: int):
 	var spell_node = enemy_spells.spells[slot].scene.instantiate()
 	spell_node.caster = self
 	spell_node.resource = enemy_spells.spells[slot]
-	add_sibling(spell_node) if !enemy_spells.spell_is_child[slot] else add_child(spell_node)
+	add_sibling(spell_node)
 	#Set cooldown of spell
 	enemy_spells.spell_cooldowns[slot] = spell_node.cooldown_time
 	await get_tree().create_timer(spell_node.end_time).timeout
