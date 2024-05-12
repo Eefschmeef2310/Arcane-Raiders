@@ -78,7 +78,6 @@ func create_goop():
 	explosion.global_position = target_area
 	add_sibling(explosion)
 	
-	
 	#TODO create the field
 	var field = SLIME_FIELD.instantiate()
 	transfer_data(field)

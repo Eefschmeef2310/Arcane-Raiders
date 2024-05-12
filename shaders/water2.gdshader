@@ -15,6 +15,11 @@ uniform float sine_time_scale = 0.03;
 uniform vec2 sine_offset_scale = vec2(0.4, 0.4);
 uniform float sine_wave_size = 0.4;
 
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture;
+
+uniform float fade_scale : hint_range(0.0, 1.0) = 0.5;
+uniform sampler2D noise_texture;
+
 vec2 calculate_sine_wave(float time, float multiplier, vec2 uv, vec2 offset_scale) {
 	float time_multiplied = time * multiplier;
 	float unique_offset = uv.x + uv.y;
@@ -43,4 +48,11 @@ void fragment() {
 	COLOR = mix(diffuse_color, shadow_color, water_height * NORMAL_MAP.b * 0.4);
 	NORMAL_MAP = texture(NORMAL_TEXTURE, (adjusted_uv + sine_uv_offset) / 5.0).rgb;
 	NORMAL_MAP.z *= 1.0 - water_height;
+	
+	float height_cutoff = round(mix(fade_scale, texture(noise_texture, UV).r, 0.5));
+	
+	float mask = texture(TEXTURE, UV).a;
+
+	//Set final albedo (if height in noise is higher than cutoff, use end colour, otherwise do base color)
+	COLOR.a = 1.0 - step(mask, height_cutoff);
 }
