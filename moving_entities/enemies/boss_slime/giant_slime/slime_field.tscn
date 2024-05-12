@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3ysm2lr7sn5t"]
+[gd_scene load_steps=11 format=3 uid="uid://d3ysm2lr7sn5t"]
 
 [ext_resource type="Texture2D" uid="uid://b65cdnki3bs6s" path="res://tilesets/decorations/Black-Circle-Fade-Sphere-PNG-Image-HD.png" id="1_6rg6x"]
-[ext_resource type="Shader" path="res://shaders/water.gdshader" id="2_xkcv0"]
-[ext_resource type="Texture2D" uid="uid://dto4t8eurbbid" path="res://icon.png" id="3_2gars"]
+[ext_resource type="Shader" path="res://shaders/water2.gdshader" id="2_05sb8"]
+[ext_resource type="Texture2D" uid="uid://cqvvmtq5kce48" path="res://moving_entities/enemies/boss_slime/giant_slime/water_diffuse.png" id="3_k376q"]
 [ext_resource type="Script" path="res://debug/clip_test.gd" id="4_xg6tq"]
 
 [sub_resource type="GDScript" id="GDScript_g2p4w"]
@@ -25,6 +25,7 @@ script/source = "extends Area2D
 
 	#Onready Variables
 @onready var animation_player = $AnimationPlayer
+@onready var group = get_tree().get_nodes_in_group(get_groups()[0])
 
 	#Other Variables (please try to separate and organise!)
 var base_damage
@@ -38,46 +39,37 @@ func _ready():
 	base_damage = field_damage
 	
 	#Impose limit
-	if get_tree().get_nodes_in_group(get_groups()[0]).size() > max_puddles:
-		get_tree().get_last_node_in_group(get_groups()[0]).animation_player.play(\"kill\")
+	if group.size() > max_puddles:
+		group[0].animation_player.play(\"kill\")
 #endregion
 
 #region Signal methods
-
+func _on_timer_timeout():
+	for moving_entity in get_overlapping_bodies():
+		if moving_entity.is_in_group(\"player\") and moving_entity != caster:
+			moving_entity.on_hurt(self)
+			
+func _on_kill_timer_timeout():
+	$AnimationPlayer.play(\"kill\")
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 #endregion
-
-func _on_timer_timeout():
-	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(\"player\") and moving_entity != caster:
-			moving_entity.on_hurt(self)
-
-
-func _on_kill_timer_timeout():
-	$AnimationPlayer.play(\"kill\")
 "
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_rgxko"]
-frequency = 0.02
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dm4qh"]
-seamless = true
-noise = SubResource("FastNoiseLite_rgxko")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n1yaa"]
 resource_local_to_scene = true
-shader = ExtResource("2_xkcv0")
-shader_parameter/WATER_COL = Color(0.176471, 0.635294, 0.85098, 1)
-shader_parameter/WATER2_COL = Color(0.0588235, 0.529412, 0.776471, 1)
-shader_parameter/FOAM_COL = Color(0.87451, 0.988235, 1, 1)
-shader_parameter/distortion_speed = 2.0
-shader_parameter/tile = Vector2(20, 20)
-shader_parameter/offset = Vector2(0, 0)
-shader_parameter/fade_scale = 0.0
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_dm4qh")
+shader = ExtResource("2_05sb8")
+shader_parameter/shadow_color = null
+shader_parameter/tile_factor = 30.0
+shader_parameter/aspect_ratio = 2.0
+shader_parameter/texture_offset_scale = Vector2(0.2, 0.2)
+shader_parameter/texture_offset_height = 0.1
+shader_parameter/texture_offset_time_scale = 0.05
+shader_parameter/sine_time_scale = 0.03
+shader_parameter/sine_offset_scale = Vector2(0.4, 0.4)
+shader_parameter/sine_wave_size = 0.4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
 radius = 85.1007
@@ -155,9 +147,11 @@ scale = Vector2(1, 0.5)
 texture = ExtResource("1_6rg6x")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+texture_repeat = 2
 material = SubResource("ShaderMaterial_n1yaa")
-scale = Vector2(36.75, 33.5673)
-texture = ExtResource("3_2gars")
+position = Vector2(-1000, -2000)
+scale = Vector2(73.5469, 112.326)
+texture = ExtResource("3_k376q")
 centered = false
 script = ExtResource("4_xg6tq")
 
