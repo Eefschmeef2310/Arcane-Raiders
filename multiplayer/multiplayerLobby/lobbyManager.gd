@@ -55,6 +55,7 @@ func _ready():
 	
 	multiplayer_spawner.spawn_function = CreateNewCard
 	
+	
 	set_multiplayer_authority(1)
 	
 	
@@ -169,7 +170,8 @@ func _on_back_button_pressed():
 	if multiplayer.is_server():
 		Steam.setLobbyJoinable(lobby_id, false)
 		pass
-	multiplayer.multiplayer_peer = null
+	#print("peer: "+str(multiplayer.multiplayer_peer))
+	#multiplayer.multiplayer_peer = null
 	if (GameManager.isOnline()):
 		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
 	elif (GameManager.isLocal()):
