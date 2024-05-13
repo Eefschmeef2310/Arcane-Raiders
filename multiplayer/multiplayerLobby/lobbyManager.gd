@@ -87,12 +87,11 @@ func _process(delta):
 	else:
 		ready_timer = ready_delay
 		lobby_title.text= "CHOOSE YOUR RAIDER!"
+		
 	# if the timer runs out, start the game 
-	if is_multiplayer_authority() and !start_game_called and ready_timer <= 0:
+	if (is_multiplayer_authority() or GameManager.isLocal()) and !start_game_called and ready_timer <= 0:
 		print("StartGame triggered.")
 		StartGame()
-	
-	pass
 	
 #endregion
 
@@ -212,7 +211,7 @@ func InitLobby(new_lobby_id : int):
 
 func StartGame():
 	print("Attempting to spawn castle climb.")
-	start_game_called= true
+	start_game_called = true
 	Steam.setLobbyJoinable(lobby_id, false)
 	print("START THE GAME!!!!")
 	
