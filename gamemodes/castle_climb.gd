@@ -91,7 +91,7 @@ func start_next_floor():
 	# Reset player health
 	for data in player_data:
 		if data.health <= 0:
-			data.health = 100
+			data.health = 250
 	
 	await get_tree().create_timer(0.8).timeout
 	
