@@ -86,6 +86,7 @@ seamless = true
 noise = SubResource("FastNoiseLite_hdt01")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s23tj"]
+resource_local_to_scene = true
 shader = ExtResource("2_01emv")
 shader_parameter/fade_scale = 0.0
 shader_parameter/alpha = 0.324

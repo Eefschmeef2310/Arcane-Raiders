@@ -165,6 +165,10 @@ func switch_to_end():
 	music_stream.stop()
 	music_stream.play()
 
+func stop_all():
+	for child in get_children():
+		if child is AudioStreamPlayer:
+			child.stop()
 #endregion
 "
 
