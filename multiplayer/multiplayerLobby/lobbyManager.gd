@@ -55,6 +55,8 @@ func _ready():
 	
 	multiplayer_spawner.spawn_function = CreateNewCard
 	
+	set_multiplayer_authority(1)
+	
 	
 
 func _process(delta):
@@ -79,12 +81,15 @@ func _process(delta):
 	ready_progress_bar.value = ready_timer/ready_delay
 	if all_players_ready:
 		ready_timer -= delta
+		if ready_timer < 0:
+			ready_timer = 0
 		lobby_title.text= "STARTING IN... " + str(ceil(ready_timer)) 
 	else:
 		ready_timer = ready_delay
 		lobby_title.text= "CHOOSE YOUR RAIDER!"
 	# if the timer runs out, start the game 
-	if ready_timer <= 0 and is_multiplayer_authority():
+	if is_multiplayer_authority() and !start_game_called and ready_timer <= 0:
+		print("StartGame triggered.")
 		StartGame()
 	
 	pass
@@ -206,18 +211,18 @@ func InitLobby(new_lobby_id : int):
 
 
 func StartGame():
-	if not start_game_called:
-		start_game_called= true
-		Steam.setLobbyJoinable(lobby_id, false)
-		print("START THE GAME!!!!")
-		
-		var castle_climb : CastleClimb = castle_climb_scene.instantiate()
-		add_child(castle_climb)
-		
-		hide_lobby.rpc()
-		castle_climb.setup_from_parent_multiplayer_lobby.rpc()
-		
-		castle_climb.start_climb()
+	print("Attempting to spawn castle climb.")
+	start_game_called= true
+	Steam.setLobbyJoinable(lobby_id, false)
+	print("START THE GAME!!!!")
+	
+	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+	add_child(castle_climb)
+	
+	hide_lobby.rpc()
+	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+	
+	castle_climb.start_climb()
 
 @rpc("authority", "call_local", "reliable")
 func hide_lobby():
