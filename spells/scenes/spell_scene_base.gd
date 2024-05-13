@@ -45,7 +45,7 @@ func _enter_tree():
 	if caster:
 		pos = caster.global_position
 		
-	if play_sound_on_cast && resource.element.sound:
+	if play_sound_on_cast && resource and resource.element and resource.element.sound:
 		AudioManager.play_audio2D_at_point(pos, resource.element.sound)
 
 func transfer_data(new: Node2D):
