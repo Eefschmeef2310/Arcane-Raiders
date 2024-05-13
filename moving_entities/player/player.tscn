@@ -959,6 +959,7 @@ theme_override_font_sizes/font_size = 32
 text = "Help!"
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 1.5
 
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_qpnkh")
