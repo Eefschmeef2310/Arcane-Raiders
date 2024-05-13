@@ -15,6 +15,7 @@ func _on_quit_button_pressed():
 	if get_tree().paused:
 		get_tree().paused = false
 	GameManager.isPaused = false
+	AudioManager.play_track_instant(\"\")
 	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 	queue_free()
 #endregion

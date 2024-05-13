@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=38 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -13,10 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
+[ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="13_a6udy"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
 [ext_resource type="Script" path="res://moving_entities/player/player_dash_trail.gd" id="17_erdnq"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -711,6 +713,9 @@ _data = {
 radius = 18.0
 height = 66.4
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
+radius = 125.0
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b1y77"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -727,6 +732,7 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_gaksd"]
+resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.546053)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
@@ -877,6 +883,15 @@ script = ExtResource("9_cti52")
 position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_o8khp")
 
+[node name="RevivalZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RevivalZone"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_vq7jj")
+debug_color = Color(0.662745, 0.443137, 0, 0.419608)
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b1y77")
 
@@ -909,8 +924,42 @@ offset_bottom = -107.0
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="RevivalMeter" type="TextureProgressBar" parent="."]
+z_index = 50
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -102.0
+offset_right = 16.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.01
+value = 100.0
+fill_mode = 5
+texture_progress = ExtResource("13_a6udy")
+tint_progress = Color(0, 1, 0, 1)
+
+[node name="HelpLabel" type="Label" parent="."]
+z_index = 50
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_top = -141.0
+offset_right = 35.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("19_5ormi")
+theme_override_font_sizes/font_size = 32
+text = "Help!"
+
 [node name="InvincibilityTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_qpnkh")
@@ -931,8 +980,14 @@ gradient = SubResource("Gradient_gaksd")
 script = ExtResource("17_erdnq")
 max_length = 50
 
+[node name="DashRay" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(150, 0)
+
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]
+[connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
+[connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

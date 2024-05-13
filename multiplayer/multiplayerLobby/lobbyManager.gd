@@ -38,6 +38,8 @@ var sent_first_update : bool = false
 var start_game_called : bool = false
 var ready_timer : float 
 var lobby_id : int
+var picked_colors : Array[int]
+var picked_raiders : Array[int]
 
 #var server_browser_scene : PackedScene
 #endregion
@@ -54,6 +56,9 @@ func _ready():
 	multiplayer_spawner.spawn_function = CreateNewCard
 	
 	
+	set_multiplayer_authority(1)
+	
+	
 
 func _process(delta):
 	if GameManager.isLocal():
@@ -65,22 +70,29 @@ func _process(delta):
 	var all_players_ready : bool = true
 	if player_card_hbox.get_child_count() < 1:
 		all_players_ready = false
+	
+	picked_colors.clear()
+	picked_raiders.clear()
 	for card in player_card_hbox.get_children():
+		picked_colors.append(card.selected_color)
+		picked_raiders.append(card.selected_raider)
 		if card.player_ready == false:
 			all_players_ready = false
 	# when they are, start the timer, update the progress bar, and change the title 
 	ready_progress_bar.value = ready_timer/ready_delay
 	if all_players_ready:
 		ready_timer -= delta
+		if ready_timer < 0:
+			ready_timer = 0
 		lobby_title.text= "STARTING IN... " + str(ceil(ready_timer)) 
 	else:
 		ready_timer = ready_delay
 		lobby_title.text= "CHOOSE YOUR RAIDER!"
+		
 	# if the timer runs out, start the game 
-	if ready_timer <= 0 and is_multiplayer_authority():
+	if (is_multiplayer_authority() or GameManager.isLocal()) and !start_game_called and ready_timer <= 0:
+		print("StartGame triggered.")
 		StartGame()
-	
-	pass
 	
 #endregion
 
@@ -91,6 +103,33 @@ func CreateNewCard(peer_id : int):
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
+	
+	# select new player color
+	var color_found = -1
+	for i in player_colors.size():
+		if color_found == -1:
+			print ("checking: " + str(i))
+			color_found = i
+			for card in player_card_hbox.get_children():
+				if card.selected_color == i:
+					# match found check next
+					color_found = -1
+	if color_found != -1:
+		new_player_card.selected_color = color_found
+	
+	# select new animal
+	var animal_found = -1
+	for i in raiders.size():
+		if animal_found == -1:
+			print ("checking: " + str(i))
+			animal_found = i
+			for card in player_card_hbox.get_children():
+				if card.selected_raider == i:
+					# match found check next
+					animal_found = -1
+	if animal_found != -1:
+		new_player_card.selected_raider = animal_found
+	
 	new_player_card.set_multiplayer_authority(peer_id, true)
 	player_joined.emit()
 	return new_player_card
@@ -131,7 +170,8 @@ func _on_back_button_pressed():
 	if multiplayer.is_server():
 		Steam.setLobbyJoinable(lobby_id, false)
 		pass
-	multiplayer.multiplayer_peer = null
+	#print("peer: "+str(multiplayer.multiplayer_peer))
+	#multiplayer.multiplayer_peer = null
 	if (GameManager.isOnline()):
 		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
 	elif (GameManager.isLocal()):
@@ -172,18 +212,18 @@ func InitLobby(new_lobby_id : int):
 
 
 func StartGame():
-	if not start_game_called:
-		start_game_called= true
-		Steam.setLobbyJoinable(lobby_id, false)
-		print("START THE GAME!!!!")
-		
-		var castle_climb : CastleClimb = castle_climb_scene.instantiate()
-		add_child(castle_climb)
-		
-		hide_lobby.rpc()
-		castle_climb.setup_from_parent_multiplayer_lobby.rpc()
-		
-		castle_climb.start_climb()
+	print("Attempting to spawn castle climb.")
+	start_game_called = true
+	Steam.setLobbyJoinable(lobby_id, false)
+	print("START THE GAME!!!!")
+	
+	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+	add_child(castle_climb)
+	
+	hide_lobby.rpc()
+	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+	
+	castle_climb.start_climb()
 
 @rpc("authority", "call_local", "reliable")
 func hide_lobby():

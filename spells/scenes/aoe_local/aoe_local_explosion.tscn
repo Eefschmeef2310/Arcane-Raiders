@@ -42,4 +42,4 @@ scale = Vector2(0.316406, 0.320312)
 shape = SubResource("CircleShape2D_sidjm")
 
 [node name="kill_timer" parent="." index="3"]
-wait_time = 0.25
+wait_time = 0.3

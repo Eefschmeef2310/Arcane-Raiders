@@ -91,7 +91,7 @@ func start_next_floor():
 	# Reset player health
 	for data in player_data:
 		if data.health <= 0:
-			data.health = 100
+			data.health = 250
 	
 	await get_tree().create_timer(0.8).timeout
 	
@@ -103,6 +103,8 @@ func start_next_floor():
 		common_level_spawner.spawn("final")
 	elif current_floor in shop_floors:
 		common_level_spawner.spawn("shop")
+		for data in player_data:
+			data.health += 400
 	elif current_floor in boss_floors:
 		boss_level_spawner.spawn(rng_floors.randi_range(0, boss_levels.size() - 1))
 	else:
@@ -198,6 +200,8 @@ func set_spell_from_string(p_i: int, i: int, s: String):
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
 	current_floor = next_floor
+	for ui in player_ui:
+		ui.hide_equip_ui()
 	
 	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(next_floor)
 	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(next_floor-1)

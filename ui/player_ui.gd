@@ -9,6 +9,8 @@ class_name PlayerUI
 
 @onready var spells: Array = [$HBox/Stats/Spells/Spell0, $HBox/Stats/Spells/Spell1, $HBox/Stats/Spells/Spell2]
 @onready var health_bar = $HBox/Stats/HealthBar
+@onready var health_bar_linger = $HBox/Stats/HealthBar/HealthBarLinger
+
 
 var input_prompts: Array
 
@@ -17,12 +19,13 @@ func _ready():
 	if is_instance_valid(data):
 		set_data(data)
 
-func _process(_delta):
+func _process(delta):
 	if is_instance_valid(data):
 		for i in spells.size():
 			var p = (data.spell_cooldowns[i] / data.spell_cooldowns_max[i]) * 100
 			spells[i].set_cooldown_percent(p)
-		
+	
+	health_bar_linger.value = move_toward(health_bar_linger.value, health_bar.value, delta*100)
 #endregion
 
 #region Signal methods

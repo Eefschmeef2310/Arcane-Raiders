@@ -26,6 +26,7 @@ sprite_rotation_falloff_curve = SubResource("Curve_6prme")
 scale_falloff_curve = SubResource("Curve_m3wxd")
 transparency_falloff_curve = SubResource("Curve_o0hli")
 area_enabled_curve = SubResource("Curve_28dri")
+knockback = 5.0
 
 [node name="PointLight2D" parent="." index="0"]
 energy = 0.5
