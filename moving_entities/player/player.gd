@@ -101,7 +101,7 @@ func _process(delta):
 			if number_of_friends > 0:
 				revival_time += delta + (0.25 * (number_of_friends - 1))
 				if revival_time >= revival_time_max:
-					data.health += 100
+					data.health += 250
 			else:
 				revival_time -= delta
 				if revival_time <= 0:
@@ -258,6 +258,7 @@ func toggle_dead(b):
 		$CollisionShape2D.disabled = false;
 		revival_time = 0
 		add_to_group("player")
+		start_invincibility()
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
