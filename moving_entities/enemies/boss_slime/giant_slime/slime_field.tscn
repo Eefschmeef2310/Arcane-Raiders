@@ -197,7 +197,6 @@ script = ExtResource("4_xg6tq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_ft1mc")
-disabled = true
 
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.5
