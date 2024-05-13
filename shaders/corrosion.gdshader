@@ -3,7 +3,9 @@ shader_type canvas_item;
 uniform sampler2D SCREEN_TEXTURE: hint_screen_texture;
 
 uniform float fade_scale : hint_range(0.0, 1.0) = 0.5;
-uniform sampler2D noise_texture;
+uniform sampler2D noise_texture : repeat_enable;
+
+uniform float alpha : hint_range(0.0, 1.0) = 1;
 
 void fragment() {
 	//Get height threshold of noise
@@ -13,4 +15,5 @@ void fragment() {
 
 	//Set final albedo (if height in noise is higher than cutoff, use end colour, otherwise do base color)
 	COLOR.a = 1.0 - step(mask, height_cutoff);
+	COLOR.a *= alpha;
 }

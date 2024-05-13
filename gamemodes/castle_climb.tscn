@@ -19,7 +19,7 @@
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="9_om814"]
 [ext_resource type="PackedScene" uid="uid://bv47kko8wdikc" path="res://rooms/basic/basic_rigid.tscn" id="9_wet5w"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="10_k7a1l"]
-[ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="11_1p3id"]
+[ext_resource type="PackedScene" path="res://dynamic_camera/dynamic_camera.tscn" id="11_1p3id"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="12_agjct"]
 [ext_resource type="Texture2D" uid="uid://ikk12brjvn6d" path="res://debug/enemy_spawn.png" id="13_pi5k4"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="14_wd427"]
