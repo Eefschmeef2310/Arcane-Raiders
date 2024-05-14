@@ -14,6 +14,7 @@ class_name ElementResource
 
 @export var prefix : String
 @export var colour : Color
+@export var gradient : GradientTexture1D
 @export var pip_texture : Texture2D
 @export var max_infliction_time : float = 5
 @export var sound : AudioStream

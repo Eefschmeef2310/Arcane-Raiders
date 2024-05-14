@@ -1,13 +1,21 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=4 format=3 uid="uid://bpyrqdxfyvpku"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=6 format=3 uid="uid://bpyrqdxfyvpku"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_moo0l"]
 [ext_resource type="Texture2D" uid="uid://t13216wk8eap" path="res://elements/icons/wind_icon.png" id="1_stng8"]
 [ext_resource type="AudioStream" uid="uid://cbyo8f37xrkv7" path="res://sounds/effects/elements/fast-whoosh_studiokolomna_pixabay.wav" id="3_hk2tc"]
 
+[sub_resource type="Gradient" id="Gradient_7dvtd"]
+offsets = PackedFloat32Array(0, 0.209169, 0.641834, 0.862464, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.136667, 0.2, 1, 0, 0.917647, 0, 1, 0.8, 1, 0.94, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cshek"]
+gradient = SubResource("Gradient_7dvtd")
+
 [resource]
 script = ExtResource("1_moo0l")
 prefix = "Wind-"
 colour = Color(0.364706, 0.784314, 0.337255, 1)
+gradient = SubResource("GradientTexture1D_cshek")
 pip_texture = ExtResource("1_stng8")
 max_infliction_time = 5.0
 sound = ExtResource("3_hk2tc")

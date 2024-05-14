@@ -1,13 +1,21 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=4 format=3 uid="uid://bb41m0v5xy6p3"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=6 format=3 uid="uid://bb41m0v5xy6p3"]
 
 [ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="1_408gf"]
 [ext_resource type="Script" path="res://elements/element.gd" id="1_gsbof"]
 [ext_resource type="AudioStream" uid="uid://dyl3ref2wougv" path="res://sounds/effects/elements/Gust of Fire Whoosh.wav" id="3_yo0lq"]
 
+[sub_resource type="Gradient" id="Gradient_31mqn"]
+offsets = PackedFloat32Array(0, 0.171875, 0.50625, 0.840625, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.309804, 0.145098, 0.145098, 1, 1, 0, 0, 1, 0.988235, 0.862745, 0.72549, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yr424"]
+gradient = SubResource("Gradient_31mqn")
+
 [resource]
 script = ExtResource("1_gsbof")
 prefix = "Pyro-"
 colour = Color(0.811765, 0.243137, 0.101961, 1)
+gradient = SubResource("GradientTexture1D_yr424")
 pip_texture = ExtResource("1_408gf")
 max_infliction_time = 5.0
 sound = ExtResource("3_yo0lq")
