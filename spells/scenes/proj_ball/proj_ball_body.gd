@@ -26,8 +26,13 @@ func _ready():
 	global_position = caster.global_position + (direction * 40)
 	look_at(global_position + direction)
 	
-	modulate = resource.element.colour
+	if resource.element.gradient:
+		($AnimatedSprite2D.material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
+	else:
+		modulate = resource.element.colour
 	$PointLight2D.color = resource.element.colour
+	
+	$AnimatedSprite2D.play("default")
 
 func _process(delta):
 	position += direction * move_speed * delta

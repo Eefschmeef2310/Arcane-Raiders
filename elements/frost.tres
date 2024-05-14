@@ -1,13 +1,21 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=4 format=3 uid="uid://camskexplmxsy"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=6 format=3 uid="uid://camskexplmxsy"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_j27cw"]
 [ext_resource type="Texture2D" uid="uid://wv5jw8o5ednx" path="res://elements/icons/frost_icon.png" id="1_wea5a"]
 [ext_resource type="AudioStream" uid="uid://cidnlt82nysxl" path="res://sounds/effects/elements/ice-10_pixabay.wav" id="3_su0q2"]
 
+[sub_resource type="Gradient" id="Gradient_fwc6o"]
+offsets = PackedFloat32Array(0, 0.171875, 0.50625, 0.840625, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.151177, 0.1457, 0.31, 1, 0, 0.75, 1, 1, 0.7227, 0.99, 0.74943, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_epfax"]
+gradient = SubResource("Gradient_fwc6o")
+
 [resource]
 script = ExtResource("1_j27cw")
 prefix = "Frost-"
 colour = Color(0.219608, 0.666667, 0.839216, 1)
+gradient = SubResource("GradientTexture1D_epfax")
 pip_texture = ExtResource("1_wea5a")
 max_infliction_time = 5.0
 sound = ExtResource("3_su0q2")
