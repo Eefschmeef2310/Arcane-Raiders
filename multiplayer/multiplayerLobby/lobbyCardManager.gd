@@ -93,6 +93,7 @@ func _ready():
 		box.border_width_top = 3
 		box.border_width_left = 3
 		box.border_width_right = 3
+		box.set_corner_radius_all(3)
 		box.border_color = Color.WHITE
 		box_box.add_theme_stylebox_override("panel",box)
 		
@@ -135,6 +136,7 @@ func _ready():
 		box.border_width_top = 3
 		box.border_width_left = 3
 		box.border_width_right = 3
+		box.set_corner_radius_all(3)
 		box.border_color = Color.WHITE
 		new_pip.add_theme_stylebox_override("panel",box)
 		
