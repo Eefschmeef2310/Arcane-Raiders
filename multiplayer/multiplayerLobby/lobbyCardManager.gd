@@ -254,7 +254,8 @@ func UpdateDisplay():
 	#raider_portrait.texture = lobby_manager.raiders[selected_raider].portrait
 	loadout_name.text = lobby_manager.loadouts[selected_loadout].loadout_name
 	loadout_desc.text = lobby_manager.loadouts[selected_loadout].loadout_desc
-	color_name.text ="Color: " + str(selected_color+1)
+	#color_name.text ="Color: " + str(selected_color+1)
+	color_name.text ="Color"
 	
 	# prepare spell icons
 	for spell : int in spells_box.get_children().size():

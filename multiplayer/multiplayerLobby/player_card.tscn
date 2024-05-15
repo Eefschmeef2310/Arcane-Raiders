@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=17 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
@@ -24,6 +24,10 @@ font_size = 36
 [sub_resource type="LabelSettings" id="LabelSettings_vcbrb"]
 line_spacing = 0.0
 font = ExtResource("4_bk151")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ho28"]
+font = ExtResource("5_6stfj")
+font_size = 28
 
 [node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "remove_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
 custom_minimum_size = Vector2(400, 780)
@@ -396,6 +400,7 @@ layout_mode = 2
 texture = ExtResource("5_w3e0p")
 
 [node name="Button" type="Button" parent="VBoxContainer"]
+self_modulate = Color(0.192157, 0.360784, 0.647059, 1)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_vertical = 10
@@ -404,6 +409,20 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_bk151")
 theme_override_styles/normal = ExtResource("5_oe6lx")
 text = "READY"
+
+[node name="ReadyText" type="Label" parent="VBoxContainer/Button"]
+custom_minimum_size = Vector2(249.105, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Ready"
+label_settings = SubResource("LabelSettings_6ho28")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RemovePlayerButton" type="Button" parent="."]
 layout_mode = 2
