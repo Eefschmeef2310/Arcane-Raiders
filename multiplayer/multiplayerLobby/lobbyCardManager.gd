@@ -86,11 +86,19 @@ func _ready():
 	
 	for raiderCount in lobby_manager.raiders.size():
 		var new_pip = TextureRect.new()
-		new_pip.texture = pip_texture
+		#new_pip.texture = pip_texture
+		new_pip.texture = lobby_manager.raiders[raiderCount].head_texture
+		var region = Rect2(35,35,80,80)
+		new_pip.texture = get_cropped_texture(new_pip.texture, region) 
+		new_pip.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		#new_pip.scale = Vector2(0.5,0.5)
+		new_pip.custom_minimum_size =  Vector2(50,50)
+		
 		if raiderCount > 0:
 			new_pip.modulate = Color.DIM_GRAY
 		character_pips_box.add_child(new_pip)
-		
+	
+	
 	for child in loadout_pips_box.get_children():
 		child.queue_free()
 		
@@ -102,18 +110,37 @@ func _ready():
 		loadout_pips_box.add_child(new_pip)
 	pass
 	
+	
 	for child in color_pips_box.get_children():
 		child.queue_free()
 		
 	for colorCount in lobby_manager.player_colors.size():
-		var new_pip = TextureRect.new()
-		new_pip.texture = pip_texture
+		var new_pip = Panel.new()
+		var box = StyleBoxFlat.new()
+		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
+		box.bg_color = lobby_manager.player_colors[colorCount]
+		box.border_width_bottom = 3
+		box.border_width_top = 3
+		box.border_width_left = 3
+		box.border_width_right = 3
+		box.border_color = Color.WHITE
+		new_pip.add_theme_stylebox_override("panel",box)
+		
+		#new_pip.color = lobby_manager.player_colors[colorCount]
+		new_pip.custom_minimum_size =  Vector2(50,50)
+		
 		if colorCount > 0:
-			new_pip.modulate = Color.DIM_GRAY
+			new_pip.modulate = Color.WHITE
 		color_pips_box.add_child(new_pip)
 	pass
 	
 	UpdateDisplay()
+
+func get_cropped_texture(texture : Texture, region : Rect2) -> AtlasTexture:
+		var atlas_texture := AtlasTexture.new()
+		atlas_texture.set_atlas(texture)
+		atlas_texture.set_region(region)
+		return atlas_texture
 
 func _process(_delta):
 	if !finished_connecting:
