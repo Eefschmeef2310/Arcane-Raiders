@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://6hpw555slkv6"]
+[gd_scene load_steps=15 format=3 uid="uid://6hpw555slkv6"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_so2fm"]
+[ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="2_bcqyg"]
 
 [sub_resource type="Curve" id="Curve_nmexx"]
 _data = [Vector2(0, 0.183767), 0.0, 0.0, 0, 0]
 point_count = 1
 
 [sub_resource type="Curve" id="Curve_2g6hw"]
-_data = [Vector2(0, 0), 0.0, 10.4832, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.505155), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
 
 [sub_resource type="Curve" id="Curve_sydjl"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0954198, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -18,8 +19,58 @@ point_count = 3
 _data = [Vector2(0.0992366, 1), 0.0, 0.0, 0, 0, Vector2(0.103053, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hspqe"]
+atlas = ExtResource("2_bcqyg")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1budx"]
+atlas = ExtResource("2_bcqyg")
+region = Rect2(500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptmdb"]
+atlas = ExtResource("2_bcqyg")
+region = Rect2(1000, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybjrj"]
+atlas = ExtResource("2_bcqyg")
+region = Rect2(0, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56mna"]
+atlas = ExtResource("2_bcqyg")
+region = Rect2(500, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g37ri"]
+atlas = ExtResource("2_bcqyg")
+region = Rect2(1000, 500, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ajv3a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hspqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1budx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptmdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybjrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56mna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g37ri")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_hacmf"]
-radius = 74.0068
+radius = 75.0
 
 [node name="proj_ball_explosion" instance=ExtResource("1_so2fm")]
 sprite_rotation_falloff_curve = SubResource("Curve_nmexx")
@@ -31,10 +82,19 @@ area_enabled_curve = SubResource("Curve_gce2g")
 energy = 0.3
 
 [node name="Sprite2D" parent="." index="1"]
+visible = false
 scale = Vector2(0.65625, 0.589844)
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+use_parent_material = true
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ajv3a")
+autoplay = "default"
+frame = 5
+frame_progress = 1.0
+
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_hacmf")
 
-[node name="kill_timer" parent="." index="3"]
-wait_time = 0.75
+[node name="kill_timer" parent="." index="4"]
+wait_time = 0.4
