@@ -8,6 +8,6 @@ func _ready():
 	global_position = pos
 	global_scale = Vector2(1.5, 5)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	global_position = pos
 	global_scale = Vector2(1.5, 5)

@@ -18,14 +18,14 @@ func _ready():
 	#dynamic_camera(-1)
 	pass
 
-func _process(delta):
-	dynamic_camera(delta)
+func _process(_delta):
+	dynamic_camera(_delta)
 #endregion
 
 
 #region Other methods (please try to separate and organise!)
 
-func dynamic_camera(delta):
+func dynamic_camera(_delta):
 	if !targets:
 		return
 
