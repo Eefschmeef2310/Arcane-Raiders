@@ -13,6 +13,7 @@ class_name ElementResource
 @export_group("Element Parameters")
 
 @export var prefix : String
+@export_multiline var descrption_bb : String
 @export var colour : Color
 @export var gradient : GradientTexture1D
 @export var pip_texture : Texture2D

@@ -10,6 +10,7 @@ gradient = SubResource("Gradient_1t2hn")
 [resource]
 script = ExtResource("1_4mdce")
 prefix = ""
+descrption_bb = ""
 colour = Color(1, 1, 1, 1)
 gradient = SubResource("GradientTexture1D_u4kad")
 max_infliction_time = 5.0

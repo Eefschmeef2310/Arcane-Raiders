@@ -18,6 +18,11 @@ content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
+bg_color = Color(0.545098, 0.419608, 0.360784, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_30e0m"]
 polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
@@ -54,10 +59,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -246.0
-offset_right = 100.0
-offset_bottom = -96.0
+offset_left = -125.0
+offset_top = -205.0
+offset_right = 125.0
+offset_bottom = -84.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(100, 150)
@@ -79,12 +84,24 @@ text = "Pyro-Laser"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Description" type="Label" parent="InfoBox/VBoxContainer"]
-custom_minimum_size = Vector2(10, 10)
+[node name="Description" type="RichTextLabel" parent="InfoBox/VBoxContainer"]
+custom_minimum_size = Vector2(10, 55)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4_835q6")
-theme_override_font_sizes/font_size = 16
-text = "Cast a laser that pierces enemies."
+theme_override_fonts/normal_font = ExtResource("4_835q6")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[center][font_size=18]Cast a laser that pierces enemies.[/font_size]
+
+[img]res://elements/icons/burn_icon.png[/img] Damage over time
+Reacts with [img]res://elements/icons/stun_icon.png[/img] and [img]res://elements/icons/frost_icon.png[/img]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Name2" type="Label" parent="InfoBox/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 2
 horizontal_alignment = 1
 autowrap_mode = 2
 

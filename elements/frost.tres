@@ -14,6 +14,8 @@ gradient = SubResource("Gradient_fwc6o")
 [resource]
 script = ExtResource("1_j27cw")
 prefix = "Frost-"
+descrption_bb = "[img]res://elements/icons/frost_icon.png[/img] Slows movement
+Reacts with [img]res://elements/icons/burn_icon.png[/img] and [img]res://elements/icons/weak_icon.png[/img]"
 colour = Color(0.219608, 0.666667, 0.839216, 1)
 gradient = SubResource("GradientTexture1D_epfax")
 pip_texture = ExtResource("1_wea5a")

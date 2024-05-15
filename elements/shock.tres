@@ -14,6 +14,8 @@ gradient = SubResource("Gradient_5vx4d")
 [resource]
 script = ExtResource("1_btad0")
 prefix = "Shock-"
+descrption_bb = "[img]res://elements/icons/shock_icon.png[/img] Chains damage
+Reacts with [img]res://elements/icons/weak_icon.png[/img] and [img]res://elements/icons/wind_icon.png[/img]"
 colour = Color(0.913725, 0.866667, 0, 1)
 gradient = SubResource("GradientTexture1D_sndj2")
 pip_texture = ExtResource("1_qyye0")
