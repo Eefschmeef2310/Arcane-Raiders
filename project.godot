@@ -61,6 +61,10 @@ folder_colors={
 "res://spells/scenes/explosive/": "red"
 }
 
+[gui]
+
+theme/custom="res://menus/default_ui_theme.tres"
+
 [input]
 
 ui_accept={
