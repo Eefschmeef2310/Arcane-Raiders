@@ -11,7 +11,9 @@ signal pickup_proximity_changed(bool)
 @export var device_id : int = -2
 @export var peer_id : int = 1
 
-@export var health : int = 1000
+@export var health : int = 1000:
+	set(v):
+		health = clamp(v, 0, 1000)
 @export var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 @export var spell_cooldowns : Array[float] = [0,0,0]

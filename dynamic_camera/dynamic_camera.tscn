@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://dynamic_camera/dynamic_camera.gd" id="1_tka6i"]
 
 [node name="DynamicCamera" type="Camera2D"]
+position_smoothing_enabled = true
 script = ExtResource("1_tka6i")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

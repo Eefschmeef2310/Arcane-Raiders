@@ -43,7 +43,7 @@ func _ready():
 		AudioManager.play_audio2D_at_point(global_position, load("res://sounds/effects/reactions/Free Sound Effect (Magic Boom Explosion) HD.mp3"))
 		
 		var reaction_elements_ui = REACTION_ELEMENTS_UI.instantiate()
-		reaction_elements_ui.global_position = global_position
+		reaction_elements_ui.position = position
 		reaction_elements_ui.z_index = z_index + 1
 		add_sibling(reaction_elements_ui)
 		
@@ -52,6 +52,8 @@ func _ready():
 		
 		reaction_elements_ui.element_2.texture = elements[1].pip_texture
 		reaction_elements_ui.element_2.modulate = elements[1].colour
+		
+		remove_from_group(get_groups()[0])
 #endregion
 
 #region Signal methods
