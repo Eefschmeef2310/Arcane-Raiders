@@ -21,36 +21,36 @@ shader = ExtResource("4_4wouh")
 shader_parameter/final_saturation = 0.65
 shader_parameter/gradient = SubResource("GradientTexture1D_bwf1g")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wctel"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pitru"]
 atlas = ExtResource("4_tkjnx")
-region = Rect2(2, 0, 121, 58)
+region = Rect2(0, 0, 115, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i0il7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pd13"]
 atlas = ExtResource("4_tkjnx")
-region = Rect2(123, 0, 121, 58)
+region = Rect2(115, 0, 115, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_njs3f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rola"]
 atlas = ExtResource("4_tkjnx")
-region = Rect2(244, 0, 121, 58)
+region = Rect2(0, 50, 115, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4lk42"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_helwx"]
 atlas = ExtResource("4_tkjnx")
-region = Rect2(365, 0, 121, 58)
+region = Rect2(115, 50, 115, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y5dbw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wctel")
+"texture": SubResource("AtlasTexture_pitru")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i0il7")
+"texture": SubResource("AtlasTexture_5pd13")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_njs3f")
+"texture": SubResource("AtlasTexture_7rola")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4lk42")
+"texture": SubResource("AtlasTexture_helwx")
 }],
 "loop": true,
 "name": &"default",
@@ -79,7 +79,8 @@ texture = ExtResource("2_ir44m")
 material = SubResource("ShaderMaterial_n4aq5")
 position = Vector2(-34, 0)
 sprite_frames = SubResource("SpriteFrames_y5dbw")
-frame_progress = 0.047023
+frame = 1
+frame_progress = 0.315976
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false

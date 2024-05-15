@@ -70,7 +70,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hacmf"]
-radius = 75.0
+radius = 80.0
 
 [node name="proj_ball_explosion" instance=ExtResource("1_so2fm")]
 sprite_rotation_falloff_curve = SubResource("Curve_nmexx")

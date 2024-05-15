@@ -3,68 +3,68 @@
 		{
 			"image": "proj_ball_sheet.png",
 			"size": {
-				"w": 486,
-				"h": 58
+				"w": 230,
+				"h": 101
 			},
 			"sprites": [
 				{
-					"filename": "proj_ball_0000.png",
+					"filename": "ball_0000.png",
 					"region": {
-						"x": 1,
-						"y": 1,
-						"w": 122,
-						"h": 56
+						"x": 0,
+						"y": 0,
+						"w": 116,
+						"h": 51
 					},
 					"margin": {
-						"x": 28,
-						"y": 78,
-						"w": 78,
-						"h": 144
+						"x": 32,
+						"y": 81,
+						"w": 84,
+						"h": 149
 					}
 				},
 				{
-					"filename": "proj_ball_0003.png",
+					"filename": "ball_0001.png",
 					"region": {
-						"x": 125,
-						"y": 1,
-						"w": 120,
-						"h": 56
+						"x": 116,
+						"y": 0,
+						"w": 114,
+						"h": 51
 					},
 					"margin": {
-						"x": 30,
-						"y": 79,
-						"w": 80,
-						"h": 144
+						"x": 34,
+						"y": 81,
+						"w": 86,
+						"h": 149
 					}
 				},
 				{
-					"filename": "proj_ball_0001.png",
+					"filename": "ball_0003.png",
 					"region": {
-						"x": 247,
-						"y": 1,
-						"w": 119,
-						"h": 56
-					},
-					"margin": {
-						"x": 31,
-						"y": 78,
-						"w": 81,
-						"h": 144
-					}
-				},
-				{
-					"filename": "proj_ball_0002.png",
-					"region": {
-						"x": 368,
-						"y": 1,
-						"w": 117,
-						"h": 55
+						"x": 0,
+						"y": 51,
+						"w": 115,
+						"h": 50
 					},
 					"margin": {
 						"x": 33,
-						"y": 80,
-						"w": 83,
-						"h": 145
+						"y": 82,
+						"w": 85,
+						"h": 150
+					}
+				},
+				{
+					"filename": "ball_0002.png",
+					"region": {
+						"x": 115,
+						"y": 51,
+						"w": 111,
+						"h": 50
+					},
+					"margin": {
+						"x": 37,
+						"y": 82,
+						"w": 89,
+						"h": 150
 					}
 				}
 			]
@@ -73,6 +73,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "1.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:3834318e9a624214649f6954a590b23c:3597527fce2f03ba68e864095537d73a:10d77332c184e01d315238400aa05e48$"
+		"smartupdate": "$TexturePacker:SmartUpdate:ff458064c491f276d01495907df5ce25:a557f49141f8f5e99ed4587aa44e8199:10d77332c184e01d315238400aa05e48$"
 	}
 }
