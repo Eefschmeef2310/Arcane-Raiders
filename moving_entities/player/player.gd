@@ -259,6 +259,7 @@ func toggle_dead(b):
 		revival_time = 0
 		add_to_group("player")
 		start_invincibility()
+		animation_player.play("idle")
 		health_updated.emit(health)
 
 @rpc("authority", "call_local", "reliable")
