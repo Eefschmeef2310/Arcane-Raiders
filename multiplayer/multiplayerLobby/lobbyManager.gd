@@ -52,7 +52,7 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	
+	Input.joy_connection_changed.connect(_on_controller_changed)
 	
 	multiplayer_spawner.spawn_function = CreateNewCard
 	
@@ -184,6 +184,15 @@ func _on_back_button_pressed():
 func _on_start_button_pressed(): 
 	StartGame()
 
+func _on_controller_changed(device : int, connected : bool):
+	if not connected and GameManager.isLocal():
+		for card in player_card_hbox.get_children():
+			if card.device_id == device:
+				card.queue_free()
+	#if connected and GameManager.isLocal():
+		#var new_card = CreateNewCard(1)
+		#new_card.device_id = device
+		#player_card_hbox.add_child(new_card)
 
 #endregion
 

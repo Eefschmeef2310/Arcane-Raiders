@@ -43,7 +43,10 @@ var play_element_sound : bool = false
 #region Godot methods
 func _ready():
 	if resource:
-		modulate = resource.element.colour
+		if resource.element.gradient:
+			(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
+		else:
+			modulate = resource.element.colour
 		point_light_2d.color = resource.element.colour
 		if play_element_sound and resource.element.sound:
 			AudioManager.play_audio2D_at_point(global_position, resource.element.sound)
