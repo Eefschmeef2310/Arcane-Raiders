@@ -85,18 +85,30 @@ func _ready():
 		child.queue_free()
 	
 	for raiderCount in lobby_manager.raiders.size():
+		var box = StyleBoxFlat.new()
+		var box_box = PanelContainer.new()
+		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
+		box.bg_color = Color8(0,0,0,0)
+		box.border_width_bottom = 3
+		box.border_width_top = 3
+		box.border_width_left = 3
+		box.border_width_right = 3
+		box.border_color = Color.WHITE
+		box_box.add_theme_stylebox_override("panel",box)
+		
 		var new_pip = TextureRect.new()
-		#new_pip.texture = pip_texture
 		new_pip.texture = lobby_manager.raiders[raiderCount].head_texture
 		var region = Rect2(35,35,80,80)
 		new_pip.texture = get_cropped_texture(new_pip.texture, region) 
 		new_pip.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		#new_pip.scale = Vector2(0.5,0.5)
 		new_pip.custom_minimum_size =  Vector2(50,50)
 		
 		if raiderCount > 0:
-			new_pip.modulate = Color.DIM_GRAY
-		character_pips_box.add_child(new_pip)
+			#new_pip.modulate = Color.DIM_GRAY
+			box_box.modulate = Color.DIM_GRAY
+		
+		box_box.add_child(new_pip)
+		character_pips_box.add_child(box_box)
 	
 	
 	for child in loadout_pips_box.get_children():
@@ -256,7 +268,7 @@ func UpdateDisplay():
 		if pip == selected_raider:
 			character_pips_box.get_child(pip).modulate = Color.WHITE
 		elif lobby_manager.picked_raiders.has(pip) and not lobby_manager.allow_duplicate_animals:
-			character_pips_box.get_child(pip).modulate = Color.BLACK
+			character_pips_box.get_child(pip).modulate = Color8(255,255,255,40)
 		else: 
 			character_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 			
@@ -270,7 +282,7 @@ func UpdateDisplay():
 		if pip == selected_color:
 			color_pips_box.get_child(pip).modulate = Color.WHITE
 		elif lobby_manager.picked_colors.has(pip) and not lobby_manager.allow_duplicate_colors:
-			color_pips_box.get_child(pip).modulate = Color.BLACK
+			color_pips_box.get_child(pip).modulate = Color8(255,255,255,40)
 		else: 
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	

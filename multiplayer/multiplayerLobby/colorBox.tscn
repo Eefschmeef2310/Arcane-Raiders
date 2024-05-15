@@ -15,3 +15,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_s823t")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
