@@ -47,11 +47,12 @@ func _ready():
 		reaction_elements_ui.z_index = z_index + 1
 		add_sibling(reaction_elements_ui)
 		
-		reaction_elements_ui.element_1.texture = elements[0].pip_texture
-		reaction_elements_ui.element_1.modulate = elements[0].colour
-		
-		reaction_elements_ui.element_2.texture = elements[1].pip_texture
-		reaction_elements_ui.element_2.modulate = elements[1].colour
+		if elements.size() == 2:
+			reaction_elements_ui.element_1.texture = elements[0].pip_texture
+			reaction_elements_ui.element_1.modulate = elements[0].colour
+			
+			reaction_elements_ui.element_2.texture = elements[1].pip_texture
+			reaction_elements_ui.element_2.modulate = elements[1].colour
 		
 		remove_from_group(get_groups()[0])
 #endregion

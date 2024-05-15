@@ -136,7 +136,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
-	health_updated.connect(data._on_player_health_updated)
+	#health_updated.connect(data._on_player_health_updated)
 	
 	health = data.health
 	

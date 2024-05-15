@@ -41,10 +41,10 @@ func set_spell_from_string(s):
 	$Sprite2D.self_modulate = spell.element.colour
 	$InfoBox/VBoxContainer/Name.text = spell.element.prefix + spell.suffix
 	
-	var str = "[center][font_size=18]" + spell.description + "[/font_size]"
+	var string = "[center][font_size=18]" + spell.description + "[/font_size]"
 	if spell.element.descrption_bb != "":
-		str = str + "\n\n" + spell.element.descrption_bb
-	$InfoBox/VBoxContainer/Description.text = str
+		string = string + "\n\n" + spell.element.descrption_bb
+	$InfoBox/VBoxContainer/Description.text = string
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
