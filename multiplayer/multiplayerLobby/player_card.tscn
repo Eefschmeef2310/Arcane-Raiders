@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=16 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="5_w3e0p"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_xkijq"]
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_3q2uu"]
+[ext_resource type="Texture2D" uid="uid://dxccd0s3emefc" path="res://multiplayer/multiplayerLobby/cross.png" id="12_j335c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
 font = ExtResource("4_bk151")
@@ -408,7 +409,8 @@ text = "READY"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-text = "X"
+theme_override_constants/icon_max_width = 30
+icon = ExtResource("12_j335c")
 
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
