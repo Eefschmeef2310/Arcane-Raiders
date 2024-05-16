@@ -155,7 +155,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -173,10 +173,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/proj_ball_0000.png</key>
-            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/proj_ball_0001.png</key>
-            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/proj_ball_0002.png</key>
-            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/proj_ball_0003.png</key>
+            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0000.png</key>
+            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0001.png</key>
+            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0002.png</key>
+            <key type="filename">../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0003.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -198,10 +198,10 @@
             <struct type="SpriteSheet">
                 <key>files</key>
                 <array>
-                    <filename>../../../../../../University/Game Design Studio 1/Spells/proj_ball_0000.png</filename>
-                    <filename>../../../../../../University/Game Design Studio 1/Spells/proj_ball_0001.png</filename>
-                    <filename>../../../../../../University/Game Design Studio 1/Spells/proj_ball_0002.png</filename>
-                    <filename>../../../../../../University/Game Design Studio 1/Spells/proj_ball_0003.png</filename>
+                    <filename>../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0000.png</filename>
+                    <filename>../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0001.png</filename>
+                    <filename>../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0002.png</filename>
+                    <filename>../../../../../../University/Game Design Studio 1/Spells/fireball/ball_0003.png</filename>
                 </array>
             </struct>
         </map>
