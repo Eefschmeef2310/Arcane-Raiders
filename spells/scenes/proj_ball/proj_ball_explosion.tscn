@@ -1,7 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://6hpw555slkv6"]
+[gd_scene load_steps=19 format=3 uid="uid://6hpw555slkv6"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_so2fm"]
 [ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="2_bcqyg"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_gslav"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gshti"]
+resource_local_to_scene = true
+shader = ExtResource("2_gslav")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_nmexx"]
 _data = [Vector2(0, 0.183767), 0.0, 0.0, 0, 0]
@@ -73,6 +85,7 @@ animations = [{
 radius = 80.0
 
 [node name="proj_ball_explosion" instance=ExtResource("1_so2fm")]
+material = SubResource("ShaderMaterial_gshti")
 sprite_rotation_falloff_curve = SubResource("Curve_nmexx")
 scale_falloff_curve = SubResource("Curve_2g6hw")
 transparency_falloff_curve = SubResource("Curve_sydjl")

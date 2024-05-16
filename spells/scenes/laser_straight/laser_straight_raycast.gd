@@ -22,8 +22,12 @@ func _ready():
 	owner.transfer_data($Area2D)
 	owner.global_position = caster.global_position
 	owner.global_position.y += y_offset
-	$Line2D.default_color = owner.resource.element.colour
 	$Line2D.width = 5
+	
+	if owner.resource.element.gradient:
+		($Line2D.material as ShaderMaterial).set_shader_parameter("gradient", owner.resource.element.gradient)
+	else:
+		$Line2D.default_color = owner.resource.element.colour
 	
 	#await get_tree().create_timer(owner.start_time).timeout
 	track_aim = false
@@ -47,6 +51,7 @@ func _ready():
 	$Area2D/CollisionShape2D.shape.size = Vector2(cast_length, beam_width)
 	
 	$KillTimer.start()
+	$AnimationPlayer.play("beam", -1, 1/$KillTimer.wait_time)
 
 func _process(_delta):
 	if track_aim:
