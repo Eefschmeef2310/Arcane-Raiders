@@ -148,7 +148,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	$HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
-		print(data.character.raider_name)
+		#print(data.character.raider_name)
 		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
 		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
 		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
@@ -156,7 +156,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
 
 func set_input(id: int):
-	print("Setting input" + str(id))
+	#print("Setting input" + str(id))
 	$Input.set_device(id)
 
 func set_sprite_overlay(c: Color):
@@ -169,7 +169,7 @@ func attempt_dash():
 		
 @rpc("authority", "call_local", "reliable")
 func start_dash(dir: Vector2):
-	print("dash!")
+	#print("dash!")
 	$DashSound.play()
 	if dir == Vector2.ZERO:
 		dir = Vector2(1, 0)

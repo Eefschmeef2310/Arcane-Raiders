@@ -116,7 +116,7 @@ func spawn_player(player_number: int) -> Node2D:
 	player.dead.connect(report_player_death)
 	dynamic_camera.add_target(player)
 	live_players += 1
-	print("Spawned player of peer_id " + str(player.data.peer_id))
+	#print("Spawned player of peer_id " + str(player.data.peer_id))
 	return player
 
 func report_player_death(player):

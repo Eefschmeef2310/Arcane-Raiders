@@ -56,15 +56,11 @@ func _ready():
 	
 	multiplayer_spawner.spawn_function = CreateNewCard
 	
-	
 	set_multiplayer_authority(1)
-	
-	
 
 func _process(delta):
 	if GameManager.isLocal():
 		handle_join_input()
-	
 	
 	## ready timer
 	# determine if all the players are ready
@@ -180,7 +176,6 @@ func _on_back_button_pressed():
 		#queue_free()
 	pass # Replace with function body.
 
-
 func _on_start_button_pressed(): 
 	StartGame()
 
@@ -219,8 +214,7 @@ func InitLobby(new_lobby_id : int):
 		pass
 	pass
 	
-
-
+	
 func StartGame():
 	print("Attempting to spawn castle climb.")
 	start_game_called = true
@@ -252,7 +246,6 @@ func get_card_data() -> Array:
 			})
 	return arr
 	
-
 #endregion
 
 #region Local Input Management

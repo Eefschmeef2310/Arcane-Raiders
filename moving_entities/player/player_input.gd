@@ -29,6 +29,7 @@ func _process(_delta):
 	
 	if do_pause and !GameManager.isPaused:
 		GameManager.isPaused = true
+		MultiplayerInput.set_ui_action_device(input.device)
 		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:

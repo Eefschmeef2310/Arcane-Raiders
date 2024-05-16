@@ -80,7 +80,7 @@ script = SubResource("GDScript_tg365")
 position = Vector2(96, 800)
 
 [node name="PlayerData" parent="Player" index="6"]
-device_id = -1
+device_id = 0
 spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
 spell_strings = Array[String](["wet-aoe_large", "stun-proj_ball", "wind-proj_ball"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)

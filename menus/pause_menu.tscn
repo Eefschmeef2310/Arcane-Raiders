@@ -5,35 +5,12 @@
 [sub_resource type="GDScript" id="GDScript_gacho"]
 resource_name = "pause_menu"
 script/source = "extends CanvasLayer
-	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-var pauser_device : DeviceInput
-
-#endregion
 
 #region Godot methods
 func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
-
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods
@@ -57,19 +34,13 @@ func _on_quit_button_pressed():
 	else:
 		if get_tree().paused:
 			get_tree().paused = false
+		#TODO - Multiplayer input now breaks when going back to menu, because of line 32 in player_input
+
 		AudioManager.play_track_instant(\"\")
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
 		
 #endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-
-#TODO: 1. Check for local. if we're in local. Only the pausing player should be able to control the menu, and the game should be paused (like Smash)
-#2. Test to make sure that online, the pause screen shouldnt pause at all if we're online
-#3. a warning to the host to say the server will shut. for every other player, a quitting warning will be displayed (should be implemented)
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
