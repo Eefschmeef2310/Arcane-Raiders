@@ -47,6 +47,7 @@ func update_prompts(id: int):
 				spells[i].change_prompt(icons[i])
 
 func _on_player_health_updated(_player_data, _amount):
+	print("updating health bar")
 	health_bar.value = data.health
 
 func _pickup_proximity_changed(b: bool):

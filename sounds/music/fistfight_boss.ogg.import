@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/fistfight_boss.ogg-cbe18fee4f7295eda60e42d23f
 [params]
 
 loop=true
-loop_offset=6.86
+loop_offset=3.43
 bpm=140.0
 beat_count=0
 bar_beats=4

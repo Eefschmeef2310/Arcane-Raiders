@@ -30,7 +30,7 @@ spell_ids = Array[String](["frost-aoe_local", "wet-proj_ball", "null-proj_burst"
 script = ExtResource("6_mpv8m")
 loadout_name = "Wet"
 loadout_desc = ""
-spell_ids = Array[String](["wet-proj_burst", "shock-aoe_local", "null-proj_ball"])
+spell_ids = Array[String](["wet-proj_burst", "shock-laser", "null-proj_ball"])
 
 [sub_resource type="Resource" id="Resource_6npna"]
 script = ExtResource("6_mpv8m")

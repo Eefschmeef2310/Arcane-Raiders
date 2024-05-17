@@ -41,6 +41,18 @@ func _on_quit_button_pressed():
 		queue_free()
 		
 #endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+#TODO: 1. Check for local. if we're in local. Only the pausing player should be able to control the menu, and the game should be paused (like Smash)
+#2. Test to make sure that online, the pause screen shouldnt pause at all if we're online
+#3. a warning to the host to say the server will shut. for every other player, a quitting warning will be displayed (should be implemented)
+
+
+func _on_tree_exiting():
+	GameManager.isPaused = false
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
@@ -112,6 +124,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "QUIT"
 
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
