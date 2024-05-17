@@ -195,7 +195,7 @@ _data = {
 [node name="SmallSlime" instance=ExtResource("1_6yb0e")]
 script = SubResource("GDScript_60b0v")
 movement_speed = 150.0
-max_health = 400
+max_health = 300
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -20)

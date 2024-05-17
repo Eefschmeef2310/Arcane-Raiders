@@ -178,7 +178,7 @@ calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
 boss_name = "Poisonous Amalgamate"
-max_health = 3000
+max_health = 2000
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -70)
