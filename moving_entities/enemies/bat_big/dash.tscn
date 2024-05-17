@@ -6,21 +6,6 @@ script/source = "extends SpellBase
 #class_name
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-	#Other Variables (please try to separate and organise!)
-#endregion
-
 #region Godot methods
 func _ready():
 	if caster:
@@ -28,15 +13,6 @@ func _ready():
 			caster.dash(caster.aim_direction if !caster.check_wall(caster.aim_direction) else caster.aim_direction.rotated(deg_to_rad(180)), caster.dash_duration)
 	queue_free()
 #endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-
 "
 
 [node name="Dash" type="Node2D"]

@@ -18,7 +18,7 @@ class_name EnemySpells
 	#@export_subgroup("Subgroup")
 @export var spells : Array[Spell] = [null] #Just the spell resource
 @export var cast_time: Array[float] = [0.2, 0.2, 0.2] #Change cast_time to add startup frames before an attack
-@export var spell_cooldowns : Array[float] = [1, 1, 1] #Change spell_cooldowns if you want a spell to START OFF on cooldown
+@export var spell_cooldowns : Array[float] = [2, 2, 2] #Change spell_cooldowns if you want a spell to START OFF on cooldown
 
 
 	#Onready Variables

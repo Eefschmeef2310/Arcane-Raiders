@@ -239,6 +239,7 @@ script = SubResource("GDScript_t3owp")
 dash_duration = 0.3
 movement_speed = 150.0
 death_sound = null
+max_health = 400
 
 [node name="Sprite2D" parent="." index="1"]
 modulate = Color(1, 0, 0.396078, 1)
@@ -279,12 +280,11 @@ actual_first_state = NodePath("../BatChase")
 
 [node name="BatChase" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("4_263t8")
-transition_range = 700.0
 
 [node name="BatAttack" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("5_wc8po")
 prefered_range = 250.0
-far_range = 900.0
+far_range = 700.0
 nav_timer_interval = 1.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="3"]

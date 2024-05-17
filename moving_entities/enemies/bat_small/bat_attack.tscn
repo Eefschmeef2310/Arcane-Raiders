@@ -51,7 +51,8 @@ radius = 13.0384
 collision_layer = 192
 collision_mask = 5
 script = SubResource("GDScript_2efh6")
-projectile_speed = 500.0
+projectile_speed = 400.0
+cooldown_time = 6.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_33lrw")
