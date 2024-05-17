@@ -64,7 +64,7 @@ func _process(_delta):
 					spell_down[i] = input.is_action_pressed("spell" + str(i))
 					spell_press[i] = input.is_action_just_pressed("spell" + str(i))
 					spell_release[i] = input.is_action_just_released("spell" + str(i))
-				do_dash = input.is_action_pressed("dash")
+				do_dash = input.is_action_just_pressed("dash")
 			
 			# Otherwise, use any connected controller
 			else:

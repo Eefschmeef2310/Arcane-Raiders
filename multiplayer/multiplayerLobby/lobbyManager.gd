@@ -58,8 +58,6 @@ func _ready():
 	
 	
 	set_multiplayer_authority(1)
-	
-	
 
 func _process(delta):
 	if GameManager.isLocal():
@@ -290,6 +288,8 @@ func get_unjoined_devices():
 	var devices = Input.get_connected_joypads()
 	# also consider keyboard player
 	devices.append(-1)
+	
+	print(devices)
 	
 	# filter out devices that are joined:
 	return devices.filter(func(device): return !is_device_joined(device))
