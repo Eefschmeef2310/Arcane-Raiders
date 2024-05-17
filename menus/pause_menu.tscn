@@ -18,6 +18,10 @@ func _on_continue_button_pressed():
 	if get_tree().paused:
 		get_tree().paused = false
 	GameManager.isPaused = false
+	
+	for device_id in Input.get_connected_joypads():
+		MultiplayerInput._create_actions_for_device(device_id)
+		
 	queue_free()
 	
 func _on_settings_button_pressed():
@@ -35,7 +39,8 @@ func _on_quit_button_pressed():
 		if get_tree().paused:
 			get_tree().paused = false
 		#TODO - Multiplayer input now breaks when going back to menu, because of line 32 in player_input
-
+		for device_id in Input.get_connected_joypads():
+				MultiplayerInput._create_actions_for_device(device_id)
 		AudioManager.play_track_instant(\"\")
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
