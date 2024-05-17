@@ -42,8 +42,8 @@ func _on_zero_health():
 		$Sprite2D.hide()
 		var room: CastleRoom = get_parent() as CastleRoom
 		if room:
-			room.enemy_spawner.spawn({\"key\": \"water_slime\", \"pos\": global_position})
-			room.enemy_spawner.spawn({\"key\": \"electric_slime\", \"pos\": global_position})
+			room.enemy_spawner.call_deferred(\"spawn\", {\"key\": \"water_slime\", \"pos\": global_position})
+			room.enemy_spawner.call_deferred(\"spawn\", {\"key\": \"electric_slime\", \"pos\": global_position})
 		queue_free()
 #endregion
 
@@ -84,6 +84,45 @@ radius = 55.0091
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v60l1"]
 radius = 48.0937
+
+[sub_resource type="Animation" id="Animation_1f7wx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_t6agr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_c0vuq"]
 resource_name = "idle"
@@ -127,45 +166,6 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="Animation" id="Animation_1f7wx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_t6agr")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [8]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kh1iu"]
 _data = {
 "RESET": SubResource("Animation_1f7wx"),
@@ -178,7 +178,7 @@ calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
 boss_name = "Poisonous Amalgamate"
-max_health = 3000
+max_health = 2000
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -70)

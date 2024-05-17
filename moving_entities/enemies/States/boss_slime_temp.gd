@@ -11,7 +11,6 @@ var attacked:bool = false
 #region Other methods (please try to separate and organise!)
 func enter():
 	play_anim()
-	enemy.swap_modulate(true) #May be something else later
 	enemy.aim_direction = enemy.global_position.direction_to(get_closest_player().global_position)
 	enemy.attempt_cast(1)
 
@@ -22,6 +21,5 @@ func physics_update(delta):
 
 func exit():
 	enemy.enraged = false
-	enemy.swap_modulate(false)
 #endregion
 

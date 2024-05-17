@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=16 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
@@ -8,7 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://byabxygfvnpvx" path="res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn" id="10_sken0"]
+[ext_resource type="PackedScene" uid="uid://bsf2hjv17k50v" path="res://moving_entities/enemies/hornet/hornet.tscn" id="9_yc4r1"]
+[ext_resource type="PackedScene" uid="uid://cxqqvk2eqvo5u" path="res://moving_entities/enemies/bee/bee.tscn" id="10_cdjrd"]
 
 [sub_resource type="GDScript" id="GDScript_tg365"]
 script/source = "extends Node
@@ -106,13 +107,12 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="SmallSlime" parent="." index="16" instance=ExtResource("10_sken0")]
-position = Vector2(902, 501)
-collision_mask = 3
+[node name="Hornet" parent="." index="16" instance=ExtResource("9_yc4r1")]
+position = Vector2(966, 467)
+death_sound = null
 
-[node name="SmallSlime2" parent="." index="17" instance=ExtResource("10_sken0")]
-position = Vector2(500, 414)
-collision_mask = 3
+[node name="Bee" parent="." index="17" instance=ExtResource("10_cdjrd")]
+position = Vector2(720, 629)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

@@ -16,7 +16,6 @@ func physics_update(delta):
 	enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 	if enemy.can_cast:
 		if(enemy.enraged && can_cast_spell(1)):
-			enemy.swap_modulate(true)
 			enemy.enraged = false
 			Transitioned.emit(self, "secondaryattack")
 			return
@@ -34,7 +33,6 @@ func physics_update(delta):
 
 #region Other methods (please try to separate and organise!)
 func enter():
-	enemy.swap_modulate(false)
 	play_anim()
 
 func set_position():

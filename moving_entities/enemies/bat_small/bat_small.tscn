@@ -127,9 +127,10 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_eejve"]
 
 [node name="BatSmall" instance=ExtResource("1_ceawg")]
+collision_mask = 1
 script = SubResource("GDScript_pwqtp")
 movement_speed = 150.0
-max_health = 250
+max_health = 150
 health = 300
 
 [node name="PointLight2D" parent="." index="0"]
@@ -161,10 +162,11 @@ actual_first_state = NodePath("../BatChase")
 
 [node name="BatChase" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("4_hg75s")
+transition_range = 400.0
 
 [node name="BatAttack" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("5_pa536")
-prefered_range = 250.0
+prefered_range = 300.0
 nav_timer_interval = 1.0
 
 [node name="Attack" type="Node" parent="StateMachine" index="3"]

@@ -27,8 +27,6 @@ func physics_update(delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func enter():
-	enemy.swap_modulate(true)
 	
 func set_position():
 	player = get_closest_player()

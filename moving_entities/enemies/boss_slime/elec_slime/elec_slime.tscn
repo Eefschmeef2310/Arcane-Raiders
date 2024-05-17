@@ -49,9 +49,6 @@ func _on_zero_health():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func swap_modulate(swap: bool):
-	$Sprite2D.modulate = Color(1, 0.8, 0, 1) if swap else Color(1, 1, 1, 1)
-	pass
 
 func set_perma_enraged():
 	perma_enraged = true
@@ -403,7 +400,7 @@ script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Shock Daughter Slime"
-max_health = 2000
+max_health = 1500
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)
@@ -433,7 +430,7 @@ cast_time = Array[float]([0.45, 0.0, 0.2])
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
-debug_label = NodePath("../Label")
+debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("7_hl6d3")
@@ -474,13 +471,6 @@ shape = SubResource("CircleShape2D_ofg1l")
 libraries = {
 "": SubResource("AnimationLibrary_coowq")
 }
-
-[node name="Label" type="Label" parent="." index="11"]
-offset_left = 70.0
-offset_top = -143.0
-offset_right = 213.0
-offset_bottom = -120.0
-text = "asda"
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]

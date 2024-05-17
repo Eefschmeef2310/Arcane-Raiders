@@ -35,9 +35,7 @@ func update(_delta):
 	if (distance < attack_distance && can_cast_spell(0)):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 		enemy.target_area = player.global_position
-		#TODO call primary attack
 		Transitioned.emit(self, "attack")
-		#enemy.attempt_cast(0)
 	
 func physics_update(_delta):
 	super.physics_update(_delta)
