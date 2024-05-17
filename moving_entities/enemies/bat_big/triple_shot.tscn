@@ -53,5 +53,6 @@ func _ready():
 [node name="TripleShot" type="Node2D"]
 position = Vector2(289, 228)
 script = SubResource("GDScript_5lk21")
-cone_range_deg = 60.0
-end_time = 1.0
+cone_range_deg = 75.0
+end_time = 2.0
+cooldown_time = 6.0

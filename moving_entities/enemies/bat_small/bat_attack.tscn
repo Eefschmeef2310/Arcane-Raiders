@@ -8,21 +8,13 @@ script/source = "extends SpellBase
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
 	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
+@export var projectile_speed: float = 600
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
 var initial_distance = 20
-var projectile_speed: float = 600
 var direction: Vector2 = Vector2.RIGHT
 #endregion
 
@@ -59,6 +51,7 @@ radius = 13.0384
 collision_layer = 192
 collision_mask = 5
 script = SubResource("GDScript_2efh6")
+projectile_speed = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_33lrw")
