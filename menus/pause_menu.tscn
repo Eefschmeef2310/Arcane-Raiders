@@ -11,12 +11,15 @@ script/source = "extends CanvasLayer
 func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
+	
+func _input(event):
+	if event.is_action_released(\"ui_cancel\"):
+		_on_continue_button_pressed()
 #endregion
 
 #region Signal methods
 func _on_continue_button_pressed():
-	if get_tree().paused:
-		get_tree().paused = false
+	get_tree().paused = false
 	GameManager.isPaused = false
 	
 	for device_id in Input.get_connected_joypads():
@@ -25,7 +28,9 @@ func _on_continue_button_pressed():
 	queue_free()
 	
 func _on_settings_button_pressed():
-	get_tree().root.add_child(load(\"res://menus/settings.tscn\").instantiate())
+	var new_settings = load(\"res://menus/settings.tscn\").instantiate()
+	new_settings.destroyed.connect(settings_set_focus)
+	get_tree().root.add_child(new_settings)
 	
 func _on_quit_button_pressed():
 	if GameManager.isOnline():
@@ -36,28 +41,26 @@ func _on_quit_button_pressed():
 
 		add_child(quit_warning)
 	else:
-		if get_tree().paused:
-			get_tree().paused = false
-		#TODO - Multiplayer input now breaks when going back to menu, because of line 32 in player_input
+		get_tree().paused = false
+		GameManager.isPaused = false
+
 		for device_id in Input.get_connected_joypads():
-				MultiplayerInput._create_actions_for_device(device_id)
-		AudioManager.play_track_instant(\"\")
+			MultiplayerInput._create_actions_for_device(device_id)
+		
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
 		
 #endregion
 
 #region Other methods (please try to separate and organise!)
+func set_panel_color(col: Color):
+	var new_panel = ($MarginContainer/Panel as Panel).get_theme_stylebox(\"panel\").duplicate()
+	new_panel.set(\"bg_color\", col)
+	$MarginContainer/Panel.add_theme_stylebox_override(\"panel\", new_panel)
 
+func settings_set_focus():
+	$MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
 #endregion
-
-#TODO: 1. Check for local. if we're in local. Only the pausing player should be able to control the menu, and the game should be paused (like Smash)
-#2. Test to make sure that online, the pause screen shouldnt pause at all if we're online
-#3. a warning to the host to say the server will shut. for every other player, a quitting warning will be displayed (should be implemented)
-
-
-func _on_tree_exiting():
-	GameManager.isPaused = false
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
@@ -130,6 +133,6 @@ theme_override_font_sizes/font_size = 80
 text = "QUIT"
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

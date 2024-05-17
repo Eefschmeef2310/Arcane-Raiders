@@ -21,7 +21,7 @@ func _ready():
 func _process(_delta):
 	var do_pause = false
 	if input: # For local
-		do_pause = input.is_action_just_pressed("pause")
+		do_pause = input.is_action_just_released("pause")
 	else: # For online
 		for device in GameManager.devices:
 			if !do_pause:
@@ -30,7 +30,10 @@ func _process(_delta):
 	if do_pause and !GameManager.isPaused:
 		GameManager.isPaused = true
 		MultiplayerInput.set_ui_action_device(input.device)
-		owner.get_parent().add_child(load("res://menus/pause_menu.tscn").instantiate())
+		
+		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
+		pause_menu.set_panel_color(owner.data.main_color)
+		owner.get_parent().add_child(pause_menu)
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
