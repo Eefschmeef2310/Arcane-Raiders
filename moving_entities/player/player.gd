@@ -12,6 +12,7 @@ signal dead(Player)
 @export var movement_speed : float = 300
 
 @onready var animation_player = $AnimationPlayer
+@onready var dash_ray = $DashRay
 
 # Normalised vectors
 @export var move_direction: Vector2
@@ -31,10 +32,15 @@ var dash_direction: Vector2
 var dash_speed = 1000
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
+var friends_nearby : Array = []
+var revival_time : float
+var revival_time_max : float = 5
+
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
 	animation_player.play("idle", -1, 1)
+	$RevivalMeter.max_value = revival_time_max
 	
 	# TODO temporary lines here
 	if debug:
@@ -85,9 +91,28 @@ func _process(delta):
 	
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
-	if is_multiplayer_authority():
-		if is_dead and data.health > 0:
-			toggle_dead.rpc(false);
+	# Death logic
+	if is_dead:
+		$HelpLabel.show()
+		$RevivalMeter.show()
+		$RevivalMeter.value = revival_time
+		if is_multiplayer_authority():
+			var number_of_friends = friends_nearby.size()
+			if number_of_friends > 0:
+				revival_time += delta + (0.25 * (number_of_friends - 1))
+				if revival_time >= revival_time_max:
+					health += 250
+			else:
+				revival_time -= delta
+				if revival_time <= 0:
+					revival_time = 0
+			
+			if health > 0:
+				toggle_dead.rpc(false);
+	else:
+		$HelpLabel.hide()
+		$RevivalMeter.hide()
+		
 	
 	if debug:
 		$PrepareCast.text = str(preparing_cast_slot)
@@ -111,15 +136,17 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
-	health_updated.connect(data._on_player_health_updated)
+	#health_updated.connect(data._on_player_health_updated)
 	
 	health = data.health
+	health_updated.connect(data._on_player_health_updated)
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
+	$HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
 		print(data.character.raider_name)
@@ -152,15 +179,18 @@ func start_dash(dir: Vector2):
 	is_dashing = true
 	animation_player.play("dash")
 	
-	# Check if we're going to end in a wall or not
-	var pp = PhysicsPointQueryParameters2D.new()
-	pp.collision_mask = collision_mask
-	pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
-	if !get_world_2d().direct_space_state.intersect_point(pp, 1):
-		$CollisionShape2D.disabled = true
-		print("Gap check passed.")
-	else:
-		print("Gap check failed.")
+	# Check if we're going to end in a wall or not.
+	# Raycast with unwalkables:
+	dash_ray.target_position = (dir.normalized() * dash_speed * dash_duration)
+	dash_ray.force_raycast_update()
+	if !dash_ray.is_colliding():
+		# Point check for walkable floor:
+		var pp = PhysicsPointQueryParameters2D.new()
+		pp.collision_mask = collision_mask
+		pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
+		if !get_world_2d().direct_space_state.intersect_point(pp, 1):
+			# Disable collision and allow passthrough colliders.
+			$CollisionShape2D.disabled = true
 
 func prepare_cast(slot: int):
 	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
@@ -203,14 +233,15 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
-	if is_invincible or is_dashing:
+	var not_dead_yet = !is_dead
+	
+	if is_invincible or is_dashing or is_dead:
 		return
 		
-	if !is_dead:
-		super.on_hurt(attack)
+	super.on_hurt(attack)
 		
 	if is_multiplayer_authority():
-		if is_dead:
+		if is_dead and not_dead_yet:
 				toggle_dead.rpc(true)
 		elif !("base_damage" in attack and attack.base_damage <= 0):
 				start_invincibility.rpc()
@@ -221,10 +252,16 @@ func toggle_dead(b):
 		$AnimationPlayer.play("die");
 		dead.emit(self)
 		$CollisionShape2D.disabled = true;
+		revival_time = 0
 		remove_from_group("player")
 	else:
+		is_dead = false
 		$CollisionShape2D.disabled = false;
+		revival_time = 0
 		add_to_group("player")
+		start_invincibility()
+		animation_player.play("idle")
+		health_updated.emit(health)
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
@@ -242,3 +279,13 @@ func _on_invincibility_timer_timeout():
 
 func is_near_pickup():
 	return $SpellPickupDetector.closest_pickup != null
+
+
+func _on_revival_zone_body_entered(body):
+	if body != self:
+		friends_nearby.append(body)
+
+
+func _on_revival_zone_body_exited(body):
+	if body != self:
+		friends_nearby.erase(body)

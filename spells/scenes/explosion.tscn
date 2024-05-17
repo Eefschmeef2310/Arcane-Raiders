@@ -1,14 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxv6ps3wfo0nu"]
+[gd_scene load_steps=9 format=3 uid="uid://cxv6ps3wfo0nu"]
 
 [ext_resource type="Script" path="res://spells/scenes/explosion.gd" id="1_5ldg7"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_nome1"]
 [ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_08nyf"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_cy2gd"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hjrvm"]
+resource_local_to_scene = true
+shader = ExtResource("1_nome1")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qkgf7"]
 radius = 25.0799
 
 [node name="explosion_base" type="Area2D"]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_hjrvm")
 collision_layer = 16
 collision_mask = 9
 script = ExtResource("1_5ldg7")
@@ -19,6 +32,7 @@ texture = ExtResource("2_cy2gd")
 texture_scale = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_08nyf")
 

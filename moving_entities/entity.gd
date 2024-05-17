@@ -37,7 +37,7 @@ var is_dead: bool = false
 @export var knockback_initial_velocity : float = 300
 
 @export_subgroup("Attraction")
-@export var attraction_strength : float = 65
+@export var attraction_strength : float = 1
 
 	#Onready Variables
 @onready var hit_sound = $HitSound
@@ -70,7 +70,7 @@ func _process(delta):
 	#Loop through each key in the dictionary, run the element's effect, then tick down the element's timer for removal
 	for key in current_inflictions_dictionary:
 		#following line ticks down each key's timer, while taking wetness into account
-		current_inflictions_dictionary[key] -= (delta * (0.5 if (key != SpellManager.elements["wet"] and current_inflictions_dictionary.has(SpellManager.elements["wet"])) else 1.0))
+		current_inflictions_dictionary[key] -= delta
 		if current_inflictions_dictionary[key] <= 0:
 			current_inflictions_dictionary.erase(key)
 		
@@ -176,7 +176,8 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 					get_tree().root.call_deferred("add_child", new_reaction)
 					new_reaction.global_position = global_position
 	
-	health -= damage
+	#Deal bonus damage with wet
+	health -= damage * (1.5 if current_inflictions_dictionary.has(SpellManager.elements["wet"]) else 1.0)
 	
 	if do_damage_numbers:
 		var dm: DamageNumber
@@ -252,6 +253,7 @@ func add_knockback(attack_path):
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
 		if "knockback" in attack:
+			print(attack.knockback)
 			knockback_velocity *= attack.knockback
 	can_input = false
 

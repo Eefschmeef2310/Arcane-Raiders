@@ -1,13 +1,23 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=4 format=3 uid="uid://dq30jen40bp5i"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=6 format=3 uid="uid://dq30jen40bp5i"]
 
 [ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="1_7v254"]
 [ext_resource type="Script" path="res://elements/element.gd" id="1_ejp4o"]
 [ext_resource type="AudioStream" uid="uid://dkhr067lq118u" path="res://sounds/effects/elements/water_splash_pixabay_universfield.wav" id="3_y53rx"]
 
+[sub_resource type="Gradient" id="Gradient_uwhri"]
+offsets = PackedFloat32Array(0, 0.17192, 0.444126, 0.833811, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0313781, 0.104194, 0.152389, 1, 0, 0.1955, 0.69, 1, 0.7227, 0.99, 0.98109, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_livq0"]
+gradient = SubResource("Gradient_uwhri")
+
 [resource]
 script = ExtResource("1_ejp4o")
 prefix = "Aqua-"
-colour = Color(0.141176, 0.231373, 0.690196, 1)
+descrption_bb = "[img]res://elements/icons/weak_icon.png[/img] Decreases defense
+Reacts with [img]res://elements/icons/frost_icon.png[/img] and [img]res://elements/icons/shock_icon.png[/img]"
+colour = Color(0.243137, 0.372549, 0.894118, 1)
+gradient = SubResource("GradientTexture1D_livq0")
 pip_texture = ExtResource("1_7v254")
 max_infliction_time = 5.0
 sound = ExtResource("3_y53rx")

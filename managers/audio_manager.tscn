@@ -23,16 +23,16 @@ const MUSIC = {
 			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
 		},
 		{
-			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
-			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
-			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
-			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
+			\"calm\": preload(\"res://sounds/music/cruiser_calm.ogg\"),
+			\"battle\": preload(\"res://sounds/music/cruiser_battle.ogg\"),
+			\"boss\": preload(\"res://sounds/music/cruiser_boss.ogg\"),
+			\"end\": preload(\"res://sounds/music/cruiser_end.ogg\")
 		},
 		{
-			\"calm\": preload(\"res://sounds/music/fistfight_calm.ogg\"),
-			\"battle\": preload(\"res://sounds/music/fistfight_battle.ogg\"),
-			\"boss\": preload(\"res://sounds/music/fistfight_boss.ogg\"),
-			\"end\": preload(\"res://sounds/music/fistfight_end.ogg\")
+			\"calm\": preload(\"res://sounds/music/rollover_calm.ogg\"),
+			\"battle\": preload(\"res://sounds/music/rollover_battle.ogg\"),
+			\"boss\": preload(\"res://sounds/music/rollover_boss.ogg\"),
+			\"end\": preload(\"res://sounds/music/rollover_end.ogg\")
 		},
 	],
 	\"shop\": preload(\"res://sounds/music/thatoneplace.ogg\")
@@ -109,6 +109,8 @@ func play_sector(sector: int):
 
 # PRIVATE FUNCTION, DO NOT CALL OUTSIDE
 func start_sector_music(sector):
+	current_sector = sector
+	
 	music_stream.stop()
 		
 	calm_stream.stream = MUSIC.sector[sector].calm
@@ -140,7 +142,6 @@ func switch_to_battle():
 func switch_to_boss():
 	if switch_tween:
 		switch_tween.kill()
-	current_sector = -1
 	
 	music_stream.stop()
 	calm_stream.stop()
@@ -154,7 +155,6 @@ func switch_to_boss():
 func switch_to_end():
 	if switch_tween:
 		switch_tween.kill()
-	current_sector = -1
 	
 	music_stream.stop()
 	calm_stream.stop()
@@ -165,6 +165,10 @@ func switch_to_end():
 	music_stream.stop()
 	music_stream.play()
 
+func stop_all():
+	for child in get_children():
+		if child is AudioStreamPlayer:
+			child.stop()
 #endregion
 "
 

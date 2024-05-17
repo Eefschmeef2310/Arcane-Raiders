@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/thatoneplace.ogg-6ae9cf1adc598f80acacb639b37f
 [params]
 
 loop=true
-loop_offset=0.0
+loop_offset=0.075
 bpm=0.0
 beat_count=0
 bar_beats=4

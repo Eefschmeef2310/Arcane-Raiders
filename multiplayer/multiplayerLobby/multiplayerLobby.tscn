@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=25 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
+[ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_w5lpx"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="4_r1oq1"]
 [ext_resource type="Resource" uid="uid://nclgt66btvdo" path="res://multiplayer/multiplayerLobby/raiders/horse.tres" id="6_bfemw"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
@@ -29,7 +30,7 @@ spell_ids = Array[String](["frost-aoe_local", "wet-proj_ball", "null-proj_burst"
 script = ExtResource("6_mpv8m")
 loadout_name = "Wet"
 loadout_desc = ""
-spell_ids = Array[String](["wet-proj_burst", "shock-aoe_local", "null-proj_ball"])
+spell_ids = Array[String](["wet-proj_burst", "shock-laser", "null-proj_ball"])
 
 [sub_resource type="Resource" id="Resource_6npna"]
 script = ExtResource("6_mpv8m")
@@ -79,7 +80,7 @@ multiplayer_spawner = NodePath("MultiplayerSpawner")
 debug_start_button = NodePath("Lobby/StartButton")
 ready_progress_bar = NodePath("Lobby/ReadyProgress")
 lobby_title = NodePath("Lobby/ReadyProgress/Label")
-raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("8_q78au"), ExtResource("4_r1oq1"), ExtResource("2_837od"), ExtResource("6_bfemw"), ExtResource("7_p8g7q"), ExtResource("8_q78au"), ExtResource("9_wr8px")])
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_w5lpx"), ExtResource("4_r1oq1"), ExtResource("2_837od"), ExtResource("6_bfemw"), ExtResource("7_p8g7q"), ExtResource("8_q78au"), ExtResource("9_wr8px")])
 loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_1emuh"), SubResource("Resource_if0ax"), SubResource("Resource_3u8nv"), SubResource("Resource_6npna"), SubResource("Resource_gs5db"), SubResource("Resource_l3taw")])
 player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.686275, 0.00392157, 0.886275, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
 player_card_scene = ExtResource("2_bq112")
