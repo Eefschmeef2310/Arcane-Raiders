@@ -16,21 +16,6 @@ shader = ExtResource("4_g2h38")
 shader_parameter/final_saturation = 0.5
 shader_parameter/gradient = SubResource("GradientTexture1D_2bkev")
 
-[sub_resource type="Animation" id="Animation_7qf3f"]
-resource_name = "beam"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RayCast2D/Line2D:width")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 30.0, 30.0, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_fy0xc"]
 length = 0.001
 tracks/0/type = "value"
@@ -44,6 +29,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [20.0]
+}
+
+[sub_resource type="Animation" id="Animation_7qf3f"]
+resource_name = "beam"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RayCast2D/Line2D:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 30.0, 30.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5h5wq"]

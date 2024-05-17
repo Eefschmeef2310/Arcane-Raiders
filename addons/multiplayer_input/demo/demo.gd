@@ -16,7 +16,7 @@ func _process(_delta):
 
 func spawn_player(player: int):
 	# create the player node
-	var player_scene = load("res://demo/demo_player.tscn")
+	var player_scene = load("res://addons/multiplayer_input/demo/demo_player.tscn")
 	var player_node = player_scene.instantiate()
 	player_node.leave.connect(on_player_leave)
 	player_nodes[player] = player_node
