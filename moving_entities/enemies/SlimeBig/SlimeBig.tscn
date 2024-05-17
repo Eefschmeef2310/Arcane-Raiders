@@ -21,12 +21,10 @@ script/source = "extends EnemyEntity
 func _on_zero_health():
 	if is_multiplayer_authority():
 		#Anim here
-		
 		var room: CastleRoom = get_parent() as CastleRoom
 		if room:
-			room.enemy_spawner.spawn({\"key\": \"slime_small\", \"pos\": global_position})
-			room.enemy_spawner.spawn({\"key\": \"slime_small\", \"pos\": global_position})
-		
+			room.enemy_spawner.call_deferred(\"spawn\", {\"key\": \"slime_small\", \"pos\": global_position})
+			room.enemy_spawner.call_deferred(\"spawn\", {\"key\": \"slime_small\", \"pos\": global_position})
 		call_deferred(\"queue_free\")
 #endregion
 
