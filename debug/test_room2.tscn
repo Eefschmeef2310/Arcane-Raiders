@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=16 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]

@@ -47,8 +47,7 @@ func _on_zero_health():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func swap_modulate(swap: bool):
-	$Sprite2D.modulate = Color(0, 0, 1, 1) if swap else Color(1, 1, 1, 1)
+
 #endregion
 
 func set_perma_enraged():
