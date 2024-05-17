@@ -1,19 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dha0c27eh3h2g"]
+[gd_scene load_steps=2 format=3 uid="uid://dha0c27eh3h2g"]
 
 [ext_resource type="Script" path="res://ui/element_status/status_ui.gd" id="1_re4x7"]
-[ext_resource type="PackedScene" uid="uid://bv803buhsotdn" path="res://ui/element_status/status_icon.tscn" id="2_4kame"]
 
 [node name="StatusUI" type="HBoxContainer"]
+z_index = 50
 offset_right = 200.0
 offset_bottom = 32.0
 alignment = 1
 script = ExtResource("1_re4x7")
-
-[node name="StatusIcon" parent="." instance=ExtResource("2_4kame")]
-layout_mode = 2
-
-[node name="StatusIcon2" parent="." instance=ExtResource("2_4kame")]
-layout_mode = 2
-
-[node name="StatusIcon3" parent="." instance=ExtResource("2_4kame")]
-layout_mode = 2

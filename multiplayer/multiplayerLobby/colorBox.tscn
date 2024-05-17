@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm5f5ypcdk0v3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s823t"]
+bg_color = Color(0, 0.611765, 0.678431, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[node name="ColorBox" type="Panel"]
+custom_minimum_size = Vector2(50, 50)
+theme_override_styles/panel = SubResource("StyleBoxFlat_s823t")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="TextureRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

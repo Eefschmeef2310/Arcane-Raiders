@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt3a5xl27x1rt"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_hrp8u"]
+[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_rl0ow"]
+[ext_resource type="PackedScene" uid="uid://c20ykcgg3e6nd" path="res://spells/scenes/aoe_local/aoe_local_explosion.tscn" id="3_4cecx"]
+
+[node name="aoe_local" instance=ExtResource("1_hrp8u")]
+script = ExtResource("2_rl0ow")
+EXPLOSION = ExtResource("3_4cecx")
+waves = 1
+explosions_per_wave = 10
+max_radians = 6.282
+distance_from_caster = 0.0
+base_damage = 30
+infliction_time = 1.5
+
+[node name="WaveTimer" type="Timer" parent="." index="0"]
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

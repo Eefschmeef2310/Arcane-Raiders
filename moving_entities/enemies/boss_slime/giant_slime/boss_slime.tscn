@@ -1,0 +1,259 @@
+[gd_scene load_steps=22 format=3 uid="uid://b4u2wuk1f06f7"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
+[ext_resource type="Texture2D" uid="uid://b6gfgaotgw3g5" path="res://moving_entities/enemies/boss_slime/giant_slime/giant_slime_idle_sketch.png" id="2_t6agr"]
+[ext_resource type="Resource" uid="uid://dq30jen40bp5i" path="res://elements/wet.tres" id="3_0j38g"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_wndsv"]
+[ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn" id="4_m3r0o"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_3k4qm"]
+[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="6_11tbp"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime.gd" id="7_i4h5n"]
+[ext_resource type="PackedScene" uid="uid://bk05qc623b2ye" path="res://moving_entities/enemies/boss_slime/giant_slime/g_slime_spike.tscn" id="7_thqtl"]
+[ext_resource type="PackedScene" uid="uid://b36hyhxebhoon" path="res://moving_entities/enemies/boss_slime/giant_slime/ex_slime_lob.tscn" id="8_fopfk"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="12_8sgtp"]
+
+[sub_resource type="GDScript" id="GDScript_3ka3a"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+@export var calmdown_time: float = 0.2
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var enraged = false
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+#endregion
+
+#region Signal methods
+func _on_zero_health():
+	if is_multiplayer_authority():
+		$Sprite2D.hide()
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room:
+			room.enemy_spawner.call_deferred(\"spawn\", {\"key\": \"water_slime\", \"pos\": global_position})
+			room.enemy_spawner.call_deferred(\"spawn\", {\"key\": \"electric_slime\", \"pos\": global_position})
+		queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+func _on_field_detector_area_entered(area):
+	if area.is_in_group(\"slime_field\") && enemy_spells.spell_cooldowns[2] <= 0:
+		enraged = true
+#endregion
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
+radius = 170.878
+
+[sub_resource type="Resource" id="Resource_ct66w"]
+script = ExtResource("5_3k4qm")
+suffix = ""
+description = ""
+scene = ExtResource("4_m3r0o")
+element = ExtResource("3_0j38g")
+
+[sub_resource type="Resource" id="Resource_hqf66"]
+script = ExtResource("5_3k4qm")
+suffix = ""
+description = ""
+scene = ExtResource("7_thqtl")
+element = ExtResource("6_11tbp")
+
+[sub_resource type="Resource" id="Resource_u84hp"]
+script = ExtResource("5_3k4qm")
+suffix = ""
+description = ""
+scene = ExtResource("8_fopfk")
+element = ExtResource("3_0j38g")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
+radius = 55.0091
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v60l1"]
+radius = 48.0937
+
+[sub_resource type="Animation" id="Animation_1f7wx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_t6agr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_c0vuq"]
+resource_name = "idle"
+length = 1.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_t6agr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kh1iu"]
+_data = {
+"RESET": SubResource("Animation_1f7wx"),
+"idle": SubResource("Animation_c0vuq")
+}
+
+[node name="GiantSlime" groups=["boss"] instance=ExtResource("1_148eg")]
+script = SubResource("GDScript_3ka3a")
+calmdown_time = 0.2
+movement_speed = 100.0
+is_boss = true
+boss_name = "Poisonous Amalgamate"
+max_health = 2000
+
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -70)
+texture_scale = 1.5
+
+[node name="Sprite2D" parent="." index="1"]
+texture_filter = 1
+position = Vector2(0, -74)
+texture = ExtResource("2_t6agr")
+hframes = 8
+
+[node name="Hurtbox" parent="." index="2"]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -73)
+scale = Vector2(1.27, 1)
+shape = SubResource("CircleShape2D_1ih77")
+debug_color = Color(1, 0, 0.137255, 0.419608)
+
+[node name="ProgressBar" parent="." index="3"]
+offset_top = -214.0
+offset_bottom = -207.0
+
+[node name="StatusUI" parent="." index="4"]
+offset_top = -248.0
+offset_bottom = -216.0
+
+[node name="EnemySpells" parent="." index="5"]
+spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
+spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
+
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_wndsv")
+actual_first_state = NodePath("../Normal")
+
+[node name="Normal" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("7_i4h5n")
+attack_distance = 130.0
+
+[node name="LobAttack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("12_8sgtp")
+transition_out_when_can_cast = true
+
+[node name="SpikeAttack" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("12_8sgtp")
+spell_num = 1
+transition_out_when_can_cast = true
+
+[node name="LobAttackEX" type="Node" parent="StateMachine" index="4"]
+script = ExtResource("12_8sgtp")
+spell_num = 2
+transition_out_when_can_cast = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+position = Vector2(0, -21)
+shape = SubResource("CircleShape2D_bbex3")
+
+[node name="FieldDetector" type="Area2D" parent="." index="9"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FieldDetector" index="0"]
+position = Vector2(0, -52)
+shape = SubResource("CircleShape2D_v60l1")
+debug_color = Color(0, 0.647059, 0.215686, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_kh1iu")
+}
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]

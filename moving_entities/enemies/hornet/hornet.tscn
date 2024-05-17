@@ -1,0 +1,121 @@
+[gd_scene load_steps=16 format=3 uid="uid://bsf2hjv17k50v"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_rk7t8"]
+[ext_resource type="Texture2D" uid="uid://btbi414bn10a5" path="res://moving_entities/enemies/hornet/Hornet.png" id="2_42gvm"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="2_vncq6"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/bee_chase.gd" id="3_2lpcj"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_cskgi"]
+[ext_resource type="PackedScene" uid="uid://phgt7ys1vnat" path="res://moving_entities/enemies/hornet/hornet_attack.tscn" id="4_6gh1i"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_r4dnc"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_fld7n"]
+
+[sub_resource type="GDScript" id="GDScript_gamko"]
+resource_name = "hornet"
+script/source = "extends EnemyEntity
+
+@export var stun_duration:float = 1
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_26wc2"]
+radius = 42.0
+
+[sub_resource type="Resource" id="Resource_qfxhu"]
+script = ExtResource("5_fld7n")
+suffix = ""
+description = ""
+scene = ExtResource("4_6gh1i")
+element = ExtResource("3_cskgi")
+
+[sub_resource type="GDScript" id="GDScript_1185l"]
+resource_name = "Stun"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	play_anim()
+	set_position()
+	if \"stun_duration\" in enemy:
+		await get_tree().create_timer(enemy.stun_duration).timeout
+	Transitioned.emit(self, \"hornetchase\")
+#endregion
+
+"
+
+[sub_resource type="Animation" id="Animation_kf3tm"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pfbe1"]
+_data = {
+"idle": SubResource("Animation_kf3tm")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tok1y"]
+radius = 11.0454
+
+[node name="Hornet" instance=ExtResource("1_rk7t8")]
+collision_mask = 1
+script = SubResource("GDScript_gamko")
+stun_duration = 1.0
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -51)
+texture = ExtResource("2_42gvm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 13)
+shape = SubResource("CircleShape2D_26wc2")
+debug_color = Color(0.964706, 0, 0.501961, 0.164706)
+
+[node name="ProgressBar" parent="." index="3"]
+offset_top = -100.0
+offset_bottom = -93.0
+
+[node name="StatusUI" parent="." index="4"]
+offset_top = -134.0
+offset_bottom = -102.0
+
+[node name="EnemySpells" parent="." index="5"]
+spells = Array[ExtResource("5_fld7n")]([SubResource("Resource_qfxhu")])
+cast_time = Array[float]([0.5, 0.2, 0.2])
+
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("2_vncq6")
+actual_first_state = NodePath("../HornetChase")
+
+[node name="HornetChase" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("3_2lpcj")
+attack_range = 300.0
+nav_timer_interval = 1.0
+
+[node name="Attack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("4_r4dnc")
+transition_out_when_can_cast = true
+next_state = "stun"
+
+[node name="Stun" type="Node" parent="StateMachine" index="3"]
+script = SubResource("GDScript_1185l")
+nav_timer_interval = 99.0
+nav_timer = 99
+
+[node name="NavigationAgent2D" parent="." index="7"]
+navigation_layers = 3
+avoidance_layers = 2
+avoidance_mask = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_pfbe1")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="12"]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_tok1y")
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]

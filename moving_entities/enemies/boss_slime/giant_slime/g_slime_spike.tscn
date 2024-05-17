@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk05qc623b2ye"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_spike.gd" id="1_mvuef"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sfarm"]
+radius = 170.878
+
+[node name="GSlimeSpike" type="Area2D"]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_mvuef")
+infliction_time = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.27, 1)
+shape = SubResource("CircleShape2D_sfarm")
+debug_color = Color(1, 0, 0.137255, 0.419608)

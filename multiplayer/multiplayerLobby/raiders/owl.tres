@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://fs01faodxb1c"]
+
+[ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="1_476bp"]
+[ext_resource type="Texture2D" uid="uid://c0ldbdysuqp8l" path="res://multiplayer/multiplayerLobby/raiders/owlplaceholder.png" id="2_t2ud6"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_tws5s"]
+
+[resource]
+script = ExtResource("3_tws5s")
+portrait = ExtResource("2_t2ud6")
+raider_name = "Owl"
+raider_desc = "hooty hoot!"
+color = Color(0.203922, 0.282353, 0.541176, 1)
+head_texture = ExtResource("1_476bp")
+skin_color = Color(0.74902, 0.494118, 0.333333, 1)

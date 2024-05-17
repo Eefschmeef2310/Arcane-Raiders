@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfdsvgq51s380"]
+
+[ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_koy3u"]
+[ext_resource type="Texture2D" uid="uid://ikk12brjvn6d" path="res://debug/enemy_spawn.png" id="2_ootn2"]
+
+[node name="CastleRoom" instance=ExtResource("1_koy3u")]
+wave_total_difficulty = Array[int]([10])
+
+[node name="TileMap" parent="." index="0"]
+layer_3/tile_data = PackedInt32Array(1, 65539, 0, 655358, 65539, 0, 458749, 65539, 0, 131075, 65539, 0, 131079, 65539, 0, 131081, 65539, 0, -393207, 65539, 1, -131064, 65539, 1, 196608, 65539, 1, 720894, 65539, 1, -393213, 65539, 1, 327686, 3, 2, 458758, 65539, 2, -196605, 65539, 2, -65530, 3, 3, 65540, 3, 3, -196604, 3, 0, 327685, 3, 1, 5, 3, 1, -131062, 3, 0, -393206, 3, 1, 8, 0, 131072, 655357, 0, 65536, 393215, 0, 65536, 65537, 0, 65536)
+
+[node name="EnemySpawn0" type="Sprite2D" parent="EnemySpawns" index="0"]
+position = Vector2(633, 288)
+texture = ExtResource("2_ootn2")
+
+[node name="EnemySpawn1" type="Sprite2D" parent="EnemySpawns" index="1"]
+position = Vector2(1376, 661)
+texture = ExtResource("2_ootn2")
+
+[node name="EnemySpawn2" type="Sprite2D" parent="EnemySpawns" index="2"]
+position = Vector2(631, 1045)
+texture = ExtResource("2_ootn2")

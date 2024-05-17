@@ -6,23 +6,19 @@ class_name ElementResource
 	#Signals
 
 	#Enums
-enum ElementType {
-	Burn,
-	Frost,
-	Shock,
-	Weak
-}
 
 	#Constants
 
 	#Exported Variables
 @export_group("Element Parameters")
 
+@export var prefix : String
+@export_multiline var descrption_bb : String
 @export var colour : Color
-@export var particle_texture : Texture2D
-@export var pip_texture : Texture2D #May be deleted later - E
-@export var element_type : ElementType
+@export var gradient : GradientTexture1D
+@export var pip_texture : Texture2D
 @export var max_infliction_time : float = 5
+@export var sound : AudioStream
 
 	#Onready Variables
 

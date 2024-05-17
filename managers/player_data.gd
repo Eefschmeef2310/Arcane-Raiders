@@ -3,24 +3,28 @@ class_name PlayerData
 
 enum {DEVICE_NONE = -3, DEVICE_ANY = -2, DEVICE_KEYB = -1}
 
-signal health_changed()
+signal health_changed(object, health)
 signal spell_changed()
 signal device_changed(id: int)
+signal pickup_proximity_changed(bool)
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
 
-@export var health : int:
-	set(val):
-		health = val
-		health_changed.emit()
-@export var spells : Array[Spell]
-@export var spell_cooldowns_max : Array[float]
-@export var spell_cooldowns : Array[float]
+@export var health : int = 1000:
+	set(v):
+		health = clamp(v, 0, 1000)
+@export var spells : Array[Spell] = [null,null,null]
+@export var spell_cooldowns_max : Array[float] = [0,0,0]
+@export var spell_cooldowns : Array[float] = [0,0,0]
+
+@export var spell_strings : Array[String]
 
 @export var main_color : Color = Color.RED
+@export var character : RaiderRes
 
 func _ready():
+	spell_strings.resize(3)
 	spells.resize(3)
 	
 	spell_cooldowns_max.resize(3)
@@ -29,6 +33,9 @@ func _ready():
 	spell_cooldowns.resize(3)
 	spell_cooldowns.fill(0)
 	
+	for i in spells.size():
+		if spell_strings[i] != "":
+			spells[i] = SpellManager.get_spell_from_string(spell_strings[i])
 
 func _process(delta):
 	for i in spell_cooldowns.size():
@@ -36,3 +43,17 @@ func _process(delta):
 			spell_cooldowns[i] -= delta
 			if spell_cooldowns[i] < 0:
 				spell_cooldowns[i] = 0
+
+func _on_player_health_updated(amount):
+	health = amount
+	health_changed.emit(self, health)
+
+func start_cooldown(slot: int, time: float):
+	spell_cooldowns_max[slot] = time
+	spell_cooldowns[slot] = time
+
+func set_spell_from_string(slot: int, string: String):
+	spell_strings[slot] = string
+	spells[slot] = SpellManager.get_spell_from_string(string)
+	spell_cooldowns[slot] = 0
+	spell_changed.emit()

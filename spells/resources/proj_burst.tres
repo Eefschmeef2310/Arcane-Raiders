@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://ct07iiqxgguov"]
+
+[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="1_eafdq"]
+[ext_resource type="PackedScene" uid="uid://ctlrtrpxed1cg" path="res://spells/scenes/proj_burst/proj_burst.tscn" id="1_efoxd"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_pw8uy"]
+[ext_resource type="Texture2D" uid="uid://b2xorjixatitx" path="res://spells/sprites/icons/proj_burst.png" id="3_m15wb"]
+
+[resource]
+script = ExtResource("1_pw8uy")
+suffix = "Burst"
+description = "Cast a burst of pellets."
+scene = ExtResource("1_efoxd")
+ui_texture = ExtResource("3_m15wb")
+projection_texture = ExtResource("1_eafdq")

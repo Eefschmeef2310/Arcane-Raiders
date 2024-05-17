@@ -2,9 +2,24 @@ extends TextureRect
 #class_name
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
+var i = 0
+var base_arrow_pos: Vector2
+var amp = 3
+var freq = 10
+
+func _ready():
+	base_arrow_pos = $EquipArrow.position
+
+func _process(delta):
+	i += delta
+	if i > 360:
+		i -= 360
+	$EquipArrow.position.y = base_arrow_pos.y + (sin(i*freq)*amp)
+
 func set_spell(spell: Spell):
-	texture = spell.ui_texture
-	self_modulate = spell.element.colour if spell.modulate_icon else Color.WHITE
+	if spell:
+		texture = spell.ui_texture
+		self_modulate = spell.element.colour
 
 func set_cooldown_percent(p: float):
 	$ProgressBar.value = p
@@ -17,3 +32,9 @@ func hide_prompt():
 
 func show_prompt():
 	$Prompt.show()
+
+func hide_arrow():
+	$EquipArrow.hide()
+
+func show_arrow():
+	$EquipArrow.show()

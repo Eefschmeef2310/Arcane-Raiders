@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b36hyhxebhoon"]
+
+[sub_resource type="GDScript" id="GDScript_3tool"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+const SLIME_LOB = preload(\"res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn\")
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+	
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	if(caster):
+		var p_arr = get_tree().get_nodes_in_group(\"player\")
+		for p in p_arr:
+			if p is Player:
+				var slime = SLIME_LOB.instantiate()
+				slime.set_target(p.global_position)
+				transfer_data(slime)
+				add_sibling.call_deferred(slime)
+	queue_free()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[node name="ExSlimeLob" type="Node2D"]
+position = Vector2(372, 181)
+script = SubResource("GDScript_3tool")
+base_damage = 100
+infliction_time = 5.0
+end_time = 2.0
+cooldown_time = 20.0

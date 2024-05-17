@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://bkvdyq3e0uuex"]
+
+[ext_resource type="PackedScene" uid="uid://cvlicvm1ejylu" path="res://spells/scenes/aoe_large/aoe_large.tscn" id="1_74pfk"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_fhxqf"]
+[ext_resource type="Texture2D" uid="uid://dpaoasia6x8rt" path="res://spells/projections/aoelarge.png" id="1_s0uih"]
+[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="3_0mkd8"]
+
+[resource]
+script = ExtResource("1_fhxqf")
+suffix = "Inferno"
+description = "Cast a distant, delayed explosion."
+scene = ExtResource("1_74pfk")
+ui_texture = ExtResource("3_0mkd8")
+projection_texture = ExtResource("1_s0uih")

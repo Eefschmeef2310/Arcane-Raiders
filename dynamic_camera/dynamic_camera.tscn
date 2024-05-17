@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://83gie5tlktus"]
+
+[ext_resource type="Script" path="res://dynamic_camera/dynamic_camera.gd" id="1_tka6i"]
+
+[node name="DynamicCamera" type="Camera2D"]
+position_smoothing_enabled = true
+script = ExtResource("1_tka6i")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://c20ykcgg3e6nd"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_a2ij5"]
+
+[sub_resource type="Curve" id="Curve_la55t"]
+max_value = 24.91
+_data = [Vector2(0, 0), 0.0, 18.0997, 0, 0, Vector2(0.271, 20), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_a830g"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.129771, 1), 0.0, 0.0, 0, 0, Vector2(0.51145, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_v353t"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.755725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.509434), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_4nmss"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.507634, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_i6u15"]
+_data = [Vector2(0.385445, 1), 0.0, 0.0, 0, 0, Vector2(0.51752, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_count = 20
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sidjm"]
+radius = 50.0
+
+[node name="aoe_local_explosion" instance=ExtResource("1_a2ij5")]
+match_tilemap_angle = true
+speed_curve = SubResource("Curve_la55t")
+sprite_rotation_falloff_curve = SubResource("Curve_a830g")
+scale_falloff_curve = SubResource("Curve_v353t")
+transparency_falloff_curve = SubResource("Curve_4nmss")
+area_enabled_curve = SubResource("Curve_i6u15")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.316406, 0.320312)
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_sidjm")
+
+[node name="kill_timer" parent="." index="3"]
+wait_time = 0.3

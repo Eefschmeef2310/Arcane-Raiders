@@ -1,0 +1,156 @@
+[gd_scene load_steps=17 format=3 uid="uid://c8oqal4h1mv7a"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
+[ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
+[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_pgemf"]
+[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="4_r1oq1"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
+[ext_resource type="PackedScene" uid="uid://ngf5irvgldhp" path="res://multiplayer/serverBrowser/serverBrowser.tscn" id="7_6hjgf"]
+[ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
+
+[sub_resource type="Resource" id="Resource_gs5db"]
+script = ExtResource("6_mpv8m")
+loadout_name = "Flame"
+loadout_desc = ""
+spell_ids = Array[String](["burn-proj_ball", "null-proj_spread", "null-aoe_large"])
+
+[sub_resource type="Resource" id="Resource_if0ax"]
+script = ExtResource("6_mpv8m")
+loadout_name = "Frost"
+loadout_desc = ""
+spell_ids = Array[String](["frost-aoe_local", "null-proj_ball", "null-proj_burst"])
+
+[sub_resource type="Gradient" id="Gradient_tnrv2"]
+colors = PackedColorArray(0.679015, 1.16717e-06, 3.85046e-07, 1, 0.33331, 3.13452e-06, 1.70864e-06, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m1bvv"]
+gradient = SubResource("Gradient_tnrv2")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_c8thl"]
+colors = PackedColorArray(1, 0.28472, 0.959037, 1, 0.989239, 0, 0.277317, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mkxvn"]
+gradient = SubResource("Gradient_c8thl")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
+font_size = 90
+font_color = Color(1, 0.921569, 0.929412, 1)
+
+[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox", "multiplayer_spawner", "debug_start_button", "ready_progress_bar", "lobby_title")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ydb8")
+player_card_hbox = NodePath("Lobby/MarginContainer/PlayerCardBox")
+multiplayer_spawner = NodePath("MultiplayerSpawner")
+debug_start_button = NodePath("Lobby/StartButton")
+ready_progress_bar = NodePath("Lobby/ReadyProgress")
+lobby_title = NodePath("Lobby/ReadyProgress/Label")
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_pgemf"), ExtResource("4_r1oq1"), ExtResource("2_837od")])
+loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
+player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.686275, 0.00392157, 0.886275, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
+server_browser_scene = ExtResource("7_6hjgf")
+player_card_scene = ExtResource("2_bq112")
+castle_climb_scene = ExtResource("9_fkiis")
+
+[node name="Lobby" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="PlayerCardBox" type="HBoxContainer" parent="Lobby/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="Lobby/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 71
+text = "Press Space or bottom action on controller to join"
+horizontal_alignment = 1
+
+[node name="ReadyProgress" type="TextureProgressBar" parent="Lobby"]
+custom_minimum_size = Vector2(0, 125)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 125.0
+grow_horizontal = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_m1bvv")
+texture_progress = SubResource("GradientTexture2D_mkxvn")
+
+[node name="Label" type="Label" parent="Lobby/ReadyProgress"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -509.0
+offset_right = 509.0
+offset_bottom = 125.0
+grow_horizontal = 2
+text = "CHOOSE YOUR RAIDER!"
+label_settings = SubResource("LabelSettings_dkcho")
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="Lobby"]
+layout_mode = 1
+offset_right = 45.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 85
+text = "Back"
+
+[node name="StartButton" type="Button" parent="Lobby"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Force Start Game"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Lobby/MarginContainer/PlayerCardBox")
+
+[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="Lobby/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Lobby/StartButton" to="." method="_on_start_button_pressed"]

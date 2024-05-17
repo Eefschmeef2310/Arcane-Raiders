@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://fpqy0jpm8ydv"]
+
+[ext_resource type="Script" path="res://moving_entities/entity_health_bar.gd" id="1_xl4bi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8yre8"]
+bg_color = Color(0.678431, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[node name="ProgressBar" type="ProgressBar"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -42.0
+offset_right = 68.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_8yre8")
+show_percentage = false
+script = ExtResource("1_xl4bi")

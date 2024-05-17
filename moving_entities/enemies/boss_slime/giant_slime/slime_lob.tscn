@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcxtekbksqhva"]
+
+[ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="1_7iohn"]
+[ext_resource type="Texture2D" uid="uid://bq0x8mvs6f27s" path="res://moving_entities/enemies/boss_slime/water_slime/large_bullet.png" id="2_pahc7"]
+
+[sub_resource type="GDScript" id="GDScript_3d25w"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+const WATER_EXPLOSION = preload(\"res://moving_entities/enemies/boss_slime/giant_slime/water-explosion.tscn\")
+const SLIME_FIELD = preload(\"res://moving_entities/enemies/boss_slime/giant_slime/slime_field.tscn\")
+
+@export var projectile_height = 300
+
+@onready var projectile = $Projectile
+@onready var ring = $Ring
+@onready var ring_sprite = $Ring/Sprite2D
+
+
+var target_area = null
+var duration = 2
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	var tween = get_tree().create_tween()
+	var half_d = duration/2.
+	if(caster): 
+		global_position = caster.global_position
+		if(target_area == null):
+			target_area = caster.target_area
+	elif !target_area:
+		target_area = Vector2(700, 500) #Debug Stuff
+	
+	var mid = (target_area + global_position)/2
+	var position_high = Vector2(mid.x, mid.y - projectile_height)
+	ring.global_position = target_area
+	tween.tween_property(projectile, \"global_position:x\", position_high.x, half_d)
+	tween.parallel().tween_property(projectile, \"global_position:y\", position_high.y, half_d).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(projectile, \"global_position:x\", target_area.x, half_d)
+	tween.parallel().tween_property(projectile, \"global_position:y\", target_area.y, half_d).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_callback(create_goop)
+
+func _process(delta):
+	ring_sprite.rotation -= delta
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func set_target(target: Vector2):
+	target_area = target
+
+
+func create_goop():
+	$Ring/Sprite2D.hide()
+	$Projectile/Sprite2D.hide()
+	var explosion = WATER_EXPLOSION.instantiate()
+	transfer_data(explosion)
+	explosion.global_position = target_area
+	add_sibling(explosion)
+	
+	#TODO create the field
+	var field = SLIME_FIELD.instantiate()
+	transfer_data(field)
+	field.base_damage = 5
+	field.global_position = target_area
+	add_sibling(field)
+	queue_free()
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8r5b2"]
+radius = 18.0278
+
+[node name="SlimeLob" type="Node2D"]
+position = Vector2(510, 490)
+script = SubResource("GDScript_3d25w")
+base_damage = 100
+infliction_time = 5.0
+end_time = 2.0
+cooldown_time = 6.0
+
+[node name="Ring" type="Node2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(1, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ring"]
+texture = ExtResource("1_7iohn")
+
+[node name="Projectile" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Projectile"]
+texture = ExtResource("2_pahc7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile"]
+shape = SubResource("CircleShape2D_8r5b2")

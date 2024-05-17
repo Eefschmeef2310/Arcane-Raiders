@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://cshbksmdkf5f6"]
+
+[sub_resource type="GDScript" id="GDScript_5lk21"]
+resource_name = "triple_shot"
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+const BAT_ATTACK = preload(\"res://moving_entities/enemies/bat_small/bat_attack.tscn\")
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var cone_range_deg: float = 120
+@export var bullets: int = 3
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var initial_direction = Vector2.RIGHT
+#endregion
+
+#region Godot methods
+func _ready():
+	if caster:
+		global_position = caster.global_position
+		initial_direction = caster.aim_direction
+		
+	for i in bullets:
+		var bullet = BAT_ATTACK.instantiate()
+		bullet.set_direction(initial_direction.rotated(deg_to_rad(-cone_range_deg/2 + i*(cone_range_deg/(bullets-1)))))
+		bullet.global_position = global_position
+		transfer_data(bullet)
+		add_sibling.call_deferred(bullet)
+		
+	queue_free()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[node name="TripleShot" type="Node2D"]
+position = Vector2(289, 228)
+script = SubResource("GDScript_5lk21")
+cone_range_deg = 75.0
+end_time = 2.0
+cooldown_time = 6.0

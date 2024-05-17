@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=3 uid="uid://b70sy17w68ow1"]
+
+[ext_resource type="Shader" path="res://shaders/cartoon_reflection.gdshader" id="1_a5fky"]
+[ext_resource type="Texture2D" uid="uid://b705viwnuoca5" path="res://spells/reactions/sprites/ice_circle.png" id="1_km2fu"]
+
+[sub_resource type="GDScript" id="GDScript_nfow1"]
+resource_name = "frost-wet"
+script/source = "extends ReactionArea
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+@export_range(0,1) var enemy_move_speed
+@export_range(0,1) var projectile_slowdown_amount
+
+func _process(_delta):
+	for body in get_overlapping_bodies():
+		if \"frost_speed_scale\" in body:
+			body.frost_effect(enemy_move_speed)
+
+#region Signal methods
+func _on_area_entered(area):
+	if \"projectile_speed\" in area:
+		area.projectile_speed *= projectile_slowdown_amount
+
+func _on_area_exited(area):
+	if \"projectile_speed\" in area:
+		area.projectile_speed /= projectile_slowdown_amount
+
+func _on_body_exited(body):
+	if body.is_in_group(\"enemy\"):
+		body.frost_effect(1.)
+
+func _on_kill_timer_timeout():
+	$AnimationPlayer.play(\"kill\")
+#endregion
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_706xi"]
+radius = 182.044
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n6hm5"]
+shader = ExtResource("1_a5fky")
+shader_parameter/line_thickness = 30.0
+shader_parameter/cos_threshold = -0.5
+shader_parameter/overlay_colour = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_s2227"]
+resource_name = "kill"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_y2cbd"]
+resource_name = "spawn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bendj"]
+_data = {
+"kill": SubResource("Animation_s2227"),
+"spawn": SubResource("Animation_y2cbd")
+}
+
+[node name="Frost-wet" type="Area2D" groups=["frost-wet"]]
+z_index = -2
+scale = Vector2(1e-05, 1e-05)
+collision_layer = 16
+collision_mask = 137
+script = SubResource("GDScript_nfow1")
+enemy_move_speed = 0.3
+projectile_slowdown_amount = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_706xi")
+disabled = true
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_n6hm5")
+scale = Vector2(3.09375, 1.52344)
+texture = ExtResource("1_km2fu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bendj")
+}
+autoplay = "spawn"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

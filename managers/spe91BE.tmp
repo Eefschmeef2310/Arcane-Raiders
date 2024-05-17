@@ -1,0 +1,58 @@
+[gd_scene load_steps=36 format=3 uid="uid://clnarx3akvsqu"]
+
+[ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
+[ext_resource type="Resource" uid="uid://cy8odkeelulpq" path="res://spells/resources/aoe_large_burn.tres" id="2_38t6u"]
+[ext_resource type="Resource" uid="uid://db2akpv2voqys" path="res://spells/resources/aoe_large_frost.tres" id="3_ula3d"]
+[ext_resource type="Resource" uid="uid://da1tomxqhamd2" path="res://spells/resources/aoe_large_null.tres" id="4_yw7a4"]
+[ext_resource type="Resource" uid="uid://wt3m5er0qg1l" path="res://spells/resources/aoe_large_shock.tres" id="5_6l1ta"]
+[ext_resource type="Resource" uid="uid://dl4omv0h4332t" path="res://spells/resources/aoe_large_weak.tres" id="6_rwbvy"]
+[ext_resource type="Resource" uid="uid://c2ilum1qahpyf" path="res://spells/resources/aoe_local_burn.tres" id="7_thqsd"]
+[ext_resource type="Resource" uid="uid://basuxbgye4v5n" path="res://spells/resources/aoe_local_frost.tres" id="8_b1byu"]
+[ext_resource type="Resource" uid="uid://b3fh2blbf8sq4" path="res://spells/resources/aoe_local_null.tres" id="9_efuqv"]
+[ext_resource type="Resource" uid="uid://7dws3avp7a8d" path="res://spells/resources/aoe_local_shock.tres" id="10_ku2fh"]
+[ext_resource type="Resource" uid="uid://byfeeniwwdlxg" path="res://spells/resources/aoe_local_weak.tres" id="11_d7sny"]
+[ext_resource type="Resource" uid="uid://ddmdygbe8v5ic" path="res://spells/resources/laser_straight_burn.tres" id="12_0l4uk"]
+[ext_resource type="Resource" uid="uid://byp0oq0w2f3jc" path="res://spells/resources/laser_straight_frost.tres" id="13_fwlaw"]
+[ext_resource type="Resource" uid="uid://b373kosmqa0f6" path="res://spells/resources/laser_straight_null.tres" id="14_q3c0l"]
+[ext_resource type="Resource" uid="uid://bm4454pipbp4e" path="res://spells/resources/laser_straight_shock.tres" id="15_30j7j"]
+[ext_resource type="Resource" uid="uid://dd5sbqtu2le8s" path="res://spells/resources/laser_straight_weak.tres" id="16_isjvm"]
+[ext_resource type="Resource" uid="uid://xji17m5oo03d" path="res://spells/resources/proj_ball_burn.tres" id="17_rg3fe"]
+[ext_resource type="Resource" uid="uid://ds7mbn5tgbei" path="res://spells/resources/proj_ball_frost.tres" id="18_5d3ud"]
+[ext_resource type="Resource" uid="uid://vq52b4rkfjrh" path="res://spells/resources/proj_ball_null.tres" id="19_dpewy"]
+[ext_resource type="Resource" uid="uid://c7ypgsyxpc1tp" path="res://spells/resources/proj_ball_shock.tres" id="20_skkl2"]
+[ext_resource type="Resource" uid="uid://c08xu2420xauy" path="res://spells/resources/proj_ball_weak.tres" id="21_as5q0"]
+[ext_resource type="Resource" uid="uid://tpa2tivvq0uq" path="res://spells/resources/proj_burst_burn.tres" id="22_6y3ax"]
+[ext_resource type="Resource" uid="uid://b118mdkluj75x" path="res://spells/resources/proj_burst_frost.tres" id="23_xxayf"]
+[ext_resource type="Resource" uid="uid://dn1qd8n6s8ydf" path="res://spells/resources/proj_burst_null.tres" id="24_fiya5"]
+[ext_resource type="Resource" uid="uid://depvyl1280q8a" path="res://spells/resources/proj_burst_shock.tres" id="25_5peq4"]
+[ext_resource type="Resource" uid="uid://do574ckdv25ts" path="res://spells/resources/proj_burst_weak.tres" id="26_t36xq"]
+[ext_resource type="Resource" uid="uid://t5lliv8qdp4t" path="res://spells/resources/proj_spread_burn.tres" id="27_kpce0"]
+[ext_resource type="Resource" uid="uid://buptq5orq7jgh" path="res://spells/resources/proj_spread_frost.tres" id="28_ajrq7"]
+[ext_resource type="Resource" uid="uid://d07ynq3uv3hph" path="res://spells/resources/proj_spread_null.tres" id="29_ksi18"]
+[ext_resource type="Resource" uid="uid://botx8jw8in1ew" path="res://spells/resources/proj_spread_shock.tres" id="30_q64b4"]
+[ext_resource type="Resource" uid="uid://i4ovuhj6mp0v" path="res://spells/resources/proj_spread_weak.tres" id="31_3n1bh"]
+[ext_resource type="Resource" uid="uid://dvgoa0itiqajb" path="res://elements/burn.tres" id="32_aky2n"]
+[ext_resource type="Resource" uid="uid://baivofh8khbi0" path="res://elements/frost.tres" id="33_1g0y6"]
+[ext_resource type="Resource" uid="uid://bn5wynfsgplge" path="res://elements/shock.tres" id="34_077o5"]
+[ext_resource type="Resource" uid="uid://dktppvnlqvpln" path="res://elements/wet.tres" id="35_b200f"]
+
+[node name="SpellManager" type="Node"]
+script = ExtResource("1_dxaf6")
+spell_array = Array[Resource("res://spells/spell_base.gd")]([ExtResource("2_38t6u"), ExtResource("3_ula3d"), ExtResource("4_yw7a4"), ExtResource("5_6l1ta"), ExtResource("6_rwbvy"), ExtResource("7_thqsd"), ExtResource("8_b1byu"), ExtResource("9_efuqv"), ExtResource("10_ku2fh"), ExtResource("11_d7sny"), ExtResource("12_0l4uk"), ExtResource("13_fwlaw"), ExtResource("14_q3c0l"), ExtResource("15_30j7j"), ExtResource("16_isjvm"), ExtResource("17_rg3fe"), ExtResource("18_5d3ud"), ExtResource("19_dpewy"), ExtResource("20_skkl2"), ExtResource("21_as5q0"), ExtResource("22_6y3ax"), ExtResource("23_xxayf"), ExtResource("24_fiya5"), ExtResource("25_5peq4"), ExtResource("26_t36xq"), ExtResource("27_kpce0"), ExtResource("28_ajrq7"), ExtResource("29_ksi18"), ExtResource("30_q64b4"), ExtResource("31_3n1bh")])
+elements = {
+"Burn": ExtResource("32_aky2n"),
+"Frost": ExtResource("33_1g0y6"),
+"Null": null,
+"Shock": ExtResource("34_077o5"),
+"Stun": null,
+"Wet": ExtResource("35_b200f"),
+"Wind": null
+}
+spell_scenes = {
+"AOE Large": null,
+"AOE Local": null,
+"Ball": null,
+"Burst": null,
+"Laser": null,
+"Spread": null
+}

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://wunw15qbe5he"]
+
+[ext_resource type="Texture2D" uid="uid://bn8h332covd1w" path="res://moving_entities/player/player_pieces/head-lizard.png" id="1_nak63"]
+[ext_resource type="Texture2D" uid="uid://ckvnyognf84so" path="res://multiplayer/multiplayerLobby/raiders/crocplaceholder.png" id="2_ldc5c"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_piqt6"]
+
+[resource]
+script = ExtResource("3_piqt6")
+portrait = ExtResource("2_ldc5c")
+raider_name = "Lizard"
+raider_desc = "hissss!!"
+color = Color(0.203922, 0.282353, 0.541176, 1)
+head_texture = ExtResource("1_nak63")
+skin_color = Color(0.847059, 0.698039, 0.545098, 1)

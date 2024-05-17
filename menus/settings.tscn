@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsie8gn5hesf4"]
+
+[ext_resource type="Script" path="res://menus/added_menu.gd" id="1_86kdw"]
+[ext_resource type="Script" path="res://menus/volume_slider.gd" id="1_r4v4d"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_bb85t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lqv"]
+bg_color = Color(0.321569, 0.321569, 0.321569, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_fkkg5"]
+font_size = 120
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8o8s"]
+font_size = 75
+
+[node name="Settings" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_86kdw")
+
+[node name="Background" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Panel" type="Panel" parent="Background"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_24lqv")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_right = 300
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SOUND"
+label_settings = SubResource("LabelSettings_fkkg5")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Master" type="Label" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master
+"
+label_settings = SubResource("LabelSettings_l8o8s")
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+script = ExtResource("1_r4v4d")
+bus_name = "Master"
+
+[node name="Music" type="Label" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_l8o8s")
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+script = ExtResource("1_r4v4d")
+bus_name = "Music"
+
+[node name="SFX" type="Label" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound Effects"
+label_settings = SubResource("LabelSettings_l8o8s")
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+script = ExtResource("1_r4v4d")
+bus_name = "SFX"
+
+[node name="BackButton" type="Button" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 91
+text = "Back"
+script = ExtResource("2_bb85t")
+
+[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

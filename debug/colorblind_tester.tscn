@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw3f1qi0ig7e0"]
+
+[ext_resource type="Shader" path="res://debug/colorblind_tester.gdshader" id="2_gi62r"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="3_7h51o"]
+
+[sub_resource type="GDScript" id="GDScript_2sgi3"]
+resource_name = "colorblind_tester"
+script/source = "extends CanvasLayer
+
+func _input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_C:
+		visible = !visible
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ltxh"]
+shader = ExtResource("2_gi62r")
+
+[node name="ColorblindTester" type="CanvasLayer"]
+layer = 4
+visible = false
+script = SubResource("GDScript_2sgi3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_2ltxh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_7h51o")

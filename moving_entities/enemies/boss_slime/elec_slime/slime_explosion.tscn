@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqjft3xurg4aq"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/boss_slime/elec_slime/e_slime_explosion.gd" id="1_oopgn"]
+[ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="2_20rsy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3085i"]
+radius = 107.008
+
+[node name="ESlimeExplosion" type="Node2D"]
+position = Vector2(644, 357)
+script = ExtResource("1_oopgn")
+size = 6.0
+infliction_time = 5.0
+end_time = 2.0
+cooldown_time = 8.0
+
+[node name="Ring" type="Node2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(1, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ring"]
+texture = ExtResource("2_20rsy")
+
+[node name="ExplosionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+scale = Vector2(1, 0.756)
+shape = SubResource("CircleShape2D_3085i")

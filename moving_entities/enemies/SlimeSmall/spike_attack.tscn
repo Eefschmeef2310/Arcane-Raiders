@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://du3bivrhjlrac"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/SlimeSmall/spike_attack.gd" id="1_6txop"]
+[ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="2_atneh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5on1h"]
+radius = 63.0079
+
+[node name="SpikeAttack" type="Node2D"]
+script = ExtResource("1_6txop")
+start_time = 0.0
+end_time = 1.0
+cooldown_time = 2.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("2_atneh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_5on1h")
+debug_color = Color(0.219608, 0.313726, 0.760784, 0.419608)

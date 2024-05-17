@@ -1,0 +1,108 @@
+{
+	"textures": [
+		{
+			"image": "explosion.png",
+			"size": {
+				"w": 1500,
+				"h": 1000
+			},
+			"sprites": [
+				{
+					"filename": "explosion_0000.png",
+					"region": {
+						"x": 0,
+						"y": 0,
+						"w": 500,
+						"h": 500
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "explosion_0001.png",
+					"region": {
+						"x": 500,
+						"y": 0,
+						"w": 500,
+						"h": 500
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "explosion_0002.png",
+					"region": {
+						"x": 1000,
+						"y": 0,
+						"w": 500,
+						"h": 500
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "explosion_0003.png",
+					"region": {
+						"x": 0,
+						"y": 500,
+						"w": 500,
+						"h": 500
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "explosion_0004.png",
+					"region": {
+						"x": 500,
+						"y": 500,
+						"w": 500,
+						"h": 500
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "explosion_0005.png",
+					"region": {
+						"x": 1000,
+						"y": 500,
+						"w": 500,
+						"h": 500
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8ce77f962be2b6fcfc34f5dd3b0c3ad8:d9ad64bf5f6d3a9ca47efc75f0b08543:04c3b67c12cc42b98ac09c953cbfbf7a$"
+	}
+}

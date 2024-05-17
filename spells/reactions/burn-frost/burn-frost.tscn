@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxbx5yeaogymo"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_3yuf6"]
+[ext_resource type="PackedScene" uid="uid://cr1h1dxl5yo6r" path="res://spells/reactions/burn-frost/burn_frost_explosion.tscn" id="2_dvkgq"]
+[ext_resource type="Shader" path="res://spells/reactions/burn-frost/reaction_hider.gdshader" id="2_yv5aa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6cse"]
+shader = ExtResource("2_yv5aa")
+
+[sub_resource type="GDScript" id="GDScript_ljwld"]
+resource_name = "brun-frost"
+script/source = "extends ReactionNode
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")s
+@export var EXPLOSION : PackedScene
+@export var waves : int = 10
+@export var explosions_per_wave : int = 5
+@export_range(0, TAU) var max_radians : float = 0.2
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	#if ensity : global_position = entity.global_position
+	# await get_tree().create_timer(start_time).timeout
+	if should_continue: _on_wave_timer_timeout()
+#endregion
+
+#region Signal methods
+func _on_wave_timer_timeout():
+	if waves > 0:
+		#spawn
+		var angle_step = max_radians / (explosions_per_wave - 1)
+		
+		for x in explosions_per_wave:
+			var explosion = EXPLOSION.instantiate()
+			transfer_data(explosion)
+			
+			var rotation_offset = angle_step * x - max_radians / 2
+			explosion.rotation = (0.) + rotation_offset
+			
+			explosion.global_position = global_position
+			call_deferred(\"add_sibling\", explosion)
+		waves -= 1
+		$WaveTimer.start(0.05)
+	else:
+		queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func transfer_data(new: Node2D):
+	if \"base_damage\" in new:
+		new.base_damage = base_damage
+	if \"caster\" in new:
+		new.caster = caster
+#endregion
+"
+
+[node name="burn-frost" groups=["burn-frost"] instance=ExtResource("1_3yuf6")]
+material = SubResource("ShaderMaterial_f6cse")
+script = SubResource("GDScript_ljwld")
+EXPLOSION = ExtResource("2_dvkgq")
+waves = 1
+explosions_per_wave = 8
+max_radians = 6.283
+base_damage = 10
+
+[node name="WaveTimer" type="Timer" parent="." index="0"]
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
