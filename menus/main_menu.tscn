@@ -22,6 +22,16 @@ func _ready():
 	AudioManager.stop_all()
 	
 	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
+	
+	#Steam.steamInit()
+	#Steam.inputInit()
+	#
+#func _process(_delta):
+	##Steam.runFrame()
+	#
+	#print(Steam.getConnectedControllers())
+	#
+	#Steam.setLEDColor(Steam.getConnectedControllers()[0], int(0.5 * 255), int(0.5 * 255), int(0.5 * 255), 0)
 #endregion
 
 #region Signal methods

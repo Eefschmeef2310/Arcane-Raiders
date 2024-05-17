@@ -18,7 +18,7 @@ func _ready():
 	spell_release.resize(3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta):	
 	var do_pause = false
 	if input: # For local
 		do_pause = input.is_action_just_released("pause")
