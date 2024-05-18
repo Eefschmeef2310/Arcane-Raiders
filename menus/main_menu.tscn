@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=6 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://b0wd7cki57iq3" path="res://menus/splash2.png" id="1_ag66g"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_hcuag"]
@@ -11,6 +11,9 @@ extends Control
 
 const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
 #@export var menu : Node
+@export var steam_error_window : PanelContainer
+@export var steam_error_label : Label
+@export var online_button : Button
 
 #region Godot methods
 func _ready():
@@ -22,6 +25,18 @@ func _ready():
 	AudioManager.stop_all()
 	
 	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
+	if (!Steam.loggedOn()):
+		steam_error_window.show()
+		steam_error_label.text = \" Connection to steam failed, Online functions disabled: Not logged into steam \"
+	if (!Steam.isSubscribed()):
+		steam_error_window.show()
+		steam_error_label.text += \"\\n Connection to steam failed, Online functions disabled: Game is not owned \"
+		online_button.disabled = true
+	if(!SteamManager.live_mode):
+		steam_error_window.show()
+		steam_error_label.label_settings.font_color = Color.YELLOW
+		steam_error_label.text += \"\\n Warning: Spacewar in use, Controller input may break \"
+		online_button.disabled=true
 #endregion
 
 #region Signal methods
@@ -50,7 +65,11 @@ func _on_settings_button_pressed():
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
 font_size = 32
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="LabelSettings" id="LabelSettings_sscpa"]
+font_size = 32
+font_color = Color(0.905882, 0, 0.466667, 1)
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -58,6 +77,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_mpxdx")
+steam_error_window = NodePath("SteamErrorWindow")
+steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
+online_button = NodePath("VBoxContainer/OnlineButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -127,6 +149,23 @@ offset_bottom = -32.0
 grow_vertical = 0
 text = "Ver. 24-05-14"
 label_settings = SubResource("LabelSettings_ko00r")
+
+[node name="SteamErrorWindow" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -442.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SteamErrorText" type="Label" parent="SteamErrorWindow"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_sscpa")
 
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
