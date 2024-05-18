@@ -23,15 +23,17 @@ func _ready():
 	
 	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
 	
-	#Steam.steamInit()
-	#Steam.inputInit()
-	#
-#func _process(_delta):
-	##Steam.runFrame()
-	#
-	#print(Steam.getConnectedControllers())
-	#
-	#Steam.setLEDColor(Steam.getConnectedControllers()[0], int(0.5 * 255), int(0.5 * 255), int(0.5 * 255), 0)
+	#Steam.input_configuration_loaded.connect(dingus)
+
+	#SteamControllerInput.init()
+	
+#func dingus(_one, _two, _three):
+	##print(\"dingus\")
+	
+func _process(_delta):
+	if Steam.getConnectedControllers().size() >= 2:
+		Steam.setLEDColor(Steam.getConnectedControllers()[0], 0, 12, 186, 0)
+		Steam.setLEDColor(Steam.getConnectedControllers()[1], randi_range(0,255), randi_range(0,255), randi_range(0,255), 0)
 #endregion
 
 #region Signal methods

@@ -13,9 +13,10 @@ func _ready():
 	else:
 		OS.set_environment("SteamAppID", str(480))
 		OS.set_environment("SteamGameID", str(480))
-	Steam.steamInitEx()
-	#Steam.enableDeviceCallbacks()
-	#SteamControllerInput.init()
+		
+	Steam.steamInit()
+	Steam.inputInit()
+	Steam.enableDeviceCallbacks()
 	
 	## Spacewar (test app) : 480
 	## untitiled wizard game (real app) : 2899410
@@ -24,7 +25,7 @@ func _ready():
 func _process(_delta):
 	Steam.run_callbacks()
 
-func upload_acheivememt(acheivement_name : String):
+func upload_acheivement(acheivement_name : String):
 	#Note: if you want to have an acheievemtn with a progress bar then it needs to be setup with a corresponding stat!
 	if (live_mode):
 		print("Giving acheivement: " + acheivement_name)
