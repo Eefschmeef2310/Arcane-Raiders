@@ -16,9 +16,9 @@ shader_parameter/final_saturation = 0.5
 shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_v48oq"]
-max_value = 15.0
-_data = [Vector2(0, 15), 0.0, 0.0, 0, 0, Vector2(1, 7), -28.8596, 0.0, 0, 0]
-point_count = 2
+max_value = 25.0
+_data = [Vector2(0, 25), 0.0, 0.0, 0, 0]
+point_count = 1
 
 [sub_resource type="Curve" id="Curve_436of"]
 
@@ -31,8 +31,8 @@ _data = [Vector2(0.744275, 0.990046), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0
 point_count = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxpw6"]
-radius = 16.0
-height = 72.0
+radius = 11.0
+height = 56.0
 
 [node name="proj_burst_explosion" instance=ExtResource("1_pkplm")]
 material = SubResource("ShaderMaterial_n623v")
@@ -43,7 +43,7 @@ transparency_falloff_curve = SubResource("Curve_6x5nu")
 destroy_on_contact = true
 
 [node name="Sprite2D" parent="." index="1"]
-scale = Vector2(1, 1)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_0hysr")
 
 [node name="CollisionShape2D" parent="." index="2"]

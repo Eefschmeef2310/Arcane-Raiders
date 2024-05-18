@@ -38,10 +38,10 @@ func _ready():
 		steam_error_label.text += \"\\n Warning: Spacewar in use, Controller input may break \"
 		online_button.disabled=true
 	
-func _process(_delta):
-	Steam.setLEDColor(SteamControllerInput.get_controllers()[1], 0, 12, 186, 0)
-	Steam.setLEDColor(SteamControllerInput.get_controllers()[2], randi_range(0,255), randi_range(0,255), randi_range(0,255), 0)
-#endregion
+#func _process(_delta):
+	##Steam.setLEDColor(SteamControllerInput.get_controllers()[1], 0, 12, 186, 0)
+	##Steam.setLEDColor(SteamControllerInput.get_controllers()[2], randi_range(0,255), randi_range(0,255), randi_range(0,255), 0)
+##endregion
 
 #region Signal methods
 func _on_quit_button_pressed():
