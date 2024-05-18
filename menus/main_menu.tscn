@@ -37,6 +37,18 @@ func _ready():
 		steam_error_label.label_settings.font_color = Color.YELLOW
 		steam_error_label.text += \"\\n Warning: Spacewar in use, Controller input may break \"
 		online_button.disabled=true
+	
+	#Steam.input_configuration_loaded.connect(dingus)
+
+	#SteamControllerInput.init()
+	
+#func dingus(_one, _two, _three):
+	##print(\"dingus\")
+	
+func _process(_delta):
+	if Steam.getConnectedControllers().size() >= 2:
+		Steam.setLEDColor(Steam.getConnectedControllers()[0], 0, 12, 186, 0)
+		Steam.setLEDColor(Steam.getConnectedControllers()[1], randi_range(0,255), randi_range(0,255), randi_range(0,255), 0)
 #endregion
 
 #region Signal methods

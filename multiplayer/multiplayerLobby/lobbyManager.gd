@@ -284,6 +284,8 @@ func get_unjoined_devices():
 	# also consider keyboard player
 	devices.append(-1)
 	
+	print(devices)
+	
 	# filter out devices that are joined:
 	return devices.filter(func(device): return !is_device_joined(device))
 
