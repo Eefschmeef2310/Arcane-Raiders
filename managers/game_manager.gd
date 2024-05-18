@@ -21,3 +21,5 @@ func update_device_list(_device: int = 0, _connected: bool = false):
 	devices = Input.get_connected_joypads()
 	devices.append(-1)
 	print(str(_device) +  ', ' + str(_connected))
+	if _connected:
+		print(Input.get_joy_name(_device))
