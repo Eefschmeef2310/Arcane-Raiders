@@ -13,6 +13,15 @@ func _ready():
 	else:
 		OS.set_environment("SteamAppID", str(480))
 		OS.set_environment("SteamGameID", str(480))
+	
+	var initialize_response: Dictionary = Steam.steamInitEx()
+	print("Did Steam initialize?: %s" % initialize_response)
+	# status : 0 means it all worked, anything else means an error occured
+	
+	
+	
+
+	#SteamControllerInput.init()
 		
 	Steam.steamInit()
 	Steam.inputInit()
@@ -22,6 +31,7 @@ func _ready():
 	
 	## Spacewar (test app) : 480
 	## untitiled wizard game (real app) : 2899410
+	## Baladins (unowned game, will fail) : 1866320
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
