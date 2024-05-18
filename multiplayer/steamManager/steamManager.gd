@@ -18,6 +18,8 @@ func _ready():
 	Steam.inputInit()
 	Steam.enableDeviceCallbacks()
 	
+	SteamControllerInput.init()
+	
 	## Spacewar (test app) : 480
 	## untitiled wizard game (real app) : 2899410
 

@@ -65,3 +65,10 @@ func get_action_handles(action_names: Dictionary) -> void:
 			actions[action] = Steam.getAnalogActionHandle(action)
 		else:
 			actions[action] = Steam.getDigitalActionHandle(action)
+			
+func get_controllers() -> Array[int]:
+	var controllers: Array[int] = [-1]
+	var steam_controllers = Steam.getConnectedControllers()
+	if steam_controllers:
+		controllers.append_array(steam_controllers)
+	return controllers

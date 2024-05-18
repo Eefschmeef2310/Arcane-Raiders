@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://br01dtr66kciu"]
+[gd_scene load_steps=12 format=3 uid="uid://br01dtr66kciu"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_pkplm"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_ro75f"]
@@ -20,6 +20,8 @@ max_value = 15.0
 _data = [Vector2(0, 15), 0.0, 0.0, 0, 0, Vector2(1, 7), -28.8596, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_436of"]
+
 [sub_resource type="Curve" id="Curve_fjpuw"]
 _data = [Vector2(0.99999, 1), 0.0, 0.0, 0, 0]
 point_count = 1
@@ -35,6 +37,7 @@ height = 72.0
 [node name="proj_burst_explosion" instance=ExtResource("1_pkplm")]
 material = SubResource("ShaderMaterial_n623v")
 speed_curve = SubResource("Curve_v48oq")
+sprite_rotation_falloff_curve = SubResource("Curve_436of")
 scale_falloff_curve = SubResource("Curve_fjpuw")
 transparency_falloff_curve = SubResource("Curve_6x5nu")
 destroy_on_contact = true
