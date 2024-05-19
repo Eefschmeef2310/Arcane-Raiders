@@ -47,7 +47,7 @@ func _on_steam_input_device_connected(input_handle: int) -> void:
 	if not got_handles:
 		get_handles()
 	Steam.activateActionSet(input_handle, current_action_set)
-	print("Device connected %s" % str(input_handle))
+	#print("Device connected %s" % str(input_handle))
 
 func _on_steam_input_device_disconnected(input_handle: int) -> void:
 	print("Device disconnected %s" % str(input_handle))

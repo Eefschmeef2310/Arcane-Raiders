@@ -259,4 +259,4 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	var ui = $GameUI/PlayerUIContainer.get_child(slot)
 	ui.show()
 	ui.set_data(data)
-	print(data.device_id)
+	#print(data.device_id)

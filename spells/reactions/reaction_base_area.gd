@@ -14,6 +14,7 @@ const REACTION_ELEMENTS_UI = preload("res://spells/reactions/reaction_elements_u
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var base_damage : int = 10
+@export var reaction_name : String
 
 	#Onready Variables
 
@@ -53,8 +54,12 @@ func _ready():
 			
 			reaction_elements_ui.element_2.texture = elements[1].pip_texture
 			reaction_elements_ui.element_2.modulate = elements[1].colour
+			
+			reaction_elements_ui.reaction_name.text = reaction_name
+			
+			reaction_elements_ui.set_color(caster.data.main_color)
 		
-		remove_from_group(get_groups()[0])
+		#remove_from_group(get_groups()[0])
 #endregion
 
 #region Signal methods

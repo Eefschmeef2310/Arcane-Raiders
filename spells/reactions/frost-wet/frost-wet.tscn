@@ -109,12 +109,12 @@ _data = {
 
 [node name="Frost-wet" type="Area2D" groups=["frost-wet"]]
 z_index = -2
-scale = Vector2(1e-05, 1e-05)
 collision_layer = 16
 collision_mask = 137
 script = SubResource("GDScript_nfow1")
 enemy_move_speed = 0.3
 projectile_slowdown_amount = 0.5
+reaction_name = "Ice"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1, 0.5)

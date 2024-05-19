@@ -1,3 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://c5sd7ie78ujem"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c5sd7ie78ujem"]
+
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_qa02b"]
 
 [resource]
+Label/fonts/font = ExtResource("1_qa02b")

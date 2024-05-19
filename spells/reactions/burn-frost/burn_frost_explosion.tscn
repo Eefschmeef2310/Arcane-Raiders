@@ -1,6 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cr1h1dxl5yo6r"]
+[gd_scene load_steps=11 format=3 uid="uid://cr1h1dxl5yo6r"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_7af4y"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_stpt7"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1f6uf"]
+resource_local_to_scene = true
+shader = ExtResource("2_stpt7")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_k1vg2"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -22,16 +34,17 @@ point_count = 4
 radius = 100.0
 
 [node name="burn_frost_explosion" instance=ExtResource("1_7af4y")]
+material = SubResource("ShaderMaterial_1f6uf")
 speed_curve = SubResource("Curve_k1vg2")
 sprite_rotation_falloff_curve = SubResource("Curve_utc6f")
 scale_falloff_curve = SubResource("Curve_35l1m")
 transparency_falloff_curve = SubResource("Curve_n40j6")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.558594, 0.507812)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_7huk8")
 
-[node name="kill_timer" parent="." index="2"]
+[node name="kill_timer" parent="." index="3"]
 wait_time = 0.75

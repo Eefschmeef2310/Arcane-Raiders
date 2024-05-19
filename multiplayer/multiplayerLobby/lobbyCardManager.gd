@@ -1,5 +1,4 @@
 extends Node
-#class_name
 #Authored by Tom. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -20,7 +19,13 @@ extends Node
 @export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
 @export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
-@export var highlight_color : Color = Color.RED # this should be player colour
+@export var highlight_color : Color = Color.RED: # this should be player colour
+	set(value):
+		highlight_color = value
+		#Sets LED colour of controller when the colour changes
+		if SteamControllerInput.get_controllers().size() > 1: #In case Steam isnt open
+			Steam.setLEDColor(SteamControllerInput.get_controllers()[device_id + 1], int(value.r * 255), int(value.g * 255), int(value.b * 255), 0)
+			Steam.triggerVibration(SteamControllerInput.get_controllers()[device_id + 1], 100, 100)
 
 @export_group("Other Resources")
 @export var pip_texture : Texture2D
@@ -51,9 +56,6 @@ extends Node
 @export var pre_body : Sprite2D
 @export var pre_l_hand : Sprite2D
 @export var pre_r_hand : Sprite2D
-
-
-
 
 #Onready Variables
 

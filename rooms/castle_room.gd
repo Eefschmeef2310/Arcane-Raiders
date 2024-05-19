@@ -81,9 +81,6 @@ func _ready():
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
 		
-func _process(_delta):
-	pass
-	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
 	await get_tree().process_frame

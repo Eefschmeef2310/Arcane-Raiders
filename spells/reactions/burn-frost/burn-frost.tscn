@@ -1,11 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxbx5yeaogymo"]
+[gd_scene load_steps=4 format=3 uid="uid://cxbx5yeaogymo"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_3yuf6"]
 [ext_resource type="PackedScene" uid="uid://cr1h1dxl5yo6r" path="res://spells/reactions/burn-frost/burn_frost_explosion.tscn" id="2_dvkgq"]
-[ext_resource type="Shader" path="res://spells/reactions/burn-frost/reaction_hider.gdshader" id="2_yv5aa"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6cse"]
-shader = ExtResource("2_yv5aa")
 
 [sub_resource type="GDScript" id="GDScript_ljwld"]
 resource_name = "brun-frost"
@@ -72,13 +68,13 @@ func transfer_data(new: Node2D):
 "
 
 [node name="burn-frost" groups=["burn-frost"] instance=ExtResource("1_3yuf6")]
-material = SubResource("ShaderMaterial_f6cse")
 script = SubResource("GDScript_ljwld")
 EXPLOSION = ExtResource("2_dvkgq")
 waves = 1
 explosions_per_wave = 8
 max_radians = 6.283
 base_damage = 10
+reaction_name = "Steam"
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 
