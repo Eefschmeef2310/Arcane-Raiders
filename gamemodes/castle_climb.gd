@@ -230,7 +230,7 @@ func get_floor_name(fl: int) -> String:
 	elif fl == 0:
 		return "Foyer"
 	else:
-		return str(fl) + "F"
+		return "Floor " + str(fl)
 
 @rpc("authority", "call_local", "reliable")
 func setup_from_parent_multiplayer_lobby():

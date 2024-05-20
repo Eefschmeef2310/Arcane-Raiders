@@ -19,7 +19,10 @@ func _process(delta):
 func set_spell(spell: Spell):
 	if spell:
 		texture = spell.ui_texture
-		self_modulate = spell.element.colour
+		if spell.element.gradient:
+			(material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
+		else:
+			self_modulate = spell.element.colour
 
 func set_cooldown_percent(p: float):
 	$ProgressBar.value = p

@@ -71,6 +71,7 @@ func set_data(d: PlayerData):
 	update_prompts(data.device_id)
 	update_spells()
 	$HBox/Stats/HealthBar.tint_progress = data.main_color
+	$HBox/Stats/HealthBar/Border.self_modulate = data.main_color
 	$HBox/Stats/Spells/Head.texture = data.character.head_texture
 
 # TODO RUNS EVERY FRAME

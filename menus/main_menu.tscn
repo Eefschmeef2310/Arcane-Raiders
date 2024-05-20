@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=7 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://b0wd7cki57iq3" path="res://menus/splash2.png" id="1_ag66g"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="2_7gsyx"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_hcuag"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
@@ -124,26 +125,30 @@ alignment = 1
 [node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
-text = "Local Play"
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 64
+text = "Play Local"
 script = ExtResource("2_hcuag")
 
 [node name="OnlineButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
-text = "Online"
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 64
+text = "Play Online"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 64
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 64
 text = "Quit"
 
 [node name="VersionLabel" type="Label" parent="."]

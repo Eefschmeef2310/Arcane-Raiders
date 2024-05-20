@@ -1,11 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8tisd7v43c66"]
+[gd_scene load_steps=9 format=3 uid="uid://c8tisd7v43c66"]
 
 [ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="1_116hg"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_uxkox"]
 [ext_resource type="Script" path="res://ui/spell_slot.gd" id="2_dapti"]
 [ext_resource type="Texture2D" uid="uid://da1niepub7xwn" path="res://ui/prompts/ps/playstation_button_color_square_outline.png" id="3_rekfs"]
 [ext_resource type="Texture2D" uid="uid://m0y1kvx31hii" path="res://ui/equip_arrow.png" id="4_cbfbj"]
 
+[sub_resource type="Gradient" id="Gradient_m21q8"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
+gradient = SubResource("Gradient_m21q8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j2oqg"]
+resource_local_to_scene = true
+shader = ExtResource("1_uxkox")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
+
 [node name="Spell" type="TextureRect"]
+material = SubResource("ShaderMaterial_j2oqg")
 custom_minimum_size = Vector2(64, 64)
 texture = ExtResource("1_116hg")
 stretch_mode = 5
