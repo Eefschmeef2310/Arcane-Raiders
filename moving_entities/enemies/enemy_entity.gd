@@ -139,6 +139,13 @@ func dash(dir: Vector2, duration: float):
 	dash_timer = duration
 	is_dashing = true
 	velocity = dash_direction * dash_speed
+
+func dash_to(dir: Vector2, target: Vector2):
+	dash_direction = dir
+	nav_agent.avoidance_enabled = false
+	dash_timer = global_position.distance_to(target)/dash_speed
+	is_dashing = true
+	velocity = dash_direction * dash_speed
 #endregion
 
 

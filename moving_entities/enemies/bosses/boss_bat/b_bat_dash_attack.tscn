@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0om0serdslhn"]
+
+[sub_resource type="GDScript" id="GDScript_5fg5p"]
+script/source = "extends SpellBase
+
+const B_BAT_FISSION = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_fission.tscn\")
+
+@export var interval_time: float = 0.3
+@export var max_shots: int = 6
+
+var timer: float = 0
+var shots: int = 0
+
+func _ready():
+	fire()
+	if caster && caster.has_method(\"dash_to\"):
+		caster.dash_to(caster.aim_direction, caster.target_area)
+	
+func _physics_process(delta):
+	if timer > 0:
+		timer -= delta
+		
+	elif shots < max_shots || caster:
+		fire()
+	
+	if caster && !caster.is_dashing:
+		queue_free()
+	
+func fire():
+	timer = interval_time
+	if !caster:
+		shots += 1
+		
+	var bullet = B_BAT_FISSION.instantiate()
+	add_sibling(bullet)
+	transfer_data(bullet)
+		
+"
+
+[node name="BBatDashAttack" type="Node2D"]
+position = Vector2(188, 140)
+script = SubResource("GDScript_5fg5p")
