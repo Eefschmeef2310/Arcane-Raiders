@@ -1,9 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=9 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_5ffs4"]
 [ext_resource type="Texture2D" uid="uid://cjnod02s0jvku" path="res://elements/sprites/white.png" id="3_e57h4"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_86qwp"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_b30oo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yjyhi"]
+font = ExtResource("4_86qwp")
+font_size = 30
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ml2ad"]
 font = ExtResource("4_b30oo")
@@ -13,7 +20,7 @@ shadow_color = Color(0, 0, 0, 0.784314)
 shadow_offset = Vector2(2, 2)
 
 [node name="PlayerUI" type="VBoxContainer"]
-custom_minimum_size = Vector2(450, 190)
+custom_minimum_size = Vector2(450, 200)
 alignment = 1
 script = ExtResource("1_cbyu2")
 
@@ -29,8 +36,14 @@ alignment = 1
 
 [node name="Spells" type="HBoxContainer" parent="HBox/Stats"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 16
 alignment = 1
+
+[node name="Head" type="TextureRect" parent="HBox/Stats/Spells"]
+layout_mode = 2
+texture = ExtResource("2_5ffs4")
+expand_mode = 2
+stretch_mode = 3
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
 layout_mode = 2
@@ -42,7 +55,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
-custom_minimum_size = Vector2(300, 24)
+custom_minimum_size = Vector2(350, 35)
 layout_mode = 2
 max_value = 1000.0
 value = 1000.0
@@ -66,6 +79,15 @@ stretch_margin_right = 12
 texture_under = ExtResource("3_e57h4")
 texture_progress = ExtResource("3_e57h4")
 tint_under = Color(0, 0, 0, 0.196078)
+
+[node name="Label" type="Label" parent="HBox/Stats/HealthBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 112.0
+offset_bottom = 42.0
+text = "100/100"
+label_settings = SubResource("LabelSettings_yjyhi")
 
 [node name="EquipUI" type="Node2D" parent="."]
 visible = false

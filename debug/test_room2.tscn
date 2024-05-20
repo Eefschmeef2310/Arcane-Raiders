@@ -91,10 +91,14 @@ gradient = SubResource("Gradient_8fnr6")
 [node name="GameUI" type="CanvasLayer" parent="." index="15"]
 
 [node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="0"]
-anchors_preset = 12
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -900.0
+offset_top = -190.0
+offset_right = 900.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
@@ -104,6 +108,12 @@ layout_mode = 2
 data = NodePath("../../../Player/PlayerData")
 
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
+layout_mode = 2
+
+[node name="PlayerUI3" parent="GameUI/PlayerUIContainer" index="2" instance=ExtResource("9_qlfqa")]
+layout_mode = 2
+
+[node name="PlayerUI4" parent="GameUI/PlayerUIContainer" index="3" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
 [node name="SmallSlime" parent="." index="16" instance=ExtResource("9_vm5ll")]

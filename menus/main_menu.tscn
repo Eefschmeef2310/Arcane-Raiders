@@ -39,6 +39,8 @@ func _ready():
 		online_button.disabled=true
 	
 	Steam.input_configuration_loaded.connect(set_white)
+	
+	$VBoxContainer/LocalPlayButton.grab_focus()
 ##endregion
 
 #region Signal methods
