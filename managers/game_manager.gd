@@ -22,4 +22,4 @@ func update_device_list(_device: int = 0, _connected: bool = false):
 	devices.append(-1)
 	print(str(_device) +  ', ' + str(_connected))
 	if _connected:
-		print(Input.get_joy_name(_device))
+		print("dingus" + Input.get_joy_name(_device))
