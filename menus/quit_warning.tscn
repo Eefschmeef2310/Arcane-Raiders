@@ -19,8 +19,8 @@ func _on_quit_button_pressed():
 	
 	MultiplayerInput.set_ui_action_device(-2)
 
-		for device_id in Input.get_connected_joypads():
-			MultiplayerInput._create_actions_for_device(device_id)
+	for device_id in Input.get_connected_joypads():
+		MultiplayerInput._create_actions_for_device(device_id)
 			
 	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 	queue_free()

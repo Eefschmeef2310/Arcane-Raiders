@@ -1,5 +1,6 @@
 extends HSlider
 #Authored by Ethan. Please consult for any modifications or major feature requests.
+#this also makes it so the slider cannot be edited until pressing the accept button
 
 #region Variables
 	#Exported Variables
@@ -9,6 +10,7 @@ extends HSlider
 
 	#Other Variables (please try to separate and organise!)
 var bus_index : int
+
 #endregion
 
 #region Godot methods
@@ -17,6 +19,15 @@ func _ready():
 	value_changed.connect(_on_value_changed)
 	
 	value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
+	
+func _input(event):
+	if has_focus():
+		if event.is_action_pressed("ui_accept"):
+			print(find_valid_focus_neighbor(SIDE_LEFT))
+			#owner.get_node(focus_neighbor_left).focus_mode = Control.FOCUS_NONE
+		elif event.is_action_pressed("ui_cancel"):
+			focus_mode = Control.FOCUS_ALL
+		
 #endregion
 
 #region Signal methods

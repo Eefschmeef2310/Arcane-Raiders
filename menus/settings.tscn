@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsie8gn5hesf4"]
+[gd_scene load_steps=8 format=3 uid="uid://dsie8gn5hesf4"]
 
 [ext_resource type="Script" path="res://menus/added_menu.gd" id="1_86kdw"]
 [ext_resource type="Script" path="res://menus/volume_slider.gd" id="1_r4v4d"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_bb85t"]
+[ext_resource type="Script" path="res://menus/settings_button.gd" id="4_y6ral"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lqv"]
 bg_color = Color(0.321569, 0.321569, 0.321569, 1)
@@ -33,73 +34,186 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="Panel" type="Panel" parent="Background"]
+[node name="BackPanel" type="Panel" parent="Background"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_24lqv")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background"]
+[node name="Contents" type="Control" parent="Background"]
 layout_mode = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_right = 300
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+[node name="DebugPanel" type="Panel" parent="Background/Contents"]
+layout_mode = 2
+offset_left = 568.0
+offset_right = 1720.0
+offset_bottom = 749.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/Contents"]
+layout_mode = 2
+offset_left = 565.0
+offset_right = 1720.0
+offset_bottom = 747.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="SoundContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
+script = ExtResource("2_bb85t")
 
-[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Background/Contents/MarginContainer/SoundContainer"]
 layout_mode = 2
 text = "SOUND"
 label_settings = SubResource("LabelSettings_fkkg5")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer/SoundContainer"]
 layout_mode = 2
 
-[node name="Master" type="Label" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Master" type="Label" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 text = "Master
 "
 label_settings = SubResource("LabelSettings_l8o8s")
 horizontal_alignment = 1
 
-[node name="MasterSlider" type="HSlider" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MasterSlider" type="HSlider" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
+editable = false
 script = ExtResource("1_r4v4d")
 bus_name = "Master"
 
-[node name="Music" type="Label" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Music" type="Label" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 text = "Music"
 label_settings = SubResource("LabelSettings_l8o8s")
 horizontal_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MusicSlider" type="HSlider" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 script = ExtResource("1_r4v4d")
 bus_name = "Music"
 
-[node name="SFX" type="Label" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="SFX" type="Label" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 text = "Sound Effects"
 label_settings = SubResource("LabelSettings_l8o8s")
 horizontal_alignment = 1
 
-[node name="SFXSlider" type="HSlider" parent="Background/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="SFXSlider" type="HSlider" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 script = ExtResource("1_r4v4d")
 bus_name = "SFX"
 
-[node name="BackButton" type="Button" parent="Background/MarginContainer/VBoxContainer"]
+[node name="CreditsContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/Contents/MarginContainer/CreditsContainer"]
+layout_mode = 2
+text = "CREDITS"
+label_settings = SubResource("LabelSettings_fkkg5")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer/CreditsContainer"]
+layout_mode = 2
+
+[node name="Master" type="Label" parent="Background/Contents/MarginContainer/CreditsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master
+"
+label_settings = SubResource("LabelSettings_l8o8s")
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Background/Contents/MarginContainer/CreditsContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+script = ExtResource("1_r4v4d")
+bus_name = "Master"
+
+[node name="Music" type="Label" parent="Background/Contents/MarginContainer/CreditsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_l8o8s")
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Background/Contents/MarginContainer/CreditsContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+script = ExtResource("1_r4v4d")
+bus_name = "Music"
+
+[node name="SFX" type="Label" parent="Background/Contents/MarginContainer/CreditsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound Effects"
+label_settings = SubResource("LabelSettings_l8o8s")
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Background/Contents/MarginContainer/CreditsContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+script = ExtResource("1_r4v4d")
+bus_name = "SFX"
+
+[node name="BackButton" type="Button" parent="Background/Contents/MarginContainer/CreditsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 91
 text = "Back"
 script = ExtResource("2_bb85t")
 
-[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[node name="BackButtonContainer" type="MarginContainer" parent="Background/Contents"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -133.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BackButton" type="Button" parent="Background/Contents/BackButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 91
+text = "Back"
+
+[node name="ButtonsContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 1160
+
+[node name="Buttons" type="VBoxContainer" parent="Background/ButtonsContainer"]
+layout_mode = 2
+
+[node name="SoundButton" type="Button" parent="Background/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container")]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../CreditsButton")
+text = "Sound"
+script = ExtResource("4_y6ral")
+showing_container = NodePath("../../../Contents/MarginContainer/SoundContainer")
+focused_button = true
+
+[node name="CreditsButton" type="Button" parent="Background/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container")]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../../Contents/BackButtonContainer/BackButton")
+text = "Credits"
+script = ExtResource("4_y6ral")
+showing_container = NodePath("../../../Contents/MarginContainer/CreditsContainer")
+
+[connection signal="pressed" from="Background/Contents/MarginContainer/CreditsContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Background/Contents/BackButtonContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="button_down" from="Background/ButtonsContainer/Buttons/SoundButton" to="Background/ButtonsContainer/Buttons/SoundButton" method="on_button_down"]
+[connection signal="button_down" from="Background/ButtonsContainer/Buttons/CreditsButton" to="Background/ButtonsContainer/Buttons/CreditsButton" method="on_button_down"]

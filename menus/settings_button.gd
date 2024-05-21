@@ -1,6 +1,7 @@
-extends Control
+extends Button
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
+#Used be all submenu buttons to hide and show the appropriate settings
 
 #region Variables
 	#Signals
@@ -12,23 +13,28 @@ extends Control
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var showing_container : Control
+@export var focused_button : bool = false
 
 	#Onready Variables
-@onready var element_1 = $AnimationContainer/VBoxContainer/ReactionElementsUI/Element1
-@onready var plus_icon = $AnimationContainer/VBoxContainer/ReactionElementsUI/PlusIcon
-@onready var element_2 = $AnimationContainer/VBoxContainer/ReactionElementsUI/Element2
-@onready var reaction_name = $AnimationContainer/VBoxContainer/ReactionName
+@onready var margin_container = $"../../../Contents/MarginContainer"
 
 	#Other Variables (please try to separate and organise!)
 
 #endregion
 
-#region Godot methods
-#endregion
+func _ready():
+	if focused_button:
+		grab_focus()
 
 #region Signal methods
-
+func on_button_down():
+	for child in margin_container.get_children():
+		child.visible = false
+	
+	showing_container.visible = true
 #endregion
 
 #region Other methods (please try to separate and organise!)
+
 #endregion

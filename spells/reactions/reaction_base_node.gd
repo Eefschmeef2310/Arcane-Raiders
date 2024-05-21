@@ -56,8 +56,6 @@ func _ready():
 			reaction_elements_ui.element_2.modulate = elements[1].colour
 			
 			reaction_elements_ui.reaction_name.text = reaction_name
-			
-			reaction_elements_ui.set_panel_color(caster.caster.data.main_color)
 		
 		#remove_from_group(get_groups()[0])
 		
