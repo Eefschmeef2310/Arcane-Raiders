@@ -83,10 +83,10 @@ func _process(delta):
 		ready_timer -= delta
 		if ready_timer < 0:
 			ready_timer = 0
-		lobby_title.text= "STARTING IN... " + str(ceil(ready_timer)) 
+		lobby_title.text= "Starting in... " + str(ceil(ready_timer)) 
 	else:
 		ready_timer = ready_delay
-		lobby_title.text= "CHOOSE YOUR RAIDER!"
+		lobby_title.text= "Choose your Raider!"
 		
 	# if the timer runs out, start the game 
 	if (is_multiplayer_authority() or GameManager.isLocal()) and !start_game_called and ready_timer <= 0:
@@ -99,7 +99,8 @@ func _process(delta):
 			_on_back_button_pressed()
 	else:
 		back_timer = 0
-	$Lobby/BackButton/ProgressBar.value = (1.0 - back_timer / 1) * 100
+	$Lobby/BackButton/ProgressBar.value = (back_timer / 1) * 100
+	$Lobby/MarginContainer/Label.visible = $Lobby/MarginContainer/PlayerCardBox.get_child_count() <= 0
 
 #func _input(event):
 	##Player presses excape or right action button
@@ -109,7 +110,6 @@ func _process(delta):
 
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
-	$Lobby/MarginContainer/Label.visible = false
 	
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self

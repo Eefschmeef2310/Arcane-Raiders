@@ -38,7 +38,11 @@ func set_spell_from_string(s):
 	spell_string = s
 	spell = SpellManager.get_spell_from_string(spell_string)
 	$Sprite2D.texture = spell.ui_texture
-	$Sprite2D.self_modulate = spell.element.colour
+	if spell.element.gradient:
+		($Sprite2D.material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
+	else:
+		$Sprite2D.self_modulate = spell.element.colour
+	
 	$InfoBox/VBoxContainer/Name.text = spell.element.prefix + spell.suffix
 	
 	var string = "[center][font_size=18]" + spell.description + "[/font_size]"
