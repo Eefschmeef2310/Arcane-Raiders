@@ -1,6 +1,58 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c5sd7ie78ujem"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://r7sjhbp7r7py"]
 
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_qa02b"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3fc2"]
+bg_color = Color(0.419608, 0.262745, 0.180392, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rrw5"]
+bg_color = Color(0.419608, 0.262745, 0.180392, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tkmxo"]
+bg_color = Color(0.2, 0.1155, 0.07, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1hna"]
+bg_color = Color(0.117647, 0.0627451, 0.0313726, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [resource]
+Button/styles/focus = SubResource("StyleBoxFlat_e3fc2")
+Button/styles/hover = SubResource("StyleBoxFlat_4rrw5")
+Button/styles/normal = SubResource("StyleBoxFlat_tkmxo")
+Button/styles/pressed = SubResource("StyleBoxFlat_w1hna")
 Label/fonts/font = ExtResource("1_qa02b")
