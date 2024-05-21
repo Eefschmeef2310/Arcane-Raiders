@@ -16,7 +16,7 @@ extends Node
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
 @export var selected_color : int = 0
-@export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
+@export var selected_panel : int = 1 #0=close_button 1=raider, 2=loadout, 3=ready
 @export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED: # this should be player colour
@@ -174,37 +174,42 @@ func _process(_delta):
 		
 		if("up" in mouse_input):
 			if not player_ready:
-				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+				if(GameManager.isLocal()):
+					selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+				else:
+					selected_panel = clampi(selected_panel - 1, 1,panels_array.size()-1)
 			changed = true
 		
 		if(("left" in mouse_input) and not player_ready):
-			if(selected_panel == 0): #raider panel selected 
+			if(selected_panel == 1): #raider panel selected 
 				selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 				while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
 					selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
-			elif(selected_panel == 1): #color selected
+			elif(selected_panel == 2): #color selected
 				selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
-			elif(selected_panel == 2): #loadout selected
+			elif(selected_panel == 3): #loadout selected
 				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 			changed = true
 			
 		if(("right" in mouse_input) and not player_ready):
-			if(selected_panel == 0): #raider panel selected 
+			if(selected_panel == 1): #raider panel selected 
 				selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 				while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
 					selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
-			elif(selected_panel == 1): #loadout selected
+			elif(selected_panel == 2): #loadout selected
 				selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
-			elif(selected_panel == 2): #loadout selected
+			elif(selected_panel == 3): #loadout selected
 				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			changed = true
 		
 		if("confirm" in mouse_input):
-			if(selected_panel == 3 and valid_color): #ready button selected
+			if(selected_panel == 0):
+				_remove_player()
+			if(selected_panel == 4 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
 				
