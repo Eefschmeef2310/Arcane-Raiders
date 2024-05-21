@@ -1,18 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dt3a5xl27x1rt"]
+[gd_scene load_steps=8 format=3 uid="uid://dt3a5xl27x1rt"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_hrp8u"]
-[ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_rl0ow"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_vh0nd"]
 [ext_resource type="PackedScene" uid="uid://c20ykcgg3e6nd" path="res://spells/scenes/aoe_local/aoe_local_explosion.tscn" id="3_4cecx"]
+[ext_resource type="Script" path="res://spells/scenes/aoe_local/aoe_local.gd" id="3_x4mbi"]
+
+[sub_resource type="Gradient" id="Gradient_1mn2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nati4"]
+gradient = SubResource("Gradient_1mn2o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkb80"]
+resource_local_to_scene = true
+shader = ExtResource("2_vh0nd")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
 
 [node name="aoe_local" instance=ExtResource("1_hrp8u")]
-script = ExtResource("2_rl0ow")
+material = SubResource("ShaderMaterial_mkb80")
+script = ExtResource("3_x4mbi")
 EXPLOSION = ExtResource("3_4cecx")
 waves = 1
-explosions_per_wave = 10
-max_radians = 6.282
+explosions_per_wave = 16
+max_radians = 6.283
 distance_from_caster = 0.0
-base_damage = 30
-infliction_time = 1.5
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 

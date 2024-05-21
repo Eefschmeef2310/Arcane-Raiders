@@ -1,0 +1,76 @@
+[gd_scene load_steps=14 format=3 uid="uid://sps1j7ba4ag0"]
+
+[ext_resource type="Texture2D" uid="uid://d0gvocnmmf1d" path="res://spells/scenes/aoe_local/local.png" id="1_jnpwy"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_ntjg4"]
+[ext_resource type="Script" path="res://spells/scenes/aoe_local/aoe_local_sprite.gd" id="2_dwlgt"]
+
+[sub_resource type="Gradient" id="Gradient_gml7d"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0rff4"]
+gradient = SubResource("Gradient_gml7d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wf8fa"]
+resource_local_to_scene = true
+shader = ExtResource("1_ntjg4")
+shader_parameter/final_saturation = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_0rff4")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgcpc"]
+atlas = ExtResource("1_jnpwy")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jccey"]
+atlas = ExtResource("1_jnpwy")
+region = Rect2(500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndmxy"]
+atlas = ExtResource("1_jnpwy")
+region = Rect2(1000, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y7my"]
+atlas = ExtResource("1_jnpwy")
+region = Rect2(0, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1jqp"]
+atlas = ExtResource("1_jnpwy")
+region = Rect2(500, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrpxe"]
+atlas = ExtResource("1_jnpwy")
+region = Rect2(1000, 500, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a2b1q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgcpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jccey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndmxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y7my")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1jqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrpxe")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="aoe_local_sprite" type="AnimatedSprite2D"]
+z_index = -1
+material = SubResource("ShaderMaterial_wf8fa")
+scale = Vector2(1.5, 0.75)
+sprite_frames = SubResource("SpriteFrames_a2b1q")
+autoplay = "default"
+script = ExtResource("2_dwlgt")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
