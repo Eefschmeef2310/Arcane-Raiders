@@ -58,7 +58,6 @@ theme_override_constants/margin_left = 30
 theme_override_constants/margin_right = 30
 
 [node name="SoundContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
@@ -121,6 +120,7 @@ script = ExtResource("1_r4v4d")
 bus_name = "SFX"
 
 [node name="CreditsContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1

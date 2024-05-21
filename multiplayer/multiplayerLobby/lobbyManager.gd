@@ -42,6 +42,8 @@ var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
 
+var back_timer : float
+
 #var server_browser_scene : PackedScene
 #endregion
 
@@ -90,7 +92,19 @@ func _process(delta):
 	if (is_multiplayer_authority() or GameManager.isLocal()) and !start_game_called and ready_timer <= 0:
 		print("StartGame triggered.")
 		StartGame()
-	
+		
+	if Input.is_action_pressed("ui_cancel"):
+		back_timer += delta
+		if back_timer > 1:
+			_on_back_button_pressed()
+	else:
+		back_timer = 0
+	$Lobby/BackButton/ProgressBar.value = (1.0 - back_timer / 1) * 100
+
+#func _input(event):
+	##Player presses excape or right action button
+	#if event.is_action_pressed("ui_cancel"):
+		#_on_back_button_pressed()
 #endregion
 
 @rpc("any_peer", "call_local")
@@ -266,7 +280,7 @@ func handle_join_input():
 
 func is_device_joined(device: int) -> bool:
 	for card in player_card_hbox.get_children():
-		var d	 = card.device_id
+		var d = card.device_id
 		if device == d: return true
 	return false
 
@@ -284,15 +298,7 @@ func get_unjoined_devices():
 	# also consider keyboard player
 	devices.append(-1)
 	
-	print(devices)
-	
 	# filter out devices that are joined:
 	return devices.filter(func(device): return !is_device_joined(device))
-
-
-
-
-
-
 #endregion
 
