@@ -1,4 +1,5 @@
 extends SpellBase
+class_name ProjSpread
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
