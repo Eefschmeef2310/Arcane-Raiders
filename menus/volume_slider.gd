@@ -23,10 +23,17 @@ func _ready():
 func _input(event):
 	if has_focus():
 		if event.is_action_pressed("ui_accept"):
-			print(find_valid_focus_neighbor(SIDE_LEFT))
-			#owner.get_node(focus_neighbor_left).focus_mode = Control.FOCUS_NONE
+			editable = true
+			
+			for child in get_tree().get_nodes_in_group("settings_navigable"):
+				if child is Control and child != self:
+					child.focus_mode = Control.FOCUS_NONE
+				
 		elif event.is_action_pressed("ui_cancel"):
-			focus_mode = Control.FOCUS_ALL
+			editable = false
+			for child in get_tree().get_nodes_in_group("settings_navigable"):
+				if child is Control and child != self:
+					child.focus_mode = Control.FOCUS_ALL
 		
 #endregion
 
