@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
 [ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_w5lpx"]
@@ -185,6 +185,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_kjlfo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gvfcj")
 show_percentage = false
