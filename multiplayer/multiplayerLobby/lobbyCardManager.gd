@@ -374,16 +374,16 @@ func is_event_click(event):
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
 func _on_character_container_mouse_entered():
-	selected_panel = 0
-
-func _on_color_container_mouse_entered():
 	selected_panel = 1
 
-func _on_loadout_container_mouse_entered():
+func _on_color_container_mouse_entered():
 	selected_panel = 2
 
-func _on_button_mouse_entered():
+func _on_loadout_container_mouse_entered():
 	selected_panel = 3
+
+func _on_button_mouse_entered():
+	selected_panel = 4
 
 func _on_left_arrow_clicked(event):
 	if is_event_click(event):

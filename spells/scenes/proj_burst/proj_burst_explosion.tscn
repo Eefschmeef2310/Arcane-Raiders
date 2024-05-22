@@ -36,6 +36,7 @@ height = 56.0
 
 [node name="proj_burst_explosion" instance=ExtResource("1_pkplm")]
 material = SubResource("ShaderMaterial_n623v")
+scale = Vector2(1.25, 1.25)
 speed_curve = SubResource("Curve_v48oq")
 sprite_rotation_falloff_curve = SubResource("Curve_436of")
 scale_falloff_curve = SubResource("Curve_fjpuw")
