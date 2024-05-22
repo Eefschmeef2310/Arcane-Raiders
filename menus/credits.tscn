@@ -80,7 +80,6 @@ theme_override_constants/margin_bottom = 16
 
 [node name="CreditsContent" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = -32
 
 [node name="Stingray" type="GridContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
 layout_mode = 2
@@ -101,7 +100,7 @@ stretch_mode = 6
 
 [node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Xander"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -8
 alignment = 1
 
 [node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Xander/Text"]
@@ -127,7 +126,7 @@ stretch_mode = 6
 
 [node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Ethan"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -8
 alignment = 1
 
 [node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Ethan/Text"]
@@ -153,7 +152,7 @@ stretch_mode = 6
 
 [node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -8
 alignment = 1
 
 [node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom/Text"]
@@ -179,7 +178,7 @@ stretch_mode = 6
 
 [node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Lauren"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -8
 alignment = 1
 
 [node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Lauren/Text"]
@@ -205,7 +204,7 @@ stretch_mode = 6
 
 [node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -8
 alignment = 1
 
 [node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex/Text"]
@@ -216,6 +215,34 @@ label_settings = SubResource("LabelSettings_8sg03")
 [node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex/Text"]
 layout_mode = 2
 text = "Design, programming, sadism"
+label_settings = SubResource("LabelSettings_tdqs5")
+
+[node name="HSeparator" type="HSeparator" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
+layout_mode = 2
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/Text"]
+layout_mode = 2
+text = "Pixabay"
+label_settings = SubResource("LabelSettings_8sg03")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/Text"]
+layout_mode = 2
+text = "Ice-10
+Simple Zaps
+Egg Cracking
+Spider Squeek
+Falling Pebbles, Rocks and Boulders (VoiceBosch)
+Fast Whoosh (StudioKolomna)
+Water Splash (UNIVERSFIELD)
+"
 label_settings = SubResource("LabelSettings_tdqs5")
 
 [node name="ButtonMargin" type="MarginContainer" parent="Background/VBoxContainer"]
