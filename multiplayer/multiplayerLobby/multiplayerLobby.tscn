@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=28 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
 [ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_w5lpx"]
@@ -67,6 +67,11 @@ gradient = SubResource("Gradient_4lc54")
 [sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
 font_size = 90
 font_color = Color(1, 0.921569, 0.929412, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjlfo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvfcj"]
+bg_color = Color(0.541176, 0, 0, 0.588235)
 
 [node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox", "multiplayer_spawner", "debug_start_button", "ready_progress_bar", "lobby_title")]
 layout_mode = 3
@@ -153,30 +158,35 @@ offset_left = -509.0
 offset_right = 509.0
 offset_bottom = 125.0
 grow_horizontal = 2
-text = "CHOOSE YOUR RAIDER!"
+text = "Choose your Raider!"
 label_settings = SubResource("LabelSettings_dkcho")
 horizontal_alignment = 1
 
 [node name="WheelOfReactions" type="Sprite2D" parent="Lobby/ReadyProgress"]
+visible = false
 position = Vector2(1856.5, 63.5)
 scale = Vector2(0.115741, 0.115741)
 texture = ExtResource("12_b1r1k")
 
 [node name="BackButton" type="Button" parent="Lobby"]
+clip_children = 2
+custom_minimum_size = Vector2(200, 125)
 layout_mode = 1
-offset_right = 45.0
-offset_bottom = 31.0
-theme_override_font_sizes/font_size = 85
+offset_right = 137.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("13_ngagv")
+theme_override_font_sizes/font_size = 64
 text = "Back"
 
 [node name="ProgressBar" type="ProgressBar" parent="Lobby/BackButton"]
-show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_kjlfo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gvfcj")
 show_percentage = false
 
 [node name="StartButton" type="Button" parent="Lobby"]

@@ -24,6 +24,7 @@ shape = SubResource("CircleShape2D_rk1iu")
 debug_color = Color(0.984314, 0, 0.356863, 0.419608)
 
 [node name="ProgressBar" parent="." index="3"]
+modulate = Color(1, 1, 1, 0)
 offset_top = -131.0
 offset_bottom = -124.0
 

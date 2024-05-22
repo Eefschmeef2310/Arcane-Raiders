@@ -24,7 +24,6 @@ func set_critical(crit: bool):
 		pass
 		#set_s(1.0)
 		#label.add_theme_color_override("font_outline_color", Color.BLACK)
-		
 
 func add(n: int):
 	_number += n
@@ -36,8 +35,10 @@ func animate():
 	#var dist = randf_range(0, 24)
 	scale = Vector2(_s, _s)
 	
+	global_position += Vector2(randf_range(0, 20), randf_range(0, 20))
+	
 	if tween:
-		tween.stop()
+		tween.kill()
 	tween = create_tween()
 	#tween.tween_property(self, "global_position", global_position + (dir*dist), 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self, "scale", Vector2(_s*2, _s*2), 0.1)

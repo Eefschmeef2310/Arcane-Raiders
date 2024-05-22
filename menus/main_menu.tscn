@@ -20,7 +20,7 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 func _ready():
 	GameManager.isPaused = false
 	
-	$VBoxContainer/QuitButton.visible = OS.get_name() != \"Web\"
+	$VBoxContainer/Horiz/QuitButton.visible = OS.get_name() != \"Web\"
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
 	
 	AudioManager.stop_all()
@@ -109,8 +109,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1559.0
+offset_left = -1423.0
 offset_top = -877.0
+offset_right = 136.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("1_ag66g")
@@ -118,17 +119,22 @@ stretch_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 594.0
-offset_bottom = 673.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -693.0
+offset_right = 526.0
+offset_bottom = -104.0
+grow_vertical = 0
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_7gsyx")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 52
 text = "Play Local"
 script = ExtResource("2_hcuag")
 
@@ -136,21 +142,38 @@ script = ExtResource("2_hcuag")
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_7gsyx")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 52
 text = "Play Online"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_7gsyx")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 38
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="Horiz" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../SettingsButton")
+focus_neighbor_right = NodePath("../QuitButton")
 theme_override_fonts/font = ExtResource("2_7gsyx")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 38
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../CreditsButton")
+focus_neighbor_top = NodePath("../../SettingsButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
 text = "Quit"
 
 [node name="VersionLabel" type="Label" parent="."]
@@ -186,4 +209,4 @@ label_settings = SubResource("LabelSettings_sscpa")
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]
