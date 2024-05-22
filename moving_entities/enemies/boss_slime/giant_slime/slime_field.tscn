@@ -89,7 +89,7 @@ noise = SubResource("FastNoiseLite_hdt01")
 resource_local_to_scene = true
 shader = ExtResource("2_01emv")
 shader_parameter/fade_scale = 0.0
-shader_parameter/alpha = 0.324
+shader_parameter/alpha = 0.353
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_2gx4a")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
@@ -187,7 +187,7 @@ texture = ExtResource("1_6rg6x")
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_s23tj")
-position = Vector2(-1000, -2000)
+position = Vector2(-1000, -1000)
 scale = Vector2(1.5, 10)
 texture = ExtResource("3_k376q")
 centered = false
