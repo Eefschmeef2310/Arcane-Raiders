@@ -65,6 +65,7 @@ var valid_color : bool
 var input
 var mouse_input: Array[String]
 var devices: Array[int]
+var connected_time : float
 
 #endregion
 
@@ -159,6 +160,7 @@ func get_cropped_texture(texture : Texture, region : Rect2) -> AtlasTexture:
 		return atlas_texture
 
 func _process(_delta):
+	connected_time += _delta
 	if !finished_connecting:
 		resendValues.rpc()
 		finished_connecting = true
@@ -167,6 +169,9 @@ func _process(_delta):
 	
 	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
 		var changed = false
+		if(connected_time < 1):
+			changed =  true
+		
 		if("down" in mouse_input):
 			if not player_ready:
 				selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
