@@ -39,6 +39,7 @@ var max_waves
 var difficulty_modifier = 1
 var total_difficulty_left = 0
 var number_of_enemies_left = 0
+var number_of_players = 1
 var live_players = 0
 
 var spawn_keys = []

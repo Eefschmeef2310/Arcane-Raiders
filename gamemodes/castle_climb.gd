@@ -133,6 +133,7 @@ func spawn_boss_level(index: int) -> Node:
 func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(float(current_floor)/float(total_floors))
+	current_room_node.number_of_players = number_of_players
 	current_room_node.number_of_players_health_scale = number_of_players_health_scale[number_of_players - 1]
 	current_room_node.number_of_players_difficulty_scale = number_of_players_difficulty_scale[number_of_players - 1]
 	current_room_node.room_exited.connect(_on_room_exited)

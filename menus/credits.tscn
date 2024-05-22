@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://wdi172ymyn1k"]
+[gd_scene load_steps=14 format=3 uid="uid://wdi172ymyn1k"]
 
 [ext_resource type="Script" path="res://menus/added_menu.gd" id="1_7ihk4"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="2_5w5v0"]
@@ -29,6 +29,13 @@ font_size = 58
 [sub_resource type="LabelSettings" id="LabelSettings_tdqs5"]
 font = ExtResource("3_l1n4c")
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_lt5jb"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_axq2p"]
+font = ExtResource("3_l1n4c")
+font_size = 24
 
 [node name="Credits" type="CanvasLayer"]
 process_mode = 3
@@ -231,7 +238,7 @@ alignment = 1
 [node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/Text"]
 layout_mode = 2
 text = "Pixabay"
-label_settings = SubResource("LabelSettings_8sg03")
+label_settings = SubResource("LabelSettings_lt5jb")
 
 [node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/Text"]
 layout_mode = 2
@@ -243,7 +250,7 @@ Falling Pebbles, Rocks and Boulders (VoiceBosch)
 Fast Whoosh (StudioKolomna)
 Water Splash (UNIVERSFIELD)
 "
-label_settings = SubResource("LabelSettings_tdqs5")
+label_settings = SubResource("LabelSettings_axq2p")
 
 [node name="ButtonMargin" type="MarginContainer" parent="Background/VBoxContainer"]
 layout_mode = 2
