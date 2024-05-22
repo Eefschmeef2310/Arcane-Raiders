@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://br01dtr66kciu"]
+[gd_scene load_steps=13 format=3 uid="uid://br01dtr66kciu"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_pkplm"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_ro75f"]
@@ -30,6 +30,10 @@ point_count = 1
 _data = [Vector2(0.744275, 0.990046), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_dmfs4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxpw6"]
 radius = 11.0
 height = 56.0
@@ -41,6 +45,7 @@ speed_curve = SubResource("Curve_v48oq")
 sprite_rotation_falloff_curve = SubResource("Curve_436of")
 scale_falloff_curve = SubResource("Curve_fjpuw")
 transparency_falloff_curve = SubResource("Curve_6x5nu")
+area_enabled_curve = SubResource("Curve_dmfs4")
 destroy_on_contact = true
 
 [node name="Sprite2D" parent="." index="1"]

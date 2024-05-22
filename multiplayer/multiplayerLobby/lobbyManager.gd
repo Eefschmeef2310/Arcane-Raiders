@@ -93,7 +93,7 @@ func _process(delta):
 		print("StartGame triggered.")
 		StartGame()
 		
-	if Input.is_action_pressed("ui_cancel"):
+	if Input.is_action_pressed("ui_cancel") and !start_game_called:
 		back_timer += delta
 		if back_timer > 1:
 			_on_back_button_pressed()
@@ -183,6 +183,7 @@ func _on_back_button_pressed():
 		pass
 	#print("peer: "+str(multiplayer.multiplayer_peer))
 	#multiplayer.multiplayer_peer = null
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	if (GameManager.isOnline()):
 		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
 	elif (GameManager.isLocal()):
