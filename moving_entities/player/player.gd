@@ -261,6 +261,9 @@ func toggle_dead(b):
 		add_to_group("player")
 		start_invincibility()
 		animation_player.play("idle")
+		is_dashing = false
+		is_casting = false
+		preparing_cast_slot = -1
 		health_updated.emit(health)
 
 @rpc("authority", "call_local", "reliable")
@@ -282,10 +285,10 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	if body != self:
+	if body != self and body is Player and !body.is_dead:
 		friends_nearby.append(body)
 
 
 func _on_revival_zone_body_exited(body):
-	if body != self:
+	if body != self and body is Player and !body.is_dead:
 		friends_nearby.erase(body)
