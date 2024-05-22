@@ -10,14 +10,14 @@ extends SpellBase
 
 	#Other Variables (please try to separate and organise!)
 var initial_distance = 20
-var direction: Vector2 = Vector2.RIGHT
+var direction: Vector2
 #endregion
 
 #region Godot methods
 func _ready():
 	if caster: 
-		direction = caster.aim_direction if direction == Vector2.RIGHT else direction
-		global_position = caster.global_position + direction * initial_distance
+		if direction == Vector2.ZERO: direction = caster.aim_direction 
+		if global_position == Vector2.ZERO: global_position = caster.global_position + direction * initial_distance
 		look_at(global_position + direction)
 
 func _process(delta):
@@ -34,5 +34,5 @@ func _on_body_entered(_body):
 
 #Called from other scripts (e.g Triple shot attack)
 func set_direction(new_direction: Vector2):
-	self.direction = new_direction
+	direction = new_direction
 #endregion

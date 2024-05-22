@@ -27,9 +27,12 @@ var initial_direction = Vector2.RIGHT
 
 #region Godot methods
 func _ready():
-	if caster:
+	if caster != null:
 		global_position = caster.global_position
 		initial_direction = caster.aim_direction
+		print(caster.aim_direction)
+		print(initial_direction)
+		print("should be the same")
 		
 	if delay_fire && $Sprite2D:
 		$Sprite2D.visible = true

@@ -31,7 +31,7 @@ func enter():
 
 #region Other methods (please try to separate and organise!)
 func update(_delta):
-	if(get_closest_player()):
+	if get_closest_player() && actual_first_state:
 		Transitioned.emit(self, actual_first_state.name.to_lower())
 #endregion
 

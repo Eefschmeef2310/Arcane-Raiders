@@ -8,3 +8,6 @@ position = Vector2(315, 237)
 script = ExtResource("1_16f6a")
 bullet_scene = ExtResource("2_qpvhh")
 bullets = 5
+infliction_time = 2.0
+end_time = 2.0
+cooldown_time = 10.0
