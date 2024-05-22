@@ -19,7 +19,14 @@ func _ready():
 	value_changed.connect(_on_value_changed)
 	
 	value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
-	
+
+func _process(delta):
+	pass
+	#if editable:
+		#for device in GameManager.devices:
+			#var scroll_dir = MultiplayerInput.get_axis(device, "lobby_up", "lobby_down")
+			#value += scroll_dir * delta
+
 func _input(event):
 	if has_focus():
 		if event.is_action_pressed("ui_accept"):

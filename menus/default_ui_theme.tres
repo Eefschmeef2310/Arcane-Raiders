@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://r7sjhbp7r7py"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://r7sjhbp7r7py"]
 
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_qa02b"]
 
@@ -57,6 +57,33 @@ color = Color(0.65098, 0.54902, 0.423529, 1)
 grow_begin = 0.0
 thickness = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_db70t"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe240"]
+bg_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1b8pl"]
+bg_color = Color(0.2, 0.113725, 0.0705882, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eansp"]
 bg_color = Color(0.65098, 0.54902, 0.423529, 1)
 corner_radius_top_left = 20
@@ -103,6 +130,9 @@ Button/styles/hover = SubResource("StyleBoxFlat_4rrw5")
 Button/styles/normal = SubResource("StyleBoxFlat_tkmxo")
 Button/styles/pressed = SubResource("StyleBoxFlat_w1hna")
 HSeparator/styles/separator = SubResource("StyleBoxLine_ymd6j")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_db70t")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_qe240")
+HSlider/styles/slider = SubResource("StyleBoxFlat_1b8pl")
 Label/fonts/font = ExtResource("1_qa02b")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_eansp")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_bb78r")

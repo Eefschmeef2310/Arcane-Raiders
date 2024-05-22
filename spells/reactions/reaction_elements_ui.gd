@@ -14,10 +14,10 @@ extends Control
 	#@export_subgroup("Subgroup")
 
 	#Onready Variables
-@onready var element_1 = $AnimationContainer/VBoxContainer/ReactionElementsUI/Element1
-@onready var plus_icon = $AnimationContainer/VBoxContainer/ReactionElementsUI/PlusIcon
-@onready var element_2 = $AnimationContainer/VBoxContainer/ReactionElementsUI/Element2
-@onready var reaction_name = $AnimationContainer/VBoxContainer/ReactionName
+@onready var element_1 = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/Element1
+@onready var plus_icon = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/PlusIcon
+@onready var element_2 = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/Element2
+@onready var reaction_name = $AnimationContainer/Panel/VBoxContainer/ReactionName
 
 	#Other Variables (please try to separate and organise!)
 

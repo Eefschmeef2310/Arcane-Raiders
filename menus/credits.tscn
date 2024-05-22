@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://wdi172ymyn1k"]
+[gd_scene load_steps=15 format=3 uid="uid://wdi172ymyn1k"]
 
-[ext_resource type="Script" path="res://menus/added_menu.gd" id="1_7ihk4"]
+[ext_resource type="Script" path="res://menus/credits.gd" id="1_u18pg"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="2_5w5v0"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_ktj4p"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="3_l1n4c"]
 [ext_resource type="Texture2D" uid="uid://bn8h332covd1w" path="res://moving_entities/player/player_pieces/head-lizard.png" id="4_f73s6"]
 [ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="5_hle1y"]
@@ -40,7 +41,7 @@ font_size = 24
 [node name="Credits" type="CanvasLayer"]
 process_mode = 3
 layer = 2
-script = ExtResource("1_7ihk4")
+script = ExtResource("1_u18pg")
 
 [node name="Background" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -76,6 +77,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
+script = ExtResource("2_ktj4p")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer/ScrollContainer"]
 layout_mode = 2

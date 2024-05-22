@@ -88,6 +88,7 @@ explosions_per_wave = 8
 max_radians = 6.283
 base_damage = 10
 reaction_name = "Steam"
+limit_spawns = true
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 

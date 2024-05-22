@@ -29,7 +29,10 @@ func _process(_delta):
 	
 	if do_pause and !GameManager.isPaused:
 		GameManager.isPaused = true
-		MultiplayerInput.set_ui_action_device(input.device)
+		if input:
+			MultiplayerInput.set_ui_action_device(input.device)
+		else:
+			MultiplayerInput.set_ui_action_device(-2)
 		
 		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
 		pause_menu.set_panel_color(owner.data.main_color)

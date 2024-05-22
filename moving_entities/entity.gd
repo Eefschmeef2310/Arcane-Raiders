@@ -253,7 +253,7 @@ func add_knockback(attack_path):
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
 		if "knockback" in attack:
-			print(attack.knockback)
+			#dsprint(attack.knockback)
 			knockback_velocity *= attack.knockback
 	can_input = false
 

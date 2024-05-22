@@ -83,6 +83,7 @@ _data = {
 script = SubResource("GDScript_paxyj")
 base_damage = 50
 reaction_name = "Static"
+limit_spawns = false
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
