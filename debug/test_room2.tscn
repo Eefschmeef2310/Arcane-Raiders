@@ -73,6 +73,9 @@ clip_children = 2
 [node name="RoomExit" parent="." index="10"]
 position = Vector2(1934, -45)
 
+[node name="CanvasModulate" parent="." index="11"]
+color = Color(0.756863, 0.756863, 0.756863, 1)
+
 [node name="DebugBrain" type="Node" parent="." index="13"]
 script = SubResource("GDScript_tg365")
 

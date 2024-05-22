@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkddso5vqusth"]
+[gd_scene load_steps=5 format=3 uid="uid://dkddso5vqusth"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/attack_scripts/e_proj_cone.gd" id="1_y73ms"]
 [ext_resource type="PackedScene" uid="uid://dbs1vsyw2tupn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_proj.tscn" id="2_fd1fg"]
 [ext_resource type="Texture2D" uid="uid://bv057vww5gngt" path="res://moving_entities/enemies/bat_small/small-bullet.png" id="3_g28pw"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="4_hoo48"]
 
 [node name="BBatFission" type="Node2D"]
 script = ExtResource("1_y73ms")
@@ -18,3 +19,7 @@ cooldown_time = 10.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("3_g28pw")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = ExtResource("4_hoo48")

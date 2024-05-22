@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbs1vsyw2tupn"]
+[gd_scene load_steps=5 format=3 uid="uid://dbs1vsyw2tupn"]
 
 [ext_resource type="Script" path="res://moving_entities/enemies/attack_scripts/e_proj_normal.gd" id="1_d6mt2"]
 [ext_resource type="Texture2D" uid="uid://bv057vww5gngt" path="res://moving_entities/enemies/bat_small/small-bullet.png" id="2_4ihjt"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="3_etxg7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufpp3"]
 radius = 17.0
@@ -21,3 +22,7 @@ texture = ExtResource("2_4ihjt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ufpp3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = ExtResource("3_etxg7")

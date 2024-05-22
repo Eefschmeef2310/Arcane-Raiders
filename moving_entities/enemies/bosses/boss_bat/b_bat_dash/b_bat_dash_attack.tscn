@@ -17,6 +17,7 @@ func _ready():
 		caster.dash_to(caster.aim_direction, caster.target_area)
 	
 func _physics_process(delta):
+	if !caster: queue_free()
 	if timer > 0:
 		timer -= delta
 	elif shots < max_shots || caster:
