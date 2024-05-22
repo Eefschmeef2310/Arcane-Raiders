@@ -182,8 +182,8 @@ func _on_back_button_pressed():
 		Steam.setLobbyJoinable(lobby_id, false)
 		pass
 	#print("peer: "+str(multiplayer.multiplayer_peer))
-	multiplayer.multiplayer_peer = null
-	multiplayer.multiplayer_peer = SteamMultiplayerPeer.new()
+	#multiplayer.multiplayer_peer = null
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	if (GameManager.isOnline()):
 		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
 	elif (GameManager.isLocal()):
