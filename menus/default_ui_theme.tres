@@ -51,6 +51,7 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [resource]
+Button/fonts/font = ExtResource("1_qa02b")
 Button/styles/focus = SubResource("StyleBoxFlat_e3fc2")
 Button/styles/hover = SubResource("StyleBoxFlat_4rrw5")
 Button/styles/normal = SubResource("StyleBoxFlat_tkmxo")

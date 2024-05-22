@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsie8gn5hesf4"]
+[gd_scene load_steps=10 format=3 uid="uid://dsie8gn5hesf4"]
 
 [ext_resource type="Script" path="res://menus/added_menu.gd" id="1_86kdw"]
 [ext_resource type="Script" path="res://menus/volume_slider.gd" id="1_r4v4d"]
@@ -7,10 +7,17 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lqv"]
 bg_color = Color(0.321569, 0.321569, 0.321569, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eklr"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_fkkg5"]
 font_size = 120
@@ -43,6 +50,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_24lqv")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
 layout_mode = 2
@@ -60,7 +68,6 @@ layout_mode = 2
 
 [node name="GraphicsButton" type="Button" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../../../../BackButtonContainer/BackButton")
 text = "Graphics"
 script = ExtResource("4_y6ral")
 showing_container = NodePath("../../../Contents/MarginContainer/GraphicsContainer")
@@ -77,6 +84,7 @@ focused_button = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1eklr")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer/Contents"]
 layout_mode = 2
@@ -180,17 +188,13 @@ popup/item_2/text = "Exclusive Fullscreen"
 popup/item_2/id = 2
 script = ExtResource("3_dgvic")
 
-[node name="BackButtonContainer" type="MarginContainer" parent="Background/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Background/VBoxContainer" groups=["settings_navigable"]]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_right = 300
-
-[node name="BackButton" type="Button" parent="Background/VBoxContainer/BackButtonContainer" groups=["settings_navigable"]]
-layout_mode = 2
-theme_override_font_sizes/font_size = 91
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "Back"
 
 [connection signal="button_down" from="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/GraphicsButton" to="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/GraphicsButton" method="on_button_down"]
 [connection signal="button_down" from="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/SoundButton" to="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/SoundButton" method="on_button_down"]
 [connection signal="item_selected" from="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/HBoxContainer/WindowOptions" to="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/HBoxContainer/WindowOptions" method="_on_item_selected"]
-[connection signal="pressed" from="Background/VBoxContainer/BackButtonContainer/BackButton" to="." method="_on_back_button_pressed"]
