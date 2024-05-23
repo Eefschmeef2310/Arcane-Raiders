@@ -2,6 +2,10 @@ extends CanvasLayer
 
 signal destroyed()
 
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		_on_back_button_pressed()
+
 func _on_back_button_pressed():
 	destroyed.emit()
 	queue_free()

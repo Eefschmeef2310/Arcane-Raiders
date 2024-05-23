@@ -16,7 +16,7 @@ script = ExtResource("1_ejp4o")
 prefix = "Aqua-"
 descrption_bb = "[img]res://elements/icons/weak_icon.png[/img] Decreases defense
 Reacts with [img]res://elements/icons/frost_icon.png[/img] and [img]res://elements/icons/shock_icon.png[/img]"
-colour = Color(0.243137, 0.372549, 0.894118, 1)
+colour = Color(0.270588, 0.415686, 1, 1)
 gradient = SubResource("GradientTexture1D_livq0")
 pip_texture = ExtResource("1_7v254")
 max_infliction_time = 5.0

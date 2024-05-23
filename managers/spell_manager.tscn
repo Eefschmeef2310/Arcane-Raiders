@@ -48,3 +48,4 @@ reactions = {
 [ExtResource("8_4ef6i"), ExtResource("6_nscba")]: ExtResource("17_kvxt3"),
 [ExtResource("6_nscba"), ExtResource("2_d4pfh")]: ExtResource("18_4t6um")
 }
+elements_sorted = PackedStringArray("burn", "frost", "wet", "shock", "wind", "stun")

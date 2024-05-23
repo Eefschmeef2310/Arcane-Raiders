@@ -103,6 +103,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wyv4k")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
@@ -115,24 +116,25 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 160
-text = "PAUSED"
+theme_override_font_sizes/font_size = 92
+text = "Paused"
+horizontal_alignment = 1
 
 [node name="ContinueButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "CONTINUE"
+theme_override_font_sizes/font_size = 50
+text = "Continue"
 script = ExtResource("1_ot87u")
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "SETTINGS"
+theme_override_font_sizes/font_size = 50
+text = "Settings"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "QUIT"
+theme_override_font_sizes/font_size = 50
+text = "Quit"
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

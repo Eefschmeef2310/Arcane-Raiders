@@ -49,7 +49,7 @@ shader_parameter/alpha = 0.66
 shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
 
 [node name="Torch" type="Node2D"]
-z_index = 2
+z_index = 4
 material = SubResource("ShaderMaterial_061cr")
 script = ExtResource("2_v84hn")
 

@@ -79,18 +79,17 @@ func destroy_oldest():
 
 "
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hdt01"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jg4j1"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2gx4a"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6x46e"]
 seamless = true
-noise = SubResource("FastNoiseLite_hdt01")
+noise = SubResource("FastNoiseLite_jg4j1")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s23tj"]
-resource_local_to_scene = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gneoq"]
 shader = ExtResource("2_01emv")
-shader_parameter/fade_scale = 0.0
-shader_parameter/alpha = 0.324
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_2gx4a")
+shader_parameter/fade_scale = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_6x46e")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
 radius = 85.1007
@@ -140,7 +139,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("Sprite2D/Sprite2D:material:shader_parameter/fade_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -175,19 +174,20 @@ _data = {
 }
 
 [node name="SlimeField" type="Area2D" groups=["slime_field"]]
+z_index = -19
 collision_layer = 64
 collision_mask = 4
 script = SubResource("GDScript_g2p4w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-clip_children = 1
+material = SubResource("ShaderMaterial_gneoq")
 scale = Vector2(1, 0.5)
 texture = ExtResource("1_6rg6x")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+visible = false
 texture_repeat = 2
-material = SubResource("ShaderMaterial_s23tj")
-position = Vector2(-1000, -2000)
+position = Vector2(-1000, -1000)
 scale = Vector2(1.5, 10)
 texture = ExtResource("3_k376q")
 centered = false
@@ -198,6 +198,7 @@ script = ExtResource("4_xg6tq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_ft1mc")
+disabled = true
 
 [node name="HurtTimer" type="Timer" parent="."]
 wait_time = 0.5

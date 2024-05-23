@@ -31,12 +31,13 @@ shader = ExtResource("1_mo1qg")
 shader_parameter/noise = SubResource("NoiseTexture2D_ls7es")
 
 [node name="stun-burn" type="Area2D" groups=["stun-burn"]]
-z_index = -2
+z_index = -19
 scale = Vector2(1, 0.5)
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_5c732")
 reaction_name = "Lava"
+limit_spawns = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b2x0x")

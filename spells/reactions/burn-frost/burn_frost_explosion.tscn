@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cr1h1dxl5yo6r"]
+[gd_scene load_steps=12 format=3 uid="uid://cr1h1dxl5yo6r"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_7af4y"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_stpt7"]
+[ext_resource type="Texture2D" uid="uid://bxn057pa4pb24" path="res://spells/scenes/proj_spread/proj_spread.png" id="3_gcg25"]
 
 [sub_resource type="Gradient" id="Gradient_f7grb"]
 
@@ -41,7 +42,8 @@ scale_falloff_curve = SubResource("Curve_35l1m")
 transparency_falloff_curve = SubResource("Curve_n40j6")
 
 [node name="Sprite2D" parent="." index="1"]
-scale = Vector2(0.558594, 0.507812)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("3_gcg25")
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_7huk8")

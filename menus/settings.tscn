@@ -1,22 +1,45 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsie8gn5hesf4"]
+[gd_scene load_steps=11 format=3 uid="uid://dsie8gn5hesf4"]
 
 [ext_resource type="Script" path="res://menus/added_menu.gd" id="1_86kdw"]
 [ext_resource type="Script" path="res://menus/volume_slider.gd" id="1_r4v4d"]
-[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_bb85t"]
+[ext_resource type="Script" path="res://menus/window_options.gd" id="3_dgvic"]
 [ext_resource type="Script" path="res://menus/settings_button.gd" id="4_y6ral"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lqv"]
-bg_color = Color(0.321569, 0.321569, 0.321569, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdq3x"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eklr"]
+bg_color = Color(0.270588, 0.180392, 0.14902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_fkkg5"]
 font_size = 120
 
 [sub_resource type="LabelSettings" id="LabelSettings_l8o8s"]
-font_size = 75
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_7mer7"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_oh4pd"]
+font_size = 42
 
 [node name="Settings" type="CanvasLayer"]
 process_mode = 3
@@ -36,50 +59,75 @@ theme_override_constants/margin_bottom = 100
 
 [node name="BackPanel" type="Panel" parent="Background"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_24lqv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kdq3x")
 
-[node name="Contents" type="Control" parent="Background"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
-[node name="DebugPanel" type="Panel" parent="Background/Contents"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
 layout_mode = 2
-offset_left = 568.0
-offset_right = 1720.0
-offset_bottom = 749.0
-grow_horizontal = 2
-grow_vertical = 2
+size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Contents"]
+[node name="ButtonsContainer" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-offset_left = 565.0
-offset_right = 1720.0
-offset_bottom = 747.0
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 
-[node name="SoundContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer"]
+[node name="Buttons" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 16
+
+[node name="GraphicsButton" type="Button" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Graphics"
+script = ExtResource("4_y6ral")
+showing_container = NodePath("../../../Contents/MarginContainer/GraphicsContainer")
+
+[node name="SoundButton" type="Button" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../GraphicsButton")
+theme_override_font_sizes/font_size = 42
+text = "Sound"
+script = ExtResource("4_y6ral")
+showing_container = NodePath("../../../Contents/MarginContainer/SoundContainer")
+focused_button = true
+
+[node name="Contents" type="PanelContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1eklr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer/Contents"]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_right = 128
+
+[node name="SoundContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer"]
+layout_mode = 2
 alignment = 1
-script = ExtResource("2_bb85t")
 
-[node name="Label" type="Label" parent="Background/Contents/MarginContainer/SoundContainer"]
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer"]
 layout_mode = 2
-text = "SOUND"
+text = "Sound"
 label_settings = SubResource("LabelSettings_fkkg5")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer/SoundContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer"]
 layout_mode = 2
 
-[node name="Master" type="Label" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
+[node name="Master" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 text = "Master
 "
 label_settings = SubResource("LabelSettings_l8o8s")
 horizontal_alignment = 1
 
-[node name="MasterSlider" type="HSlider" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer" groups=["settings_navigable"]]
+[node name="MasterSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer" groups=["settings_navigable"]]
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../../../ButtonsContainer/Buttons/SoundButton")
 focus_neighbor_top = NodePath(".")
@@ -87,95 +135,100 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../MusicSlider")
 max_value = 1.0
 step = 0.01
-editable = false
+tick_count = 11
+ticks_on_borders = true
 script = ExtResource("1_r4v4d")
 bus_name = "Master"
 
-[node name="Music" type="Label" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
+[node name="Sep" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer"]
+layout_mode = 2
+text = "
+"
+label_settings = SubResource("LabelSettings_7mer7")
+horizontal_alignment = 1
+
+[node name="Music" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 text = "Music"
 label_settings = SubResource("LabelSettings_l8o8s")
 horizontal_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer" groups=["settings_navigable"]]
+[node name="MusicSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer" groups=["settings_navigable"]]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
-editable = false
+tick_count = 11
+ticks_on_borders = true
 script = ExtResource("1_r4v4d")
 bus_name = "Music"
 
-[node name="SFX" type="Label" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer"]
+[node name="Sep2" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer"]
+layout_mode = 2
+text = "
+"
+label_settings = SubResource("LabelSettings_7mer7")
+horizontal_alignment = 1
+
+[node name="SFX" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer"]
 layout_mode = 2
 text = "Sound Effects"
 label_settings = SubResource("LabelSettings_l8o8s")
 horizontal_alignment = 1
 
-[node name="SFXSlider" type="HSlider" parent="Background/Contents/MarginContainer/SoundContainer/VBoxContainer" groups=["settings_navigable"]]
+[node name="SFXSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/VBoxContainer" groups=["settings_navigable"]]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
-editable = false
+tick_count = 11
+ticks_on_borders = true
 script = ExtResource("1_r4v4d")
 bus_name = "SFX"
 
-[node name="CreditsContainer" type="VBoxContainer" parent="Background/Contents/MarginContainer"]
+[node name="GraphicsContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Background/Contents/MarginContainer/CreditsContainer"]
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer"]
 layout_mode = 2
-text = "CREDITS"
+text = "Graphics"
 label_settings = SubResource("LabelSettings_fkkg5")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Background/Contents/MarginContainer/CreditsContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer"]
 layout_mode = 2
-text = "*Credits go here*"
-label_settings = SubResource("LabelSettings_fkkg5")
-horizontal_alignment = 1
+theme_override_constants/separation = 80
+alignment = 1
 
-[node name="BackButtonContainer" type="MarginContainer" parent="Background/Contents"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -133.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="BackButton" type="Button" parent="Background/Contents/BackButtonContainer" groups=["settings_navigable"]]
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 91
+text = "Window"
+label_settings = SubResource("LabelSettings_oh4pd")
+
+[node name="WindowOptions" type="OptionButton" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_font_sizes/font_size = 32
+alignment = 1
+item_count = 3
+selected = 2
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
+script = ExtResource("3_dgvic")
+
+[node name="BackButton" type="Button" parent="Background/VBoxContainer" groups=["settings_navigable"]]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "Back"
 
-[node name="ButtonsContainer" type="MarginContainer" parent="Background"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 1170
-
-[node name="Buttons" type="VBoxContainer" parent="Background/ButtonsContainer"]
-layout_mode = 2
-
-[node name="SoundButton" type="Button" parent="Background/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../CreditsButton")
-text = "Sound"
-script = ExtResource("4_y6ral")
-showing_container = NodePath("../../../Contents/MarginContainer/SoundContainer")
-focused_button = true
-
-[node name="CreditsButton" type="Button" parent="Background/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
-layout_mode = 2
-focus_neighbor_bottom = NodePath("../../../Contents/BackButtonContainer/BackButton")
-text = "Credits"
-script = ExtResource("4_y6ral")
-showing_container = NodePath("../../../Contents/MarginContainer/CreditsContainer")
-
-[connection signal="pressed" from="Background/Contents/BackButtonContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="button_down" from="Background/ButtonsContainer/Buttons/SoundButton" to="Background/ButtonsContainer/Buttons/SoundButton" method="on_button_down"]
-[connection signal="button_down" from="Background/ButtonsContainer/Buttons/CreditsButton" to="Background/ButtonsContainer/Buttons/CreditsButton" method="on_button_down"]
+[connection signal="button_down" from="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/GraphicsButton" to="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/GraphicsButton" method="on_button_down"]
+[connection signal="button_down" from="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/SoundButton" to="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/SoundButton" method="on_button_down"]
+[connection signal="item_selected" from="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/HBoxContainer/WindowOptions" to="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/HBoxContainer/WindowOptions" method="_on_item_selected"]
+[connection signal="pressed" from="Background/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

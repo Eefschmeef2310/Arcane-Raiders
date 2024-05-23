@@ -1,4 +1,4 @@
-extends Control
+extends OptionButton
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -14,16 +14,19 @@ extends Control
 	#@export_subgroup("Subgroup")
 
 	#Onready Variables
-@onready var element_1 = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/Element1
-@onready var plus_icon = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/PlusIcon
-@onready var element_2 = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/Element2
-@onready var reaction_name = $AnimationContainer/Panel/VBoxContainer/ReactionName
 
 	#Other Variables (please try to separate and organise!)
 
 #endregion
 
 #region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(_delta):
+	#Runs per frame
+	pass
 #endregion
 
 #region Signal methods
@@ -31,4 +34,9 @@ extends Control
 #endregion
 
 #region Other methods (please try to separate and organise!)
+
 #endregion
+
+
+func _on_item_selected(index):
+	print("dingus")

@@ -65,7 +65,12 @@ func _on_settings_button_pressed():
 	var new_settings = load(\"res://menus/settings.tscn\").instantiate()
 	new_settings.destroyed.connect($VBoxContainer/SettingsButton.grab_focus)
 	get_tree().root.add_child(new_settings)
-	
+
+func _on_credits_button_pressed():
+	var new_settings = load(\"res://menus/credits.tscn\").instantiate()
+	new_settings.destroyed.connect($VBoxContainer/SettingsButton.grab_focus)
+	get_tree().root.add_child(new_settings)
+
 #endregion
 
 #region Other methods
@@ -209,4 +214,5 @@ label_settings = SubResource("LabelSettings_sscpa")
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]

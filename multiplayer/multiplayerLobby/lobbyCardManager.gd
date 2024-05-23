@@ -374,28 +374,32 @@ func is_event_click(event):
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
 func _on_character_container_mouse_entered():
-	selected_panel = 1
+	if device_id <= -1 and is_multiplayer_authority():
+		selected_panel = 1
 
 func _on_color_container_mouse_entered():
-	selected_panel = 2
+	if device_id <= -1 and is_multiplayer_authority():
+		selected_panel = 2
 
 func _on_loadout_container_mouse_entered():
-	selected_panel = 3
+	if device_id <= -1 and is_multiplayer_authority():
+		selected_panel = 3
 
 func _on_button_mouse_entered():
-	selected_panel = 4
+	if device_id <= -1 and is_multiplayer_authority():
+		selected_panel = 4
 
 func _on_left_arrow_clicked(event):
-	if is_event_click(event):
+	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
 		mouse_input.append("left")
 
 func _on_right_arrow_clicked(event):
-	if is_event_click(event):
+	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
 		mouse_input.append("right")
 
 func _on_button_pressed():
-	mouse_input.append("confirm")
-
+	if device_id <= -1 and is_multiplayer_authority():
+		mouse_input.append("confirm")
 
 func _remove_player():
 	queue_free()

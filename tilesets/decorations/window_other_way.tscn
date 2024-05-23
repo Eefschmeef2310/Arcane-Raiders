@@ -33,6 +33,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 polygon = PackedVector2Array(-56, 104, 130, 183.44, -50, 95.44, -52, -38.56, 56, -92.56, 222, -25.56, 59, -100.56, -57, -43)
 
 [node name="WindowOtherWay" type="Node2D"]
+z_index = 4
 material = SubResource("ShaderMaterial_87xtg")
 scale = Vector2(-1, 1)
 
