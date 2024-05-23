@@ -34,7 +34,7 @@ var new_reaction_timer : Timer = Timer.new()
 #region Godot methods
 func _ready():
 	new_reaction_timer.wait_time = 0.2
-	new_reaction_timer.start()
+	new_reaction_timer.autostart = true
 	
 	if limit_spawns:
 		for node in get_tree().get_nodes_in_group(get_groups()[0]):

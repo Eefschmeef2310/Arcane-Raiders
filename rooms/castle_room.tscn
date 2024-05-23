@@ -17,6 +17,7 @@ gradient = SubResource("Gradient_mkddu")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_otd6u"]
 shader = ExtResource("2_w7cyl")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [node name="CastleRoom" type="Node2D"]
@@ -58,6 +59,9 @@ layer_5/tile_data = PackedInt32Array(720898, 327682, 0, 786435, 327682, 0, 85197
 
 [node name="DynamicCamera" parent="." instance=ExtResource("3_thfvk")]
 position = Vector2(120, 763)
+
+[node name="ColorRect" parent="DynamicCamera/ParallaxBackground" index="0"]
+material = SubResource("ShaderMaterial_otd6u")
 
 [node name="PlayerSpawn0" type="Sprite2D" parent="." groups=["player_spawn"]]
 position = Vector2(-289, 674)

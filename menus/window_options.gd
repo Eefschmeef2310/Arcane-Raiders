@@ -1,4 +1,4 @@
-extends OptionButton
+extends CheckBox
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -19,24 +19,13 @@ extends OptionButton
 
 #endregion
 
-#region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
+	button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 
 #region Signal methods
-
+func _on_toggled(toggled_on):
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if toggled_on else DisplayServer.WINDOW_MODE_WINDOWED)
+	
+	PlayerPreferenceManager.player_preferences.full_screen = toggled_on
+	
 #endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-
-
-func _on_item_selected(index):
-	print("dingus")

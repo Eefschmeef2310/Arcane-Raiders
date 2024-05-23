@@ -12,8 +12,12 @@ func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
 	
+#func _process(_delta):
+	#if Input.is_action_pressed(\"ui_pause\"):
+		#_on_continue_button_pressed()
+	
 func _input(event):
-	if event.is_action_released(\"ui_cancel\"):
+	if event.is_action_pressed(\"ui_pause\") or event.is_action_released(\"ui_cancel\"):
 		_on_continue_button_pressed()
 #endregion
 
@@ -22,6 +26,7 @@ func _on_continue_button_pressed():
 	get_tree().paused = false
 	GameManager.isPaused = false
 	
+	MultiplayerInput.set_ui_action_device(-2)
 	for device_id in Input.get_connected_joypads():
 		MultiplayerInput._create_actions_for_device(device_id)
 		

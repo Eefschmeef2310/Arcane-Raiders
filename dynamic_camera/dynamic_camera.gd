@@ -14,14 +14,9 @@ var targets: Array[Node] = []
 #endregion
 
 #region Godot methods
-func _ready():
-	#dynamic_camera(-1)
-	pass
-
 func _process(_delta):
 	dynamic_camera(_delta)
 #endregion
-
 
 #region Other methods (please try to separate and organise!)
 

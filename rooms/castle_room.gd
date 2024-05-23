@@ -28,6 +28,7 @@ const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
+@onready var camera_background = $DynamicCamera/ParallaxBackground/ColorRect
 
 var dead_players : Array = []
 var all_players_dead_triggered := false
@@ -158,6 +159,8 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(tile_map.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
+	camera_background.material = tile_map.material
+	
 	
 func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")

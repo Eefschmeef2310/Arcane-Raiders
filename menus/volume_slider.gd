@@ -30,17 +30,17 @@ func _process(delta):
 func _input(event):
 	if has_focus():
 		if event.is_action_pressed("ui_accept"):
-			editable = true
-			
-			for child in get_tree().get_nodes_in_group("settings_navigable"):
-				if child is Control and child != self:
-					child.focus_mode = Control.FOCUS_NONE
+			if editable:
+				#unfocus()
+				pass
+			else:
+				editable = true
+				for child in get_tree().get_nodes_in_group("settings_navigable"):
+					if child is Control and child != self:
+						child.focus_mode = Control.FOCUS_NONE
 				
-		elif event.is_action_pressed("ui_cancel"):
-			editable = false
-			for child in get_tree().get_nodes_in_group("settings_navigable"):
-				if child is Control and child != self:
-					child.focus_mode = Control.FOCUS_ALL
+		elif event.is_action_pressed("ui_cancel"): #this acutally closes the menu lol
+			unfocus()
 		
 #endregion
 
@@ -50,3 +50,9 @@ func _on_value_changed(_value):
 	
 	PlayerPreferenceManager.player_preferences.bus_volumes[bus_index] = linear_to_db(value)
 #endregion
+
+func unfocus():
+	editable = false
+	for child in get_tree().get_nodes_in_group("settings_navigable"):
+		if child is Control and child != self:
+			child.focus_mode = Control.FOCUS_ALL

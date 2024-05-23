@@ -68,7 +68,7 @@ func _on_settings_button_pressed():
 
 func _on_credits_button_pressed():
 	var new_settings = load(\"res://menus/credits.tscn\").instantiate()
-	new_settings.destroyed.connect($VBoxContainer/SettingsButton.grab_focus)
+	new_settings.destroyed.connect($VBoxContainer/Horiz/CreditsButton.grab_focus)
 	get_tree().root.add_child(new_settings)
 
 #endregion
@@ -170,6 +170,7 @@ focus_neighbor_right = NodePath("../QuitButton")
 theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Credits"
+script = ExtResource("2_hcuag")
 
 [node name="QuitButton" type="Button" parent="VBoxContainer/Horiz"]
 custom_minimum_size = Vector2(0, 80)

@@ -65,7 +65,7 @@ func _physics_process(_delta):
 	point_light_2d.texture_scale = scale.x * 1.5
 	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(lifetime_progress) if sprite_rotation_falloff_curve else 1.0
 	
-	sprite_2d.modulate.a = transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.
+	(material as ShaderMaterial).set_shader_parameter("alpha", transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.)
 	
 	#1.0 - so you can set the curve to 0 for disabled and 1 for enabled
 	collision_shape_2d.disabled = 1.0 - area_enabled_curve.sample(lifetime_progress) if area_enabled_curve else 0.0
