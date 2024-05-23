@@ -9,16 +9,16 @@ const B_BAT_DASH_ATTACK = preload(\"res://moving_entities/enemies/bosses/boss_ba
 
 #region Godot methods
 func _ready():
-	if !is_instance_valid(caster): 
-		queue_free()
-		return
+	check_caster()
 	global_position = caster.global_position
 	caster.hide()
 	#TODO Play some sfx/particle effect
 	await get_tree().create_timer(1).timeout
+	check_caster()
 	caster.visible = true
 	caster.global_position = caster.dash_prep_pos
 	await get_tree().create_timer(1).timeout
+	check_caster()
 	#TODO Play some sfx/particle effect
 	ray_cast_2d.target_position = caster.aim_direction * 9999
 	ray_cast_2d.force_raycast_update()
@@ -28,6 +28,10 @@ func _ready():
 	transfer_data(attack)
 	add_sibling(attack)
 	queue_free()
+	
+func check_caster():
+	if !is_instance_valid(caster): 
+		queue_free()
 #endregion
 "
 

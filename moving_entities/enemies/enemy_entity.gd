@@ -60,7 +60,7 @@ func actor_setup():
 
 func _physics_process(delta):
 	if nav_server_synced:
-		if !is_multiplayer_authority() or (nav_agent.is_navigation_finished() && can_cast):
+		if !is_multiplayer_authority():
 			return
 		
 		var current_agent_pos: Vector2 = global_position
@@ -69,7 +69,7 @@ func _physics_process(delta):
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
 		
 		#knockback code
-		if !can_input:
+		if !can_input or nav_agent.is_navigation_finished():
 			#nav_agent.set_velocity(Vector2.ZERO)
 			intended_velocity = Vector2.ZERO
 			nav_agent.set_velocity(Vector2.ZERO)
@@ -80,13 +80,10 @@ func _physics_process(delta):
 			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
 			
 		
-		
 		#Update timers
 		update_dash(delta)
-	
 	super._physics_process(delta)
 	
-	#Dash code
 #endregion
 
 #region Signal methods

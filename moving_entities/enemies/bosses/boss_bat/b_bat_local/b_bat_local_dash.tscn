@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxxdw2jiknenn"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/attack_scripts/e_dash_to.gd" id="1_hmenq"]
+
+[node name="BBatLocalDash" type="Node2D"]
+script = ExtResource("1_hmenq")
+base_damage = 0
+end_time = 0.0
+cooldown_time = 0.1

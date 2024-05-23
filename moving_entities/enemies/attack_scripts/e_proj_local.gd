@@ -1,5 +1,5 @@
 extends SpellBase
-#class_name
+class_name ProjLocalEnemy
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -19,16 +19,14 @@ func _ready():
 			burst_amount = caster.burst_amount
 		
 		
-	if $Indicator:
+	if has_node("Indicator"):
 		$Indicator/Direction.look_at($Indicator/Direction.global_position + direction0)
 		for n in burst_amount:
 			if n != 0:
 				var new_projection = $Indicator/Direction/Projection.duplicate()
 				$Indicator/Direction.add_child(new_projection)
 				new_projection.rotation_degrees = n * (360/burst_amount)
-		
 		await get_tree().create_timer(start_time).timeout
-		
 		$Indicator.hide
 	
 	for n in burst_amount:
