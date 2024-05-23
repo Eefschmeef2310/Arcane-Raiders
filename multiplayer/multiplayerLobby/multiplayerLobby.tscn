@@ -1,7 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=22 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
 [ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_w5lpx"]
@@ -12,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="8_q78au"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
 [ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
-[ext_resource type="Texture2D" uid="uid://b5jb61vijlub3" path="res://ui/wheel of reactions.png" id="12_b1r1k"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="13_ngagv"]
 
 [sub_resource type="Resource" id="Resource_1emuh"]
@@ -35,7 +34,7 @@ colors = PackedColorArray(0.254856, 0, 0.371015, 1)
 gradient = SubResource("Gradient_4lc54")
 
 [sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
-font_size = 90
+font_size = 96
 font_color = Color(1, 0.921569, 0.929412, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjlfo"]
@@ -55,14 +54,15 @@ player_card_hbox = NodePath("Lobby/MarginContainer/PlayerCardBox")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 debug_start_button = NodePath("Lobby/StartButton")
 ready_progress_bar = NodePath("Lobby/ReadyProgress")
-lobby_title = NodePath("Lobby/ReadyProgress/Label")
+lobby_title = NodePath("Lobby/Label")
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_w5lpx"), ExtResource("4_r1oq1"), ExtResource("2_837od"), ExtResource("6_bfemw"), ExtResource("7_p8g7q"), ExtResource("8_q78au"), ExtResource("9_wr8px")])
 loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_1emuh")])
-player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.686275, 0.00392157, 0.886275, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
+player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.505882, 0.152941, 0.839216, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
 player_card_scene = ExtResource("2_bq112")
 castle_climb_scene = ExtResource("9_fkiis")
 
 [node name="Lobby" type="Control" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,30 +87,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 200
+theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_bottom = 0
 
 [node name="PlayerCardBox" type="HBoxContainer" parent="Lobby/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 40
 alignment = 1
 
 [node name="Label" type="RichTextLabel" parent="Lobby/MarginContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 theme_override_fonts/normal_font = ExtResource("13_ngagv")
-theme_override_font_sizes/normal_font_size = 70
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
-text = "[center]Press Space /[img width=92]res://ui/join_button.svg[/img] to join"
+text = "[center]Press Space /[img width=92]res://ui/join_button.svg[/img] to join!"
+
+[node name="TopPanel" type="Panel" parent="Lobby"]
+layout_mode = 0
+offset_left = -94.0
+offset_top = -48.0
+offset_right = 2007.0
+offset_bottom = 192.0
 
 [node name="ReadyProgress" type="TextureProgressBar" parent="Lobby"]
-custom_minimum_size = Vector2(0, 125)
+visible = false
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 125.0
+offset_bottom = 130.0
 grow_horizontal = 2
 max_value = 1.0
 step = 0.0
@@ -119,33 +128,30 @@ nine_patch_stretch = true
 texture_under = SubResource("GradientTexture1D_1ge7i")
 texture_progress = SubResource("GradientTexture1D_rsc3f")
 
-[node name="Label" type="Label" parent="Lobby/ReadyProgress"]
+[node name="Label" type="Label" parent="Lobby"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -509.0
 offset_right = 509.0
-offset_bottom = 125.0
+offset_bottom = 200.0
 grow_horizontal = 2
-text = "Choose your Raider!"
+text = "Prepare to raid!"
 label_settings = SubResource("LabelSettings_dkcho")
 horizontal_alignment = 1
-
-[node name="WheelOfReactions" type="Sprite2D" parent="Lobby/ReadyProgress"]
-visible = false
-position = Vector2(1856.5, 63.5)
-scale = Vector2(0.115741, 0.115741)
-texture = ExtResource("12_b1r1k")
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="Lobby"]
 clip_children = 2
-custom_minimum_size = Vector2(200, 125)
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 1
-offset_right = 137.0
-offset_bottom = 125.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 166.0
+offset_bottom = 116.0
 theme_override_fonts/font = ExtResource("13_ngagv")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 48
 text = "Back"
 
 [node name="ProgressBar" type="ProgressBar" parent="Lobby/BackButton"]

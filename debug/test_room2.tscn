@@ -98,9 +98,8 @@ script = SubResource("GDScript_tg365")
 position = Vector2(96, 800)
 
 [node name="PlayerData" parent="Player" index="6"]
-device_id = 0
 spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["shock-proj_ball", "burn-proj_ball", "wind-proj_spread"])
+spell_strings = Array[String](["shock-proj_spread", "wind-proj_spread", "stun-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="DashTrail" parent="Player" index="21"]
@@ -136,18 +135,23 @@ layout_mode = 2
 
 [node name="SmallSlime" parent="." index="16" instance=ExtResource("9_vm5ll")]
 position = Vector2(543, 305)
+max_health = 2000
 
 [node name="SmallSlime2" parent="." index="17" instance=ExtResource("9_vm5ll")]
 position = Vector2(727, 323)
+max_health = 2000
 
 [node name="SmallSlime3" parent="." index="18" instance=ExtResource("9_vm5ll")]
 position = Vector2(689, 436)
+max_health = 2000
 
 [node name="SmallSlime4" parent="." index="19" instance=ExtResource("9_vm5ll")]
 position = Vector2(901, 411)
+max_health = 2000
 
 [node name="SmallSlime5" parent="." index="20" instance=ExtResource("9_vm5ll")]
 position = Vector2(851, 524)
+max_health = 2000
 
 [node name="Dummy" parent="." index="21" instance=ExtResource("10_4e1gc")]
 position = Vector2(506, 953)

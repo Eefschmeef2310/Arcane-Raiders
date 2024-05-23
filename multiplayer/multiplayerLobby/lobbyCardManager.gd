@@ -1,4 +1,4 @@
-extends Node
+extends Control
 #Authored by Tom. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -89,23 +89,22 @@ func _ready():
 	
 	for raiderCount in lobby_manager.raiders.size():
 		var box = StyleBoxFlat.new()
-		var box_box = PanelContainer.new()
+		var box_box : ClickablePip = ClickablePip.new()
 		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
 		box.bg_color = Color8(0,0,0,0)
-		box.border_width_bottom = 3
-		box.border_width_top = 3
-		box.border_width_left = 3
-		box.border_width_right = 3
-		box.set_corner_radius_all(3)
+		box.set_border_width_all(3)
+		box.set_corner_radius_all(12)
 		box.border_color = Color.WHITE
 		box_box.add_theme_stylebox_override("panel",box)
+		box_box.gui_input_pass_self.connect(_on_raider_pip_gui_input)
+		box_box.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		
 		var new_pip = TextureRect.new()
 		new_pip.texture = lobby_manager.raiders[raiderCount].head_texture
 		var region = Rect2(35,35,80,80)
 		new_pip.texture = get_cropped_texture(new_pip.texture, region) 
 		new_pip.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		new_pip.custom_minimum_size =  Vector2(50,50)
+		new_pip.custom_minimum_size =  Vector2(40,40)
 		
 		if raiderCount > 0:
 			#new_pip.modulate = Color.DIM_GRAY
@@ -131,20 +130,19 @@ func _ready():
 		child.queue_free()
 		
 	for colorCount in lobby_manager.player_colors.size():
-		var new_pip = Panel.new()
+		var new_pip = ClickablePip.new()
 		var box = StyleBoxFlat.new()
 		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
 		box.bg_color = lobby_manager.player_colors[colorCount]
-		box.border_width_bottom = 3
-		box.border_width_top = 3
-		box.border_width_left = 3
-		box.border_width_right = 3
-		box.set_corner_radius_all(3)
+		box.set_border_width_all(3)
+		box.set_corner_radius_all(12)
 		box.border_color = Color.WHITE
 		new_pip.add_theme_stylebox_override("panel",box)
+		new_pip.gui_input_pass_self.connect(_on_color_pip_gui_input)
+		new_pip.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		
 		#new_pip.color = lobby_manager.player_colors[colorCount]
-		new_pip.custom_minimum_size =  Vector2(50,50)
+		new_pip.custom_minimum_size =  Vector2(46,46)
 		
 		if colorCount > 0:
 			new_pip.modulate = Color.WHITE
@@ -254,14 +252,14 @@ func UpdateDisplay():
 	
 	# set some basic values
 	if GameManager.isLocal():
-		var s = "Keyboard"
+		var s = "Keyboard & Mouse"
 		if device_id >= 0:
 			s = Input.get_joy_name(device_id)
 		player_name.text = s
 	else:
 		player_name.text = username
 	
-	player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
+	#player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
 	#player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
@@ -318,6 +316,7 @@ func UpdateDisplay():
 			#restore it to normal modulation
 			(panels_array[panel_num] as Control).self_modulate = Color("363636")
 			pass
+	#self_modulate = highlight_color
 	pass
 	
 	#check for valid color
@@ -387,7 +386,7 @@ func _on_loadout_container_mouse_entered():
 
 func _on_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
-		selected_panel = 4
+		selected_panel = 3
 
 func _on_left_arrow_clicked(event):
 	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
@@ -403,3 +402,15 @@ func _on_button_pressed():
 
 func _remove_player():
 	queue_free()
+
+func _on_raider_pip_gui_input(event, node):
+	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
+		var raider_int = node.get_index()
+		if !(lobby_manager.picked_raiders.has(raider_int) and not lobby_manager.allow_duplicate_animals):
+			selected_raider = raider_int
+		
+func _on_color_pip_gui_input(event, node):
+	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
+		var color_int = node.get_index()
+		if !(lobby_manager.picked_colors.has(color_int) and not lobby_manager.allow_duplicate_colors):
+			selected_color = color_int

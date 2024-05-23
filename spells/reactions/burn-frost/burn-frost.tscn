@@ -13,6 +13,7 @@ gradient = SubResource("Gradient_1mn2o")
 resource_local_to_scene = true
 shader = ExtResource("2_vc563")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
 
 [sub_resource type="GDScript" id="GDScript_ljwld"]

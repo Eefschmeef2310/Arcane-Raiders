@@ -21,6 +21,7 @@ gradient = SubResource("Gradient_oh054")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_87xtg"]
 shader = ExtResource("4_ep2uc")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture2D_5jg5c")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fi3n"]

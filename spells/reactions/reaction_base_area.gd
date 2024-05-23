@@ -39,7 +39,7 @@ func _ready():
 	if limit_spawns:
 		for node in get_tree().get_nodes_in_group(get_groups()[0]):
 			print(node.new_reaction_timer.is_stopped())
-			if node != self and node.reaction_name == reaction_name and node.global_position.distance_to(global_position) < 300:
+			if node != self and node.reaction_name == reaction_name and node.global_position.distance_to(global_position) < 300 and !node.new_reaction_timer.is_stopped():
 				node.global_position = (node.global_position + global_position)/2
 				#node.scale += Vector2(0.1, 0.1);
 				remove_from_group(get_groups()[0])

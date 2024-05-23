@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=18 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
@@ -13,13 +13,29 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_3q2uu"]
 [ext_resource type="Texture2D" uid="uid://dxccd0s3emefc" path="res://multiplayer/multiplayerLobby/cross.png" id="12_j335c"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
-font = ExtResource("4_bk151")
-font_size = 21
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6vu7"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
+[sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
 font = ExtResource("5_6stfj")
 font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
+font = ExtResource("4_bk151")
+font_size = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_vcbrb"]
 line_spacing = 0.0
@@ -27,13 +43,14 @@ font = ExtResource("4_bk151")
 
 [sub_resource type="LabelSettings" id="LabelSettings_6ho28"]
 font = ExtResource("5_6stfj")
-font_size = 28
+font_size = 24
 
 [node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "remove_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
-custom_minimum_size = Vector2(400, 780)
+custom_minimum_size = Vector2(400, 200)
 offset_right = 400.0
-offset_bottom = 898.0
-size_flags_horizontal = 3
+offset_bottom = 466.0
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_j6vu7")
 script = ExtResource("1_6lvqp")
 pip_texture = ExtResource("5_lpqe4")
 player_name = NodePath("VBoxContainer/VBoxContainer/Username")
@@ -43,15 +60,15 @@ panels_array = [NodePath("RemovePlayerButton"), NodePath("VBoxContainer/VBoxCont
 ready_button = NodePath("VBoxContainer/Button")
 remove_button = NodePath("RemovePlayerButton")
 raider_portrait = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait")
-raider_name = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RaiderName")
-raider_desc = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/RaiderDesc")
-character_pips_box = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips")
+raider_name = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/RaiderName")
+raider_desc = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/RaiderDesc")
+character_pips_box = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips")
 loadout_name = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/Loadout Name")
 loadout_desc = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/Loadout Desc")
 loadout_pips_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutPips")
 spells_box = NodePath("VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/SpellsBox")
-color_name = NodePath("VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/ColorName")
-color_pips_box = NodePath("VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips")
+color_name = NodePath("VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorName")
+color_pips_box = NodePath("VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips")
 pre_head = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/Head")
 pre_body = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/Body")
 pre_l_hand = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/LeftHand")
@@ -64,9 +81,20 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
+[node name="Username" type="Label" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Username"
+label_settings = SubResource("LabelSettings_nu6df")
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
 [node name="RaiderPortrait" type="TextureRect" parent="VBoxContainer/VBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(0, 396.86)
+custom_minimum_size = Vector2(0, 275)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -78,8 +106,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="SpritesScale" type="Node2D" parent="VBoxContainer/VBoxContainer/SpritesFlip"]
-position = Vector2(0, -52)
-scale = Vector2(2.895, 2.895)
+position = Vector2(0, -44)
+scale = Vector2(2, 2)
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale"]
 visible = false
@@ -108,26 +136,18 @@ position = Vector2(-37, -28)
 texture = ExtResource("7_3q2uu")
 flip_h = true
 
-[node name="Username" type="Label" parent="VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "Username*"
-label_settings = SubResource("LabelSettings_nu6df")
-horizontal_alignment = 1
-
 [node name="CharacterContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
 self_modulate = Color(0, 0.584314, 0.45098, 1)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = ExtResource("5_oe6lx")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer"]
+[node name="CharacterSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="CharacterSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
+[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector"]
+visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -136,7 +156,12 @@ mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 
-[node name="RaiderName" type="Label" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RaiderName" type="Label" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(249.105, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -144,7 +169,62 @@ text = "RaiderName"
 label_settings = SubResource("LabelSettings_xtm21")
 horizontal_alignment = 1
 
-[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector"]
+[node name="CharacterPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/CharacterPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="RaiderDesc" type="Label" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+text = "a dark and mysterious raider, only in it for the gold, known to leave all their teammates behind the moment they see something shiny"
+label_settings = SubResource("LabelSettings_vcbrb")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector"]
+visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -154,72 +234,18 @@ texture = ExtResource("1_3ms62")
 expand_mode = 4
 flip_h = true
 
-[node name="CharacterPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="RaiderDesc" type="Label" parent="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "a dark and mysterious raider, only in it for the gold, known to leave all their teammates behind the moment they see something shiny"
-label_settings = SubResource("LabelSettings_vcbrb")
-horizontal_alignment = 1
-autowrap_mode = 3
-
 [node name="ColorContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
 self_modulate = Color(0, 0.584314, 0.45098, 1)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = ExtResource("5_oe6lx")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer"]
+[node name="ColorSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="ColorSelector" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector"]
+[node name="LeftIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector"]
+visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -228,7 +254,12 @@ mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 
-[node name="ColorName" type="Label" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorName" type="Label" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(249.105, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -236,7 +267,53 @@ text = "Green"
 label_settings = SubResource("LabelSettings_xtm21")
 horizontal_alignment = 1
 
-[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector"]
+[node name="ColorPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/VBoxContainer/ColorPips"]
+modulate = Color(1, 1, 1, 0.454902)
+layout_mode = 2
+texture = ExtResource("5_lpqe4")
+
+[node name="RightIndicator" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector"]
+visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -245,51 +322,6 @@ mouse_default_cursor_shape = 2
 texture = ExtResource("1_3ms62")
 expand_mode = 4
 flip_h = true
-
-[node name="ColorPips" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect7" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
-
-[node name="TextureRect8" type="TextureRect" parent="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("5_lpqe4")
 
 [node name="LoadoutContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
 visible = false
@@ -409,7 +441,6 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_bk151")
 theme_override_styles/normal = ExtResource("5_oe6lx")
-text = "READY"
 
 [node name="ReadyText" type="Label" parent="VBoxContainer/Button"]
 custom_minimum_size = Vector2(249.105, 0)
@@ -433,11 +464,11 @@ theme_override_constants/icon_max_width = 30
 icon = ExtResource("12_j335c")
 
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
-[connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
-[connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/VBoxContainer/CharacterSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
-[connection signal="gui_input" from="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
-[connection signal="gui_input" from="VBoxContainer/VBoxContainer/ColorContainer/VBoxContainer/ColorSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/ColorContainer/ColorSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/LoadoutContainer" to="." method="_on_loadout_container_mouse_entered"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/LoadoutContainer/VBoxContainer/LoadoutSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
