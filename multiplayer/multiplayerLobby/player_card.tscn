@@ -15,10 +15,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6vu7"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
 border_color = Color(0.65098, 0.54902, 0.423529, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -441,6 +441,9 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_bk151")
 theme_override_styles/normal = ExtResource("5_oe6lx")
+theme_override_styles/hover = ExtResource("5_oe6lx")
+theme_override_styles/pressed = ExtResource("5_oe6lx")
+theme_override_styles/focus = ExtResource("5_oe6lx")
 
 [node name="ReadyText" type="Label" parent="VBoxContainer/Button"]
 custom_minimum_size = Vector2(249.105, 0)

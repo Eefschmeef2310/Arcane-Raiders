@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=20 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="2_837od"]
@@ -20,15 +20,9 @@ loadout_name = "You can't see this!"
 loadout_desc = ""
 spell_ids = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large"])
 
-[sub_resource type="Gradient" id="Gradient_4iwjm"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_1ge7i"]
-gradient = SubResource("Gradient_4iwjm")
-
 [sub_resource type="Gradient" id="Gradient_4lc54"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.254856, 0, 0.371015, 1)
+colors = PackedColorArray(0.588235, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rsc3f"]
 gradient = SubResource("Gradient_4lc54")
@@ -114,18 +108,17 @@ offset_right = 2007.0
 offset_bottom = 192.0
 
 [node name="ReadyProgress" type="TextureProgressBar" parent="Lobby"]
-visible = false
-custom_minimum_size = Vector2(0, 130)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 130.0
+offset_top = 172.0
+offset_bottom = 192.0
 grow_horizontal = 2
 max_value = 1.0
 step = 0.0
 value = 1.0
 nine_patch_stretch = true
-texture_under = SubResource("GradientTexture1D_1ge7i")
 texture_progress = SubResource("GradientTexture1D_rsc3f")
 
 [node name="Label" type="Label" parent="Lobby"]
@@ -146,10 +139,10 @@ vertical_alignment = 1
 clip_children = 2
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 1
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 166.0
-offset_bottom = 116.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 182.0
+offset_bottom = 132.0
 theme_override_fonts/font = ExtResource("13_ngagv")
 theme_override_font_sizes/font_size = 48
 text = "Back"

@@ -83,7 +83,7 @@ func _process(delta):
 		ready_timer -= delta
 		if ready_timer < 0:
 			ready_timer = 0
-		lobby_title.text= "Starting in " + str(ceil(ready_timer) + "...") 
+		lobby_title.text = "Starting in " + str(ceil(ready_timer)) + "..."
 	else:
 		ready_timer = ready_delay
 		lobby_title.text= "Prepare to raid!"
@@ -101,6 +101,7 @@ func _process(delta):
 		back_timer = 0
 	$Lobby/BackButton/ProgressBar.value = (back_timer / 1) * 100
 	$Lobby/MarginContainer/Label.visible = GameManager.isLocal() and $Lobby/MarginContainer/PlayerCardBox.get_child_count() < 4
+	$Lobby/ReadyProgress.visible = all_players_ready
 
 #func _input(event):
 	##Player presses excape or right action button
