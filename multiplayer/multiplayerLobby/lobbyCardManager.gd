@@ -194,8 +194,8 @@ func _process(_delta):
 				selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
-			elif(selected_panel == 3): #loadout selected
-				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
+			#elif(selected_panel == 3): #loadout selected
+				#selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 			changed = true
 			
 		if(("right" in mouse_input) and not player_ready):
@@ -207,14 +207,14 @@ func _process(_delta):
 				selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
-			elif(selected_panel == 3): #loadout selected
-				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
+			#elif(selected_panel == 3): #loadout selected
+				#selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			changed = true
 		
 		if("confirm" in mouse_input):
 			if(selected_panel == 0):
 				_remove_player()
-			if(selected_panel == 4 and valid_color): #ready button selected
+			if(selected_panel == 3 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
 				

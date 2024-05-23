@@ -39,7 +39,7 @@ pip_texture = ExtResource("5_lpqe4")
 player_name = NodePath("VBoxContainer/VBoxContainer/Username")
 all_panels = NodePath("VBoxContainer")
 most_panels = NodePath("VBoxContainer/VBoxContainer")
-panels_array = [NodePath("RemovePlayerButton"), NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/ColorContainer"), NodePath("VBoxContainer/VBoxContainer/LoadoutContainer"), NodePath("VBoxContainer/Button")]
+panels_array = [NodePath("RemovePlayerButton"), NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/ColorContainer"), NodePath("VBoxContainer/Button")]
 ready_button = NodePath("VBoxContainer/Button")
 remove_button = NodePath("RemovePlayerButton")
 raider_portrait = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait")
@@ -292,6 +292,7 @@ layout_mode = 2
 texture = ExtResource("5_lpqe4")
 
 [node name="LoadoutContainer" type="PanelContainer" parent="VBoxContainer/VBoxContainer"]
+visible = false
 self_modulate = Color(0.596078, 0, 0.596078, 1)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("5_oe6lx")
