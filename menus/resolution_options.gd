@@ -16,11 +16,11 @@ extends OptionButton
 
 	#Other Variables (please try to separate and organise!)
 var resolutions : Array = [
-		["1280x720", Vector2(1280, 720)],
-		["1600x900", Vector2(1600, 900)],
-		["1920x1080", Vector2(1920, 1080)],
-		["2560x1440", Vector2(2560, 1440)],
-		["3840x2160", Vector2(3840, 2160)]
+		["1280x720", Vector2(1278, 718)],
+		["1600x900", Vector2(1598, 998)],
+		["1920x1080", Vector2(1920-2, 1080-2)],
+		["2560x1440", Vector2(2560-2, 1440-2)],
+		["3840x2160", Vector2(3840-2, 2160-2)]
 	]
 
 

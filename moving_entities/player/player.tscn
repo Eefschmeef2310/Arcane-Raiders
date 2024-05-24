@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="12_ndveq"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
 [ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="13_a6udy"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]

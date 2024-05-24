@@ -7,18 +7,36 @@ resource_name = "pause_menu"
 script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
+var just_spawned := true
+var device_index : int
+
 #region Godot methods
 func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
 	
-#func _process(_delta):
-	#if Input.is_action_pressed(\"ui_pause\"):
-		#_on_continue_button_pressed()
+	if device_index != -1:
+		($MarginContainer/MarginContainer/VBoxContainer/ContinueButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+		($MarginContainer/MarginContainer/VBoxContainer/SettingsButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+		($MarginContainer/MarginContainer/VBoxContainer/QuitButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 func _input(event):
-	if event.is_action_pressed(\"ui_pause\") or event.is_action_released(\"ui_cancel\"):
-		_on_continue_button_pressed()
+	#If keyboard
+	if device_index == -1:
+		if event.is_action_released(\"keyboard_pause\") and !just_spawned:
+			_on_continue_button_pressed()
+	else: #If controller
+		if event.is_action_released(\"ui_pause\") and !just_spawned:
+			_on_continue_button_pressed()
+		
+	#Set just_spawned
+	if just_spawned:
+		if device_index == -1:
+			if event.is_action_released(\"keyboard_pause\"):
+				just_spawned = false
+		else:
+			if event.is_action_released(\"ui_pause\"):
+				just_spawned = false
 #endregion
 
 #region Signal methods

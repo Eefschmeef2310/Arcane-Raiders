@@ -19,6 +19,28 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	#For pausing
+	var do_pause = false
+	if input: # For local
+		do_pause = input.is_action_just_pressed("keyboard_pause") if input.device == -1 else input.is_action_just_pressed("ui_pause")
+	else: # For online
+		for device in GameManager.devices:
+			if !do_pause:
+				do_pause = MultiplayerInput.is_action_pressed(device, "ui_pause")
+	
+	if do_pause and !GameManager.isPaused:
+		GameManager.isPaused = true
+		if input:
+			MultiplayerInput.set_ui_action_device(input.device)
+		else:
+			MultiplayerInput.set_ui_action_device(-2)
+		
+		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
+		pause_menu.set_panel_color(owner.data.main_color)
+		if input:
+			pause_menu.device_index = input.device
+		owner.get_parent().add_child(pause_menu)
+	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
 		move_dir = Vector2.ZERO
@@ -110,25 +132,7 @@ func _input(event):
 			if is_instance_valid(owner.data) and owner.data.device_id != -3:
 				owner.data.device_changed.emit(-1)
 	
-	#For pausing
-	var do_pause = false
-	if input: # For local
-		do_pause = input.is_action_just_pressed("ui_pause")
-	else: # For online
-		for device in GameManager.devices:
-			if !do_pause:
-				do_pause = MultiplayerInput.is_action_pressed(device, "ui_pause")
 	
-	if do_pause and !GameManager.isPaused:
-		GameManager.isPaused = true
-		if input:
-			MultiplayerInput.set_ui_action_device(input.device)
-		else:
-			MultiplayerInput.set_ui_action_device(-2)
-		
-		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
-		pause_menu.set_panel_color(owner.data.main_color)
-		owner.get_parent().add_child(pause_menu)
 
 #func update_device_list(_device: int, _connected: bool):
 	#devices.clear()

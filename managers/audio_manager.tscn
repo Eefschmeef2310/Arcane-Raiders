@@ -173,6 +173,7 @@ func stop_all():
 "
 
 [node name="AudioManager" type="Node"]
+process_mode = 3
 script = SubResource("GDScript_np84d")
 
 [node name="MusicStream" type="AudioStreamPlayer" parent="."]
