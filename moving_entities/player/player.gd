@@ -33,7 +33,7 @@ var dash_speed = 1000
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
 var friends_nearby : Array = []
-var revival_time : float
+@export var revival_time : float
 var revival_time_max : float = 5
 
 #region Godot methods
@@ -234,22 +234,31 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
-	var not_dead_yet = !is_dead
-	
 	if is_invincible or is_dashing or is_dead:
 		return
 		
 	super.on_hurt(attack)
-		
+	
+	if is_multiplayer_authority():
+		if !is_dead and !("base_damage" in attack and attack.base_damage <= 0):
+			start_invincibility.rpc()
+
+@rpc("authority", "call_local", "reliable")
+func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
+	var not_dead_yet = !is_dead
+	
+	if is_dead:
+		return
+	
+	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
+
 	if is_multiplayer_authority():
 		if is_dead and not_dead_yet:
-				toggle_dead.rpc(true)
-		elif !("base_damage" in attack and attack.base_damage <= 0):
-				start_invincibility.rpc()
+			toggle_dead.rpc(true)
 
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
-	if b:
+	if b: 
 		$AnimationPlayer.play("die");
 		dead.emit(self)
 		$CollisionShape2D.disabled = true;
