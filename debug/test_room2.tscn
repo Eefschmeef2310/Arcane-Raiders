@@ -101,7 +101,7 @@ spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResour
 spell_strings = Array[String](["shock-proj_spread", "wind-proj_spread", "stun-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="DashTrail" parent="Player" index="21"]
+[node name="DashTrail" parent="Player" index="22"]
 gradient = SubResource("Gradient_8fnr6")
 
 [node name="GameUI" type="CanvasLayer" parent="." index="15"]

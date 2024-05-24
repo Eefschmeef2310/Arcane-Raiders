@@ -12,6 +12,7 @@ gradient = SubResource("Gradient_f7grb")
 resource_local_to_scene = true
 shader = ExtResource("2_qi48l")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_la55t"]
@@ -32,8 +33,8 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_i6u15"]
-_data = [Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.256198, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 metadata/_snap_count = 20
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sidjm"]

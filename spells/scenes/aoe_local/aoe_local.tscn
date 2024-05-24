@@ -14,6 +14,7 @@ gradient = SubResource("Gradient_1mn2o")
 resource_local_to_scene = true
 shader = ExtResource("2_vh0nd")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
 
 [node name="aoe_local" instance=ExtResource("1_hrp8u")]
@@ -24,6 +25,7 @@ waves = 1
 explosions_per_wave = 16
 max_radians = 6.283
 distance_from_caster = 0.0
+base_damage = 25
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 
