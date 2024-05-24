@@ -49,7 +49,7 @@ func update_prompts(id: int):
 func _on_player_health_updated(_player_data, _amount):
 	print("updating health bar")
 	health_bar.value = data.health
-	$HBox/Stats/HealthBar/Label.text = str(health_bar.value/10) + "/" + str(health_bar.max_value/10)
+	$HBox/Stats/HealthBar/Label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
 
 func _pickup_proximity_changed(b: bool):
 	show_equip_ui() if b else hide_equip_ui()

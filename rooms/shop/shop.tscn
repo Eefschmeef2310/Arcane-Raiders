@@ -38,6 +38,7 @@ position = Vector2(418, 679)
 
 [node name="RoomExit" parent="." index="11"]
 position = Vector2(1439, 52)
+wait_for_all_players = true
 
 [node name="ShopSpawns" type="Node2D" parent="." index="13"]
 position = Vector2(-294, 209)

@@ -352,7 +352,7 @@ func get_controller_input():
 		if input.is_action_just_pressed("lobby_cancel"):
 			mouse_input.append("cancel")
 	else:
-		for device in devices:
+		for device in GameManager.devices:
 			if MultiplayerInput.is_action_just_pressed(device, "lobby_up"):
 				mouse_input.append("up")
 			if MultiplayerInput.is_action_just_pressed(device, "lobby_down"):
@@ -375,15 +375,15 @@ func is_event_click(event):
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
 func _on_character_container_mouse_entered():
-	if device_id <= -1 and is_multiplayer_authority():
+	if device_id <= -1 and !player_ready and is_multiplayer_authority():
 		selected_panel = 1
 
 func _on_color_container_mouse_entered():
-	if device_id <= -1 and is_multiplayer_authority():
+	if device_id <= -1 and !player_ready and is_multiplayer_authority():
 		selected_panel = 2
 
 func _on_loadout_container_mouse_entered():
-	if device_id <= -1 and is_multiplayer_authority():
+	if device_id <= -1 and !player_ready and is_multiplayer_authority():
 		selected_panel = 3
 
 func _on_button_mouse_entered():
@@ -406,13 +406,13 @@ func _remove_player():
 	queue_free()
 
 func _on_raider_pip_gui_input(event, node):
-	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
+	if is_event_click(event) and device_id <= -1 and !player_ready and is_multiplayer_authority():
 		var raider_int = node.get_index()
 		if !(lobby_manager.picked_raiders.has(raider_int) and not lobby_manager.allow_duplicate_animals):
 			selected_raider = raider_int
 		
 func _on_color_pip_gui_input(event, node):
-	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
+	if is_event_click(event) and device_id <= -1 and !player_ready and is_multiplayer_authority():
 		var color_int = node.get_index()
 		if !(lobby_manager.picked_colors.has(color_int) and not lobby_manager.allow_duplicate_colors):
 			selected_color = color_int

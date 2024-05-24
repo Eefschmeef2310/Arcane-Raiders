@@ -5,17 +5,17 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnneb"]
 bg_color = Color(0, 0, 0, 0.607843)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aw0qd"]
 bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="BossBar" type="VBoxContainer"]
 custom_minimum_size = Vector2(800, 0)
