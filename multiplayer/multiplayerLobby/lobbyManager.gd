@@ -93,7 +93,7 @@ func _process(delta):
 		print("StartGame triggered.")
 		StartGame()
 		
-	if Input.is_action_pressed("ui_cancel") and !start_game_called:
+	if Input.is_action_pressed("ui_cancel") and !start_game_called and !get_node("CastleClimb"):
 		back_timer += delta
 		if back_timer > 1:
 			_on_back_button_pressed()
