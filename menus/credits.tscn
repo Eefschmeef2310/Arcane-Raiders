@@ -256,10 +256,10 @@ text = "Ice-10
 Simple Zaps
 Egg Cracking
 Spider Squeek
+Spellcast
 Falling Pebbles, Rocks and Boulders (VoiceBosch)
 Fast Whoosh (StudioKolomna)
-Water Splash (UNIVERSFIELD)
-"
+Water Splash (UNIVERSFIELD)"
 label_settings = SubResource("LabelSettings_axq2p")
 
 [node name="ButtonMargin" type="MarginContainer" parent="Background/VBoxContainer"]
