@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://tdyd7aws8gm8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_kj62k"]
-[ext_resource type="Texture2D" uid="uid://cjtt5301dlgj0" path="res://moving_entities/enemies/boss_slime/elec_slime/electric_slime_idle.png" id="2_wwimf"]
+[ext_resource type="Texture2D" uid="uid://3ary3kn21wtc" path="res://moving_entities/enemies/boss_slime/wind_rock_slime/rock_slime_idle.png" id="2_srfh0"]
 [ext_resource type="Resource" uid="uid://l0pouj41mexa" path="res://elements/stun.tres" id="3_o3558"]
 [ext_resource type="PackedScene" uid="uid://bh1cqio80y7vl" path="res://moving_entities/enemies/boss_slime/elec_slime/e_slime_spike.tscn" id="4_xn2nr"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_gv6gh"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_solo.gd" id="9_jawt5"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_2gsid"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="11_e2d2u"]
-[ext_resource type="Texture2D" uid="uid://y7ao60ysrm2n" path="res://moving_entities/enemies/boss_slime/elec_slime/electric_slime_attack.png" id="12_5rs5u"]
+[ext_resource type="Texture2D" uid="uid://bfnsu8y8kgmwf" path="res://moving_entities/enemies/boss_slime/wind_rock_slime/rock_slime_attack.png" id="12_8htci"]
 
 [sub_resource type="GDScript" id="GDScript_fiano"]
 script/source = "extends EnemyEntity
@@ -97,7 +97,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_wwimf")]
+"values": [ExtResource("2_srfh0")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -163,7 +163,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_5rs5u")]
+"values": [ExtResource("12_8htci")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -228,7 +228,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_5rs5u")]
+"values": [ExtResource("12_8htci")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -293,7 +293,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_5rs5u")]
+"values": [ExtResource("12_8htci")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -359,7 +359,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_wwimf")]
+"values": [ExtResource("2_srfh0")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -407,7 +407,7 @@ position = Vector2(0, -55)
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(-9, -65)
-texture = ExtResource("2_wwimf")
+texture = ExtResource("2_srfh0")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]

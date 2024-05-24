@@ -50,7 +50,7 @@ scenes/5/scene = ExtResource("4_6n5bn")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ap3w"]
 resource_name = "edges"
 texture = ExtResource("1_5qpff")
-texture_region_size = Vector2i(160, 94)
+texture_region_size = Vector2i(162, 94)
 3:4/0 = 0
 3:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:4/0/physics_layer_0/angular_velocity = 0.0

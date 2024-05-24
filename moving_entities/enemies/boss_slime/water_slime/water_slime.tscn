@@ -421,11 +421,13 @@ script = ExtResource("10_54m7u")
 
 [node name="PrimaryAttack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_2g4eq")
+transition_out_when_can_cast = true
 animation = "attack_proj"
 
 [node name="SecondaryAttack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("11_2g4eq")
 spell_num = 1
+transition_out_when_can_cast = true
 animation = "attack_burst"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
