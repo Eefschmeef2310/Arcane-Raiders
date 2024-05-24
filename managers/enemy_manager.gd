@@ -33,12 +33,36 @@ extends Node
 		"scene" : preload("res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn"),
 		"difficulty" : 999
 	},
+	"fire_ice_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/fire_ice_slime/giant_fire_ice_slime.tscn"),
+		"difficulty" : 999
+	},
+	"wind_rock_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/wind_rock_slime/giant_wind_rock_slime.tscn"),
+		"difficulty" : 999
+	},
 	"water_slime": {
 		"scene" : preload("res://moving_entities/enemies/boss_slime/water_slime/water_slime.tscn"),
 		"difficulty" : 999
 	},
 	"electric_slime": {
 		"scene" : preload("res://moving_entities/enemies/boss_slime/elec_slime/elec_slime.tscn"),
+		"difficulty" : 999
+	},
+	"fire_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/fire_ice_slime/fire_slime.tscn"),
+		"difficulty" : 999
+	},
+	"ice_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/fire_ice_slime/ice_slime.tscn"),
+		"difficulty" : 999
+	},
+	"wind_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/wind_rock_slime/wind_slime.tscn"),
+		"difficulty" : 999
+	},
+	"rock_slime": {
+		"scene" : preload("res://moving_entities/enemies/boss_slime/wind_rock_slime/rock_slime.tscn"),
 		"difficulty" : 999
 	}
 }

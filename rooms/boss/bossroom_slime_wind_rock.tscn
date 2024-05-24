@@ -1,12 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqb1oj7yfqvid"]
+[gd_scene load_steps=4 format=3 uid="uid://dtoso48wqmd13"]
 
-[ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_htpk2"]
-[ext_resource type="Script" path="res://rooms/boss/castle_room_boss.gd" id="1_tb0uw"]
-[ext_resource type="Texture2D" uid="uid://ikk12brjvn6d" path="res://debug/enemy_spawn.png" id="6_6aqfi"]
+[ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_0x3jw"]
+[ext_resource type="Script" path="res://rooms/boss/castle_room_boss.gd" id="2_ph4s6"]
+[ext_resource type="Texture2D" uid="uid://ikk12brjvn6d" path="res://debug/enemy_spawn.png" id="3_8erk7"]
 
-[node name="CastleRoom" instance=ExtResource("1_htpk2")]
-script = ExtResource("1_tb0uw")
-boss_id = "boss_slime"
+[node name="CastleRoom" instance=ExtResource("1_0x3jw")]
+script = ExtResource("2_ph4s6")
+boss_id = "wind_rock_slime"
 bosses_to_kill = 3
 
 [node name="TileMap" parent="." index="0"]
@@ -19,6 +19,6 @@ layer_5/tile_data = PackedInt32Array(1179644, 327682, 0, 1245181, 327682, 0, 131
 
 [node name="EnemySpawn0" type="Sprite2D" parent="EnemySpawns" index="0"]
 position = Vector2(1270, 685)
-texture = ExtResource("6_6aqfi")
+texture = ExtResource("3_8erk7")
 
 [editable path="DynamicCamera"]
