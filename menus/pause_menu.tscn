@@ -16,6 +16,7 @@ func _ready():
 	get_tree().paused = GameManager.isLocal()
 	
 	if device_index != -1:
+		MultiplayerInput._create_actions_for_device(device_index)
 		($MarginContainer/MarginContainer/VBoxContainer/ContinueButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
 		($MarginContainer/MarginContainer/VBoxContainer/SettingsButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
 		($MarginContainer/MarginContainer/VBoxContainer/QuitButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -26,7 +27,7 @@ func _input(event):
 		if event.is_action_released(\"keyboard_pause\") and !just_spawned:
 			_on_continue_button_pressed()
 	else: #If controller
-		if event.is_action_released(\"ui_pause\") and !just_spawned:
+		if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and (MultiplayerInput.is_action_just_released(device_index, \"ui_pause\") or MultiplayerInput.is_action_just_released(device_index, \"ui_cancel\")) and !just_spawned:
 			_on_continue_button_pressed()
 		
 	#Set just_spawned
@@ -35,7 +36,7 @@ func _input(event):
 			if event.is_action_released(\"keyboard_pause\"):
 				just_spawned = false
 		else:
-			if event.is_action_released(\"ui_pause\"):
+			if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and MultiplayerInput.is_action_just_released(device_index, \"ui_pause\"):
 				just_spawned = false
 #endregion
 
