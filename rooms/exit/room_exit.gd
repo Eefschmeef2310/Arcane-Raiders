@@ -41,8 +41,9 @@ func _on_body_entered(body):
 		if !wait_for_all_players or entered_players.size() >= all_players.size():
 			player_entered.emit(body)
 		
-		$LabelSize/Label.show()
-		$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(all_players.size()) 
+		if wait_for_all_players:
+			$LabelSize/Label.show()
+			$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(all_players.size()) 
 
 
 func _on_body_exited(body):
@@ -54,5 +55,6 @@ func _on_body_exited(body):
 		
 		var all_players = get_tree().get_nodes_in_group("player")
 		
-		$LabelSize/Label.visible = entered_players.size() > 0
-		$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(all_players.size())
+		if wait_for_all_players:
+			$LabelSize/Label.visible = entered_players.size() > 0
+			$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(all_players.size())

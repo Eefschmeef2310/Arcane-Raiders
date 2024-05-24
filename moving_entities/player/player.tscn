@@ -951,7 +951,6 @@ offset_bottom = -138.0
 horizontal_alignment = 1
 
 [node name="StatusUI" parent="." instance=ExtResource("11_64qh4")]
-visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

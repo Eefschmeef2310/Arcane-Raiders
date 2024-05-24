@@ -1,9 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3ysm2lr7sn5t"]
+[gd_scene load_steps=12 format=3 uid="uid://d3ysm2lr7sn5t"]
 
-[ext_resource type="Texture2D" uid="uid://b65cdnki3bs6s" path="res://tilesets/decorations/Black-Circle-Fade-Sphere-PNG-Image-HD.png" id="1_6rg6x"]
 [ext_resource type="Shader" path="res://shaders/corrosion.gdshader" id="2_01emv"]
-[ext_resource type="Texture2D" uid="uid://cqvvmtq5kce48" path="res://moving_entities/enemies/boss_slime/giant_slime/water_diffuse.png" id="3_k376q"]
-[ext_resource type="Script" path="res://debug/clip_test.gd" id="4_xg6tq"]
+[ext_resource type="Texture2D" uid="uid://cu68yb2eq7bxf" path="res://spells/reactions/sprites/white_pool.png" id="3_y4o2s"]
 
 [sub_resource type="GDScript" id="GDScript_g2p4w"]
 script/source = "extends Area2D
@@ -38,6 +36,7 @@ var up_time : float = 0
 
 #region Godot methods
 func _ready():
+	$Sprite2D.modulate = resource.element.colour
 	base_damage = field_damage
 	
 	#Impose limit
@@ -86,35 +85,24 @@ seamless = true
 noise = SubResource("FastNoiseLite_jg4j1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gneoq"]
+resource_local_to_scene = true
 shader = ExtResource("2_01emv")
-shader_parameter/fade_scale = 0.5
+shader_parameter/fade_scale = 0.0
 shader_parameter/alpha = 1.0
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_6x46e")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
-radius = 85.1007
+radius = 102.0
 
 [sub_resource type="Animation" id="Animation_ew3gm"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D/Sprite2D:material:shader_parameter/fade_scale")
+tracks/0/path = NodePath("CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -149,18 +137,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/path = NodePath("Sprite2D/Sprite2D:material:shader_parameter/fade_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, -2),
-"update": 0,
-"values": [0.0, 1.0]
-}
 
 [sub_resource type="Animation" id="Animation_22v3d"]
 resource_name = "spawn"
@@ -187,7 +163,6 @@ _data = {
 
 [node name="SlimeField" type="Area2D" groups=["slime_field"]]
 z_index = -19
-scale = Vector2(1e-05, 1e-05)
 collision_layer = 64
 collision_mask = 4
 script = SubResource("GDScript_g2p4w")
@@ -195,20 +170,10 @@ script = SubResource("GDScript_g2p4w")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_gneoq")
 scale = Vector2(1, 0.5)
-texture = ExtResource("1_6rg6x")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
-visible = false
-texture_repeat = 2
-position = Vector2(-1000, -1000)
-scale = Vector2(1.5, 10)
-texture = ExtResource("3_k376q")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 2000, 10000)
-script = ExtResource("4_xg6tq")
+texture = ExtResource("3_y4o2s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9, 0)
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_ft1mc")
 

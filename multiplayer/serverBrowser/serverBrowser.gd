@@ -18,6 +18,7 @@ extends Node
 @export var server_count_text : Label
 @export var loading_text : Label
 @export var loading_panel : Node
+@export var template_button : Button
 
 @export_group("Scenes")
 @export var gameScene : String = "res://multiplayer/multiplayerLobby/multiplayerLobby.tscn"
@@ -113,10 +114,11 @@ func on_lobby_match_list(lobbies):
 		var lobby_name = Steam.getLobbyData(lobby,"name")
 		if (lobby_name.contains("Arcane Raiders")):
 			var memb_count = Steam.getNumLobbyMembers(lobby)
-			var button = Button.new()
-			button.set_text(str(lobby_name," | Player Count: ",memb_count))
-			button.set_size(Vector2(100,5))
+			var button = template_button.duplicate()
+			button.get_node("MarginContainer/HBoxContainer/ServerName").text = str(lobby_name)
+			button.get_node("MarginContainer/HBoxContainer/ServerFill").text = str(memb_count) + "/4 Players"
 			button.connect("pressed",Callable(self,"join_lobby").bind(lobby))
+			button.show()
 			lobbies_vbox.add_child(button)
 			valid_lobbies_count += 1
 	server_count_text.text = str(valid_lobbies_count," / ",all_lobbies_count," Servers Shown")
