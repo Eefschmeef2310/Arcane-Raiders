@@ -22,7 +22,7 @@ properties/2/replication_mode = 2
 
 [node name="BaseEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
-collision_mask = 19
+collision_mask = 3
 script = ExtResource("1_vpuq0")
 death_sound = ExtResource("7_qxifu")
 

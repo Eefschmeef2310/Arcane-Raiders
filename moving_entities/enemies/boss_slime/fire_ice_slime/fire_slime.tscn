@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://yp6dpnhm3x8g"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_l1qmt"]
-[ext_resource type="Texture2D" uid="uid://6ggw6qy0a0a6" path="res://moving_entities/enemies/boss_slime/water_slime/water_slime_idle.png" id="2_ccsly"]
+[ext_resource type="Texture2D" uid="uid://cio4pnoamgqir" path="res://moving_entities/enemies/boss_slime/fire_ice_slime/fire_slime_idle.png" id="2_ft4r0"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="3_sbi82"]
 [ext_resource type="PackedScene" uid="uid://chlb2qldo07sj" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_proj.tscn" id="4_fvh73"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_pta0y"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_solo.gd" id="9_g0m1u"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_2kdov"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="11_qwx7b"]
-[ext_resource type="Texture2D" uid="uid://ms3gxuyvlyl8" path="res://moving_entities/enemies/boss_slime/water_slime/water_slime_attack.png" id="12_4wn70"]
+[ext_resource type="Texture2D" uid="uid://dblw6huvprs8j" path="res://moving_entities/enemies/boss_slime/fire_ice_slime/fire_slime_attack.png" id="12_7fgw3"]
 
 [sub_resource type="GDScript" id="GDScript_8xenb"]
 script/source = "extends EnemyEntity
@@ -94,7 +94,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_ccsly")]
+"values": [ExtResource("2_ft4r0")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -159,7 +159,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_4wn70")]
+"values": [ExtResource("12_7fgw3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -224,7 +224,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_4wn70")]
+"values": [ExtResource("12_7fgw3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -289,7 +289,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_4wn70")]
+"values": [ExtResource("12_7fgw3")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -331,7 +331,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_ccsly")]
+"values": [ExtResource("2_ft4r0")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -380,7 +380,7 @@ position = Vector2(0, -55)
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(-9, -65)
-texture = ExtResource("2_ccsly")
+texture = ExtResource("2_ft4r0")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
@@ -421,11 +421,13 @@ script = ExtResource("10_2kdov")
 
 [node name="PrimaryAttack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_qwx7b")
+transition_out_when_can_cast = true
 animation = "attack_proj"
 
 [node name="SecondaryAttack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("11_qwx7b")
 spell_num = 1
+transition_out_when_can_cast = true
 animation = "attack_burst"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]

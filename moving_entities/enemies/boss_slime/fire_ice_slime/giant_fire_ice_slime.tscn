@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6bly0x4rmksf"]
+[gd_scene load_steps=22 format=3 uid="uid://c6bly0x4rmksf"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ea0a8"]
 [ext_resource type="Texture2D" uid="uid://b6gfgaotgw3g5" path="res://moving_entities/enemies/boss_slime/giant_slime/giant_slime_idle_sketch.png" id="2_75fyq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_nb01y"]
 [ext_resource type="Resource" uid="uid://camskexplmxsy" path="res://elements/frost.tres" id="6_b466q"]
 [ext_resource type="PackedScene" uid="uid://bk05qc623b2ye" path="res://moving_entities/enemies/boss_slime/giant_slime/g_slime_spike.tscn" id="7_1rppd"]
+[ext_resource type="PackedScene" uid="uid://b36hyhxebhoon" path="res://moving_entities/enemies/boss_slime/giant_slime/ex_slime_lob.tscn" id="8_cyajv"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="9_17m5t"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/g_slime.gd" id="10_nsage"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="11_qlxym"]
@@ -70,6 +71,13 @@ suffix = ""
 description = ""
 scene = ExtResource("7_1rppd")
 element = ExtResource("6_b466q")
+
+[sub_resource type="Resource" id="Resource_82tr8"]
+script = ExtResource("5_nb01y")
+suffix = ""
+description = ""
+scene = ExtResource("8_cyajv")
+element = ExtResource("3_tdqey")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbex3"]
 radius = 55.0091
@@ -200,7 +208,7 @@ offset_top = -248.0
 offset_bottom = -216.0
 
 [node name="EnemySpells" parent="." index="5"]
-spells = Array[ExtResource("5_nb01y")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66")])
+spells = Array[ExtResource("5_nb01y")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_82tr8")])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
