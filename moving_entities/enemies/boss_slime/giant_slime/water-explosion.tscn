@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dhyoh404jt1at"]
 
-[ext_resource type="Texture2D" uid="uid://s5wii1yb7tvi" path="res://moving_entities/enemies/boss_slime/giant_slime/water-explosion-temp.png" id="1_pwmbg"]
+[ext_resource type="Texture2D" uid="uid://bi7d3ove438fc" path="res://moving_entities/enemies/boss_slime/giant_slime/water-explosion-temp-export.png" id="1_l7ch1"]
 
 [sub_resource type="GDScript" id="GDScript_p40op"]
 script/source = "extends SpellBase
@@ -26,6 +26,7 @@ script/source = "extends SpellBase
 
 #region Godot methods
 func _ready():
+	$\"Water-explosion-temp\".modulate = resource.element.colour
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, \"scale\", Vector2.ZERO, 1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN);
 	tween.tween_callback(self.queue_free)
@@ -51,7 +52,7 @@ script = SubResource("GDScript_p40op")
 
 [node name="Water-explosion-temp" type="Sprite2D" parent="."]
 position = Vector2(0, -20)
-texture = ExtResource("1_pwmbg")
+texture = ExtResource("1_l7ch1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -19)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=19 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
@@ -9,8 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://byabxygfvnpvx" path="res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn" id="9_vm5ll"]
-[ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="10_4e1gc"]
+[ext_resource type="PackedScene" uid="uid://c6bly0x4rmksf" path="res://moving_entities/enemies/boss_slime/fire_ice_slime/giant_fire_ice_slime.tscn" id="10_4ndbu"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -133,28 +132,8 @@ layout_mode = 2
 [node name="PlayerUI4" parent="GameUI/PlayerUIContainer" index="3" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="SmallSlime" parent="." index="16" instance=ExtResource("9_vm5ll")]
-position = Vector2(543, 305)
-max_health = 2000
-
-[node name="SmallSlime2" parent="." index="17" instance=ExtResource("9_vm5ll")]
-position = Vector2(727, 323)
-max_health = 2000
-
-[node name="SmallSlime3" parent="." index="18" instance=ExtResource("9_vm5ll")]
-position = Vector2(689, 436)
-max_health = 2000
-
-[node name="SmallSlime4" parent="." index="19" instance=ExtResource("9_vm5ll")]
-position = Vector2(901, 411)
-max_health = 2000
-
-[node name="SmallSlime5" parent="." index="20" instance=ExtResource("9_vm5ll")]
-position = Vector2(851, 524)
-max_health = 2000
-
-[node name="Dummy" parent="." index="21" instance=ExtResource("10_4e1gc")]
-position = Vector2(506, 953)
+[node name="GiantSlime" parent="." index="16" instance=ExtResource("10_4ndbu")]
+position = Vector2(998, 496)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcxtekbksqhva"]
 
 [ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="1_7iohn"]
-[ext_resource type="Texture2D" uid="uid://bq0x8mvs6f27s" path="res://moving_entities/enemies/boss_slime/water_slime/large_bullet.png" id="2_pahc7"]
+[ext_resource type="Texture2D" uid="uid://p03r8k20wtlm" path="res://moving_entities/enemies/boss_slime/giant_slime/large_bullet-export.png" id="2_yhhf4"]
 
 [sub_resource type="GDScript" id="GDScript_3d25w"]
 script/source = "extends SpellBase
@@ -39,6 +39,7 @@ var duration = 2
 
 #region Godot methods
 func _ready():
+	$Projectile/Sprite2D.modulate = resource.element.colour
 	var tween = get_tree().create_tween()
 	var half_d = duration/2.
 	if(caster): 
@@ -112,7 +113,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Projectile"]
-texture = ExtResource("2_pahc7")
+texture = ExtResource("2_yhhf4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile"]
 shape = SubResource("CircleShape2D_8r5b2")
