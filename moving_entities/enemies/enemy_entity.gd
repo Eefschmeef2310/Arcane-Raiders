@@ -53,10 +53,11 @@ func _ready():
 			room.create_boss_bar.call_deferred(self)
 
 func actor_setup():
-	await get_tree().physics_frame
-	nav_server_synced = true
-	nav_agent.max_speed = movement_speed
-	state_machine.start_state_machine(nav_agent)
+	if is_inside_tree():
+		await get_tree().physics_frame
+		nav_server_synced = true
+		nav_agent.max_speed = movement_speed
+		state_machine.start_state_machine(nav_agent)
 
 func _physics_process(delta):
 	if nav_server_synced:
@@ -83,6 +84,9 @@ func _physics_process(delta):
 		
 		#Update timers
 		update_dash(delta)
+	
+	else:
+		call_deferred("actor_setup")
 	
 	super._physics_process(delta)
 	
