@@ -1,10 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://ql2ywssd2ilf"]
+[gd_scene load_steps=16 format=3 uid="uid://ql2ywssd2ilf"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_lamno"]
 [ext_resource type="Script" path="res://spells/scenes/laser_straight/laser_straight_raycast.gd" id="2_y0bv7"]
 [ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="3_74myo"]
 [ext_resource type="Texture2D" uid="uid://4pblykgmf71k" path="res://spells/scenes/laser_straight/laser.png" id="3_hc3ji"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_g2h38"]
+
+[sub_resource type="Gradient" id="Gradient_1mn2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nati4"]
+gradient = SubResource("Gradient_1mn2o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4uup"]
+resource_local_to_scene = true
+shader = ExtResource("4_g2h38")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
 
 [sub_resource type="Gradient" id="Gradient_l8plh"]
 
@@ -13,7 +25,8 @@ gradient = SubResource("Gradient_l8plh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_asedv"]
 shader = ExtResource("4_g2h38")
-shader_parameter/final_saturation = 0.5
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_2bkev")
 
 [sub_resource type="Animation" id="Animation_fy0xc"]
@@ -57,6 +70,7 @@ size = Vector2(0, 0)
 
 [node name="LaserStraight" instance=ExtResource("1_lamno")]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_m4uup")
 base_damage = 100
 infliction_time = 3.0
 end_time = 0.2
