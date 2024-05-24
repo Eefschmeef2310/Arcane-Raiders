@@ -18,6 +18,7 @@ func _ready():
 	if device_index != -1 and GameManager.isLocal():
 		MultiplayerInput._create_actions_for_device(device_index)
 		set_button_mouse()
+		
 	
 func _input(event):
 	if GameManager.isLocal():
