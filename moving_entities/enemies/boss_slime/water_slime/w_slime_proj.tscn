@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://chlb2qldo07sj"]
 
-[ext_resource type="Texture2D" uid="uid://bq0x8mvs6f27s" path="res://moving_entities/enemies/boss_slime/water_slime/large_bullet.png" id="1_mgwnb"]
+[ext_resource type="Texture2D" uid="uid://p03r8k20wtlm" path="res://moving_entities/enemies/boss_slime/giant_slime/large_bullet-export.png" id="1_dctk1"]
 
 [sub_resource type="GDScript" id="GDScript_0bil4"]
 script/source = "extends SpellBase
@@ -27,6 +27,7 @@ var direction: Vector2 = Vector2.RIGHT
 
 #region Godot methods
 func _ready():
+	$Sprite2D.modulate = resource.element.colour
 	if caster: 
 		global_position = caster.global_position
 		direction = caster.aim_direction if direction == Vector2.RIGHT else direction 
@@ -73,7 +74,7 @@ infliction_time = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_mgwnb")
+texture = ExtResource("1_dctk1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tyulw")
