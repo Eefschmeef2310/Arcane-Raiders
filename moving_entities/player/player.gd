@@ -71,7 +71,7 @@ func _process(delta):
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
-		overlay_col.a = 0.25
+		overlay_col.a = 0.5
 	else:
 		overlay_col.a = 0
 	set_sprite_overlay(overlay_col)
