@@ -22,7 +22,7 @@ spell_ids = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large
 
 [sub_resource type="Gradient" id="Gradient_4lc54"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.588235, 0, 0, 1)
+colors = PackedColorArray(1, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rsc3f"]
 gradient = SubResource("Gradient_4lc54")
@@ -64,14 +64,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="Lobby"]
+[node name="ColorRect" type="ColorRect" parent="Lobby"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.0196078, 0.0745098, 0.101961, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Lobby"]
 layout_mode = 1
@@ -108,11 +108,10 @@ offset_right = 2007.0
 offset_bottom = 192.0
 
 [node name="ReadyProgress" type="TextureProgressBar" parent="Lobby"]
-custom_minimum_size = Vector2(0, 20)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 172.0
+offset_top = 184.0
 offset_bottom = 192.0
 grow_horizontal = 2
 max_value = 1.0

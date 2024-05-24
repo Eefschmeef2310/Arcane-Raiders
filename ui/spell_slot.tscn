@@ -15,6 +15,7 @@ gradient = SubResource("Gradient_m21q8")
 resource_local_to_scene = true
 shader = ExtResource("1_uxkox")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
 [node name="Spell" type="TextureRect"]
@@ -30,7 +31,7 @@ offset_right = 4.0
 offset_bottom = 27.0
 fill_mode = 5
 texture_progress = ExtResource("1_116hg")
-tint_progress = Color(0.25098, 0.25098, 0.25098, 1)
+tint_progress = Color(0.25, 0.25, 0.25, 1)
 
 [node name="Prompt" type="TextureRect" parent="."]
 layout_mode = 0

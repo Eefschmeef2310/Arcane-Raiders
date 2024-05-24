@@ -98,7 +98,7 @@ position = Vector2(96, 800)
 
 [node name="PlayerData" parent="Player" index="6"]
 spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["shock-proj_spread", "wind-proj_spread", "stun-proj_spread"])
+spell_strings = Array[String](["frost-proj_spread", "wet-proj_spread", "stun-proj_spread"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="DashTrail" parent="Player" index="22"]

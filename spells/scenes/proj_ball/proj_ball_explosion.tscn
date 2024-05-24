@@ -4,16 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="2_bcqyg"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_gslav"]
 
-[sub_resource type="Gradient" id="Gradient_f7grb"]
+[sub_resource type="Gradient" id="Gradient_31mqn"]
+offsets = PackedFloat32Array(0, 0.171875, 0.50625, 0.840625, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.309804, 0.145098, 0.145098, 1, 1, 0, 0, 1, 0.988235, 0.862745, 0.72549, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
-gradient = SubResource("Gradient_f7grb")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pt7s0"]
+gradient = SubResource("Gradient_31mqn")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gshti"]
 resource_local_to_scene = true
 shader = ExtResource("2_gslav")
-shader_parameter/final_saturation = 0.5
-shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_pt7s0")
 
 [sub_resource type="Curve" id="Curve_nmexx"]
 _data = [Vector2(0, 0.183767), 0.0, 0.0, 0, 0]
@@ -107,6 +110,7 @@ frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" parent="." index="3"]
+visible = false
 shape = SubResource("CircleShape2D_hacmf")
 
 [node name="kill_timer" parent="." index="4"]
