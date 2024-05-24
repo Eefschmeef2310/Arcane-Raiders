@@ -303,9 +303,11 @@ func UpdateDisplay():
 	#Highlight the correct panel
 	highlight_color = lobby_manager.player_colors[selected_color]
 	if player_ready:
-		most_panels.modulate = Color.DIM_GRAY
+		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.DIM_GRAY
+		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.DIM_GRAY
 	else: 
-		most_panels.modulate = Color.WHITE 
+		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.WHITE
+		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.WHITE
 	
 	for panel_num in panels_array.size():
 		if selected_panel == panel_num:
