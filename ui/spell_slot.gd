@@ -19,6 +19,7 @@ func _process(delta):
 func set_spell(spell: Spell):
 	if spell:
 		texture = spell.ui_texture
+		$ProgressBar.texture_progress = spell.ui_texture
 		if spell.element.gradient:
 			(material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
 		else:

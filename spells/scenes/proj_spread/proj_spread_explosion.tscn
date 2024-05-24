@@ -12,7 +12,7 @@ gradient = SubResource("Gradient_f7grb")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p2ju2"]
 resource_local_to_scene = true
 shader = ExtResource("2_y6781")
-shader_parameter/final_saturation = 0.5
+shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 

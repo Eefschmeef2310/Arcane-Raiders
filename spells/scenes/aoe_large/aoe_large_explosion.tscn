@@ -13,7 +13,8 @@ gradient = SubResource("Gradient_f7grb")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0vn73"]
 resource_local_to_scene = true
 shader = ExtResource("2_8qurt")
-shader_parameter/final_saturation = 0.5
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_6prme"]
