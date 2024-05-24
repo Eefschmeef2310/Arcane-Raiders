@@ -106,7 +106,7 @@ func start_next_floor():
 		for data in player_data:
 			data.health += 400
 	elif current_floor in boss_floors:
-		boss_level_spawner.spawn(boss_levels[get_current_sector()])
+		boss_level_spawner.spawn(get_current_sector())
 	else:
 		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
 	
