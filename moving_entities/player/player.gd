@@ -4,6 +4,7 @@ class_name Player
 
 signal spell_pickup_requested(Player, int, SpellPickup)
 signal dead(Player)
+signal revived(Player)
 
 @export var debug : bool = false
 @export var data: PlayerData
@@ -102,7 +103,7 @@ func _process(delta):
 			if number_of_friends > 0:
 				revival_time += delta + (0.25 * (number_of_friends - 1))
 				if revival_time >= revival_time_max:
-					health += 250
+					health = 250
 			else:
 				revival_time -= delta
 				if revival_time <= 0:
@@ -259,11 +260,11 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
 	if b: 
-		$AnimationPlayer.play("die");
-		dead.emit(self)
+		animation_player.play("die");
 		$CollisionShape2D.disabled = true;
 		revival_time = 0
 		remove_from_group("player")
+		dead.emit(self)
 	else:
 		is_dead = false
 		$CollisionShape2D.disabled = false;
@@ -274,7 +275,9 @@ func toggle_dead(b):
 		is_dashing = false
 		is_casting = false
 		preparing_cast_slot = -1
+		health = 250
 		health_updated.emit(health)
+		revived.emit(self)
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
