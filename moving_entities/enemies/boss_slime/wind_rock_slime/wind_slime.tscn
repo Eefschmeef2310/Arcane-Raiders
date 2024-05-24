@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://dandu0qttvehs"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_18pr5"]
-[ext_resource type="Texture2D" uid="uid://cljqb0tar2gsu" path="res://moving_entities/enemies/boss_slime/wind_rock_slime/wind_slime_idle.png" id="2_nvwd1"]
+[ext_resource type="Texture2D" uid="uid://dhjvfw8uaa684" path="res://moving_entities/enemies/boss_slime/wind_rock_slime/wind_slime_idle.png" id="2_nvwd1"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="3_yd4fh"]
 [ext_resource type="PackedScene" uid="uid://chlb2qldo07sj" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_proj.tscn" id="4_rwr8x"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_wj2df"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/slime_solo.gd" id="9_kk1t8"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/boss_slime_perma.gd" id="10_r3j4o"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="11_jktcc"]
-[ext_resource type="Texture2D" uid="uid://ca46nwftjm30c" path="res://moving_entities/enemies/boss_slime/wind_rock_slime/wind_slime_attack.png" id="12_6qihi"]
+[ext_resource type="Texture2D" uid="uid://bjcnqpllg1whj" path="res://moving_entities/enemies/boss_slime/wind_rock_slime/wind_slime_attack.png" id="12_6qihi"]
 
 [sub_resource type="GDScript" id="GDScript_8xenb"]
 script/source = "extends EnemyEntity
