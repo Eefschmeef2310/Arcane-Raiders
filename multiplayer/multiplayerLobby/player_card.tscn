@@ -444,6 +444,7 @@ theme_override_styles/normal = ExtResource("5_oe6lx")
 theme_override_styles/hover = ExtResource("5_oe6lx")
 theme_override_styles/pressed = ExtResource("5_oe6lx")
 theme_override_styles/focus = ExtResource("5_oe6lx")
+action_mode = 0
 
 [node name="ReadyText" type="Label" parent="VBoxContainer/Button"]
 custom_minimum_size = Vector2(249.105, 0)
