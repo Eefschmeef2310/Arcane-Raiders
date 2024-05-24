@@ -1,11 +1,29 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=4 format=3 uid="uid://ctj0uyr81n57k"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=10 format=3 uid="uid://ctj0uyr81n57k"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_4mdce"]
+[ext_resource type="AudioStream" uid="uid://361e6v33j3to" path="res://sounds/effects/elements/SmallBow_Shoot_01.wav" id="2_cnx37"]
+[ext_resource type="AudioStream" uid="uid://i57vk4ymnhq0" path="res://sounds/effects/elements/SmallBow_Shoot_02.wav" id="3_dkifp"]
+[ext_resource type="AudioStream" uid="uid://mqpvvoqrit6t" path="res://sounds/effects/elements/SmallBow_Shoot_03.wav" id="4_dmheu"]
+[ext_resource type="AudioStream" uid="uid://ddriyqyjv78sc" path="res://sounds/effects/elements/SmallBow_Shoot_04.wav" id="5_nyao2"]
+[ext_resource type="AudioStream" uid="uid://73bxt2iqat3o" path="res://sounds/effects/elements/SmallBow_Shoot_05.wav" id="6_5fpqf"]
 
 [sub_resource type="Gradient" id="Gradient_1t2hn"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_u4kad"]
 gradient = SubResource("Gradient_1t2hn")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_11yuf"]
+streams_count = 5
+stream_0/stream = ExtResource("2_cnx37")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("3_dkifp")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("4_dmheu")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("5_nyao2")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("6_5fpqf")
+stream_4/weight = 1.0
 
 [resource]
 script = ExtResource("1_4mdce")
@@ -14,3 +32,4 @@ descrption_bb = ""
 colour = Color(1, 1, 1, 1)
 gradient = SubResource("GradientTexture1D_u4kad")
 max_infliction_time = 5.0
+sound = SubResource("AudioStreamRandomizer_11yuf")
