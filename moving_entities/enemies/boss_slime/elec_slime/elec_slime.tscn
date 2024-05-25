@@ -401,6 +401,7 @@ movement_speed = 300.0
 is_boss = true
 boss_name = "Shock Daughter Slime"
 max_health = 1500
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)
@@ -428,9 +429,8 @@ offset_bottom = -153.0
 spells = Array[ExtResource("5_wcgqx")]([SubResource("Resource_s8rm7"), SubResource("Resource_xoaik")])
 cast_time = Array[float]([0.45, 0.0, 0.2])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
-debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("7_hl6d3")

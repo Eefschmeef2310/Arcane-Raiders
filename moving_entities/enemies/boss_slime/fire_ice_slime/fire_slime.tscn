@@ -373,7 +373,8 @@ burst_amount = 8
 movement_speed = 150.0
 is_boss = true
 boss_name = "Blazing Daughter Slime"
-max_health = 1500
+max_health = 2000
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)

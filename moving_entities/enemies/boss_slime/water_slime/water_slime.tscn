@@ -374,6 +374,7 @@ movement_speed = 150.0
 is_boss = true
 boss_name = "Aqua Daughter Slime"
 max_health = 1500
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)

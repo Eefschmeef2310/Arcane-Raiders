@@ -179,6 +179,7 @@ movement_speed = 100.0
 is_boss = true
 boss_name = "Poisonous Amalgamate"
 max_health = 2000
+knockback_initial_velocity = 50.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -70)
