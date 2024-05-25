@@ -98,10 +98,16 @@ func _process(delta):
 		$HelpLabel.show()
 		$RevivalMeter.show()
 		$RevivalMeter.value = revival_time
+		
+		# Remove people who died next to you
+		for friend in get_tree().get_nodes_in_group("player"):
+			if friend in friends_nearby and friend.is_dead:
+				friends_nearby.erase(friend)
+
 		if is_multiplayer_authority():
 			var number_of_friends = friends_nearby.size()
 			if number_of_friends > 0:
-				revival_time += delta + (0.25 * (number_of_friends - 1))
+				revival_time += delta * (1 + (0.25 * (number_of_friends - 1)))
 				if revival_time >= revival_time_max:
 					health = 250
 			else:
@@ -298,12 +304,12 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	if body != self and body is Player and !body.is_dead:
+	if body != self and body is Player and !body.is_dead and !body in friends_nearby:
 		friends_nearby.append(body)
 
 
 func _on_revival_zone_body_exited(body):
-	if body != self and body is Player and !body.is_dead:
+	if body != self and body is Player and body in friends_nearby:
 		friends_nearby.erase(body)
 
 
