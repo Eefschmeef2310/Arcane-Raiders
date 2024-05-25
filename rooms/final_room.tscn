@@ -1,27 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs14qtk2at5lb"]
+[gd_scene load_steps=19 format=3 uid="uid://bs14qtk2at5lb"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_jmf3x"]
 [ext_resource type="Script" path="res://rooms/win_thing.gd" id="2_4bdcu"]
 [ext_resource type="Texture2D" uid="uid://bks265utiu4t4" path="res://debug/youwin.png" id="2_hcwam"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="4_u7bdv"]
 [ext_resource type="Texture2D" uid="uid://36ow8sqs0cwf" path="res://rooms/final/ethan_coin.png" id="5_4a5pk"]
-
-[sub_resource type="Animation" id="Animation_ie7d6"]
-resource_name = "spin"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(-1, 1)]
-}
+[ext_resource type="Texture2D" uid="uid://b65cdnki3bs6s" path="res://tilesets/decorations/Black-Circle-Fade-Sphere-PNG-Image-HD.png" id="6_h2kow"]
+[ext_resource type="Shader" path="res://shaders/godrays.gdshader" id="6_woruy"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="7_bplmi"]
+[ext_resource type="Texture2D" uid="uid://diqvpage0ccnk" path="res://moving_entities/enemies/sparkle2.png" id="7_ikqpq"]
+[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="8_hkkkd"]
 
 [sub_resource type="Animation" id="Animation_wn01i"]
 length = 0.001
@@ -38,11 +26,66 @@ tracks/0/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_ie7d6"]
+resource_name = "spin"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j3j7o"]
 _data = {
 "RESET": SubResource("Animation_wn01i"),
 "spin": SubResource("Animation_ie7d6")
 }
+
+[sub_resource type="Curve" id="Curve_enhcw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_isek8"]
+curve = SubResource("Curve_enhcw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aoorg"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 80.0
+angular_velocity_max = 90.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_isek8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3g8au"]
+shader = ExtResource("6_woruy")
+shader_parameter/angle = 0.2
+shader_parameter/position = 0.25
+shader_parameter/spread = 0.5
+shader_parameter/cutoff = 0.1
+shader_parameter/falloff = 0.224
+shader_parameter/edge_fade = 0.261
+shader_parameter/speed = 2.31
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[sub_resource type="Gradient" id="Gradient_xb5vv"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.546053)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
 [node name="CastleRoom" instance=ExtResource("1_jmf3x")]
 
@@ -77,12 +120,14 @@ collision_mask = 4
 script = ExtResource("2_4bdcu")
 
 [node name="Youwin" type="Sprite2D" parent="Area2D" index="0"]
+visible = false
 position = Vector2(897, 413)
 rotation = 0.460545
 texture = ExtResource("2_hcwam")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="1"]
-polygon = PackedVector2Array(785, 544, 792, 305, 976, 402, 969, 653)
+position = Vector2(-184, 163)
+polygon = PackedVector2Array(791, 539, 839, 510, 889, 531, 848, 563)
 
 [node name="PointLight2D" type="PointLight2D" parent="." index="14"]
 show_behind_parent = true
@@ -95,11 +140,39 @@ texture = ExtResource("4_u7bdv")
 position = Vector2(660.979, 633)
 texture = ExtResource("5_4a5pk")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EthanCoin" index="0"]
+[node name="Black-circle-fade-sphere-png-image-hd" type="Sprite2D" parent="EthanCoin" index="0"]
+show_behind_parent = true
+position = Vector2(0, 56.05)
+scale = Vector2(0.365, 0.17)
+texture = ExtResource("6_h2kow")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EthanCoin" index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_j3j7o")
 }
+autoplay = "spin"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="EthanCoin" index="2"]
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_aoorg")
+texture = ExtResource("7_ikqpq")
+
+[node name="CoinGodRays" type="Sprite2D" parent="." index="16"]
+material = SubResource("ShaderMaterial_3g8au")
+position = Vector2(641, 166)
+scale = Vector2(1.63281, 8.77734)
+texture = ExtResource("7_bplmi")
+
+[node name="Player" parent="." index="17" instance=ExtResource("8_hkkkd")]
+position = Vector2(271, 873)
+
+[node name="PlayerData" parent="Player" index="6"]
+device_id = -1
+
+[node name="DashTrail" parent="Player" index="22"]
+gradient = SubResource("Gradient_xb5vv")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
+[editable path="Player"]
