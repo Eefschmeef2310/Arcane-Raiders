@@ -40,7 +40,7 @@ var enemy_types_per_floor : Array = [
 	[], # boss
 	[], # shop
 	["slime_big", "bat_small", "spider_big"],
-	["bat_big", "bat_small", "bat_small", "spider_big"],
+	["bat_big", "bat_small", "bee", "spider_big"],
 	[], # boss
 	[], # end
 ]
