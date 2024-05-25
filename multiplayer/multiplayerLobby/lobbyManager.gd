@@ -42,6 +42,8 @@ var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
 
+var back_timer : float
+
 #var server_browser_scene : PackedScene
 #endregion
 
@@ -81,21 +83,34 @@ func _process(delta):
 		ready_timer -= delta
 		if ready_timer < 0:
 			ready_timer = 0
-		lobby_title.text= "STARTING IN... " + str(ceil(ready_timer)) 
+		lobby_title.text = "Starting in " + str(ceil(ready_timer)) + "..."
 	else:
 		ready_timer = ready_delay
-		lobby_title.text= "CHOOSE YOUR RAIDER!"
+		lobby_title.text= "Prepare to raid!"
 		
 	# if the timer runs out, start the game 
 	if (is_multiplayer_authority() or GameManager.isLocal()) and !start_game_called and ready_timer <= 0:
 		print("StartGame triggered.")
 		StartGame()
-	
+		
+	if Input.is_action_pressed("ui_cancel") and !start_game_called and !get_node("CastleClimb"):
+		back_timer += delta
+		if back_timer > 1:
+			_on_back_button_pressed()
+	else:
+		back_timer = 0
+	$Lobby/BackButton/ProgressBar.value = (back_timer / 1) * 100
+	$Lobby/MarginContainer/Label.visible = GameManager.isLocal() and $Lobby/MarginContainer/PlayerCardBox.get_child_count() < 4
+	$Lobby/ReadyProgress.visible = all_players_ready
+
+#func _input(event):
+	##Player presses excape or right action button
+	#if event.is_action_pressed("ui_cancel"):
+		#_on_back_button_pressed()
 #endregion
 
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
-	$Lobby/MarginContainer/Label.visible = false
 	
 	var new_player_card = player_card_scene.instantiate()
 	new_player_card.lobby_manager = self
@@ -169,6 +184,7 @@ func _on_back_button_pressed():
 		pass
 	#print("peer: "+str(multiplayer.multiplayer_peer))
 	#multiplayer.multiplayer_peer = null
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	if (GameManager.isOnline()):
 		get_tree().change_scene_to_file("res://multiplayer/serverBrowser/serverBrowser.tscn") 
 	elif (GameManager.isLocal()):
@@ -266,7 +282,7 @@ func handle_join_input():
 
 func is_device_joined(device: int) -> bool:
 	for card in player_card_hbox.get_children():
-		var d	 = card.device_id
+		var d = card.device_id
 		if device == d: return true
 	return false
 
@@ -284,15 +300,7 @@ func get_unjoined_devices():
 	# also consider keyboard player
 	devices.append(-1)
 	
-	print(devices)
-	
 	# filter out devices that are joined:
 	return devices.filter(func(device): return !is_device_joined(device))
-
-
-
-
-
-
 #endregion
 

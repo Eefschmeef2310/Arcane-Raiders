@@ -8,6 +8,7 @@ var devices : Array = []
 
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	update_device_list()
 
 func isLocal() -> bool:

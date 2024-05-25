@@ -4,6 +4,8 @@ extends Node
 @export var spell_scenes : Dictionary
 @export var reactions : Dictionary
 
+@export var elements_sorted : PackedStringArray
+
 func _ready():
 	#for spell in spell_array:
 		#every_spell[spell.resource_path.get_file().get_basename()] = spell

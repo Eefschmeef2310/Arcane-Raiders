@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://moving_entities/entity_health_bar.gd" id="1_xl4bi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8yre8"]
-bg_color = Color(0.678431, 0, 0, 1)
+bg_color = Color(0.921569, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 

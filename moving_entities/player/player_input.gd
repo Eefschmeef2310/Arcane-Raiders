@@ -16,23 +16,27 @@ func _ready():
 	spell_down.resize(3)
 	spell_press.resize(3)
 	spell_release.resize(3)
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):	
+func _process(_delta):
+	#For pausing
 	var do_pause = false
 	if input: # For local
-		do_pause = input.is_action_just_released("pause")
+		do_pause = input.is_action_just_pressed("keyboard_pause") if input.device == -1 else input.is_action_just_pressed("ui_pause")
 	else: # For online
-		for device in GameManager.devices:
-			if !do_pause:
-				do_pause = MultiplayerInput.is_action_pressed(device, "pause")
+		do_pause = Input.is_action_pressed("ui_pause") or Input.is_action_just_pressed("keyboard_pause")
 	
 	if do_pause and !GameManager.isPaused:
 		GameManager.isPaused = true
-		MultiplayerInput.set_ui_action_device(input.device)
+		if input:
+			MultiplayerInput.set_ui_action_device(input.device)
+		else:
+			MultiplayerInput.set_ui_action_device(-2)
 		
 		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
 		pause_menu.set_panel_color(owner.data.main_color)
+		if input:
+			pause_menu.device_index = input.device
 		owner.get_parent().add_child(pause_menu)
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
@@ -125,6 +129,8 @@ func _input(event):
 			is_keyb = true
 			if is_instance_valid(owner.data) and owner.data.device_id != -3:
 				owner.data.device_changed.emit(-1)
+	
+	
 
 #func update_device_list(_device: int, _connected: bool):
 	#devices.clear()

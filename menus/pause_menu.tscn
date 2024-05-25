@@ -7,14 +7,44 @@ resource_name = "pause_menu"
 script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
+var just_spawned := true
+var device_index : int
+
 #region Godot methods
 func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
 	
+	if device_index != -1 and GameManager.isLocal():
+		MultiplayerInput._create_actions_for_device(device_index)
+		set_button_mouse()
+		
+	
 func _input(event):
-	if event.is_action_released(\"ui_cancel\"):
-		_on_continue_button_pressed()
+	if GameManager.isLocal():
+		#If keyboard
+		if device_index == -1:
+			if event.is_action_released(\"keyboard_pause\") and !just_spawned:
+				_on_continue_button_pressed()
+		else: #If controller
+			if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and (MultiplayerInput.is_action_just_released(device_index, \"ui_pause\") or MultiplayerInput.is_action_just_released(device_index, \"ui_cancel\")) and !just_spawned:
+				_on_continue_button_pressed()
+			
+		#Set just_spawned
+		if just_spawned:
+			if device_index == -1:
+				if event.is_action_released(\"keyboard_pause\"):
+					just_spawned = false
+			else:
+				if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and MultiplayerInput.is_action_just_released(device_index, \"ui_pause\"):
+					just_spawned = false
+					
+	elif GameManager.isOnline():		
+		if !just_spawned and (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"ui_cancel\")):
+			_on_continue_button_pressed()
+		
+		if (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"keyboard_pause\") and just_spawned):
+			just_spawned = false
 #endregion
 
 #region Signal methods
@@ -22,6 +52,7 @@ func _on_continue_button_pressed():
 	get_tree().paused = false
 	GameManager.isPaused = false
 	
+	MultiplayerInput.set_ui_action_device(-2)
 	for device_id in Input.get_connected_joypads():
 		MultiplayerInput._create_actions_for_device(device_id)
 		
@@ -43,6 +74,8 @@ func _on_quit_button_pressed():
 	else:
 		get_tree().paused = false
 		GameManager.isPaused = false
+		
+		MultiplayerInput.set_ui_action_device(-2)
 
 		for device_id in Input.get_connected_joypads():
 			MultiplayerInput._create_actions_for_device(device_id)
@@ -60,6 +93,11 @@ func set_panel_color(col: Color):
 
 func settings_set_focus():
 	$MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
+	
+func set_button_mouse():
+	($MarginContainer/MarginContainer/VBoxContainer/ContinueButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	($MarginContainer/MarginContainer/VBoxContainer/SettingsButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	($MarginContainer/MarginContainer/VBoxContainer/QuitButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
 #endregion
 "
 
@@ -101,6 +139,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wyv4k")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
@@ -113,24 +152,25 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 160
-text = "PAUSED"
+theme_override_font_sizes/font_size = 92
+text = "Paused"
+horizontal_alignment = 1
 
 [node name="ContinueButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "CONTINUE"
+theme_override_font_sizes/font_size = 50
+text = "Continue"
 script = ExtResource("1_ot87u")
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "SETTINGS"
+theme_override_font_sizes/font_size = 50
+text = "Settings"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "QUIT"
+theme_override_font_sizes/font_size = 50
+text = "Quit"
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

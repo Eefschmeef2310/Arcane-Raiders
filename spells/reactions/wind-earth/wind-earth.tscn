@@ -109,6 +109,8 @@ scale = Vector2(1, 0.5)
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_fgibt")
+reaction_name = "Sandstorm"
+limit_spawns = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b2x0x")

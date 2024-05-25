@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=23 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=24 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
@@ -21,6 +21,7 @@ gradient = SubResource("Gradient_oh054")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_87xtg"]
 shader = ExtResource("4_ep2uc")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture2D_5jg5c")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fi3n"]
@@ -46,6 +47,41 @@ scenes/3/scene = ExtResource("3_vx6cj")
 scenes/4/scene = SubResource("PackedScene_neag1")
 scenes/5/scene = ExtResource("4_6n5bn")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ap3w"]
+resource_name = "edges"
+texture = ExtResource("1_5qpff")
+texture_region_size = Vector2i(162, 94)
+3:4/0 = 0
+3:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:4/0/physics_layer_0/angular_velocity = 0.0
+3:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:4/0/physics_layer_1/angular_velocity = 0.0
+3:5/0 = 0
+3:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:5/0/physics_layer_0/angular_velocity = 0.0
+3:5/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:5/0/physics_layer_1/angular_velocity = 0.0
+3:6/0 = 0
+3:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:6/0/physics_layer_0/angular_velocity = 0.0
+3:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+3:6/0/physics_layer_1/angular_velocity = 0.0
+4:4/0 = 0
+4:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:4/0/physics_layer_0/angular_velocity = 0.0
+4:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+4:4/0/physics_layer_1/angular_velocity = 0.0
+4:5/0 = 0
+4:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:5/0/physics_layer_0/angular_velocity = 0.0
+4:5/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+4:5/0/physics_layer_1/angular_velocity = 0.0
+4:6/0 = 0
+4:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:6/0/physics_layer_0/angular_velocity = 0.0
+4:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+4:6/0/physics_layer_1/angular_velocity = 0.0
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3454w"]
 vertices = PackedVector2Array(80, 0, 0, 40, -80, 0, 0, -40)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -67,7 +103,7 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 resource_name = "floor"
 texture = ExtResource("1_5qpff")
 separation = Vector2i(0, 1)
-texture_region_size = Vector2i(160, 117)
+texture_region_size = Vector2i(160, 80)
 3:2/0 = 0
 3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_0/angular_velocity = 0.0
@@ -83,12 +119,16 @@ texture_region_size = Vector2i(160, 117)
 3:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(0, -40, -80, 0, 0, 40, 80, 0)
 3:1/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_8jwi0")
 3:0/0 = 0
-3:0/0/texture_origin = Vector2i(0, -17)
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
 3:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_1/angular_velocity = 0.0
 3:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3454w")
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lu7ce"]
 resource_name = "wall cracks"
@@ -227,3 +267,4 @@ sources/2 = SubResource("TileSetAtlasSource_ykpc1")
 sources/4 = SubResource("TileSetAtlasSource_16exw")
 sources/0 = SubResource("TileSetScenesCollectionSource_7wt37")
 sources/3 = SubResource("TileSetAtlasSource_lu7ce")
+sources/1 = SubResource("TileSetAtlasSource_8ap3w")

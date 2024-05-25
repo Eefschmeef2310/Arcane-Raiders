@@ -16,7 +16,7 @@ script = ExtResource("1_lr73f")
 prefix = "Stun-"
 descrption_bb = "[img]res://elements/icons/stun_icon.png[/img] Stuns briefly
 Reacts with [img]res://elements/icons/wind_icon.png[/img] and [img]res://elements/icons/burn_icon.png[/img]"
-colour = Color(0.8, 0.372549, 0.160784, 1)
+colour = Color(1, 0.466667, 0.2, 1)
 gradient = SubResource("GradientTexture1D_vkkhs")
 pip_texture = ExtResource("1_n5tmm")
 max_infliction_time = 5.0

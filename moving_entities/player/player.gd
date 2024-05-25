@@ -40,6 +40,7 @@ var revival_time_max : float = 5
 func _ready():
 	aim_direction = Vector2(1,1)
 	animation_player.play("idle", -1, 1)
+	animation_player.seek(randf_range(0,2))
 	$RevivalMeter.max_value = revival_time_max
 	
 	# TODO temporary lines here
@@ -70,7 +71,7 @@ func _process(delta):
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
-		overlay_col.a = 0.25
+		overlay_col.a = 0.5
 	else:
 		overlay_col.a = 0
 	set_sprite_overlay(overlay_col)
@@ -261,6 +262,9 @@ func toggle_dead(b):
 		add_to_group("player")
 		start_invincibility()
 		animation_player.play("idle")
+		is_dashing = false
+		is_casting = false
+		preparing_cast_slot = -1
 		health_updated.emit(health)
 
 @rpc("authority", "call_local", "reliable")
@@ -282,10 +286,29 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	if body != self:
+	if body != self and body is Player and !body.is_dead:
 		friends_nearby.append(body)
 
 
 func _on_revival_zone_body_exited(body):
-	if body != self:
+	if body != self and body is Player and !body.is_dead:
 		friends_nearby.erase(body)
+
+
+func _on_dash_trail_timer_timeout():
+	if is_dashing:
+		print("BLAZE")
+		
+		var after_image : Node2D = Node2D.new()
+		after_image.y_sort_enabled = true
+		after_image.global_position = global_position
+		after_image.modulate = data.main_color
+		after_image.modulate.a = 0.5
+		add_sibling(after_image)
+		
+		var sprites = $SpritesFlip.duplicate()
+		after_image.add_child(sprites)
+		
+		await get_tree().create_timer(0.1).timeout
+		
+		after_image.queue_free()

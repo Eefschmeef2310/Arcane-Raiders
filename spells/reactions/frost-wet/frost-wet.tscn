@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b70sy17w68ow1"]
+[gd_scene load_steps=10 format=3 uid="uid://b70sy17w68ow1"]
 
 [ext_resource type="Shader" path="res://shaders/cartoon_reflection.gdshader" id="1_a5fky"]
 [ext_resource type="Texture2D" uid="uid://b705viwnuoca5" path="res://spells/reactions/sprites/ice_circle.png" id="1_km2fu"]
@@ -27,21 +27,36 @@ func _on_area_exited(area):
 
 func _on_body_exited(body):
 	if body.is_in_group(\"enemy\"):
-		body.frost_effect(1.)
+		body.frost_effect(1)
 
 func _on_kill_timer_timeout():
 	$AnimationPlayer.play(\"kill\")
 #endregion
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_706xi"]
-radius = 182.044
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n6hm5"]
 shader = ExtResource("1_a5fky")
 shader_parameter/line_thickness = 30.0
 shader_parameter/cos_threshold = -0.5
 shader_parameter/overlay_colour = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_706xi"]
+radius = 182.044
+
+[sub_resource type="Animation" id="Animation_mllmi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_s2227"]
 resource_name = "kill"
@@ -100,36 +115,49 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bendj"]
 _data = {
+"RESET": SubResource("Animation_mllmi"),
 "kill": SubResource("Animation_s2227"),
 "spawn": SubResource("Animation_y2cbd")
 }
 
 [node name="Frost-wet" type="Area2D" groups=["frost-wet"]]
-z_index = -2
-scale = Vector2(1e-05, 1e-05)
+z_index = -19
 collision_layer = 16
 collision_mask = 137
 script = SubResource("GDScript_nfow1")
 enemy_move_speed = 0.3
 projectile_slowdown_amount = 0.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 0.5)
-shape = SubResource("CircleShape2D_706xi")
-disabled = true
-
-[node name="KillTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
+reaction_name = "Ice"
+limit_spawns = false
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_n6hm5")
 scale = Vector2(3.09375, 1.52344)
 texture = ExtResource("1_km2fu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_706xi")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

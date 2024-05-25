@@ -1,5 +1,4 @@
-extends Node
-#class_name
+extends Control
 #Authored by Tom. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -17,10 +16,16 @@ extends Node
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
 @export var selected_color : int = 0
-@export var selected_panel : int = 0 #0=raider, 1=loadout, 2=ready
+@export var selected_panel : int = 1 #0=close_button 1=raider, 2=loadout, 3=ready
 @export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
-@export var highlight_color : Color = Color.RED # this should be player colour
+@export var highlight_color : Color = Color.RED: # this should be player colour
+	set(value):
+		highlight_color = value
+		#Sets LED colour of controller when the colour changes
+		if SteamControllerInput.get_controllers().size() > 1: #In case Steam isnt open
+			Steam.setLEDColor(SteamControllerInput.get_controllers()[device_id + 1], int(value.r * 255), int(value.g * 255), int(value.b * 255), 0)
+			Steam.triggerVibration(SteamControllerInput.get_controllers()[device_id + 1], 100, 100)
 
 @export_group("Other Resources")
 @export var pip_texture : Texture2D
@@ -52,9 +57,6 @@ extends Node
 @export var pre_l_hand : Sprite2D
 @export var pre_r_hand : Sprite2D
 
-
-
-
 #Onready Variables
 
 #Other Variables (please try to separate and organise!)
@@ -63,6 +65,7 @@ var valid_color : bool
 var input
 var mouse_input: Array[String]
 var devices: Array[int]
+var connected_time : float
 
 #endregion
 
@@ -86,23 +89,22 @@ func _ready():
 	
 	for raiderCount in lobby_manager.raiders.size():
 		var box = StyleBoxFlat.new()
-		var box_box = PanelContainer.new()
+		var box_box : ClickablePip = ClickablePip.new()
 		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
 		box.bg_color = Color8(0,0,0,0)
-		box.border_width_bottom = 3
-		box.border_width_top = 3
-		box.border_width_left = 3
-		box.border_width_right = 3
-		box.set_corner_radius_all(3)
+		box.set_border_width_all(3)
+		box.set_corner_radius_all(12)
 		box.border_color = Color.WHITE
 		box_box.add_theme_stylebox_override("panel",box)
+		box_box.gui_input_pass_self.connect(_on_raider_pip_gui_input)
+		box_box.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		
 		var new_pip = TextureRect.new()
 		new_pip.texture = lobby_manager.raiders[raiderCount].head_texture
 		var region = Rect2(35,35,80,80)
 		new_pip.texture = get_cropped_texture(new_pip.texture, region) 
 		new_pip.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		new_pip.custom_minimum_size =  Vector2(50,50)
+		new_pip.custom_minimum_size =  Vector2(40,40)
 		
 		if raiderCount > 0:
 			#new_pip.modulate = Color.DIM_GRAY
@@ -128,20 +130,19 @@ func _ready():
 		child.queue_free()
 		
 	for colorCount in lobby_manager.player_colors.size():
-		var new_pip = Panel.new()
+		var new_pip = ClickablePip.new()
 		var box = StyleBoxFlat.new()
 		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
 		box.bg_color = lobby_manager.player_colors[colorCount]
-		box.border_width_bottom = 3
-		box.border_width_top = 3
-		box.border_width_left = 3
-		box.border_width_right = 3
-		box.set_corner_radius_all(3)
+		box.set_border_width_all(3)
+		box.set_corner_radius_all(12)
 		box.border_color = Color.WHITE
 		new_pip.add_theme_stylebox_override("panel",box)
+		new_pip.gui_input_pass_self.connect(_on_color_pip_gui_input)
+		new_pip.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		
 		#new_pip.color = lobby_manager.player_colors[colorCount]
-		new_pip.custom_minimum_size =  Vector2(50,50)
+		new_pip.custom_minimum_size =  Vector2(46,46)
 		
 		if colorCount > 0:
 			new_pip.modulate = Color.WHITE
@@ -157,6 +158,7 @@ func get_cropped_texture(texture : Texture, region : Rect2) -> AtlasTexture:
 		return atlas_texture
 
 func _process(_delta):
+	connected_time += _delta
 	if !finished_connecting:
 		resendValues.rpc()
 		finished_connecting = true
@@ -165,6 +167,9 @@ func _process(_delta):
 	
 	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
 		var changed = false
+		if(connected_time < 1):
+			changed =  true
+		
 		if("down" in mouse_input):
 			if not player_ready:
 				selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
@@ -172,36 +177,41 @@ func _process(_delta):
 		
 		if("up" in mouse_input):
 			if not player_ready:
-				selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+				if(GameManager.isLocal()):
+					selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+				else:
+					selected_panel = clampi(selected_panel - 1, 1,panels_array.size()-1)
 			changed = true
 		
 		if(("left" in mouse_input) and not player_ready):
-			if(selected_panel == 0): #raider panel selected 
+			if(selected_panel == 1): #raider panel selected 
 				selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 				while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
 					selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
-			elif(selected_panel == 1): #color selected
+			elif(selected_panel == 2): #color selected
 				selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
-			elif(selected_panel == 2): #loadout selected
-				selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
+			#elif(selected_panel == 3): #loadout selected
+				#selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 			changed = true
 			
 		if(("right" in mouse_input) and not player_ready):
-			if(selected_panel == 0): #raider panel selected 
+			if(selected_panel == 1): #raider panel selected 
 				selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 				while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
 					selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
-			elif(selected_panel == 1): #loadout selected
+			elif(selected_panel == 2): #loadout selected
 				selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 				while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
 					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
-			elif(selected_panel == 2): #loadout selected
-				selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
+			#elif(selected_panel == 3): #loadout selected
+				#selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			changed = true
 		
 		if("confirm" in mouse_input):
+			if(selected_panel == 0):
+				_remove_player()
 			if(selected_panel == 3 and valid_color): #ready button selected
 				player_ready = !player_ready
 				changed = true
@@ -242,14 +252,14 @@ func UpdateDisplay():
 	
 	# set some basic values
 	if GameManager.isLocal():
-		var s = "Keyboard"
+		var s = "Keyboard & Mouse"
 		if device_id >= 0:
 			s = Input.get_joy_name(device_id)
 		player_name.text = s
 	else:
 		player_name.text = username
 	
-	player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
+	#player_name.label_settings.font_color = lobby_manager.player_colors[selected_color]
 	#player_name.add_theme_color_override("font_color",lobby_manager.player_colors[selected_color])
 	raider_name.text = lobby_manager.raiders[selected_raider].raider_name
 	raider_desc.text = lobby_manager.raiders[selected_raider].raider_desc
@@ -293,9 +303,11 @@ func UpdateDisplay():
 	#Highlight the correct panel
 	highlight_color = lobby_manager.player_colors[selected_color]
 	if player_ready:
-		most_panels.modulate = Color.DIM_GRAY
+		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.DIM_GRAY
+		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.DIM_GRAY
 	else: 
-		most_panels.modulate = Color.WHITE 
+		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.WHITE
+		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.WHITE
 	
 	for panel_num in panels_array.size():
 		if selected_panel == panel_num:
@@ -306,6 +318,7 @@ func UpdateDisplay():
 			#restore it to normal modulation
 			(panels_array[panel_num] as Control).self_modulate = Color("363636")
 			pass
+	#self_modulate = highlight_color
 	pass
 	
 	#check for valid color
@@ -339,7 +352,7 @@ func get_controller_input():
 		if input.is_action_just_pressed("lobby_cancel"):
 			mouse_input.append("cancel")
 	else:
-		for device in devices:
+		for device in GameManager.devices:
 			if MultiplayerInput.is_action_just_pressed(device, "lobby_up"):
 				mouse_input.append("up")
 			if MultiplayerInput.is_action_just_pressed(device, "lobby_down"):
@@ -362,28 +375,44 @@ func is_event_click(event):
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
 func _on_character_container_mouse_entered():
-	selected_panel = 0
+	if device_id <= -1 and !player_ready and is_multiplayer_authority():
+		selected_panel = 1
 
 func _on_color_container_mouse_entered():
-	selected_panel = 1
+	if device_id <= -1 and !player_ready and is_multiplayer_authority():
+		selected_panel = 2
 
 func _on_loadout_container_mouse_entered():
-	selected_panel = 2
+	if device_id <= -1 and !player_ready and is_multiplayer_authority():
+		selected_panel = 3
 
 func _on_button_mouse_entered():
-	selected_panel = 3
+	if device_id <= -1 and is_multiplayer_authority():
+		selected_panel = 3
 
 func _on_left_arrow_clicked(event):
-	if is_event_click(event):
+	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
 		mouse_input.append("left")
 
 func _on_right_arrow_clicked(event):
-	if is_event_click(event):
+	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
 		mouse_input.append("right")
 
 func _on_button_pressed():
-	mouse_input.append("confirm")
-
+	if device_id <= -1 and is_multiplayer_authority():
+		mouse_input.append("confirm")
 
 func _remove_player():
 	queue_free()
+
+func _on_raider_pip_gui_input(event, node):
+	if is_event_click(event) and device_id <= -1 and !player_ready and is_multiplayer_authority():
+		var raider_int = node.get_index()
+		if !(lobby_manager.picked_raiders.has(raider_int) and not lobby_manager.allow_duplicate_animals):
+			selected_raider = raider_int
+		
+func _on_color_pip_gui_input(event, node):
+	if is_event_click(event) and device_id <= -1 and !player_ready and is_multiplayer_authority():
+		var color_int = node.get_index()
+		if !(lobby_manager.picked_colors.has(color_int) and not lobby_manager.allow_duplicate_colors):
+			selected_color = color_int

@@ -12,7 +12,7 @@ bullet_scene = ExtResource("1_biuey")
 base_damage = 75
 infliction_time = 5.0
 start_time = 1.0
-end_time = 0.8
+end_time = 2.0
 cooldown_time = 10.0
 
 [node name="Indicator" type="Node2D" parent="."]

@@ -1,6 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://c20ykcgg3e6nd"]
+[gd_scene load_steps=12 format=3 uid="uid://c20ykcgg3e6nd"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_a2ij5"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_qi48l"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mtave"]
+resource_local_to_scene = true
+shader = ExtResource("2_qi48l")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_la55t"]
 max_value = 24.91
@@ -20,14 +33,15 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2
 point_count = 4
 
 [sub_resource type="Curve" id="Curve_i6u15"]
-_data = [Vector2(0.385445, 1), 0.0, 0.0, 0, 0, Vector2(0.51752, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.256198, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 metadata/_snap_count = 20
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sidjm"]
 radius = 50.0
 
 [node name="aoe_local_explosion" instance=ExtResource("1_a2ij5")]
+material = SubResource("ShaderMaterial_mtave")
 match_tilemap_angle = true
 speed_curve = SubResource("Curve_la55t")
 sprite_rotation_falloff_curve = SubResource("Curve_a830g")
@@ -36,6 +50,7 @@ transparency_falloff_curve = SubResource("Curve_4nmss")
 area_enabled_curve = SubResource("Curve_i6u15")
 
 [node name="Sprite2D" parent="." index="1"]
+visible = false
 scale = Vector2(0.316406, 0.320312)
 
 [node name="CollisionShape2D" parent="." index="2"]

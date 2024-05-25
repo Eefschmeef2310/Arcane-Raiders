@@ -369,7 +369,7 @@ _data = {
 
 [node name="WaterSlime" groups=["boss", "boss_slime"] instance=ExtResource("1_jbpe8")]
 script = SubResource("GDScript_8xenb")
-burst_amount = 12
+burst_amount = 8
 movement_speed = 150.0
 is_boss = true
 boss_name = "Aqua Daughter Slime"
@@ -402,9 +402,8 @@ spells = Array[ExtResource("5_wh80d")]([SubResource("Resource_6jm38"), SubResour
 cast_time = Array[float]([0.1, 0.0, 0.2])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
-debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_c3r4d")
@@ -422,11 +421,13 @@ script = ExtResource("10_54m7u")
 
 [node name="PrimaryAttack" type="Node" parent="StateMachine" index="4"]
 script = ExtResource("11_2g4eq")
+transition_out_when_can_cast = true
 animation = "attack_proj"
 
 [node name="SecondaryAttack" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("11_2g4eq")
 spell_num = 1
+transition_out_when_can_cast = true
 animation = "attack_burst"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]

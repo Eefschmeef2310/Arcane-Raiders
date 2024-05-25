@@ -28,6 +28,7 @@ const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
+@onready var camera_background = $DynamicCamera/ParallaxBackground/ColorRect
 
 var dead_players : Array = []
 var all_players_dead_triggered := false
@@ -39,6 +40,7 @@ var max_waves
 var difficulty_modifier = 1
 var total_difficulty_left = 0
 var number_of_enemies_left = 0
+var number_of_players = 1
 var live_players = 0
 
 var spawn_keys = []
@@ -81,9 +83,6 @@ func _ready():
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
 		
-func _process(_delta):
-	pass
-	# $CanvasLayer/Label.text = "Enemies Left: " + str(number_of_enemies_left)
 
 func _on_enemy_zero_health():
 	await get_tree().process_frame
@@ -160,6 +159,8 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(tile_map.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
+	camera_background.material = tile_map.material
+	
 	
 func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")

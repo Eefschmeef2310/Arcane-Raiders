@@ -49,6 +49,7 @@ var damage_number : DamageNumber
 var burn_timer : float
 var burn_tick_rate : float = 0.5
 var frost_speed_scale : float = 1.0
+var ice_speed_scale : float = 1.0
 var shocked_this_frame : bool = false
 
 var can_input : bool = true
@@ -76,7 +77,7 @@ func _process(delta):
 		
 		if key == SpellManager.elements["burn"]:
 			burn_effect(delta)
-		elif key == SpellManager.elements["frost"]:
+		elif key == SpellManager.elements["frost"] and ice_speed_scale == 1.0:
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
@@ -88,6 +89,8 @@ func _physics_process(delta):
 		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_lerp_strength)
 		if knockback_velocity <= knockback_floor:
 			can_input = true
+	
+	set_deferred("ice_speed_scale", 1.0)
 #endregion
 
 #region Signal methods
@@ -253,7 +256,7 @@ func add_knockback(attack_path):
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
 		if "knockback" in attack:
-			print(attack.knockback)
+			#dsprint(attack.knockback)
 			knockback_velocity *= attack.knockback
 	can_input = false
 

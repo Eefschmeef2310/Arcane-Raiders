@@ -59,3 +59,6 @@ func transfer_data(new: Node2D):
 		new.infliction_time = infliction_time
 	if "play_element_sound" in new && !play_sound_on_cast:
 		new.play_element_sound = true
+	
+	if resource.element.gradient and material:
+		(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)

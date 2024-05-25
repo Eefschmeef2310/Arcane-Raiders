@@ -11,4 +11,4 @@ raider_name = "Owl"
 raider_desc = "hooty hoot!"
 color = Color(0.203922, 0.282353, 0.541176, 1)
 head_texture = ExtResource("1_476bp")
-skin_color = Color(0.74902, 0.494118, 0.333333, 1)
+skin_color = Color(0.917647, 0.796078, 0.65098, 1)

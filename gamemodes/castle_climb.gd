@@ -106,7 +106,7 @@ func start_next_floor():
 		for data in player_data:
 			data.health += 400
 	elif current_floor in boss_floors:
-		boss_level_spawner.spawn(rng_floors.randi_range(0, boss_levels.size() - 1))
+		boss_level_spawner.spawn(get_current_sector())
 	else:
 		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
 	
@@ -133,6 +133,7 @@ func spawn_boss_level(index: int) -> Node:
 func inject_data_to_current_room_node():
 	current_room_node.player_data = player_data
 	current_room_node.difficulty_modifier *= wave_difficulty_curve.sample(float(current_floor)/float(total_floors))
+	current_room_node.number_of_players = number_of_players
 	current_room_node.number_of_players_health_scale = number_of_players_health_scale[number_of_players - 1]
 	current_room_node.number_of_players_difficulty_scale = number_of_players_difficulty_scale[number_of_players - 1]
 	current_room_node.room_exited.connect(_on_room_exited)
@@ -230,7 +231,7 @@ func get_floor_name(fl: int) -> String:
 	elif fl == 0:
 		return "Foyer"
 	else:
-		return str(fl) + "F"
+		return "Floor " + str(fl)
 
 @rpc("authority", "call_local", "reliable")
 func setup_from_parent_multiplayer_lobby():
@@ -259,4 +260,4 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	var ui = $GameUI/PlayerUIContainer.get_child(slot)
 	ui.show()
 	ui.set_data(data)
-	print(data.device_id)
+	#print(data.device_id)

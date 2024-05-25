@@ -1,9 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=16 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_5ffs4"]
 [ext_resource type="Texture2D" uid="uid://cjnod02s0jvku" path="res://elements/sprites/white.png" id="3_e57h4"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_7o55i"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_86qwp"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_b30oo"]
+[ext_resource type="Texture2D" uid="uid://dsl64ayuqe51k" path="res://ui/bar_border.png" id="6_8mvmc"]
+
+[sub_resource type="Gradient" id="Gradient_m21q8"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
+gradient = SubResource("Gradient_m21q8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xeynf"]
+resource_local_to_scene = true
+shader = ExtResource("4_7o55i")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jr7h6"]
+resource_local_to_scene = true
+shader = ExtResource("4_7o55i")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pife3"]
+resource_local_to_scene = true
+shader = ExtResource("4_7o55i")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yjyhi"]
+font = ExtResource("4_86qwp")
+font_size = 28
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ml2ad"]
 font = ExtResource("4_b30oo")
@@ -13,7 +48,7 @@ shadow_color = Color(0, 0, 0, 0.784314)
 shadow_offset = Vector2(2, 2)
 
 [node name="PlayerUI" type="VBoxContainer"]
-custom_minimum_size = Vector2(450, 190)
+custom_minimum_size = Vector2(450, 200)
 alignment = 1
 script = ExtResource("1_cbyu2")
 
@@ -29,35 +64,49 @@ alignment = 1
 
 [node name="Spells" type="HBoxContainer" parent="HBox/Stats"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 16
 alignment = 1
 
+[node name="Head" type="TextureRect" parent="HBox/Stats/Spells"]
+layout_mode = 2
+texture = ExtResource("2_5ffs4")
+expand_mode = 2
+stretch_mode = 3
+
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
+material = SubResource("ShaderMaterial_xeynf")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
+material = SubResource("ShaderMaterial_jr7h6")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
+material = SubResource("ShaderMaterial_pife3")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
-custom_minimum_size = Vector2(300, 24)
+custom_minimum_size = Vector2(350, 35)
 layout_mode = 2
 max_value = 1000.0
 value = 1000.0
 nine_patch_stretch = true
 stretch_margin_left = 12
+stretch_margin_top = 12
 stretch_margin_right = 12
+stretch_margin_bottom = 12
 texture_progress = ExtResource("3_e57h4")
 tint_progress = Color(0.992157, 0, 0.254902, 1)
 
 [node name="HealthBarLinger" type="TextureProgressBar" parent="HBox/Stats/HealthBar"]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 24)
-layout_mode = 2
-offset_right = 300.0
-offset_bottom = 24.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 max_value = 1000.0
 value = 1000.0
 nine_patch_stretch = true
@@ -65,11 +114,39 @@ stretch_margin_left = 12
 stretch_margin_right = 12
 texture_under = ExtResource("3_e57h4")
 texture_progress = ExtResource("3_e57h4")
-tint_under = Color(0, 0, 0, 0.196078)
+tint_under = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+
+[node name="Label" type="Label" parent="HBox/Stats/HealthBar"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = -4.0
+offset_right = 116.0
+offset_bottom = 42.0
+text = "100/100"
+label_settings = SubResource("LabelSettings_yjyhi")
+vertical_alignment = 1
+
+[node name="Border" type="NinePatchRect" parent="HBox/Stats/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -22.5
+offset_right = 180.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_8mvmc")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="EquipUI" type="Node2D" parent="."]
-visible = false
-position = Vector2(139, 50)
+position = Vector2(183, 42)
 
 [node name="Label" type="Label" parent="EquipUI"]
 offset_left = -139.0

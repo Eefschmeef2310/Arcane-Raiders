@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=10 format=3 uid="uid://brmt3xwasqlgc"]
 
-[ext_resource type="Texture2D" uid="uid://b0wd7cki57iq3" path="res://menus/splash2.png" id="1_ag66g"]
+[ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/TOGETHER-small.png" id="1_gcbdx"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="2_7gsyx"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_hcuag"]
+[ext_resource type="Texture2D" uid="uid://dp6sef3nopdtb" path="res://menus/logo-white.png" id="4_raybl"]
+[ext_resource type="Texture2D" uid="uid://bqson8xojve8p" path="res://menus/LOGO-ARCANE.png" id="5_tipbs"]
+[ext_resource type="Texture2D" uid="uid://bohnfxrfkbdcq" path="res://menus/LOGO-RAIDERS.png" id="6_shro6"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
@@ -19,7 +23,7 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 func _ready():
 	GameManager.isPaused = false
 	
-	$VBoxContainer/QuitButton.visible = OS.get_name() != \"Web\"
+	$VBoxContainer/Horiz/QuitButton.visible = OS.get_name() != \"Web\"
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
 	
 	AudioManager.stop_all()
@@ -36,11 +40,11 @@ func _ready():
 		steam_error_window.show()
 		steam_error_label.label_settings.font_color = Color.YELLOW
 		steam_error_label.text += \"\\n Warning: Spacewar in use, Controller input may break \"
-		online_button.disabled=true
+		online_button.disabled=false
 	
-#func _process(_delta):
-	##Steam.setLEDColor(SteamControllerInput.get_controllers()[1], 0, 12, 186, 0)
-	##Steam.setLEDColor(SteamControllerInput.get_controllers()[2], randi_range(0,255), randi_range(0,255), randi_range(0,255), 0)
+	Steam.input_configuration_loaded.connect(set_white)
+	
+	$VBoxContainer/LocalPlayButton.grab_focus()
 ##endregion
 
 #region Signal methods
@@ -60,9 +64,21 @@ func _on_local_play_button_pressed():
 	#get_tree().root.add_child(lobby_scene)
 	#queue_free()
 	
-func _on_settings_button_pressed():	
-	get_tree().root.add_child(load(\"res://menus/settings.tscn\").instantiate())
-	
+func _on_settings_button_pressed():
+	var new_settings = load(\"res://menus/settings.tscn\").instantiate()
+	new_settings.destroyed.connect($VBoxContainer/SettingsButton.grab_focus)
+	get_tree().root.add_child(new_settings)
+
+func _on_credits_button_pressed():
+	var new_settings = load(\"res://menus/credits.tscn\").instantiate()
+	new_settings.destroyed.connect($VBoxContainer/Horiz/CreditsButton.grab_focus)
+	get_tree().root.add_child(new_settings)
+
+#endregion
+
+#region Other methods
+func set_white(_arg, arg2, _arg3):
+	Steam.setLEDColor(arg2, 255, 255, 255, 0)
 #endregion
 "
 
@@ -92,7 +108,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.0196078, 0.0745098, 0.101961, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -101,44 +117,72 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1559.0
-offset_top = -877.0
+offset_left = -1323.0
+offset_top = -940.0
+offset_right = -63.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("1_ag66g")
+texture = ExtResource("1_gcbdx")
 stretch_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 594.0
-offset_bottom = 673.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -318.5
+offset_right = 558.0
+offset_bottom = 318.5
+grow_vertical = 2
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
-text = "Local Play"
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 52
+text = "Play Local"
 script = ExtResource("2_hcuag")
 
 [node name="OnlineButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
-text = "Online"
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 52
+text = "Play Online"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="Horiz" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
+theme_override_constants/separation = 24
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../SettingsButton")
+focus_neighbor_right = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
+text = "Credits"
+script = ExtResource("2_hcuag")
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../CreditsButton")
+focus_neighbor_top = NodePath("../../SettingsButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
 text = "Quit"
 
 [node name="VersionLabel" type="Label" parent="."]
@@ -146,10 +190,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -77.0
-offset_right = 245.0
-offset_bottom = -32.0
+offset_left = 80.0
+offset_top = -204.0
+offset_right = 277.0
+offset_bottom = -155.0
 grow_vertical = 0
 text = "Ver. 24-05-14"
 label_settings = SubResource("LabelSettings_ko00r")
@@ -171,7 +215,40 @@ grow_vertical = 0
 layout_mode = 2
 label_settings = SubResource("LabelSettings_sscpa")
 
+[node name="logo" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 47.0
+offset_top = 71.0
+offset_right = 548.0
+offset_bottom = 353.0
+texture = ExtResource("4_raybl")
+expand_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 25.81)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 593.0
+offset_top = 226.0
+offset_right = -21.0
+offset_bottom = 531.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="ARCANE" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_tipbs")
+expand_mode = 3
+
+[node name="RAIDERS" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_shro6")
+expand_mode = 3
+
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]

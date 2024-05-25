@@ -16,6 +16,12 @@ func _on_quit_button_pressed():
 		get_tree().paused = false
 	GameManager.isPaused = false
 	AudioManager.play_track_instant(\"\")
+	
+	MultiplayerInput.set_ui_action_device(-2)
+
+	for device_id in Input.get_connected_joypads():
+		MultiplayerInput._create_actions_for_device(device_id)
+			
 	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 	queue_free()
 #endregion
@@ -79,9 +85,17 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme_override_constants/line_spacing = -16
+theme_override_font_sizes/font_size = 58
 text = "By quitting, you will no longer be able to join this game.
 Are you sure you want to quit?"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = -16
+theme_override_font_sizes/font_size = 58
+text = " "
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
@@ -92,14 +106,14 @@ alignment = 1
 [node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "Back"
+theme_override_font_sizes/font_size = 64
+text = "Resume"
 script = ExtResource("1_td1vj")
 
 [node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 64
 text = "Quit"
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

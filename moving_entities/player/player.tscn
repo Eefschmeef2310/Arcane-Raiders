@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=39 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
 [ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="13_a6udy"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
@@ -351,7 +352,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, false]
 }
 
 [sub_resource type="Animation" id="Animation_yhbvw"]
@@ -493,6 +494,7 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_vdik6"]
 resource_name = "idle"
+length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -525,10 +527,10 @@ tracks/2/path = NodePath("SpritesFlip/SpritesScale/Head:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(2, -75)]
+"values": [Vector2(2, -74), Vector2(2, -77)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -549,10 +551,10 @@ tracks/4/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(38, -28)]
+"values": [Vector2(37, -28), Vector2(38, -31)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -573,10 +575,10 @@ tracks/6/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector2(-37, -28)]
+"values": [Vector2(-36, -28), Vector2(-37, -31)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -657,6 +659,42 @@ tracks/1/keys = {
 "args": [0.0],
 "method": &"play"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/Head:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, -75)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(38, -28)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-37, -28)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dg52v"]
@@ -862,6 +900,7 @@ script = SubResource("GDScript_qs58w")
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
 spell_strings = Array[String](["", "", ""])
+character = ExtResource("12_ndveq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -961,6 +1000,10 @@ text = "Help!"
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="DashTrailTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("15_qpnkh")
 bus = &"SFX"
@@ -991,3 +1034,4 @@ target_position = Vector2(150, 0)
 [connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
 [connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="DashTrailTimer" to="." method="_on_dash_trail_timer_timeout"]

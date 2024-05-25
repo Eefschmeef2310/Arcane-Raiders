@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_j27yy"]
 
 [node name="DamageNumber" type="Control"]
-z_index = 10
+z_index = 29
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
