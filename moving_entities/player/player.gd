@@ -33,7 +33,7 @@ var dash_speed = 1200
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
 var friends_nearby : Array = []
-var revival_time : float
+@export var revival_time : float
 var revival_time_max : float = 5
 
 #region Godot methods
@@ -102,7 +102,7 @@ func _process(delta):
 			if number_of_friends > 0:
 				revival_time += delta + (0.25 * (number_of_friends - 1))
 				if revival_time >= revival_time_max:
-					health += 250
+					health = 250
 			else:
 				revival_time -= delta
 				if revival_time <= 0:
@@ -110,6 +110,7 @@ func _process(delta):
 			
 			if health > 0:
 				toggle_dead.rpc(false);
+				revival_time = 0
 	else:
 		$HelpLabel.hide()
 		$RevivalMeter.hide()
@@ -265,6 +266,7 @@ func toggle_dead(b):
 		is_dashing = false
 		is_casting = false
 		preparing_cast_slot = -1
+		health = 250
 		health_updated.emit(health)
 
 @rpc("authority", "call_local", "reliable")
