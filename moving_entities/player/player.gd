@@ -29,7 +29,7 @@ var is_dashing: bool = false
 var dash_cooldown: float = 0.0
 var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
-var dash_speed = 1000
+var dash_speed = 1200
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
 var friends_nearby : Array = []
@@ -309,6 +309,6 @@ func _on_dash_trail_timer_timeout():
 		var sprites = $SpritesFlip.duplicate()
 		after_image.add_child(sprites)
 		
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.125).timeout
 		
 		after_image.queue_free()

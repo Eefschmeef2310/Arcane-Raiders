@@ -35,7 +35,8 @@ const MUSIC = {
 			\"end\": preload(\"res://sounds/music/rollover_end.ogg\")
 		},
 	],
-	\"shop\": preload(\"res://sounds/music/thatoneplace.ogg\")
+	\"shop\": preload(\"res://sounds/music/thatoneplace.ogg\"),
+	\"menu\": preload(\"res://sounds/music/menu.ogg\")
 }
 
 	#Exported Variables
@@ -53,6 +54,7 @@ const MUSIC = {
 var fade_tween: Tween
 var switch_tween: Tween
 var current_sector = -1
+var last_track = \"\"
 
 #endregion
 
@@ -71,7 +73,7 @@ func play_audio2D_at_point(position : Vector2, stream : AudioStream):
 	new_player.stream = stream
 	get_tree().root.add_child(new_player)
 
-func play_track_fade(key: String):
+func play_track_fade(key: String = \"\"):
 	current_sector = -1
 	
 	if fade_tween:
@@ -80,9 +82,14 @@ func play_track_fade(key: String):
 	fade_tween.tween_property(calm_stream, \"volume_db\", -80, 0.5)
 	fade_tween.parallel().tween_property(battle_stream, \"volume_db\", -80, 0.5)
 	fade_tween.parallel().tween_property(music_stream, \"volume_db\", -80, 0.5)
-	fade_tween.tween_callback(play_track_instant.bind(key))
+	if key != \"\":
+		fade_tween.tween_callback(play_track_instant.bind(key))
 
 func play_track_instant(key: String):
+	if last_track == key:
+		return
+	last_track = key
+	
 	if fade_tween:
 		fade_tween.kill()
 	current_sector = -1
@@ -100,6 +107,7 @@ func play_sector(sector: int):
 	if !calm_stream.playing or (sector != current_sector and sector < MUSIC.sector.size()):
 		
 		current_sector = sector
+		last_track = \"sector\"+str(sector)
 		
 		if fade_tween:
 			fade_tween.kill()
