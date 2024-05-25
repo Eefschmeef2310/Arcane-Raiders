@@ -4,6 +4,7 @@ class_name Player
 
 signal spell_pickup_requested(Player, int, SpellPickup)
 signal dead(Player)
+signal revived(Player)
 
 @export var debug : bool = false
 @export var data: PlayerData
@@ -29,7 +30,7 @@ var is_dashing: bool = false
 var dash_cooldown: float = 0.0
 var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
-var dash_speed = 1200
+var dash_speed = 1000
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
 var friends_nearby : Array = []
@@ -110,7 +111,6 @@ func _process(delta):
 			
 			if health > 0:
 				toggle_dead.rpc(false);
-				revival_time = 0
 	else:
 		$HelpLabel.hide()
 		$RevivalMeter.hide()
@@ -235,27 +235,36 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
-	var not_dead_yet = !is_dead
-	
 	if is_invincible or is_dashing or is_dead:
 		return
 		
 	super.on_hurt(attack)
-		
+	
+	if is_multiplayer_authority():
+		if !is_dead and !("base_damage" in attack and attack.base_damage <= 0):
+			start_invincibility.rpc()
+
+@rpc("authority", "call_local", "reliable")
+func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
+	var not_dead_yet = !is_dead
+	
+	if is_dead:
+		return
+	
+	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
+
 	if is_multiplayer_authority():
 		if is_dead and not_dead_yet:
-				toggle_dead.rpc(true)
-		elif !("base_damage" in attack and attack.base_damage <= 0):
-				start_invincibility.rpc()
+			toggle_dead.rpc(true)
 
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
-	if b:
-		$AnimationPlayer.play("die");
-		dead.emit(self)
+	if b: 
+		animation_player.play("die");
 		$CollisionShape2D.disabled = true;
 		revival_time = 0
 		remove_from_group("player")
+		dead.emit(self)
 	else:
 		is_dead = false
 		$CollisionShape2D.disabled = false;
@@ -268,6 +277,7 @@ func toggle_dead(b):
 		preparing_cast_slot = -1
 		health = 250
 		health_updated.emit(health)
+		revived.emit(self)
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
@@ -311,6 +321,6 @@ func _on_dash_trail_timer_timeout():
 		var sprites = $SpritesFlip.duplicate()
 		after_image.add_child(sprites)
 		
-		await get_tree().create_timer(0.125).timeout
+		await get_tree().create_timer(0.1).timeout
 		
 		after_image.queue_free()
