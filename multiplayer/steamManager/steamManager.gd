@@ -18,10 +18,6 @@ func _ready():
 	print("Did Steam initialize?: %s" % initialize_response)
 	# status : 0 means it all worked, anything else means an error occured
 	
-	
-	
-
-	#SteamControllerInput.init()
 		
 	Steam.steamInit()
 	Steam.inputInit()
