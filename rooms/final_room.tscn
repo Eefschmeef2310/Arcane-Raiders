@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bs14qtk2at5lb"]
+[gd_scene load_steps=17 format=3 uid="uid://bs14qtk2at5lb"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_jmf3x"]
 [ext_resource type="Script" path="res://rooms/win_thing.gd" id="2_4bdcu"]
@@ -9,7 +9,6 @@
 [ext_resource type="Shader" path="res://shaders/godrays.gdshader" id="6_woruy"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="7_bplmi"]
 [ext_resource type="Texture2D" uid="uid://diqvpage0ccnk" path="res://moving_entities/enemies/sparkle2.png" id="7_ikqpq"]
-[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="8_hkkkd"]
 
 [sub_resource type="Animation" id="Animation_wn01i"]
 length = 0.001
@@ -81,11 +80,6 @@ shader_parameter/ray2_intensity = 0.3
 shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
 shader_parameter/hdr = false
 shader_parameter/seed = 5.0
-
-[sub_resource type="Gradient" id="Gradient_xb5vv"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.546053)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
 [node name="CastleRoom" instance=ExtResource("1_jmf3x")]
 
@@ -163,16 +157,6 @@ position = Vector2(641, 166)
 scale = Vector2(1.63281, 8.77734)
 texture = ExtResource("7_bplmi")
 
-[node name="Player" parent="." index="17" instance=ExtResource("8_hkkkd")]
-position = Vector2(271, 873)
-
-[node name="PlayerData" parent="Player" index="6"]
-device_id = -1
-
-[node name="DashTrail" parent="Player" index="22"]
-gradient = SubResource("Gradient_xb5vv")
-
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
-[editable path="Player"]
