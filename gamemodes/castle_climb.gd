@@ -40,7 +40,7 @@ var enemy_types_per_floor : Array = [
 	[], # boss
 	[], # shop
 	["slime_big", "bat_small", "spider_big"],
-	["bat_big", "bat_small", "bat_small", "spider_big"],
+	["bat_big", "bat_small", "bee", "spider_big"],
 	[], # boss
 	[], # end
 ]
@@ -56,6 +56,8 @@ func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
+	
+	AudioManager.play_track_fade()
 	
 	if start_on_spawn:
 		set_number_of_players(1)

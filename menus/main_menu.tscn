@@ -26,7 +26,7 @@ func _ready():
 	$VBoxContainer/Horiz/QuitButton.visible = OS.get_name() != \"Web\"
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
 	
-	AudioManager.stop_all()
+	AudioManager.play_track_instant(\"menu\")
 	
 	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
 	if (!Steam.loggedOn()):

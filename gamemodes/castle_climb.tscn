@@ -55,8 +55,8 @@ gradient = SubResource("Gradient_tk1wv")
 
 [sub_resource type="Curve" id="Curve_1si0i"]
 min_value = 1.0
-max_value = 5.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+max_value = 3.5
+_data = [Vector2(0, 1), 0.0, 2.5, 0, 1, Vector2(1, 3.5), 2.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_ahfih"]
