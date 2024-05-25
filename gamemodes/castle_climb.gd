@@ -57,6 +57,8 @@ func _ready():
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
 	
+	AudioManager.play_track_fade()
+	
 	if start_on_spawn:
 		set_number_of_players(1)
 		start_climb()
