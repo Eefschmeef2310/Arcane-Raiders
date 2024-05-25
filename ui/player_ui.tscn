@@ -146,13 +146,12 @@ patch_margin_right = 12
 patch_margin_bottom = 12
 
 [node name="EquipUI" type="Node2D" parent="."]
-position = Vector2(183, 42)
+position = Vector2(273, 0)
 
 [node name="Label" type="Label" parent="EquipUI"]
-offset_left = -139.0
-offset_top = -84.0
-offset_right = 311.0
-offset_bottom = -42.0
+offset_left = -230.0
+offset_top = -42.0
+offset_right = 220.0
 text = "Press to equip!"
 label_settings = SubResource("LabelSettings_ml2ad")
 horizontal_alignment = 1
