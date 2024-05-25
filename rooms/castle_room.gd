@@ -113,7 +113,6 @@ func spawn_player(player_number: int) -> Node2D:
 	player.global_position = player_spawns[player_number].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	player.dead.connect(report_player_death)
-	player.revived.connect(report_player_revival)
 	dynamic_camera.add_target(player)
 	live_players += 1
 	#print("Spawned player of peer_id " + str(player.data.peer_id))
@@ -125,10 +124,6 @@ func report_player_death(player):
 		if dead_players.size() >= live_players and !all_players_dead_triggered:
 			all_players_dead_triggered = true
 			all_players_dead.emit()
-
-func report_player_revival(player):
-	if player in dead_players:
-		dead_players.erase(player)
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	print("Sending spell change request.")

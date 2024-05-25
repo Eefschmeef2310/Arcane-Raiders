@@ -40,7 +40,7 @@ func _ready():
 		steam_error_window.show()
 		steam_error_label.label_settings.font_color = Color.YELLOW
 		steam_error_label.text += \"\\n Warning: Spacewar in use, Controller input may break \"
-		online_button.disabled=true
+		online_button.disabled=false
 	
 	Steam.input_configuration_loaded.connect(set_white)
 	

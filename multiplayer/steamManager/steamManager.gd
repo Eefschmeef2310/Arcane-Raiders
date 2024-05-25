@@ -1,6 +1,6 @@
 extends Node
 
-const live_mode = true #switches the app id to the real id and 
+const live_mode = false #switches the app id to the real id and 
 #enables functions such as leaderboards and acheivements
 
 var player_id = 0 ## 0 = host/offline, 1-2-3 are players that join
@@ -27,7 +27,7 @@ func _ready():
 	Steam.inputInit()
 	Steam.enableDeviceCallbacks()
 	
-	SteamControllerInput.init()
+	#SteamControllerInput.init()
 	
 	## Spacewar (test app) : 480
 	## untitiled wizard game (real app) : 2899410
