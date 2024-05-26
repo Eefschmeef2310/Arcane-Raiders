@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqson8xojve8p"
-path="res://.godot/imported/LOGO-ARCANE.png-4ccf65979bf1c4fb048ad8728fffc0b2.ctex"
+uid="uid://bnv1hr4yvuwr5"
+path="res://.godot/imported/ROCK_EFFECTS_SMALL.png-7f5df7fbf2e444d67a228fd4b1296864.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://menus/LOGO-ARCANE.png"
-dest_files=["res://.godot/imported/LOGO-ARCANE.png-4ccf65979bf1c4fb048ad8728fffc0b2.ctex"]
+source_file="res://menus/img/ROCK_EFFECTS_SMALL.png"
+dest_files=["res://.godot/imported/ROCK_EFFECTS_SMALL.png-7f5df7fbf2e444d67a228fd4b1296864.ctex"]
 
 [params]
 

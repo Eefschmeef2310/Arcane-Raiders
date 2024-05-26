@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bohnfxrfkbdcq"
-path="res://.godot/imported/LOGO-RAIDERS.png-d42a1834eb34e4df7a2b966e25146620.ctex"
+uid="uid://cow3oxt3giy3c"
+path="res://.godot/imported/wolf-solo-spawn.png-02a4d38956d609dbd149434a76d23323.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://menus/LOGO-RAIDERS.png"
-dest_files=["res://.godot/imported/LOGO-RAIDERS.png-d42a1834eb34e4df7a2b966e25146620.ctex"]
+source_file="res://menus/img/wolf-solo-spawn.png"
+dest_files=["res://.godot/imported/wolf-solo-spawn.png-02a4d38956d609dbd149434a76d23323.ctex"]
 
 [params]
 

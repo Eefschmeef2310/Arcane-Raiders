@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w6guicq5830i"
-path="res://.godot/imported/TOGETHER-small.png-18eebb35df9d24d6634614374a9f4333.ctex"
+uid="uid://crqrx1cku3gbj"
+path="res://.godot/imported/ICE_EFFECTS_SMALL.png-12b4c500115dc5ce8902c28bdcd67152.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://menus/TOGETHER-small.png"
-dest_files=["res://.godot/imported/TOGETHER-small.png-18eebb35df9d24d6634614374a9f4333.ctex"]
+source_file="res://menus/img/ICE_EFFECTS_SMALL.png"
+dest_files=["res://.godot/imported/ICE_EFFECTS_SMALL.png-12b4c500115dc5ce8902c28bdcd67152.ctex"]
 
 [params]
 
