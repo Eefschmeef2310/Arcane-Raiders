@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cxqqvk2eqvo5u"]
+[gd_scene load_steps=17 format=3 uid="uid://cxqqvk2eqvo5u"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_pqo33"]
 [ext_resource type="Texture2D" uid="uid://dmxfikong7wou" path="res://moving_entities/enemies/bee/000.png" id="2_hydic"]
@@ -9,6 +9,24 @@
 [ext_resource type="PackedScene" uid="uid://ctiluj2o5h47g" path="res://moving_entities/enemies/bee/bee_dash_attack.tscn" id="4_fiw2k"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_lpx7u"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="5_u3ed8"]
+
+[sub_resource type="GDScript" id="GDScript_w5nu8"]
+script/source = "extends EnemyEntity
+
+@onready var sprite_2d = $Sprite2D
+
+var can_rotate:bool = false
+
+func _process(delta):
+	if !nav_server_synced: return
+	if is_dashing || can_rotate:
+		sprite_2d.look_at(global_position + -velocity.normalized() * 9999)
+		
+func _physics_process(delta):
+	super._physics_process(delta)
+	if nav_agent.is_navigation_finished(): can_rotate = false
+	else: can_rotate = true
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cwxf7"]
 radius = 48.0937
@@ -22,6 +40,21 @@ element = ExtResource("3_ki35o")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j44su"]
 radius = 14.0
+
+[sub_resource type="Animation" id="Animation_i2dtd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_hydic")]
+}
 
 [sub_resource type="Animation" id="Animation_2ikja"]
 resource_name = "idle"
@@ -40,21 +73,6 @@ tracks/0/keys = {
 "values": [ExtResource("2_hydic"), ExtResource("3_w4dcw")]
 }
 
-[sub_resource type="Animation" id="Animation_i2dtd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_hydic")]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i7tm6"]
 _data = {
 "RESET": SubResource("Animation_i2dtd"),
@@ -63,6 +81,7 @@ _data = {
 
 [node name="Bee" instance=ExtResource("1_pqo33")]
 collision_mask = 1
+script = SubResource("GDScript_w5nu8")
 death_sound = null
 
 [node name="Sprite2D" parent="." index="1"]
@@ -109,7 +128,7 @@ avoidance_mask = 2
 debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
-position = Vector2(0, -36)
+position = Vector2(0, -43)
 shape = SubResource("CircleShape2D_j44su")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]

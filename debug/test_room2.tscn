@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="10_co6yi"]
+[ext_resource type="PackedScene" uid="uid://cxqqvk2eqvo5u" path="res://moving_entities/enemies/bee/bee.tscn" id="10_donle"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -132,8 +132,8 @@ layout_mode = 2
 [node name="PlayerUI4" parent="GameUI/PlayerUIContainer" index="3" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="GiantSlime" parent="." index="16" instance=ExtResource("10_co6yi")]
-position = Vector2(865, 550)
+[node name="Bee" parent="." index="16" instance=ExtResource("10_donle")]
+position = Vector2(827, 507)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
