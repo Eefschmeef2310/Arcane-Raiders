@@ -73,7 +73,7 @@ func _process(delta):
 	
 	$SpeedrunUI.visible = show_speedrun_timer
 	
-	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
+	if OS.is_debug_build() and MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
 
 func start_climb():
