@@ -41,6 +41,7 @@ var ready_timer : float
 var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
+var server_browser_node : Node
 
 var back_timer : float
 
@@ -59,6 +60,10 @@ func _ready():
 	multiplayer_spawner.spawn_function = CreateNewCard
 	
 	set_multiplayer_authority(1)
+	
+	if(GameManager.isOnline()):
+		server_browser_node = get_parent()
+		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
 	if GameManager.isLocal():
@@ -180,7 +185,8 @@ func _on_server_disconnected():
 func _on_back_button_pressed():
 	#TODO close server
 	if multiplayer.is_server():
-		Steam.setLobbyJoinable(lobby_id, false)
+		server_browser_node.peer.set_lobby_joinable(false)
+		#print("Did the lobby close??: "+str(result))
 		pass
 	#print("peer: "+str(multiplayer.multiplayer_peer))
 	#multiplayer.multiplayer_peer = null
