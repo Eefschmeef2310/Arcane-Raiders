@@ -177,7 +177,7 @@ script = SubResource("GDScript_3ka3a")
 calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
-boss_name = "Steaming Amalgamate"
+boss_name = "Frostfire Amalgamate"
 max_health = 3000
 knockback_initial_velocity = 50.0
 
