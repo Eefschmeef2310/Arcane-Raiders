@@ -178,7 +178,7 @@ calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
 boss_name = "Desert Amalgamate"
-max_health = 4000
+max_health = 3000
 knockback_initial_velocity = 50.0
 
 [node name="PointLight2D" parent="." index="0"]

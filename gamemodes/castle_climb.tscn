@@ -182,7 +182,7 @@ common_levels = {
 "shop": ExtResource("2_ynx3r")
 }
 basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w")])
-boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("11_pq0fh"), ExtResource("12_rmsyq")])
+boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
 shop_floors = Array[int]([4, 8])

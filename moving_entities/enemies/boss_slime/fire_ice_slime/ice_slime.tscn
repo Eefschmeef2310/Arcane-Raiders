@@ -400,7 +400,7 @@ script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Frozen Daughter Slime"
-max_health = 2000
+max_health = 2500
 knockback_lerp_strength = 40.0
 knockback_initial_velocity = 100.0
 
