@@ -4,6 +4,7 @@ class_name Player
 
 signal spell_pickup_requested(Player, int, SpellPickup)
 signal dead(Player)
+signal revived(Player)
 
 @export var debug : bool = false
 @export var data: PlayerData
@@ -33,7 +34,7 @@ var dash_speed = 1200
 var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
 
 var friends_nearby : Array = []
-var revival_time : float
+@export var revival_time : float
 var revival_time_max : float = 5
 
 #region Godot methods
@@ -97,12 +98,18 @@ func _process(delta):
 		$HelpLabel.show()
 		$RevivalMeter.show()
 		$RevivalMeter.value = revival_time
+		
+		# Remove people who died next to you
+		for friend in get_tree().get_nodes_in_group("player"):
+			if friend in friends_nearby and friend.is_dead:
+				friends_nearby.erase(friend)
+
 		if is_multiplayer_authority():
 			var number_of_friends = friends_nearby.size()
 			if number_of_friends > 0:
-				revival_time += delta + (0.25 * (number_of_friends - 1))
+				revival_time += delta * (1 + (0.25 * (number_of_friends - 1)))
 				if revival_time >= revival_time_max:
-					health += 250
+					health = 250
 			else:
 				revival_time -= delta
 				if revival_time <= 0:
@@ -234,27 +241,36 @@ func cast_spell(slot: int):
 		can_cast = true
 
 func on_hurt(attack):
-	var not_dead_yet = !is_dead
-	
 	if is_invincible or is_dashing or is_dead:
 		return
 		
 	super.on_hurt(attack)
-		
+	
+	if is_multiplayer_authority():
+		if !is_dead and !("base_damage" in attack and attack.base_damage <= 0):
+			start_invincibility.rpc()
+
+@rpc("authority", "call_local", "reliable")
+func deal_damage(attack_path, damage, element_string, infliction_time, create_new):
+	var not_dead_yet = !is_dead
+	
+	if is_dead:
+		return
+	
+	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
+
 	if is_multiplayer_authority():
 		if is_dead and not_dead_yet:
-				toggle_dead.rpc(true)
-		elif !("base_damage" in attack and attack.base_damage <= 0):
-				start_invincibility.rpc()
+			toggle_dead.rpc(true)
 
 @rpc("authority", "call_local", "reliable")
 func toggle_dead(b):
-	if b:
-		$AnimationPlayer.play("die");
-		dead.emit(self)
+	if b: 
+		animation_player.play("die");
 		$CollisionShape2D.disabled = true;
 		revival_time = 0
 		remove_from_group("player")
+		dead.emit(self)
 	else:
 		is_dead = false
 		$CollisionShape2D.disabled = false;
@@ -265,7 +281,9 @@ func toggle_dead(b):
 		is_dashing = false
 		is_casting = false
 		preparing_cast_slot = -1
+		health = 250
 		health_updated.emit(health)
+		revived.emit(self)
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
@@ -286,12 +304,12 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	if body != self and body is Player and !body.is_dead:
+	if body != self and body is Player and !body.is_dead and !body in friends_nearby:
 		friends_nearby.append(body)
 
 
 func _on_revival_zone_body_exited(body):
-	if body != self and body is Player and !body.is_dead:
+	if body != self and body is Player and body in friends_nearby:
 		friends_nearby.erase(body)
 
 
@@ -309,6 +327,6 @@ func _on_dash_trail_timer_timeout():
 		var sprites = $SpritesFlip.duplicate()
 		after_image.add_child(sprites)
 		
-		await get_tree().create_timer(0.125).timeout
+		await get_tree().create_timer(0.1).timeout
 		
 		after_image.queue_free()

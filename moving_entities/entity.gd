@@ -86,7 +86,7 @@ func _physics_process(delta):
 	if knockback_hold_timer > 0:
 		knockback_hold_timer -= delta
 	else:
-		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_lerp_strength)
+		knockback_velocity = lerp(knockback_velocity, 0.0, clamp(delta * knockback_lerp_strength, 0.0, 1.0))
 		if knockback_velocity <= knockback_floor:
 			can_input = true
 	
