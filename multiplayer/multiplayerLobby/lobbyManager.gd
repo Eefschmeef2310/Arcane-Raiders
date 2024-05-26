@@ -240,7 +240,7 @@ func InitLobby(new_lobby_id : int):
 func StartGame():
 	print("Attempting to spawn castle climb.")
 	start_game_called = true
-	Steam.setLobbyJoinable(lobby_id, false)
+	server_browser_node.peer.set_lobby_joinable(false)
 	print("START THE GAME!!!!")
 	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
