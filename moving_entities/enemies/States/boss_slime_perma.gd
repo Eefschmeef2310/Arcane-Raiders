@@ -6,7 +6,10 @@ extends State
 var player: Entity
 #endregion
 
-#region Godot methods
+#region Other methods (please try to separate and organise!)
+func enter():
+	play_anim()
+	
 func physics_update(delta):
 	super.physics_update(delta)
 	if !player: return
@@ -20,13 +23,6 @@ func physics_update(delta):
 				Transitioned.emit(self, "primaryattack")
 			elif (enemy.global_position.distance_to(player.global_position) <= enemy.attack_range):
 				Transitioned.emit(self, "primaryattack")
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
 	
 func set_position():
 	player = get_closest_player()
