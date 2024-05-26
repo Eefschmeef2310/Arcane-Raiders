@@ -372,7 +372,7 @@ script = SubResource("GDScript_8xenb")
 burst_amount = 8
 movement_speed = 150.0
 is_boss = true
-boss_name = "Aqua Daughter Slime"
+boss_name = "Aqua Slime"
 max_health = 1500
 knockback_initial_velocity = 100.0
 

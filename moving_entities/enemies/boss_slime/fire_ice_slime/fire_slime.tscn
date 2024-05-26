@@ -372,7 +372,7 @@ script = SubResource("GDScript_8xenb")
 burst_amount = 8
 movement_speed = 150.0
 is_boss = true
-boss_name = "Blazing Daughter Slime"
+boss_name = "Blazing Slime"
 max_health = 2500
 knockback_initial_velocity = 100.0
 

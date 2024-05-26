@@ -240,7 +240,8 @@ func InitLobby(new_lobby_id : int):
 func StartGame():
 	print("Attempting to spawn castle climb.")
 	start_game_called = true
-	server_browser_node.peer.set_lobby_joinable(false)
+	if GameManager.isOnline():
+		server_browser_node.peer.set_lobby_joinable(false)
 	print("START THE GAME!!!!")
 	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()

@@ -51,6 +51,10 @@ var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var current_room_node : CastleRoom
 
+@export_group("Game Stats")
+@export var show_speedrun_timer := false
+var time_elapsed : float = 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
@@ -63,7 +67,12 @@ func _ready():
 		set_number_of_players(1)
 		start_climb()
 
-func _process(_delta):
+func _process(delta):
+	time_elapsed += delta
+	$SpeedrunUI/SpeedrunTimer.text = GameManager.format_timer(time_elapsed)
+	
+	$SpeedrunUI.visible = show_speedrun_timer
+	
 	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
 

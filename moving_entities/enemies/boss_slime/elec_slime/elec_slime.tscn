@@ -399,7 +399,7 @@ _data = {
 script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
-boss_name = "Shock Daughter Slime"
+boss_name = "Shock Slime"
 max_health = 1500
 knockback_initial_velocity = 100.0
 
