@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://ceoi8oy6dnxbt"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_wdl1v"]
-[ext_resource type="Texture2D" uid="uid://b6gfgaotgw3g5" path="res://moving_entities/enemies/boss_slime/giant_slime/giant_slime_idle_sketch.png" id="2_bvrkk"]
+[ext_resource type="Texture2D" uid="uid://0y6lx26khpp3" path="res://moving_entities/enemies/boss_slime/giant_slime/rock_wind_giant_slime_idle_sketch.png" id="2_i1r4n"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="3_3ecd6"]
 [ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn" id="4_ysslq"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_p0wsl"]
@@ -97,7 +97,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_bvrkk")]
+"values": [ExtResource("2_i1r4n")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -139,7 +139,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_bvrkk")]
+"values": [ExtResource("2_i1r4n")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -188,7 +188,7 @@ texture_scale = 1.5
 [node name="Sprite2D" parent="." index="1"]
 texture_filter = 1
 position = Vector2(0, -74)
-texture = ExtResource("2_bvrkk")
+texture = ExtResource("2_i1r4n")
 hframes = 8
 
 [node name="Hurtbox" parent="." index="2"]
