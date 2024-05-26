@@ -55,7 +55,10 @@ func _process(delta):
 			if is_dead:
 				velocity = Vector2.ZERO
 			elif is_dashing:
-				velocity = dash_direction * dash_speed
+				var dash_spd = dash_speed
+				if frost_speed_scale < 1:
+					dash_spd *= 0.5 
+				velocity = dash_direction * dash_spd
 			else:
 				velocity = get_knockback_velocity() + get_attraction_velocity()
 				if can_input:
@@ -187,15 +190,19 @@ func start_dash(dir: Vector2):
 	is_dashing = true
 	animation_player.play("dash")
 	
+	var dash_spd = dash_speed
+	if frost_speed_scale < 1:
+		dash_spd *= 0.5 
+	
 	# Check if we're going to end in a wall or not.
 	# Raycast with unwalkables:
-	dash_ray.target_position = (dir.normalized() * dash_speed * dash_duration)
+	dash_ray.target_position = (dir.normalized() * dash_spd * dash_duration)
 	dash_ray.force_raycast_update()
 	if !dash_ray.is_colliding():
 		# Point check for walkable floor:
 		var pp = PhysicsPointQueryParameters2D.new()
 		pp.collision_mask = collision_mask
-		pp.position = global_position + (dir.normalized() * dash_speed * dash_duration)
+		pp.position = global_position + (dir.normalized() * dash_spd * dash_duration)
 		if !get_world_2d().direct_space_state.intersect_point(pp, 1):
 			# Disable collision and allow passthrough colliders.
 			$CollisionShape2D.disabled = true
