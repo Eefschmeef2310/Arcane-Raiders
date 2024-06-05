@@ -6,8 +6,8 @@ class_name SpellPickup
 @export var spell: Spell
 
 var i = 0
-@onready var sprite_2d = $Sprite2D
-@onready var info_box = $InfoBox
+@onready var icon = $Icon
+@onready var info_box = $HBoxContainer
 var base_sprite_pos: Vector2
 var amp = 10
 var freq = 2
@@ -16,7 +16,7 @@ var target_info_modulate_a = 0
 
 func _ready():
 	i = randf_range(0, 360)
-	base_sprite_pos = sprite_2d.position
+	base_sprite_pos = icon.position
 	if spell_string:
 		set_spell_from_string(spell_string)
 	info_box.modulate.a = 0
@@ -25,7 +25,7 @@ func _process(delta):
 	i += delta
 	if i > 360:
 		i -= 360
-	$Sprite2D.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
+	$Icon.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 	$Outline.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 	
 	info_box.modulate.a = move_toward(info_box.modulate.a, target_info_modulate_a, delta*10)
@@ -37,18 +37,59 @@ func _process(delta):
 func set_spell_from_string(s):
 	spell_string = s
 	spell = SpellManager.get_spell_from_string(spell_string)
-	$Sprite2D.texture = spell.ui_texture
-	if spell.element.gradient:
-		($Sprite2D.material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
+	
+	if spell is CombinedSpell:
+		$Icon/SpriteSingle.hide()
+		$Icon/Sprite0.show()
+		$Icon/Sprite1.show()
+		$HBoxContainer/InfoBox1.show()
+		
+		$Icon/Sprite0.texture = spell.spells[0].ui_texture
+		if spell.spells[0].element.gradient:
+			($Icon/Sprite0.material as ShaderMaterial).set_shader_parameter("gradient", spell.spells[0].element.gradient)
+		else:
+			$Icon/Sprite0.self_modulate = spell.spells[0].element.colour
+			
+		$Icon/Sprite1.texture = spell.spells[1].ui_texture
+		if spell.spells[1].element.gradient:
+			($Icon/Sprite1.material as ShaderMaterial).set_shader_parameter("gradient", spell.spells[1].element.gradient)
+		else:
+			$Icon/Sprite1.self_modulate = spell.spells[1].element.colour
+			
+		$HBoxContainer/InfoBox/VBoxContainer/Name.text = spell.spells[0].element.prefix + spell.spells[0].suffix
+		$HBoxContainer/InfoBox.self_modulate = spell.spells[0].element.colour
+		var string = "[center][font_size=18]" + spell.spells[0].description + "[/font_size]"
+		if spell.spells[0].element.descrption_bb != "":
+			string = string + "\n\n" + spell.spells[0].element.descrption_bb
+		$HBoxContainer/InfoBox/VBoxContainer/Description.text = string
+		
+		$HBoxContainer/InfoBox1/VBoxContainer/Name.text = spell.spells[1].element.prefix + spell.spells[1].suffix
+		$HBoxContainer/InfoBox1.self_modulate = spell.spells[1].element.colour
+		string = "[center][font_size=18]" + spell.spells[1].description + "[/font_size]"
+		if spell.spells[1].element.descrption_bb != "":
+			string = string + "\n\n" + spell.spells[1].element.descrption_bb
+		$HBoxContainer/InfoBox1/VBoxContainer/Description.text = string
+		
+			
 	else:
-		$Sprite2D.self_modulate = spell.element.colour
+		
+		$Icon/SpriteSingle.show()
+		$Icon/Sprite0.hide()
+		$Icon/Sprite1.hide()
+		$HBoxContainer/InfoBox1.hide()
+		
+		$Icon/SpriteSingle.texture = spell.ui_texture
+		if spell.element.gradient:
+			($Icon/SpriteSingle.material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
+		else:
+			$Icon/SpriteSingle.self_modulate = spell.element.colour
 	
-	$InfoBox/VBoxContainer/Name.text = spell.element.prefix + spell.suffix
-	
-	var string = "[center][font_size=18]" + spell.description + "[/font_size]"
-	if spell.element.descrption_bb != "":
-		string = string + "\n\n" + spell.element.descrption_bb
-	$InfoBox/VBoxContainer/Description.text = string
+		$HBoxContainer/InfoBox/VBoxContainer/Name.text = spell.element.prefix + spell.suffix
+		$HBoxContainer/InfoBox.self_modulate = spell.element.colour
+		var string = "[center][font_size=18]" + spell.description + "[/font_size]"
+		if spell.element.descrption_bb != "":
+			string = string + "\n\n" + spell.element.descrption_bb
+		$HBoxContainer/InfoBox/VBoxContainer/Description.text = string
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):

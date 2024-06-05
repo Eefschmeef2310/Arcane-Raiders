@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2sydwom5yb2y"]
+[gd_scene load_steps=20 format=3 uid="uid://c2sydwom5yb2y"]
 
 [ext_resource type="Script" path="res://spells/pickups/spell_pickup.gd" id="1_ey1r6"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="3_0hw4k"]
@@ -19,6 +19,30 @@ shader_parameter/final_saturation = 0.75
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_2nbqu")
 
+[sub_resource type="Gradient" id="Gradient_4mwvq"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vg1ry"]
+gradient = SubResource("Gradient_4mwvq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk36j"]
+resource_local_to_scene = true
+shader = ExtResource("3_iw5eo")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_vg1ry")
+
+[sub_resource type="Gradient" id="Gradient_jwqlp"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hjnji"]
+gradient = SubResource("Gradient_jwqlp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4cue"]
+resource_local_to_scene = true
+shader = ExtResource("3_iw5eo")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_hjnji")
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wsr7e"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -32,7 +56,7 @@ content_margin_left = 8.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
-bg_color = Color(0.2, 0.113725, 0.0705882, 1)
+bg_color = Color(0.294118, 0.294118, 0.294118, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -45,14 +69,28 @@ polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 script = ExtResource("1_ey1r6")
 
 [node name="Outline" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(0, -35.2)
 scale = Vector2(1.08, 1.08)
 texture = ExtResource("3_y5wrp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Icon" type="Node2D" parent="."]
+position = Vector2(0, -35)
+
+[node name="SpriteSingle" type="Sprite2D" parent="Icon"]
 material = SubResource("ShaderMaterial_ll5gu")
-position = Vector2(0, -35.2)
+position = Vector2(0, -3.8147e-06)
+texture = ExtResource("4_ivpgi")
+
+[node name="Sprite1" type="Sprite2D" parent="Icon"]
+material = SubResource("ShaderMaterial_yk36j")
+position = Vector2(16, -17)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_ivpgi")
+
+[node name="Sprite0" type="Sprite2D" parent="Icon"]
+material = SubResource("ShaderMaterial_k4cue")
+position = Vector2(-16, 16)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_ivpgi")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -68,52 +106,99 @@ collision_mask = 4
 position = Vector2(0, 38.2)
 shape = SubResource("CircleShape2D_7dj34")
 
-[node name="InfoBox" type="PanelContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(600, 148)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -125.0
-offset_top = -205.0
-offset_right = 125.0
-offset_bottom = -84.0
+offset_left = -300.0
+offset_top = -246.0
+offset_right = 300.0
+offset_bottom = -98.0
 grow_horizontal = 2
 grow_vertical = 0
-pivot_offset = Vector2(100, 150)
+alignment = 1
+
+[node name="InfoBox" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="InfoBox"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="HBoxContainer/InfoBox"]
 visible = false
 occluder = SubResource("OccluderPolygon2D_30e0m")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InfoBox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoBox"]
+custom_minimum_size = Vector2(232, 132)
 layout_mode = 2
 
-[node name="Name" type="Label" parent="InfoBox/VBoxContainer"]
+[node name="Name" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+theme_override_constants/line_spacing = -12
 theme_override_fonts/font = ExtResource("3_0hw4k")
 theme_override_font_sizes/font_size = 30
 text = "Pyro-Laser"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Description" type="RichTextLabel" parent="InfoBox/VBoxContainer"]
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox/VBoxContainer"]
 custom_minimum_size = Vector2(10, 55)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_835q6")
 theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
-text = "[center][font_size=18]Cast a laser that pierces enemies.[/font_size]
-
-[img]res://elements/icons/burn_icon.png[/img] Damage over time
-Reacts with [img]res://elements/icons/stun_icon.png[/img] and [img]res://elements/icons/frost_icon.png[/img]"
+text = "[center][font_size=18]Cast these two spells
+at the same time!
+[/font_size]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
 
-[node name="Name2" type="Label" parent="InfoBox/VBoxContainer"]
+[node name="Name2" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InfoBox1" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="HBoxContainer/InfoBox1"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_30e0m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoBox1"]
+custom_minimum_size = Vector2(232, 132)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer/InfoBox1/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/line_spacing = -12
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 30
+text = "Pyro-Laser"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox1/VBoxContainer"]
+custom_minimum_size = Vector2(10, 55)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_835q6")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[center][font_size=18]Cast these two spells
+at the same time!
+[/font_size]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Name2" type="Label" parent="HBoxContainer/InfoBox1/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_0hw4k")
 theme_override_font_sizes/font_size = 2

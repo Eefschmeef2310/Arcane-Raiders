@@ -223,28 +223,56 @@ func attempt_cast(slot: int):
 @rpc("authority", "call_local", "reliable")
 func cast_spell(slot: int):
 	if slot < data.spells.size() and data.spells[slot]:
-		# Initialise spell object and add to tree
-		var spell_node = data.spells[slot].scene.instantiate()
-		spell_node.resource = data.spells[slot]
-		spell_node.caster = self
-		spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
+		var cooldown_time
+		var end_time
+		var cancel_time
 		
-		#print(get_angle_to(aim_direction) - rotation)
-		add_sibling(spell_node)
+		if data.spells[slot] is CombinedSpell:
+			var spell_node0 = data.spells[slot].spells[0].scene.instantiate()
+			spell_node0.resource = data.spells[slot].spells[0]
+			spell_node0.caster = self
+			spell_node0.set_multiplayer_authority(get_multiplayer_authority(), true)
+			add_sibling(spell_node0)
+			
+			var spell_node1 = data.spells[slot].spells[1].scene.instantiate()
+			spell_node1.resource = data.spells[slot].spells[1]
+			spell_node1.caster = self
+			spell_node1.set_multiplayer_authority(get_multiplayer_authority(), true)
+			add_sibling(spell_node1)
+			
+			if spell_node0.resource == spell_node1.resource:
+				spell_node0.combined_spell_index = 0
+				spell_node1.combined_spell_index = 1
+			
+			cooldown_time = (spell_node0.cooldown_time + spell_node1.cooldown_time)/2
+			end_time = (spell_node0.end_time + spell_node1.end_time)/2
+			cancel_time = (spell_node0.cancel_time + spell_node1.cancel_time)/2
+			
+		else:
+			# Initialise spell object and add to tree
+			var spell_node = data.spells[slot].scene.instantiate()
+			spell_node.resource = data.spells[slot]
+			spell_node.caster = self
+			spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
+			add_sibling(spell_node)
+			
+			cooldown_time = spell_node.cooldown_time
+			end_time = spell_node.end_time
+			cancel_time = spell_node.cancel_time
 		
 		# Set cooldown
-		data.spell_cooldowns_max[slot] = spell_node.cooldown_time
-		data.spell_cooldowns[slot] = spell_node.cooldown_time
+		data.spell_cooldowns_max[slot] = cooldown_time
+		data.spell_cooldowns[slot] = cooldown_time
 		
 		# Set own animation properties
 		is_casting = true
 		can_cast = false
-		cast_end_time = spell_node.end_time
-		animation_player.play("cast_end", -1, 1/spell_node.end_time)
+		cast_end_time = end_time
+		animation_player.play("cast_end", -1, 1/end_time)
 		
 		# Allow us to cast a spell again in a certain amount of time
 		# (only the authority uses this though)
-		await get_tree().create_timer(spell_node.cancel_time).timeout
+		await get_tree().create_timer(cancel_time).timeout
 		can_cast = true
 
 func on_hurt(attack):
