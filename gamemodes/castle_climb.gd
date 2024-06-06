@@ -93,7 +93,7 @@ func start_next_floor():
 	
 	play_room_transition.rpc(current_floor)
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	
 	if current_room_node != null:
 		print("Freeing old room.")
@@ -211,6 +211,7 @@ func set_spell_from_string(p_i: int, i: int, s: String):
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
+	print("dingus")
 	current_floor = next_floor
 	for ui in player_ui:
 		ui.hide_equip_ui()
@@ -223,7 +224,7 @@ func play_room_transition(next_floor: int):
 	tween.tween_interval(2)
 	tween.tween_property($RoomTransitionUI/Items, "modulate:a", 0, 0.25)
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	$RunUI/FloorLabel.text = get_floor_name(next_floor)
 
 func set_number_of_players(n: int):

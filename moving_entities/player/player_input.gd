@@ -35,7 +35,9 @@ func _process(_delta):
 		pause_menu.set_panel_color(owner.data.main_color)
 		if input:
 			pause_menu.device_index = input.device
-		owner.get_parent().add_child(pause_menu)
+			
+		#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
+		get_tree().root.add_child(pause_menu)
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
