@@ -56,13 +56,27 @@ func get_random_spell_string():
 	return element + "-" + spell
 
 func get_spell_from_string(s: String) -> Spell:
-	var element_key = s.get_slice("-", 0)
-	var spell_key = s.get_slice("-", 1)
+	var spell_strings = s.split("&")
+	var spells = []
 	
-	var new_spell : Spell = spell_scenes[spell_key].duplicate()
-	new_spell.element = elements[element_key]
-	
-	return new_spell
+	for spell in spell_strings:
+		var element_key = spell.get_slice("-", 0)
+		var spell_key = spell.get_slice("-", 1)
+		
+		var new_spell : Spell = spell_scenes[spell_key].duplicate()
+		new_spell.element = elements[element_key]
+		
+		spells.append(new_spell)
+		
+	if spells.size() == 1:
+		return spells[0]
+	elif spells.size() == 2:
+		var combined_spell = CombinedSpell.new()
+		combined_spell.spells.append(spells[0])
+		combined_spell.spells.append(spells[1])
+		return combined_spell
+	else:
+		return null
 
 
 func get_reaction(element_1, element_2):

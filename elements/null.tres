@@ -17,7 +17,7 @@ stream_0/weight = 1.0
 [resource]
 script = ExtResource("1_4mdce")
 prefix = ""
-descrption_bb = ""
+descrption_bb = "Has no element."
 colour = Color(1, 1, 1, 1)
 gradient = SubResource("GradientTexture1D_u4kad")
 max_infliction_time = 5.0

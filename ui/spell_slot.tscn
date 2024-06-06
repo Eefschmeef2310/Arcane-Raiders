@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8tisd7v43c66"]
+[gd_scene load_steps=15 format=3 uid="uid://c8tisd7v43c66"]
 
 [ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="1_116hg"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_uxkox"]
@@ -6,24 +6,88 @@
 [ext_resource type="Texture2D" uid="uid://da1niepub7xwn" path="res://ui/prompts/ps/playstation_button_color_square_outline.png" id="3_rekfs"]
 [ext_resource type="Texture2D" uid="uid://m0y1kvx31hii" path="res://ui/equip_arrow.png" id="4_cbfbj"]
 
-[sub_resource type="Gradient" id="Gradient_m21q8"]
+[sub_resource type="Gradient" id="Gradient_6hhio"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
-gradient = SubResource("Gradient_m21q8")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fyuhq"]
+gradient = SubResource("Gradient_6hhio")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j2oqg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uy6is"]
 resource_local_to_scene = true
 shader = ExtResource("1_uxkox")
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
-shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
+shader_parameter/gradient = SubResource("GradientTexture1D_fyuhq")
 
-[node name="Spell" type="TextureRect"]
-material = SubResource("ShaderMaterial_j2oqg")
-custom_minimum_size = Vector2(64, 64)
-texture = ExtResource("1_116hg")
-stretch_mode = 5
+[sub_resource type="Gradient" id="Gradient_ifn5m"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yrlys"]
+gradient = SubResource("Gradient_ifn5m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uie60"]
+resource_local_to_scene = true
+shader = ExtResource("1_uxkox")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_yrlys")
+
+[sub_resource type="Gradient" id="Gradient_qmcpw"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dpvaj"]
+gradient = SubResource("Gradient_qmcpw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k050g"]
+resource_local_to_scene = true
+shader = ExtResource("1_uxkox")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_dpvaj")
+
+[node name="Spell" type="Control"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("2_dapti")
+
+[node name="SpellSingle" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_uy6is")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_116hg")
+
+[node name="SpellDouble1" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_uie60")
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -47.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 47.0
+grow_horizontal = 0
+texture = ExtResource("1_116hg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SpellDouble0" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_k050g")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -47.0
+offset_right = 47.0
+offset_bottom = 8.0
+grow_vertical = 0
+texture = ExtResource("1_116hg")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="ProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
