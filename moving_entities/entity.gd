@@ -43,7 +43,8 @@ var is_dead: bool = false
 @onready var hit_sound = $HitSound
 
 	#Other Variables (please try to separate and organise!)
-var current_inflictions_dictionary : Dictionary #Stores 
+var current_inflictions_dictionary : Dictionary #Stores the element as the key, and the time until removal (in float) as the value
+var current_reactions_dictionary : Dictionary #Stores the reactions as the key, and the time till that reaction can be made again
 var damage_number : DamageNumber
 
 var burn_timer : float
@@ -81,6 +82,12 @@ func _process(delta):
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
+			
+	#count down current reactions dictionary:
+	for key in current_reactions_dictionary:
+		current_reactions_dictionary[key] -= delta
+		if current_reactions_dictionary[key] <= 0:
+			current_reactions_dictionary.erase(key)
 
 func _physics_process(delta):
 	if knockback_hold_timer > 0:
@@ -156,7 +163,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		#Check if a reaction has occurred, may need to be moved further up the method
 		for key in current_inflictions_dictionary.keys():
 			var reaction = SpellManager.get_reaction(key, element)
-			if reaction:
+			if reaction and !current_reactions_dictionary.has(reaction):
 				#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
 				damage *= 1.25
 				is_critical = true
@@ -178,6 +185,9 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 				else:
 					get_tree().root.call_deferred("add_child", new_reaction)
 					new_reaction.global_position = global_position
+					
+				#Add to reactions dictionary
+				current_reactions_dictionary[SpellManager.get_reaction(key, element)] = 1.0
 	
 	#Deal bonus damage with wet
 	health -= damage * (1.5 if current_inflictions_dictionary.has(SpellManager.elements["wet"]) else 1.0)
