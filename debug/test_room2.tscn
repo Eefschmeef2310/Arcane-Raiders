@@ -131,12 +131,12 @@ layout_mode = 2
 [node name="PlayerUI4" parent="GameUI/PlayerUIContainer" index="3" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[connection signal="body_entered" from="TileMap/@Area2D@222999" to="TileMap/@Area2D@222999" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@223000" to="TileMap/@Area2D@223000" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@223001" to="TileMap/@Area2D@223001" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@223002" to="TileMap/@Area2D@223002" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@223003" to="TileMap/@Area2D@223003" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@223004" to="TileMap/@Area2D@223004" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@38341" to="TileMap/@Area2D@38341" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@38342" to="TileMap/@Area2D@38342" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@38343" to="TileMap/@Area2D@38343" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@38344" to="TileMap/@Area2D@38344" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@38345" to="TileMap/@Area2D@38345" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

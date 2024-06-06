@@ -16,7 +16,24 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"hurt_everyone"
+"method": &"players_still_overlapping"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [7, true],
+"method": &"set_collision_layer_value"
+}, {
+"args": [7, false],
+"method": &"set_collision_layer_value"
 }]
 }
 

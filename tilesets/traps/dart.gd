@@ -20,6 +20,8 @@ extends Area2D
 var move_direction : Vector2
 var in_wall : bool = true
 
+var base_damage : int = 10
+
 #endregion
 
 #region Godot methods
@@ -29,14 +31,10 @@ func _process(delta):
 
 #region Signal methods
 func _on_area_entered(area):
-	if "deal_damage" in area.get_parent():
-		area.get_parent().deal_damage.rpc(null, 10, null, null, true)
 	queue_free()
 
 func _on_body_entered(body):
 	if !in_wall:
-		if "deal_damage" in body.get_parent():
-			body.get_parent().deal_damage.rpc(null, 10, null, null, true)
 		queue_free()
 		
 func _on_body_exited(body): #Allow dart to leave wall without destroy itself

@@ -211,7 +211,6 @@ func set_spell_from_string(p_i: int, i: int, s: String):
 
 @rpc("authority", "call_local", "reliable")
 func play_room_transition(next_floor: int):
-	print("dingus")
 	current_floor = next_floor
 	for ui in player_ui:
 		ui.hide_equip_ui()

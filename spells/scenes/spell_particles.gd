@@ -27,7 +27,7 @@ func _ready():
 		
 func _process(_delta):
 	for particle in get_children():
-		print("dingus")
+		pass
 #endregion
 
 #region Signal methods

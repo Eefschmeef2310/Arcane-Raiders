@@ -12,7 +12,7 @@ extends Area2D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var trap_damage : int = 50
+@export var base_damage : int = 50
 
 	#Onready Variables
 @onready var animation_player = $AnimationPlayer
@@ -39,7 +39,13 @@ func hurt_everyone():
 func spike_fired():
 	for body in get_overlapping_bodies():
 		if "deal_damage" in body:
-			body.deal_damage.rpc(null, trap_damage, null, null, true)
+			body.deal_damage.rpc(null, base_damage, null, null, true)
+			
+func players_still_overlapping():
+	for body in get_overlapping_bodies():
+		if body.is_in_group("player"):
+			animation_player.play("fire")
+			return
 #endregion
 
 
