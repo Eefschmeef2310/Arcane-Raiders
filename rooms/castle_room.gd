@@ -69,7 +69,7 @@ func _ready():
 			number_of_enemies_left = 0
 			total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
 			print("Difficulty modifier: " + str(difficulty_modifier))
-			
+		
 			var arr = EnemyManager.Data.keys()
 			if !spawn_keys.is_empty():
 				arr = spawn_keys
