@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=19 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+[ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="10_1oy0m"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -131,12 +132,19 @@ layout_mode = 2
 [node name="PlayerUI4" parent="GameUI/PlayerUIContainer" index="3" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
+[node name="GuideArrow" parent="." index="16" instance=ExtResource("10_1oy0m")]
+
+[node name="TextureRect" parent="GuideArrow" index="0" node_paths=PackedStringArray("exit", "camera")]
+exit = NodePath("../../RoomExit")
+camera = NodePath("../../DynamicCamera")
+
 [connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@38341" to="TileMap/@Area2D@38341" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@38342" to="TileMap/@Area2D@38342" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@38343" to="TileMap/@Area2D@38343" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@38344" to="TileMap/@Area2D@38344" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@38345" to="TileMap/@Area2D@38345" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@50518" to="TileMap/@Area2D@50518" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@50519" to="TileMap/@Area2D@50519" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@50520" to="TileMap/@Area2D@50520" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@50521" to="TileMap/@Area2D@50521" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@50522" to="TileMap/@Area2D@50522" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
+[editable path="GuideArrow"]

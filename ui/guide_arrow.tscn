@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://xwsqdfu37qdv"]
+
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_7s8ds"]
+[ext_resource type="Script" path="res://ui/guide_arrow.gd" id="2_hwx48"]
+
+[node name="GuideArrow" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("1_7s8ds")
+script = ExtResource("2_hwx48")
