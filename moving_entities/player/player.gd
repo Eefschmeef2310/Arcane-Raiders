@@ -319,6 +319,10 @@ func toggle_dead(b):
 		health = 250
 		health_updated.emit(health)
 		revived.emit(self)
+		
+		var revive_effect = load("res://moving_entities/player/revive_effect.tscn").instantiate()
+		revive_effect.global_position = global_position
+		add_sibling(revive_effect)
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():

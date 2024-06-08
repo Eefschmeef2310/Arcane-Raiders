@@ -15,7 +15,7 @@ extends TextureRect
 @export var exit : Node2D
 @export var camera : Camera2D
 
-@export var screen_margin : Vector2 = Vector2(128, 128) # Margin from the edge of the screen
+@export var screen_margin : float = 10 # Margin from the edge of the screen
 
 	# Onready Variables
 
@@ -32,26 +32,18 @@ func _process(_delta):
 	var angle = direction.angle()
 	
 	rotation = angle
-	#position = Vector2(get_viewport_rect().size.x / 2 - 64, get_viewport_rect().size.y / 2 - 64) + direction * 100
 	
+	var exit_screen_pos : Transform2D = exit.get_screen_transform()
 	
-	#var exit_screen_pos : Transform2D = exit.get_screen_transform()
-	#
-	##If exit is offscreen
-	#if exit_screen_pos.origin.x <= 0 || exit_screen_pos.origin.x >= get_viewport_rect().size.x || exit_screen_pos.origin.y <= 0 || exit_screen_pos.origin.y >= get_viewport_rect().size.y:
-		#clamp(exit_screen_pos.origin.x, 0, get_viewport_rect().size.x)
-		#clamp(exit_screen_pos.origin.y, 0, get_viewport_rect().size.y)
-		#
-		## Calculate the position of the TextureRect at the edge of the screen
-		#var edge_pos = camera_pos + direction.normalized() * (get_viewport_rect().size / 2)
-		#position = edge_pos
+	# Calculate the aspect ratio
+	var aspect_ratio = get_viewport_rect().size.x / get_viewport_rect().size.y
 
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
+	#If exit is offscreen
+	if exit_screen_pos.origin.x <= 0 || exit_screen_pos.origin.x >= get_viewport_rect().size.x || exit_screen_pos.origin.y <= 0 || exit_screen_pos.origin.y >= get_viewport_rect().size.y:
+		exit_screen_pos.origin.x = clamp(exit_screen_pos.origin.x, 0 + screen_margin, get_viewport_rect().size.x - screen_margin)
+		exit_screen_pos.origin.y = clamp(exit_screen_pos.origin.y, 0 + screen_margin, get_viewport_rect().size.y - screen_margin)
+	else:
+		rotation_degrees = 180
+		
+	position = exit_screen_pos.origin
 #endregion

@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://dd58j03d46std"]
+
+[ext_resource type="Shader" path="res://shaders/godrays.gdshader" id="1_23tib"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="2_nknqt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87swe"]
+shader = ExtResource("1_23tib")
+shader_parameter/angle = 0.5
+shader_parameter/position = 0.325
+shader_parameter/spread = 0.0
+shader_parameter/cutoff = 1.0
+shader_parameter/falloff = 1.0
+shader_parameter/edge_fade = 0.261
+shader_parameter/speed = 2.31
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[sub_resource type="Animation" id="Animation_oh0ct"]
+resource_name = "default"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1, 1.5),
+"transitions": PackedFloat32Array(-2, -2, -2, 1),
+"update": 0,
+"values": [1.0, -0.037, -0.0369999, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_wons2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jc4in"]
+_data = {
+"RESET": SubResource("Animation_wons2"),
+"default": SubResource("Animation_oh0ct")
+}
+
+[node name="ReviveEffect" type="Sprite2D"]
+material = SubResource("ShaderMaterial_87swe")
+scale = Vector2(1, 5.11719)
+texture = ExtResource("2_nknqt")
+centered = false
+offset = Vector2(-64, -128)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jc4in")
+}
+autoplay = "default"

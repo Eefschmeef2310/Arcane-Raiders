@@ -82,7 +82,6 @@ func _ready():
 			
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
-		
 
 func _on_enemy_zero_health():
 	await get_tree().process_frame
