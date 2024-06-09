@@ -44,7 +44,7 @@ func _process(_delta):
 	var aspect_ratio = get_viewport_rect().size.x / get_viewport_rect().size.y
 
 	#If exit is offscreen
-	if exit_screen_pos.origin.x <= 0 || exit_screen_pos.origin.x >= get_viewport_rect().size.x || exit_screen_pos.origin.y <= 0 || exit_screen_pos.origin.y >= get_viewport_rect().size.y:
+	if exit_screen_pos.origin.x <= screen_margin || exit_screen_pos.origin.x >= get_viewport_rect().size.x - screen_margin || exit_screen_pos.origin.y <= screen_margin || exit_screen_pos.origin.y >= get_viewport_rect().size.y - screen_margin:
 		exit_screen_pos.origin.x = clamp(exit_screen_pos.origin.x, 0 + screen_margin, get_viewport_rect().size.x - screen_margin)
 		exit_screen_pos.origin.y = clamp(exit_screen_pos.origin.y, 0 + screen_margin, get_viewport_rect().size.y - screen_margin)
 	else:
@@ -52,6 +52,12 @@ func _process(_delta):
 		
 	position = exit_screen_pos.origin
 #endregion
+
+func _on_castle_room_all_waves_cleared():
+	visible = true
+
+func _on_room_exit_player_entered(_player):
+	visible = false
 "
 
 [node name="GuideArrow" type="CanvasLayer"]

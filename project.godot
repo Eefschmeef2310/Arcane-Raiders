@@ -246,6 +246,7 @@ keyboard_pause={
 2d_physics/layer_7="EnemySpell"
 2d_physics/layer_8="ProjectileEnemy"
 2d_physics/layer_9="Traps"
+2d_physics/layer_10="EntityFeet"
 
 [physics]
 

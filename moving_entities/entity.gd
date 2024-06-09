@@ -106,8 +106,6 @@ func _physics_process(delta):
 
 #region Other methods (please try to separate and organise!)
 func on_hurt(attack):
-	print("dingus")
-	
 	if !is_multiplayer_authority():
 		return
 	

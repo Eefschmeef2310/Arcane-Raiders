@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://byabxygfvnpvx"]
+[gd_scene load_steps=21 format=3 uid="uid://byabxygfvnpvx"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_6yb0e"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="2_6b7pw"]
@@ -19,6 +19,9 @@ script/source = "extends EnemyEntity
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3s8j"]
 radius = 53.0377
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_emtyo"]
+radius = 15.0
 
 [sub_resource type="Resource" id="Resource_xj5x0"]
 script = ExtResource("4_yunfq")
@@ -206,10 +209,13 @@ position = Vector2(0, 46)
 shape = SubResource("CircleShape2D_o3s8j")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
+shape = SubResource("CircleShape2D_emtyo")
+
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("4_yunfq")]([SubResource("Resource_xj5x0")])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -232,7 +238,7 @@ libraries = {
 "": SubResource("AnimationLibrary_xr58l")
 }
 
-[node name="AttackSound" parent="." index="11"]
+[node name="AttackSound" parent="." index="12"]
 stream = ExtResource("11_k22ys")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

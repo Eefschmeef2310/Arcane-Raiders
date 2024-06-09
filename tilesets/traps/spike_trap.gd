@@ -25,8 +25,8 @@ extends Area2D
 #endregion
 
 #region Signal methods
-func _on_body_entered(body):
-	if body is Entity and !animation_player.is_playing():
+func _on_area_entered(area):
+	if area.owner is Entity and !animation_player.is_playing():
 		animation_player.play("fire")
 #endregion
 
@@ -42,11 +42,8 @@ func spike_fired():
 			body.deal_damage.rpc(null, base_damage, null, null, true)
 			
 func players_still_overlapping():
-	for body in get_overlapping_bodies():
-		if body.is_in_group("player"):
+	for body in get_overlapping_areas():
+		if body.owner.is_in_group("player"):
 			animation_player.play("fire")
 			return
 #endregion
-
-
-

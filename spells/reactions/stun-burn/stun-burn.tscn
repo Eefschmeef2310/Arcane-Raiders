@@ -9,9 +9,10 @@ script/source = "extends ReactionArea
 #Authored by Ethan.
 
 func _on_timer_timeout():
-	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(\"enemy\") and moving_entity != caster:
-			moving_entity.on_hurt(self)
+	for moving_entity in get_overlapping_areas():
+		print(moving_entity)
+		if moving_entity.owner.is_in_group(\"enemy\") and moving_entity.owner != caster:
+			moving_entity.owner.on_hurt(self)
 
 func _on_kill_timer_timeout():
 	queue_free()
@@ -34,7 +35,7 @@ shader_parameter/noise = SubResource("NoiseTexture2D_ls7es")
 z_index = -19
 scale = Vector2(1, 0.5)
 collision_layer = 16
-collision_mask = 8
+collision_mask = 512
 script = SubResource("GDScript_5c732")
 reaction_name = "Lava"
 limit_spawns = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=40 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -751,6 +751,10 @@ _data = {
 radius = 18.0
 height = 66.4
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkhji"]
+radius = 9.0
+height = 36.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
 radius = 125.0
 
@@ -925,6 +929,16 @@ script = ExtResource("9_cti52")
 position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_o8khp")
 
+[node name="FeetHurtbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("9_cti52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FeetHurtbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xkhji")
+debug_color = Color(0.701961, 0, 0.0862745, 0.419608)
+
 [node name="RevivalZone" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
@@ -1034,6 +1048,8 @@ target_position = Vector2(150, 0)
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]
+[connection signal="area_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_area_entered"]
+[connection signal="body_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_body_entered"]
 [connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
 [connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

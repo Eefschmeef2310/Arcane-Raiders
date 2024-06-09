@@ -29,10 +29,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.5, 1),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
-"args": [7, true],
+"args": [9, true],
 "method": &"set_collision_layer_value"
 }, {
-"args": [7, false],
+"args": [9, false],
 "method": &"set_collision_layer_value"
 }]
 }
@@ -43,8 +43,8 @@ _data = {
 }
 
 [node name="SpikeTrap" type="Area2D"]
-collision_layer = 256
-collision_mask = 12
+collision_layer = 0
+collision_mask = 512
 script = ExtResource("1_yr4xk")
 
 [node name="Icon" type="Sprite2D" parent="."]
@@ -61,4 +61,5 @@ libraries = {
 "": SubResource("AnimationLibrary_6svml")
 }
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

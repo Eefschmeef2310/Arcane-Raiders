@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://clt4qye3cjvyg"]
+[gd_scene load_steps=20 format=3 uid="uid://clt4qye3cjvyg"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_q1i3n"]
 [ext_resource type="Texture2D" uid="uid://dtl3tdgkt2cbe" path="res://moving_entities/enemies/SlimeBig/slime_big_idle.png" id="2_41i6g"]
@@ -33,6 +33,10 @@ func _on_zero_health():
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j12m"]
 radius = 73.7412
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_07kqc"]
+radius = 14.895
+height = 159.57
 
 [sub_resource type="Resource" id="Resource_ciovy"]
 script = ExtResource("5_1fbef")
@@ -235,28 +239,30 @@ position = Vector2(5, -41)
 texture = ExtResource("2_41i6g")
 hframes = 6
 
-[node name="Hurtbox" parent="." index="2"]
-visible = false
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(10, 31)
 scale = Vector2(1.56, 1.08)
 shape = SubResource("CircleShape2D_1j12m")
 debug_color = Color(1, 0, 0, 0.258824)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
+position = Vector2(13.785, 7.53)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_07kqc")
+
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -114.0
 offset_bottom = -107.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -148.0
 offset_bottom = -116.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_1fbef")]([SubResource("Resource_ciovy")])
 cast_time = Array[float]([0.8, 0.2, 0.2])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -279,7 +285,7 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
 shape = SubResource("CircleShape2D_my4h2")
 
-[node name="AttackSound" parent="." index="11"]
+[node name="AttackSound" parent="." index="12"]
 stream = ExtResource("10_sctqr")
 pitch_scale = 0.75
 
