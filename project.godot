@@ -49,6 +49,7 @@ enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg", "res://ad
 
 folder_colors={
 "res://elements/": "orange",
+"res://items/": "blue",
 "res://managers/": "red",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green",

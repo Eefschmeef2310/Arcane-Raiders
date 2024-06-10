@@ -18,10 +18,13 @@ extends Area2D
 @onready var animation_player = $AnimationPlayer
 
 	#Other Variables (please try to separate and organise!)
+var should_fire : bool = true
 
 #endregion
 
 #region Godot methods
+func _ready():
+	get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
 #endregion
 
 #region Signal methods
@@ -37,13 +40,17 @@ func hurt_everyone():
 
 @rpc("call_local", "authority", "reliable")
 func spike_fired():
-	for body in get_overlapping_bodies():
-		if "deal_damage" in body:
-			body.deal_damage.rpc(null, base_damage, null, null, true)
+	if should_fire:
+		for body in get_overlapping_bodies():
+			if "deal_damage" in body:
+				body.deal_damage.rpc(null, base_damage, null, null, true)
 			
 func players_still_overlapping():
 	for body in get_overlapping_areas():
 		if body.owner.is_in_group("player"):
 			animation_player.play("fire")
 			return
+			
+func toggle_fire():
+	should_fire = false
 #endregion

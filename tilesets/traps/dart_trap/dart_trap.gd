@@ -8,7 +8,7 @@ extends Node2D
 	#Enums
 
 	#Constants
-const DART = preload("res://tilesets/traps/dart.tscn")
+const DART = preload("res://tilesets/traps/dart_trap/dart.tscn")
 
 	#Exported Variables
 	#@export_group("Group")
@@ -18,10 +18,13 @@ const DART = preload("res://tilesets/traps/dart.tscn")
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var should_fire : bool = true
 
 #endregion
 
 #region Godot methods
+func _ready():
+	get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
 #endregion
 
 #region Signal methods
@@ -33,8 +36,13 @@ func _on_timer_timeout():
 #region Other methods (please try to separate and organise!)
 @rpc("authority", "call_local", "reliable")
 func create_dart():
-	var dart = DART.instantiate()
-	dart.global_position = global_position
-	dart.move_direction = Vector2(cos(deg_to_rad(dart_fire_rotation)), sin(deg_to_rad(dart_fire_rotation)))
-	add_sibling(dart)
+	if should_fire:
+		var dart = DART.instantiate()
+		dart.global_position = global_position
+		dart.rotation_degrees = dart_fire_rotation
+		dart.move_direction = Vector2(cos(deg_to_rad(dart_fire_rotation)), sin(deg_to_rad(dart_fire_rotation)))
+		add_sibling(dart)
+		
+func toggle_fire():
+	should_fire = false
 #endregion

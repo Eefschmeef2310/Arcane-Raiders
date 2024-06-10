@@ -18,6 +18,7 @@ gradient = SubResource("Gradient_rnyub")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_061cr"]
 shader = ExtResource("3_llv6y")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_lxbe0")
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -30,6 +31,7 @@ gradient = SubResource("Gradient_mkddu")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fl6p3"]
 shader = ExtResource("3_llv6y")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ttldr"]
