@@ -114,6 +114,9 @@ visible = true
 position = Vector2(842, 605)
 max_health = 1000
 
+[connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
+
 [editable path="DynamicCamera"]
 [editable path="Player"]
 [editable path="GuideArrow"]

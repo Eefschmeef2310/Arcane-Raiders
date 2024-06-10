@@ -21,6 +21,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [node name="DartTrap" type="Node2D"]
 z_index = 4
+y_sort_enabled = true
 script = ExtResource("1_s720t")
 dart_fire_rotation = 26.5
 
