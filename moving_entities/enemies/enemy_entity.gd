@@ -33,7 +33,7 @@ var cast_timer_end: float = 0
 
 var nav_server_synced = false
 
-var is_dashing: bool = false
+var is_dashing: bool = false  
 var dash_timer: float = 0.0
 var dash_direction: Vector2
 #endregion

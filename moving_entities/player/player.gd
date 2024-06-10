@@ -149,7 +149,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	data = new_data
 	
 	health = data.health
-	health_updated.connect(data._on_player_health_updated)
+	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
@@ -207,7 +207,7 @@ func start_dash(dir: Vector2):
 			$CollisionShape2D.disabled = true
 
 func prepare_cast(slot: int):
-	if can_cast and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
+	if can_cast and data.spell_strings[slot] != "" and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
 		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
@@ -301,7 +301,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 func toggle_dead(b):
 	if b: 
 		animation_player.play("die");
-		$CollisionShape2D.disabled = true;
+		$CollisionShape2D.set_deferred("disabled", true);
 		revival_time = 0
 		remove_from_group("player")
 		dead.emit(self)

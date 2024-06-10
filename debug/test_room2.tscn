@@ -1,13 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=12 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
-[ext_resource type="Resource" uid="uid://mreb46qhdtv2" path="res://elements/shock.tres" id="4_1txtx"]
-[ext_resource type="PackedScene" uid="uid://ql2ywssd2ilf" path="res://spells/scenes/laser_straight/laser_straight.tscn" id="5_xmyeo"]
-[ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ud4mg"]
-[ext_resource type="Texture2D" uid="uid://dwde5hnjl5wuc" path="res://spells/sprites/icons/laser_straight.png" id="7_amtw5"]
-[ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
 [ext_resource type="PackedScene" uid="uid://b552x7rlvxdn0" path="res://items/health_upgrade.tscn" id="9_n6yt1"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 [ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="11_8b8oc"]
@@ -42,30 +37,6 @@ func _process(_delta):
 			data_to_fuck_with.spells[i] = SpellManager.get_random_spell()
 			data_to_fuck_with.spell_changed.emit()
 "
-
-[sub_resource type="Resource" id="Resource_ihywv"]
-script = ExtResource("6_ud4mg")
-suffix = ""
-description = ""
-scene = ExtResource("5_xmyeo")
-ui_texture = ExtResource("7_amtw5")
-element = ExtResource("4_1txtx")
-
-[sub_resource type="Resource" id="Resource_rcxt8"]
-script = ExtResource("6_ud4mg")
-suffix = ""
-description = ""
-scene = ExtResource("5_xmyeo")
-ui_texture = ExtResource("7_amtw5")
-element = ExtResource("8_nlbb2")
-
-[sub_resource type="Resource" id="Resource_d4xld"]
-script = ExtResource("6_ud4mg")
-suffix = ""
-description = ""
-scene = ExtResource("5_xmyeo")
-ui_texture = ExtResource("7_amtw5")
-element = ExtResource("4_1txtx")
 
 [sub_resource type="Gradient" id="Gradient_8fnr6"]
 resource_local_to_scene = true
@@ -128,8 +99,7 @@ position = Vector2(96, 800)
 collision_mask = 0
 
 [node name="PlayerData" parent="Player" index="6"]
-spells = Array[ExtResource("6_ud4mg")]([SubResource("Resource_ihywv"), SubResource("Resource_rcxt8"), SubResource("Resource_d4xld")])
-spell_strings = Array[String](["frost-proj_spread", "burn-proj_spread", "stun-proj_spread"])
+spell_strings = Array[String](["frost-proj_spread", "burn-proj_spread", ""])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="DashTrail" parent="Player" index="23"]
@@ -142,9 +112,7 @@ visible = true
 
 [node name="SlimeBig" parent="." index="17" instance=ExtResource("11_8b8oc")]
 position = Vector2(842, 605)
-
-[connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
-[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
+max_health = 1000
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

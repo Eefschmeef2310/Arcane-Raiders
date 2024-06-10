@@ -37,6 +37,7 @@ func _on_timer_timeout():
 @rpc("authority", "call_local", "reliable")
 func create_dart():
 	if should_fire:
+		$AudioStreamPlayer2D.play()
 		var dart = DART.instantiate()
 		dart.global_position = global_position
 		dart.rotation_degrees = dart_fire_rotation

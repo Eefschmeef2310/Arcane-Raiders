@@ -1,6 +1,6 @@
-extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
+extends Polygon2D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
 	#Signals
@@ -12,6 +12,7 @@ extends State
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var gradient : Gradient
 
 	#Onready Variables
 
@@ -20,8 +21,10 @@ extends State
 #endregion
 
 #region Godot methods
-func enter():
-	play_anim()
+func _ready():
+	var castle_climb : CastleClimb = owner.get_parent().get_parent().get_parent()
+	color = gradient.sample(float(castle_climb.current_floor) / float(castle_climb.total_floors))
+	
 #endregion
 
 #region Signal methods
@@ -31,9 +34,3 @@ func enter():
 #region Other methods (please try to separate and organise!)
 
 #endregion
-
-
-
-func _on_animation_player_animation_finished(_anim_name):
-	if get_parent().current_state == self:
-		Transitioned.emit(self, "bslimeperma")

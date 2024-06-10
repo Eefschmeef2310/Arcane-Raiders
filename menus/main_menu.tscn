@@ -20,8 +20,7 @@
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
-script/source = "
-extends Control
+script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
@@ -100,21 +99,13 @@ font_size = 32
 font_size = 32
 font_color = Color(0.905882, 0, 0.466667, 1)
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button")]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button")]
 script = SubResource("GDScript_mpxdx")
 steam_error_window = NodePath("SteamErrorWindow")
 steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
 online_button = NodePath("VBoxContainer/OnlineButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -125,7 +116,6 @@ color = Color(0.0196078, 0.0745098, 0.101961, 1)
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.384314)
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -213,7 +203,6 @@ texture = ExtResource("12_t3345")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 25.81)
-layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 585.0
@@ -234,7 +223,6 @@ texture = ExtResource("9_7dx0p")
 expand_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -294,7 +282,6 @@ theme_override_font_sizes/font_size = 38
 text = "Quit"
 
 [node name="VersionLabel" type="Label" parent="."]
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -308,7 +295,6 @@ label_settings = SubResource("LabelSettings_ko00r")
 
 [node name="SteamErrorWindow" type="PanelContainer" parent="."]
 visible = false
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

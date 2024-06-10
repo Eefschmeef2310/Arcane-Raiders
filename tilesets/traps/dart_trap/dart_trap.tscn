@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1xslj4koa4ta"]
+[gd_scene load_steps=9 format=3 uid="uid://b1xslj4koa4ta"]
 
 [ext_resource type="Script" path="res://tilesets/traps/dart_trap/dart_trap.gd" id="1_s720t"]
 [ext_resource type="Texture2D" uid="uid://jtppbmbwenny" path="res://tilesets/traps/dart_trap/dart_trap.png" id="2_4sqar"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_ie5cd"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="4_jw6vq"]
+[ext_resource type="AudioStream" uid="uid://be4avp2sx0gs4" path="res://sounds/effects/traps/dart_trap.wav" id="5_jcuwo"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -31,5 +32,8 @@ script = ExtResource("4_jw6vq")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
 autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_jcuwo")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

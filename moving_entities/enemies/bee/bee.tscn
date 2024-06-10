@@ -17,7 +17,7 @@ script/source = "extends EnemyEntity
 
 var can_rotate:bool = false
 
-func _process(delta):
+func _process(_delta):
 	if !nav_server_synced: return
 	if is_dashing || can_rotate:
 		sprite_2d.look_at(global_position + -velocity.normalized() * 9999)
@@ -93,19 +93,19 @@ position = Vector2(-6, 27)
 shape = SubResource("CircleShape2D_cwxf7")
 debug_color = Color(0.976471, 0, 0.407843, 0.172549)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -99.0
 offset_bottom = -92.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -133.0
 offset_bottom = -101.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_lpx7u")]([SubResource("Resource_0ptqy")])
 cast_time = Array[float]([0.6, 0.2, 0.2])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -120,7 +120,7 @@ nav_timer_interval = 1.0
 script = ExtResource("5_u3ed8")
 transition_out_when_can_cast = true
 
-[node name="NavigationAgent2D" parent="." index="7"]
+[node name="NavigationAgent2D" parent="." index="8"]
 navigation_layers = 3
 path_postprocessing = 0
 avoidance_layers = 2

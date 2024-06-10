@@ -30,14 +30,14 @@ func _process(delta):
 #endregion
 
 #region Signal methods
-func _on_area_entered(area):
+func _on_area_entered(_area):
 	queue_free()
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	if !in_wall:
 		queue_free()
 		
-func _on_body_exited(body): #Allow dart to leave wall without destroy itself
+func _on_body_exited(_body): #Allow dart to leave wall without destroy itself
 	if in_wall:
 		var in_any_wall_tiles : bool = false
 		for overlapping_body : StaticBody2D in get_overlapping_bodies():

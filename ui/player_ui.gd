@@ -46,7 +46,7 @@ func update_prompts(id: int):
 				spells[i].change_prompt(icons[i])
 
 func _on_player_health_updated(_player_data, _amount):
-	print("updating health bar")
+	#print("updating health bar")
 	health_bar.value = data.health
 	health_bar.max_value = data.max_health
 	$HBox/Stats/HealthBar/Label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
@@ -59,10 +59,10 @@ func _pickup_proximity_changed(b: bool):
 #region Other methods (please try to separate and organise!)
 func set_data(d: PlayerData):
 	if is_instance_valid(data):
-		data.device_changed.disconnect(update_prompts)
-		data.spell_changed.disconnect(update_spells)
-		data.health_changed.disconnect(_on_player_health_updated)
-		data.pickup_proximity_changed.disconnect(_pickup_proximity_changed)
+		if data.device_changed.is_connected(update_prompts): data.device_changed.disconnect(update_prompts)
+		if data.spell_changed.is_connected(update_spells): data.spell_changed.disconnect(update_spells)
+		if data.health_changed.is_connected(_on_player_health_updated): data.health_changed.disconnect(_on_player_health_updated)
+		if data.pickup_proximity_changed.is_connected(_pickup_proximity_changed): data.pickup_proximity_changed.disconnect(_pickup_proximity_changed)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
@@ -86,5 +86,4 @@ func hide_equip_ui():
 	$EquipUI.hide()
 	for spell in spells:
 		spell.hide_arrow()
-
 #endregion

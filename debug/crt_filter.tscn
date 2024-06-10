@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://u84kwrjontdo"]
+[gd_scene load_steps=5 format=3 uid="uid://u84kwrjontdo"]
 
 [ext_resource type="Shader" path="res://shaders/crt_filter.gdshader" id="1_hsjft"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="2_mkut4"]
+
+[sub_resource type="GDScript" id="GDScript_dm1d8"]
+script/source = "extends CanvasLayer
+
+func _input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_C:
+		visible = !visible
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6u18c"]
 shader = ExtResource("1_hsjft")
@@ -29,6 +37,8 @@ shader_parameter/vignette_opacity = 0.5
 
 [node name="CrtFilter" type="CanvasLayer"]
 layer = 128
+visible = false
+script = SubResource("GDScript_dm1d8")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_6u18c")

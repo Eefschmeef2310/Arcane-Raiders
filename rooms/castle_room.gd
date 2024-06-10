@@ -76,7 +76,7 @@ func _ready():
 			while total_difficulty_left > 0:
 				var key = arr.pick_random()
 				var spawn_pos = enemy_spawns.get_children().pick_random().global_position
-				var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
+				var _enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 				# print("New total: " + str(number_of_enemies_left))
 			
@@ -100,8 +100,8 @@ func on_floor_cleared():
 	AudioManager.switch_to_calm()
 
 # Runs only on the server
-func spawn_players(number_of_players: int):
-	for i in number_of_players:
+func spawn_players(num_players: int):
+	for i in num_players:
 		if i < player_data.size():
 			player_spawner.spawn(i)
 
@@ -145,7 +145,7 @@ func spawn_enemy(data) -> Node2D:
 	number_of_enemies_left += 1
 	
 	if enemy.is_in_group("boss"):
-		enemy.max_health *= number_of_players_health_scale
+		enemy.max_health = floor(enemy.max_health * number_of_players_health_scale)
 		enemy.zero_health.connect(_on_boss_zero_health)
 
 	return enemy

@@ -7,8 +7,11 @@ resource_name = "quit_warning"
 script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
+signal destroyed()
+
 #region Signal methods
 func _on_back_button_pressed():
+	destroyed.emit()
 	queue_free()
 
 func _on_quit_button_pressed():
@@ -29,12 +32,17 @@ func set_text(string : String):
 	$MarginContainer/MarginContainer/VBoxContainer/Label2.text = string
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ftox"]
-bg_color = Color(0.180392, 0.180392, 0.180392, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkfmb"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="QuitWarning" type="CanvasLayer"]
 process_mode = 3
@@ -64,7 +72,7 @@ grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8ftox")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jkfmb")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2

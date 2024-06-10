@@ -58,10 +58,10 @@ func get_handles() -> void:
 	current_action_set = game_action_set
 	get_action_handles(action_names)
 
-func get_action_handles(action_names: Dictionary) -> void:
-	for action in action_names.keys():
+func get_action_handles(names: Dictionary) -> void:
+	for action in names.keys():
 		# If true, analog
-		if action_names[action]:
+		if names[action]:
 			actions[action] = Steam.getAnalogActionHandle(action)
 		else:
 			actions[action] = Steam.getDigitalActionHandle(action)
