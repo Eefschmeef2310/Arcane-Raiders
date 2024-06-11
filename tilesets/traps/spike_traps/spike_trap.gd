@@ -25,7 +25,7 @@ var should_fire : bool = true
 
 #region Godot methods
 func _ready():
-	var castle_climb : CastleClimb = owner.get_parent().get_parent().get_parent()
+	var castle_climb : CastleClimb = owner.get_parent().get_parent()
 	if castle_climb and castle_climb.get_current_sector() < first_available_sector:
 		queue_free()
 		
