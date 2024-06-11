@@ -20,7 +20,7 @@ extends Area2D
 var move_direction : Vector2
 var in_wall : bool = true
 
-var base_damage : int = 10
+var base_damage : int = 30
 
 #endregion
 

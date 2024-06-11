@@ -14,6 +14,7 @@ const DART = preload("res://tilesets/traps/dart_trap/dart.tscn")
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var dart_fire_rotation : float
+@export var first_available_sector : int = 1
 
 	#Onready Variables
 
@@ -24,6 +25,10 @@ var should_fire : bool = true
 
 #region Godot methods
 func _ready():
+	var castle_climb : CastleClimb = owner.get_parent().get_parent().get_parent()
+	if castle_climb and castle_climb.get_current_sector() < first_available_sector:
+		queue_free()
+		
 	get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
 #endregion
 

@@ -31,7 +31,7 @@ texture = ExtResource("2_4sqar")
 script = ExtResource("4_jw6vq")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 autostart = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
