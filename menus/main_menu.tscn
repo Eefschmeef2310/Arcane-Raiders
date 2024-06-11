@@ -90,6 +90,11 @@ func _on_credits_button_pressed():
 func set_white(_arg, arg2, _arg3):
 	Steam.setLEDColor(arg2, 255, 255, 255, 0)
 #endregion
+
+
+func _on_local_hub_debug_pressed():
+	GameManager.mode = GameManager.MultiplayerMode.Local
+	get_tree().change_scene_to_file(\"res://multiplayer/multiplayerHub/multiplayerHub.tscn\")
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
@@ -249,6 +254,14 @@ theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 52
 text = "Play Online"
 
+[node name="Local Hub DEBUG" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.305882, 1, 1)
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
+text = "Local Hub Debug"
+
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
@@ -311,6 +324,7 @@ label_settings = SubResource("LabelSettings_sscpa")
 
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Local Hub DEBUG" to="." method="_on_local_hub_debug_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]

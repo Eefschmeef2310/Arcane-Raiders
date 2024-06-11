@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgf4iru5j0ws4"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerHub/multiplayerHub.gd" id="1_c8xh5"]
+[ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="1_icy51"]
+
+[node name="MultiplayerHub" type="Node2D"]
+script = ExtResource("1_c8xh5")
+
+[node name="CastleClimb" parent="." instance=ExtResource("1_icy51")]
+
+[node name="VBoxContainer" parent="CastleClimb/RoomTransitionUI/Items" index="1"]
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
+
+[editable path="CastleClimb"]

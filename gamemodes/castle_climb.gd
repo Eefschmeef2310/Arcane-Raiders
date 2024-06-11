@@ -124,6 +124,50 @@ func start_next_floor():
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
 
+func start_hub_floor():
+	if !is_multiplayer_authority():
+		return
+	
+	# Increase floor count
+	#current_floor += 1
+	print("The Grove")
+	
+	play_room_transition.rpc(current_floor)
+	
+	await get_tree().create_timer(1, false).timeout
+	
+	if current_room_node != null:
+		print("Freeing old room.")
+		current_room_node.free()
+	
+	# Reset player health
+	for data in player_data:
+		if data.health <= 0:
+			data.health = 250
+	
+	await get_tree().create_timer(0.8).timeout
+	
+	# Spawn new room
+	print("Creating new room.")
+	#if current_floor <= 0:
+		#common_level_spawner.spawn("foyer")
+	#elif current_floor == total_floors:
+		#common_level_spawner.spawn("final")
+	#elif current_floor in shop_floors:
+		#common_level_spawner.spawn("shop")
+		#for data in player_data:
+			#data.health += 400
+	#elif current_floor in boss_floors:
+		#boss_level_spawner.spawn(get_current_sector())
+	#else:
+		#basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
+	
+	#using the foyer as a stand in for now
+	common_level_spawner.spawn("foyer")
+	
+	await get_tree().create_timer(0.2).timeout
+	current_room_node.spawn_players(number_of_players)
+
 func spawn_common_level(key) -> Node:
 	AudioManager.play_sector(get_current_sector())
 	current_room_node = common_levels[key].instantiate() as CastleRoom
@@ -272,3 +316,4 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	ui.show()
 	ui.set_data(data)
 	#print(data.device_id)
+
