@@ -8,10 +8,4 @@ script = ExtResource("1_c8xh5")
 
 [node name="CastleClimb" parent="." instance=ExtResource("1_icy51")]
 
-[node name="VBoxContainer" parent="CastleClimb/RoomTransitionUI/Items" index="1"]
-offset_left = -960.0
-offset_top = -420.0
-offset_right = 960.0
-offset_bottom = 168.0
-
 [editable path="CastleClimb"]

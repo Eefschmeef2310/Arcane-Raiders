@@ -162,8 +162,8 @@ func start_hub_floor():
 	#else:
 		#basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
 	
-	#using the foyer as a stand in for now
-	common_level_spawner.spawn("foyer")
+	
+	common_level_spawner.spawn("hub")
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
