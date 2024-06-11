@@ -48,14 +48,5 @@ texture = ExtResource("2_yaddg")
 [node name="RoomExit" parent="." index="10"]
 position = Vector2(1798, -6)
 
-[connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
-[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
-[connection signal="area_entered" from="TileMap/@Area2D@39367" to="TileMap/@Area2D@39367" method="_on_area_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@39367" to="TileMap/@Area2D@39367" method="_on_body_entered"]
-[connection signal="area_entered" from="TileMap/@Area2D@39368" to="TileMap/@Area2D@39368" method="_on_area_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@39368" to="TileMap/@Area2D@39368" method="_on_body_entered"]
-[connection signal="area_entered" from="TileMap/@Area2D@39369" to="TileMap/@Area2D@39369" method="_on_area_entered"]
-[connection signal="body_entered" from="TileMap/@Area2D@39369" to="TileMap/@Area2D@39369" method="_on_body_entered"]
-
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
