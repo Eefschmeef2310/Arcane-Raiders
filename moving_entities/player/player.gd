@@ -44,6 +44,8 @@ func _ready():
 	animation_player.seek(randf_range(0,2))
 	$RevivalMeter.max_value = revival_time_max
 	
+	killed_entity.connect(_on_killed_entity);
+	
 	# TODO temporary lines here
 	if debug:
 		set_data(data, false)
@@ -369,3 +371,8 @@ func _on_dash_trail_timer_timeout():
 		await get_tree().create_timer(0.1).timeout
 		
 		after_image.queue_free()
+
+func _on_killed_entity(entity: Entity):
+	if is_multiplayer_authority() and data:
+		data.money += entity.monetary_value;
+		print(data.money)

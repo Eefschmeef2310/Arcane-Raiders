@@ -141,6 +141,7 @@ func spawn_enemy(data) -> Node2D:
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
+	enemy.monetary_value = enemy_data["difficulty"] * 10
 	enemy.zero_health.connect(_on_enemy_zero_health)
 	number_of_enemies_left += 1
 	
