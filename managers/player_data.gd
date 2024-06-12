@@ -25,6 +25,8 @@ signal spell_casted_but_not_ready(spell: int)
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
 
+@export var money : int
+
 func _ready():
 	spell_strings.resize(3)
 	spells.resize(3)

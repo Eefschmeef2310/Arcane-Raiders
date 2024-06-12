@@ -6,6 +6,7 @@ class_name Entity
 	#Signals
 signal zero_health
 signal health_updated(health)
+signal got_kill(Entity)
 
 	#Constants
 const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tscn")
