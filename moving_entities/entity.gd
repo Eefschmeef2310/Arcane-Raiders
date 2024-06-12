@@ -108,7 +108,8 @@ func _physics_process(delta):
 func on_hurt(attack):
 	if !is_multiplayer_authority():
 		return
-	
+	if "caster" in attack:
+		print("I've been attacked by: " + attack.caster.name)
 	if "caster" in attack and attack.caster == self:
 		return
 	
