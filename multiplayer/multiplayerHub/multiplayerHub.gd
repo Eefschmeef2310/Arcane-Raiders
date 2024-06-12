@@ -97,11 +97,11 @@ func handle_join_input():
 			## replace with logic to pick new colors/animals
 			var test_spells : Array[String] = ["null-proj_ball","null-proj_spread","null-aoe_large"]
 			var cat : RaiderRes = load("res://multiplayer/multiplayerLobby/raiders/Cat.tres")
-			castle_climb.set_player_data(1,device,1,test_spells,cat,Color.CYAN)
+			castle_climb.set_player_data(castle_climb.current_room_node.live_players,device,1,test_spells,cat,Color.CYAN)
 			castle_climb.current_room_node.player_data = castle_climb.player_data
 			## create the new player (local)
 			var new_player = CreateNewPlayer(1)
-			new_player.device_id = device
+			new_player.data.device_id = device
 			
 			## add player to room data
 			#castle_climb.current_room_node.spawn_player(castle_climb.current_room_node.live_players + 1)
