@@ -98,3 +98,4 @@ bbcode_enabled = true
 text = "[center]Press Space /[img width=60]res://ui/join_button.svg[/img] to dash!"
 
 [editable path="DynamicCamera"]
+[editable path="GuideArrow"]

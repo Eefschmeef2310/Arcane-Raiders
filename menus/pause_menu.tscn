@@ -88,9 +88,9 @@ func _on_quit_button_pressed():
 
 #region Other methods (please try to separate and organise!)
 func set_panel_color(col: Color):
-	var new_panel = ($MarginContainer/Panel as Panel).get_theme_stylebox(\"panel\").duplicate()
-	new_panel.set(\"bg_color\", col)
-	$MarginContainer/Panel.add_theme_stylebox_override(\"panel\", new_panel)
+	($MarginContainer/Panel as Panel).self_modulate = col
+	#new_panel.set(\"bg_color\", col)
+	#$MarginContainer/Panel.add_theme_stylebox_override(\"panel\", new_panel)
 
 func settings_set_focus():
 	$MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
@@ -103,7 +103,7 @@ func set_button_mouse():
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
-bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+bg_color = Color(0.854902, 0.854902, 0.854902, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20

@@ -49,6 +49,12 @@ func _on_player_health_updated(_player_data, _amount):
 	#print("updating health bar")
 	health_bar.value = data.health
 	health_bar.max_value = data.max_health
+	if health_bar.value <= 0.25 * health_bar.max_value:
+		$Flasher.play("flash")
+	else:
+		$Flasher.stop()
+		$HBox/Stats/HealthBar/Border.modulate = Color.WHITE
+		
 	$HBox/Stats/HealthBar/Label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
 
 func _pickup_proximity_changed(b: bool):
@@ -68,10 +74,12 @@ func set_data(d: PlayerData):
 	data.spell_changed.connect(update_spells)
 	data.health_changed.connect(_on_player_health_updated)
 	data.pickup_proximity_changed.connect(_pickup_proximity_changed)
+	data.spell_casted_but_not_ready.connect(spell_not_ready)
 	update_prompts(data.device_id)
 	update_spells()
 	$HBox/Stats/HealthBar.tint_progress = data.main_color
 	$HBox/Stats/HealthBar/Border.self_modulate = data.main_color
+	$HBox/Stats/Spells/Head/Panel.self_modulate = data.main_color
 	$HBox/Stats/Spells/Head.texture = data.character.head_texture
 
 # TODO RUNS EVERY FRAME
@@ -86,4 +94,8 @@ func hide_equip_ui():
 	$EquipUI.hide()
 	for spell in spells:
 		spell.hide_arrow()
+
+func spell_not_ready(slot: int):
+	if "shake" in spells[slot]:
+		spells[slot].shake()
 #endregion

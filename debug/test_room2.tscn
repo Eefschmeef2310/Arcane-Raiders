@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
+[ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="6_b41ib"]
 [ext_resource type="PackedScene" uid="uid://b552x7rlvxdn0" path="res://items/health_upgrade.tscn" id="9_n6yt1"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="11_8b8oc"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -96,23 +96,21 @@ layout_mode = 2
 
 [node name="Player" parent="." index="15" instance=ExtResource("2_177bf")]
 position = Vector2(96, 800)
-collision_mask = 0
 
-[node name="PlayerData" parent="Player" index="6"]
+[node name="PlayerData" parent="Player" index="5"]
 spell_strings = Array[String](["frost-proj_spread", "burn-proj_spread", ""])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
+
+[node name="HealthUpgrade" parent="Player" index="22" instance=ExtResource("9_n6yt1")]
 
 [node name="DashTrail" parent="Player" index="23"]
 gradient = SubResource("Gradient_8fnr6")
 
-[node name="HealthUpgrade" parent="Player" index="25" instance=ExtResource("9_n6yt1")]
-
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
 
-[node name="SlimeBig" parent="." index="17" instance=ExtResource("11_8b8oc")]
-position = Vector2(842, 605)
-max_health = 1000
+[node name="Dummy" parent="." index="17" instance=ExtResource("6_b41ib")]
+position = Vector2(536, 721)
 
 [connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
 [connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]

@@ -12,7 +12,7 @@ signal revived(Player)
 @export_group("Parameters")
 @export var movement_speed : float = 300
 
-@onready var animation_player = $AnimationPlayer
+@onready var animation_player = $"Animation Players/AnimationPlayer"
 @onready var dash_ray = $DashRay
 
 # Normalised vectors
@@ -72,6 +72,7 @@ func _process(delta):
 	# Dashing and invincibility
 	if dash_cooldown > 0:
 		dash_cooldown -= delta
+		$DashBar.value = dash_cooldown
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
@@ -171,17 +172,17 @@ func set_input(id: int):
 	$Input.set_device(id)
 
 func set_sprite_overlay(c: Color):
-	for sprite in $SpritesFlip/SpritesScale.get_children():
+	for sprite in $SpritesFlip/SpritesScale.get_children(): 
 		sprite.get_child(0).color = c
 
 func attempt_dash():
 	if !is_casting and dash_cooldown <= 0:
-		start_dash.rpc(move_direction)
+		start_dash.rpc(aim_direction if move_direction == Vector2.ZERO else move_direction)
 		
 @rpc("authority", "call_local", "reliable")
 func start_dash(dir: Vector2):
 	#print("dash!")
-	$DashSound.play()
+	$"Audio Players/DashSound".play()
 	if dir == Vector2.ZERO:
 		dir = Vector2(1, 0)
 	dash_cooldown = dash_cooldown_max
@@ -212,6 +213,8 @@ func prepare_cast(slot: int):
 		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
 		animation_player.play("cast_start")
+	elif data.spell_cooldowns[slot] > 0:
+		data.spell_casted_but_not_ready.emit(slot)
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
@@ -326,7 +329,7 @@ func toggle_dead(b):
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
 	is_invincible = true
-	$InvincibilityAnimation.play("flashing")
+	$"Animation Players/InvincibilityAnimation".play("flashing")
 	$InvincibilityTimer.stop()
 	$InvincibilityTimer.start()
 
@@ -334,7 +337,7 @@ func start_invincibility():
 
 func _on_invincibility_timer_timeout():
 	is_invincible = false
-	$InvincibilityAnimation.play("RESET")
+	$"Animation Players/InvincibilityAnimation".play("RESET")
 	$InvincibilityTimer.stop()
 
 func is_near_pickup():
@@ -353,8 +356,6 @@ func _on_revival_zone_body_exited(body):
 
 func _on_dash_trail_timer_timeout():
 	if is_dashing:
-		print("BLAZE")
-		
 		var after_image : Node2D = Node2D.new()
 		after_image.y_sort_enabled = true
 		after_image.global_position = global_position
