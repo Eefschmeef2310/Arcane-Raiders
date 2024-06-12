@@ -23,6 +23,7 @@ const MAX_PLAYERS = 4
 #Other Variables (please try to separate and organise!)
 var server_browser_node : Node
 var joined_players : int = 0
+var player_nodes : Array[Player]
 
 #endregion
 
@@ -68,6 +69,14 @@ func _on_peer_disconnected(id:int):
 	
 func _on_controller_changed(device : int, connected : bool):
 	## remove player that just disconnected (local)
+	if not connected and GameManager.isLocal():
+		#for data in castle_climb.player_data:
+			#if data.device_id == device:
+				#castle_climb.player_data.erase(data)
+		for player in player_nodes:
+			if player.data.device_id == device:
+				castle_climb.current_room_node.dynamic_camera.remove_target(player)
+				player.queue_free()
 	#if not connected and GameManager.isLocal():
 		#for card in player_card_hbox.get_children():
 			#if card.device_id == device:
@@ -108,6 +117,14 @@ func handle_join_input():
 			## add player to room data
 			#castle_climb.current_room_node.spawn_player(castle_climb.current_room_node.live_players + 1)
 			#player_card_hbox.add_child(new_card)
+			
+			## track the player objects for when we want to remove them
+			player_nodes.clear()
+			
+			for player in castle_climb.current_room_node.get_children():
+				if player is Player:
+					player_nodes.append(player)
+					
 			pass
 
 func is_device_joined(device: int) -> bool:
