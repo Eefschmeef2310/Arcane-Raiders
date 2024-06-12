@@ -92,7 +92,7 @@ func CreateNewPlayer(peer_id : int):
 func handle_join_input():
 	for device in get_unjoined_devices():
 		if MultiplayerInput.is_action_just_pressed(device, "join"):
-			print("handleJoinInput() device_id:" + str(device))
+			#print("handleJoinInput() device_id:" + str(device))
 			
 			## replace with logic to pick new colors/animals
 			var test_spells : Array[String] = ["null-proj_ball","null-proj_spread","null-aoe_large"]
@@ -102,7 +102,7 @@ func handle_join_input():
 			## create the new player (local)
 			var new_player = CreateNewPlayer(1)
 			new_player.data.device_id = device
-			
+			castle_climb.current_room_node.player_spawner.spawn(castle_climb.current_room_node.live_players)
 			## add player to room data
 			#castle_climb.current_room_node.spawn_player(castle_climb.current_room_node.live_players + 1)
 			#player_card_hbox.add_child(new_card)
