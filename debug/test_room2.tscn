@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="6_b41ib"]
-[ext_resource type="PackedScene" uid="uid://b552x7rlvxdn0" path="res://items/health_upgrade.tscn" id="9_n6yt1"]
+[ext_resource type="PackedScene" uid="uid://cg1b6cwhpo8yx" path="res://items/pickups/health_pickup.tscn" id="7_8jadq"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -101,9 +101,7 @@ position = Vector2(96, 800)
 spell_strings = Array[String](["frost-proj_spread", "burn-proj_spread", ""])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="HealthUpgrade" parent="Player" index="22" instance=ExtResource("9_n6yt1")]
-
-[node name="DashTrail" parent="Player" index="23"]
+[node name="DashTrail" parent="Player" index="22"]
 gradient = SubResource("Gradient_8fnr6")
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
@@ -111,6 +109,9 @@ visible = true
 
 [node name="Dummy" parent="." index="17" instance=ExtResource("6_b41ib")]
 position = Vector2(536, 721)
+
+[node name="HealthPickup" parent="." index="18" instance=ExtResource("7_8jadq")]
+position = Vector2(-16, 709)
 
 [connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
 [connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
