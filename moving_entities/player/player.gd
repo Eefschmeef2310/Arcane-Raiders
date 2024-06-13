@@ -391,12 +391,11 @@ func _on_dash_trail_timer_timeout():
 		after_image.queue_free()
 
 func _on_health_updated(_health):
-	print("healed")
-	if data.health <= 250:
+	if health <= 250:
 		$"Animation Players/Flashing".play("low_health_flash")
 	else:
-		
-		$"Animation Players/Flashing".stop()
+		print("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
+		$"Animation Players/Flashing".stop(false)
 
 func _on_killed_entity(entity: Entity):
 	if is_multiplayer_authority() and data:
