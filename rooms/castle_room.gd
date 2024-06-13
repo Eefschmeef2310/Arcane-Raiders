@@ -161,9 +161,10 @@ func spawn_spell_pickup(spell_string: String):
 	return pickup
 
 func spawn_health_pickup(pos : Vector2):
-	var pickup = HEALTH_PICKUP.instantiate()
-	pickup.global_position = pos
-	return pickup
+	if is_multiplayer_authority() and randf() < 0.2:
+		var pickup = HEALTH_PICKUP.instantiate()
+		pickup.global_position = pos
+		return pickup
 	
 func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	gradient_map = new_map
