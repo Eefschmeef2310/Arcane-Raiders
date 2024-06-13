@@ -106,11 +106,7 @@ func _on_hurtbox_area_entered(area):
 	
 func _on_zero_health():
 	if is_multiplayer_authority():
-		create_health_pickup()
-		var particles = load("res://moving_entities/enemies/enemy_death_particles.tscn").instantiate()
-		particles.global_position = global_position
-		get_tree().root.add_child(particles)
-		call_deferred("queue_free")
+		enemy_is_dead.rpc()
 	
 func attempt_cast(slot: int):
 	if is_multiplayer_authority():
@@ -160,10 +156,17 @@ func update_dash(delta):
 		is_dashing = false
 		nav_agent.avoidance_enabled = true
 		
-@rpc("authority", "call_local", "reliable")
 func create_health_pickup():
 	if randf() < health_pickup_chance:
 		var pickup = HEALTH_PICKUP.instantiate()
 		pickup.global_position = global_position
 		call_deferred("add_sibling", pickup)
+		
+@rpc("authority", "call_local", "reliable")
+func enemy_is_dead():
+	create_health_pickup()
+	var particles = load("res://moving_entities/enemies/enemy_death_particles.tscn").instantiate()
+	particles.global_position = global_position
+	get_tree().root.add_child(particles)
+	call_deferred("queue_free")
 #endregion
