@@ -105,7 +105,7 @@ func _on_hurtbox_area_entered(area):
 	on_hurt(area as Node2D)
 	
 func _on_zero_health():
-	if get_parent() is CastleRoom:
+	if is_multiplayer_authority() and get_parent() is CastleRoom:
 		(get_parent() as CastleRoom).health_pickup_spawner.spawn(global_position)
 	
 	if is_multiplayer_authority():
@@ -147,7 +147,6 @@ func dash(dir: Vector2, duration: float):
 	velocity = dash_direction * dash_speed
 #endregion
 
-
 #region Other methods (please try to separate and organise!)
 func update_dash(delta):
 	if dash_timer > 0:
@@ -167,7 +166,7 @@ func create_health_pickup():
 		
 @rpc("authority", "call_local", "reliable")
 func enemy_is_dead():
-	#create_health_pickup()
+	#Responsible for particles ONLY
 	var particles = load("res://moving_entities/enemies/enemy_death_particles.tscn").instantiate()
 	particles.global_position = global_position
 	get_tree().root.add_child(particles)
