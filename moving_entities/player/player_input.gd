@@ -112,6 +112,8 @@ func _process(_delta):
 				print("Picking up spell.")
 				owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
 			else:
+				if spell_press[i]:
+					owner.prepare_cast_down(i)
 				if spell_down[i]:
 					owner.prepare_cast(i)
 				if spell_release[i]:

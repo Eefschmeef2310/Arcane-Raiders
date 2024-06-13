@@ -69,6 +69,7 @@ polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 script = ExtResource("1_ey1r6")
 
 [node name="Outline" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -35.2)
 scale = Vector2(1.08, 1.08)
 texture = ExtResource("3_y5wrp")

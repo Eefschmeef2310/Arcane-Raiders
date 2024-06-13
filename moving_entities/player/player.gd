@@ -15,6 +15,8 @@ signal revived(Player)
 @onready var animation_player = $"Animation Players/AnimationPlayer"
 @onready var dash_ray = $DashRay
 
+@onready var player_notif_scene = preload("res://moving_entities/player/player_notif.tscn")
+
 # Normalised vectors
 @export var move_direction: Vector2
 @export var aim_direction: Vector2
@@ -158,6 +160,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
+	data.spell_ready.connect(_on_spell_ready)
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
@@ -214,14 +217,24 @@ func start_dash(dir: Vector2):
 			# Disable collision and allow passthrough colliders.
 			$CollisionShape2D.disabled = true
 
+func prepare_cast_down(slot: int):
+	if data.spell_cooldowns[slot] > 0:
+		
+		data.spell_casted_but_not_ready.emit(slot)
+		
+		#var notif: PlayerNotif = player_notif_scene.instantiate()
+		#add_child(notif)
+		#notif.position = $NotifSpawnPos.position
+		#notif.set_recharging(data.spell_cooldowns[slot])
+		#notif.start_tween()
+	
+
 func prepare_cast(slot: int):
 	if can_cast and data.spell_strings[slot] != "" and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
 		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
 		animation_player.play("cast_start")
-	elif data.spell_cooldowns[slot] > 0:
-		data.spell_casted_but_not_ready.emit(slot)
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
@@ -388,3 +401,10 @@ func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:
 		data.damage += damage 
 	pass
+
+func _on_spell_ready(slot: int):
+	var notif: PlayerNotif = player_notif_scene.instantiate()
+	add_child(notif)
+	notif.position = $NotifSpawnPos.position
+	notif.set_spell_ready(data.spells[slot])
+	notif.start_tween()
