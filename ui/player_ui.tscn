@@ -18,21 +18,21 @@ bg_color = Color(0.878431, 0.878431, 0.878431, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1dw52"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lfnw6"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygh00"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n276m"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wdeu3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ptah"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -76,7 +76,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.0862745, 0.0627451, 0.0627451, 0.784314), Color(0.607843, 0, 0, 0.87451), Color(0.0862745, 0.0627451, 0.0627451, 0.784314)]
+"values": [Color(0.0862745, 0.0627451, 0.0627451, 0.784314), Color(0.47451, 0, 0, 0.87451), Color(0.0862745, 0.0627451, 0.0627451, 0.784314)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0ewip"]
@@ -130,15 +130,15 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_1dw52")
+material = SubResource("ShaderMaterial_lfnw6")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ygh00")
+material = SubResource("ShaderMaterial_n276m")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_wdeu3")
+material = SubResource("ShaderMaterial_8ptah")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]

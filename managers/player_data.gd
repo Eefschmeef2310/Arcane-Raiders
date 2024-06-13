@@ -8,6 +8,7 @@ signal spell_changed()
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
 signal spell_casted_but_not_ready(spell: int)
+signal spell_ready(spell: int)
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
@@ -52,8 +53,9 @@ func _process(delta):
 	for i in spell_cooldowns.size():
 		if spell_cooldowns[i] > 0:
 			spell_cooldowns[i] -= delta
-			if spell_cooldowns[i] < 0:
+			if spell_cooldowns[i] <= 0:
 				spell_cooldowns[i] = 0
+				spell_ready.emit(i)
 
 func _on_player_health_updated(amount):
 	health = amount
