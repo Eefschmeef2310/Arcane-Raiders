@@ -13,6 +13,7 @@ class_name PlayerUI
 
 @onready var damage_stat = $"HBox/Stats/Stats/Damage Stat"
 @onready var kills_stat = $"HBox/Stats/Stats/Kills Stat"
+@onready var crown = $HBox/Stats/Spells/Head/Crown
 
 var input_prompts: Array
 
@@ -31,6 +32,7 @@ func _process(delta):
 	
 	damage_stat.text = "Damage: " + str(data.damage)
 	kills_stat.text = "Kills: " + str(data.kills)
+	crown.visible = data.has_crown
 #endregion
 
 #region Signal methods

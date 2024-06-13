@@ -19,6 +19,9 @@ signal revived(Player)
 @export var move_direction: Vector2
 @export var aim_direction: Vector2
 
+#stats
+@onready var crown = $SpritesFlip/SpritesScale/Crown
+
 var preparing_cast_slot := -1
 var is_casting := false
 var can_cast := true
@@ -133,6 +136,7 @@ func _process(delta):
 		$PrepareCast.text = str(preparing_cast_slot)
 		$CanCast.text = str(can_cast)
 	
+	crown.visible = data.has_crown
 #endregion
 
 #region Signal methods

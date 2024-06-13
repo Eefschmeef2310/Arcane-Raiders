@@ -75,6 +75,23 @@ func _process(delta):
 	
 	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
+		
+	check_crown()
+
+func check_crown():
+	#calculate who should have the crown and gives it to them
+	#remove from all and check for highest score
+	var highest_dmg = 0
+	var highest_player = -1
+	var players : int = number_of_players
+	if players > 1:
+		for i in players:
+			player_data[i].has_crown = false
+			if(player_data[i].damage > highest_dmg):
+				highest_dmg = player_data[i].damage
+				highest_player = i
+		if(highest_player != -1):
+			player_data[highest_player].has_crown = true
 
 func start_climb():
 	# Do any server-sided stuff here
