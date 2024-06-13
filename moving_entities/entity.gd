@@ -202,13 +202,11 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	# Tell attack caster that they're the GOAT
 	if attack_path != null:
 		var attack = get_node(attack_path)
-		if "caster" in attack: 
-			if attack.caster is Entity: #aoe-local sometimes causes a bug here?
-				if not self.ignoreForStats :
-					attack.caster.dealt_damage.emit(self, final_damage)
-					if health - final_damage <= 0 and not kill_credited:
-						kill_credited = true
-						attack.caster.killed_entity.emit(self)
+		if "caster" in attack and is_instance_valid(attack.caster) and attack.caster is Entity:
+			if not self.ignoreForStats :
+				attack.caster.dealt_damage.emit(self, final_damage)
+				if health - final_damage <= 0 and not kill_credited:
+					attack.caster.killed_entity.emit(self)
 	
 	# Deal damage!!!
 	health -= final_damage

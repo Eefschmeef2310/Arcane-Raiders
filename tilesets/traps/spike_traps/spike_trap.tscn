@@ -93,6 +93,7 @@ collision_mask = 512
 script = ExtResource("1_bkgxk")
 
 [node name="Icon" type="Sprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_ty8sf")
 position = Vector2(0, -12)
 texture = ExtResource("3_ugwcy")

@@ -77,6 +77,7 @@ func set_data(d: PlayerData):
 		if data.spell_changed.is_connected(update_spells): data.spell_changed.disconnect(update_spells)
 		if data.health_changed.is_connected(_on_player_health_updated): data.health_changed.disconnect(_on_player_health_updated)
 		if data.pickup_proximity_changed.is_connected(_pickup_proximity_changed): data.pickup_proximity_changed.disconnect(_pickup_proximity_changed)
+		if data.spell_casted_but_not_ready.is_connected(spell_not_ready): data.spell_casted_but_not_ready.disconnect(spell_not_ready)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
