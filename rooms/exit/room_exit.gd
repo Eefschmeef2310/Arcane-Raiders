@@ -16,7 +16,7 @@ func _ready():
 	if is_locked:
 		lock()
 
-func _process(delta):
+func _process(_delta):
 	var cam = get_viewport().get_camera_2d()
 	$LabelSize.scale = Vector2(1,1) / cam.zoom
 

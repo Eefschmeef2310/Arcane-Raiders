@@ -16,7 +16,7 @@ func _ready():
 		caster.dash(caster.aim_direction, duration)
 
 
-func _process(delta):
+func _process(_delta):
 	if !caster: queue_free()
 	
 	if "is_dashing" in caster:

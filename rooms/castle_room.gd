@@ -20,11 +20,14 @@ signal spell_change_requested(Player, int, SpellPickup)
 
 @onready var enemy_spawns = $EnemySpawns
 @onready var enemy_spawner = $EnemySpawner
-@onready var boss_bars = $CanvasLayer/BossBars
+@onready var boss_bars = $CanvasLayer /BossBars
 @onready var BOSSBAR_SCENE = preload("res://ui/boss_bar.tscn")
 
 @onready var spell_pickup_spawner = $SpellPickupSpawner
 const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
+
+@onready var health_pickup_spawner = $HealthPickupSpawner
+const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
@@ -55,6 +58,7 @@ func _ready():
 	player_spawner.spawn_function = spawn_player
 	enemy_spawner.spawn_function = spawn_enemy
 	spell_pickup_spawner.spawn_function = spawn_spell_pickup
+	health_pickup_spawner.spawn_function = spawn_health_pickup
 
 	for n in player_spawns:
 		n.hide()
@@ -69,20 +73,19 @@ func _ready():
 			number_of_enemies_left = 0
 			total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
 			print("Difficulty modifier: " + str(difficulty_modifier))
-			
+		
 			var arr = EnemyManager.Data.keys()
 			if !spawn_keys.is_empty():
 				arr = spawn_keys
 			while total_difficulty_left > 0:
 				var key = arr.pick_random()
 				var spawn_pos = enemy_spawns.get_children().pick_random().global_position
-				var enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
+				var _enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 				# print("New total: " + str(number_of_enemies_left))
 			
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
-		
 
 func _on_enemy_zero_health():
 	await get_tree().process_frame
@@ -101,8 +104,8 @@ func on_floor_cleared():
 	AudioManager.switch_to_calm()
 
 # Runs only on the server
-func spawn_players(number_of_players: int):
-	for i in number_of_players:
+func spawn_players(num_players: int):
+	for i in num_players:
 		if i < player_data.size():
 			player_spawner.spawn(i)
 
@@ -113,6 +116,7 @@ func spawn_player(player_number: int) -> Node2D:
 	player.global_position = player_spawns[player_number].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	player.dead.connect(report_player_death)
+	player.revived.connect(report_player_revival)
 	dynamic_camera.add_target(player)
 	live_players += 1
 	#print("Spawned player of peer_id " + str(player.data.peer_id))
@@ -124,6 +128,10 @@ func report_player_death(player):
 		if dead_players.size() >= live_players and !all_players_dead_triggered:
 			all_players_dead_triggered = true
 			all_players_dead.emit()
+
+func report_player_revival(player):
+	if player in dead_players:
+		dead_players.erase(player)
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
 	print("Sending spell change request.")
@@ -137,11 +145,12 @@ func spawn_enemy(data) -> Node2D:
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
+	enemy.monetary_value = enemy_data["difficulty"] * 10
 	enemy.zero_health.connect(_on_enemy_zero_health)
 	number_of_enemies_left += 1
 	
 	if enemy.is_in_group("boss"):
-		enemy.max_health *= number_of_players_health_scale
+		enemy.max_health = floor(enemy.max_health * number_of_players_health_scale)
 		enemy.zero_health.connect(_on_boss_zero_health)
 
 	return enemy
@@ -149,6 +158,15 @@ func spawn_enemy(data) -> Node2D:
 func spawn_spell_pickup(spell_string: String):
 	var pickup: SpellPickup = SPELL_PICKUP.instantiate()
 	pickup.set_spell_from_string(spell_string)
+	return pickup
+
+func server_spawn_health_pickup(pos : Vector2):
+	if is_multiplayer_authority() and randf() < 0.2:
+		health_pickup_spawner.spawn(pos)
+	
+func spawn_health_pickup(pos : Vector2):
+	var pickup = HEALTH_PICKUP.instantiate()
+	pickup.global_position = pos
 	return pickup
 	
 func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
@@ -160,7 +178,6 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	camera_background.material = tile_map.material
-	
 	
 func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")

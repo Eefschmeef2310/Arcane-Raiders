@@ -240,17 +240,21 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
 layout_mode = 2
 
-[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer"]
 layout_mode = 2
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/Text"]
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text"]
 layout_mode = 2
 text = "Pixabay"
 label_settings = SubResource("LabelSettings_lt5jb")
 
-[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/Text"]
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text"]
 layout_mode = 2
 text = "Ice-10
 Simple Zaps
@@ -260,6 +264,26 @@ Spellcast
 Falling Pebbles, Rocks and Boulders (VoiceBosch)
 Fast Whoosh (StudioKolomna)
 Water Splash (UNIVERSFIELD)"
+label_settings = SubResource("LabelSettings_axq2p")
+
+[node name="Text2" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text2"]
+layout_mode = 2
+text = "SIL Open Font License"
+label_settings = SubResource("LabelSettings_lt5jb")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text2"]
+layout_mode = 2
+text = "Rakkas
+Merriweather
+Full license available at https://openfontlicense.org
+"
 label_settings = SubResource("LabelSettings_axq2p")
 
 [node name="ButtonMargin" type="MarginContainer" parent="Background/VBoxContainer"]

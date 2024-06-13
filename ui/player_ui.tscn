@@ -1,34 +1,38 @@
-[gd_scene load_steps=16 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=20 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_5ffs4"]
+[ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="3_a7ijl"]
 [ext_resource type="Texture2D" uid="uid://cjnod02s0jvku" path="res://elements/sprites/white.png" id="3_e57h4"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_7o55i"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_86qwp"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_b30oo"]
 [ext_resource type="Texture2D" uid="uid://dsl64ayuqe51k" path="res://ui/bar_border.png" id="6_8mvmc"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ps5"]
+bg_color = Color(0.878431, 0.878431, 0.878431, 1)
+
 [sub_resource type="Gradient" id="Gradient_m21q8"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xeynf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e708d"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jr7h6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wavbq"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pife3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ix0ng"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -46,6 +50,39 @@ font_size = 32
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.784314)
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_3xk7l"]
+resource_name = "flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBox/Stats/HealthBar/Border:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBox/Stats/HealthBar/HealthBarLinger:tint_under")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.0862745, 0.0627451, 0.0627451, 0.784314), Color(0.47451, 0, 0, 0.87451), Color(0.0862745, 0.0627451, 0.0627451, 0.784314)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ewip"]
+_data = {
+"flash": SubResource("Animation_3xk7l")
+}
 
 [node name="PlayerUI" type="VBoxContainer"]
 custom_minimum_size = Vector2(450, 200)
@@ -73,16 +110,35 @@ texture = ExtResource("2_5ffs4")
 expand_mode = 2
 stretch_mode = 3
 
+[node name="Panel" type="Panel" parent="HBox/Stats/Spells/Head"]
+show_behind_parent = true
+layout_mode = 2
+offset_left = -18.0
+offset_top = 17.0
+offset_right = 57.0
+offset_bottom = 91.0
+rotation = -0.383972
+theme_override_styles/panel = SubResource("StyleBoxFlat_87ps5")
+
+[node name="Crown" type="TextureRect" parent="HBox/Stats/Spells/Head"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 63.0
+offset_bottom = 33.0
+texture = ExtResource("3_a7ijl")
+expand_mode = 1
+
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_xeynf")
+material = SubResource("ShaderMaterial_e708d")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_jr7h6")
+material = SubResource("ShaderMaterial_wavbq")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_pife3")
+material = SubResource("ShaderMaterial_ix0ng")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
@@ -108,13 +164,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 max_value = 1000.0
+step = 0.0
 value = 1000.0
 nine_patch_stretch = true
 stretch_margin_left = 12
 stretch_margin_right = 12
 texture_under = ExtResource("3_e57h4")
 texture_progress = ExtResource("3_e57h4")
-tint_under = Color(0.0784314, 0.0784314, 0.0784314, 0.784314)
+tint_under = Color(0.0862745, 0.0627451, 0.0627451, 0.784314)
 
 [node name="Label" type="Label" parent="HBox/Stats/HealthBar"]
 layout_mode = 0
@@ -145,14 +202,30 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
+[node name="Stats" type="HBoxContainer" parent="HBox/Stats"]
+layout_mode = 2
+
+[node name="Damage Stat" type="Label" parent="HBox/Stats/Stats"]
+layout_mode = 2
+text = "Damage: 0000"
+
+[node name="Kills Stat" type="Label" parent="HBox/Stats/Stats"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Kills: 000"
+
 [node name="EquipUI" type="Node2D" parent="."]
-position = Vector2(183, 42)
+position = Vector2(273, 0)
 
 [node name="Label" type="Label" parent="EquipUI"]
-offset_left = -139.0
-offset_top = -84.0
-offset_right = 311.0
-offset_bottom = -42.0
+offset_left = -230.0
+offset_top = -42.0
+offset_right = 220.0
 text = "Press to equip!"
 label_settings = SubResource("LabelSettings_ml2ad")
 horizontal_alignment = 1
+
+[node name="Flasher" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0ewip")
+}

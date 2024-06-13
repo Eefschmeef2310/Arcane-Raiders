@@ -372,8 +372,9 @@ script = SubResource("GDScript_8xenb")
 burst_amount = 8
 movement_speed = 150.0
 is_boss = true
-boss_name = "Tornado Daughter Slime"
-max_health = 1500
+boss_name = "Tornado Slime"
+max_health = 2000
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)

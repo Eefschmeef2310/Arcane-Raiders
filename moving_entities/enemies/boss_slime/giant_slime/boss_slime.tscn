@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4u2wuk1f06f7"]
+[gd_scene load_steps=23 format=3 uid="uid://b4u2wuk1f06f7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_148eg"]
 [ext_resource type="Texture2D" uid="uid://b6gfgaotgw3g5" path="res://moving_entities/enemies/boss_slime/giant_slime/giant_slime_idle_sketch.png" id="2_t6agr"]
@@ -57,6 +57,10 @@ func _on_field_detector_area_entered(area):
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ih77"]
 radius = 170.878
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vmhav"]
+radius = 29.345
+height = 296.0
 
 [sub_resource type="Resource" id="Resource_ct66w"]
 script = ExtResource("5_3k4qm")
@@ -177,8 +181,9 @@ script = SubResource("GDScript_3ka3a")
 calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
-boss_name = "Poisonous Amalgamate"
+boss_name = "Conductive Amalgamate"
 max_health = 2000
+knockback_initial_velocity = 50.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -70)
@@ -199,19 +204,26 @@ scale = Vector2(1.27, 1)
 shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="GroundHurtbox" parent="." index="3"]
+position = Vector2(0, 26.655)
+
+[node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_vmhav")
+
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -214.0
 offset_bottom = -207.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -248.0
 offset_bottom = -216.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_3k4qm")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_u84hp")])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]

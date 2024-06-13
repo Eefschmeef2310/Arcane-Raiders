@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://7ackwtsdw4us"]
+[gd_scene load_steps=14 format=3 uid="uid://7ackwtsdw4us"]
 
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_aj5py"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_71ocd"]
+[ext_resource type="Script" path="res://tilesets/decorations/window_daynight_cycle.gd" id="2_lha6k"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="3_db250"]
 [ext_resource type="Texture2D" uid="uid://cfvo71m485f0q" path="res://tilesets/decorations/window.png" id="3_r0xoi"]
 
@@ -15,7 +16,12 @@ gradient = SubResource("Gradient_oh054")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_87xtg"]
 shader = ExtResource("1_aj5py")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture2D_5jg5c")
+
+[sub_resource type="Gradient" id="Gradient_4u6tj"]
+offsets = PackedFloat32Array(0, 0.593607, 0.894977)
+colors = PackedColorArray(0.454902, 0.541176, 0.596078, 1, 0.992157, 0.376471, 0.317647, 1, 0.0588235, 0.0588235, 0.0588235, 1)
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -27,6 +33,7 @@ gradient = SubResource("Gradient_mkddu")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q5vdj"]
 shader = ExtResource("1_aj5py")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fi3n"]
@@ -40,6 +47,8 @@ material = SubResource("ShaderMaterial_87xtg")
 position = Vector2(0, -43.44)
 color = Color(0.454902, 0.541176, 0.596078, 1)
 polygon = PackedVector2Array(-55, -42, 58, -97, 59, 48, -54, 101)
+script = ExtResource("2_lha6k")
+gradient = SubResource("Gradient_4u6tj")
 
 [node name="Window" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_q5vdj")

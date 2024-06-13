@@ -34,6 +34,6 @@ func enter():
 
 
 
-func _on_animation_player_animation_finished(anim_name):
+func _on_animation_player_animation_finished(_anim_name):
 	if get_parent().current_state == self:
 		Transitioned.emit(self, "bslimeperma")

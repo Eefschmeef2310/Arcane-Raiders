@@ -14,6 +14,7 @@ gradient = SubResource("Gradient_1mn2o")
 resource_local_to_scene = true
 shader = ExtResource("2_5r8f4")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
 
 [node name="proj_spread" instance=ExtResource("1_ecc46")]
@@ -25,7 +26,7 @@ explosions_per_wave = 5
 max_radians = 2.0
 distance_from_caster = 40.0
 base_damage = 12
-infliction_time = 0.1
+infliction_time = 0.2
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 wait_time = 0.05

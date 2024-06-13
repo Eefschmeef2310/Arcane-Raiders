@@ -39,6 +39,13 @@ position = Vector2(0, -64)
 collision_layer = 8
 collision_mask = 16
 
+[node name="GroundHurtbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundHurtbox"]
+debug_color = Color(0.701961, 0.027451, 0, 0.419608)
+
 [node name="ProgressBar" parent="." instance=ExtResource("2_03lay")]
 offset_left = -50.0
 offset_top = -46.0
@@ -80,4 +87,6 @@ bus = &"SFX"
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="GroundHurtbox" to="." method="_on_hurtbox_area_entered"]

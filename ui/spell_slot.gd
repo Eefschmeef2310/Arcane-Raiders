@@ -1,4 +1,4 @@
-extends TextureRect
+extends Control
 #class_name
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
@@ -6,6 +6,9 @@ var i = 0
 var base_arrow_pos: Vector2
 var amp = 3
 var freq = 10
+
+@onready var null_icon = preload("res://spells/sprites/icons/blank_spell_icon.png")
+@onready var shaker = $Shaker
 
 func _ready():
 	base_arrow_pos = $EquipArrow.position
@@ -18,15 +21,38 @@ func _process(delta):
 
 func set_spell(spell: Spell):
 	if spell:
-		texture = spell.ui_texture
-		$ProgressBar.texture_progress = spell.ui_texture
-		if spell.element.gradient:
-			(material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
+		if spell is CombinedSpell:
+			$Control/SpellSingle.hide()
+			$Control/SpellDouble0.show()
+			$Control/SpellDouble1.show()
+			$Control/ProgressBar.texture_progress = null_icon
+			
+			$Control/SpellDouble0.texture = spell.spells[0].ui_texture
+			if spell.spells[0].element.gradient:
+				($Control/SpellDouble0.material as ShaderMaterial).set_shader_parameter("gradient", spell.spells[0].element.gradient)
+			else:
+				$Control/SpellDouble0.self_modulate = spell.spells[0].element.colour
+			
+			$Control/SpellDouble1.texture = spell.spells[1].ui_texture
+			if spell.spells[1].element.gradient:
+				($Control/SpellDouble1.material as ShaderMaterial).set_shader_parameter("gradient", spell.spells[1].element.gradient)
+			else:
+				$Control/SpellDouble1.self_modulate = spell.spells[1].element.colour
+			
 		else:
-			self_modulate = spell.element.colour
+			$Control/SpellSingle.show()
+			$Control/SpellDouble0.hide()
+			$Control/SpellDouble1.hide()
+			$Control/ProgressBar.texture_progress = spell.ui_texture
+			
+			$Control/SpellSingle.texture = spell.ui_texture
+			if spell.element.gradient:
+				($Control/SpellSingle.material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
+			else:
+				$Control/SpellSingle.self_modulate = spell.element.colour
 
 func set_cooldown_percent(p: float):
-	$ProgressBar.value = p
+	$Control/ProgressBar.value = p
 
 func change_prompt(tex: Texture2D):
 	$Prompt.texture = tex
@@ -42,3 +68,6 @@ func hide_arrow():
 
 func show_arrow():
 	$EquipArrow.show()
+
+func shake():
+	shaker.play("shake")

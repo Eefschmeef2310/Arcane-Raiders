@@ -71,7 +71,7 @@ func start_state_machine(nav_agent: NavigationAgent2D):
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
-			child.Transitioned.connect(on_child_transition)
+			if !child.Transitioned.is_connected(on_child_transition): child.Transitioned.connect(on_child_transition)
 			child.set_nav_agent(nav_agent)
 
 	if(initial_state):

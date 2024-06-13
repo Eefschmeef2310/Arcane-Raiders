@@ -10,7 +10,11 @@ radius = 65.123
 
 [node name="Dummy" instance=ExtResource("1_040kn")]
 movement_speed = 0.0
+ignoreForStats = true
 max_health = 99999
+
+[node name="PointLight2D" parent="." index="0"]
+energy = 0.1
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(5, -60)
@@ -23,12 +27,12 @@ scale = Vector2(0.705, 1)
 shape = SubResource("CircleShape2D_rk1iu")
 debug_color = Color(0.984314, 0, 0.356863, 0.419608)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 modulate = Color(1, 1, 1, 0)
 offset_top = -131.0
 offset_bottom = -124.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -165.0
 offset_bottom = -133.0
 

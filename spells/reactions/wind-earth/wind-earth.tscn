@@ -16,8 +16,9 @@ func _process(delta):
 
 func _on_timer_timeout():
 	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(entity.get_groups()[0]):
-			moving_entity.on_hurt(self)
+		if entity.get_groups().size() >= 1:
+			if moving_entity.is_in_group(entity.get_groups()[0]):
+				moving_entity.on_hurt(self)
 
 func _on_kill_timer_timeout():
 	$AnimationPlayer.play(\"kill\")
@@ -105,7 +106,7 @@ _data = {
 
 [node name="Wind-earth" type="Area2D" groups=["wind-earth"]]
 z_index = -2
-scale = Vector2(1, 0.5)
+scale = Vector2(1.5, 0.751)
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_fgibt")

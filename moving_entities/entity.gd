@@ -6,6 +6,8 @@ class_name Entity
 	#Signals
 signal zero_health
 signal health_updated(health)
+signal dealt_damage(Entity, int)
+signal killed_entity(Entity)
 
 	#Constants
 const SHOCK_EFFECT_LASER = preload("res://moving_entities/shock_effect_laser.tscn")
@@ -14,6 +16,9 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var ignoreForStats : bool # if true then this entity is exempt from stat tracking 
+@export var kill_credited : bool
+
 @export var death_sound : AudioStream
 @export var max_health : int = 1000
 @export var health : int = 1000:
@@ -42,8 +47,11 @@ var is_dead: bool = false
 	#Onready Variables
 @onready var hit_sound = $HitSound
 
+var monetary_value : int = 0
+
 	#Other Variables (please try to separate and organise!)
-var current_inflictions_dictionary : Dictionary #Stores 
+var current_inflictions_dictionary : Dictionary #Stores the element as the key, and the time until removal (in float) as the value
+var current_reactions_dictionary : Dictionary #Stores the reactions as the key, and the time till that reaction can be made again
 var damage_number : DamageNumber
 
 var burn_timer : float
@@ -81,12 +89,18 @@ func _process(delta):
 			frost_effect(0.5)
 		elif key == SpellManager.elements["stun"]:
 			frost_effect(0)
+			
+	#count down current reactions dictionary:
+	for key in current_reactions_dictionary:
+		current_reactions_dictionary[key] -= delta
+		if current_reactions_dictionary[key] <= 0:
+			current_reactions_dictionary.erase(key)
 
 func _physics_process(delta):
 	if knockback_hold_timer > 0:
 		knockback_hold_timer -= delta
 	else:
-		knockback_velocity = lerp(knockback_velocity, 0.0, delta * knockback_lerp_strength)
+		knockback_velocity = lerp(knockback_velocity, 0.0, clamp(delta * knockback_lerp_strength, 0.0, 1.0))
 		if knockback_velocity <= knockback_floor:
 			can_input = true
 	
@@ -125,7 +139,7 @@ func on_hurt(attack):
 		
 	if "should_make_new_numbers" in attack:
 		should_make_new_numbers = attack.should_make_new_numbers
-		
+	
 	# RPC call for damage
 	deal_damage.rpc(attack.get_path(), damage, SpellManager.elements.find_key(element), infliction_time, should_make_new_numbers)
 			
@@ -144,7 +158,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	if hit_sound:
 		hit_sound.play()
 		
-	if element_string != null:
+	if element_string != null and attack_path != null:
 		var attack = get_node(attack_path)
 		var element = SpellManager.elements[element_string]
 		if element != SpellManager.elements["null"]:
@@ -156,7 +170,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		#Check if a reaction has occurred, may need to be moved further up the method
 		for key in current_inflictions_dictionary.keys():
 			var reaction = SpellManager.get_reaction(key, element)
-			if reaction:
+			if reaction and !current_reactions_dictionary.has(reaction):
 				#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)
 				damage *= 1.25
 				is_critical = true
@@ -167,7 +181,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 				var new_reaction = reaction.instantiate()
 				
 				if "caster" in new_reaction and attack != null:
-					new_reaction.caster = attack
+					new_reaction.caster = attack.caster
 					new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				if "elements" in new_reaction:
 					new_reaction.elements = [key, element]
@@ -178,9 +192,24 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 				else:
 					get_tree().root.call_deferred("add_child", new_reaction)
 					new_reaction.global_position = global_position
+					
+				#Add to reactions dictionary
+				current_reactions_dictionary[SpellManager.get_reaction(key, element)] = 1.0
+		
+	#Calculate final damage (bonus damage with wet)
+	var final_damage = damage * (1.5 if current_inflictions_dictionary.has(SpellManager.elements["wet"]) else 1.0)
 	
-	#Deal bonus damage with wet
-	health -= damage * (1.5 if current_inflictions_dictionary.has(SpellManager.elements["wet"]) else 1.0)
+	# Tell attack caster that they're the GOAT
+	if attack_path != null:
+		var attack = get_node(attack_path)
+		if "caster" in attack and is_instance_valid(attack.caster) and attack.caster is Entity:
+			if not self.ignoreForStats :
+				attack.caster.dealt_damage.emit(self, final_damage)
+				if health - final_damage <= 0 and not kill_credited:
+					attack.caster.killed_entity.emit(self)
+	
+	# Deal damage!!!
+	health -= final_damage
 	
 	if do_damage_numbers:
 		var dm: DamageNumber
@@ -196,7 +225,18 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		if element_string != null and SpellManager.elements[element_string]:
 			dm.set_color(SpellManager.elements[element_string].colour)
 		dm.set_critical(is_critical)
-		dm.add(damage)
+		dm.add(final_damage)
+
+@rpc("any_peer", "call_local", "reliable")
+func heal_damage(amount):
+	health += amount
+	
+	var dm: DamageNumber
+	dm = DAMAGE_NUMBER.instantiate()
+	add_sibling(dm)
+	dm.global_position = global_position
+	dm.set_color(Color.GREEN)
+	dm.add(amount/10)
 
 func burn_effect(delta):
 	if is_multiplayer_authority():

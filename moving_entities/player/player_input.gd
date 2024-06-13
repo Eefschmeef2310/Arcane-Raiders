@@ -30,14 +30,14 @@ func _process(_delta):
 		GameManager.isPaused = true
 		if input:
 			MultiplayerInput.set_ui_action_device(input.device)
-		else:
-			MultiplayerInput.set_ui_action_device(-2)
 		
 		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
 		pause_menu.set_panel_color(owner.data.main_color)
 		if input:
 			pause_menu.device_index = input.device
-		owner.get_parent().add_child(pause_menu)
+			
+		#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
+		get_tree().root.add_child(pause_menu)
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
@@ -112,6 +112,8 @@ func _process(_delta):
 				print("Picking up spell.")
 				owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
 			else:
+				if spell_press[i]:
+					owner.prepare_cast_down(i)
 				if spell_down[i]:
 					owner.prepare_cast(i)
 				if spell_release[i]:

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=24 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=27 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="5_futuj"]
 [ext_resource type="Texture2D" uid="uid://cfvo71m485f0q" path="res://tilesets/decorations/window.png" id="6_omrmw"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="7_2fg4p"]
+[ext_resource type="PackedScene" uid="uid://x7nsi77vpnvj" path="res://tilesets/traps/spike_traps/spike_trap.tscn" id="9_4y0o1"]
+[ext_resource type="PackedScene" uid="uid://b1xslj4koa4ta" path="res://tilesets/traps/dart_trap/dart_trap.tscn" id="10_3x5et"]
+[ext_resource type="PackedScene" uid="uid://m7iax2fg8po8" path="res://tilesets/traps/dart_trap/dart_trap_other.tscn" id="11_fbnbu"]
 
 [sub_resource type="Gradient" id="Gradient_oh054"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -46,6 +49,9 @@ scenes/2/scene = ExtResource("2_cvrec")
 scenes/3/scene = ExtResource("3_vx6cj")
 scenes/4/scene = SubResource("PackedScene_neag1")
 scenes/5/scene = ExtResource("4_6n5bn")
+scenes/6/scene = ExtResource("11_fbnbu")
+scenes/7/scene = ExtResource("10_3x5et")
+scenes/8/scene = ExtResource("9_4y0o1")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ap3w"]
 resource_name = "edges"
@@ -253,6 +259,11 @@ texture_region_size = Vector2i(160, 80)
 0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -40, -80, 0, 0, 40)
 0:5/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:5/0/physics_layer_1/angular_velocity = 0.0
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_1/angular_velocity = 0.0
 
 [resource]
 tile_shape = 1

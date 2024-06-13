@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=46 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
 [ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="13_a6udy"]
+[ext_resource type="Script" path="res://moving_entities/player/DashBar.gd" id="14_0l6jn"]
+[ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="14_k3oth"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
@@ -649,7 +651,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WalkSound")
+tracks/1/path = NodePath("Audio Players/WalkSound")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -747,9 +749,34 @@ _data = {
 "flashing": SubResource("Animation_k07pa")
 }
 
+[sub_resource type="Animation" id="Animation_2appt"]
+resource_name = "low_health_flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../SpritesFlip:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2p023"]
+_data = {
+"low_health_flash": SubResource("Animation_2appt")
+}
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o8khp"]
 radius = 18.0
 height = 66.4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkhji"]
+radius = 9.0
+height = 36.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
 radius = 125.0
@@ -764,6 +791,15 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:aim_direction")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:revival_time")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mujc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0flpa"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
 
 [sub_resource type="Curve" id="Curve_otfui"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -783,8 +819,12 @@ wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
 debug = true
 data = NodePath("PlayerData")
+movement_speed = 350.0
 death_sound = ExtResource("15_74n7w")
 do_damage_numbers = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6gabg")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 show_behind_parent = true
@@ -811,6 +851,65 @@ offset = Vector2(16.5, 0)
 modulate = Color(0.564706, 0.286275, 1, 0.501961)
 texture = ExtResource("4_2byeo")
 offset = Vector2(162, 0)
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource("3_h46ns")
+
+[node name="SpellPickupDetector" type="Node" parent="."]
+script = SubResource("GDScript_qs58w")
+
+[node name="PlayerData" type="Node" parent="." groups=["player_data"]]
+script = ExtResource("4_srdhb")
+spell_strings = Array[String](["", "", ""])
+character = ExtResource("12_ndveq")
+
+[node name="Animation Players" type="Node" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation Players"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_dg52v")
+}
+
+[node name="InvincibilityAnimation" type="AnimationPlayer" parent="Animation Players"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_a67k0")
+}
+autoplay = "RESET"
+
+[node name="Flashing" type="AnimationPlayer" parent="Animation Players"]
+libraries = {
+"": SubResource("AnimationLibrary_2p023")
+}
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 320
+script = ExtResource("9_cti52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -30)
+shape = SubResource("CapsuleShape2D_o8khp")
+
+[node name="FeetHurtbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("9_cti52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FeetHurtbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xkhji")
+debug_color = Color(0.701961, 0, 0.0862745, 0.419608)
+
+[node name="RevivalZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RevivalZone"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_vq7jj")
+debug_color = Color(0.662745, 0.443137, 0, 0.419608)
 
 [node name="SpritesFlip" type="Node2D" parent="."]
 
@@ -888,48 +987,23 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6gabg")
+[node name="Crown" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+clip_children = 2
+position = Vector2(0, -95.07)
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("14_k3oth")
 
-[node name="Input" type="Node" parent="."]
-script = ExtResource("3_h46ns")
-
-[node name="SpellPickupDetector" type="Node" parent="."]
-script = SubResource("GDScript_qs58w")
-
-[node name="PlayerData" type="Node" parent="." groups=["player_data"]]
-script = ExtResource("4_srdhb")
-spell_strings = Array[String](["", "", ""])
-character = ExtResource("12_ndveq")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_dg52v")
-}
-
-[node name="InvincibilityAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_a67k0")
-}
-autoplay = "RESET"
-
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 64
-script = ExtResource("9_cti52")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -30)
-shape = SubResource("CapsuleShape2D_o8khp")
-
-[node name="RevivalZone" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RevivalZone"]
-scale = Vector2(1, 0.5)
-shape = SubResource("CircleShape2D_vq7jj")
-debug_color = Color(0.662745, 0.443137, 0, 0.419608)
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/Crown"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.87
+offset_top = -62.8913
+offset_right = -26.8696
+offset_bottom = -15.8913
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b1y77")
@@ -949,6 +1023,26 @@ offset_top = -161.0
 offset_right = 20.0
 offset_bottom = -138.0
 horizontal_alignment = 1
+
+[node name="DashBar" type="ProgressBar" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -111.0
+offset_right = 50.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_6mujc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0flpa")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+script = ExtResource("14_0l6jn")
 
 [node name="StatusUI" parent="." instance=ExtResource("11_64qh4")]
 anchors_preset = 7
@@ -981,6 +1075,7 @@ texture_progress = ExtResource("13_a6udy")
 tint_progress = Color(0, 1, 0, 1)
 
 [node name="HelpLabel" type="Label" parent="."]
+visible = false
 z_index = 50
 anchors_preset = 7
 anchor_left = 0.5
@@ -1004,16 +1099,18 @@ wait_time = 1.5
 wait_time = 0.05
 autostart = true
 
-[node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_qpnkh")
-bus = &"SFX"
-
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_fb3ec")
 
-[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
+[node name="Audio Players" type="Node" parent="."]
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="Audio Players"]
 stream = ExtResource("16_n6b8a")
 volume_db = -2.0
+bus = &"SFX"
+
+[node name="WalkSound" type="AudioStreamPlayer2D" parent="Audio Players"]
+stream = ExtResource("15_qpnkh")
 bus = &"SFX"
 
 [node name="DashTrail" type="Line2D" parent="."]
@@ -1027,11 +1124,18 @@ max_length = 50
 enabled = false
 target_position = Vector2(150, 0)
 
+[node name="NotifSpawnPos" type="Node2D" parent="."]
+position = Vector2(-80, -160)
+
+[connection signal="health_updated" from="." to="." method="_on_health_updated"]
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="Animation Players/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]
+[connection signal="area_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_area_entered"]
+[connection signal="body_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_body_entered"]
 [connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
 [connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
+[connection signal="changed" from="DashBar" to="DashBar" method="_on_changed"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="DashTrailTimer" to="." method="_on_dash_trail_timer_timeout"]

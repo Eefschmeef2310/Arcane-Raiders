@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=3 uid="uid://x7nsi77vpnvj"]
+
+[ext_resource type="Script" path="res://tilesets/traps/spike_traps/spike_trap.gd" id="1_bkgxk"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_8sk3r"]
+[ext_resource type="Texture2D" uid="uid://s5dk1cx6a85e" path="res://tilesets/traps/spike_traps/spike_trap_waiting.png" id="3_ugwcy"]
+[ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="4_wwjis"]
+[ext_resource type="Texture2D" uid="uid://8e3f4ke48uho" path="res://tilesets/traps/spike_traps/spike_trap_peek.png" id="5_421aa"]
+[ext_resource type="Texture2D" uid="uid://b0kas15pmdk2f" path="res://tilesets/traps/spike_traps/spike_trap_active.png" id="6_p0r54"]
+[ext_resource type="AudioStream" uid="uid://brq3aths7d84e" path="res://sounds/effects/traps/spike_trap.wav" id="7_xx3fg"]
+
+[sub_resource type="Gradient" id="Gradient_mkddu"]
+offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
+gradient = SubResource("Gradient_mkddu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ty8sf"]
+shader = ExtResource("2_8sk3r")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="Animation" id="Animation_mgtqv"]
+resource_name = "fire"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"players_still_overlapping"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [9, true],
+"method": &"set_collision_layer_value"
+}, {
+"args": [9, false],
+"method": &"set_collision_layer_value"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Icon:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.5001, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_ugwcy"), ExtResource("5_421aa"), ExtResource("5_421aa"), ExtResource("6_p0r54"), ExtResource("3_ugwcy")]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6svml"]
+_data = {
+"fire": SubResource("Animation_mgtqv")
+}
+
+[node name="SpikeTrap" type="Area2D"]
+y_sort_enabled = true
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("1_bkgxk")
+
+[node name="Icon" type="Sprite2D" parent="."]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_ty8sf")
+position = Vector2(0, -12)
+texture = ExtResource("3_ugwcy")
+script = ExtResource("4_wwjis")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -40, 80, 0, 0, 40, -80, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6svml")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_xx3fg")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

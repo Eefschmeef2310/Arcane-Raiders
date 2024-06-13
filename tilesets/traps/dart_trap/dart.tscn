@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://br7ewk8qry0e1"]
+
+[ext_resource type="Script" path="res://tilesets/traps/dart_trap/dart.gd" id="1_wkoaw"]
+[ext_resource type="Texture2D" uid="uid://dxcqg4hu1m7yq" path="res://tilesets/traps/dart_trap/dart_lmao.png" id="2_jf2j2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4ing"]
+radius = 11.0
+height = 64.0
+
+[node name="Dart" type="Area2D"]
+z_index = 4
+collision_layer = 80
+collision_mask = 13
+script = ExtResource("1_wkoaw")
+move_speed = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jf2j2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_m4ing")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

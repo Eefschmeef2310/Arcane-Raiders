@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://xwsqdfu37qdv"]
+
+[ext_resource type="Texture2D" uid="uid://bmyqvrt7ss0j7" path="res://ui/arrow_e.png" id="1_m12v4"]
+
+[sub_resource type="GDScript" id="GDScript_dk2ew"]
+script/source = "extends Sprite2D
+
+# Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	# Signals
+
+	# Enums
+
+	# Constants
+
+	# Exported Variables
+	# @export_group(\"Group\")
+	# @export_subgroup(\"Subgroup\")
+@export var exit : Node2D
+@export var camera : Camera2D
+
+@export var screen_margin : float = 10 # Margin from the edge of the screen
+
+	# Onready Variables
+
+	# Other Variables (please try to separate and organise!)
+var pos_offset : Vector2
+
+#endregion
+
+#region Godot methods
+func _process(_delta):
+	var target_pos = exit.global_position
+	var camera_pos = camera.get_screen_center_position()
+	
+	var direction : Vector2 = (target_pos - camera_pos).normalized()
+	var angle = direction.angle()
+	
+	rotation = angle
+	
+	var exit_screen_pos : Transform2D = exit.get_screen_transform()
+	
+	pos_offset = Vector2.ZERO
+	
+	# Calculate the aspect ratio
+	#var aspect_ratio = get_viewport_rect().size.x / get_viewport_rect().size.y
+
+	#If exit is offscreen
+	if exit_screen_pos.origin.x <= screen_margin || exit_screen_pos.origin.x >= get_viewport_rect().size.x - screen_margin || exit_screen_pos.origin.y <= screen_margin || exit_screen_pos.origin.y >= get_viewport_rect().size.y - screen_margin:
+		exit_screen_pos.origin.x = clamp(exit_screen_pos.origin.x, 0 + screen_margin, get_viewport_rect().size.x - screen_margin)
+		exit_screen_pos.origin.y = clamp(exit_screen_pos.origin.y, 0 + screen_margin, get_viewport_rect().size.y - screen_margin)
+	else:
+		rotation_degrees = 90
+		pos_offset = Vector2(0,-50)
+		
+	position = exit_screen_pos.origin + pos_offset
+#endregion
+
+func _on_castle_room_all_waves_cleared():
+	visible = true
+
+func _on_room_exit_player_entered(_player):
+	visible = false
+"
+
+[node name="GuideArrow" type="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_m12v4")
+script = SubResource("GDScript_dk2ew")

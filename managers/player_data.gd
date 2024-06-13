@@ -7,13 +7,16 @@ signal health_changed(object, health)
 signal spell_changed()
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
+signal spell_casted_but_not_ready(spell: int)
+signal spell_ready(spell: int)
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
 
+@export var max_health : int = 1000
 @export var health : int = 1000:
 	set(v):
-		health = clamp(v, 0, 1000)
+		health = clamp(v, 0, max_health)
 @export var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 @export var spell_cooldowns : Array[float] = [0,0,0]
@@ -22,6 +25,15 @@ signal pickup_proximity_changed(bool)
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
+
+@export var money : int
+@export var total_money : int #all the money the player has earnt this run
+
+#stats 
+@export var damage : int
+@export var kills : int
+@export var has_crown : bool
+
 
 func _ready():
 	spell_strings.resize(3)
@@ -41,8 +53,9 @@ func _process(delta):
 	for i in spell_cooldowns.size():
 		if spell_cooldowns[i] > 0:
 			spell_cooldowns[i] -= delta
-			if spell_cooldowns[i] < 0:
+			if spell_cooldowns[i] <= 0:
 				spell_cooldowns[i] = 0
+				spell_ready.emit(i)
 
 func _on_player_health_updated(amount):
 	health = amount

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://yp6dpnhm3x8g"]
+[gd_scene load_steps=26 format=3 uid="uid://yp6dpnhm3x8g"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_l1qmt"]
 [ext_resource type="Texture2D" uid="uid://cio4pnoamgqir" path="res://moving_entities/enemies/boss_slime/fire_ice_slime/fire_slime_idle.png" id="2_ft4r0"]
@@ -60,6 +60,10 @@ func _on_field_detector_area_entered(area):
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nocle"]
 radius = 125.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogxsb"]
+radius = 14.895
+height = 122.0
 
 [sub_resource type="Resource" id="Resource_6jm38"]
 script = ExtResource("5_pta0y")
@@ -372,8 +376,9 @@ script = SubResource("GDScript_8xenb")
 burst_amount = 8
 movement_speed = 150.0
 is_boss = true
-boss_name = "Blazing Daughter Slime"
-max_health = 1500
+boss_name = "Blazing Slime"
+max_health = 2500
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)
@@ -389,20 +394,24 @@ scale = Vector2(1, 0.75)
 shape = SubResource("CircleShape2D_nocle")
 debug_color = Color(0.976471, 0, 0.415686, 0.419608)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ogxsb")
+
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -157.0
 offset_bottom = -150.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -191.0
 offset_bottom = -159.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_pta0y")]([SubResource("Resource_6jm38"), SubResource("Resource_k0v1e")])
 cast_time = Array[float]([0.1, 0.0, 0.2])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]

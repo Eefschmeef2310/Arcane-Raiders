@@ -22,3 +22,4 @@ position = Vector2(631, 1045)
 texture = ExtResource("2_ootn2")
 
 [editable path="DynamicCamera"]
+[editable path="GuideArrow"]

@@ -23,7 +23,8 @@ extends Control
 	set(value):
 		highlight_color = value
 		#Sets LED colour of controller when the colour changes
-		if SteamControllerInput.get_controllers().size() > 1: #In case Steam isnt open
+		#print(str(SteamControllerInput.get_controllers()) + ", " + str(SteamControllerInput.get_controllers()[device_id+1]))
+		if SteamControllerInput.get_controllers().size() > 1 and SteamControllerInput.get_controllers().size() < device_id: #In case Steam isnt open
 			Steam.setLEDColor(SteamControllerInput.get_controllers()[device_id + 1], int(value.r * 255), int(value.g * 255), int(value.b * 255), 0)
 			Steam.triggerVibration(SteamControllerInput.get_controllers()[device_id + 1], 100, 100)
 

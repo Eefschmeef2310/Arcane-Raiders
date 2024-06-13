@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arcane Raiders"
-config/version="0.6.9 (GDS1 Submission)"
+config/version="0.7.0 (GDS1 Submission)"
 run/main_scene="res://menus/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon (1)-3.png"
@@ -31,8 +31,8 @@ PromptManager="*res://managers/prompt_manager.gd"
 AudioManager="*res://managers/audio_manager.tscn"
 GameManager="*res://managers/game_manager.gd"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
-ColorblindTester="*res://debug/colorblind_tester.tscn"
 PlayerPreferenceManager="*res://managers/player_preference_manager.gd"
+CrtFilter="*res://debug/crt_filter.tscn"
 
 [display]
 
@@ -50,6 +50,7 @@ enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg", "res://ad
 
 folder_colors={
 "res://elements/": "orange",
+"res://items/": "blue",
 "res://managers/": "red",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green",
@@ -246,6 +247,8 @@ keyboard_pause={
 2d_physics/layer_6="SpellImpact"
 2d_physics/layer_7="EnemySpell"
 2d_physics/layer_8="ProjectileEnemy"
+2d_physics/layer_9="Traps"
+2d_physics/layer_10="EntityFeet"
 
 [physics]
 

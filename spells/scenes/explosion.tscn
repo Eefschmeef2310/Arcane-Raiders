@@ -14,6 +14,7 @@ gradient = SubResource("Gradient_f7grb")
 resource_local_to_scene = true
 shader = ExtResource("1_nome1")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qkgf7"]

@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://b552x7rlvxdn0"]
+
+[sub_resource type="GDScript" id="GDScript_fcav3"]
+resource_name = "health_upgrade"
+script/source = "extends Node
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+@onready var player : Player = get_parent()
+@onready var data : PlayerData = player.data
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Increase both max healths
+	data.max_health += 500
+	player.max_health += 500
+	
+	#increase player health. player itself then propogates data
+	player.health += 500
+	player.health_updated.emit(player.health)
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[node name="HealthUpgrade" type="Node"]
+script = SubResource("GDScript_fcav3")

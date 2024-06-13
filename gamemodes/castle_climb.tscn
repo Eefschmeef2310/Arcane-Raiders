@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=41 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
@@ -16,8 +16,11 @@
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
 [ext_resource type="PackedScene" uid="uid://dutidxrbw7ab7" path="res://rooms/basic/basic_butterfly.tscn" id="8_wyblb"]
 [ext_resource type="PackedScene" uid="uid://bv47kko8wdikc" path="res://rooms/basic/basic_rigid.tscn" id="9_wet5w"]
+[ext_resource type="PackedScene" uid="uid://dfvnj026hw322" path="res://rooms/basic/basic_clover.tscn" id="10_434mj"]
 [ext_resource type="PackedScene" uid="uid://dqb1oj7yfqvid" path="res://rooms/boss/bossroom_slime.tscn" id="10_xt0uv"]
+[ext_resource type="PackedScene" uid="uid://bj3otdt6c8n8a" path="res://rooms/basic/basic_jumper.tscn" id="11_ed6tu"]
 [ext_resource type="PackedScene" uid="uid://chixk1ymd6bb4" path="res://rooms/boss/bossroom_slime_fire_ice.tscn" id="11_pq0fh"]
+[ext_resource type="PackedScene" uid="uid://744trjs2wlhk" path="res://rooms/basic/basic_saber.tscn" id="12_bgvea"]
 [ext_resource type="PackedScene" uid="uid://xsb7s37pr065" path="res://rooms/boss/bossroom_slime_wind_rock.tscn" id="12_rmsyq"]
 
 [sub_resource type="Gradient" id="Gradient_5svcn"]
@@ -26,13 +29,6 @@ colors = PackedColorArray(0.0247597, 3.85648e-06, 0.174761, 1, 0.101563, 0.18575
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6w63w"]
 gradient = SubResource("Gradient_5svcn")
-
-[sub_resource type="Gradient" id="Gradient_lm115"]
-offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
-colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
-gradient = SubResource("Gradient_lm115")
 
 [sub_resource type="Gradient" id="Gradient_kafx6"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
@@ -48,6 +44,13 @@ colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.2592
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_oyho1"]
 gradient = SubResource("Gradient_57svc")
 
+[sub_resource type="Gradient" id="Gradient_lm115"]
+offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
+colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
+gradient = SubResource("Gradient_lm115")
+
 [sub_resource type="Gradient" id="Gradient_tk1wv"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_o17fi"]
@@ -55,8 +58,8 @@ gradient = SubResource("Gradient_tk1wv")
 
 [sub_resource type="Curve" id="Curve_1si0i"]
 min_value = 1.0
-max_value = 5.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+max_value = 3.5
+_data = [Vector2(0, 1), 0.0, 2.5, 0, 1, Vector2(1, 3.5), 2.5, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_ahfih"]
@@ -155,6 +158,12 @@ _data = {
 "next_floor": SubResource("Animation_vgyv8")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_s0131"]
+font = ExtResource("4_ft2nk")
+font_size = 32
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_owfno"]
 properties/0/path = NodePath(".:current_floor")
 properties/0/spawn = true
@@ -181,15 +190,16 @@ common_levels = {
 "foyer": ExtResource("2_0olmr"),
 "shop": ExtResource("2_ynx3r")
 }
-basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w")])
-boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("11_pq0fh"), ExtResource("12_rmsyq")])
+basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w"), ExtResource("10_434mj"), ExtResource("11_ed6tu"), ExtResource("12_bgvea")])
+boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
 shop_floors = Array[int]([4, 8])
 boss_floors = Array[int]([3, 7, 11])
-sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_o17fi")])
-sector_gradient_saturations = Array[float]([0.62, 0.5, 0.8, 0.5])
+sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
+sector_gradient_saturations = Array[float]([0.62, 0.8, 0.5, 0.5])
 wave_difficulty_curve = SubResource("Curve_1si0i")
+show_speedrun_timer = true
 
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
@@ -315,6 +325,19 @@ data = NodePath("../../../PlayerData2")
 visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData3")
+
+[node name="SpeedrunUI" type="CanvasLayer" parent="."]
+
+[node name="SpeedrunTimer" type="Label" parent="SpeedrunUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 13.0
+offset_bottom = 159.0
+grow_horizontal = 0
+text = "00:00:00"
+label_settings = SubResource("LabelSettings_s0131")
 
 [node name="CommonLevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")

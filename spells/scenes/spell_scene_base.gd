@@ -29,6 +29,12 @@ class_name SpellBase
 # The time before this spell can be cast again.
 @export var cooldown_time : float = 3.0
 
+# Whether this spell is part of a combined spell, and which one it is.
+# -1: Single spell
+# 0: First of a combined spell
+# 1: Second of a combined spell
+@export var combined_spell_index : int = -1
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -46,7 +52,8 @@ func _enter_tree():
 		pos = caster.global_position
 		
 	if play_sound_on_cast && resource and resource.element and resource.element.sound:
-		AudioManager.play_audio2D_at_point(pos, resource.element.sound)
+		if !(caster and !caster is Player and resource.element == SpellManager.elements["null"]):
+			AudioManager.play_audio2D_at_point(pos, resource.element.sound)
 
 func transfer_data(new: Node2D):
 	if "base_damage" in new:
@@ -59,6 +66,8 @@ func transfer_data(new: Node2D):
 		new.infliction_time = infliction_time
 	if "play_element_sound" in new && !play_sound_on_cast:
 		new.play_element_sound = true
+	if "combined_spell_index" in new:
+		new.combined_spell_index = combined_spell_index
 	
 	if resource.element.gradient and material:
 		(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)

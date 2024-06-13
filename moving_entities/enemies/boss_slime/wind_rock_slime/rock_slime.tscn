@@ -399,8 +399,10 @@ _data = {
 script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
-boss_name = "Stone Daughter Slime"
-max_health = 1500
+boss_name = "Stone Slime"
+max_health = 2000
+knockback_lerp_strength = 40.0
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)

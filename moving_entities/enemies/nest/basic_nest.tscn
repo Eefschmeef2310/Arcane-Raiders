@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cl6evd5eokmpu"]
+[gd_scene load_steps=15 format=3 uid="uid://cl6evd5eokmpu"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
 [ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
@@ -46,6 +46,9 @@ radius = 16.0312
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
 radius = 56.0357
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6yjf"]
+radius = 14.0357
 
 [sub_resource type="Resource" id="Resource_prk6q"]
 script = ExtResource("5_g4ndh")
@@ -130,23 +133,27 @@ position = Vector2(-1, 24)
 shape = SubResource("CircleShape2D_1hq56")
 debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
 
-[node name="ProgressBar" parent="." index="4"]
+[node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_j6yjf")
+
+[node name="ProgressBar" parent="." index="5"]
 offset_left = -51.0
 offset_top = -81.0
 offset_right = 49.0
 offset_bottom = -74.0
 
-[node name="StatusUI" parent="." index="5"]
+[node name="StatusUI" parent="." index="6"]
 offset_left = -101.0
 offset_top = -115.0
 offset_right = 99.0
 offset_bottom = -83.0
 
-[node name="EnemySpells" parent="." index="6"]
+[node name="EnemySpells" parent="." index="7"]
 spells = Array[ExtResource("5_g4ndh")]([SubResource("Resource_prk6q")])
 spell_cooldowns = Array[float]([5.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="8" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("NestIdle")
 
 [node name="NestIdle" type="Node" parent="StateMachine" index="0"]
@@ -156,7 +163,7 @@ script = SubResource("GDScript_6aaa5")
 script = ExtResource("4_undgi")
 transition_out_instantly = true
 
-[node name="NavigationAgent2D" parent="." index="8"]
+[node name="NavigationAgent2D" parent="." index="9"]
 radius = 5.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]

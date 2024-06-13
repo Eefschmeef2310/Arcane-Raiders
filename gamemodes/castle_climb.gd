@@ -40,7 +40,7 @@ var enemy_types_per_floor : Array = [
 	[], # boss
 	[], # shop
 	["slime_big", "bat_small", "spider_big"],
-	["bat_big", "bat_small", "bat_small", "spider_big"],
+	["bat_big", "bat_small", "bee", "spider_big"],
 	[], # boss
 	[], # end
 ]
@@ -51,19 +51,47 @@ var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var current_room_node : CastleRoom
 
+@export_group("Game Stats")
+@export var show_speedrun_timer := false
+var time_elapsed : float = 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
 	
+	AudioManager.play_track_fade()
+	
 	if start_on_spawn:
 		set_number_of_players(1)
 		start_climb()
 
-func _process(_delta):
+func _process(delta):
+	time_elapsed += delta
+	$SpeedrunUI/SpeedrunTimer.text = GameManager.format_timer(time_elapsed)
+	
+	$SpeedrunUI.visible = show_speedrun_timer
+	
 	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
+		
+	check_crown()
+
+func check_crown():
+	#calculate who should have the crown and gives it to them
+	#remove from all and check for highest score
+	var highest_dmg = 0
+	var highest_player = -1
+	var players : int = number_of_players
+	if players > 1:
+		for i in players:
+			player_data[i].has_crown = false
+			if(player_data[i].damage > highest_dmg):
+				highest_dmg = player_data[i].damage
+				highest_player = i
+		if(highest_player != -1):
+			player_data[highest_player].has_crown = true
 
 func start_climb():
 	# Do any server-sided stuff here
@@ -82,7 +110,7 @@ func start_next_floor():
 	
 	play_room_transition.rpc(current_floor)
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	
 	if current_room_node != null:
 		print("Freeing old room.")
@@ -212,7 +240,7 @@ func play_room_transition(next_floor: int):
 	tween.tween_interval(2)
 	tween.tween_property($RoomTransitionUI/Items, "modulate:a", 0, 0.25)
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.5, false).timeout
 	$RunUI/FloorLabel.text = get_floor_name(next_floor)
 
 func set_number_of_players(n: int):
