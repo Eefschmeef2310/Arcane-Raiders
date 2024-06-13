@@ -10,7 +10,7 @@ class_name PlayerNotif
 var move_distance = 48
 var fade_time = 0.75
 
-func _process(delta):
+func _process(_delta):
 	(spell_rect.material as ShaderMaterial).set_shader_parameter("alpha", modulate.a)
 
 func start_tween():
@@ -19,7 +19,7 @@ func start_tween():
 	tween.parallel().tween_property(self, "modulate:a", 0, fade_time)
 	tween.tween_callback(queue_free)
 
-func set_recharging(seconds: float):
+func set_recharging(_seconds: float):
 	label.text = "Recharging!"
 	#label.text = "Recharging! " + str(snappedf(seconds, 0.1)) + " sec"
 	label.show()
