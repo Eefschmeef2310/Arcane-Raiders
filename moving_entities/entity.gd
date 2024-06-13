@@ -16,6 +16,9 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var ignoreForStats : bool # if true then this entity is exempt from stat tracking 
+@export var kill_credited : bool
+
 @export var death_sound : AudioStream
 @export var max_health : int = 1000
 @export var health : int = 1000:
@@ -200,9 +203,10 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	if attack_path != null:
 		var attack = get_node(attack_path)
 		if "caster" in attack and is_instance_valid(attack.caster) and attack.caster is Entity:
-			attack.caster.dealt_damage.emit(self, final_damage)
-			if health - final_damage <= 0:
-				attack.caster.killed_entity.emit(self)
+			if not self.ignoreForStats :
+				attack.caster.dealt_damage.emit(self, final_damage)
+				if health - final_damage <= 0 and not kill_credited:
+					attack.caster.killed_entity.emit(self)
 	
 	# Deal damage!!!
 	health -= final_damage

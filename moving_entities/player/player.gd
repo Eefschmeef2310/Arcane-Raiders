@@ -45,6 +45,7 @@ func _ready():
 	$RevivalMeter.max_value = revival_time_max
 	
 	killed_entity.connect(_on_killed_entity);
+	dealt_damage.connect(_on_dealt_damage)
 	
 	# TODO temporary lines here
 	if debug:
@@ -375,4 +376,11 @@ func _on_dash_trail_timer_timeout():
 func _on_killed_entity(entity: Entity):
 	if is_multiplayer_authority() and data:
 		data.money += entity.monetary_value;
+		data.total_money += entity.monetary_value
+		data.kills += 1
 		print(data.money)
+
+func _on_dealt_damage(entity: Entity, damage : int):
+	if is_multiplayer_authority() and data:
+		data.damage += damage
+	pass

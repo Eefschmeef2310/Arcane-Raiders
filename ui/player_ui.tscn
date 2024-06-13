@@ -192,6 +192,18 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
+[node name="Stats" type="HBoxContainer" parent="HBox/Stats"]
+layout_mode = 2
+
+[node name="Damage Stat" type="Label" parent="HBox/Stats/Stats"]
+layout_mode = 2
+text = "Damage: 0000"
+
+[node name="Kills Stat" type="Label" parent="HBox/Stats/Stats"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Kills: 000"
+
 [node name="EquipUI" type="Node2D" parent="."]
 position = Vector2(273, 0)
 
