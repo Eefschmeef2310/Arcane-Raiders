@@ -380,7 +380,7 @@ func _on_killed_entity(entity: Entity):
 		data.kills += 1
 		print(data.money)
 
-func _on_dealt_damage(entity: Entity, damage : int):
+func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:
-		data.damage += damage
+		data.damage += damage 
 	pass
