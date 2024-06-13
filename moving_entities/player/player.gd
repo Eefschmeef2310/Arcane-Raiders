@@ -394,7 +394,6 @@ func _on_health_updated(_health):
 	if health <= 250:
 		$"Animation Players/Flashing".play("low_health_flash")
 	else:
-		print("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
 		$"Animation Players/Flashing".stop(false)
 
 func _on_killed_entity(entity: Entity):
