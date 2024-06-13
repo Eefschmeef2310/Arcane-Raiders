@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbnhiry3st2hn"]
 
 [ext_resource type="Texture2D" uid="uid://b65cdnki3bs6s" path="res://tilesets/decorations/Black-Circle-Fade-Sphere-PNG-Image-HD.png" id="1_44n43"]
-[ext_resource type="Script" path="res://spells/pickups/floor_shadow.gd" id="2_7u3y3"]
+[ext_resource type="Script" path="res://spells/pickups/spell_pickup.gd" id="2_7u3y3"]
 
 [node name="Shadow" type="Sprite2D"]
 modulate = Color(1, 1, 1, 0.533333)
