@@ -8,6 +8,5 @@ script = ExtResource("1_fs7qj")
 burst_amount = 8
 bullet_scene = ExtResource("2_w3xyv")
 base_damage = 100
-end_time = 2.0
 cooldown_time = 10.0
 play_sound_on_cast = false

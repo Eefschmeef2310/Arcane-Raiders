@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://bpyrqdxfyvpku" path="res://elements/wind.tres" id="8_nlbb2"]
 [ext_resource type="PackedScene" uid="uid://cnew2lxrfa7q7" path="res://moving_entities/enemies/bosses/boss_bat/boss_bat.tscn" id="9_6udyv"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://c6bly0x4rmksf" path="res://moving_entities/enemies/boss_slime/fire_ice_slime/giant_fire_ice_slime.tscn" id="10_4ndbu"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -91,9 +90,6 @@ clip_children = 2
 [node name="RoomExit" parent="." index="10"]
 position = Vector2(1934, -45)
 
-[node name="CanvasModulate" parent="." index="11"]
-color = Color(0.756863, 0.756863, 0.756863, 1)
-
 [node name="DebugBrain" type="Node" parent="." index="13"]
 script = SubResource("GDScript_tg365")
 
@@ -130,14 +126,14 @@ data = NodePath("../../../Player/PlayerData")
 [node name="PlayerUI2" parent="GameUI/PlayerUIContainer" index="1" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
-[node name="BossBat" parent="." index="16" instance=ExtResource("9_6udyv")]
-position = Vector2(835, 441)
-
 [node name="PlayerUI3" parent="GameUI/PlayerUIContainer" index="2" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
 
 [node name="PlayerUI4" parent="GameUI/PlayerUIContainer" index="3" instance=ExtResource("9_qlfqa")]
 layout_mode = 2
+
+[node name="BossBat" parent="." index="16" instance=ExtResource("9_6udyv")]
+position = Vector2(835, 441)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

@@ -291,7 +291,7 @@ _data = {
 [node name="BossBat" instance=ExtResource("1_gcbln")]
 collision_mask = 1
 script = SubResource("GDScript_b5sd0")
-movement_speed = 250.0
+movement_speed = 300.0
 death_sound = null
 
 [node name="PointLight2D" parent="." index="0"]
@@ -373,6 +373,9 @@ spell_num = 2
 transition_out_when_can_cast = true
 nav_timer_interval = 99.0
 nav_timer = 99
+
+[node name="NavigationAgent2D" parent="." index="7"]
+navigation_layers = 3
 
 [node name="HitSound" parent="." index="10"]
 visible = false

@@ -24,7 +24,7 @@ texture = ExtResource("2_4ihjt")
 shape = SubResource("CircleShape2D_ufpp3")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 0.3
+energy = 0.6
 texture = ExtResource("3_etxg7")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

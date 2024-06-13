@@ -3,14 +3,6 @@ extends SpellBase
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
 @export_group("Bullets")
 @export var bullet_scene: PackedScene
 @export var cone_range_deg: float = 120
@@ -19,9 +11,8 @@ extends SpellBase
 @export_group("Delay Fire")
 @export var delay_fire: bool = false
 @export var delay_time: float = 1
-	#Onready Variables
 
-	#Other Variables (please try to separate and organise!)
+
 var initial_direction = Vector2.RIGHT
 #endregion
 

@@ -12,14 +12,17 @@ func _ready():
 	check_caster()
 	global_position = caster.global_position
 	caster.hide()
+	
 	#TODO Play some sfx/particle effect
 	await get_tree().create_timer(1).timeout
-	check_caster()
+	if check_caster(): return
 	caster.visible = true
 	caster.global_position = caster.dash_prep_pos
 	await get_tree().create_timer(1).timeout
-	check_caster()
+	
+	if check_caster(): return
 	#TODO Play some sfx/particle effect
+	
 	ray_cast_2d.target_position = caster.aim_direction * 9999
 	ray_cast_2d.force_raycast_update()
 	caster.target_area = ray_cast_2d.get_collision_point()
@@ -29,9 +32,11 @@ func _ready():
 	add_sibling(attack)
 	queue_free()
 	
-func check_caster():
+func check_caster() -> bool:
 	if !is_instance_valid(caster): 
 		queue_free()
+		return true
+	return false
 #endregion
 "
 

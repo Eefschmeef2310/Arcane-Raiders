@@ -17,11 +17,15 @@ func _ready():
 		caster.dash_to(caster.aim_direction, caster.target_area)
 	
 func _physics_process(delta):
-	if !caster: queue_free()
+	if !is_instance_valid(caster): 
+		queue_free()
+		return
+	
 	if timer > 0:
 		timer -= delta
 	elif shots < max_shots || caster:
 		fire()
+		
 	if caster && !caster.is_dashing:
 		queue_free()
 	
@@ -40,6 +44,6 @@ func fire():
 [node name="BBatDashAttack" type="Node2D"]
 position = Vector2(188, 140)
 script = SubResource("GDScript_5fg5p")
-max_shots = 4
-end_time = 5.0
+interval_time = 0.1
+end_time = 2.0
 cooldown_time = 15.0
