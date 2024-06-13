@@ -106,7 +106,7 @@ func _on_hurtbox_area_entered(area):
 	
 func _on_zero_health():
 	if get_parent() is CastleRoom:
-		(get_parent() as CastleRoom).health_pickup_spawner.spawn(global_position)
+		(get_parent() as CastleRoom).server_spawn_health_pickup(global_position)
 	
 	if is_multiplayer_authority():
 		enemy_is_dead.rpc()

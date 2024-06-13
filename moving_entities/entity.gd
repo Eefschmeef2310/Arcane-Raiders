@@ -227,6 +227,17 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		dm.set_critical(is_critical)
 		dm.add(final_damage)
 
+@rpc("any_peer", "call_local", "reliable")
+func heal_damage(amount):
+	health += amount
+	
+	var dm: DamageNumber
+	dm = DAMAGE_NUMBER.instantiate()
+	add_sibling(dm)
+	dm.global_position = global_position
+	dm.set_color(Color.GREEN)
+	dm.add(amount/10)
+
 func burn_effect(delta):
 	if is_multiplayer_authority():
 		if burn_timer > 0:

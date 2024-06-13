@@ -5,5 +5,5 @@ extends Area2D
 
 func _on_area_entered(area):
 	if is_multiplayer_authority() and area.owner.is_in_group("player") and area.owner.health < area.owner.max_health:
-		area.owner.health += increase_amount
+		area.owner.heal_damage.rpc(increase_amount)
 		queue_free()
