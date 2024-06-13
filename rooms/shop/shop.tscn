@@ -65,3 +65,4 @@ position = Vector2(1542, 580)
 position = Vector2(1350, 676)
 
 [editable path="DynamicCamera"]
+[editable path="GuideArrow"]
