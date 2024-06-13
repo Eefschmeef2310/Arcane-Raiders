@@ -178,7 +178,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 				var new_reaction = reaction.instantiate()
 				
 				if "caster" in new_reaction and attack != null:
-					new_reaction.caster = attack
+					new_reaction.caster = attack.caster
 					new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				if "elements" in new_reaction:
 					new_reaction.elements = [key, element]
@@ -199,7 +199,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	# Tell attack caster that they're the GOAT
 	if attack_path != null:
 		var attack = get_node(attack_path)
-		if "caster" in attack and attack.caster is Entity:
+		if "caster" in attack and is_instance_valid(attack.caster) and attack.caster is Entity:
 			attack.caster.dealt_damage.emit(self, final_damage)
 			if health - final_damage <= 0:
 				attack.caster.killed_entity.emit(self)

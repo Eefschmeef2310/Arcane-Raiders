@@ -38,6 +38,7 @@ var up_time : float = 0
 func _ready():
 	$Sprite2D.modulate = resource.element.colour
 	base_damage = field_damage
+	print()
 	
 	#Impose limit
 	if group.size() > max_puddles:
@@ -52,9 +53,9 @@ func _process(delta):
 
 #region Signal methods
 func _on_hurt_timer_timeout():
-	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(\"player\") and moving_entity != caster:
-			moving_entity.on_hurt(self)
+	for moving_entity in get_overlapping_areas():
+		if moving_entity.owner.is_in_group(\"player\") and moving_entity.owner != caster:
+			moving_entity.owner.on_hurt(self)
 			
 func _on_kill_timer_timeout():
 	$AnimationPlayer.play(\"kill\")
@@ -188,7 +189,7 @@ _data = {
 [node name="SlimeField" type="Area2D" groups=["slime_field"]]
 z_index = -19
 collision_layer = 64
-collision_mask = 4
+collision_mask = 512
 script = SubResource("GDScript_g2p4w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

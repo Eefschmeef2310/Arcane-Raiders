@@ -25,17 +25,16 @@ var should_fire : bool = true
 
 #region Godot methods
 func _ready():
-	pass
 	#var castle_climb : CastleClimb = owner.get_parent().get_parent()
 	#if castle_climb and castle_climb.get_current_sector() < first_available_sector:
 		#queue_free()
 		#
-	#get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
+	get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
 #endregion
 
 #region Signal methods
 func _on_area_entered(area):
-	if area.owner is Entity and !animation_player.is_playing():
+	if area.owner is Player and !animation_player.is_playing():
 		animation_player.play("fire")
 #endregion
 
@@ -54,6 +53,7 @@ func spike_fired():
 func players_still_overlapping():
 	for body in get_overlapping_areas():
 		if body.owner.is_in_group("player"):
+			print("dingus")
 			animation_player.play("fire")
 			return
 			
