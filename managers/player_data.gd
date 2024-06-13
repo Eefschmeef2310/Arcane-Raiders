@@ -31,6 +31,7 @@ signal spell_casted_but_not_ready(spell: int)
 #stats 
 @export var damage : int
 @export var kills : int
+@export var has_crown : bool
 
 
 func _ready():
