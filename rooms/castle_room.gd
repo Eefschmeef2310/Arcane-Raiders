@@ -160,9 +160,9 @@ func spawn_spell_pickup(spell_string: String):
 	pickup.set_spell_from_string(spell_string)
 	return pickup
 
-func spawn_health_pickup(position : Vector2):
+func spawn_health_pickup(pos : Vector2):
 	var pickup = HEALTH_PICKUP.instantiate()
-	pickup.global_position = position
+	pickup.global_position = pos
 	return pickup
 	
 func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
