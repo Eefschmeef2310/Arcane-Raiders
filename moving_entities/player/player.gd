@@ -387,4 +387,9 @@ func _on_killed_entity(entity: Entity):
 func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:
 		data.damage += damage 
+		sync_stats.rpc(data.damage)
 	pass
+
+@rpc("authority", "call_local", "reliable")
+func sync_stats(damage : int):
+	data.damage = damage
