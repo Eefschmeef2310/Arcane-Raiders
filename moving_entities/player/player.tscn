@@ -988,7 +988,7 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
 [node name="Crown" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
-visible = false
+clip_children = 2
 position = Vector2(0, -95.07)
 scale = Vector2(0.46, 0.46)
 texture = ExtResource("14_k3oth")
@@ -997,10 +997,10 @@ texture = ExtResource("14_k3oth")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -25.0
-offset_right = -25.0
-offset_bottom = -25.0
+offset_left = -110.87
+offset_top = -62.8913
+offset_right = -26.8696
+offset_bottom = -15.8913
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
