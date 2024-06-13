@@ -377,6 +377,14 @@ func _on_dash_trail_timer_timeout():
 		
 		after_image.queue_free()
 
+func _on_health_updated(_health):
+	print("healed")
+	if data.health <= 250:
+		$"Animation Players/Flashing".play("low_health_flash")
+	else:
+		
+		$"Animation Players/Flashing".stop()
+
 func _on_killed_entity(entity: Entity):
 	if is_multiplayer_authority() and data:
 		data.money += entity.monetary_value;
@@ -388,3 +396,6 @@ func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:
 		data.damage += damage 
 	pass
+
+
+

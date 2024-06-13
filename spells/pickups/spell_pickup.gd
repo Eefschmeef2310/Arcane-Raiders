@@ -31,7 +31,7 @@ func _process(delta):
 	info_box.modulate.a = move_toward(info_box.modulate.a, target_info_modulate_a, delta*10)
 	
 	var cam = get_viewport().get_camera_2d()
-	info_box.scale = Vector2(1,1) / cam.zoom
+	info_box.scale = Vector2.ONE / cam.zoom
 	
 
 func set_spell_from_string(s):

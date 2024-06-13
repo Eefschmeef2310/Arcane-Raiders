@@ -20,11 +20,14 @@ signal spell_change_requested(Player, int, SpellPickup)
 
 @onready var enemy_spawns = $EnemySpawns
 @onready var enemy_spawner = $EnemySpawner
-@onready var boss_bars = $CanvasLayer/BossBars
+@onready var boss_bars = $CanvasLayer /BossBars
 @onready var BOSSBAR_SCENE = preload("res://ui/boss_bar.tscn")
 
 @onready var spell_pickup_spawner = $SpellPickupSpawner
 const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
+
+@onready var health_pickup_spawner = $HealthPickupSpawner
+const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
@@ -55,6 +58,7 @@ func _ready():
 	player_spawner.spawn_function = spawn_player
 	enemy_spawner.spawn_function = spawn_enemy
 	spell_pickup_spawner.spawn_function = spawn_spell_pickup
+	health_pickup_spawner.spawn_function = spawn_health_pickup
 
 	for n in player_spawns:
 		n.hide()
@@ -155,6 +159,11 @@ func spawn_spell_pickup(spell_string: String):
 	var pickup: SpellPickup = SPELL_PICKUP.instantiate()
 	pickup.set_spell_from_string(spell_string)
 	return pickup
+
+func spawn_health_pickup(position : Vector2):
+	var pickup = HEALTH_PICKUP.instantiate()
+	pickup.global_position = position
+	return pickup
 	
 func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	gradient_map = new_map
@@ -165,7 +174,6 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	camera_background.material = tile_map.material
-	
 	
 func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")

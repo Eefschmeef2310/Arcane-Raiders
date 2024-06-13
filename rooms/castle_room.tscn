@@ -88,6 +88,9 @@ spawn_path = NodePath("..")
 [node name="SpellPickupSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
 
+[node name="HealthPickupSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
 [node name="EnemySpawns" type="Node2D" parent="."]
 
 [node name="RoomExit" parent="." instance=ExtResource("5_dh6mk")]
