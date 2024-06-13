@@ -26,6 +26,12 @@ signal spell_casted_but_not_ready(spell: int)
 @export var character : RaiderRes
 
 @export var money : int
+@export var total_money : int #all the money the player has earnt this run
+
+#stats 
+@export var damage : int
+@export var kills : int
+
 
 func _ready():
 	spell_strings.resize(3)

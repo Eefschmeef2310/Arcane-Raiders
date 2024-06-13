@@ -11,6 +11,9 @@ class_name PlayerUI
 @onready var health_bar = $HBox/Stats/HealthBar
 @onready var health_bar_linger = $HBox/Stats/HealthBar/HealthBarLinger
 
+@onready var damage_stat = $"HBox/Stats/Stats/Damage Stat"
+@onready var kills_stat = $"HBox/Stats/Stats/Kills Stat"
+
 var input_prompts: Array
 
 #region Godot methods
@@ -25,6 +28,9 @@ func _process(delta):
 			spells[i].set_cooldown_percent(p)
 	
 	health_bar_linger.value = move_toward(health_bar_linger.value, health_bar.value, delta*100)
+	
+	damage_stat.text = "Damage: " + str(data.damage)
+	kills_stat.text = "Kills: " + str(data.kills)
 #endregion
 
 #region Signal methods

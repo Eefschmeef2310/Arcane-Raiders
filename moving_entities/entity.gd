@@ -16,6 +16,9 @@ const DAMAGE_NUMBER = preload("res://ui/damage_number.tscn")
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var ignoreForStats : bool # if true then this entity is exempt from stat tracking 
+@export var kill_credited : bool
+
 @export var death_sound : AudioStream
 @export var max_health : int = 1000
 @export var health : int = 1000:
@@ -112,8 +115,7 @@ func _physics_process(delta):
 func on_hurt(attack):
 	if !is_multiplayer_authority():
 		return
-	if "caster" in attack:
-		print("I've been attacked by: " + attack.caster.name)
+	
 	if "caster" in attack and attack.caster == self:
 		return
 	
@@ -179,7 +181,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 				var new_reaction = reaction.instantiate()
 				
 				if "caster" in new_reaction and attack != null:
-					new_reaction.caster = attack
+					new_reaction.caster = attack.caster
 					new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 				if "elements" in new_reaction:
 					new_reaction.elements = [key, element]
@@ -200,10 +202,13 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	# Tell attack caster that they're the GOAT
 	if attack_path != null:
 		var attack = get_node(attack_path)
-		if "caster" in attack and attack.caster is Entity:
-			attack.caster.dealt_damage.emit(self, final_damage)
-			if health - final_damage <= 0:
-				attack.caster.killed_entity.emit(self)
+		if "caster" in attack: 
+			if attack.caster is Entity: #aoe-local sometimes causes a bug here?
+				if not self.ignoreForStats :
+					attack.caster.dealt_damage.emit(self, final_damage)
+					if health - final_damage <= 0 and not kill_credited:
+						kill_credited = true
+						attack.caster.killed_entity.emit(self)
 	
 	# Deal damage!!!
 	health -= final_damage

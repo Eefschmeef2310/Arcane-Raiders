@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bs14qtk2at5lb" path="res://rooms/final_room.tscn" id="4_xewuu"]
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="5_ohq6b"]
 [ext_resource type="PackedScene" uid="uid://cjtf6hsua8mls" path="res://rooms/basic/basic_luti.tscn" id="6_8eavx"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="6_sfo2l"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
@@ -180,18 +180,6 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath("PlayerData3:health")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("PlayerData0:money")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath("PlayerData1:money")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath("PlayerData2:money")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath("PlayerData3:money")
-properties/8/spawn = true
-properties/8/replication_mode = 2
 
 [node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data", "player_ui")]
 script = ExtResource("1_jx40r")
@@ -278,10 +266,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -420.0
-offset_right = 960.0
-offset_bottom = 168.0
+offset_top = 120.0
+offset_right = 1920.0
+offset_bottom = 708.0
 grow_horizontal = 2
 grow_vertical = 2
 

@@ -17,21 +17,21 @@ bg_color = Color(0.878431, 0.878431, 0.878431, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xx7ck"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejlto"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mp8f4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpeyd"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7ox0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0chyj"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -121,15 +121,15 @@ rotation = -0.383972
 theme_override_styles/panel = SubResource("StyleBoxFlat_87ps5")
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_xx7ck")
+material = SubResource("ShaderMaterial_ejlto")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_mp8f4")
+material = SubResource("ShaderMaterial_cpeyd")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_f7ox0")
+material = SubResource("ShaderMaterial_0chyj")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
@@ -192,6 +192,18 @@ patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
+
+[node name="Stats" type="HBoxContainer" parent="HBox/Stats"]
+layout_mode = 2
+
+[node name="Damage Stat" type="Label" parent="HBox/Stats/Stats"]
+layout_mode = 2
+text = "Damage: 0000"
+
+[node name="Kills Stat" type="Label" parent="HBox/Stats/Stats"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Kills: 000"
 
 [node name="EquipUI" type="Node2D" parent="."]
 position = Vector2(273, 0)

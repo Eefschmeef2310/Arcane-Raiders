@@ -10,6 +10,7 @@ radius = 65.123
 
 [node name="Dummy" instance=ExtResource("1_040kn")]
 movement_speed = 0.0
+ignoreForStats = true
 max_health = 99999
 
 [node name="PointLight2D" parent="." index="0"]
