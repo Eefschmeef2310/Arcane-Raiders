@@ -17,21 +17,21 @@ bg_color = Color(0.878431, 0.878431, 0.878431, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w15ig"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xx7ck"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dbvs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mp8f4"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_akogm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7ox0"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -121,15 +121,15 @@ rotation = -0.383972
 theme_override_styles/panel = SubResource("StyleBoxFlat_87ps5")
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_w15ig")
+material = SubResource("ShaderMaterial_xx7ck")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_5dbvs")
+material = SubResource("ShaderMaterial_mp8f4")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_akogm")
+material = SubResource("ShaderMaterial_f7ox0")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
