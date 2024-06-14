@@ -1,4 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://y2sc1lwuvuln"]
+[gd_scene load_steps=16 format=3 uid="uid://y2sc1lwuvuln"]
+
+[ext_resource type="PackedScene" uid="uid://cxnyp0ojcs588" path="res://screens/stat.tscn" id="1_42oyx"]
+[ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="2_c46gj"]
+[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="3_wjvpv"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="4_4btoj"]
+[ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="5_5ua7e"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="6_kpjgp"]
 
 [sub_resource type="GDScript" id="GDScript_1hf64"]
 resource_name = "game_over_screen"
@@ -43,58 +50,439 @@ func _on_quit_button_pressed():
 #endregion
 "
 
-[sub_resource type="LabelSettings" id="LabelSettings_0nnuy"]
-font_size = 191
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5nme"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 0.886275)
 
-[sub_resource type="LabelSettings" id="LabelSettings_urxyl"]
-line_spacing = -25.0
-font_size = 64
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jj0io"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi64w"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0nnuy"]
+font_size = 70
+
+[sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
+font_size = 100
+
+[sub_resource type="Animation" id="Animation_ft03a"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(6.5, 311.5), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label2:label_settings:font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"transitions": PackedFloat32Array(-2, 0.5, 2, 0.5),
+"update": 0,
+"values": [100, 250, 250, 100]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label2:anchors_preset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label2:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1907, 457), Vector2(1907, 190)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PanelContainer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2gmii"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:label_settings:font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ga3e"]
+_data = {
+"RESET": SubResource("Animation_2gmii"),
+"default": SubResource("Animation_ft03a")
+}
 
 [node name="WinScreen" type="CanvasLayer"]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
+theme_override_styles/panel = SubResource("StyleBoxFlat_h5nme")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 192)
 layout_mode = 2
-text = "You win!"
+theme_override_styles/panel = SubResource("StyleBoxFlat_jj0io")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 120
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gi64w")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 60
+
+[node name="Left Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side"]
+layout_mode = 2
+text = "The Tower has been raided!"
 label_settings = SubResource("LabelSettings_0nnuy")
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Stat" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
-text = "You've conquered the Tower
-and plundered its treasure!"
-label_settings = SubResource("LabelSettings_urxyl")
-horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Stat2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+layout_mode = 2
+
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat2/Stat" index="0"]
+text = "Total Enemies Defeated: "
+
+[node name="Stat3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+layout_mode = 2
+
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat3/Stat" index="0"]
+text = "Total Money Earned: "
+
+[node name="Right Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.3333
+text = "Top Scorer"
+
+[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.8, 1.8)
+size_flags_horizontal = 4
+
+[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip"]
+position = Vector2(0, -44)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("2_c46gj")
+offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("3_wjvpv")
+
+[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
+position = Vector2(2, -75)
+texture = ExtResource("4_4btoj")
+
+[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(38, -28)
+texture = ExtResource("5_5ua7e")
+
+[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-37, -28)
+texture = ExtResource("5_5ua7e")
+flip_h = true
+
+[node name="Other Players" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.3333
+text = "2nd place"
+
+[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 67.195
+offset_bottom = 67.195
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip"]
+position = Vector2(0, -44)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("2_c46gj")
+offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("3_wjvpv")
+
+[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
+position = Vector2(2, -75)
+texture = ExtResource("4_4btoj")
+
+[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(38, -28)
+texture = ExtResource("5_5ua7e")
+
+[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-37, -28)
+texture = ExtResource("5_5ua7e")
+flip_h = true
+
+[node name="Panel2" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.3333
+text = "3rd place"
+
+[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 67.195
+offset_bottom = 67.195
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip"]
+position = Vector2(0, -44)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("2_c46gj")
+offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("3_wjvpv")
+
+[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
+position = Vector2(2, -75)
+texture = ExtResource("4_4btoj")
+
+[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(38, -28)
+texture = ExtResource("5_5ua7e")
+
+[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-37, -28)
+texture = ExtResource("5_5ua7e")
+flip_h = true
+
+[node name="Panel3" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.3333
+text = "4th place"
+
+[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = 67.195
+offset_bottom = 67.195
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip"]
+position = Vector2(0, -44)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("2_c46gj")
+offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("3_wjvpv")
+
+[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
+position = Vector2(2, -75)
+texture = ExtResource("4_4btoj")
+
+[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(38, -28)
+texture = ExtResource("5_5ua7e")
+
+[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-37, -28)
+texture = ExtResource("5_5ua7e")
+flip_h = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 600
-theme_override_constants/margin_top = 64
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 600
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 81
 text = "Quit to Menu"
+script = ExtResource("6_kpjgp")
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="Label2" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -953.5
+offset_right = 953.5
+offset_bottom = 190.0
+grow_horizontal = 2
+text = "Congratulations"
+label_settings = SubResource("LabelSettings_uqpnd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8ga3e")
+}
+autoplay = "default"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat2"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat3"]

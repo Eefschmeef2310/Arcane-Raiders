@@ -160,7 +160,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
-	data.spell_ready.connect(_on_spell_ready)
+	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
