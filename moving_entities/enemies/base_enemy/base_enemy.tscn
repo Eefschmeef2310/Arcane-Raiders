@@ -87,5 +87,6 @@ bus = &"SFX"
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="GroundHurtbox" to="." method="_on_hurtbox_area_entered"]

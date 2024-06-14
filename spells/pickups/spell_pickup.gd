@@ -8,6 +8,7 @@ class_name SpellPickup
 var i = 0
 @onready var icon = $Icon
 @onready var info_box = $HBoxContainer
+@onready var init_pos = $Shadow.scale
 var base_sprite_pos: Vector2
 var amp = 10
 var freq = 2
@@ -28,11 +29,13 @@ func _process(delta):
 	$Icon.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 	$Outline.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 	
+	var test = 1 + sin(i*2)*0.25
+	$Shadow.scale = Vector2(init_pos.x*test, init_pos.y*test)
+	
 	info_box.modulate.a = move_toward(info_box.modulate.a, target_info_modulate_a, delta*10)
 	
 	var cam = get_viewport().get_camera_2d()
-	info_box.scale = Vector2(1,1) / cam.zoom
-	
+	info_box.scale = Vector2.ONE / cam.zoom
 
 func set_spell_from_string(s):
 	spell_string = s

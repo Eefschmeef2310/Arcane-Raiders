@@ -53,7 +53,6 @@ func spike_fired():
 func players_still_overlapping():
 	for body in get_overlapping_areas():
 		if body.owner.is_in_group("player"):
-			print("dingus")
 			animation_player.play("fire")
 			return
 			
