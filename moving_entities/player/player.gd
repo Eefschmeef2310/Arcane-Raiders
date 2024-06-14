@@ -379,17 +379,24 @@ func _on_dash_trail_timer_timeout():
 
 func _on_killed_entity(entity: Entity):
 	if is_multiplayer_authority() and data:
-		data.money += entity.monetary_value;
-		data.total_money += entity.monetary_value
-		data.kills += 1
+		#data.money += entity.monetary_value;
+		#data.total_money += entity.monetary_value
+		#data.kills += 1
+		add_kill.rpc(entity.monetary_value)
 		print(data.money)
 
 func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:
-		#data.damage += damage 
+		#sdata.damage += damage 
 		add_damage.rpc(damage)
 	pass
 
 @rpc("any_peer", "call_local", "reliable")
 func add_damage(damage : int):
-	data.damage += damage #doesnt work on clients when spellsdo they do little bits of damage rapidly
+	data.damage += damage 
+
+@rpc("any_peer", "call_local", "reliable")
+func add_kill(value : int):
+	data.money += value
+	data.total_money += value
+	data.kills += 1
