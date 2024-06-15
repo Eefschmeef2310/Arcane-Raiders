@@ -5,5 +5,5 @@ extends Area2D
 func _on_body_entered(_body):
 	var win_screen = load("res://screens/win.tscn").instantiate()
 	win_screen.game = get_parent()
-	get_tree().root.call_deferred("add_child", win_screen)
+	call_deferred("add_sibling", win_screen)
 #endregion

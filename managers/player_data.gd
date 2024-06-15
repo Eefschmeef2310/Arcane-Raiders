@@ -20,7 +20,6 @@ signal spell_ready(spell: int)
 @export var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 @export var spell_cooldowns : Array[float] = [0,0,0]
-
 @export var spell_strings : Array[String]
 
 @export var main_color : Color = Color.RED
@@ -33,7 +32,6 @@ signal spell_ready(spell: int)
 @export var damage : int
 @export var kills : int
 @export var has_crown : bool
-
 
 func _ready():
 	spell_strings.resize(3)

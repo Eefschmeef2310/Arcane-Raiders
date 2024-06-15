@@ -23,8 +23,12 @@ script/source = "extends CanvasLayer
 	#Exported Variables
 	#@export_group(\"Grdwoup\")
 	#@export_subgroup(\"Subgroup\")
+@export var damage_dealt : FinalStat
+@export var kills : FinalStat
+@export var highest_earner : FinalStat
 
 	#Onready Variables
+@onready var castle_climb : CastleClimb = get_parent().get_parent()
 
 	#Other Variables (please try to separate and organise!)
 var game : Control
@@ -34,6 +38,10 @@ var game : Control
 #region Godot methods
 func _ready():
 	get_tree().paused = true
+	 
+	damage_dealt.load_data(castle_climb.check_crown(), castle_climb.check_crown().damage)
+	kills.load_data(castle_climb.get_highest_kills(), castle_climb.get_highest_kills().kills)
+	highest_earner.load_data(castle_climb.get_highest_earner(), castle_climb.get_highest_kills().total_money)
 #endregion
 
 #region Signal methods
@@ -66,6 +74,21 @@ font_size = 70
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
 font_size = 100
+
+[sub_resource type="Animation" id="Animation_2gmii"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:label_settings:font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100]
+}
 
 [sub_resource type="Animation" id="Animation_ft03a"]
 resource_name = "default"
@@ -130,30 +153,18 @@ tracks/4/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_2gmii"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label2:label_settings:font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [100]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ga3e"]
 _data = {
 "RESET": SubResource("Animation_2gmii"),
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer"]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner")]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
+damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/DamageDealt")
+kills = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestKills")
+highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestEarner")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -200,19 +211,19 @@ text = "The Tower has been raided!"
 label_settings = SubResource("LabelSettings_0nnuy")
 horizontal_alignment = 1
 
-[node name="Stat" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="DamageDealt" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="HighestKills" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat2/Stat" index="0"]
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestKills/Stat" index="0"]
 text = "Total Enemies Defeated: "
 
-[node name="Stat3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="HighestEarner" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat3/Stat" index="0"]
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestEarner/Stat" index="0"]
 text = "Total Money Earned: "
 
 [node name="Right Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
@@ -484,5 +495,5 @@ autoplay = "default"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat2"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/Stat3"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestKills"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestEarner"]

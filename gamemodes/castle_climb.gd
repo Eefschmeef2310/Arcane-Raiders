@@ -92,7 +92,29 @@ func check_crown():
 				highest_player = i
 		if(highest_player != -1):
 			player_data[highest_player].has_crown = true
+			return player_data[highest_player]
+	return player_data[0]
 
+func get_highest_kills():
+	var highest : int = 0
+	var player_id = -1
+	if number_of_players > 1:
+		for i in number_of_players:
+			if player_data[i].total_money > highest:
+				player_id = i
+				highest = player_data[i].kills
+	return player_data[highest if player_id != -1 else 0]
+
+func get_highest_earner():
+	var highest : int = 0
+	var player_id = -1
+	if number_of_players > 1:
+		for i in number_of_players:
+			if player_data[i].kills > highest:
+				player_id = i
+				highest = player_data[i].kills
+	return player_data[highest if player_id != -1 else 0]
+			
 func start_climb():
 	# Do any server-sided stuff here
 	print("Number of players: " + str(number_of_players))

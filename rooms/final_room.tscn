@@ -106,9 +106,6 @@ position = Vector2(322, 947)
 [node name="PlayerSpawn3" parent="." index="5"]
 position = Vector2(445, 887)
 
-[node name="RoomExit" parent="." index="10"]
-position = Vector2(2208, -31)
-
 [node name="Area2D" type="Area2D" parent="." index="11"]
 collision_mask = 4
 script = ExtResource("2_4bdcu")
@@ -122,6 +119,9 @@ texture = ExtResource("2_hcwam")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="1"]
 position = Vector2(-184, 163)
 polygon = PackedVector2Array(791, 539, 839, 510, 889, 531, 848, 563)
+
+[node name="RoomExit" parent="." index="12"]
+position = Vector2(2208, -31)
 
 [node name="PointLight2D" type="PointLight2D" parent="." index="14"]
 show_behind_parent = true
@@ -160,3 +160,4 @@ texture = ExtResource("7_bplmi")
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
+[editable path="GuideArrow"]
