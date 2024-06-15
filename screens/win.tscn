@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://y2sc1lwuvuln"]
+[gd_scene load_steps=17 format=3 uid="uid://y2sc1lwuvuln"]
 
 [ext_resource type="PackedScene" uid="uid://cxnyp0ojcs588" path="res://screens/stat.tscn" id="1_42oyx"]
 [ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="2_c46gj"]
@@ -72,8 +72,13 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="LabelSettings" id="LabelSettings_0nnuy"]
 font_size = 70
 
+[sub_resource type="LabelSettings" id="LabelSettings_oxhx6"]
+font_size = 40
+
 [sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
 font_size = 100
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_2gmii"]
 length = 0.001
@@ -162,9 +167,9 @@ _data = {
 [node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner")]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
-damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/DamageDealt")
-kills = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestKills")
-highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestEarner")
+damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt")
+kills = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills")
+highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -195,36 +200,55 @@ size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_gi64w")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 60
-
-[node name="Left Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="Left Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
 layout_mode = 2
-text = "The Tower has been raided!"
+text = "Game Stats:"
 label_settings = SubResource("LabelSettings_0nnuy")
 horizontal_alignment = 1
 
-[node name="DamageDealt" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
+layout_mode = 2
+text = "Total Time: 00:00:00"
+label_settings = SubResource("LabelSettings_oxhx6")
+horizontal_alignment = 1
+
+[node name="DamageDealt" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="HighestKills" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="HighestKills" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestKills/Stat" index="0"]
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills/Stat" index="0"]
 text = "Total Enemies Defeated: "
 
-[node name="HighestEarner" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="HighestEarner" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestEarner/Stat" index="0"]
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner/Stat" index="0"]
 text = "Total Money Earned: "
+
+[node name="HighestEarner2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+layout_mode = 2
+
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner2/Stat" index="0"]
+text = "Reactions Created: "
+
+[node name="HighestEarner3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+layout_mode = 2
+
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner3/Stat" index="0"]
+text = "Pickups Obtained: "
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 305
 
 [node name="Right Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
@@ -236,9 +260,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 24.3333
+layout_mode = 2
+offset_top = 248.0
+offset_right = 838.0
+offset_bottom = 273.0
 text = "Top Scorer"
 
 [node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"]
@@ -248,11 +273,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = 16.5
-offset_bottom = 16.5
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(1.8, 1.8)
+scale = Vector2(1.75, 1.75)
 size_flags_horizontal = 4
 
 [node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip"]
@@ -482,7 +505,7 @@ offset_left = -953.5
 offset_right = 953.5
 offset_bottom = 190.0
 grow_horizontal = 2
-text = "Congratulations"
+text = "TOWER RAIDED"
 label_settings = SubResource("LabelSettings_uqpnd")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -495,5 +518,7 @@ autoplay = "default"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestKills"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/Left Side/HighestEarner"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner2"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner3"]
