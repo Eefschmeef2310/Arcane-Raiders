@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bg1xa4bpkhjf7"]
+[gd_scene load_steps=22 format=3 uid="uid://bg1xa4bpkhjf7"]
 
 [ext_resource type="Texture2D" uid="uid://db22kweasa5ja" path="res://multiplayer/multiplayerLobby/djmzop3o.bmp" id="1_3ms62"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyCardManager.gd" id="1_6lvqp"]
@@ -32,6 +32,8 @@ expand_margin_bottom = 4.0
 [sub_resource type="LabelSettings" id="LabelSettings_nu6df"]
 font = ExtResource("5_6stfj")
 font_size = 36
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xtm21"]
 font = ExtResource("4_bk151")
@@ -44,6 +46,121 @@ font = ExtResource("4_bk151")
 [sub_resource type="LabelSettings" id="LabelSettings_6ho28"]
 font = ExtResource("5_6stfj")
 font_size = 24
+
+[sub_resource type="Animation" id="Animation_o8hok"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/RightHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(38, -28)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/LeftHand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-37, -28)]
+}
+
+[sub_resource type="Animation" id="Animation_3v1jn"]
+resource_name = "character_bob"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(2, -2, 0.5),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2, 1.95), Vector2(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/RightHand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(38, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/LeftHand:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-37, -28)]
+}
+
+[sub_resource type="Animation" id="Animation_pr54l"]
+resource_name = "ready"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/RightHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(41.5, -79.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale/LeftHand:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-43.5, -76.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/VBoxContainer/SpritesFlip/SpritesScale:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(2, -2, 0.5),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2, 1.95), Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a6glk"]
+_data = {
+"RESET": SubResource("Animation_o8hok"),
+"character_bob": SubResource("Animation_3v1jn"),
+"ready": SubResource("Animation_pr54l")
+}
 
 [node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "remove_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
 custom_minimum_size = Vector2(400, 200)
@@ -465,6 +582,12 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/icon_max_width = 30
 icon = ExtResource("12_j335c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a6glk")
+}
+autoplay = "character_bob"
 
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]

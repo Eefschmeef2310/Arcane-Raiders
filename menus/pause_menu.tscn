@@ -104,6 +104,11 @@ func set_button_mouse():
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
 bg_color = Color(0.854902, 0.854902, 0.854902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.552941, 0.552941, 0.552941, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20

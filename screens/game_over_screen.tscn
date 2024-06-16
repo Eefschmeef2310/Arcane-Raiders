@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds0o4uwiv3jp0"]
+[gd_scene load_steps=8 format=3 uid="uid://ds0o4uwiv3jp0"]
 
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="1_q0aqo"]
 
@@ -20,6 +20,7 @@ script/source = "extends CanvasLayer
 	#@export_subgroup(\"Subgroup\")
 
 	#Onready Variables
+@onready var castle_climb : CastleClimb = get_parent().get_parent()
 
 	#Other Variables (please try to separate and organise!)
 
@@ -28,6 +29,8 @@ script/source = "extends CanvasLayer
 #region Godot methods
 func _ready():
 	get_tree().paused = true
+	
+	$Control/MarginContainer/VBoxContainer/Label4.text = \"You cleared \" + str(castle_climb.current_floor) + \" floors in \" + str(GameManager.format_timer(castle_climb.time_elapsed))
 #endregion
 
 #region Signal methods
@@ -45,16 +48,104 @@ func _on_quit_button_pressed():
 
 [sub_resource type="LabelSettings" id="LabelSettings_0nyan"]
 font_size = 191
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c0pkf"]
 line_spacing = -25.0
 font_size = 64
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8xxp"]
+line_spacing = -25.0
+font_size = 80
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_knyp0"]
+resource_name = "game_over"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/MarginContainer/VBoxContainer/Label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/MarginContainer/VBoxContainer/Label3:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/MarginContainer/VBoxContainer/MarginContainer/QuitButton:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.3, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/MarginContainer/VBoxContainer/Label4:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.6, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jkwih"]
+_data = {
+"game_over": SubResource("Animation_knyp0")
+}
 
 [node name="GameOverScreen" type="CanvasLayer"]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -62,40 +153,53 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Game Over"
 label_settings = SubResource("LabelSettings_0nyan")
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Your plunder has been
 reclaimed by the Tower..."
 label_settings = SubResource("LabelSettings_c0pkf")
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Label4" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You cleared X floors in 00:00:00"
+label_settings = SubResource("LabelSettings_w8xxp")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 600
 theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 600
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="QuitButton" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 81
 text = "Quit to Menu"
 script = ExtResource("1_q0aqo")
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jkwih")
+}
+autoplay = "game_over"
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]

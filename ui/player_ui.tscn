@@ -12,27 +12,32 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ps5"]
 bg_color = Color(0.878431, 0.878431, 0.878431, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.756863, 0.756863, 0.756863, 1)
 
 [sub_resource type="Gradient" id="Gradient_m21q8"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ye5qn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qpmkx"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_83agl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdnp6"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_os3nv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_la1i3"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -86,6 +91,7 @@ _data = {
 
 [node name="PlayerUI" type="VBoxContainer"]
 custom_minimum_size = Vector2(450, 200)
+scale = Vector2(0.935, 0.935)
 alignment = 1
 script = ExtResource("1_cbyu2")
 
@@ -130,15 +136,15 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ye5qn")
+material = SubResource("ShaderMaterial_qpmkx")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_83agl")
+material = SubResource("ShaderMaterial_vdnp6")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_os3nv")
+material = SubResource("ShaderMaterial_la1i3")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]

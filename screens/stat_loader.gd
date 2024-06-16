@@ -27,8 +27,9 @@ class_name FinalStat
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func load_data(data : PlayerData, value : int):
-	$Stat/Head.texture = data.character.head_texture
-	$Stat/Head/Panel.self_modulate = data.main_color
-	$Stat/MarginContainer/Number.text = str(value)
+func load_data(packedData : Array):
+	$Stat/Stat1.text += str(packedData[0])
+	$Stat/HBoxContainer/Control/Head.texture = packedData[1].character.head_texture
+	$Stat/HBoxContainer/Control/Head/Panel.self_modulate = packedData[1].main_color
+	$Stat/HBoxContainer/Label.text += str(packedData[2])
 #endregion

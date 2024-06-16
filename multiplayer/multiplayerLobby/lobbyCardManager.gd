@@ -304,9 +304,12 @@ func UpdateDisplay():
 	#Highlight the correct panel
 	highlight_color = lobby_manager.player_colors[selected_color]
 	if player_ready:
+		$AnimationPlayer.play("ready")
 		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.DIM_GRAY
 		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.DIM_GRAY
-	else: 
+	else:
+		#$AnimationPlayer.play("RESET")
+		$AnimationPlayer.play("character_bob")
 		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.WHITE
 		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.WHITE
 	

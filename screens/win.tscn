@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://y2sc1lwuvuln"]
+[gd_scene load_steps=20 format=3 uid="uid://y2sc1lwuvuln"]
 
 [ext_resource type="PackedScene" uid="uid://cxnyp0ojcs588" path="res://screens/stat.tscn" id="1_42oyx"]
 [ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="2_c46gj"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="3_wjvpv"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="4_4btoj"]
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="5_5ua7e"]
-[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="6_kpjgp"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="6_o3j2u"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="7_7i8mg"]
 
 [sub_resource type="GDScript" id="GDScript_1hf64"]
 resource_name = "game_over_screen"
@@ -26,12 +27,14 @@ script/source = "extends CanvasLayer
 @export var damage_dealt : FinalStat
 @export var kills : FinalStat
 @export var highest_earner : FinalStat
+@export var total_time : Label
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
 
 	#Other Variables (please try to separate and organise!)
 var game : Control
+var back_timer : float
 
 #endregion
 
@@ -39,9 +42,20 @@ var game : Control
 func _ready():
 	get_tree().paused = true
 	 
-	damage_dealt.load_data(castle_climb.check_crown(), castle_climb.check_crown().damage)
-	kills.load_data(castle_climb.get_highest_kills(), castle_climb.get_highest_kills().kills)
-	highest_earner.load_data(castle_climb.get_highest_earner(), castle_climb.get_highest_kills().total_money)
+	damage_dealt.load_data(castle_climb.check_crown())
+	kills.load_data(castle_climb.get_highest_kills())
+	highest_earner.load_data(castle_climb.get_highest_earner())
+	
+	total_time.text += str(GameManager.format_timer(castle_climb.time_elapsed))
+
+func _process(delta):
+	if Input.is_action_pressed(\"ui_cancel\"):
+		back_timer += delta
+		if back_timer > 1:
+			_on_quit_button_pressed()
+	else:
+		back_timer = 0
+	$PanelContainer/VBoxContainer/MarginContainer/BackButton/ProgressBar.value = (back_timer / 1) * 100
 #endregion
 
 #region Signal methods
@@ -71,14 +85,22 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0nnuy"]
 font_size = 70
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_oxhx6"]
 font_size = 40
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbshq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmyfu"]
+bg_color = Color(0.541176, 0, 0, 0.588235)
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
 font_size = 100
-outline_size = 20
-outline_color = Color(0, 0, 0, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_2gmii"]
 length = 0.001
@@ -164,12 +186,13 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "total_time")]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt")
 kills = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills")
 highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner")
+total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -205,7 +228,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_gi64w")
 
 [node name="Left Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 29
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
 layout_mode = 2
@@ -213,26 +236,29 @@ text = "Game Stats:"
 label_settings = SubResource("LabelSettings_0nnuy")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
+[node name="Time" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
 layout_mode = 2
-text = "Total Time: 00:00:00"
+text = "Total Time: "
 label_settings = SubResource("LabelSettings_oxhx6")
 horizontal_alignment = 1
 
 [node name="DamageDealt" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt/Stat" index="0"]
+text = "Damage Dealt: "
+
 [node name="HighestKills" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills/Stat" index="0"]
-text = "Total Enemies Defeated: "
+text = "Enemies Defeated: "
 
 [node name="HighestEarner" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner/Stat" index="0"]
-text = "Total Money Earned: "
+text = "Money Earned: "
 
 [node name="HighestEarner2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
@@ -246,9 +272,17 @@ layout_mode = 2
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner3/Stat" index="0"]
 text = "Pickups Obtained: "
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
+[node name="HighestEarner4" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
-theme_override_constants/margin_right = 305
+
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4/Stat" index="0"]
+text = "X"
+
+[node name="HighestEarner5" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+layout_mode = 2
+
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5/Stat" index="0"]
+text = "X"
 
 [node name="Right Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
@@ -491,11 +525,26 @@ theme_override_constants/margin_left = 600
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 600
 
-[node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer"]
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer"]
+clip_children = 2
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
-theme_override_font_sizes/font_size = 81
-text = "Quit to Menu"
-script = ExtResource("6_kpjgp")
+theme_override_fonts/font = ExtResource("6_o3j2u")
+theme_override_font_sizes/font_size = 48
+text = "Back"
+script = ExtResource("7_7i8mg")
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/MarginContainer/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_xbshq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fmyfu")
+show_percentage = false
 
 [node name="Label2" type="Label" parent="."]
 anchors_preset = 5
@@ -516,9 +565,12 @@ libraries = {
 }
 autoplay = "default"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/BackButton" to="." method="_on_quit_button_pressed"]
 
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner2"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner3"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5"]

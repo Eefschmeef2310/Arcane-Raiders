@@ -136,6 +136,8 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [resource]
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 7
 Button/fonts/font = ExtResource("1_qa02b")
 Button/styles/focus = SubResource("StyleBoxFlat_e3fc2")
 Button/styles/hover = SubResource("StyleBoxFlat_4rrw5")
@@ -145,6 +147,7 @@ HSeparator/styles/separator = SubResource("StyleBoxLine_ymd6j")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_db70t")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_qe240")
 HSlider/styles/slider = SubResource("StyleBoxFlat_1b8pl")
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/fonts/font = ExtResource("1_qa02b")
 Panel/styles/panel = SubResource("StyleBoxFlat_sy2j8")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_eansp")
