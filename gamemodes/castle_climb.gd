@@ -222,7 +222,7 @@ func _on_room_all_players_dead():
 func game_over():
 	await get_tree().create_timer(2.0).timeout
 	var game_over_screen = load("res://screens/game_over_screen.tscn").instantiate()
-	get_tree().root.call_deferred("add_child", game_over_screen)
+	call_deferred("add_child", game_over_screen)
 
 func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
 	use_spell_pickup_server.rpc(player_data.find(d), i, sp.get_path())

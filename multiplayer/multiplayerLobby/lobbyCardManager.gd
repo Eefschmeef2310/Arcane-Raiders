@@ -327,7 +327,7 @@ func UpdateDisplay():
 	
 	#check for valid color
 	valid_color = true
-	ready_button.text = "READY"
+	#ready_button.text = "READY"
 	for card in lobby_manager.player_card_hbox.get_children():
 		if card.selected_color == selected_color and not player_ready and not card.peer_id == peer_id:
 			valid_color = false

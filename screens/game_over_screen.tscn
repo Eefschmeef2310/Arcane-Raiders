@@ -20,7 +20,7 @@ script/source = "extends CanvasLayer
 	#@export_subgroup(\"Subgroup\")
 
 	#Onready Variables
-@onready var castle_climb : CastleClimb = get_parent().get_parent()
+@onready var castle_climb : CastleClimb = get_parent()
 
 	#Other Variables (please try to separate and organise!)
 

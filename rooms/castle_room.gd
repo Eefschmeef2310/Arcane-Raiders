@@ -146,12 +146,12 @@ func spawn_enemy(data) -> Node2D:
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
 	enemy.monetary_value = enemy_data["difficulty"] * 10
-	if enemy.zero_health.is_connected(_on_enemy_zero_health): enemy.zero_health.connect(_on_enemy_zero_health) #This is already connected in the BaseEnemy scene
+	if !enemy.zero_health.is_connected(_on_enemy_zero_health): enemy.zero_health.connect(_on_enemy_zero_health) #This is already connected in the BaseEnemy scene
 	number_of_enemies_left += 1
 	
 	if enemy.is_in_group("boss"):
 		enemy.max_health = floor(enemy.max_health * number_of_players_health_scale)
-		if enemy.zero_health.is_connected(_on_boss_zero_health): enemy.zero_health.connect(_on_boss_zero_health) #See above
+		if !enemy.zero_health.is_connected(_on_boss_zero_health): enemy.zero_health.connect(_on_boss_zero_health) #See above
 
 	return enemy
 
@@ -162,7 +162,7 @@ func spawn_spell_pickup(spell_string: String):
 
 func server_spawn_health_pickup(pos : Vector2):
 	if is_multiplayer_authority() and randf() < 0.2:
-		health_pickup_spawner.spawn(pos)
+		health_pickup_spawner.call_deferred("spawn", pos)
 	
 func spawn_health_pickup(pos : Vector2):
 	var pickup = HEALTH_PICKUP.instantiate()
