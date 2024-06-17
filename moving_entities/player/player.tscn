@@ -1102,6 +1102,8 @@ autostart = true
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_fb3ec")
 
+[node name="AnimalSound" type="AudioStreamPlayer2D" parent="."]
+
 [node name="Audio Players" type="Node" parent="."]
 
 [node name="DashSound" type="AudioStreamPlayer2D" parent="Audio Players"]

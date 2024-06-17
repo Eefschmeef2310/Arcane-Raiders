@@ -83,6 +83,7 @@ custom_minimum_size = Vector2(1500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+scroll_vertical = 439
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 script = ExtResource("2_ktj4p")
@@ -263,7 +264,14 @@ Spider Squeek
 Spellcast
 Falling Pebbles, Rocks and Boulders (VoiceBosch)
 Fast Whoosh (StudioKolomna)
-Water Splash (UNIVERSFIELD)"
+Water Splash (UNIVERSFIELD)
+Cat call meow
+Mooing cow
+Neighing of a horse
+Dragon Growl
+Snake hissing
+Owl 2 (UNIVERSFIELD)
+Dog Barking"
 label_settings = SubResource("LabelSettings_axq2p")
 
 [node name="Text2" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]
