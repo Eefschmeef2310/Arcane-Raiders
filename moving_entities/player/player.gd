@@ -99,7 +99,7 @@ func _process(delta):
 		if !is_casting and preparing_cast_slot < 0:
 			if move_direction != Vector2.ZERO:
 				animation_player.play("move", -1, 1)
-			else:
+			elif !animation_player.current_animation.contains("emote"):
 				animation_player.play("idle", -1, 1)
 	
 	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
@@ -215,6 +215,11 @@ func start_dash(dir: Vector2):
 		if !get_world_2d().direct_space_state.intersect_point(pp, 1):
 			# Disable collision and allow passthrough colliders.
 			$CollisionShape2D.disabled = true
+
+func play_emote(index : int):
+	print(animation_player.current_animation)
+	if animation_player.current_animation != ("emote_" + str(index)): #So we don't overwrite existing animation
+		animation_player.play("emote_" + str(index))
 
 func prepare_cast_down(slot: int):
 	if data.spell_cooldowns[slot] > 0:
@@ -424,3 +429,8 @@ func _on_spell_ready(slot: int):
 	notif.position = $NotifSpawnPos.position
 	notif.set_spell_ready(data.spells[slot])
 	notif.start_tween()
+
+func spawn_speech_polygons():
+	var container = load("res://moving_entities/player/polygon_container.tscn").instantiate()
+	container.set_color(data.main_color)
+	$SpritesFlip/SpritesScale.add_child(container)

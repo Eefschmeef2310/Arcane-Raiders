@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8ox2037u46ty"]
+
+[ext_resource type="Script" path="res://moving_entities/player/polygon_container.gd" id="1_cvber"]
+
+[sub_resource type="Animation" id="Animation_3i7bb"]
+resource_name = "spawn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, -2),
+"update": 0,
+"values": [Vector2(0.1, 1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wai14"]
+_data = {
+"spawn": SubResource("Animation_3i7bb")
+}
+
+[node name="PolygonContainer" type="Node2D"]
+position = Vector2(33, -53)
+scale = Vector2(0.1, 1)
+script = ExtResource("1_cvber")
+
+[node name="LEAVE THIS ALONE - ETHAN WILL EXPLAIN" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(22, -14.9221)
+antialiased = true
+polygon = PackedVector2Array(-20, 7.92208, 17, 2.92208, 19, 8.92208, -19, 10.9221)
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+position = Vector2(22, -14.9221)
+antialiased = true
+polygon = PackedVector2Array(-20, 7.92208, 17, 2.92208, 19, 8.92208, -19, 10.9221)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2(21, 21)
+antialiased = true
+polygon = PackedVector2Array(-18, -17, 20, -15, 19, -7, -19, -13)
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+position = Vector2(21, 12)
+antialiased = true
+polygon = PackedVector2Array(-18, -14, 20, -15, 20, -9, -18, -10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wai14")
+}
+autoplay = "spawn"

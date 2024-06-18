@@ -76,7 +76,10 @@ func _process(_delta):
 				do_dash = input.is_action_just_pressed("dash")
 				
 				#Emotes
-				print(input.is_action_just_pressed("Emote2"))
+				for i in 3:
+					if input.is_action_just_pressed("Emote" + str(i)):
+						owner.play_emote(i)
+				#print(input.is_action_just_pressed("Emote2"))
 			
 			# Otherwise, use any connected controller
 			else:	
@@ -106,8 +109,11 @@ func _process(_delta):
 							spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
 					if do_dash == false:
 						do_dash = MultiplayerInput.is_action_just_pressed(device, "dash")
-						
-					print(MultiplayerInput.is_action_just_pressed(device, "Emote2"))
+					
+					for i in 3:
+						if MultiplayerInput.is_action_just_pressed(device, "Emote" + str(i)):
+							owner.play_emote(i)
+					
 		
 		# Send input to owner
 		owner.move_direction = move_dir

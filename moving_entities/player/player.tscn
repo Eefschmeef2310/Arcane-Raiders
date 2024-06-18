@@ -22,7 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
 [ext_resource type="Script" path="res://moving_entities/player/player_dash_trail.gd" id="17_erdnq"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
-[ext_resource type="AudioStream" uid="uid://dwo8v6bgwr8nv" path="res://moving_entities/player/animal_sounds/cat-call-meow-102607.mp3" id="20_lggm1"]
+[ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_sd8uw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -495,6 +495,37 @@ tracks/10/keys = {
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_plrvr"]
+resource_name = "emote_1"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimalSound")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_speech_polygons"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_vdik6"]
 resource_name = "idle"
 length = 2.0
@@ -700,24 +731,6 @@ tracks/4/keys = {
 "values": [Vector2(-37, -28)]
 }
 
-[sub_resource type="Animation" id="Animation_plrvr"]
-resource_name = "emote_2"
-length = 0.001
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimalSound")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dg52v"]
 _data = {
 "RESET": SubResource("Animation_y4ic7"),
@@ -725,7 +738,7 @@ _data = {
 "cast_start": SubResource("Animation_b6wy7"),
 "dash": SubResource("Animation_0piqm"),
 "die": SubResource("Animation_yhbvw"),
-"emote_2": SubResource("Animation_plrvr"),
+"emote_1": SubResource("Animation_plrvr"),
 "idle": SubResource("Animation_vdik6"),
 "move": SubResource("Animation_2ep43")
 }
@@ -824,7 +837,6 @@ bg_color = Color(0.8, 0.8, 0.8, 1)
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rqmd7"]
 random_pitch = 1.1
 streams_count = 1
-stream_0/stream = ExtResource("20_lggm1")
 stream_0/weight = 1.0
 
 [sub_resource type="Curve" id="Curve_otfui"]
@@ -1131,6 +1143,7 @@ stream = ExtResource("2_fb3ec")
 
 [node name="AnimalSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_rqmd7")
+script = ExtResource("21_sd8uw")
 
 [node name="Audio Players" type="Node" parent="."]
 
