@@ -331,7 +331,6 @@ func UpdateDisplay():
 	for card in lobby_manager.player_card_hbox.get_children():
 		if card.selected_color == selected_color and not player_ready and not card.peer_id == peer_id:
 			valid_color = false
-			ready_button.text = "CHOOSE A DIFFERENT COLOR"
 
 	#update preview
 	pre_body.self_modulate = highlight_color
