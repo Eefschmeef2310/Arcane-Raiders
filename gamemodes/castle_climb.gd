@@ -106,7 +106,7 @@ func get_highest_kills():
 			if player_data[i].kills > highest:
 				player_id = i
 				highest = player_data[i].kills
-	return [total_kills, player_data[highest if player_id != -1 else 0], player_data[highest if player_id != -1 else 0].kills]
+	return [total_kills, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills]
 
 func get_highest_earner():
 	var highest : int = 0
@@ -118,7 +118,7 @@ func get_highest_earner():
 			if player_data[i].total_money > highest:
 				player_id = i
 				highest = player_data[i].total_money
-	return [total_earnings, player_data[highest if player_id != -1 else 0], player_data[highest if player_id != -1 else 0].total_money]
+	return [total_earnings, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].total_money]
 			
 func start_climb():
 	# Do any server-sided stuff here
