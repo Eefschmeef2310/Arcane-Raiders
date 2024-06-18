@@ -87,13 +87,23 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="Player" parent="." index="15" instance=ExtResource("2_177bf")]
 position = Vector2(96, 800)
+move_direction = Vector2(0, 0)
+aim_direction = Vector2(0, 0)
+revival_time = 0.0
+ignoreForStats = false
+kill_credited = false
+max_health = 1000
 health = 250
+print_velocity = false
+knockback_lerp_strength = 20.0
+knockback_initial_velocity = 300.0
+attraction_strength = 1.0
 
 [node name="PlayerData" parent="Player" index="5"]
 spell_strings = Array[String](["burn-aoe_large", "burn-aoe_large", "stun-aoe_large"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="DashTrail" parent="Player" index="22"]
+[node name="DashTrail" parent="Player" index="23"]
 gradient = SubResource("Gradient_8fnr6")
 
 [node name="HealthPickup" parent="." index="17" instance=ExtResource("7_8jadq")]
@@ -104,6 +114,33 @@ visible = true
 
 [node name="SlimeBig" parent="." index="19" instance=ExtResource("6_by11i")]
 position = Vector2(768, 576)
+
+[connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31313" to="TileMap/@Area2D@31313" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31313" to="TileMap/@Area2D@31313" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31314" to="TileMap/@Area2D@31314" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31314" to="TileMap/@Area2D@31314" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31315" to="TileMap/@Area2D@31315" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31315" to="TileMap/@Area2D@31315" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31316" to="TileMap/@Area2D@31316" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31316" to="TileMap/@Area2D@31316" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31317" to="TileMap/@Area2D@31317" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31317" to="TileMap/@Area2D@31317" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31318" to="TileMap/@Area2D@31318" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31318" to="TileMap/@Area2D@31318" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31319" to="TileMap/@Area2D@31319" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31319" to="TileMap/@Area2D@31319" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31320" to="TileMap/@Area2D@31320" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31320" to="TileMap/@Area2D@31320" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31321" to="TileMap/@Area2D@31321" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31321" to="TileMap/@Area2D@31321" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31322" to="TileMap/@Area2D@31322" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31322" to="TileMap/@Area2D@31322" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31323" to="TileMap/@Area2D@31323" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31323" to="TileMap/@Area2D@31323" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31324" to="TileMap/@Area2D@31324" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@31324" to="TileMap/@Area2D@31324" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

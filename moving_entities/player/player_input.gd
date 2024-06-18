@@ -19,7 +19,7 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	#For pausing
+	#region - For pausing
 	var do_pause = false
 	if input: # For local
 		do_pause = input.is_action_just_pressed("keyboard_pause") if input.device == -1 else input.is_action_just_pressed("ui_pause")
@@ -38,6 +38,7 @@ func _process(_delta):
 			
 		#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
 		get_tree().root.add_child(pause_menu)
+	#endregion
 	
 	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
 		
@@ -73,9 +74,12 @@ func _process(_delta):
 					spell_press[i] = input.is_action_just_pressed("spell" + str(i))
 					spell_release[i] = input.is_action_just_released("spell" + str(i))
 				do_dash = input.is_action_just_pressed("dash")
+				
+				#Emotes
+				print(input.is_action_just_pressed("Emote2"))
 			
 			# Otherwise, use any connected controller
-			else:
+			else:	
 				for device in GameManager.devices:
 					var d: Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
 					if d.length() > move_dir.length():
@@ -102,6 +106,8 @@ func _process(_delta):
 							spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
 					if do_dash == false:
 						do_dash = MultiplayerInput.is_action_just_pressed(device, "dash")
+						
+					print(MultiplayerInput.is_action_just_pressed(device, "Emote2"))
 		
 		# Send input to owner
 		owner.move_direction = move_dir
@@ -131,8 +137,6 @@ func _input(event):
 			is_keyb = true
 			if is_instance_valid(owner.data) and owner.data.device_id != -3:
 				owner.data.device_changed.emit(-1)
-	
-	
 
 #func update_device_list(_device: int, _connected: bool):
 	#devices.clear()

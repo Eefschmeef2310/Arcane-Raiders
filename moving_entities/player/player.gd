@@ -45,7 +45,6 @@ var revival_time_max : float = 5
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
-	animation_player.play("idle", -1, 1)
 	animation_player.seek(randf_range(0,2))
 	$RevivalMeter.max_value = revival_time_max
 	
