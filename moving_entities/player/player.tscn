@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=51 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -495,8 +495,50 @@ tracks/10/keys = {
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_cemt8"]
+resource_name = "emote_0"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesFlip/SpritesScale:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-40, -79), Vector2(-50, -57), Vector2(-40, -79)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0169729, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(45, -80.4342), Vector2(51, -58), Vector2(45, -80.4342)]
+}
+
 [sub_resource type="Animation" id="Animation_plrvr"]
 resource_name = "emote_1"
+length = 0.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -524,6 +566,48 @@ tracks/1/keys = {
 "args": [],
 "method": &"spawn_speech_polygons"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_phq0j"]
+resource_name = "emote_2"
+length = 3.0
+loop_mode = 1
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesFlip/SpritesScale/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375, 0.5625, 0.75, 0.9375, 1.125, 1.3125, 1.5, 1.6875, 1.875, 2.0625, 2.25, 2.4375, 2.625, 2.8125, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.385, 0.75, 1.125, 1.5, 1.875, 2.25, 2.625, 3.01),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(31, -31), Vector2(31, -25), Vector2(31, -31), Vector2(31, -25), Vector2(31, -31), Vector2(43, -31), Vector2(21, -31), Vector2(43, -31), Vector2(21, -31)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.385, 0.75, 1.125, 1.5, 1.875, 2.25, 2.625, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(6, -25), Vector2(6, -31), Vector2(6, -25), Vector2(6, -31), Vector2(6, -25), Vector2(0, -25), Vector2(24, -25), Vector2(0, -25), Vector2(6, -25)]
 }
 
 [sub_resource type="Animation" id="Animation_vdik6"]
@@ -738,7 +822,9 @@ _data = {
 "cast_start": SubResource("Animation_b6wy7"),
 "dash": SubResource("Animation_0piqm"),
 "die": SubResource("Animation_yhbvw"),
+"emote_0": SubResource("Animation_cemt8"),
 "emote_1": SubResource("Animation_plrvr"),
+"emote_2": SubResource("Animation_phq0j"),
 "idle": SubResource("Animation_vdik6"),
 "move": SubResource("Animation_2ep43")
 }
@@ -1140,9 +1226,11 @@ autostart = true
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_fb3ec")
+bus = &"SFX"
 
 [node name="AnimalSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_rqmd7")
+bus = &"SFX"
 script = ExtResource("21_sd8uw")
 
 [node name="Audio Players" type="Node" parent="."]
@@ -1179,6 +1267,6 @@ position = Vector2(-80, -160)
 [connection signal="body_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_body_entered"]
 [connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
 [connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
-[connection signal="changed" from="DashBar" to="DashBar" method="_on_changed"]
+[connection signal="value_changed" from="DashBar" to="DashBar" method="_on_value_changed"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="DashTrailTimer" to="." method="_on_dash_trail_timer_timeout"]

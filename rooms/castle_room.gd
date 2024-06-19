@@ -134,7 +134,7 @@ func report_player_revival(player):
 		dead_players.erase(player)
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
-	print("Sending spell change request.")
+	print("Sending sddspell change request.")
 	spell_change_requested.emit(p.data, i, sp)
 
 func spawn_enemy(data) -> Node2D:

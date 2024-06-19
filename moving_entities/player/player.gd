@@ -217,7 +217,6 @@ func start_dash(dir: Vector2):
 			$CollisionShape2D.disabled = true
 
 func play_emote(index : int):
-	print(animation_player.current_animation)
 	if animation_player.current_animation != ("emote_" + str(index)): #So we don't overwrite existing animation
 		animation_player.play("emote_" + str(index))
 

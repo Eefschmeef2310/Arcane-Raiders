@@ -589,6 +589,10 @@ libraries = {
 }
 autoplay = "character_bob"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+autoplay = true
+bus = &"SFX"
+
 [connection signal="mouse_entered" from="VBoxContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/LeftIndicator" to="." method="_on_left_arrow_clicked"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/RightIndicator" to="." method="_on_right_arrow_clicked"]
