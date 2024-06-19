@@ -31,6 +31,8 @@ signal spell_ready(spell: int)
 #stats 
 @export var damage : int
 @export var kills : int
+@export var reactions_created : int
+@export var pickups_obtained : int
 @export var has_crown : bool
 
 func _ready():

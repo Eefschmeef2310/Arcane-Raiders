@@ -12,6 +12,7 @@ class_name FinalStat
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var stat_title : Label
 
 	#Onready Variables
 
@@ -28,7 +29,11 @@ class_name FinalStat
 
 #region Other methods (please try to separate and organise!)
 func load_data(packedData : Array):
-	$Stat/Stat1.text += str(packedData[0])
+	#personal stat, only relevant in online
+	if GameManager.isOnline():
+		$Stat/Stat1.text += str(packedData[0])
+	
+	#best player stat
 	$Stat/HBoxContainer/Control/Head.texture = packedData[1].character.head_texture
 	$Stat/HBoxContainer/Control/Head/Panel.self_modulate = packedData[1].main_color
 	$Stat/HBoxContainer/Label.text += str(packedData[2])

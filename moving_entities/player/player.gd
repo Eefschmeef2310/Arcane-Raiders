@@ -419,6 +419,15 @@ func add_kill(value : int):
 	data.money += value
 	data.total_money += value
 	data.kills += 1
+
+@rpc("any_peer", "call_local", "reliable")
+func add_pickup():
+	data.pickups_obtained += 1
+	
+@rpc("any_peer", "call_local", "reliable")
+func add_reaction():
+	data.reactions_created += 1  
+
 func _on_spell_ready(slot: int):
 	var notif: PlayerNotif = player_notif_scene.instantiate()
 	add_child(notif)

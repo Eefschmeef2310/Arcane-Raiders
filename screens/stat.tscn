@@ -16,10 +16,11 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 
-[node name="PanelContainer" type="PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("stat_title")]
 offset_right = 661.0
 offset_bottom = 61.0
 script = ExtResource("1_faqgd")
+stat_title = NodePath("Stat/Stat1")
 
 [node name="Stat" type="HBoxContainer" parent="."]
 layout_mode = 2

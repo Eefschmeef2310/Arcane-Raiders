@@ -27,6 +27,8 @@ script/source = "extends CanvasLayer
 @export var damage_dealt : FinalStat
 @export var kills : FinalStat
 @export var highest_earner : FinalStat
+@export var most_pickups : FinalStat
+@export var most_reactions : FinalStat
 @export var total_time : Label
 
 	#Onready Variables
@@ -41,13 +43,24 @@ var back_timer : float
 #region Godot methods
 func _ready():
 	get_tree().paused = true
+	
+	
 	 
 	damage_dealt.load_data(castle_climb.check_crown())
 	kills.load_data(castle_climb.get_highest_kills())
 	highest_earner.load_data(castle_climb.get_highest_earner())
+	most_pickups.load_data(castle_climb.get_most_pickups())
+	most_reactions.load_data(castle_climb.get_most_reactions())
+	
+	if(GameManager.isLocal()):
+		damage_dealt.stat_title.text = \"Most \" + damage_dealt.stat_title.text
+		kills.stat_title.text = \"Most \" + kills.stat_title.text
+		highest_earner.stat_title.text = \"Most \" + highest_earner.stat_title.text
+		most_pickups.stat_title.text = \"Most \" + most_pickups.stat_title.text
+		most_reactions.stat_title.text = \"Most \" + most_reactions.stat_title.text
 	
 	total_time.text += str(GameManager.format_timer(castle_climb.time_elapsed))
-
+ 
 func _process(delta):
 	if Input.is_action_pressed(\"ui_cancel\"):
 		back_timer += delta
@@ -186,12 +199,14 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "total_time")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time")]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt")
 kills = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills")
 highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner")
+most_pickups = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups")
+most_reactions = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions")
 total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -260,25 +275,27 @@ layout_mode = 2
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner/Stat" index="0"]
 text = "Money Earned: "
 
-[node name="HighestEarner2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="MostReactions" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner2/Stat" index="0"]
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions/Stat" index="0"]
 text = "Reactions Created: "
 
-[node name="HighestEarner3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+[node name="MostPickups" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
 
-[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner3/Stat" index="0"]
+[node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups/Stat" index="0"]
 text = "Pickups Obtained: "
 
 [node name="HighestEarner4" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+visible = false
 layout_mode = 2
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4/Stat" index="0"]
 text = "X"
 
 [node name="HighestEarner5" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+visible = false
 layout_mode = 2
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5/Stat" index="0"]
@@ -570,7 +587,7 @@ autoplay = "default"
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner2"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner3"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5"]
