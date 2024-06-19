@@ -22,7 +22,7 @@ signal revived(Player)
 @export var aim_direction: Vector2
 
 #stats
-@onready var crown = $SpritesFlip/SpritesScale/Crown
+@onready var crown = $SpritesFlip/SpritesScale/HeadGroup/Crown
 
 var preparing_cast_slot := -1
 var is_casting := false
@@ -40,7 +40,7 @@ var dash_duration = 0.25 # Is only used for checking if a dash will end in a wal
 
 var friends_nearby : Array = []
 @export var revival_time : float
-var revival_time_max : float = 5
+var revival_time_max : float = 3
 
 #region Godot methods
 func _ready():
@@ -107,9 +107,12 @@ func _process(delta):
 	
 	# Death logic
 	if is_dead:
-		$HelpLabel.show()
-		$RevivalMeter.show()
+		if revival_time > 0:
+			$RevivalMeter.show()
+		else:
+			$RevivalMeter.show()
 		$RevivalMeter.value = revival_time
+		%HelpLabel.show()
 		
 		# Remove people who died next to you
 		for friend in get_tree().get_nodes_in_group("player"):
@@ -130,7 +133,7 @@ func _process(delta):
 			if health > 0:
 				toggle_dead.rpc(false);
 	else:
-		$HelpLabel.hide()
+		%HelpLabel.hide()
 		$RevivalMeter.hide()
 		
 	
@@ -167,11 +170,11 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	$SpellDirection/Sprite2DProjection.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
-	$HelpLabel.add_theme_color_override("font_color", data.main_color)
+	#%HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
 		#print(data.character.raider_name)
-		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
+		$SpritesFlip/SpritesScale/HeadGroup/Head.texture = data.character.head_texture
 		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
 		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
 	
@@ -182,8 +185,11 @@ func set_input(id: int):
 	$Input.set_device(id)
 
 func set_sprite_overlay(c: Color):
-	for sprite in $SpritesFlip/SpritesScale.get_children(): 
-		sprite.get_child(0).color = c
+	$SpritesFlip/SpritesScale/Body/ColorRect.color = c
+	$SpritesFlip/SpritesScale/HeadGroup/Head/ColorRect.color = c
+	$SpritesFlip/SpritesScale/HeadGroup/Crown/ColorRect.color = c
+	$SpritesFlip/SpritesScale/RightHand/ColorRect.color = c
+	$SpritesFlip/SpritesScale/LeftHand/ColorRect.color = c
 
 func attempt_dash():
 	if !is_casting and dash_cooldown <= 0:
@@ -434,3 +440,9 @@ func _on_spell_ready(slot: int):
 	notif.position = $NotifSpawnPos.position
 	notif.set_spell_ready(data.spells[slot])
 	notif.start_tween()
+
+@rpc("any_peer", "call_local", "reliable")
+func heal_damage(amount):
+	super.heal_damage(amount)
+	
+	$HealingParticles.emitting = true;
