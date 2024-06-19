@@ -36,7 +36,7 @@ var dash_cooldown: float = 0.0
 var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
 var dash_speed = 1200
-var dash_duration = 0.24 # Is only used for checking if a dash will end in a wall
+var dash_duration = 0.25 # Is only used for checking if a dash will end in a wall
 
 var friends_nearby : Array = []
 @export var revival_time : float
