@@ -203,7 +203,7 @@ func start_dash(dir: Vector2):
 	if frost_speed_scale < 1:
 		dash_spd *= 0.5 
 	
-	# Check if we're going to end in a wall or not.
+	# Check if we're going to end in a wall or not.ds
 	# Raycast with unwalkables:
 	dash_ray.target_position = (dir.normalized() * dash_spd * dash_duration)
 	dash_ray.force_raycast_update()
@@ -216,8 +216,9 @@ func start_dash(dir: Vector2):
 			# Disable collision and allow passthrough colliders.
 			$CollisionShape2D.disabled = true
 
+@rpc("authority", "call_local", "reliable")
 func play_emote(index : int):
-	if animation_player.current_animation != ("emote_" + str(index)): #So we don't overwrite existing animation
+	if animation_player.current_animation != ("emote_" + str(index)) and !is_casting and preparing_cast_slot == -1: #So we don't overwrite existing animation
 		animation_player.play("emote_" + str(index))
 
 func prepare_cast_down(slot: int):

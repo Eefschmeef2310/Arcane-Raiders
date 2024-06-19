@@ -10,13 +10,12 @@ radius = 25.0
 [node name="HealthPickup" type="Area2D"]
 y_sort_enabled = true
 collision_layer = 0
-collision_mask = 512
+collision_mask = 4
 script = ExtResource("1_88w23")
 
 [node name="Shadow" parent="." instance=ExtResource("2_63bm8")]
 position = Vector2(0, 40)
 scale = Vector2(0.2, 0.1)
-script = null
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)

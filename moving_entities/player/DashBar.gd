@@ -21,7 +21,7 @@ extends ProgressBar
 
 #region Godot methods
 func _ready():
-	self_modulate = owner.data.main_color
+	#self_modulate = owner.data.main_color
 	pass
 #endregion
 

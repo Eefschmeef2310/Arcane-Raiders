@@ -78,7 +78,7 @@ func _process(_delta):
 				#Emotes
 				for i in 3:
 					if input.is_action_just_pressed("Emote" + str(i)):
-						owner.play_emote(i)
+						owner.play_emote.rpc(i)
 				#print(input.is_action_just_pressed("Emote2"))
 			
 			# Otherwise, use any connected controller
@@ -112,7 +112,7 @@ func _process(_delta):
 					
 					for i in 3:
 						if MultiplayerInput.is_action_just_pressed(device, "Emote" + str(i)):
-							owner.play_emote(i)
+							owner.play_emote.rpc(i)
 					
 		
 		# Send input to owner

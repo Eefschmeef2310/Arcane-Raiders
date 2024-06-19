@@ -894,7 +894,7 @@ radius = 18.0
 height = 66.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkhji"]
-radius = 9.0
+radius = 5.00001
 height = 36.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
@@ -918,7 +918,7 @@ properties/3/replication_mode = 1
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0flpa"]
-bg_color = Color(0.8, 0.8, 0.8, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rqmd7"]
 random_pitch = 1.1
@@ -1007,34 +1007,6 @@ autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_2p023")
 }
-
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 320
-script = ExtResource("9_cti52")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -30)
-shape = SubResource("CapsuleShape2D_o8khp")
-
-[node name="FeetHurtbox" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 256
-script = ExtResource("9_cti52")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FeetHurtbox"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_xkhji")
-debug_color = Color(0.701961, 0, 0.0862745, 0.419608)
-
-[node name="RevivalZone" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RevivalZone"]
-scale = Vector2(1, 0.5)
-shape = SubResource("CircleShape2D_vq7jj")
-debug_color = Color(0.662745, 0.443137, 0, 0.419608)
 
 [node name="SpritesFlip" type="Node2D" parent="."]
 
@@ -1129,6 +1101,35 @@ offset_bottom = -15.8913
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 320
+script = ExtResource("9_cti52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -30)
+shape = SubResource("CapsuleShape2D_o8khp")
+
+[node name="FeetHurtbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+script = ExtResource("9_cti52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FeetHurtbox"]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xkhji")
+debug_color = Color(0.701961, 0, 0.0862745, 0.419608)
+
+[node name="RevivalZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RevivalZone"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_vq7jj")
+debug_color = Color(0.662745, 0.443137, 0, 0.419608)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b1y77")
