@@ -30,8 +30,8 @@ class_name FinalStat
 #region Other methods (please try to separate and organise!)
 func load_data(packedData : Array):
 	#personal stat, only relevant in online
-	if GameManager.isOnline():
-		$Stat/Stat1.text += str(packedData[0])
+	#if GameManager.isOnline():
+		#$Stat/Stat1.text += str(packedData[0])
 	
 	#best player stat
 	$Stat/HBoxContainer/Control/Head.texture = packedData[1].character.head_texture
