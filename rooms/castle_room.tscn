@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=14 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
+[ext_resource type="PackedScene" uid="uid://otbl7685h64s" path="res://items/pickups/health_pickup.tscn" id="2_bnel2"]
 [ext_resource type="TileSet" uid="uid://ck4nnts3mjdv2" path="res://tilesets/tileset.tres" id="2_fuwbx"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_w7cyl"]
 [ext_resource type="PackedScene" uid="uid://83gie5tlktus" path="res://dynamic_camera/dynamic_camera.tscn" id="3_thfvk"]
+[ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="3_xk6a2"]
+[ext_resource type="PackedScene" uid="uid://c003c2ghidyvr" path="res://items/pickups/cooldown_pickup.tscn" id="4_77ule"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
 [ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="7_yovep"]
@@ -24,6 +27,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 [node name="CastleRoom" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_uk66y")
+pickups = Array[PackedScene]([ExtResource("2_bnel2"), ExtResource("3_xk6a2"), ExtResource("4_77ule")])
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -20

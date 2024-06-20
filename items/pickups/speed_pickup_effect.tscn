@@ -47,6 +47,5 @@ func _on_tree_exited():
 
 [node name="SpeedPickupEffect" type="Node"]
 script = SubResource("GDScript_er82v")
-increase_amount = 1000
 
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

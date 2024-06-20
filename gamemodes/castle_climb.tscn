@@ -181,8 +181,10 @@ properties/4/path = NodePath("PlayerData3:health")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 
-[node name="CastleClimb" type="Node"]
+[node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data", "player_ui")]
 script = ExtResource("1_jx40r")
+player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
+player_ui = [NodePath("GameUI/PlayerUIContainer/PlayerUI0"), NodePath("GameUI/PlayerUIContainer/PlayerUI1"), NodePath("GameUI/PlayerUIContainer/PlayerUI2"), NodePath("GameUI/PlayerUIContainer/PlayerUI3")]
 common_levels = {
 "final": ExtResource("4_xewuu"),
 "foyer": ExtResource("2_0olmr"),

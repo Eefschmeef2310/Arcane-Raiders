@@ -36,7 +36,7 @@ func _process(delta):
 #endregion
 
 #region Signal methods
-func update_spells(slot):
+func update_spells(_slot):
 	if is_instance_valid(data):
 		for i in spells.size():
 			spells[i].set_spell(data.spells[i])
