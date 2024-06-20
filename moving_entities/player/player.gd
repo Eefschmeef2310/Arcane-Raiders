@@ -353,6 +353,8 @@ func toggle_dead(b):
 		var revive_effect = load("res://moving_entities/player/revive_effect.tscn").instantiate()
 		revive_effect.global_position = global_position
 		add_sibling(revive_effect)
+		
+		$HealingParticles.emitting = true
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
