@@ -4,7 +4,7 @@ class_name PlayerData
 enum {DEVICE_NONE = -3, DEVICE_ANY = -2, DEVICE_KEYB = -1}
 
 signal health_changed(object, health)
-signal spell_changed()
+signal spell_changed(slot)
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
 signal spell_casted_but_not_ready(spell: int)
@@ -69,4 +69,4 @@ func set_spell_from_string(slot: int, string: String):
 	spell_strings[slot] = string
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0
-	spell_changed.emit()
+	spell_changed.emit(slot)
