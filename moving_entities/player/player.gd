@@ -12,8 +12,8 @@ signal revived(Player)
 @export_group("Parameters")
 @export var movement_speed : float = 300
 
-@onready var animation_player = $"Animation Players/AnimationPlayer"
-@onready var dash_ray = $DashRay
+#@onready var animation_player = $"Animation Players/AnimationPlayer"
+#@onready var dash_ray = $DashRay
 
 @onready var player_notif_scene = preload("res://moving_entities/player/player_notif.tscn")
 
@@ -22,7 +22,9 @@ signal revived(Player)
 @export var aim_direction: Vector2
 
 #stats
-@onready var crown = $SpritesFlip/SpritesScale/HeadGroup/Crown
+#@onready var crown = $SpritesFlip/SpritesScale/HeadGroup/Crown
+
+
 
 var preparing_cast_slot := -1
 var is_casting := false
@@ -42,12 +44,48 @@ var friends_nearby : Array = []
 @export var revival_time : float
 var revival_time_max : float = 5
 
+@export_group("Node References")
+@export var revival_meter : ProgressBar
+@export var hurtbox : Area2D
+@export var help_label : Label
+@export var collision_shape : CollisionShape2D
+@export var input_node : Node
+@export var invincibility_timer : Timer
+
+@export_subgroup("Spells")
+@export var notif_spawn_pos : Node2D
+@export var spell_pickup_detector_node : Node
+@export var prepare_cast_label : Label
+@export var can_cast_label : Label
+@export var spell_sprite_2d_projection : Sprite2D
+@export var spell_sprite_2d : Sprite2D
+
+@export_subgroup("Dash")
+@export var dash_ray : RayCast2D
+@export var dash_bar : ProgressBar
+@export var dash_sound_player : AudioStreamPlayer2D
+
+@export_subgroup("Animations")
+@export var animation_player : AnimationPlayer
+@export var invincibility_animation : AnimationPlayer
+@export var flashing_animation : AnimationPlayer
+
+@export_subgroup("Player Sprite Components")
+@export var sprites_flip : Node2D
+@export var sprites_scale : Node2D
+@export var body_sprite : Sprite2D
+@export var head_sprite : Sprite2D
+@export var right_hand_sprite : Sprite2D
+@export var left_hand_sprite : Sprite2D
+@export var crown : Node2D
+
+
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
 	animation_player.play("idle", -1, 1)
 	animation_player.seek(randf_range(0,2))
-	$RevivalMeter.max_value = revival_time_max
+	revival_meter.max_value = revival_time_max
 	
 	killed_entity.connect(_on_killed_entity);
 	dealt_damage.connect(_on_dealt_damage)
@@ -80,7 +118,7 @@ func _process(delta):
 	# Dashing and invincibility
 	if dash_cooldown > 0:
 		dash_cooldown -= delta
-		$DashBar.value = dash_cooldown
+		dash_bar.value = dash_cooldown
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
@@ -89,13 +127,13 @@ func _process(delta):
 		overlay_col.a = 0
 	set_sprite_overlay(overlay_col)
 	
-	$Hurtbox.monitoring = !(is_invincible or is_dashing)
+	hurtbox.monitoring = !(is_invincible or is_dashing)
 	
 	if !is_dead and !is_dashing:
 		if aim_direction.x < 0:
-			$SpritesFlip.scale.x = -1
+			sprites_flip.scale.x = -1
 		else:
-			$SpritesFlip.scale.x = 1
+			sprites_flip.scale.x = 1
 		
 		if !is_casting and preparing_cast_slot < 0:
 			if move_direction != Vector2.ZERO:
@@ -103,13 +141,13 @@ func _process(delta):
 			else:
 				animation_player.play("idle", -1, 1)
 	
-	$SpellDirection/Sprite2DProjection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
+	spell_sprite_2d_projection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
 	
 	# Death logic
 	if is_dead:
-		$HelpLabel.show()
-		$RevivalMeter.show()
-		$RevivalMeter.value = revival_time
+		help_label.show()
+		revival_meter.show()
+		revival_meter.value = revival_time
 		
 		# Remove people who died next to you
 		for friend in get_tree().get_nodes_in_group("player"):
@@ -130,13 +168,13 @@ func _process(delta):
 			if health > 0:
 				toggle_dead.rpc(false);
 	else:
-		$HelpContainer/HelpLabel.hide()
-		$RevivalMeter.hide()
+		help_label.hide()
+		revival_meter.hide()
 		
 	
 	if debug:
-		$PrepareCast.text = str(preparing_cast_slot)
-		$CanCast.text = str(can_cast)
+		prepare_cast_label.text = str(preparing_cast_slot)
+		can_cast_label.text = str(can_cast)
 	
 	crown.visible = data.has_crown
 #endregion
@@ -149,7 +187,7 @@ func _on_animation_player_animation_finished(anim_name: String):
 	elif anim_name.contains("dash"):
 		animation_player.play("idle", -1, 1)
 		is_dashing = false
-		$CollisionShape2D.disabled = false
+		collision_shape.disabled = false
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -163,26 +201,26 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	
 	set_input(data.device_id)
-	$SpellDirection/Sprite2D.modulate = data.main_color
-	$SpellDirection/Sprite2DProjection.modulate = data.main_color
-	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
-	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
-	$HelpContainer/HelpLabel.add_theme_color_override("font_color", data.main_color)
+	spell_sprite_2d.modulate = data.main_color
+	spell_sprite_2d_projection.modulate = data.main_color
+	spell_sprite_2d_projection.modulate.a = 0.5
+	body_sprite.self_modulate = data.main_color
+	help_label.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
 		#print(data.character.raider_name)
-		$SpritesFlip/SpritesScale/HeadGroup/Head.texture = data.character.head_texture
-		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
-		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
+		head_sprite.texture = data.character.head_texture
+		right_hand_sprite.self_modulate = data.character.skin_color
+		left_hand_sprite.self_modulate = data.character.skin_color
 	
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
 
 func set_input(id: int):
 	#print("Setting input" + str(id))
-	$Input.set_device(id)
+	input_node.set_device(id)
 
 func set_sprite_overlay(c: Color):
-	for sprite in $SpritesFlip/SpritesScale.get_children(): 
+	for sprite in sprites_scale.get_children(): 
 		if "color" in sprite.get_child(0):
 			sprite.get_child(0).color = c
 
@@ -193,7 +231,7 @@ func attempt_dash():
 @rpc("authority", "call_local", "reliable")
 func start_dash(dir: Vector2):
 	#print("dash!")
-	$"Audio Players/DashSound".play()
+	dash_sound_player.play()
 	if dir == Vector2.ZERO:
 		dir = Vector2(1, 0)
 	dash_cooldown = dash_cooldown_max
@@ -216,7 +254,7 @@ func start_dash(dir: Vector2):
 		pp.position = global_position + (dir.normalized() * dash_spd * dash_duration)
 		if !get_world_2d().direct_space_state.intersect_point(pp, 1):
 			# Disable collision and allow passthrough colliders.
-			$CollisionShape2D.disabled = true
+			collision_shape.disabled = true
 
 func prepare_cast_down(slot: int):
 	if data.spell_cooldowns[slot] > 0:
@@ -233,7 +271,7 @@ func prepare_cast_down(slot: int):
 func prepare_cast(slot: int):
 	if can_cast and data.spell_strings[slot] != "" and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
-		$SpellDirection/Sprite2DProjection.texture = data.spells[slot].projection_texture
+		spell_sprite_2d_projection.texture = data.spells[slot].projection_texture
 		animation_player.stop()
 		animation_player.play("cast_start")
 
@@ -325,13 +363,13 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 func toggle_dead(b):
 	if b: 
 		animation_player.play("die");
-		$CollisionShape2D.set_deferred("disabled", true);
+		collision_shape.set_deferred("disabled", true);
 		revival_time = 0
 		remove_from_group("player")
 		dead.emit(self)
 	else:
 		is_dead = false
-		$CollisionShape2D.disabled = false;
+		collision_shape.disabled = false;
 		revival_time = 0
 		add_to_group("player")
 		start_invincibility()
@@ -350,19 +388,19 @@ func toggle_dead(b):
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
 	is_invincible = true
-	$"Animation Players/InvincibilityAnimation".play("flashing")
-	$InvincibilityTimer.stop()
-	$InvincibilityTimer.start()
+	invincibility_animation.play("flashing")
+	invincibility_timer.stop()
+	invincibility_timer.start()
 
 #endregion
 
 func _on_invincibility_timer_timeout():
 	is_invincible = false
-	$"Animation Players/InvincibilityAnimation".play("RESET")
-	$InvincibilityTimer.stop()
+	invincibility_animation.play("RESET")
+	invincibility_timer.stop()
 
 func is_near_pickup():
-	return $SpellPickupDetector.closest_pickup != null
+	return spell_pickup_detector_node.closest_pickup != null
 
 
 func _on_revival_zone_body_entered(body):
@@ -384,7 +422,7 @@ func _on_dash_trail_timer_timeout():
 		after_image.modulate.a = 0.5
 		add_sibling(after_image)
 		
-		var sprites = $SpritesFlip.duplicate()
+		var sprites = sprites_flip.duplicate()
 		after_image.add_child(sprites)
 		
 		await get_tree().create_timer(0.1).timeout
@@ -393,9 +431,9 @@ func _on_dash_trail_timer_timeout():
 
 func _on_health_updated(_health):
 	if health <= 250:
-		$"Animation Players/Flashing".play("low_health_flash")
+		flashing_animation.play("low_health_flash")
 	else:
-		$"Animation Players/Flashing".stop(false)
+		flashing_animation.stop(false)
 
 func _on_killed_entity(entity: Entity):
 	if is_multiplayer_authority() and data:
@@ -432,6 +470,6 @@ func add_reaction():
 func _on_spell_ready(slot: int):
 	var notif: PlayerNotif = player_notif_scene.instantiate()
 	add_child(notif)
-	notif.position = $NotifSpawnPos.position
+	notif.position = notif_spawn_pos.position
 	notif.set_spell_ready(data.spells[slot])
 	notif.start_tween()
