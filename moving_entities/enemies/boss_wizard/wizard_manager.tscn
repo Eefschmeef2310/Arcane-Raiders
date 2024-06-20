@@ -9,4 +9,6 @@ script/source = "extends EnemyEntity
 
 [node name="Wizard" instance=ExtResource("1_eytbb")]
 script = SubResource("GDScript_4pg0j")
+is_boss = true
+boss_name = "Perpendicular Fiction"
 death_sound = null
