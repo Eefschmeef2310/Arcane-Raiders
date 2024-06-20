@@ -311,7 +311,7 @@ func on_hurt(attack):
 		
 	super.on_hurt(attack)
 	
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() && !is_in_group("enemy"):
 		if !is_dead and !("base_damage" in attack and attack.base_damage <= 0):
 			start_invincibility.rpc()
 
