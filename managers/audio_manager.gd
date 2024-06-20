@@ -32,7 +32,8 @@ const MUSIC = {
 		},
 	],
 	"shop": preload("res://sounds/music/thatoneplace.ogg"),
-	"menu": preload("res://sounds/music/menu.ogg")
+	"menu": preload("res://sounds/music/menu.ogg"),
+	"lose": preload("res://sounds/music/you_suck.ogg")
 }
 
 	#Exported Variables
