@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccjuaawldv0ad"]
+
+[ext_resource type="PackedScene" uid="uid://cg1b6cwhpo8yx" path="res://items/pickups/pickup_scene.tscn" id="1_l8qo2"]
+[ext_resource type="Script" path="res://items/pickups/pickup_base.gd" id="2_0ir2h"]
+[ext_resource type="PackedScene" uid="uid://c8umryjido1ns" path="res://items/pickups/speed_pickup_effect.tscn" id="3_a3qnc"]
+
+[node name="Speed_pickup" instance=ExtResource("1_l8qo2")]
+script = ExtResource("2_0ir2h")
+effect_to_add = ExtResource("3_a3qnc")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

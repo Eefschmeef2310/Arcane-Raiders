@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3hyt6spiwmne"]
+
+[sub_resource type="GDScript" id="GDScript_hyxjy"]
+script/source = "extends Node
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var time_to_kill : int = 3
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var player : Player
+
+#endregion
+
+#region Godot methods
+func _ready():
+	if get_parent() is Player:
+		player = get_parent()
+	
+	await get_tree().create_timer(time_to_kill, false).timeout
+	queue_free()
+
+func _process(delta):
+	if player.data:
+		for i in player.data.spell_cooldowns.size():
+			if player.data.spell_cooldowns[i] > 0:
+				player.data.spell_cooldowns[i] -= delta * 5
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[node name="CooldownPickupEffect" type="Node"]
+script = SubResource("GDScript_hyxjy")

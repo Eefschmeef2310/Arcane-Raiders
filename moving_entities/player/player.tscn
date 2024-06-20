@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=61 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -21,8 +21,8 @@
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
 [ext_resource type="Script" path="res://moving_entities/player/player_dash_trail.gd" id="17_erdnq"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
-[ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_sd8uw"]
 [ext_resource type="AudioStream" uid="uid://chorsx3mmyjuv" path="res://sounds/effects/player/spell_click.wav" id="21_ig1r5"]
+[ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_sd8uw"]
 [ext_resource type="AudioStream" uid="uid://bejdfxbpqudeq" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
 [ext_resource type="Texture2D" uid="uid://o4ybtnyr1byl" path="res://moving_entities/enemies/healing.png" id="23_3frsv"]
 
@@ -943,21 +943,6 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0flpa"]
 bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Animation" id="Animation_1xx0u"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_1xx0u"]
 length = 0.001

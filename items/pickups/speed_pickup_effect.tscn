@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8umryjido1ns"]
+
+[sub_resource type="GDScript" id="GDScript_er82v"]
+script/source = "extends Node
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var increase_amount : int = 100
+@export var time_to_kill : int = 3
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var parent
+
+#endregion
+
+#region Godot methods
+func _ready():
+	parent = get_parent()
+	if parent is Player:
+		parent.movement_speed += increase_amount
+	
+	await get_tree().create_timer(time_to_kill, false).timeout
+	queue_free()
+#endregion
+
+#region Signal methods
+func _on_tree_exited():
+	parent.movement_speed -= increase_amount
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[node name="SpeedPickupEffect" type="Node"]
+script = SubResource("GDScript_er82v")
+increase_amount = 1000
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
