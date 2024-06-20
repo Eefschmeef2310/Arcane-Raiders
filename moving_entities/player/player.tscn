@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=56 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
-[ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="13_a6udy"]
 [ext_resource type="Script" path="res://moving_entities/player/DashBar.gd" id="14_0l6jn"]
 [ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="14_k3oth"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
@@ -22,6 +21,9 @@
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
 [ext_resource type="Script" path="res://moving_entities/player/player_dash_trail.gd" id="17_erdnq"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
+[ext_resource type="AudioStream" path="res://sounds/effects/player/spell_click.wav" id="21_ig1r5"]
+[ext_resource type="AudioStream" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
+[ext_resource type="Texture2D" path="res://moving_entities/enemies/healing.png" id="23_3frsv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -82,7 +84,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SpritesFlip/SpritesScale/Head:position")
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -94,7 +96,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SpritesFlip/SpritesScale/Head:rotation")
+tracks/3/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -388,7 +390,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SpritesFlip/SpritesScale/Head:position")
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -400,7 +402,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SpritesFlip/SpritesScale/Head:rotation")
+tracks/3/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -525,7 +527,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SpritesFlip/SpritesScale/Head:position")
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -537,7 +539,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("SpritesFlip/SpritesScale/Head:rotation")
+tracks/3/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -665,7 +667,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SpritesFlip/SpritesScale/Head:position")
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -781,6 +783,28 @@ height = 36.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
 radius = 125.0
 
+[sub_resource type="Curve" id="Curve_1183a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.801587, 0.978405), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_k7eba"]
+curve = SubResource("Curve_1183a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xhrjq"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 180.0
+initial_velocity_max = 180.0
+gravity = Vector3(0, -200, 0)
+damping_min = 50.0
+damping_max = 50.0
+scale_min = 0.3
+scale_max = 0.8
+color = Color(0, 1, 0, 1)
+alpha_curve = SubResource("CurveTexture_k7eba")
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b1y77"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -800,6 +824,49 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0flpa"]
 bg_color = Color(0.8, 0.8, 0.8, 1)
+
+[sub_resource type="Animation" id="Animation_1xx0u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_04skg"]
+resource_name = "loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_og3mc"]
+_data = {
+"RESET": SubResource("Animation_1xx0u"),
+"loop": SubResource("Animation_04skg")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gx4io"]
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apotd"]
+bg_color = Color(0, 1, 0, 1)
 
 [sub_resource type="Curve" id="Curve_otfui"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -911,6 +978,15 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_vq7jj")
 debug_color = Color(0.662745, 0.443137, 0, 0.419608)
 
+[node name="HealingParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -29)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xhrjq")
+texture = ExtResource("23_3frsv")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
 [node name="SpritesFlip" type="Node2D" parent="."]
 
 [node name="SpritesScale" type="Node2D" parent="SpritesFlip"]
@@ -933,12 +1009,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="Head" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
-clip_children = 2
+[node name="HeadGroup" type="Node2D" parent="SpritesFlip/SpritesScale"]
 position = Vector2(2, -75)
+
+[node name="Head" type="Sprite2D" parent="SpritesFlip/SpritesScale/HeadGroup"]
+clip_children = 2
 texture = ExtResource("6_2udvh")
 
-[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/Head"]
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/HeadGroup/Head"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -946,6 +1024,24 @@ offset_left = -75.0
 offset_top = -75.0
 offset_right = -75.0
 offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Crown" type="Sprite2D" parent="SpritesFlip/SpritesScale/HeadGroup"]
+clip_children = 2
+position = Vector2(-2, -20.2402)
+scale = Vector2(0.46, 0.46)
+texture = ExtResource("14_k3oth")
+
+[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/HeadGroup/Crown"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.87
+offset_top = -62.8913
+offset_right = -26.8696
+offset_bottom = -15.8913
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
@@ -983,24 +1079,6 @@ offset_left = -25.0
 offset_top = -25.0
 offset_right = -25.0
 offset_bottom = -25.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="Crown" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
-clip_children = 2
-position = Vector2(0, -95.07)
-scale = Vector2(0.46, 0.46)
-texture = ExtResource("14_k3oth")
-
-[node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/Crown"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -110.87
-offset_top = -62.8913
-offset_right = -26.8696
-offset_bottom = -15.8913
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
@@ -1057,40 +1135,58 @@ offset_bottom = -107.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="RevivalMeter" type="TextureProgressBar" parent="."]
-z_index = 50
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -102.0
-offset_right = 16.0
-offset_bottom = -70.0
-grow_horizontal = 2
-grow_vertical = 2
-step = 0.01
-value = 100.0
-fill_mode = 5
-texture_progress = ExtResource("13_a6udy")
-tint_progress = Color(0, 1, 0, 1)
+[node name="HelpContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -125.0
+offset_right = 40.0
+offset_bottom = -85.0
 
-[node name="HelpLabel" type="Label" parent="."]
-visible = false
+[node name="HelpLabel" type="Label" parent="HelpContainer"]
+unique_name_in_owner = true
 z_index = 50
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -35.0
-offset_top = -141.0
-offset_right = 35.0
-offset_bottom = -92.0
+offset_left = -72.5
+offset_top = -77.0
+offset_right = 32.5
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("19_5ormi")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 text = "Help!"
+horizontal_alignment = 1
+
+[node name="HelpAnimationPlayer" type="AnimationPlayer" parent="HelpContainer"]
+libraries = {
+"": SubResource("AnimationLibrary_og3mc")
+}
+autoplay = "loop"
+
+[node name="RevivalMeter" type="ProgressBar" parent="."]
+z_index = 50
+custom_minimum_size = Vector2(120, 12)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -91.0
+offset_right = 60.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_gx4io")
+theme_override_styles/fill = SubResource("StyleBoxFlat_apotd")
+value = 70.0
+show_percentage = false
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 1.5
@@ -1107,6 +1203,14 @@ stream = ExtResource("2_fb3ec")
 [node name="DashSound" type="AudioStreamPlayer2D" parent="Audio Players"]
 stream = ExtResource("16_n6b8a")
 volume_db = -2.0
+bus = &"SFX"
+
+[node name="EmptySpellSound" type="AudioStreamPlayer2D" parent="Audio Players"]
+stream = ExtResource("21_ig1r5")
+bus = &"SFX"
+
+[node name="SpellEquipSound" type="AudioStreamPlayer2D" parent="Audio Players"]
+stream = ExtResource("22_68tbj")
 bus = &"SFX"
 
 [node name="WalkSound" type="AudioStreamPlayer2D" parent="Audio Players"]

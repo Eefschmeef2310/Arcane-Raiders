@@ -59,6 +59,22 @@ func _ready():
 		most_pickups.stat_title.text = \"Most \" + most_pickups.stat_title.text
 		most_reactions.stat_title.text = \"Most \" + most_reactions.stat_title.text
 	
+	var local_playerdata_id = -1
+	if(GameManager.isOnline()):
+		var local_peer_id = multiplayer.get_unique_id()
+		print_debug(\"This peer id: \" + str(local_peer_id))
+		for i in castle_climb.player_data.size():
+			if local_peer_id == castle_climb.player_data[i].peer_id && local_playerdata_id == -1:
+				local_playerdata_id = i
+		print_debug(\"This castleclimb id: \" + str(local_playerdata_id))
+	
+	if local_playerdata_id != -1:
+		damage_dealt.stat_title.text += str(castle_climb.player_data[local_playerdata_id].damage)
+		kills.stat_title.text += str(castle_climb.player_data[local_playerdata_id].kills)
+		highest_earner.stat_title.text += str(castle_climb.player_data[local_playerdata_id].total_money)
+		most_pickups.stat_title.text += str(castle_climb.player_data[local_playerdata_id].pickups_obtained)
+		most_reactions.stat_title.text += str(castle_climb.player_data[local_playerdata_id].reactions_created)
+	
 	total_time.text += str(GameManager.format_timer(castle_climb.time_elapsed))
  
 func _process(delta):

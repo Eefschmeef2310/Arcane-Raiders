@@ -22,7 +22,7 @@ signal revived(Player)
 @export var aim_direction: Vector2
 
 #stats
-@onready var crown = $SpritesFlip/SpritesScale/Crown
+@onready var crown = $SpritesFlip/SpritesScale/HeadGroup/Crown
 
 var preparing_cast_slot := -1
 var is_casting := false
@@ -130,7 +130,7 @@ func _process(delta):
 			if health > 0:
 				toggle_dead.rpc(false);
 	else:
-		$HelpLabel.hide()
+		$HelpContainer/HelpLabel.hide()
 		$RevivalMeter.hide()
 		
 	
@@ -167,11 +167,11 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	$SpellDirection/Sprite2DProjection.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
 	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
-	$HelpLabel.add_theme_color_override("font_color", data.main_color)
+	$HelpContainer/HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
 		#print(data.character.raider_name)
-		$SpritesFlip/SpritesScale/Head.texture = data.character.head_texture
+		$SpritesFlip/SpritesScale/HeadGroup/Head.texture = data.character.head_texture
 		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
 		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
 	
@@ -183,7 +183,8 @@ func set_input(id: int):
 
 func set_sprite_overlay(c: Color):
 	for sprite in $SpritesFlip/SpritesScale.get_children(): 
-		sprite.get_child(0).color = c
+		if "color" in sprite.get_child(0):
+			sprite.get_child(0).color = c
 
 func attempt_dash():
 	if !is_casting and dash_cooldown <= 0:
