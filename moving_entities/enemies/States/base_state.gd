@@ -9,7 +9,7 @@ signal Transitioned
 @export var nav_timer_interval: float = 0.5
 @export var nav_timer = 0
 
-@onready var enemy: EnemyEntity = $"../.."
+@onready var enemy: Entity = $"../.."
 
 var navigation_agent: NavigationAgent2D
 #region Other methods
@@ -37,7 +37,7 @@ func get_closest_player() -> CharacterBody2D:
 	var target
 	var dist = INF
 	for p in p_arr:
-		if p is Player and enemy.global_position.distance_to(p.global_position) < dist:
+		if p is Player and enemy.global_position.distance_to(p.global_position) < dist and !p.is_in_group("enemy"):
 			target = p
 			dist = enemy.global_position.distance_to(p.global_position)
 			
@@ -48,10 +48,11 @@ func can_cast_spell(spell_slot: int) -> bool:
 	return enemy.enemy_spells.spell_cooldowns[spell_slot] <= 0 && enemy.can_cast
 	
 func play_anim():
-	enemy.attempt_anim(animation)
+	if "attempt_anim" in owner: enemy.attempt_anim(animation)
 	
 func set_nav_agent(nav_agent: NavigationAgent2D):
-	navigation_agent = nav_agent
-	nav_timer = 0
+	if nav_agent:
+		navigation_agent = nav_agent
+		nav_timer = 0
 #endregion
 

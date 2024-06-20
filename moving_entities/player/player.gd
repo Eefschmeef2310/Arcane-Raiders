@@ -166,7 +166,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
 	
-	set_input(data.device_id)
+	if "set_device" in $Input: set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate = data.main_color
 	$SpellDirection/Sprite2DProjection.modulate.a = 0.5

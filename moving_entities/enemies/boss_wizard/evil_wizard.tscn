@@ -1,0 +1,122 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5fgoh06xrvsb"]
+
+[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_58eft"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="4_jwyjq"]
+
+[sub_resource type="GDScript" id="GDScript_71bfm"]
+resource_name = "EvilWizard"
+script/source = "extends Player
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	$Input.start_state_machine($NavigationAgent2D)
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_sd0g0"]
+resource_name = "wizard_walk"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+#endregion
+
+#region Godot methods
+
+func update(delta):
+	super.update(delta)
+	owner.move_direction = owner.global_position.direction_to(get_closest_player().global_position)
+	#owner.move_direction = Vector2.LEFT
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="Gradient" id="Gradient_cmhpy"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.546053)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[node name="EvilWizard" groups=["enemy"] instance=ExtResource("1_a4rya")]
+collision_layer = 8
+script = SubResource("GDScript_71bfm")
+debug = false
+movement_speed = 300.0
+death_sound = null
+do_damage_numbers = true
+
+[node name="Sprite2DShadow" parent="SpellDirection" index="0"]
+visible = false
+
+[node name="Sprite2D" parent="SpellDirection" index="1"]
+visible = false
+
+[node name="Input" parent="." index="3" node_paths=PackedStringArray("initial_state", "debug_label")]
+script = ExtResource("2_r37mn")
+initial_state = NodePath("Idle")
+debug_label = NodePath("../Label")
+
+[node name="Idle" type="Node" parent="Input" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_58eft")
+actual_first_state = NodePath("../Walk")
+
+[node name="Walk" type="Node" parent="Input" index="1"]
+script = SubResource("GDScript_sd0g0")
+
+[node name="Body" parent="SpritesFlip/SpritesScale" index="0"]
+self_modulate = Color(0.305882, 0.0901961, 0, 1)
+
+[node name="StatusUI" parent="." index="16"]
+offset_top = -148.0
+offset_bottom = -116.0
+
+[node name="Label" type="Label" parent="." index="17"]
+offset_left = 77.0
+offset_top = -62.0
+offset_right = 117.0
+offset_bottom = -37.6667
+
+[node name="ProgressBar" parent="." index="18" instance=ExtResource("4_jwyjq")]
+offset_top = -112.0
+offset_bottom = -108.0
+
+[node name="DashTrail" parent="." index="25"]
+gradient = SubResource("Gradient_cmhpy")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="28"]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+max_speed = 1000.0
+avoidance_priority = 0.1
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
