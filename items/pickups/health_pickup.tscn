@@ -16,7 +16,6 @@ script = ExtResource("1_88w23")
 [node name="Shadow" parent="." instance=ExtResource("2_63bm8")]
 position = Vector2(0, 40)
 scale = Vector2(0.2, 0.1)
-script = null
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)

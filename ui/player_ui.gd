@@ -36,7 +36,7 @@ func _process(delta):
 #endregion
 
 #region Signal methods
-func update_spells():
+func update_spells(slot):
 	if is_instance_valid(data):
 		for i in spells.size():
 			spells[i].set_spell(data.spells[i])
@@ -85,7 +85,7 @@ func set_data(d: PlayerData):
 	data.pickup_proximity_changed.connect(_pickup_proximity_changed)
 	data.spell_casted_but_not_ready.connect(spell_not_ready)
 	update_prompts(data.device_id)
-	update_spells()
+	update_spells(0)
 	$HBox/Stats/HealthBar.tint_progress = data.main_color
 	$HBox/Stats/HealthBar/Border.self_modulate = data.main_color
 	$HBox/Stats/Spells/Head/Panel.self_modulate = data.main_color
