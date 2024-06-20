@@ -30,6 +30,8 @@ script/source = "extends CanvasLayer
 func _ready():
 	get_tree().paused = true
 	
+	AudioManager.play_track_fade(\"lose\")
+	
 	$Control/MarginContainer/VBoxContainer/Label4.text = \"You cleared \" + str(castle_climb.current_floor) + \" floors in \" + str(GameManager.format_timer(castle_climb.time_elapsed))
 #endregion
 

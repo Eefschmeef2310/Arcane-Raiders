@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c003c2ghidyvr" path="res://items/pickups/cooldown_pickup.tscn" id="4_77ule"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
+[ext_resource type="PackedScene" uid="uid://cyojdie2kn8xv" path="res://ui/boss_bar.tscn" id="7_yhssp"]
 [ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="7_yovep"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -113,6 +114,9 @@ offset_bottom = 125.0
 grow_horizontal = 2
 theme_override_constants/separation = 32
 alignment = 1
+
+[node name="BossBar" parent="CanvasLayer/BossBars" instance=ExtResource("7_yhssp")]
+layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 40.0
