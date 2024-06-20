@@ -51,6 +51,7 @@ var revival_time_max : float = 3
 @export var collision_shape : CollisionShape2D
 @export var input_node : Node
 @export var invincibility_timer : Timer
+@export var healing_particles : GPUParticles2D
 
 @export_subgroup("Spells")
 @export var notif_spawn_pos : Node2D
@@ -59,6 +60,8 @@ var revival_time_max : float = 3
 @export var can_cast_label : Label
 @export var spell_sprite_2d_projection : Sprite2D
 @export var spell_sprite_2d : Sprite2D
+@export var empty_spell_sound : AudioStreamPlayer2D
+@export var spell_equip_sound : AudioStreamPlayer2D
 
 @export_subgroup("Dash")
 @export var dash_ray : RayCast2D
@@ -146,11 +149,11 @@ func _process(delta):
 	# Death logic
 	if is_dead:
 		if revival_time > 0:
-			$RevivalMeter.show()
+			revival_meter.show()
 		else:
-			$RevivalMeter.show()
-		$RevivalMeter.value = revival_time
-		%HelpLabel.show()
+			revival_meter.show()
+		revival_meter.value = revival_time
+		help_label.show()
 		
 		# Remove people who died next to you
 		for friend in get_tree().get_nodes_in_group("player"):
@@ -171,8 +174,8 @@ func _process(delta):
 			if health > 0:
 				toggle_dead.rpc(false);
 	else:
-		%HelpLabel.hide()
-		$RevivalMeter.hide()
+		help_label.hide()
+		revival_meter.hide()
 		
 	
 	if debug:
@@ -205,17 +208,17 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
 	
 	set_input(data.device_id)
-	$SpellDirection/Sprite2D.modulate = data.main_color
-	$SpellDirection/Sprite2DProjection.modulate = data.main_color
-	$SpellDirection/Sprite2DProjection.modulate.a = 0.5
-	$SpritesFlip/SpritesScale/Body.self_modulate = data.main_color
+	spell_sprite_2d.modulate = data.main_color
+	spell_sprite_2d_projection.modulate = data.main_color
+	spell_sprite_2d_projection.modulate.a = 0.5
+	body_sprite.self_modulate = data.main_color
 	#%HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:
 		#print(data.character.raider_name)
-		$SpritesFlip/SpritesScale/HeadGroup/Head.texture = data.character.head_texture
-		$SpritesFlip/SpritesScale/RightHand.self_modulate = data.character.skin_color
-		$SpritesFlip/SpritesScale/LeftHand.self_modulate = data.character.skin_color
+		head_sprite.texture = data.character.head_texture
+		right_hand_sprite.self_modulate = data.character.skin_color
+		left_hand_sprite.self_modulate = data.character.skin_color
 	
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
 
@@ -224,11 +227,11 @@ func set_input(id: int):
 	input_node.set_device(id)
 
 func set_sprite_overlay(c: Color):
-	$SpritesFlip/SpritesScale/Body/ColorRect.color = c
-	$SpritesFlip/SpritesScale/HeadGroup/Head/ColorRect.color = c
-	$SpritesFlip/SpritesScale/HeadGroup/Crown/ColorRect.color = c
-	$SpritesFlip/SpritesScale/RightHand/ColorRect.color = c
-	$SpritesFlip/SpritesScale/LeftHand/ColorRect.color = c
+	body_sprite.get_node("ColorRect").color = c
+	head_sprite.get_node("ColorRect").color = c
+	crown.get_node("ColorRect").color = c
+	right_hand_sprite.get_node("ColorRect").color = c
+	left_hand_sprite.get_node("ColorRect").color = c
 
 func attempt_dash():
 	if !is_casting and dash_cooldown <= 0:
@@ -266,7 +269,7 @@ func prepare_cast_down(slot: int):
 	if data.spell_cooldowns[slot] > 0:
 		
 		data.spell_casted_but_not_ready.emit(slot)
-		$"Audio Players/EmptySpellSound".play()
+		empty_spell_sound.play()
 		
 		#var notif: PlayerNotif = player_notif_scene.instantiate()
 		#add_child(notif)
@@ -392,7 +395,7 @@ func toggle_dead(b):
 		revive_effect.global_position = global_position
 		add_sibling(revive_effect)
 		
-		$HealingParticles.emitting = true
+		healing_particles.emitting = true
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
@@ -484,11 +487,11 @@ func _on_spell_ready(slot: int):
 	notif.start_tween()
 
 func _on_spell_changed(slot):
-	$"Audio Players/SpellEquipSound".play()
+	spell_equip_sound.play()
 	
 
 @rpc("any_peer", "call_local", "reliable")
 func heal_damage(amount):
 	super.heal_damage(amount)
 	
-	$HealingParticles.emitting = true;
+	healing_particles.emitting = true;

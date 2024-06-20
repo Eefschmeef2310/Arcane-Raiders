@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/cat.tres" id="12_ndveq"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
 [ext_resource type="Script" path="res://moving_entities/player/DashBar.gd" id="14_0l6jn"]
 [ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="14_k3oth"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
@@ -877,7 +877,7 @@ resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.546053)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
@@ -887,6 +887,34 @@ script = ExtResource("1_wrxev")
 debug = true
 data = NodePath("PlayerData")
 movement_speed = 350.0
+revival_meter = NodePath("RevivalMeter")
+hurtbox = NodePath("Hurtbox")
+help_label = NodePath("HelpContainer/HelpLabel")
+collision_shape = NodePath("CollisionShape2D")
+input_node = NodePath("Input")
+invincibility_timer = NodePath("InvincibilityTimer")
+healing_particles = NodePath("HealingParticles")
+notif_spawn_pos = NodePath("NotifSpawnPos")
+spell_pickup_detector_node = NodePath("SpellPickupDetector")
+prepare_cast_label = NodePath("PrepareCast")
+can_cast_label = NodePath("CanCast")
+spell_sprite_2d_projection = NodePath("SpellDirection/Sprite2DProjection")
+spell_sprite_2d = NodePath("SpellDirection/Sprite2D")
+empty_spell_sound = NodePath("Audio Players/EmptySpellSound")
+spell_equip_sound = NodePath("Audio Players/SpellEquipSound")
+dash_ray = NodePath("DashRay")
+dash_bar = NodePath("DashBar")
+dash_sound_player = NodePath("Audio Players/DashSound")
+animation_player = NodePath("Animation Players/AnimationPlayer")
+invincibility_animation = NodePath("Animation Players/InvincibilityAnimation")
+flashing_animation = NodePath("Animation Players/Flashing")
+sprites_flip = NodePath("SpritesFlip")
+sprites_scale = NodePath("SpritesFlip/SpritesScale")
+body_sprite = NodePath("SpritesFlip/SpritesScale/Body")
+head_sprite = NodePath("SpritesFlip/SpritesScale/HeadGroup/Head")
+right_hand_sprite = NodePath("SpritesFlip/SpritesScale/RightHand")
+left_hand_sprite = NodePath("SpritesFlip/SpritesScale/LeftHand")
+crown = NodePath("SpritesFlip/SpritesScale/HeadGroup/Crown")
 death_sound = ExtResource("15_74n7w")
 do_damage_numbers = false
 
