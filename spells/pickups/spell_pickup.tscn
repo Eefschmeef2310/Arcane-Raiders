@@ -77,7 +77,6 @@ texture = ExtResource("3_y5wrp")
 
 [node name="Shadow" parent="." instance=ExtResource("3_pmcv8")]
 scale = Vector2(0.25, 0.125)
-script = null
 
 [node name="Icon" type="Node2D" parent="."]
 position = Vector2(0, -35)
