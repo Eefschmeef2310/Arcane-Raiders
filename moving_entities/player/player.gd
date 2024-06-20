@@ -163,6 +163,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
+	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
 	
 	set_input(data.device_id)
 	$SpellDirection/Sprite2D.modulate = data.main_color
@@ -231,6 +232,7 @@ func prepare_cast_down(slot: int):
 	if data.spell_cooldowns[slot] > 0:
 		
 		data.spell_casted_but_not_ready.emit(slot)
+		$"Audio Players/EmptySpellSound".play()
 		
 		#var notif: PlayerNotif = player_notif_scene.instantiate()
 		#add_child(notif)
@@ -248,7 +250,7 @@ func prepare_cast(slot: int):
 
 # Splitting the functions to separate input from action for RPC
 func attempt_cast(slot: int):
-	if can_cast and !is_dashing and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
+	if can_cast and preparing_cast_slot != -1 and !is_dashing and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		cast_spell.rpc(slot)
 	preparing_cast_slot = -1
 
@@ -355,6 +357,8 @@ func toggle_dead(b):
 		var revive_effect = load("res://moving_entities/player/revive_effect.tscn").instantiate()
 		revive_effect.global_position = global_position
 		add_sibling(revive_effect)
+		
+		$HealingParticles.emitting = true
 
 @rpc("authority", "call_local", "reliable")
 func start_invincibility():
@@ -449,6 +453,10 @@ func spawn_speech_polygons():
 	var container = load("res://moving_entities/player/polygon_container.tscn").instantiate()
 	container.set_color(data.main_color)
 	$SpritesFlip/SpritesScale.add_child(container)
+func _on_spell_changed(slot):
+	$"Audio Players/SpellEquipSound".play()
+	
+
 @rpc("any_peer", "call_local", "reliable")
 func heal_damage(amount):
 	super.heal_damage(amount)

@@ -126,8 +126,9 @@ func _process(_delta):
 			else:
 				if spell_press[i]:
 					owner.prepare_cast_down(i)
-				if spell_down[i]:
 					owner.prepare_cast(i)
+				if spell_down[i]:
+					pass
 				if spell_release[i]:
 					owner.attempt_cast(i)
 		if do_dash:
