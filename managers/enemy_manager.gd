@@ -68,5 +68,13 @@ extends Node
 	"rock_slime": {
 		"scene" : preload("res://moving_entities/enemies/boss_slime/wind_rock_slime/rock_slime.tscn"),
 		"difficulty" : 999
-	}
+	},
+	"wizard_manager": {
+		"scene" : preload("res://moving_entities/enemies/boss_wizard/wizard_manager.tscn"),
+		"difficulty" : 999
+	},
+	"wizard": {
+		"scene" : preload("res://moving_entities/enemies/boss_wizard/evil_wizard.tscn"),
+		"difficulty" : 999
+	},
 }

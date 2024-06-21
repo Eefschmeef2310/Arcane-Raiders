@@ -7,18 +7,45 @@ resource_name = "evil_wizard"
 script/source = "extends EnemyEntity
 
 #array of wizards (added to when you spawn)
+@export var wizard_num: int = 2
+
 var wizards: Array
 
 
+func _ready():
+	super._ready()
+	if is_multiplayer_authority():
+		await get_tree().create_timer(0.5).timeout
+		var room: CastleRoom = get_parent() as CastleRoom
+		if room:
+			var wizard_paths: Array
+			for i in wizard_num:
+				var wizard:Entity = room.enemy_spawner.spawn({\"key\": \"wizard\", \"pos\": global_position})
+				wizard.wizard_hurt.connect(_update_health)
+				wizard.wizard_died.connect(_remove_wizard)
+				wizards.push_back(wizard)
 
-#Add 4 wizards when I spawn
+func _remove_wizard(dead_wizard):
+	if !is_multiplayer_authority(): return
+	for index in wizards.size():
+		if wizards[index] == dead_wizard:
+			wizards.remove_at(index)
+			break
+	_update_health()
 
-#Connect the wizard's health change signal to me and update my health ig
+func _update_health():
+	if !is_multiplayer_authority(): return
+	var total = 0
+	for wizard in wizards:
+		if wizard && is_instance_valid(wizard):
+			total += wizard.health
+	set_health.rpc(total)
 
-#When wizard dies, remove from array and update health accordingly"
+"
 
-[node name="Wizard" instance=ExtResource("1_eytbb")]
+[node name="WizardManager" instance=ExtResource("1_eytbb")]
 script = SubResource("GDScript_4pg0j")
+wizard_num = 2
 is_boss = true
 boss_name = "Perpendicular Fiction"
 death_sound = null

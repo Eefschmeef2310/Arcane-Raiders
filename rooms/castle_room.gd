@@ -59,7 +59,6 @@ func _ready():
 	enemy_spawner.spawn_function = spawn_enemy
 	spell_pickup_spawner.spawn_function = spawn_spell_pickup
 	health_pickup_spawner.spawn_function = spawn_health_pickup
-
 	for n in player_spawns:
 		n.hide()
 	for n in enemy_spawns.get_children():
