@@ -493,7 +493,7 @@ func _on_spell_ready(slot: int):
 	notif.start_tween()
 
 func spawn_speech_polygons():
-	var container = load("res://moving_entities/player/polygon_container.tscn").instantiate()
+	var container = preload("res://moving_entities/player/polygon_container.tscn").instantiate()
 	container.set_color(data.main_color)
 	$SpritesFlip/SpritesScale.add_child(container)
 	
