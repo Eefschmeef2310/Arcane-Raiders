@@ -17,18 +17,19 @@ extends AudioStreamPlayer2D
 
 	#Other Variables (please try to separate and organise!)
 
+
+
 #endregion
 
 #region Godot methods
 func _ready():
 	(stream as AudioStreamRandomizer).set_stream(0, (owner.data as PlayerData).character.animal_sound)
-
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
+
+
 #region Signal methods
+
 
 #endregion
 
