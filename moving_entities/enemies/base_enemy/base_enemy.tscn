@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4dyl3ppwa1rc"]
+[gd_scene load_steps=15 format=3 uid="uid://b4dyl3ppwa1rc"]
 
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_vpuq0"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="3_y0btb"]
 [ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
+[ext_resource type="Script" path="res://moving_entities/status_particles.gd" id="4_g2jk5"]
 [ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="7_qxifu"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
+[ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="10_j1o0m"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
 properties/0/path = NodePath(".:position")
@@ -19,6 +21,20 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/replication_mode = 2
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7sn17"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
 
 [node name="BaseEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
@@ -86,6 +102,18 @@ bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
+
+[node name="StatusParticles" type="Node2D" parent="."]
+script = ExtResource("4_g2jk5")
+lifetime = 1.0
+width = 45.0
+
+[node name="BurnParticles" type="GPUParticles2D" parent="StatusParticles"]
+visible = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("10_j1o0m")
+local_coords = true
 
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

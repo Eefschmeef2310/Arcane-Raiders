@@ -158,12 +158,6 @@ func update_dash(delta):
 		is_dashing = false
 		nav_agent.avoidance_enabled = true
 		
-func create_health_pickup():
-	if randf() < health_pickup_chance:
-		var pickup = HEALTH_PICKUP.instantiate()
-		pickup.global_position = global_position
-		call_deferred("add_sibling", pickup)
-		
 @rpc("authority", "call_local", "reliable")
 func enemy_is_dead():
 	#Responsible for particles ONLY

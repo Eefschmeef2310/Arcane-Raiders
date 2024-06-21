@@ -29,7 +29,10 @@ script/source = "extends CanvasLayer
 @export var highest_earner : FinalStat
 @export var most_pickups : FinalStat
 @export var most_reactions : FinalStat
+
+@export_group(\"Node References\")
 @export var total_time : Label
+@export var leaderboard_panels : Array[Panel]
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
@@ -59,7 +62,39 @@ func _ready():
 		most_pickups.stat_title.text = \"Most \" + most_pickups.stat_title.text
 		most_reactions.stat_title.text = \"Most \" + most_reactions.stat_title.text
 	
+	var local_playerdata_id = -1
+	if(GameManager.isOnline()):
+		var local_peer_id = multiplayer.get_unique_id()
+		#print_debug(\"This peer id: \" + str(local_peer_id))
+		for i in castle_climb.player_data.size():
+			if local_peer_id == castle_climb.player_data[i].peer_id && local_playerdata_id == -1:
+				local_playerdata_id = i
+		#print_debug(\"This castleclimb id: \" + str(local_playerdata_id))
+	
+	if local_playerdata_id != -1:
+		damage_dealt.stat_title.text += str(castle_climb.player_data[local_playerdata_id].damage)
+		kills.stat_title.text += str(castle_climb.player_data[local_playerdata_id].kills)
+		highest_earner.stat_title.text += str(castle_climb.player_data[local_playerdata_id].total_money)
+		most_pickups.stat_title.text += str(castle_climb.player_data[local_playerdata_id].pickups_obtained)
+		most_reactions.stat_title.text += str(castle_climb.player_data[local_playerdata_id].reactions_created)
+	
 	total_time.text += str(GameManager.format_timer(castle_climb.time_elapsed))
+	
+	#print_debug(str(castle_climb.get_leaderboard()))
+	var leaderboard : Array[int] = castle_climb.get_leaderboard()
+	var players_in_leaderboard = leaderboard.size()
+	for i in [0,1,2,3]:
+		#set corresponding card
+		if i < players_in_leaderboard:
+			print_debug(\"we have \" + str(i))
+			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Head\").texture = castle_climb.player_data[leaderboard[i]].character.head_texture
+			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Body\").self_modulate = castle_climb.player_data[leaderboard[i]].main_color
+			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/RightHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color
+			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/LeftHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color
+		else:
+			leaderboard_panels[i].visible = false
+			print_debug(\"we lack \" + str(i))
+
  
 func _process(delta):
 	if Input.is_action_pressed(\"ui_cancel\"):
@@ -199,7 +234,7 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels")]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt")
@@ -208,6 +243,7 @@ highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxCon
 most_pickups = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups")
 most_reactions = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions")
 total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
+leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

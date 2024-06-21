@@ -89,7 +89,7 @@ _data = {
 [node name="SpikeTrap" type="Area2D"]
 y_sort_enabled = true
 collision_layer = 0
-collision_mask = 512
+collision_mask = 528
 script = ExtResource("1_bkgxk")
 
 [node name="Icon" type="Sprite2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=62 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -22,8 +22,10 @@
 [ext_resource type="Script" path="res://moving_entities/player/player_dash_trail.gd" id="17_erdnq"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
 [ext_resource type="AudioStream" uid="uid://chorsx3mmyjuv" path="res://sounds/effects/player/spell_click.wav" id="21_ig1r5"]
+[ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_sd8uw"]
 [ext_resource type="AudioStream" uid="uid://bejdfxbpqudeq" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
 [ext_resource type="Texture2D" uid="uid://o4ybtnyr1byl" path="res://moving_entities/enemies/healing.png" id="23_3frsv"]
+[ext_resource type="AudioStream" uid="uid://chdgqr03jjw61" path="res://items/pickups/coin-upaif-14631.mp3" id="23_sj6la"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -496,6 +498,121 @@ tracks/10/keys = {
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_cemt8"]
+resource_name = "emote_0"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesFlip/SpritesScale:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-40, -79), Vector2(-50, -57), Vector2(-40, -79)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0169729, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(45, -80.4342), Vector2(51, -58), Vector2(45, -80.4342)]
+}
+
+[sub_resource type="Animation" id="Animation_plrvr"]
+resource_name = "emote_1"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimalSound")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_speech_polygons"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_phq0j"]
+resource_name = "emote_2"
+length = 3.0
+loop_mode = 1
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.385, 0.75, 1.125, 1.5, 1.875, 2.25, 2.625, 3.01),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(31, -31), Vector2(31, -25), Vector2(31, -31), Vector2(31, -25), Vector2(31, -31), Vector2(43, -31), Vector2(21, -31), Vector2(43, -31), Vector2(21, -31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.385, 0.75, 1.125, 1.5, 1.875, 2.25, 2.625, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(6, -25), Vector2(6, -31), Vector2(6, -25), Vector2(6, -31), Vector2(6, -25), Vector2(0, -25), Vector2(24, -25), Vector2(0, -25), Vector2(6, -25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/HeadGroup:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.01, 0.1875, 0.375, 0.5625, 0.75, 0.9375, 1.125, 1.315, 1.5, 1.6875, 1.875, 2.0625, 2.25, 2.4375, 2.625, 2.8125, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74)]
+}
+
 [sub_resource type="Animation" id="Animation_vdik6"]
 resource_name = "idle"
 length = 2.0
@@ -708,6 +825,9 @@ _data = {
 "cast_start": SubResource("Animation_b6wy7"),
 "dash": SubResource("Animation_0piqm"),
 "die": SubResource("Animation_yhbvw"),
+"emote_0": SubResource("Animation_cemt8"),
+"emote_1": SubResource("Animation_plrvr"),
+"emote_2": SubResource("Animation_phq0j"),
 "idle": SubResource("Animation_vdik6"),
 "move": SubResource("Animation_2ep43")
 }
@@ -777,8 +897,8 @@ radius = 18.0
 height = 66.4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkhji"]
-radius = 9.0
-height = 36.0
+radius = 4.0
+height = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
 radius = 125.0
@@ -823,7 +943,7 @@ properties/3/replication_mode = 1
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0flpa"]
-bg_color = Color(0.8, 0.8, 0.8, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_1xx0u"]
 length = 0.001
@@ -868,6 +988,12 @@ bg_color = Color(0, 0, 0, 0.784314)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apotd"]
 bg_color = Color(0, 1, 0, 1)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rqmd7"]
+resource_local_to_scene = true
+random_pitch = 1.1
+streams_count = 1
+stream_0/weight = 1.0
+
 [sub_resource type="Curve" id="Curve_otfui"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -877,7 +1003,7 @@ resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.546053)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
@@ -887,6 +1013,34 @@ script = ExtResource("1_wrxev")
 debug = true
 data = NodePath("PlayerData")
 movement_speed = 350.0
+revival_meter = NodePath("RevivalMeter")
+hurtbox = NodePath("Hurtbox")
+help_label = NodePath("HelpContainer/HelpLabel")
+collision_shape = NodePath("CollisionShape2D")
+input_node = NodePath("Input")
+invincibility_timer = NodePath("InvincibilityTimer")
+healing_particles = NodePath("HealingParticles")
+notif_spawn_pos = NodePath("NotifSpawnPos")
+spell_pickup_detector_node = NodePath("SpellPickupDetector")
+prepare_cast_label = NodePath("PrepareCast")
+can_cast_label = NodePath("CanCast")
+spell_sprite_2d_projection = NodePath("SpellDirection/Sprite2DProjection")
+spell_sprite_2d = NodePath("SpellDirection/Sprite2D")
+empty_spell_sound = NodePath("Audio Players/EmptySpellSound")
+spell_equip_sound = NodePath("Audio Players/SpellEquipSound")
+dash_ray = NodePath("DashRay")
+dash_bar = NodePath("DashBar")
+dash_sound_player = NodePath("Audio Players/DashSound")
+animation_player = NodePath("Animation Players/AnimationPlayer")
+invincibility_animation = NodePath("Animation Players/InvincibilityAnimation")
+flashing_animation = NodePath("Animation Players/Flashing")
+sprites_flip = NodePath("SpritesFlip")
+sprites_scale = NodePath("SpritesFlip/SpritesScale")
+body_sprite = NodePath("SpritesFlip/SpritesScale/Body")
+head_sprite = NodePath("SpritesFlip/SpritesScale/HeadGroup/Head")
+right_hand_sprite = NodePath("SpritesFlip/SpritesScale/RightHand")
+left_hand_sprite = NodePath("SpritesFlip/SpritesScale/LeftHand")
+crown = NodePath("SpritesFlip/SpritesScale/HeadGroup/Crown")
 death_sound = ExtResource("15_74n7w")
 do_damage_numbers = false
 
@@ -937,6 +1091,7 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_dg52v")
 }
+autoplay = "idle"
 
 [node name="InvincibilityAnimation" type="AnimationPlayer" parent="Animation Players"]
 root_node = NodePath("../..")
@@ -960,6 +1115,7 @@ position = Vector2(0, -30)
 shape = SubResource("CapsuleShape2D_o8khp")
 
 [node name="FeetHurtbox" type="Area2D" parent="."]
+position = Vector2(0, 5)
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("9_cti52")
@@ -977,15 +1133,6 @@ collision_mask = 4
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_vq7jj")
 debug_color = Color(0.662745, 0.443137, 0, 0.419608)
-
-[node name="HealingParticles" type="GPUParticles2D" parent="."]
-position = Vector2(0, -29)
-emitting = false
-process_material = SubResource("ParticleProcessMaterial_xhrjq")
-texture = ExtResource("23_3frsv")
-one_shot = true
-explosiveness = 1.0
-local_coords = true
 
 [node name="SpritesFlip" type="Node2D" parent="."]
 
@@ -1082,6 +1229,15 @@ offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="HealingParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -29)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_xhrjq")
+texture = ExtResource("23_3frsv")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b1y77")
@@ -1197,6 +1353,12 @@ autostart = true
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_fb3ec")
+bus = &"SFX"
+
+[node name="AnimalSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_rqmd7")
+bus = &"SFX"
+script = ExtResource("21_sd8uw")
 
 [node name="Audio Players" type="Node" parent="."]
 
@@ -1207,6 +1369,10 @@ bus = &"SFX"
 
 [node name="EmptySpellSound" type="AudioStreamPlayer2D" parent="Audio Players"]
 stream = ExtResource("21_ig1r5")
+bus = &"SFX"
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="Audio Players"]
+stream = ExtResource("23_sj6la")
 bus = &"SFX"
 
 [node name="SpellEquipSound" type="AudioStreamPlayer2D" parent="Audio Players"]
@@ -1240,6 +1406,6 @@ position = Vector2(-80, -160)
 [connection signal="body_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_body_entered"]
 [connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
 [connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
-[connection signal="changed" from="DashBar" to="DashBar" method="_on_changed"]
+[connection signal="value_changed" from="DashBar" to="DashBar" method="_on_value_changed"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="DashTrailTimer" to="." method="_on_dash_trail_timer_timeout"]

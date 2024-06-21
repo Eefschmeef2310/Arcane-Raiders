@@ -8,3 +8,5 @@ class_name RaiderRes
 
 @export var head_texture: Texture2D
 @export var skin_color: Color
+
+@export var animal_sound : AudioStream

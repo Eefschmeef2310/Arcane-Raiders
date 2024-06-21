@@ -12,6 +12,7 @@ signal spell_ready(spell: int)
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
+@export var player_name : String
 
 @export var max_health : int = 1000
 @export var health : int = 1000:

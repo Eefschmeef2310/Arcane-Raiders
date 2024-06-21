@@ -12,6 +12,8 @@ signal spell_change_requested(Player, int, SpellPickup)
 @export var saturation : float
 @export var track_id : String
 
+@export var pickups : Array[PackedScene]
+
 @onready var dynamic_camera: DynamicCamera = $DynamicCamera
 
 @onready var player_spawns = [$PlayerSpawn0, $PlayerSpawn1, $PlayerSpawn2, $PlayerSpawn3]
@@ -20,14 +22,13 @@ signal spell_change_requested(Player, int, SpellPickup)
 
 @onready var enemy_spawns = $EnemySpawns
 @onready var enemy_spawner = $EnemySpawner
-@onready var boss_bars = $CanvasLayer /BossBars
+@onready var boss_bars = $CanvasLayer/BossBars
 @onready var BOSSBAR_SCENE = preload("res://ui/boss_bar.tscn")
 
 @onready var spell_pickup_spawner = $SpellPickupSpawner
 const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 
 @onready var health_pickup_spawner = $HealthPickupSpawner
-const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 
 @onready var tile_map = $TileMap
 @onready var room_exit = $RoomExit
@@ -118,7 +119,7 @@ func spawn_player(player_number: int) -> Node2D:
 	player.revived.connect(report_player_revival)
 	dynamic_camera.add_target(player)
 	live_players += 1
-	#print("Spawned player of peer_id " + str(player.data.peer_id))
+	#print("Spawned player of peer_id " + 1str(player.data.peer_id))
 	return player
 
 func report_player_death(player):
@@ -133,7 +134,7 @@ func report_player_revival(player):
 		dead_players.erase(player)
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
-	print("Sending spell change request.")
+	print("Sending sddspell change request.")
 	spell_change_requested.emit(p.data, i, sp)
 
 func spawn_enemy(data) -> Node2D:
@@ -160,12 +161,12 @@ func spawn_spell_pickup(spell_string: String):
 	return pickup
 
 func server_spawn_health_pickup(pos : Vector2):
-	if is_multiplayer_authority() and randf() < 0.2:
-		health_pickup_spawner.call_deferred("spawn", pos)
+	if is_multiplayer_authority() and randf() < 0.4:
+		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene_index": randi_range(0, pickups.size() - 1)})
 	
-func spawn_health_pickup(pos : Vector2):
-	var pickup = HEALTH_PICKUP.instantiate()
-	pickup.global_position = pos
+func spawn_health_pickup(info : Dictionary):
+	var pickup = pickups[info["scene_index"]].instantiate()
+	pickup.global_position = info["pos"]
 	return pickup
 	
 func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):

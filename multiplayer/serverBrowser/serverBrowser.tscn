@@ -8,6 +8,7 @@
 font_size = 24
 
 [node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel", "template_button")]
+process_mode = 3
 script = ExtResource("1_ih681")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 server_browser = NodePath("ServerBrowser")
@@ -174,6 +175,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="DisconnectButton" type="Button" parent="LoadingPanel"]
+process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Disconnect"
