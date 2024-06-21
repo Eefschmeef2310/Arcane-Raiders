@@ -13,12 +13,10 @@ collision_mask = 4
 
 [node name="Shadow" parent="." instance=ExtResource("1_7luxl")]
 position = Vector2(0, 3.8147e-06)
-scale = Vector2(0.2, 0.1)
 
 [node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 0.992157, 1)
 position = Vector2(0, -40)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_uvxj4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -35,7 +35,7 @@ func _process(delta):
 	if player.data:
 		for i in player.data.spell_cooldowns.size():
 			if player.data.spell_cooldowns[i] > 0:
-				player.data.spell_cooldowns[i] -= delta * 5
+				player.data.spell_cooldowns[i] -= delta * 2
 #endregion
 
 #region Signal methods
