@@ -13,7 +13,9 @@ class_name PlayerUI
 
 @onready var damage_stat = $"HBox/Stats/Stats/Damage Stat"
 @onready var kills_stat = $"HBox/Stats/Stats/Kills Stat"
-@onready var crown = $HBox/Stats/Spells/Head/Crown
+@export_group("Node References")
+@export var crown : TextureRect
+@export var player_username : Label
 
 var input_prompts: Array
 
@@ -33,6 +35,8 @@ func _process(delta):
 	damage_stat.text = "Damage: " + str(data.damage)
 	kills_stat.text = "Kills: " + str(data.kills)
 	crown.visible = data.has_crown
+	player_username.text = data.player_name
+	player_username.self_modulate = data.main_color
 #endregion
 
 #region Signal methods
