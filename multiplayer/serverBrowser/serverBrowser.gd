@@ -44,10 +44,6 @@ func _ready():
 	peer.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_match_list.connect(on_lobby_match_list)
 	open_lobby_list()
-
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods
@@ -62,6 +58,7 @@ func _on_back_pressed():
 
 func _on_disconnect_button_pressed():
 	# TODO this doesnt work yet! we should probably have it go back to the menu rather than try and reload te server browser
+	get_tree().paused = false
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	get_tree().change_scene_to_packed(disconnect_scene) 
 	
