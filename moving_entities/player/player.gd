@@ -401,6 +401,7 @@ func _on_dash_trail_timer_timeout():
 		after_image.queue_free()
 
 func _on_health_updated(_health):
+	if is_in_group("enemy"): return
 	if health <= 250:
 		$"Animation Players/Flashing".play("low_health_flash")
 	else:

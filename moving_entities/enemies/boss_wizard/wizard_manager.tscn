@@ -11,7 +11,6 @@ script/source = "extends EnemyEntity
 
 var wizards: Array
 
-
 func _ready():
 	super._ready()
 	if is_multiplayer_authority():
@@ -21,6 +20,8 @@ func _ready():
 			var wizard_paths: Array
 			for i in wizard_num:
 				var wizard:Entity = room.enemy_spawner.spawn({\"key\": \"wizard\", \"pos\": global_position})
+				wizard.max_health = max_health/wizard_num
+				wizard.health = max_health/wizard_num
 				wizard.wizard_hurt.connect(_update_health)
 				wizard.wizard_died.connect(_remove_wizard)
 				wizards.push_back(wizard)
@@ -31,7 +32,6 @@ func _remove_wizard(dead_wizard):
 		if wizards[index] == dead_wizard:
 			wizards.remove_at(index)
 			break
-	_update_health()
 
 func _update_health():
 	if !is_multiplayer_authority(): return
@@ -40,12 +40,11 @@ func _update_health():
 		if wizard && is_instance_valid(wizard):
 			total += wizard.health
 	set_health.rpc(total)
-
 "
 
 [node name="WizardManager" instance=ExtResource("1_eytbb")]
 script = SubResource("GDScript_4pg0j")
-wizard_num = 2
+wizard_num = 4
 is_boss = true
 boss_name = "Perpendicular Fiction"
 death_sound = null

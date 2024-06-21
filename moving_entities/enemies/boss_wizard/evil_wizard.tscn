@@ -42,15 +42,12 @@ func _physics_process(delta):
 
 #endregion
 
-
-
-#Have on hurt function deal damage to the Wizard Manager as well
 func on_hurt(attack):
 	super.on_hurt(attack)
 	wizard_hurt.emit()
 
 func _on_zero_health():
-	#send a signal to Wizard Manager that I am dead
+	wizard_died.emit()
 	call_deferred(\"queue_free\")
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2):
