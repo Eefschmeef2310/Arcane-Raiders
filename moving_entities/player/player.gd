@@ -460,7 +460,7 @@ func _on_killed_entity(entity: Entity):
 		#data.total_money += entity.monetary_value
 		#data.kills += 1
 		add_kill.rpc(entity.monetary_value)
-		print(data.money)
+		#print(data.money)
 
 func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:

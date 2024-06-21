@@ -17,9 +17,9 @@ func _ready():
 		await get_tree().create_timer(0.5).timeout
 		var room: CastleRoom = get_parent() as CastleRoom
 		if room:
-			var wizard_paths: Array
+			#var wizard_paths: Array
 			for i in wizard_num:
-				var wizard:Entity = room.enemy_spawner.spawn({\"key\": \"wizard\", \"pos\": global_position})
+				var wizard: Entity = room.enemy_spawner.spawn({\"key\": \"wizard\", \"pos\": global_position})
 				wizard.max_health = max_health/wizard_num
 				wizard.health = max_health/wizard_num
 				wizard.wizard_hurt.connect(_update_health)
@@ -28,10 +28,10 @@ func _ready():
 
 func _remove_wizard(dead_wizard):
 	if !is_multiplayer_authority(): return
-	for index in wizards.size():
-		if wizards[index] == dead_wizard:
-			wizards.remove_at(index)
-			break
+	print(\"A wizard has died.\")
+	wizards.erase(dead_wizard)
+	if wizards.size() <= 0:
+		set_health.rpc(0)
 
 func _update_health():
 	if !is_multiplayer_authority(): return
@@ -42,10 +42,33 @@ func _update_health():
 	set_health.rpc(total)
 "
 
-[node name="WizardManager" instance=ExtResource("1_eytbb")]
+[node name="WizardManager" groups=["boss"] instance=ExtResource("1_eytbb")]
 script = SubResource("GDScript_4pg0j")
 wizard_num = 4
 is_boss = true
-boss_name = "Perpendicular Fiction"
+boss_name = "Shadow Wizard Money Gang"
+ignoreForStats = true
 death_sound = null
 max_health = 4000
+
+[node name="PointLight2D" parent="." index="0"]
+visible = false
+
+[node name="Sprite2D" parent="." index="1"]
+visible = false
+
+[node name="Hurtbox" parent="." index="2"]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="GroundHurtbox" parent="." index="3"]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="ProgressBar" parent="." index="4"]
+visible = false
+
+[node name="StatusUI" parent="." index="5"]
+visible = false
