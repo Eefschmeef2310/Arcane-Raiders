@@ -146,6 +146,30 @@ func get_most_reactions():
 
 
 
+func get_leaderboard() -> Array[int]:
+	var leaders : Array[int] = [] # player id's only
+	var data : Array[PlayerData] = player_data.duplicate()
+	var passes = 0
+	
+	
+	
+	while passes < 4:
+		var most_damage = -1
+		var player_id = -1
+		for i in number_of_players:
+			if data[i].damage > most_damage:
+				most_damage = data[i].damage
+				player_id = i
+		
+		if(data[player_id].damage != -1 and data[player_id].damage != 0):
+			leaders.append(player_id)
+			data[player_id].damage = -1
+		passes += 1
+	
+	
+	#returns an array of player id's from 1st to 4th, missing players will return -1
+	return leaders 
+
 
 func start_climb():
 	# Do any server-sided stuff here
