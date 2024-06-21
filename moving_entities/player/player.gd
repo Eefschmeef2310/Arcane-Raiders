@@ -16,6 +16,8 @@ signal revived(Player)
 #@onready var dash_ray = $DashRay
 
 @onready var player_notif_scene = preload("res://moving_entities/player/player_notif.tscn")
+@onready var speed_effect_scene = preload("res://items/pickups/speed_pickup_effect.tscn")
+@onready var cooldown_effect_scene = preload("res://items/pickups/cooldown_pickup_effect.tscn")
 
 # Normalised vectors
 @export var move_direction: Vector2
@@ -502,5 +504,16 @@ func _on_spell_changed(_slot):
 @rpc("any_peer", "call_local", "reliable")
 func heal_damage(amount):
 	super.heal_damage(amount)
-	
 	healing_particles.emitting = true;
+
+@rpc("any_peer", "call_local", "reliable")
+func add_speed_effect():
+	$"Audio Players/PickupSound".play()
+	add_child(speed_effect_scene.instantiate())
+	add_pickup()
+
+@rpc("any_peer", "call_local", "reliable")
+func add_cooldown_effect():
+	$"Audio Players/PickupSound".play()
+	add_child(cooldown_effect_scene.instantiate())
+	add_pickup()
