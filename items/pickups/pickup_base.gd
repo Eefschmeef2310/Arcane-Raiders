@@ -2,7 +2,13 @@ extends Area2D
 class_name Pickup
 #Authored by Ethan
 
-@export var effect_to_add : PackedScene
+enum PickupType {
+	HEALTH,
+	SPEED,
+	COOLDOWN
+}
+
+@export var effect_type: PickupType
 
 var i = 0
 var amp = 10
@@ -24,8 +30,8 @@ func _process(delta):
 
 func _on_area_entered(area):
 	if is_multiplayer_authority() and area.owner.is_in_group("player"):
-		AudioManager.play_audio2D_at_point(global_position, load("res://items/pickups/coin-upaif-14631.mp3"))
-		if effect_to_add:
-			area.owner.add_child(effect_to_add.instantiate())
-		area.owner.add_pickup.rpc()
+		if effect_type == PickupType.SPEED:
+			area.owner.add_speed_effect.rpc()
+		elif effect_type == PickupType.COOLDOWN:
+			area.owner.add_cooldown_effect.rpc()
 		queue_free()
