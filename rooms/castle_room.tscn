@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=15 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="PackedScene" uid="uid://otbl7685h64s" path="res://items/pickups/health_pickup.tscn" id="2_bnel2"]
@@ -32,6 +32,7 @@ pickups = Array[PackedScene]([ExtResource("2_bnel2"), ExtResource("3_xk6a2"), Ex
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -20
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_otd6u")
 tile_set = ExtResource("2_fuwbx")
 format = 2

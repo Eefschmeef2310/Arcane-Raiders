@@ -18,7 +18,6 @@ func _ready():
 	parent = get_parent() as Entity
 	$BurnParticles.process_material.emission_box_extents.x = width
 
-func _process(delta):
+func _process(_delta):
 	var keys = parent.current_inflictions_dictionary.keys()
 	$BurnParticles.emitting = SpellManager.elements["burn"] in keys
-		
