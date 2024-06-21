@@ -989,6 +989,7 @@ bg_color = Color(0, 0, 0, 0.784314)
 bg_color = Color(0, 1, 0, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rqmd7"]
+resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
