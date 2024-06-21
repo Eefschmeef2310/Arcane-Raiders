@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p6g7s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpyin"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4uja6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_25wmh"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ujvam"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4d1op"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -89,11 +89,15 @@ _data = {
 "flash": SubResource("Animation_3xk7l")
 }
 
-[node name="PlayerUI" type="VBoxContainer"]
+[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("crown", "player_username", "stats_ticker", "stats_ticker_label")]
 custom_minimum_size = Vector2(450, 200)
 scale = Vector2(0.935, 0.935)
 alignment = 1
 script = ExtResource("1_cbyu2")
+crown = NodePath("HBox/Stats/Spells/Head/Crown")
+player_username = NodePath("HBox/Stats/PlayerUsername")
+stats_ticker = NodePath("HBox/Stats/StatsTicker")
+stats_ticker_label = NodePath("HBox/Stats/StatsTicker/Stats")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -104,6 +108,10 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
+
+[node name="PlayerUsername" type="Label" parent="HBox/Stats"]
+layout_mode = 2
+text = "Username / Controller"
 
 [node name="Spells" type="HBoxContainer" parent="HBox/Stats"]
 layout_mode = 2
@@ -136,15 +144,15 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_p6g7s")
+material = SubResource("ShaderMaterial_jpyin")
 layout_mode = 2
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_4uja6")
+material = SubResource("ShaderMaterial_25wmh")
 layout_mode = 2
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ujvam")
+material = SubResource("ShaderMaterial_4d1op")
 layout_mode = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
@@ -219,6 +227,16 @@ text = "Damage: 0000"
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Kills: 000"
+
+[node name="StatsTicker" type="ScrollContainer" parent="HBox/Stats"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="Stats" type="Label" parent="HBox/Stats/StatsTicker"]
+layout_mode = 2
+text = "Damage: 11111111, Kills: 2222, Reactions: 333, Pickups: 4444, Revies: 55 "
 
 [node name="EquipUI" type="Node2D" parent="."]
 position = Vector2(273, 0)

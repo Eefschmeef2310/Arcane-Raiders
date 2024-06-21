@@ -265,7 +265,8 @@ func get_card_data() -> Array:
 			"peer_id": card.peer_id,
 			"spells": loadouts[card.selected_loadout].spell_ids,
 			"raider": raiders[card.selected_raider],
-			"color": player_colors[card.selected_color]
+			"color": player_colors[card.selected_color],
+			"name": card.player_name.text
 			})
 	return arr
 	
