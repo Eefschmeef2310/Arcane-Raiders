@@ -375,7 +375,7 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	if body != self and body is Player and !body.is_dead and !body in friends_nearby:
+	if body != self and body is Player and !body.is_dead and !body in friends_nearby and !is_in_group("enemy"):
 		friends_nearby.append(body)
 
 
