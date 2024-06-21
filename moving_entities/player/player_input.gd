@@ -1,5 +1,7 @@
 extends Node
 
+const PAUSE_MENU = preload("res://menus/pause_menu.tscn")
+
 var input: DeviceInput
 
 var move_dir: Vector2
@@ -32,7 +34,7 @@ func _process(_delta):
 			if input:
 				MultiplayerInput.set_ui_action_device(input.device)
 			
-			var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
+			var pause_menu = PAUSE_MENU.instantiate()
 			pause_menu.set_panel_color(owner.data.main_color)
 			if input:
 				pause_menu.device_index = input.device
