@@ -163,10 +163,10 @@ func spawn_spell_pickup(spell_string: String):
 
 func server_spawn_health_pickup(pos : Vector2):
 	if is_multiplayer_authority() and randf() < 0.4:
-		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene": pickups.pick_random()})
+		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene_index": randi_range(0, pickups.size() - 1)})
 	
 func spawn_health_pickup(info : Dictionary):
-	var pickup = info["scene"].instantiate()
+	var pickup = pickups[info["scene_index"]].instantiate()
 	pickup.global_position = info["pos"]
 	return pickup
 	

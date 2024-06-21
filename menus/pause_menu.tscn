@@ -72,7 +72,7 @@ func _on_quit_button_pressed():
 		if is_multiplayer_authority():
 			quit_warning.set_text(\"By quitting, you will close the server. \\nAre you sure you want to quit?\")
 			
-		quit_warning.destroyed.connect($MarginContainer/MarginContainer/VBoxContainer/QuitButton.warning_closed)
+		quit_warning.destroyed.connect($Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton.warning_closed)
 
 		add_child(quit_warning)
 	else:
