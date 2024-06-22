@@ -20,9 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://bv47kko8wdikc" path="res://rooms/basic/basic_rigid.tscn" id="9_wet5w"]
 [ext_resource type="PackedScene" uid="uid://dfvnj026hw322" path="res://rooms/basic/basic_clover.tscn" id="10_434mj"]
 [ext_resource type="PackedScene" uid="uid://dqb1oj7yfqvid" path="res://rooms/boss/bossroom_slime.tscn" id="10_xt0uv"]
-[ext_resource type="PackedScene" path="res://rooms/basic/basic_jumper.tscn" id="11_ed6tu"]
+[ext_resource type="PackedScene" uid="uid://bj3otdt6c8n8a" path="res://rooms/basic/basic_jumper.tscn" id="11_ed6tu"]
 [ext_resource type="PackedScene" uid="uid://chixk1ymd6bb4" path="res://rooms/boss/bossroom_slime_fire_ice.tscn" id="11_pq0fh"]
-[ext_resource type="PackedScene" path="res://rooms/basic/basic_saber.tscn" id="12_bgvea"]
+[ext_resource type="PackedScene" uid="uid://744trjs2wlhk" path="res://rooms/basic/basic_saber.tscn" id="12_bgvea"]
 [ext_resource type="PackedScene" uid="uid://xsb7s37pr065" path="res://rooms/boss/bossroom_slime_wind_rock.tscn" id="12_rmsyq"]
 [ext_resource type="PackedScene" uid="uid://da2frvq80qm3s" path="res://rooms/boss/bossroom_wizards.tscn" id="13_qv4s1"]
 
