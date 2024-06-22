@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=21 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_78qfc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_178i1"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gro5h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bpmi"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qbfe"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8geey"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -55,6 +55,22 @@ font_size = 32
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.784314)
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmcn3"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 16.0
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="Animation" id="Animation_3xk7l"]
 resource_name = "flash"
@@ -97,13 +113,13 @@ script = ExtResource("1_cbyu2")
 damage_stat = NodePath("HBox/Stats/Stats/Damage Stat")
 kills_stat = NodePath("HBox/Stats/Stats/Kills Stat")
 crown = NodePath("HBox/Stats/Spells/Head/Crown")
-player_username = NodePath("HBox/Stats/PlayerUsername")
+player_username = NodePath("UsernameUI/PlayerUsername")
 stat_panel = NodePath("StatsUI/PanelContainer")
-damage_label = NodePath("StatsUI/PanelContainer/VBoxContainer/Damage")
-kills_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer/Kills")
-money_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer/Money")
-reactions_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer2/Reactions")
-pickups_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer2/Pickups")
+damage_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Damage")
+kills_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Kills")
+money_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Money")
+reactions_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer2/Reactions")
+pickups_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer2/Pickups")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -114,11 +130,6 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
-
-[node name="PlayerUsername" type="Label" parent="HBox/Stats"]
-layout_mode = 2
-mouse_filter = 1
-text = "Username / Controller"
 
 [node name="Spells" type="HBoxContainer" parent="HBox/Stats"]
 layout_mode = 2
@@ -152,17 +163,17 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_78qfc")
+material = SubResource("ShaderMaterial_178i1")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_gro5h")
+material = SubResource("ShaderMaterial_3bpmi")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_2qbfe")
+material = SubResource("ShaderMaterial_8geey")
 layout_mode = 2
 mouse_filter = 1
 
@@ -233,11 +244,13 @@ patch_margin_bottom = 12
 layout_mode = 2
 
 [node name="Damage Stat" type="Label" parent="HBox/Stats/Stats"]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 text = "Damage: 0000"
 
 [node name="Kills Stat" type="Label" parent="HBox/Stats/Stats"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
@@ -266,13 +279,8 @@ text = "Press to equip!"
 label_settings = SubResource("LabelSettings_ml2ad")
 horizontal_alignment = 1
 
-[node name="Flasher" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_0ewip")
-}
-
 [node name="StatsUI" type="Node2D" parent="."]
-position = Vector2(225.668, -48.1283)
+position = Vector2(225.668, -55.615)
 
 [node name="PanelContainer" type="PanelContainer" parent="StatsUI"]
 custom_minimum_size = Vector2(350, 30.06)
@@ -283,37 +291,55 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_tmcn3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StatsUI/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="StatsUI/PanelContainer"]
 layout_mode = 2
 
-[node name="Damage" type="Label" parent="StatsUI/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="StatsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Damage" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Damage: 1111111"
-horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="StatsUI/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Kills" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Kills" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Kills: 222"
 
-[node name="Money" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Money" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Money Earnt: 222"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="StatsUI/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="StatsUI/PanelContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Reactions" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="Reactions" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reactions: 222"
 
-[node name="Pickups" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="Pickups" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Pickups: 222"
+
+[node name="UsernameUI" type="Node2D" parent="."]
+
+[node name="PlayerUsername" type="Label" parent="UsernameUI"]
+offset_left = 50.2674
+offset_top = 164.706
+offset_right = 400.267
+offset_bottom = 189.706
+mouse_filter = 1
+text = "Nintendo Switch Pro Controller"
+horizontal_alignment = 1
+
+[node name="Flasher" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0ewip")
+}

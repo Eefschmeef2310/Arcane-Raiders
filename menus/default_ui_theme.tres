@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://r7sjhbp7r7py"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://r7sjhbp7r7py"]
 
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_qa02b"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="2_8pxlk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3fc2"]
 bg_color = Color(0.419608, 0.262745, 0.180392, 1)
@@ -84,6 +85,38 @@ corner_radius_bottom_left = 4
 expand_margin_top = 6.0
 expand_margin_bottom = 6.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyvk7"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.419608, 0.262745, 0.180392, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2le8"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.2, 0.113725, 0.0705882, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sy2j8"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
 border_width_left = 3
@@ -149,6 +182,10 @@ HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_qe240")
 HSlider/styles/slider = SubResource("StyleBoxFlat_1b8pl")
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/fonts/font = ExtResource("1_qa02b")
+LineEdit/font_sizes/font_size = 16
+LineEdit/fonts/font = ExtResource("2_8pxlk")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_jyvk7")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_y2le8")
 Panel/styles/panel = SubResource("StyleBoxFlat_sy2j8")
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_eansp")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_bb78r")

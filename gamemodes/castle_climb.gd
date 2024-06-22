@@ -48,7 +48,9 @@ var enemy_types_per_floor : Array = [
 ]
 
 var number_of_players = 0
-var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+@export var use_preset_seed: bool = false
+@export var preset_seed: int = 0
 @export var current_floor : int = -1
 
 var current_room_node : CastleRoom
@@ -62,6 +64,8 @@ func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
+	
+	print(rng.seed)
 	
 	sector_room_pool.resize(sector_start_floors.size())
 	for j in sector_room_pool.size():
@@ -239,7 +243,7 @@ func start_next_floor():
 	else:
 		var sector = get_current_sector()
 		var id_pool = sector_room_pool[sector]
-		var rn = rng_floors.randi_range(id_pool[0], id_pool[id_pool.size()-1])
+		var rn = rng.randi_range(id_pool[0], id_pool[id_pool.size()-1])
 		sector_room_pool[sector].erase(rn)
 		basic_level_spawner.spawn(rn)
 	
@@ -272,6 +276,9 @@ func inject_data_to_current_room_node():
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
+	
+	current_room_node.rng = RandomNumberGenerator.new()
+	current_room_node.rng.seed = rng.randi()
 	
 	if current_floor > 0 and current_floor < enemy_types_per_floor.size():
 		current_room_node.spawn_keys = enemy_types_per_floor[current_floor]
@@ -396,3 +403,9 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	ui.show()
 	ui.set_data(data)
 	#print(data.device_id)
+
+func set_seed(seed: int):
+	print("Setting seed to " + str(seed))
+	use_preset_seed = true
+	preset_seed = seed
+	rng.seed = seed
