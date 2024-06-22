@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=63 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://bejdfxbpqudeq" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
 [ext_resource type="Texture2D" uid="uid://o4ybtnyr1byl" path="res://moving_entities/enemies/healing.png" id="23_3frsv"]
 [ext_resource type="AudioStream" uid="uid://chdgqr03jjw61" path="res://items/pickups/coin-upaif-14631.mp3" id="23_sj6la"]
+[ext_resource type="PackedScene" uid="uid://c8umryjido1ns" path="res://items/pickups/speed_pickup_effect.tscn" id="27_jgpqm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
@@ -1396,6 +1397,8 @@ target_position = Vector2(150, 0)
 
 [node name="NotifSpawnPos" type="Node2D" parent="."]
 position = Vector2(-80, -160)
+
+[node name="SpeedPickupEffect" parent="." instance=ExtResource("27_jgpqm")]
 
 [connection signal="health_updated" from="." to="." method="_on_health_updated"]
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]

@@ -33,19 +33,25 @@ func _ready():
 	
 	await get_tree().create_timer(time_to_kill, false).timeout
 	queue_free()
+
 #endregion
 
 #region Signal methods
 func _on_tree_exited():
 	parent.movement_speed -= increase_amount
-#endregion
 
-#region Other methods (please try to separate and organise!)
-
+func _on_dash_trail_timer_timeout():
+	if !parent.is_dashing and parent.move_direction != Vector2.ZERO:
+		parent.create_after_image(0.1)
 #endregion
 "
 
 [node name="SpeedPickupEffect" type="Node"]
 script = SubResource("GDScript_er82v")
 
+[node name="DashTrailTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="timeout" from="DashTrailTimer" to="." method="_on_dash_trail_timer_timeout"]
