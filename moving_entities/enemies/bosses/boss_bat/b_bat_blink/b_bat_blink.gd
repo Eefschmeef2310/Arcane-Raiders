@@ -46,4 +46,20 @@ func teleport_to_random_side():
 	raycast.target_position = Vector2.LEFT.rotated(deg_to_rad(randi() % 360)) * 9999
 	raycast.force_raycast_update()
 	caster.global_position = raycast.get_collision_point() + raycast.get_collision_normal()*100
+	
+	caster.target_player = get_closest_player(caster.global_position)
+	caster.aim_direction = caster.global_position.direction_to(caster.target_player.global_position)
+	
 	await caster_visibility(true)
+
+func get_closest_player(pos: Vector2) -> CharacterBody2D:
+	var p_arr = get_tree().get_nodes_in_group("player")
+	var target
+	var dist = INF
+	for p in p_arr:
+		if p is Player and pos.distance_to(p.global_position) < dist and !p.is_in_group("enemy"):
+			target = p
+			dist = pos.distance_to(p.global_position)
+			
+	if target: return target
+	return null
