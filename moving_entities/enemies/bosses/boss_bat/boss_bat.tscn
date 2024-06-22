@@ -21,7 +21,6 @@ var canvas_modulate:CanvasModulate
 var target_player: Entity
 var invincible: bool = false
 
-
 func _ready():
 	super._ready()
 	if get_parent().has_node(\"CanvasModulate\"):
