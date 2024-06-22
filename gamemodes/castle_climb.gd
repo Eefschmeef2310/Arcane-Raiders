@@ -64,7 +64,8 @@ func _ready():
 	boss_level_spawner.spawn_function = spawn_boss_level
 	
 	sector_room_pool.resize(sector_start_floors.size())
-	sector_room_pool.fill([])
+	for j in sector_room_pool.size():
+		sector_room_pool[j] = []
 	var i = 0
 	var n = 0
 	while n < basic_levels.size():
