@@ -16,27 +16,17 @@ const B_BOSS_CONE = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bo
 #region Godot methods
 func _ready():
 	super._ready()
-	if is_multiplayer_authority():
-		for i in range(round_of_bullets):
-			#for j in range(max_blinks - 1):
-				#if (randi() % 2 == 1): break
-				#else: await teleport_to_random_side()
-			await teleport_to_random_side()
-			caster.aim_direction = caster.global_position.direction_to(caster.target_player.global_position)
-			fire.rpc(caster.aim_direction)
-			await get_tree().create_timer(particle_duration).timeout
+	for i in range(round_of_bullets):
+		#for j in range(max_blinks - 1):
+			#if (randi() % 2 == 1): break
+			#else: await teleport_to_random_side()
+		await teleport_to_random_side()
+		fire(caster.aim_direction)
+		await get_tree().create_timer(particle_duration).timeout
 			
 	call_deferred(\"queue_free\")
 
-
-#endregion
-
-#region Signal methods
-
-#endregion
-
 #region Other methods (please try to separate and organise!)
-@rpc(\"authority\", \"call_local\", \"reliable\")
 func fire(direction: Vector2):
 	var bullet = B_BOSS_CONE.instantiate()
 	bullet.global_position = global_position

@@ -129,6 +129,7 @@ func physics_update(delta):
 	#Blink Spam
 	if can_cast_spell(3):
 		enemy.target_player = player
+		enemy.aim_direction = enemy.global_position.direction_to(enemy.target_player.global_position)
 		Transitioned.emit(self, \"blinkspam\")
 		return
 	

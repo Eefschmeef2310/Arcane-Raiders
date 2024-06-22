@@ -34,13 +34,13 @@ func caster_visibility(visible: bool):
 	await get_tree().create_timer(particle_duration).timeout
 
 func teleport_to_center():
-	if !is_instance_valid(caster) || !caster.is_multiplayer_authority(): return
+	if !is_instance_valid(caster): return
 	await caster_visibility(false)
 	caster.global_position = center_position
 	await caster_visibility(true)
 
 func teleport_to_random_side():
-	if !caster.is_multiplayer_authority(): return
+	#if !caster.is_multiplayer_authority(): return
 	await caster_visibility(false)
 	caster.global_position = center_position
 	var raycast:RayCast2D = $RayCasts/RayCastLeft
