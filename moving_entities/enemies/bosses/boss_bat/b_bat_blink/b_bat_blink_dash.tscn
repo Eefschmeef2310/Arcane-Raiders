@@ -7,13 +7,12 @@ script/source = "extends BatBlinkSpell
 const B_BAT_DASH_ATTACK = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn\")
 
 func _ready():
-	if  is_multiplayer_authority():
-		super._ready()
-		await teleport_to_random_side()
-		var attack = B_BAT_DASH_ATTACK.instantiate()
-		transfer_data(attack)
-		attack.global_position = global_position
-		add_sibling(attack)
+	super._ready()
+	await teleport_to_random_side()
+	var attack = B_BAT_DASH_ATTACK.instantiate()
+	transfer_data(attack)
+	attack.global_position = global_position
+	add_sibling(attack)
 	call_deferred(\"queue_free\")
 
 #endregion
