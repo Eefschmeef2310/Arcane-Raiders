@@ -304,7 +304,7 @@ offset_bottom = -79.0
 [node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
-spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 10.0, 30.0])
+spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 10.0, 20.0])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
