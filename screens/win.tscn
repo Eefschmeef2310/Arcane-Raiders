@@ -253,7 +253,7 @@ most_pickups = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxConta
 most_reactions = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions")
 total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
 leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/Right Side/Panel"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/Right Side/Other Players/Panel"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/Right Side/Other Players/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/Right Side/Other Players/Panel3")]
-back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/HBoxContainer/BackButton/ProgressBar")
+back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton/ProgressBar")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -272,27 +272,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_jj0io")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Panel"]
+layout_mode = 2
+offset_right = 160.0
+offset_bottom = 192.0
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 32
 
-[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Panel/HBoxContainer"]
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Panel/MarginContainer"]
 clip_children = 2
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
-size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("6_o3j2u")
 theme_override_font_sizes/font_size = 48
 text = "Back"
 script = ExtResource("7_7i8mg")
 
-[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/Panel/HBoxContainer/BackButton"]
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -304,6 +301,15 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_xbshq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fmyfu")
 show_percentage = false
 
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -311,12 +317,6 @@ text = "TOWER RAIDED"
 label_settings = SubResource("LabelSettings_uqpnd")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Panel/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 2
-theme_override_constants/margin_top = 10
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -639,7 +639,7 @@ libraries = {
 }
 autoplay = "default"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Panel/HBoxContainer/BackButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton" to="." method="_on_quit_button_pressed"]
 
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills"]

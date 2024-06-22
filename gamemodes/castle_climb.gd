@@ -114,48 +114,44 @@ func get_highest_kills():
 	var highest : int = 0
 	var player_id = -1
 	var total_kills = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			total_kills += player_data[i].kills
-			if player_data[i].kills > highest:
-				player_id = i
-				highest = player_data[i].kills
+	for i in number_of_players:
+		total_kills += player_data[i].kills
+		if player_data[i].kills > highest:
+			player_id = i
+			highest = player_data[i].kills
 	return [total_kills, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills]
 
 func get_highest_earner():
 	var highest : int = 0
 	var player_id = -1
 	var total_earnings = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			total_earnings += player_data[i].total_money
-			if player_data[i].total_money > highest:
-				player_id = i
-				highest = player_data[i].total_money
+	for i in number_of_players:
+		total_earnings += player_data[i].total_money
+		if player_data[i].total_money > highest:
+			player_id = i
+			highest = player_data[i].total_money
 	return [total_earnings, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].total_money]
 	
 func get_most_pickups():
 	var highest : int = 0
 	var player_id = -1
 	var most_pickups = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			most_pickups += player_data[i].pickups_obtained
-			if player_data[i].pickups_obtained > highest:
-				player_id = i
-				highest = player_data[i].pickups_obtained
+	for i in number_of_players:
+		most_pickups += player_data[i].pickups_obtained
+		if player_data[i].pickups_obtained > highest:
+			player_id = i
+			highest = player_data[i].pickups_obtained
 	return [most_pickups, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].pickups_obtained]
 
 func get_most_reactions():
 	var highest : int = 0
 	var player_id = -1
 	var most_reactions = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			most_reactions += player_data[i].reactions_created
-			if player_data[i].reactions_created > highest:
-				player_id = i
-				highest = player_data[i].reactions_created
+	for i in number_of_players:
+		most_reactions += player_data[i].reactions_created
+		if player_data[i].reactions_created > highest:
+			player_id = i
+			highest = player_data[i].reactions_created
 	return [most_reactions, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].reactions_created]
 
 
