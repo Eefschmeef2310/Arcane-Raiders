@@ -46,7 +46,7 @@ var scores : Array[stat_score]
 class stat_score:
 	var player : Color
 	var wins : int
-	
+	var damage : int
 	
 
 
@@ -77,6 +77,7 @@ func _ready():
 			var new_score = stat_score.new()
 			new_score.player = player.main_color
 			new_score.wins = 0
+			new_score.damage = player.damage
 			scores.append(new_score)
 	
 	for stat in scores:
@@ -156,24 +157,30 @@ func get_leaderboard() -> Array[int]:
 	var data : Array[stat_score] = scores.duplicate()
 	var passes = 0
 	
+	data.sort_custom(custom_sort_stat_scores)
 	
-	
-	while passes < 4:
-		var most_wins = -1
-		var player_id = -1
-		for i in castle_climb.number_of_players:
-			if data[i].wins > most_wins:
-				most_wins = data[i].wins
-				player_id = i
-		
-		if(data[player_id].wins != -1):
-			leaders.append(player_id)
-			data[player_id].wins = -1
-		passes += 1
+	#while passes < 4:
+		#var most_wins = -1
+		#var player_id = -1
+		#for i in castle_climb.number_of_players:
+			#if data[i].wins > most_wins:
+				#most_wins = data[i].wins
+				#player_id = i
+		#
+		#if(data[player_id].wins != -1):
+			#leaders.append(player_id)
+			#data[player_id].wins = -1
+		#passes += 1
 	
 	
 	#returns an array of player id's from 1st to 4th, missing players will return -1
 	return leaders 
+
+func custom_sort_stat_scores(a: stat_score, b: stat_score):
+	if (a.wins > b.wins) or (a.wins == b.wins and a.damage >= b.damage):
+		return true
+	return false
+	
 #endregion
 "
 
