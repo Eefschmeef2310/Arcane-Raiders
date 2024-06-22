@@ -14,7 +14,6 @@ func _ready():
 		queue_free()
 		return
 
-	if !caster.is_multiplayer_authority(): return
 	if !has_node("RayCasts"): 
 		var raycasts = RAY_CASTS.instantiate()
 		add_child(raycasts)

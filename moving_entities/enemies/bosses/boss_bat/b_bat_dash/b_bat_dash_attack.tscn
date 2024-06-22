@@ -28,7 +28,9 @@ func _physics_process(delta):
 		queue_free()
 		return
 	
-	if caster && caster.state_machine.current_state.name.to_lower() != \"dashattack\" or \"blinkattack\":
+	if caster && \\
+	caster.state_machine.current_state.name.to_lower() != \"dashattack\" and \\
+	caster.state_machine.current_state.name.to_lower() != \"blinkattack\":
 		queue_free()
 
 func fire():
