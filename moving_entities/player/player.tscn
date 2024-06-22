@@ -1360,7 +1360,7 @@ stream = SubResource("AudioStreamRandomizer_rqmd7")
 bus = &"SFX"
 script = ExtResource("21_sd8uw")
 
-[node name="Audio Players" type="Node" parent="."]
+[node name="Audio Players" type="Node2D" parent="."]
 
 [node name="DashSound" type="AudioStreamPlayer2D" parent="Audio Players"]
 stream = ExtResource("16_n6b8a")

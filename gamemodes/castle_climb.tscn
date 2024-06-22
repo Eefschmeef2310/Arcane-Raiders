@@ -191,10 +191,11 @@ common_levels = {
 "foyer": ExtResource("2_0olmr"),
 "shop": ExtResource("2_ynx3r")
 }
-basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w"), ExtResource("10_434mj"), ExtResource("11_ed6tu"), ExtResource("12_bgvea")])
+basic_levels = Array[PackedScene]([ExtResource("7_mole1"), ExtResource("6_8eavx"), ExtResource("11_ed6tu"), ExtResource("12_bgvea"), ExtResource("9_wet5w"), ExtResource("3_i3kdw"), ExtResource("8_wyblb"), ExtResource("10_434mj")])
 boss_levels = Array[PackedScene]([ExtResource("13_qv4s1"), ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
+sector_room_split_starts = Array[int]([0, 3, 5])
 shop_floors = Array[int]([4, 8])
 boss_floors = Array[int]([3, 7, 11])
 sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
@@ -267,9 +268,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 120.0
-offset_right = 1920.0
-offset_bottom = 708.0
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 

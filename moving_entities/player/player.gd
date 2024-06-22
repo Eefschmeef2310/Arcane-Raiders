@@ -433,19 +433,22 @@ func _on_revival_zone_body_exited(body):
 
 func _on_dash_trail_timer_timeout():
 	if is_dashing:
-		var after_image : Node2D = Node2D.new()
-		after_image.y_sort_enabled = true
-		after_image.global_position = global_position
-		after_image.modulate = data.main_color
-		after_image.modulate.a = 0.5
-		add_sibling(after_image)
-		
-		var sprites = sprites_flip.duplicate()
-		after_image.add_child(sprites)
-		
-		await get_tree().create_timer(0.1).timeout
-		
-		after_image.queue_free()
+		create_after_image(0.1)
+
+func create_after_image(time: float):
+	var after_image : Node2D = Node2D.new()
+	after_image.y_sort_enabled = true
+	after_image.global_position = global_position
+	after_image.modulate = data.main_color
+	after_image.modulate.a = 0.5
+	add_sibling(after_image)
+	
+	var sprites = sprites_flip.duplicate()
+	after_image.add_child(sprites)
+	
+	await get_tree().create_timer(time).timeout
+	
+	after_image.queue_free()
 
 func _on_health_updated(_health):
 	if is_in_group("enemy"): return
@@ -506,6 +509,7 @@ func _on_spell_changed(_slot):
 func heal_damage(amount):
 	super.heal_damage(amount)
 	healing_particles.emitting = true;
+	$"Audio Players/PickupSound".play()
 
 @rpc("any_peer", "call_local", "reliable")
 func add_speed_effect():

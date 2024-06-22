@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3hyt6spiwmne"]
+[gd_scene load_steps=6 format=3 uid="uid://c3hyt6spiwmne"]
+
+[ext_resource type="Texture2D" uid="uid://bsf7if2q5id7i" path="res://items/pickups/pickup_cooldown.png" id="1_7vy3y"]
 
 [sub_resource type="GDScript" id="GDScript_hyxjy"]
 script/source = "extends Node
@@ -47,5 +49,30 @@ func _process(delta):
 #endregion
 "
 
-[node name="CooldownPickupEffect" type="Node"]
+[sub_resource type="Curve" id="Curve_tlurj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150579, 1), 0.0, 0.0, 0, 0, Vector2(0.849421, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_q6xgi"]
+curve = SubResource("Curve_tlurj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a0xqq"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(45, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, -100, 0)
+scale_min = 0.3
+scale_max = 0.5
+alpha_curve = SubResource("CurveTexture_q6xgi")
+
+[node name="CooldownPickupEffect" type="Node2D"]
 script = SubResource("GDScript_hyxjy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_a0xqq")
+texture = ExtResource("1_7vy3y")
+lifetime = 1.5
+preprocess = 1.5
+local_coords = true
