@@ -31,7 +31,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @onready var animation_player = $AnimationPlayer
 @onready var attack_sound = $AttackSound
 
-var aim_direction: Vector2
+@export var aim_direction: Vector2
 var target_area: Vector2
 var can_cast: bool = true
 var cast_timer_end: float = 0

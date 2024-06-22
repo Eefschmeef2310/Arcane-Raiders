@@ -13,14 +13,15 @@ const B_BAT_FISSION = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_
 var timer: float = 0
 
 func _ready():
-	if caster && caster.has_method(\"dash_to\"):
-		global_position = caster.global_position
-		var player_pos = caster.target_player.global_position
-		var direction = caster.global_position.direction_to(player_pos)
-		caster.aim_direction = direction
-		ray_cast_2d.target_position = direction * 9999
-		ray_cast_2d.force_raycast_update()
-		caster.dash_to(direction, ray_cast_2d.get_collision_point())
+	if  is_multiplayer_authority():
+		if caster && caster.has_method(\"dash_to\"):
+			global_position = caster.global_position
+			var player_pos = caster.target_player.global_position
+			var direction = caster.global_position.direction_to(player_pos)
+			caster.aim_direction = direction
+			ray_cast_2d.target_position = direction * 9999
+			ray_cast_2d.force_raycast_update()
+			dash.rpc(direction, ray_cast_2d.get_collision_point())
 	
 func _physics_process(delta):
 	if !is_instance_valid(caster): 
@@ -41,7 +42,11 @@ func fire():
 	if caster: bullet.global_position = caster.global_position
 	transfer_data(bullet)
 	add_sibling(bullet)
-	
+
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func dash(direction, pos):
+	caster.aim_direction = direction
+	caster.dash_to(direction, pos)
 "
 
 [node name="BBatDashAttack" type="Node2D"]

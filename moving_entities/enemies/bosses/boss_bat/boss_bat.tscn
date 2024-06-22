@@ -152,10 +152,11 @@ func physics_update(delta):
 
 func set_position():
 	player = get_closest_player()
-	if player: navigation_agent.target_position = player.global_position
+	if player: 
+		navigation_agent.target_position = player.global_position
+		enemy.target_player = player
 	else: Transitioned.emit(self, \"idle\")
 #endregion
-
 "
 
 [sub_resource type="GDScript" id="GDScript_ibf6a"]
