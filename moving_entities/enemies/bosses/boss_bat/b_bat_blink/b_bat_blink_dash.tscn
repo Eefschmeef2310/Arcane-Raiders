@@ -13,6 +13,7 @@ func _ready():
 	transfer_data(attack)
 	attack.global_position = global_position
 	add_sibling(attack)
+	call_deferred(\"queue_free\")
 
 #endregion
 
@@ -29,4 +30,4 @@ func _ready():
 [node name="BBatBlinkDash" type="Node2D"]
 script = SubResource("GDScript_55t6r")
 end_time = 5.0
-cooldown_time = 8.0
+cooldown_time = 5.0

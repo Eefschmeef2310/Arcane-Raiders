@@ -19,6 +19,7 @@ var dash_prep_pos: Vector2
 var dark_room:bool = false
 var canvas_modulate:CanvasModulate
 var target_player: Entity
+var invincible: bool = false
 
 
 func _ready():
@@ -45,6 +46,10 @@ func change_room_light():
 			var tween0 = create_tween()
 			tween0.tween_property(light, \"energy\", player_lvl, 2)
 			tween0.parallel().tween_property(light, \"texture_scale\", player_size, 2)
+			
+func on_hurt(attack):
+	if invincible: return
+	super.on_hurt(attack)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrw4v"]

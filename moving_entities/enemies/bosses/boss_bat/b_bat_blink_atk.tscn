@@ -9,6 +9,7 @@ const B_BAT_DASH_ATTACK = preload(\"res://moving_entities/enemies/bosses/boss_ba
 
 #region Godot methods
 func _ready():
+	#Will be deleted soon since its now irrelevant
 	check_caster()
 	global_position = caster.global_position
 	caster.hide()
