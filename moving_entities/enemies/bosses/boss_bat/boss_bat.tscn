@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cnew2lxrfa7q7"]
+[gd_scene load_steps=26 format=3 uid="uid://cnew2lxrfa7q7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_gcbln"]
 [ext_resource type="Texture2D" uid="uid://by5ilqlhkdeaq" path="res://moving_entities/enemies/bat_small/bat_small.png" id="2_8qtsm"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_sn5q4"]
 [ext_resource type="PackedScene" uid="uid://c0om0serdslhn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn" id="6_3tphm"]
 [ext_resource type="PackedScene" uid="uid://bel63f5xhtsss" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_dash.tscn" id="7_k0tnq"]
-[ext_resource type="PackedScene" uid="uid://dxxdw2jiknenn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_local/b_bat_local_dash.tscn" id="8_qaq7u"]
+[ext_resource type="PackedScene" uid="uid://c2qvhqinofmoy" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spin.tscn" id="9_0h871"]
 [ext_resource type="PackedScene" uid="uid://cem3ar060j8d6" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spam.tscn" id="9_wsy56"]
 
 [sub_resource type="GDScript" id="GDScript_b5sd0"]
@@ -28,7 +28,7 @@ func _ready():
 		canvas_modulate = get_parent().get_node(\"CanvasModulate\")
 		
 func _on_zero_health():
-	change_room_light()
+	await change_room_light()
 	super._on_zero_health()
 
 func change_room_light():
@@ -80,14 +80,14 @@ element = ExtResource("3_1ls6v")
 script = ExtResource("5_sn5q4")
 suffix = ""
 description = ""
-scene = ExtResource("8_qaq7u")
+scene = ExtResource("9_wsy56")
 element = ExtResource("3_1ls6v")
 
 [sub_resource type="Resource" id="Resource_ss7x5"]
 script = ExtResource("5_sn5q4")
 suffix = ""
 description = ""
-scene = ExtResource("9_wsy56")
+scene = ExtResource("9_0h871")
 element = ExtResource("3_1ls6v")
 
 [sub_resource type="GDScript" id="GDScript_vnb1m"]
@@ -125,13 +125,18 @@ func physics_update(delta):
 		if ray_cast_2d.is_colliding():
 			enemy.dash_prep_pos = ray_cast_2d.get_collision_point()
 			Transitioned.emit(self, \"dashprep\")
+			return
 		
-	#Local/Burst Attack
-	if can_cast_spell(4) && can_cast_spell(3):
-		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
-		enemy.target_area = player.global_position + enemy.aim_direction * 100
+	#Blink Spam
+	if can_cast_spell(3):
 		enemy.target_player = player
-		Transitioned.emit(self, \"localdash\")
+		Transitioned.emit(self, \"blinkspam\")
+		return
+	
+	#Blink into Spin Attack
+	if can_cast_spell(4):
+		Transitioned.emit(self, \"spinattack\")
+		return
 		
 		#Cone attack when too close to player
 	if enemy.global_position.distance_to(player.global_position) < cone_attack_range && can_cast_spell(0):
@@ -141,7 +146,7 @@ func physics_update(delta):
 		return
 		
 	#Dark Room check
-	if enemy.health <= enemy.max_health/2:
+	if enemy.health <= enemy.max_health/2 && enemy.dark_room == false:
 		Transitioned.emit(self, \"darkenroom\")
 
 
@@ -209,36 +214,6 @@ func set_position():
 
 "
 
-[sub_resource type="GDScript" id="GDScript_e71cf"]
-resource_name = "b_bat_dash"
-script/source = "extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-
-
-#region Godot methods
-
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-func enter():
-	play_anim()
-	enemy.attempt_cast(3)
-	
-func physics_update(delta):
-	super.physics_update(delta)
-	if !enemy.is_dashing && can_cast_spell(4):
-		enemy.aim_direction = Vector2.RIGHT
-		enemy.target_player = get_closest_player()
-		Transitioned.emit(self, \"localattack\")
-#endregion
-
-"
-
 [sub_resource type="GDScript" id="GDScript_prrkd"]
 resource_name = "darken_room"
 script/source = "extends State
@@ -297,13 +272,14 @@ _data = {
 "idle": SubResource("Animation_w55vx")
 }
 
-[node name="BossBat" instance=ExtResource("1_gcbln")]
+[node name="BossBat" groups=["boss"] instance=ExtResource("1_gcbln")]
 collision_mask = 1
 script = SubResource("GDScript_b5sd0")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Bat Boss"
 death_sound = null
+max_health = 4000
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -53)
@@ -328,7 +304,7 @@ offset_bottom = -79.0
 [node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
-spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 0.0, 0.0])
+spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 10.0, 30.0])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
@@ -357,18 +333,15 @@ next_state = "default"
 nav_timer_interval = 99.0
 nav_timer = 99
 
-[node name="LocalDash" type="Node" parent="StateMachine" index="5"]
-script = SubResource("GDScript_e71cf")
-nav_timer_interval = 99.0
-nav_timer = 99
+[node name="BlinkSpam" type="Node" parent="StateMachine" index="5"]
+script = ExtResource("4_77mgy")
+spell_num = 3
+transition_out_when_can_cast = true
 
-[node name="LocalAttack" type="Node" parent="StateMachine" index="6"]
+[node name="SpinAttack" type="Node" parent="StateMachine" index="6"]
 script = ExtResource("4_77mgy")
 spell_num = 4
 transition_out_when_can_cast = true
-next_state = "default"
-nav_timer_interval = 99.0
-nav_timer = 99
 
 [node name="DarkenRoom" type="Node" parent="StateMachine" index="7"]
 script = SubResource("GDScript_prrkd")

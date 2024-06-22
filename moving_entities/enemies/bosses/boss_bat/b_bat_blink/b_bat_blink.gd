@@ -34,7 +34,7 @@ func caster_visibility(visible: bool):
 	await get_tree().create_timer(particle_duration).timeout
 
 func teleport_to_center():
-	if !caster.is_multiplayer_authority(): return
+	if !is_instance_valid(caster) || !caster.is_multiplayer_authority(): return
 	await caster_visibility(false)
 	caster.global_position = center_position
 	await caster_visibility(true)
