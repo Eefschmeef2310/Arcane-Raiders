@@ -34,6 +34,8 @@ const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 @onready var room_exit = $RoomExit
 @onready var camera_background = $DynamicCamera/ParallaxBackground/ColorRect
 
+var rng : RandomNumberGenerator
+
 var dead_players : Array = []
 var all_players_dead_triggered := false
 var room_exited_triggered := false
@@ -52,6 +54,9 @@ var number_of_players_health_scale: float = 1.0
 var number_of_players_difficulty_scale: float = 1.0
 
 func _ready():
+	if !rng:
+		rng = RandomNumberGenerator.new()
+	
 	max_waves = wave_total_difficulty.size()
 	if gradient_map:
 		set_gradient_map(gradient_map, saturation)
@@ -77,9 +82,11 @@ func _ready():
 			var arr = EnemyManager.Data.keys()
 			if !spawn_keys.is_empty():
 				arr = spawn_keys
+			var spawn_nodes = enemy_spawns.get_children()
 			while total_difficulty_left > 0:
-				var key = arr.pick_random()
-				var spawn_pos = enemy_spawns.get_children().pick_random().global_position
+				var key = arr[rng.randi_range(0, arr.size() - 1)]
+				var spawn_pos_node = spawn_nodes[rng.randi_range(0, spawn_nodes.size() - 1)]
+				var spawn_pos = spawn_pos_node.global_position
 				var _enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 				# print("New total: " + str(number_of_enemies_left))
@@ -161,8 +168,8 @@ func spawn_spell_pickup(spell_string: String):
 	return pickup
 
 func server_spawn_health_pickup(pos : Vector2):
-	if is_multiplayer_authority() and randf() < 0.4:
-		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene_index": randi_range(0, pickups.size() - 1)})
+	if is_multiplayer_authority() and rng.randf() < 0.4:
+		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene_index": rng.randi_range(0, pickups.size() - 1)})
 	
 func spawn_health_pickup(info : Dictionary):
 	var pickup = pickups[info["scene_index"]].instantiate()
