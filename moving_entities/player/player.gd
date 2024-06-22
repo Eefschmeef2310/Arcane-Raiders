@@ -358,7 +358,7 @@ func on_hurt(attack):
 		
 	super.on_hurt(attack)
 	
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() && !is_in_group("enemy"):
 		if !is_dead and !("base_damage" in attack and attack.base_damage <= 0):
 			start_invincibility.rpc()
 
@@ -422,7 +422,7 @@ func is_near_pickup():
 
 
 func _on_revival_zone_body_entered(body):
-	if body != self and body is Player and !body.is_dead and !body in friends_nearby:
+	if body != self and body is Player and !body.is_dead and !body in friends_nearby and !is_in_group("enemy"):
 		friends_nearby.append(body)
 
 
@@ -448,6 +448,7 @@ func _on_dash_trail_timer_timeout():
 		after_image.queue_free()
 
 func _on_health_updated(_health):
+	if is_in_group("enemy"): return
 	if health <= 250:
 		flashing_animation.play("low_health_flash")
 	else:
@@ -459,7 +460,7 @@ func _on_killed_entity(entity: Entity):
 		#data.total_money += entity.monetary_value
 		#data.kills += 1
 		add_kill.rpc(entity.monetary_value)
-		print(data.money)
+		#print(data.money)
 
 func _on_dealt_damage(_entity: Entity, damage : int):
 	if is_multiplayer_authority() and data:

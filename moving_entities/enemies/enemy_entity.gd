@@ -23,6 +23,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @export_group("Boss Data")
 @export var is_boss: bool = false
 @export var boss_name: String
+@export var show_boss_bar: bool = true
 
 @onready var state_machine = $StateMachine
 @onready var nav_agent = $NavigationAgent2D
@@ -50,7 +51,7 @@ func _ready():
 	nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	
 	# Connect to room
-	if is_boss:
+	if is_boss and show_boss_bar:
 		$ProgressBar.hide()
 		var room: CastleRoom = get_parent() as CastleRoom
 		if room:

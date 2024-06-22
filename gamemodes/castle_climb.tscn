@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=42 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://chixk1ymd6bb4" path="res://rooms/boss/bossroom_slime_fire_ice.tscn" id="11_pq0fh"]
 [ext_resource type="PackedScene" uid="uid://744trjs2wlhk" path="res://rooms/basic/basic_saber.tscn" id="12_bgvea"]
 [ext_resource type="PackedScene" uid="uid://xsb7s37pr065" path="res://rooms/boss/bossroom_slime_wind_rock.tscn" id="12_rmsyq"]
+[ext_resource type="PackedScene" uid="uid://da2frvq80qm3s" path="res://rooms/boss/bossroom_wizards.tscn" id="13_qv4s1"]
 
 [sub_resource type="Gradient" id="Gradient_5svcn"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
@@ -191,7 +192,7 @@ common_levels = {
 "shop": ExtResource("2_ynx3r")
 }
 basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w"), ExtResource("10_434mj"), ExtResource("11_ed6tu"), ExtResource("12_bgvea")])
-boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
+boss_levels = Array[PackedScene]([ExtResource("13_qv4s1"), ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
 shop_floors = Array[int]([4, 8])
