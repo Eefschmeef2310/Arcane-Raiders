@@ -509,6 +509,7 @@ func _on_spell_changed(_slot):
 func heal_damage(amount):
 	super.heal_damage(amount)
 	healing_particles.emitting = true;
+	$"Audio Players/PickupSound".play()
 
 @rpc("any_peer", "call_local", "reliable")
 func add_speed_effect():
