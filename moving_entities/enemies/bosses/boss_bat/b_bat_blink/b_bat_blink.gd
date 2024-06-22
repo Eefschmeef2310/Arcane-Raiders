@@ -10,6 +10,10 @@ var center_position: Vector2
 
 func _ready():
 	#Calculate the center of the room
+	if !is_instance_valid(caster): 
+		queue_free()
+		return
+
 	if !caster.is_multiplayer_authority(): return
 	if !has_node("RayCasts"): 
 		var raycasts = RAY_CASTS.instantiate()
@@ -28,7 +32,6 @@ func caster_visibility(visible: bool):
 	caster.visible = visible
 	caster.invincible = !visible
 	await get_tree().create_timer(particle_duration).timeout
-
 
 func teleport_to_center():
 	if !caster.is_multiplayer_authority(): return

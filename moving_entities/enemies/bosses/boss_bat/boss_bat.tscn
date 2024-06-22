@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c0om0serdslhn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn" id="6_3tphm"]
 [ext_resource type="PackedScene" uid="uid://bel63f5xhtsss" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_dash.tscn" id="7_k0tnq"]
 [ext_resource type="PackedScene" uid="uid://dxxdw2jiknenn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_local/b_bat_local_dash.tscn" id="8_qaq7u"]
-[ext_resource type="PackedScene" uid="uid://ctgq5ykhqfspl" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_local/b_bat_local_proj.tscn" id="9_shr6v"]
+[ext_resource type="PackedScene" uid="uid://cem3ar060j8d6" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spam.tscn" id="9_wsy56"]
 
 [sub_resource type="GDScript" id="GDScript_b5sd0"]
 script/source = "extends EnemyEntity
@@ -87,7 +87,7 @@ element = ExtResource("3_1ls6v")
 script = ExtResource("5_sn5q4")
 suffix = ""
 description = ""
-scene = ExtResource("9_shr6v")
+scene = ExtResource("9_wsy56")
 element = ExtResource("3_1ls6v")
 
 [sub_resource type="GDScript" id="GDScript_vnb1m"]
@@ -130,6 +130,7 @@ func physics_update(delta):
 	if can_cast_spell(4) && can_cast_spell(3):
 		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 		enemy.target_area = player.global_position + enemy.aim_direction * 100
+		enemy.target_player = player
 		Transitioned.emit(self, \"localdash\")
 		
 		#Cone attack when too close to player
@@ -232,6 +233,7 @@ func physics_update(delta):
 	super.physics_update(delta)
 	if !enemy.is_dashing && can_cast_spell(4):
 		enemy.aim_direction = Vector2.RIGHT
+		enemy.target_player = get_closest_player()
 		Transitioned.emit(self, \"localattack\")
 #endregion
 

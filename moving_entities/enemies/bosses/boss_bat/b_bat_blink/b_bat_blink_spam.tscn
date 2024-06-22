@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://cem3ar060j8d6"]
+
+[sub_resource type="GDScript" id="GDScript_h0tub"]
+resource_name = "bat_blink_spam"
+script/source = "extends BatBlinkSpell
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+const B_BOSS_CONE = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn\")
+
+#@export var max_blinks:int = 3
+@export var round_of_bullets: int = 3
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	for i in range(round_of_bullets):
+		#for j in range(max_blinks - 1):
+			#if (randi() % 2 == 1): break
+			#else: await teleport_to_random_side()
+		await teleport_to_random_side()
+		caster.aim_direction = caster.global_position.direction_to(caster.target_player.global_position)
+		fire()
+		await get_tree().create_timer(particle_duration).timeout
+	call_deferred(\"queue_free\")
+
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func fire():
+	var bullet = B_BOSS_CONE.instantiate()
+	bullet.global_position = global_position
+	transfer_data(bullet)
+	add_sibling.call_deferred(bullet)
+#endregion
+
+"
+
+[node name="BBatBlinkSpam" type="Node2D"]
+script = SubResource("GDScript_h0tub")
+base_damage = 100
+end_time = 10.0
+cooldown_time = 20.0
