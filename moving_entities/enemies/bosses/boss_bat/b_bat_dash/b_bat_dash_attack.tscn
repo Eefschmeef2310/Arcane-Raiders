@@ -13,7 +13,7 @@ const B_BAT_FISSION = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_
 var timer: float = 0
 
 func _ready():
-	if  is_multiplayer_authority():
+	if is_multiplayer_authority():
 		if caster && caster.has_method(\"dash_to\"):
 			global_position = caster.global_position
 			var player_pos = caster.target_player.global_position
@@ -21,23 +21,18 @@ func _ready():
 			caster.aim_direction = direction
 			ray_cast_2d.target_position = direction * 9999
 			ray_cast_2d.force_raycast_update()
-			dash.rpc(direction, ray_cast_2d.get_collision_point())
+			dash(direction, ray_cast_2d.get_collision_point())
 	
 func _physics_process(delta):
 	if !is_instance_valid(caster): 
 		queue_free()
 		return
-	
-	if timer > 0:
-		timer -= delta
-	elif caster:
-		fire()
-		
-	if caster && !caster.is_dashing:
-		queue_free()
-	
+			
+	if is_multiplayer_authority():
+		if caster && !caster.is_dashing:
+			queue_free()
+
 func fire():
-	timer = interval_time
 	var bullet = B_BAT_FISSION.instantiate()
 	if caster: bullet.global_position = caster.global_position
 	transfer_data(bullet)
@@ -47,6 +42,10 @@ func fire():
 func dash(direction, pos):
 	caster.aim_direction = direction
 	caster.dash_to(direction, pos)
+
+
+func _on_fire_timer_timeout():
+	fire()
 "
 
 [node name="BBatDashAttack" type="Node2D"]
@@ -57,3 +56,9 @@ end_time = 2.0
 cooldown_time = 15.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

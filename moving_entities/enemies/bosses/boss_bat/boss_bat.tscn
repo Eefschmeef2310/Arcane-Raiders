@@ -208,9 +208,10 @@ func physics_update(delta):
 			Transitioned.emit(self, \"dashattack\")
 	
 func set_position():
-	if \"dash_prep_pos\" in enemy && enemy.dash_prep_pos:
-		navigation_agent.target_position = enemy.dash_prep_pos
-	else: Transitioned.emit(self, \"default\")
+	if is_multiplayer_authority():
+		if \"dash_prep_pos\" in enemy && enemy.dash_prep_pos:
+			navigation_agent.target_position = enemy.dash_prep_pos
+		else: Transitioned.emit(self, \"default\")
 #endregion
 
 "
