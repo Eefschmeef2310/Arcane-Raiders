@@ -41,6 +41,14 @@ script/source = "extends CanvasLayer
 	#Other Variables (please try to separate and organise!)
 var game : Control
 var back_timer : float
+var scores : Array[stat_score]
+
+class stat_score:
+	var player : Color
+	var wins : int
+	
+	
+
 
 #endregion
 
@@ -63,6 +71,23 @@ func _ready():
 	highest_earner.load_data(castle_climb.get_highest_earner())
 	most_pickups.load_data(castle_climb.get_most_pickups())
 	most_reactions.load_data(castle_climb.get_most_reactions())
+	
+	for player in castle_climb.player_data:
+		if player.damage > 0:
+			var new_score = stat_score.new()
+			new_score.player = player.main_color
+			new_score.wins = 0
+			scores.append(new_score)
+	
+	for stat in scores:
+		if damage_dealt.top_player() == stat.player: stat.wins += 1
+		if kills.top_player() == stat.player: stat.wins += 1
+		if highest_earner.top_player() == stat.player: stat.wins += 1
+		if most_pickups.top_player() == stat.player: stat.wins += 1
+		if most_reactions.top_player() == stat.player: stat.wins += 1
+	
+
+	
 	
 	#if(GameManager.isLocal()):
 		#damage_dealt.stat_title.text = \"Most \" + damage_dealt.stat_title.text
@@ -90,7 +115,8 @@ func _ready():
 	total_time.text += str(GameManager.format_timer(castle_climb.time_elapsed))
 	
 	#print_debug(str(castle_climb.get_leaderboard()))
-	var leaderboard : Array[int] = castle_climb.get_leaderboard()
+	#var leaderboard : Array[int] = castle_climb.get_leaderboard()
+	var leaderboard : Array[int] = get_leaderboard()
 	var players_in_leaderboard = leaderboard.size()
 	for i in [0,1,2,3]:
 		#set corresponding card
@@ -125,7 +151,29 @@ func _on_quit_button_pressed():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func get_leaderboard() -> Array[int]:
+	var leaders : Array[int] = [] # player id's only
+	var data : Array[stat_score] = scores.duplicate()
+	var passes = 0
+	
+	
+	
+	while passes < 4:
+		var most_wins = -1
+		var player_id = -1
+		for i in castle_climb.number_of_players:
+			if data[i].wins > most_wins:
+				most_wins = data[i].wins
+				player_id = i
+		
+		if(data[player_id].wins != -1):
+			leaders.append(player_id)
+			data[player_id].wins = -1
+		passes += 1
+	
+	
+	#returns an array of player id's from 1st to 4th, missing players will return -1
+	return leaders 
 #endregion
 "
 
