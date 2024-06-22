@@ -16,6 +16,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @export var movement_speed: float = 500
 @export var base_damage: int = 0
 @export var health_pickup_chance = 0.2
+@export var create_pickup : bool = true
 
 @export_group("Dash Stats")
 @export var dash_speed = 800
@@ -106,7 +107,7 @@ func _on_hurtbox_area_entered(area):
 	on_hurt(area as Node2D)
 	
 func _on_zero_health():
-	if get_parent() is CastleRoom:
+	if get_parent() is CastleRoom and create_pickup:
 		(get_parent() as CastleRoom).server_spawn_health_pickup(global_position)
 	
 	if is_multiplayer_authority():
