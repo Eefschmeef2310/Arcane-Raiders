@@ -22,7 +22,8 @@ layer_5/tile_data = PackedInt32Array(1179644, 327682, 0, 1245181, 327682, 0, 131
 position = Vector2(1270, 685)
 texture = ExtResource("6_6aqfi")
 
-[node name="RoomExit" parent="." index="10"]
+[node name="RoomExit" parent="." index="11"]
 position = Vector2(1650, 560)
 
 [editable path="DynamicCamera"]
+[editable path="GuideArrow"]

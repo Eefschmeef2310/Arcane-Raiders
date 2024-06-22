@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_77mgy"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_sn5q4"]
 [ext_resource type="PackedScene" uid="uid://c0om0serdslhn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn" id="6_3tphm"]
-[ext_resource type="PackedScene" uid="uid://c4kxt0qwproh3" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink_atk.tscn" id="7_shuyv"]
+[ext_resource type="PackedScene" uid="uid://bel63f5xhtsss" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_dash.tscn" id="7_k0tnq"]
 [ext_resource type="PackedScene" uid="uid://dxxdw2jiknenn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_local/b_bat_local_dash.tscn" id="8_qaq7u"]
 [ext_resource type="PackedScene" uid="uid://ctgq5ykhqfspl" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_local/b_bat_local_proj.tscn" id="9_shr6v"]
 
@@ -18,6 +18,7 @@ script/source = "extends EnemyEntity
 var dash_prep_pos: Vector2
 var dark_room:bool = false
 var canvas_modulate:CanvasModulate
+var target_player: Entity
 
 
 func _ready():
@@ -44,7 +45,6 @@ func change_room_light():
 			var tween0 = create_tween()
 			tween0.tween_property(light, \"energy\", player_lvl, 2)
 			tween0.parallel().tween_property(light, \"texture_scale\", player_size, 2)
-			
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrw4v"]
@@ -68,7 +68,7 @@ element = ExtResource("3_1ls6v")
 script = ExtResource("5_sn5q4")
 suffix = ""
 description = ""
-scene = ExtResource("7_shuyv")
+scene = ExtResource("7_k0tnq")
 element = ExtResource("3_1ls6v")
 
 [sub_resource type="Resource" id="Resource_o6tja"]
@@ -192,6 +192,7 @@ func physics_update(delta):
 		if ray_cast_2d.is_colliding():
 			enemy.target_area = ray_cast_2d.get_collision_point()
 			enemy.aim_direction = enemy.global_position.direction_to(enemy.target_area)
+			enemy.target_player = get_closest_player()
 			Transitioned.emit(self, \"dashattack\")
 	
 func set_position():
@@ -272,6 +273,7 @@ func physics_update(delta):
 			ray_cast_2d.force_raycast_update()
 			wall_pos = ray_cast_2d.get_collision_point()
 		
+		enemy.target_player = get_closest_player()
 		enemy.dash_prep_pos = wall_pos
 		enemy.aim_direction = wall_pos.direction_to(get_closest_player().global_position)
 		Transitioned.emit(self, \"blinkattack\")
@@ -292,6 +294,8 @@ _data = {
 collision_mask = 1
 script = SubResource("GDScript_b5sd0")
 movement_speed = 300.0
+is_boss = true
+boss_name = "Bat Boss"
 death_sound = null
 
 [node name="PointLight2D" parent="." index="0"]
@@ -306,20 +310,20 @@ position = Vector2(0, 13)
 shape = SubResource("CircleShape2D_rrw4v")
 debug_color = Color(0.956863, 0, 0.533333, 0.137255)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -77.0
 offset_bottom = -70.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -111.0
 offset_bottom = -79.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
 spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
 debug_label = NodePath("../Label")
 
@@ -374,11 +378,8 @@ transition_out_when_can_cast = true
 nav_timer_interval = 99.0
 nav_timer = 99
 
-[node name="NavigationAgent2D" parent="." index="7"]
+[node name="NavigationAgent2D" parent="." index="8"]
 navigation_layers = 3
-
-[node name="HitSound" parent="." index="10"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
 position = Vector2(2, 0)
@@ -398,5 +399,7 @@ offset_top = -117.0
 offset_right = 17.0
 offset_bottom = -94.0
 
+[node name="HitSound" parent="." index="15"]
+visible = false
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
-[connection signal="zero_health" from="." to="." method="_on_zero_health"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkkmr17ammsvp"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink.gd" id="1_emm0t"]
+[ext_resource type="PackedScene" uid="uid://b4oghviqpcxxt" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/ray_casts.tscn" id="2_kpvn8"]
+
+[node name="BBatBlink" type="Node2D"]
+script = ExtResource("1_emm0t")
+
+[node name="RayCasts" parent="." instance=ExtResource("2_kpvn8")]

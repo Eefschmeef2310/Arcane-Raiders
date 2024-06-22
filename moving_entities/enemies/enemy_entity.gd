@@ -160,7 +160,7 @@ func update_dash(delta):
 		velocity = dash_direction * dash_speed
 		dash_timer -= delta
 		move_and_slide()
-	elif is_dashing == true:
+	elif is_dashing:
 		dash_timer = 0
 		is_dashing = false
 		nav_agent.avoidance_enabled = true

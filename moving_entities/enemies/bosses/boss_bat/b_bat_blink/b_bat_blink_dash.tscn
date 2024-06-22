@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://bel63f5xhtsss"]
+
+[sub_resource type="GDScript" id="GDScript_55t6r"]
+resource_name = "b_bat_blink_dash"
+script/source = "extends BatBlinkSpell
+
+const B_BAT_DASH_ATTACK = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn\")
+
+func _ready():
+	super._ready()
+	await teleport_to_random_side()
+	var attack = B_BAT_DASH_ATTACK.instantiate()
+	transfer_data(attack)
+	attack.global_position = global_position
+	add_sibling(attack)
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[node name="BBatBlinkDash" type="Node2D"]
+script = SubResource("GDScript_55t6r")
+end_time = 5.0
+cooldown_time = 8.0

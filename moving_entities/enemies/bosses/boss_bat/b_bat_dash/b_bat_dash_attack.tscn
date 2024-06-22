@@ -5,6 +5,8 @@ script/source = "extends SpellBase
 
 const B_BAT_FISSION = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_fission.tscn\")
 
+@onready var ray_cast_2d = $RayCast2D
+
 @export var interval_time: float = 0.3
 @export var max_shots: int = 6
 
@@ -12,9 +14,13 @@ var timer: float = 0
 var shots: int = 0
 
 func _ready():
-	fire()
 	if caster && caster.has_method(\"dash_to\"):
-		caster.dash_to(caster.aim_direction, caster.target_area)
+		var player_pos = caster.target_player.global_position
+		var direction = caster.global_position.direction_to(player_pos)
+		caster.aim_direction = direction
+		ray_cast_2d.target_position = direction * 9999
+		ray_cast_2d.force_raycast_update()
+		caster.dash_to(direction, ray_cast_2d.get_collision_point())
 	
 func _physics_process(delta):
 	if !is_instance_valid(caster): 
@@ -47,3 +53,5 @@ script = SubResource("GDScript_5fg5p")
 interval_time = 0.1
 end_time = 2.0
 cooldown_time = 15.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
