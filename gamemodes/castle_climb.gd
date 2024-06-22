@@ -81,20 +81,34 @@ func _process(delta):
 func check_crown():
 	#calculate who should have the crown and gives it to them
 	#remove from all and check for highest score
-	var total_damage : int = 0
+	#var total_damage : int = 0
 	var highest_dmg = 0
 	var highest_player = -1
 	var players : int = number_of_players
 	if players > 1:
 		for i in players:
-			total_damage += player_data[i].damage
+			#total_damage += player_data[i].damage
 			player_data[i].has_crown = false
 			if(player_data[i].damage > highest_dmg):
 				highest_dmg = player_data[i].damage
 				highest_player = i
 		if(highest_player != -1):
 			player_data[highest_player].has_crown = true
-	return [total_damage, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage]
+	return [0, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage]
+	# this func shouldnt be used for stats see get_highest_damage
+
+func get_highest_damage():
+	var highest : int = 0
+	var player_id = -1
+	var total_damage = 0
+	for i in number_of_players:
+		total_damage += player_data[i].damage
+		if player_data[i].kills > highest:
+			player_id = i
+			highest = player_data[i].kills
+	return [total_damage, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].damage]
+
+
 
 func get_highest_kills():
 	var highest : int = 0
