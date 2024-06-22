@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://brodj84jliqtq"]
+[gd_scene load_steps=7 format=3 uid="uid://brodj84jliqtq"]
 
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="1_ot87u"]
 
@@ -9,6 +9,7 @@ script/source = "extends CanvasLayer
 
 var just_spawned := true
 var device_index : int
+var new_settings
 
 #region Godot methods
 func _ready():
@@ -27,7 +28,8 @@ func _input(event):
 				_on_continue_button_pressed()
 		else: #If controller
 			if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and (MultiplayerInput.is_action_just_released(device_index, \"ui_pause\") or MultiplayerInput.is_action_just_released(device_index, \"ui_cancel\")) and !just_spawned:
-				_on_continue_button_pressed()
+				if !is_instance_valid(new_settings):
+					_on_continue_button_pressed()
 			
 		#Set just_spawned
 		if just_spawned:
@@ -40,7 +42,8 @@ func _input(event):
 					
 	elif GameManager.isOnline():		
 		if !just_spawned and (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"ui_cancel\")):
-			_on_continue_button_pressed()
+			if !is_instance_valid(new_settings):
+				_on_continue_button_pressed()
 		
 		if (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"keyboard_pause\") and just_spawned):
 			just_spawned = false
@@ -58,7 +61,7 @@ func _on_continue_button_pressed():
 	queue_free()
 	
 func _on_settings_button_pressed():
-	var new_settings = load(\"res://menus/settings.tscn\").instantiate()
+	new_settings = load(\"res://menus/settings.tscn\").instantiate()
 	new_settings.destroyed.connect(settings_set_focus)
 	get_tree().root.add_child(new_settings)
 	
@@ -69,7 +72,7 @@ func _on_quit_button_pressed():
 		if is_multiplayer_authority():
 			quit_warning.set_text(\"By quitting, you will close the server. \\nAre you sure you want to quit?\")
 			
-		quit_warning.destroyed.connect($MarginContainer/MarginContainer/VBoxContainer/QuitButton.warning_closed)
+		quit_warning.destroyed.connect($Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton.warning_closed)
 
 		add_child(quit_warning)
 	else:
@@ -88,22 +91,27 @@ func _on_quit_button_pressed():
 
 #region Other methods (please try to separate and organise!)
 func set_panel_color(col: Color):
-	($MarginContainer/Panel as Panel).self_modulate = col
+	($Control/MarginContainer/Panel as Panel).self_modulate = col
 	#new_panel.set(\"bg_color\", col)
 	#$MarginContainer/Panel.add_theme_stylebox_override(\"panel\", new_panel)
 
 func settings_set_focus():
-	$MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
+	$Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
 	
 func set_button_mouse():
-	($MarginContainer/MarginContainer/VBoxContainer/ContinueButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
-	($MarginContainer/MarginContainer/VBoxContainer/SettingsButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
-	($MarginContainer/MarginContainer/VBoxContainer/QuitButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	($Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	($Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+	($Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
 #endregion
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
 bg_color = Color(0.854902, 0.854902, 0.854902, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.552941, 0.552941, 0.552941, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -145,11 +153,41 @@ func warning_closed():
 #endregion
 "
 
+[sub_resource type="Animation" id="Animation_yg65t"]
+resource_name = "default"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7hx68"]
+_data = {
+"default": SubResource("Animation_yg65t")
+}
+
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 script = SubResource("GDScript_gacho")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -157,25 +195,26 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.152941, 0.152941, 0.152941, 0.505882)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
 process_mode = 3
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -250.0
+offset_top = -247.0
+offset_right = 250.0
+offset_bottom = 247.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="Panel" type="Panel" parent="Control/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wyv4k")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 30
@@ -183,34 +222,42 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 92
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Continue"
 script = ExtResource("1_ot87u")
 
-[node name="SettingsButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 script = SubResource("GDScript_xbonc")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7hx68")
+}
+autoplay = "default"
+
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="button_up" from="MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="button_up" from="Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="button_up" from="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="button_up" from="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

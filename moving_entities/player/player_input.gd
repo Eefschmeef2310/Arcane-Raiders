@@ -1,5 +1,7 @@
 extends Node
 
+const PAUSE_MENU = preload("res://menus/pause_menu.tscn")
+
 var input: DeviceInput
 
 var move_dir: Vector2
@@ -19,107 +21,121 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	#For pausing
-	var do_pause = false
-	if input: # For local
-		do_pause = input.is_action_just_pressed("keyboard_pause") if input.device == -1 else input.is_action_just_pressed("ui_pause")
-	else: # For online
-		do_pause = Input.is_action_pressed("ui_pause") or Input.is_action_just_pressed("keyboard_pause")
-	
-	if do_pause and !GameManager.isPaused:
-		GameManager.isPaused = true
-		if input:
-			MultiplayerInput.set_ui_action_device(input.device)
+	if is_multiplayer_authority() and is_instance_valid(owner.data):
+		#region - For pausing
+		var do_pause = false
+		if input: # For local
+			do_pause = input.is_action_just_pressed("keyboard_pause") if input.device == -1 else input.is_action_just_pressed("ui_pause")
+		else: # For online
+			do_pause = Input.is_action_pressed("ui_pause") or Input.is_action_just_pressed("keyboard_pause")
 		
-		var pause_menu = load("res://menus/pause_menu.tscn").instantiate()
-		pause_menu.set_panel_color(owner.data.main_color)
-		if input:
-			pause_menu.device_index = input.device
-			
-		#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
-		get_tree().root.add_child(pause_menu)
-	
-	if is_multiplayer_authority() and is_instance_valid(owner.data) and !owner.is_dead:
-		
-		move_dir = Vector2.ZERO
-		aim_dir = Vector2.ZERO
-		spell_down.fill(false)
-		spell_press.fill(false)
-		spell_release.fill(false)
-		do_dash = false
-		
-		# If we have an input object, use it
-		if !GameManager.isPaused:
+		if do_pause and !GameManager.isPaused:
+			GameManager.isPaused = true
 			if input:
-				# Movement
-				move_dir = input.get_vector("left", "right", "up", "down").normalized()
-				if input.is_keyboard():
-					if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
-						move_dir.y *= 0.5
-						move_dir = move_dir.normalized()
-				
-				# Aim
-				if input.is_keyboard():
-					aim_dir = owner.get_global_mouse_position() - owner.global_position
-					aim_dir = aim_dir.normalized()
-				else:
-					var a : Vector2 = input.get_vector("left", "right", "up", "down")
-					if a.length() > 0:
-						aim_dir = a.normalized()
-				
-				# Buttons
-				for i in spell_down.size():
-					spell_down[i] = input.is_action_pressed("spell" + str(i))
-					spell_press[i] = input.is_action_just_pressed("spell" + str(i))
-					spell_release[i] = input.is_action_just_released("spell" + str(i))
-				do_dash = input.is_action_just_pressed("dash")
+				MultiplayerInput.set_ui_action_device(input.device)
 			
-			# Otherwise, use any connected controller
-			else:
-				for device in GameManager.devices:
-					var d: Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
-					if d.length() > move_dir.length():
-						move_dir = d
-					if is_keyb:
+			var pause_menu = PAUSE_MENU.instantiate()
+			pause_menu.set_panel_color(owner.data.main_color)
+			if input:
+				pause_menu.device_index = input.device
+				
+			#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
+			get_tree().root.add_child(pause_menu)
+		#endregion
+	
+		if !owner.is_dead:
+			
+			move_dir = Vector2.ZERO
+			aim_dir = Vector2.ZERO
+			spell_down.fill(false)
+			spell_press.fill(false)
+			spell_release.fill(false)
+			do_dash = false
+			
+			# If we have an input object, use it
+			if !GameManager.isPaused:
+				if input:
+					# Movement
+					move_dir = input.get_vector("left", "right", "up", "down").normalized()
+					if input.is_keyboard():
 						if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
 							move_dir.y *= 0.5
 							move_dir = move_dir.normalized()
-						
-					if is_keyb:
+					
+					# Aim
+					if input.is_keyboard():
 						aim_dir = owner.get_global_mouse_position() - owner.global_position
 						aim_dir = aim_dir.normalized()
 					else:
-						var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+						var a : Vector2 = input.get_vector("left", "right", "up", "down")
 						if a.length() > 0:
 							aim_dir = a.normalized()
-						
+					
+					# Buttons
 					for i in spell_down.size():
-						if spell_down[i] == false:
-							spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
-						if spell_press[i] == false:
-							spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
-						if spell_release[i] == false:
-							spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
-					if do_dash == false:
-						do_dash = MultiplayerInput.is_action_just_pressed(device, "dash")
-		
-		# Send input to owner
-		owner.move_direction = move_dir
-		if aim_dir != Vector2.ZERO:
-			owner.aim_direction = aim_dir
-		for i in spell_down.size():
-			if spell_press[i] and $"../SpellPickupDetector".closest_pickup != null:
-				print("Picking up spell.")
-				owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
-			else:
-				if spell_press[i]:
-					owner.prepare_cast_down(i)
-				if spell_down[i]:
-					owner.prepare_cast(i)
-				if spell_release[i]:
-					owner.attempt_cast(i)
-		if do_dash:
-			owner.attempt_dash()
+						spell_down[i] = input.is_action_pressed("spell" + str(i))
+						spell_press[i] = input.is_action_just_pressed("spell" + str(i))
+						spell_release[i] = input.is_action_just_released("spell" + str(i))
+					do_dash = input.is_action_just_pressed("dash")
+					
+					#Emotes
+					for i in 3:
+						if input.is_action_just_pressed("Emote" + str(i)):
+							owner.play_emote.rpc(i)
+					#print(input.is_action_just_pressed("Emote2"))
+				
+				# Otherwise, use any connected controller
+				else:	
+					for device in GameManager.devices:
+						var d: Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+						if d.length() > move_dir.length():
+							move_dir = d
+						if is_keyb:
+							if abs(move_dir.y) <= sqrt(0.5) + 0.1 and abs(move_dir.y) >= sqrt(0.5) - 0.1:
+								move_dir.y *= 0.5
+								move_dir = move_dir.normalized()
+							
+						if is_keyb:
+							aim_dir = owner.get_global_mouse_position() - owner.global_position
+							aim_dir = aim_dir.normalized()
+						else:
+							var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+							if a.length() > 0:
+								aim_dir = a.normalized()
+							
+						for i in spell_down.size():
+							if spell_down[i] == false:
+								spell_down[i] = MultiplayerInput.is_action_pressed(device, "spell" + str(i))
+							if spell_press[i] == false:
+								spell_press[i] = MultiplayerInput.is_action_just_pressed(device, "spell" + str(i))
+							if spell_release[i] == false:
+								spell_release[i] = MultiplayerInput.is_action_just_released(device, "spell" + str(i))
+						if do_dash == false:
+							do_dash = MultiplayerInput.is_action_just_pressed(device, "dash")
+						
+						for i in 3:
+							if MultiplayerInput.is_action_just_pressed(device, "Emote" + str(i)):
+								owner.play_emote.rpc(i)
+						
+			
+			# Send input to owner
+			owner.move_direction = move_dir
+			if aim_dir != Vector2.ZERO:
+				owner.aim_direction = aim_dir
+			for i in spell_down.size():
+				if spell_press[i] and $"../SpellPickupDetector".closest_pickup != null:
+					print("Picking up spell.")
+					owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
+				else:
+					if spell_press[i]:
+						owner.prepare_cast_down(i)
+						owner.prepare_cast(i)
+					if spell_down[i]:
+						pass
+					if spell_release[i]:
+						owner.attempt_cast(i)
+			if do_dash:
+				owner.attempt_dash()
 
 func _input(event):
 	if !input:
@@ -131,8 +147,6 @@ func _input(event):
 			is_keyb = true
 			if is_instance_valid(owner.data) and owner.data.device_id != -3:
 				owner.data.device_changed.emit(-1)
-	
-	
 
 #func update_device_list(_device: int, _connected: bool):
 	#devices.clear()

@@ -98,7 +98,7 @@ func _process(delta):
 		print("StartGame triggered.")
 		StartGame()
 		
-	if Input.is_action_pressed("ui_cancel") and !start_game_called and !get_node("CastleClimb"):
+	if Input.is_action_pressed("ui_cancel") and !start_game_called and !is_instance_valid(get_node("CastleClimb")):
 		back_timer += delta
 		if back_timer > 1:
 			_on_back_button_pressed()
@@ -265,7 +265,8 @@ func get_card_data() -> Array:
 			"peer_id": card.peer_id,
 			"spells": loadouts[card.selected_loadout].spell_ids,
 			"raider": raiders[card.selected_raider],
-			"color": player_colors[card.selected_color]
+			"color": player_colors[card.selected_color],
+			"name": card.player_name.text
 			})
 	return arr
 	

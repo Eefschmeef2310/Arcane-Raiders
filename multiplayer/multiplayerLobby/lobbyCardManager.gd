@@ -67,6 +67,7 @@ var input
 var mouse_input: Array[String]
 var devices: Array[int]
 var connected_time : float
+var readied_up : bool = false
 
 #endregion
 
@@ -304,9 +305,17 @@ func UpdateDisplay():
 	#Highlight the correct panel
 	highlight_color = lobby_manager.player_colors[selected_color]
 	if player_ready:
+		if !($AudioStreamPlayer as AudioStreamPlayer).playing and !readied_up:
+			$AudioStreamPlayer.stream = lobby_manager.raiders[selected_raider].animal_sound
+			$AudioStreamPlayer.play()
+		readied_up = true
+		$AnimationPlayer.play("ready")
 		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.DIM_GRAY
 		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.DIM_GRAY
-	else: 
+	else:
+		readied_up = false
+		$AudioStreamPlayer.stop()
+		$AnimationPlayer.play("character_bob")
 		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.WHITE
 		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.WHITE
 	
@@ -324,11 +333,10 @@ func UpdateDisplay():
 	
 	#check for valid color
 	valid_color = true
-	ready_button.text = "READY"
+	#ready_button.text = "READY"
 	for card in lobby_manager.player_card_hbox.get_children():
 		if card.selected_color == selected_color and not player_ready and not card.peer_id == peer_id:
 			valid_color = false
-			ready_button.text = "CHOOSE A DIFFERENT COLOR"
 
 	#update preview
 	pre_body.self_modulate = highlight_color

@@ -20,6 +20,8 @@ class_name CastleClimb
 @export_group("Sector Data")
 @export var total_floors: int
 @export var sector_start_floors: Array[int]
+@export var sector_room_split_starts: Array[int]
+var sector_room_pool: Array
 @export var shop_floors: Array[int]
 @export var boss_floors: Array[int]
 @export var sector_gradient_maps: Array[GradientTexture1D]
@@ -61,6 +63,17 @@ func _ready():
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
 	
+	sector_room_pool.resize(sector_start_floors.size())
+	for j in sector_room_pool.size():
+		sector_room_pool[j] = []
+	var i = 0
+	var n = 0
+	while n < basic_levels.size():
+		if i < sector_room_pool.size() - 1 and n >= sector_room_split_starts[i + 1]:
+			i += 1
+		sector_room_pool[i].append(n)
+		n += 1
+	
 	AudioManager.play_track_fade()
 	
 	if start_on_spawn:
@@ -81,17 +94,105 @@ func _process(delta):
 func check_crown():
 	#calculate who should have the crown and gives it to them
 	#remove from all and check for highest score
+	#var total_damage : int = 0
 	var highest_dmg = 0
 	var highest_player = -1
 	var players : int = number_of_players
 	if players > 1:
 		for i in players:
+			#total_damage += player_data[i].damage
 			player_data[i].has_crown = false
 			if(player_data[i].damage > highest_dmg):
 				highest_dmg = player_data[i].damage
 				highest_player = i
 		if(highest_player != -1):
 			player_data[highest_player].has_crown = true
+	return [0, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage]
+	# this func shouldnt be used for stats see get_highest_damage
+
+func get_highest_damage():
+	var highest : int = 0
+	var player_id = -1
+	var total_damage = 0
+	for i in number_of_players:
+		total_damage += player_data[i].damage
+		if player_data[i].kills > highest:
+			player_id = i
+			highest = player_data[i].kills
+	return [total_damage, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].damage]
+
+
+
+func get_highest_kills():
+	var highest : int = 0
+	var player_id = -1
+	var total_kills = 0
+	for i in number_of_players:
+		total_kills += player_data[i].kills
+		if player_data[i].kills > highest:
+			player_id = i
+			highest = player_data[i].kills
+	return [total_kills, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills]
+
+func get_highest_earner():
+	var highest : int = 0
+	var player_id = -1
+	var total_earnings = 0
+	for i in number_of_players:
+		total_earnings += player_data[i].total_money
+		if player_data[i].total_money > highest:
+			player_id = i
+			highest = player_data[i].total_money
+	return [total_earnings, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].total_money]
+	
+func get_most_pickups():
+	var highest : int = 0
+	var player_id = -1
+	var most_pickups = 0
+	for i in number_of_players:
+		most_pickups += player_data[i].pickups_obtained
+		if player_data[i].pickups_obtained > highest:
+			player_id = i
+			highest = player_data[i].pickups_obtained
+	return [most_pickups, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].pickups_obtained]
+
+func get_most_reactions():
+	var highest : int = 0
+	var player_id = -1
+	var most_reactions = 0
+	for i in number_of_players:
+		most_reactions += player_data[i].reactions_created
+		if player_data[i].reactions_created > highest:
+			player_id = i
+			highest = player_data[i].reactions_created
+	return [most_reactions, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].reactions_created]
+
+
+
+func get_leaderboard() -> Array[int]:
+	var leaders : Array[int] = [] # player id's only
+	var data : Array[PlayerData] = player_data.duplicate()
+	var passes = 0
+	
+	
+	
+	while passes < 4:
+		var most_damage = -1
+		var player_id = -1
+		for i in number_of_players:
+			if data[i].damage > most_damage:
+				most_damage = data[i].damage
+				player_id = i
+		
+		if(data[player_id].damage != -1 and data[player_id].damage != 0):
+			leaders.append(player_id)
+			data[player_id].damage = -1
+		passes += 1
+	
+	
+	#returns an array of player id's from 1st to 4th, missing players will return -1
+	return leaders 
+
 
 func start_climb():
 	# Do any server-sided stuff here
@@ -136,7 +237,11 @@ func start_next_floor():
 	elif current_floor in boss_floors:
 		boss_level_spawner.spawn(get_current_sector())
 	else:
-		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
+		var sector = get_current_sector()
+		var id_pool = sector_room_pool[sector]
+		var rn = rng_floors.randi_range(id_pool[0], id_pool[id_pool.size()-1])
+		sector_room_pool[sector].erase(rn)
+		basic_level_spawner.spawn(rn)
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
@@ -195,7 +300,7 @@ func _on_room_all_players_dead():
 func game_over():
 	await get_tree().create_timer(2.0).timeout
 	var game_over_screen = load("res://screens/game_over_screen.tscn").instantiate()
-	get_tree().root.call_deferred("add_child", game_over_screen)
+	call_deferred("add_child", game_over_screen)
 
 func _on_spell_change_requested(d: PlayerData, i: int, sp: SpellPickup):
 	use_spell_pickup_server.rpc(player_data.find(d), i, sp.get_path())
@@ -266,14 +371,16 @@ func setup_from_parent_multiplayer_lobby():
 	var arr = get_parent().get_card_data()
 	var i = 0
 	for dict in arr:
-		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"], dict["color"])
+		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"], dict["color"], dict["name"])
 		i += 1
 
-func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color):
+func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color, name: String):
 	var data = player_data[slot]
 	data.device_id = device_id
 	data.peer_id = peer_id
+	data.player_name = name
 	data.set_multiplayer_authority(peer_id)
+	
 	
 	for i in 3:
 		if spells[i] != "":

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://c6esfkvr6if8c"]
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=5 format=3 uid="uid://c6esfkvr6if8c"]
 
 [ext_resource type="Texture2D" uid="uid://da3o08jsb7k8m" path="res://moving_entities/player/player_pieces/head-cow.png" id="1_8lp5o"]
+[ext_resource type="AudioStream" uid="uid://yp5c0mkpe03y" path="res://moving_entities/player/animal_sounds/mooing-cow-122255.wav" id="1_c8w26"]
 [ext_resource type="Texture2D" uid="uid://ckvnyognf84so" path="res://multiplayer/multiplayerLobby/raiders/crocplaceholder.png" id="2_27v4x"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_goleq"]
 
@@ -12,3 +13,4 @@ raider_desc = "moo!!"
 color = Color(0.203922, 0.282353, 0.541176, 1)
 head_texture = ExtResource("1_8lp5o")
 skin_color = Color(0.462745, 0.415686, 0.501961, 1)
+animal_sound = ExtResource("1_c8w26")

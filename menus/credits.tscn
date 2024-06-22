@@ -263,7 +263,15 @@ Spider Squeek
 Spellcast
 Falling Pebbles, Rocks and Boulders (VoiceBosch)
 Fast Whoosh (StudioKolomna)
-Water Splash (UNIVERSFIELD)"
+Water Splash (UNIVERSFIELD)
+Cat call meow
+Mooing cow
+Neighing of a horse
+Dragon Growl
+Snake hissing
+Owl 2 (UNIVERSFIELD)
+Dog Barking
+Coin upaif"
 label_settings = SubResource("LabelSettings_axq2p")
 
 [node name="Text2" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]

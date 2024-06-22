@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="RaiderRes" load_steps=4 format=3 uid="uid://fx7kfybih0q4"]
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=5 format=3 uid="uid://fx7kfybih0q4"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="1_nlfgd"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="1_ouwk6"]
+[ext_resource type="AudioStream" uid="uid://dwo8v6bgwr8nv" path="res://moving_entities/player/animal_sounds/cat-call-meow-102607.mp3" id="1_w66qy"]
 [ext_resource type="Texture2D" uid="uid://f6vpn242a47v" path="res://multiplayer/multiplayerLobby/raiders/catplaceholder.png" id="2_amvph"]
 
 [resource]
@@ -12,3 +13,4 @@ raider_desc = "nya nya!"
 color = Color(0.203922, 0.282353, 0.541176, 1)
 head_texture = ExtResource("1_ouwk6")
 skin_color = Color(0.552941, 0.388235, 0.282353, 1)
+animal_sound = ExtResource("1_w66qy")

@@ -34,8 +34,12 @@ func _ready():
 
 #region Signal methods
 func _on_area_entered(area):
-	if area.owner is Player and !animation_player.is_playing():
-		animation_player.play("fire")
+	if area is ReactionArea or area is ReactionNode:
+		should_fire = false
+	
+	if should_fire:
+		if area.owner is Player and !animation_player.is_playing():
+			animation_player.play("fire")
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -51,10 +55,11 @@ func spike_fired():
 				body.deal_damage.rpc(null, base_damage, null, null, true)
 			
 func players_still_overlapping():
-	for body in get_overlapping_areas():
-		if body.owner.is_in_group("player"):
-			animation_player.play("fire")
-			return
+	if should_fire:
+		for body in get_overlapping_areas():
+			if body.owner and body.owner.is_in_group("player"):
+				animation_player.play("fire")
+				return
 			
 func toggle_fire():
 	should_fire = false

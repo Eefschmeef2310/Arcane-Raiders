@@ -21,15 +21,18 @@ extends ProgressBar
 
 #region Godot methods
 func _ready():
-	pass
 	#self_modulate = owner.data.main_color
+	pass
 #endregion
 
 #region Signal methods
-func _on_changed():
+func _on_value_changed(_value):
 	visible = value > 0
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 #endregion
+
+
+

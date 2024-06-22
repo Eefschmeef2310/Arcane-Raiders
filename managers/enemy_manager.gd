@@ -72,5 +72,13 @@ extends Node
 	"boss_bat": {
 		"scene" : preload("res://moving_entities/enemies/bosses/boss_bat/boss_bat.tscn"),
 		"difficulty" : 999
+	},
+	"wizard_manager": {
+		"scene" : preload("res://moving_entities/enemies/boss_wizard/wizard_manager.tscn"),
+		"difficulty" : 999
+	},
+	"wizard": {
+		"scene" : preload("res://moving_entities/enemies/boss_wizard/evil_wizard.tscn"),
+		"difficulty" : 999
 	}
 }

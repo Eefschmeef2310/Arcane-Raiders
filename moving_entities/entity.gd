@@ -183,6 +183,11 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 				if "caster" in new_reaction and attack != null:
 					new_reaction.caster = attack.caster
 					new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
+					#print_debug(attack.caster.name)
+					if "add_reaction" in attack.caster:
+						attack.caster.add_reaction.rpc()
+						#print_debug("Reactions: " + str(attack.caster.data.reactions_created))
+					
 				if "elements" in new_reaction:
 					new_reaction.elements = [key, element]
 				
@@ -237,6 +242,10 @@ func heal_damage(amount):
 	dm.global_position = global_position
 	dm.set_color(Color.GREEN)
 	dm.add(amount/10)
+	
+@rpc("authority", "call_local", "reliable")
+func set_health(amount):
+	health = amount
 
 func burn_effect(delta):
 	if is_multiplayer_authority():

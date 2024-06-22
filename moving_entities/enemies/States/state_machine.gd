@@ -22,8 +22,6 @@ var states : Dictionary = {}
 #endregion
 
 #region Godot methods
-func _ready():
-	pass
 
 func _process(delta):
 	if current_state:

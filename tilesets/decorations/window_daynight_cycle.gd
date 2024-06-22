@@ -22,8 +22,9 @@ extends Polygon2D
 
 #region Godot methods
 func _ready():
-	var castle_climb : CastleClimb = owner.get_parent().get_parent().get_parent()
-	color = gradient.sample(float(castle_climb.current_floor) / float(castle_climb.total_floors))
+	if owner.get_parent().get_parent().get_parent() is CastleClimb:
+		var castle_climb : CastleClimb = owner.get_parent().get_parent().get_parent()
+		color = gradient.sample(float(castle_climb.current_floor) / float(castle_climb.total_floors))
 	
 #endregion
 

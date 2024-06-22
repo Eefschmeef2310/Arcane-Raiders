@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg1b6cwhpo8yx"]
+
+[ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="1_7luxl"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="2_uvxj4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hl28r"]
+radius = 25.0
+
+[node name="Pickup_base" type="Area2D"]
+y_sort_enabled = true
+collision_layer = 0
+collision_mask = 4
+
+[node name="Shadow" parent="." instance=ExtResource("1_7luxl")]
+position = Vector2(0, 3.8147e-06)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_uvxj4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -40)
+shape = SubResource("CircleShape2D_hl28r")
