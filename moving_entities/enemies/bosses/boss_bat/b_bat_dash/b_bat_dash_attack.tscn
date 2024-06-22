@@ -28,9 +28,8 @@ func _physics_process(delta):
 		queue_free()
 		return
 			
-	if is_multiplayer_authority():
-		if caster && !caster.is_dashing:
-			queue_free()
+	if caster && !caster.is_dashing:
+		queue_free()
 
 func fire():
 	var bullet = B_BAT_FISSION.instantiate()
