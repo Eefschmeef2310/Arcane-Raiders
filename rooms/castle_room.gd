@@ -82,9 +82,11 @@ func _ready():
 			var arr = EnemyManager.Data.keys()
 			if !spawn_keys.is_empty():
 				arr = spawn_keys
+			var spawn_nodes = enemy_spawns.get_children()
 			while total_difficulty_left > 0:
 				var key = arr[rng.randi_range(0, arr.size() - 1)]
-				var spawn_pos = enemy_spawns.get_children().pick_random().global_position
+				var spawn_pos_node = spawn_nodes[rng.randi_range(0, spawn_nodes.size() - 1)]
+				var spawn_pos = spawn_pos_node.global_position
 				var _enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 				# print("New total: " + str(number_of_enemies_left))
