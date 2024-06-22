@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=44 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
@@ -13,7 +13,9 @@
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
+[ext_resource type="PackedScene" uid="uid://r5cylbdsa503" path="res://rooms/basic/basic_sans.tscn" id="8_5mkrr"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
+[ext_resource type="PackedScene" uid="uid://n043b7rhjev3" path="res://rooms/basic/basic_wide.tscn" id="8_gd3sw"]
 [ext_resource type="PackedScene" uid="uid://dutidxrbw7ab7" path="res://rooms/basic/basic_butterfly.tscn" id="8_wyblb"]
 [ext_resource type="PackedScene" uid="uid://bv47kko8wdikc" path="res://rooms/basic/basic_rigid.tscn" id="9_wet5w"]
 [ext_resource type="PackedScene" uid="uid://dfvnj026hw322" path="res://rooms/basic/basic_clover.tscn" id="10_434mj"]
@@ -191,10 +193,11 @@ common_levels = {
 "foyer": ExtResource("2_0olmr"),
 "shop": ExtResource("2_ynx3r")
 }
-basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1"), ExtResource("8_wyblb"), ExtResource("9_wet5w"), ExtResource("10_434mj"), ExtResource("11_ed6tu"), ExtResource("12_bgvea")])
+basic_levels = Array[PackedScene]([ExtResource("7_mole1"), ExtResource("6_8eavx"), ExtResource("11_ed6tu"), ExtResource("8_5mkrr"), ExtResource("8_gd3sw"), ExtResource("12_bgvea"), ExtResource("9_wet5w"), ExtResource("3_i3kdw"), ExtResource("8_wyblb"), ExtResource("10_434mj")])
 boss_levels = Array[PackedScene]([ExtResource("13_qv4s1"), ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
+sector_room_split_starts = Array[int]([0, 4, 7])
 shop_floors = Array[int]([4, 8])
 boss_floors = Array[int]([3, 7, 11])
 sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
@@ -267,9 +270,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 120.0
-offset_right = 1920.0
-offset_bottom = 708.0
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 

@@ -20,6 +20,8 @@ class_name CastleClimb
 @export_group("Sector Data")
 @export var total_floors: int
 @export var sector_start_floors: Array[int]
+@export var sector_room_split_starts: Array[int]
+var sector_room_pool: Array
 @export var shop_floors: Array[int]
 @export var boss_floors: Array[int]
 @export var sector_gradient_maps: Array[GradientTexture1D]
@@ -60,6 +62,17 @@ func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
+	
+	sector_room_pool.resize(sector_start_floors.size())
+	for j in sector_room_pool.size():
+		sector_room_pool[j] = []
+	var i = 0
+	var n = 0
+	while n < basic_levels.size():
+		if i < sector_room_pool.size() - 1 and n >= sector_room_split_starts[i + 1]:
+			i += 1
+		sector_room_pool[i].append(n)
+		n += 1
 	
 	AudioManager.play_track_fade()
 	
@@ -224,7 +237,11 @@ func start_next_floor():
 	elif current_floor in boss_floors:
 		boss_level_spawner.spawn(get_current_sector())
 	else:
-		basic_level_spawner.spawn(rng_floors.randi_range(0, basic_levels.size() - 1))
+		var sector = get_current_sector()
+		var id_pool = sector_room_pool[sector]
+		var rn = rng_floors.randi_range(id_pool[0], id_pool[id_pool.size()-1])
+		sector_room_pool[sector].erase(rn)
+		basic_level_spawner.spawn(rn)
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
