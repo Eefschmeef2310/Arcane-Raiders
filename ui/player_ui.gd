@@ -12,17 +12,27 @@ class_name PlayerUI
 @onready var health_bar = $HBox/Stats/HealthBar
 @onready var health_bar_linger = $HBox/Stats/HealthBar/HealthBarLinger
 
-@onready var damage_stat = $"HBox/Stats/Stats/Damage Stat"
-@onready var kills_stat = $"HBox/Stats/Stats/Kills Stat"
+@export var damage_stat : Label
+@export var kills_stat :Label
 @export_group("Node References")
 @export var crown : TextureRect
 @export var player_username : Label
-@export var stats_ticker : ScrollContainer
-@export var stats_ticker_label : Label
-var ticker_progress = 0
-var reset_timer = 3
-var ticker_max_scroll = 0
-var scroll_move :float = 0
+@export_subgroup("StatBox")
+var show_stats : bool = false
+@export var stat_panel : PanelContainer
+@export var damage_label : Label
+@export var kills_label : Label
+@export var money_label : Label
+@export var reactions_label : Label
+@export var pickups_label : Label
+
+
+#@export var stats_ticker : ScrollContainer
+#@export var stats_ticker_label : Label
+#var ticker_progress = 0
+#var reset_timer = 3
+#var ticker_max_scroll = 0
+#var scroll_move :float = 0
 
 var input_prompts: Array
 
@@ -42,12 +52,13 @@ func _process(delta):
 	damage_stat.text = "Damage: " + str(data.damage)
 	kills_stat.text = "Kills: " + str(data.kills)
 	crown.visible = data.has_crown
+	player_username.visible = GameManager.isOnline()
 	player_username.text = data.player_name
 	player_username.self_modulate = data.main_color
 	
-	#stats_ticker_process(delta)
-	#if(Input.is_key_pressed(KEY_COMMA)):
-		#show_stats_ticker()
+	update_stats_ui()
+	if(Input.is_action_just_pressed("debug_toggle_stats")):
+		show_stats = not show_stats
 #endregion
 
 #region Signal methods
@@ -124,6 +135,7 @@ func spell_not_ready(slot: int):
 		spells[slot].shake()
 #endregion
 
+#region Stats Ticker Experiment
 #func show_stats_ticker():
 	#stats_ticker.visible = true
 	#stats_ticker.scroll_horizontal = 0
@@ -154,4 +166,19 @@ func spell_not_ready(slot: int):
 			##ticker_max_scroll = stats_ticker.get_h_scroll_bar().max_value
 			#show_stats_ticker()
 			#
+#endregion
+
+func show_stats_ui():
+	show_stats = true
+	
+func hide_stats_ui():
+	show_stats = false
+
+func update_stats_ui():
+	stat_panel.visible = show_stats and not $EquipUI.visible
+	damage_label.text = "Damage: " + str(data.damage)
+	kills_label.text = "Kills: " + str(data.kills)
+	money_label.text = "Total Money: " + str(data.total_money)
+	reactions_label.text = "Reactions: " + str(data.reactions_created)
+	pickups_label.text = "Pickups: " + str(data.pickups_obtained)
 

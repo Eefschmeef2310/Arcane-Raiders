@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpyin"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfi74"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_25wmh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5rt4"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4d1op"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ui41"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -89,15 +89,21 @@ _data = {
 "flash": SubResource("Animation_3xk7l")
 }
 
-[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("crown", "player_username", "stats_ticker", "stats_ticker_label")]
+[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
 custom_minimum_size = Vector2(450, 200)
 scale = Vector2(0.935, 0.935)
 alignment = 1
 script = ExtResource("1_cbyu2")
+damage_stat = NodePath("HBox/Stats/Stats/Damage Stat")
+kills_stat = NodePath("HBox/Stats/Stats/Kills Stat")
 crown = NodePath("HBox/Stats/Spells/Head/Crown")
 player_username = NodePath("HBox/Stats/PlayerUsername")
-stats_ticker = NodePath("HBox/Stats/StatsTicker")
-stats_ticker_label = NodePath("HBox/Stats/StatsTicker/Stats")
+stat_panel = NodePath("StatsUI/PanelContainer")
+damage_label = NodePath("StatsUI/PanelContainer/VBoxContainer/Damage")
+kills_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer/Kills")
+money_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer/Money")
+reactions_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer2/Reactions")
+pickups_label = NodePath("StatsUI/PanelContainer/VBoxContainer/HBoxContainer2/Pickups")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -111,6 +117,7 @@ alignment = 1
 
 [node name="PlayerUsername" type="Label" parent="HBox/Stats"]
 layout_mode = 2
+mouse_filter = 1
 text = "Username / Controller"
 
 [node name="Spells" type="HBoxContainer" parent="HBox/Stats"]
@@ -132,6 +139,7 @@ offset_top = 17.0
 offset_right = 57.0
 offset_bottom = 91.0
 rotation = -0.383972
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_87ps5")
 
 [node name="Crown" type="TextureRect" parent="HBox/Stats/Spells/Head"]
@@ -144,16 +152,19 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_jpyin")
+material = SubResource("ShaderMaterial_tfi74")
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_25wmh")
+material = SubResource("ShaderMaterial_v5rt4")
 layout_mode = 2
+mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_4d1op")
+material = SubResource("ShaderMaterial_6ui41")
 layout_mode = 2
+mouse_filter = 1
 
 [node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
 custom_minimum_size = Vector2(350, 35)
@@ -193,6 +204,7 @@ offset_left = 12.0
 offset_top = -4.0
 offset_right = 116.0
 offset_bottom = 42.0
+mouse_filter = 1
 text = "100/100"
 label_settings = SubResource("LabelSettings_yjyhi")
 vertical_alignment = 1
@@ -210,6 +222,7 @@ offset_right = 180.0
 offset_bottom = 22.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 texture = ExtResource("6_8mvmc")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -221,11 +234,13 @@ layout_mode = 2
 
 [node name="Damage Stat" type="Label" parent="HBox/Stats/Stats"]
 layout_mode = 2
+mouse_filter = 1
 text = "Damage: 0000"
 
 [node name="Kills Stat" type="Label" parent="HBox/Stats/Stats"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 text = "Kills: 000"
 
 [node name="StatsTicker" type="ScrollContainer" parent="HBox/Stats"]
@@ -236,6 +251,7 @@ vertical_scroll_mode = 0
 
 [node name="Stats" type="Label" parent="HBox/Stats/StatsTicker"]
 layout_mode = 2
+mouse_filter = 1
 text = "Damage: 11111111, Kills: 2222, Reactions: 333, Pickups: 4444, Revies: 55 "
 
 [node name="EquipUI" type="Node2D" parent="."]
@@ -245,6 +261,7 @@ position = Vector2(273, 0)
 offset_left = -230.0
 offset_top = -42.0
 offset_right = 220.0
+mouse_filter = 1
 text = "Press to equip!"
 label_settings = SubResource("LabelSettings_ml2ad")
 horizontal_alignment = 1
@@ -253,3 +270,50 @@ horizontal_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_0ewip")
 }
+
+[node name="StatsUI" type="Node2D" parent="."]
+position = Vector2(225.668, -48.1283)
+
+[node name="PanelContainer" type="PanelContainer" parent="StatsUI"]
+custom_minimum_size = Vector2(350, 30.06)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StatsUI/PanelContainer"]
+layout_mode = 2
+
+[node name="Damage" type="Label" parent="StatsUI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Damage: 1111111"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatsUI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Kills" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kills: 222"
+
+[node name="Money" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Money Earnt: 222"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StatsUI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Reactions" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reactions: 222"
+
+[node name="Pickups" type="Label" parent="StatsUI/PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pickups: 222"
