@@ -37,7 +37,7 @@ func _physics_process(delta):
 
 func fire():
 	var bullet = B_BAT_FISSION.instantiate()
-	if caster: bullet.global_position = caster.global_position
+	if is_instance_valid(caster): bullet.global_position = caster.global_position
 	transfer_data(bullet)
 	add_sibling(bullet)
 

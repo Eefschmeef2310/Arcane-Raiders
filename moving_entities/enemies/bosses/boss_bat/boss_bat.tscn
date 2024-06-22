@@ -277,7 +277,7 @@ collision_mask = 1
 script = SubResource("GDScript_b5sd0")
 movement_speed = 300.0
 is_boss = true
-boss_name = "Bat Boss"
+boss_name = "Echo Onslaughter"
 death_sound = null
 max_health = 4000
 
