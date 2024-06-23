@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbs1vsyw2tupn"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/attack_scripts/e_proj_normal.gd" id="1_d6mt2"]
+[ext_resource type="Texture2D" uid="uid://bv057vww5gngt" path="res://moving_entities/enemies/bat_small/small-bullet.png" id="2_4ihjt"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="3_etxg7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ufpp3"]
+radius = 17.0
+
+[node name="BBatProj" type="Area2D"]
+collision_layer = 192
+collision_mask = 5
+script = ExtResource("1_d6mt2")
+projectile_speed = 500.0
+infliction_time = 2.0
+end_time = 2.0
+cooldown_time = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_4ihjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ufpp3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.6
+texture = ExtResource("3_etxg7")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -40,7 +40,6 @@ func physics_update(delta):
 func _on_animation_player_animation_finished(_anim_name):
 	if get_parent().current_state == self:
 		transition()
-	
 #endregion
 
 #region Other methods (please try to separate and organise!)

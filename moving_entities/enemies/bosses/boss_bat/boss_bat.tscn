@@ -1,0 +1,385 @@
+[gd_scene load_steps=26 format=3 uid="uid://cnew2lxrfa7q7"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_gcbln"]
+[ext_resource type="Texture2D" uid="uid://by5ilqlhkdeaq" path="res://moving_entities/enemies/bat_small/bat_small.png" id="2_8qtsm"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_1ls6v"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_sk0yk"]
+[ext_resource type="PackedScene" uid="uid://42pqgoacrk05" path="res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn" id="4_0nrxh"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_77mgy"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_sn5q4"]
+[ext_resource type="PackedScene" uid="uid://c0om0serdslhn" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn" id="6_3tphm"]
+[ext_resource type="PackedScene" uid="uid://bel63f5xhtsss" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_dash.tscn" id="7_k0tnq"]
+[ext_resource type="PackedScene" uid="uid://c2qvhqinofmoy" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spin.tscn" id="9_0h871"]
+[ext_resource type="PackedScene" uid="uid://cem3ar060j8d6" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spam.tscn" id="9_wsy56"]
+
+[sub_resource type="GDScript" id="GDScript_b5sd0"]
+script/source = "extends EnemyEntity
+
+var dash_prep_pos: Vector2
+var dark_room:bool = false
+var canvas_modulate:CanvasModulate
+var target_player: Entity
+var invincible: bool = false
+
+func _ready():
+	super._ready()
+	if get_parent().has_node(\"CanvasModulate\"):
+		canvas_modulate = get_parent().get_node(\"CanvasModulate\")
+		
+func _on_zero_health():
+	await change_room_light()
+	super._on_zero_health()
+
+func change_room_light():
+	dark_room = !dark_room
+	var light_lvl = Color(0, 0, 0) if dark_room else Color(0.75, 0.75, 0.75)
+	var player_lvl = 1 if dark_room else 0.1
+	var player_size = 2 if dark_room else 1
+	$PointLight2D.energy = 0
+	var tween = get_tree().create_tween()
+	tween.tween_property(canvas_modulate, \"color\", light_lvl, 2)
+	var p_arr = get_tree().get_nodes_in_group(\"player\")
+	for p in p_arr:
+		if p.has_node(\"PointLight2D\"):
+			var light = p.get_node(\"PointLight2D\")
+			var tween0 = create_tween()
+			tween0.tween_property(light, \"energy\", player_lvl, 2)
+			tween0.parallel().tween_property(light, \"texture_scale\", player_size, 2)
+			
+func on_hurt(attack):
+	if invincible: return
+	super.on_hurt(attack)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrw4v"]
+radius = 71.0634
+
+[sub_resource type="Resource" id="Resource_sbqj1"]
+script = ExtResource("5_sn5q4")
+suffix = ""
+description = ""
+scene = ExtResource("4_0nrxh")
+element = ExtResource("3_1ls6v")
+
+[sub_resource type="Resource" id="Resource_3u7ki"]
+script = ExtResource("5_sn5q4")
+suffix = ""
+description = ""
+scene = ExtResource("6_3tphm")
+element = ExtResource("3_1ls6v")
+
+[sub_resource type="Resource" id="Resource_0ma1c"]
+script = ExtResource("5_sn5q4")
+suffix = ""
+description = ""
+scene = ExtResource("7_k0tnq")
+element = ExtResource("3_1ls6v")
+
+[sub_resource type="Resource" id="Resource_o6tja"]
+script = ExtResource("5_sn5q4")
+suffix = ""
+description = ""
+scene = ExtResource("9_wsy56")
+element = ExtResource("3_1ls6v")
+
+[sub_resource type="Resource" id="Resource_ss7x5"]
+script = ExtResource("5_sn5q4")
+suffix = ""
+description = ""
+scene = ExtResource("9_0h871")
+element = ExtResource("3_1ls6v")
+
+[sub_resource type="GDScript" id="GDScript_vnb1m"]
+resource_name = "Default"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+@onready var ray_cast_2d = $\"../../RayCast2D\"
+
+@export var cone_attack_range: float = 200
+
+var player: Player
+#endregion
+
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	play_anim()
+	set_position()
+
+func physics_update(delta):
+	super.physics_update(delta)
+	if !player: return
+	
+	#Shockwave dash attack
+	if can_cast_spell(1):
+		ray_cast_2d.target_position = get_furthest_player().global_position.direction_to(enemy.global_position) * 9999
+		ray_cast_2d.force_raycast_update()
+		if ray_cast_2d.is_colliding():
+			enemy.dash_prep_pos = ray_cast_2d.get_collision_point()
+			Transitioned.emit(self, \"dashprep\")
+			return
+		
+	#Blink Spam
+	if can_cast_spell(3):
+		Transitioned.emit(self, \"blinkspam\")
+		return
+	
+	#Blink into Spin Attack
+	if can_cast_spell(4):
+		Transitioned.emit(self, \"spinattack\")
+		return
+		
+		#Cone attack when too close to player
+	if enemy.global_position.distance_to(player.global_position) < cone_attack_range && can_cast_spell(0):
+		enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
+		enemy.target_area = player.global_position
+		Transitioned.emit(self, \"coneattack\")
+		return
+		
+	#Dark Room check
+	if enemy.health <= enemy.max_health/2 && enemy.dark_room == false:
+		Transitioned.emit(self, \"darkenroom\")
+
+
+func set_position():
+	player = get_closest_player()
+	if player: 
+		navigation_agent.target_position = player.global_position
+		enemy.target_player = player
+	else: Transitioned.emit(self, \"idle\")
+#endregion
+"
+
+[sub_resource type="GDScript" id="GDScript_ibf6a"]
+resource_name = "DashPrep"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+@onready var ray_cast_2d = $\"../../RayCast2D\"
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	play_anim()
+	set_position()
+	
+func physics_update(delta):
+	super.physics_update(delta)
+	if enemy.global_position.distance_to(enemy.dash_prep_pos) < 100:
+		enemy.aim_direction = enemy.global_position.direction_to(get_furthest_player().global_position)
+		ray_cast_2d.target_position = enemy.aim_direction * 9999
+		ray_cast_2d.force_raycast_update()
+		if ray_cast_2d.is_colliding():
+			enemy.target_area = ray_cast_2d.get_collision_point()
+			enemy.aim_direction = enemy.global_position.direction_to(enemy.target_area)
+			enemy.target_player = get_closest_player()
+			Transitioned.emit(self, \"dashattack\")
+	
+func set_position():
+	if is_multiplayer_authority():
+		if \"dash_prep_pos\" in enemy && enemy.dash_prep_pos:
+			navigation_agent.target_position = enemy.dash_prep_pos
+		else: Transitioned.emit(self, \"default\")
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_prrkd"]
+resource_name = "darken_room"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	play_anim()
+	enemy.change_room_light()
+	Transitioned.emit(self, \"phase2\")
+"
+
+[sub_resource type="GDScript" id="GDScript_d3u3x"]
+resource_name = "bb_phase_2"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+@onready var ray_cast_2d = $\"../../RayCast2D\"
+
+func enter():
+	play_anim()
+	set_position()
+	
+func physics_update(delta):
+	super.physics_update(delta)
+	if can_cast_spell(2):
+		var random = randi() % 360
+		ray_cast_2d.target_position = Vector2.RIGHT.rotated(deg_to_rad(random)) * 9999
+		ray_cast_2d.force_raycast_update()
+		
+		var wall_pos = ray_cast_2d.get_collision_point()
+		if wall_pos.distance_to(enemy.global_position) < 200:
+			ray_cast_2d.target_position = Vector2.RIGHT.rotated(deg_to_rad(random - 180))
+			ray_cast_2d.force_raycast_update()
+			wall_pos = ray_cast_2d.get_collision_point()
+		
+		enemy.target_player = get_closest_player()
+		enemy.dash_prep_pos = wall_pos
+		enemy.aim_direction = wall_pos.direction_to(get_closest_player().global_position)
+		Transitioned.emit(self, \"blinkattack\")
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f8rpe"]
+radius = 14.1421
+
+[sub_resource type="Animation" id="Animation_w55vx"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dckjw"]
+_data = {
+"idle": SubResource("Animation_w55vx")
+}
+
+[node name="BossBat" groups=["boss"] instance=ExtResource("1_gcbln")]
+collision_mask = 1
+script = SubResource("GDScript_b5sd0")
+movement_speed = 300.0
+is_boss = true
+boss_name = "Echo Onslaughter"
+death_sound = null
+max_health = 4000
+
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -53)
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -49)
+texture = ExtResource("2_8qtsm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 13)
+shape = SubResource("CircleShape2D_rrw4v")
+debug_color = Color(0.956863, 0, 0.533333, 0.137255)
+
+[node name="ProgressBar" parent="." index="4"]
+offset_top = -77.0
+offset_bottom = -70.0
+
+[node name="StatusUI" parent="." index="5"]
+offset_top = -111.0
+offset_bottom = -79.0
+
+[node name="EnemySpells" parent="." index="6"]
+spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
+cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
+spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 10.0, 20.0])
+
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
+initial_state = NodePath("Idle")
+debug_label = NodePath("../Label")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_sk0yk")
+actual_first_state = NodePath("../Default")
+
+[node name="Default" type="Node" parent="StateMachine" index="1"]
+script = SubResource("GDScript_vnb1m")
+
+[node name="ConeAttack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("4_77mgy")
+transition_out_when_can_cast = true
+nav_timer_interval = 99.0
+
+[node name="DashPrep" type="Node" parent="StateMachine" index="3"]
+script = SubResource("GDScript_ibf6a")
+
+[node name="DashAttack" type="Node" parent="StateMachine" index="4"]
+script = ExtResource("4_77mgy")
+spell_num = 1
+transition_out_when_can_cast = true
+next_state = "default"
+nav_timer_interval = 99.0
+nav_timer = 99
+
+[node name="BlinkSpam" type="Node" parent="StateMachine" index="5"]
+script = ExtResource("4_77mgy")
+spell_num = 3
+transition_out_when_can_cast = true
+
+[node name="SpinAttack" type="Node" parent="StateMachine" index="6"]
+script = ExtResource("4_77mgy")
+spell_num = 4
+transition_out_when_can_cast = true
+
+[node name="DarkenRoom" type="Node" parent="StateMachine" index="7"]
+script = SubResource("GDScript_prrkd")
+
+[node name="Phase2" type="Node" parent="StateMachine" index="8"]
+script = SubResource("GDScript_d3u3x")
+nav_timer_interval = 99.0
+nav_timer = 99
+
+[node name="BlinkAttack" type="Node" parent="StateMachine" index="9"]
+script = ExtResource("4_77mgy")
+spell_num = 2
+transition_out_when_can_cast = true
+nav_timer_interval = 99.0
+nav_timer = 99
+
+[node name="NavigationAgent2D" parent="." index="8"]
+navigation_layers = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
+position = Vector2(2, 0)
+shape = SubResource("CircleShape2D_f8rpe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
+libraries = {
+"": SubResource("AnimationLibrary_dckjw")
+}
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="13"]
+visible = false
+
+[node name="Label" type="Label" parent="." index="14"]
+offset_left = -23.0
+offset_top = -117.0
+offset_right = 17.0
+offset_bottom = -94.0
+
+[node name="HitSound" parent="." index="15"]
+visible = false
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

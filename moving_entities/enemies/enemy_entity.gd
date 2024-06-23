@@ -32,7 +32,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @onready var animation_player = $AnimationPlayer
 @onready var attack_sound = $AttackSound
 
-var aim_direction: Vector2
+@export var aim_direction: Vector2
 var target_area: Vector2
 var can_cast: bool = true
 var cast_timer_end: float = 0
@@ -67,7 +67,7 @@ func actor_setup():
 
 func _physics_process(delta):
 	if nav_server_synced:
-		if !is_multiplayer_authority() or (nav_agent.is_navigation_finished() && can_cast):
+		if !is_multiplayer_authority():
 			return
 		
 		var current_agent_pos: Vector2 = global_position
@@ -76,7 +76,7 @@ func _physics_process(delta):
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
 		
 		#knockback code
-		if !can_input:
+		if !can_input or nav_agent.is_navigation_finished():
 			#nav_agent.set_velocity(Vector2.ZERO)
 			intended_velocity = Vector2.ZERO
 			nav_agent.set_velocity(Vector2.ZERO)
@@ -86,6 +86,7 @@ func _physics_process(delta):
 		else:
 			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
 			
+		
 		#Update timers
 		update_dash(delta)
 	
@@ -94,7 +95,6 @@ func _physics_process(delta):
 	
 	super._physics_process(delta)
 	
-	#Dash code
 #endregion
 
 #region Signal methods
@@ -147,6 +147,13 @@ func dash(dir: Vector2, duration: float):
 	dash_timer = duration
 	is_dashing = true
 	velocity = dash_direction * dash_speed
+
+func dash_to(dir: Vector2, target: Vector2):
+	dash_direction = dir
+	nav_agent.avoidance_enabled = false
+	dash_timer = global_position.distance_to(target)/dash_speed
+	is_dashing = true
+	velocity = dash_direction * dash_speed
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -155,7 +162,7 @@ func update_dash(delta):
 		velocity = dash_direction * dash_speed
 		dash_timer -= delta
 		move_and_slide()
-	elif is_dashing == true:
+	elif is_dashing:
 		dash_timer = 0
 		is_dashing = false
 		nav_agent.avoidance_enabled = true

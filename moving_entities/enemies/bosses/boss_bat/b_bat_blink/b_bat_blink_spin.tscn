@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2qvhqinofmoy"]
+
+[sub_resource type="GDScript" id="GDScript_i2td0"]
+resource_name = "bat_blink_spin"
+script/source = "extends BatBlinkSpell
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+const B_BAT_SPIN = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_spin.tscn\")
+
+@export var fire_delay: float = 2
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	await teleport_to_center()
+	await get_tree().create_timer(fire_delay)
+	if caster: global_position = caster.global_position
+	fire()
+	#call_deferred(\"queue_free\")
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func fire():
+	var bullet = B_BAT_SPIN.instantiate()
+	bullet.global_position = global_position
+	transfer_data(bullet)
+	call_deferred(\"add_sibling\", bullet)
+#endregion
+
+"
+
+[node name="BBatBlinkSpin" type="Node2D"]
+position = Vector2(105, 77)
+script = SubResource("GDScript_i2td0")
+base_damage = 100
+end_time = 6.0
+cooldown_time = 20.0

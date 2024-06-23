@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b4oghviqpcxxt"]
+
+[node name="RayCasts" type="Node2D"]
+visible = false
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-3000, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(3000, 0)
+
+[node name="RayCastUp" type="RayCast2D" parent="."]
+target_position = Vector2(0, -3000)
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 3000)

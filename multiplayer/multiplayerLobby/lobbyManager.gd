@@ -23,6 +23,7 @@ const MAX_PLAYERS = 4
 @export var debug_start_button : Button
 @export var ready_progress_bar : TextureProgressBar
 @export var lobby_title : Label
+@export var custom_seed_entry : LineEdit
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var loadouts : Array[LoadoutRes]
@@ -63,6 +64,8 @@ func _ready():
 	
 	if(GameManager.isOnline()):
 		server_browser_node = get_parent()
+		if !is_multiplayer_authority():
+			custom_seed_entry.hide()
 		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
@@ -245,6 +248,8 @@ func StartGame():
 	print("START THE GAME!!!!")
 	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+	if custom_seed_entry.text != "":
+		castle_climb.set_seed(hash(custom_seed_entry.text))
 	add_child(castle_climb)
 	
 	hide_lobby.rpc()
@@ -312,3 +317,6 @@ func get_unjoined_devices():
 	return devices.filter(func(device): return !is_device_joined(device))
 #endregion
 
+
+func _on_custom_seed_entry_text_changed(new_text):
+	$Lobby/CustomSeedEntry/Label.visible = new_text != ""

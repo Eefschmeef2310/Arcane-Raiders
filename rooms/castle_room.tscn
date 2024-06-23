@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c003c2ghidyvr" path="res://items/pickups/cooldown_pickup.tscn" id="4_77ule"]
 [ext_resource type="Texture2D" uid="uid://d2rghj33ifedc" path="res://debug/player_spawn.png" id="4_va2wi"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
-[ext_resource type="PackedScene" path="res://ui/guide_arrow.tscn" id="7_yovep"]
+[ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="7_yovep"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)

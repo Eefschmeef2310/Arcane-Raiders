@@ -53,7 +53,7 @@ func _process(delta):
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150579, 1), 0.0, 0.0, 0, 0, Vector2(0.849421, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_q6xgi"]
+[sub_resource type="CurveTexture" id="CurveTexture_roj6p"]
 curve = SubResource("Curve_tlurj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a0xqq"]
@@ -64,7 +64,7 @@ emission_box_extents = Vector3(1, 1, 1)
 gravity = Vector3(0, -100, 0)
 scale_min = 0.3
 scale_max = 0.5
-alpha_curve = SubResource("CurveTexture_q6xgi")
+alpha_curve = SubResource("CurveTexture_roj6p")
 
 [node name="CooldownPickupEffect" type="Node2D"]
 script = SubResource("GDScript_hyxjy")
