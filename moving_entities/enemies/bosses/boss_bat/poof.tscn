@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://xu15mrux3237"]
+
+[ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="1_tu0w7"]
+[ext_resource type="Script" path="res://screens/kill_on_signal.gd" id="2_tplc5"]
+[ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="3_kokpv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hspqe"]
+atlas = ExtResource("1_tu0w7")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1budx"]
+atlas = ExtResource("1_tu0w7")
+region = Rect2(500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptmdb"]
+atlas = ExtResource("1_tu0w7")
+region = Rect2(1000, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybjrj"]
+atlas = ExtResource("1_tu0w7")
+region = Rect2(0, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56mna"]
+atlas = ExtResource("1_tu0w7")
+region = Rect2(500, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g37ri"]
+atlas = ExtResource("1_tu0w7")
+region = Rect2(1000, 500, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dl6dj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hspqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1budx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptmdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybjrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56mna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g37ri")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Explosion" type="AnimatedSprite2D"]
+modulate = Color(0.72549, 0.72549, 0.72549, 1)
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_dl6dj")
+autoplay = "default"
+script = ExtResource("2_tplc5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kokpv")
+autoplay = true
+bus = &"SFX"
+
+[connection signal="animation_finished" from="." to="." method="_kill"]

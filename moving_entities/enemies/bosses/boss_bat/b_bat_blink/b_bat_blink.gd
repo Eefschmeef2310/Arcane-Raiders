@@ -2,6 +2,7 @@ extends SpellBase
 class_name BatBlinkSpell
 
 const RAY_CASTS = preload("res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/ray_casts.tscn")
+const POOF_SCENE = preload("res://moving_entities/enemies/bosses/boss_bat/poof.tscn")
 
 @export var particle_duration: float = 0.5
 
@@ -27,7 +28,11 @@ func _ready():
 	center_position = Vector2((pos_array[0].x + pos_array[1].x)/2,(pos_array[2].y + pos_array[3].y)/2)
 
 func caster_visibility(vis: bool):
-	#TODO Play particle effect
+	var poof = POOF_SCENE.instantiate()
+	poof.global_position = caster.global_position
+	poof.z_index = caster.z_index + 1
+	add_sibling(poof)
+	
 	caster.visible = vis
 	caster.invincible = !vis
 	await get_tree().create_timer(particle_duration).timeout
