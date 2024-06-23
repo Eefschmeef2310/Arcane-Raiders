@@ -20,7 +20,9 @@ func _ready():
 		#for j in range(max_blinks - 1):
 			#if (randi() % 2 == 1): break
 			#else: await teleport_to_random_side()
+		caster.attempt_anim(\"windup\")
 		await teleport_to_random_side()
+		caster.attempt_anim(\"idle\")
 		fire(caster.aim_direction)
 		await get_tree().create_timer(particle_duration).timeout
 			

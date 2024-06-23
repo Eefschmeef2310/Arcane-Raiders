@@ -8,6 +8,7 @@ const B_BAT_DASH_ATTACK = preload(\"res://moving_entities/enemies/bosses/boss_ba
 
 func _ready():
 	super._ready()
+	if \"attempt_anim\" in caster: caster.attempt_anim(\"windup\")
 	await teleport_to_random_side()
 	var attack = B_BAT_DASH_ATTACK.instantiate()
 	transfer_data(attack)

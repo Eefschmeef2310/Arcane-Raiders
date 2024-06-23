@@ -60,7 +60,7 @@ func can_cast_spell(spell_slot: int) -> bool:
 	return enemy.enemy_spells.spell_cooldowns[spell_slot] <= 0 && enemy.can_cast
 	
 func play_anim():
-	if "attempt_anim" in owner: enemy.attempt_anim(animation)
+	if "attempt_anim" in owner and animation != "": enemy.attempt_anim(animation)
 	
 func set_nav_agent(nav_agent: NavigationAgent2D):
 	if nav_agent:

@@ -223,13 +223,11 @@ grow_horizontal = 2
 alignment = 1
 
 [node name="ARCANE" type="TextureRect" parent="HBoxContainer"]
-use_parent_material = true
 layout_mode = 2
 texture = ExtResource("8_y2apg")
 expand_mode = 3
 
 [node name="RAIDERS" type="TextureRect" parent="HBoxContainer"]
-use_parent_material = true
 layout_mode = 2
 texture = ExtResource("9_7dx0p")
 expand_mode = 3

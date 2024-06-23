@@ -21,6 +21,7 @@ func _ready():
 	if caster != null:
 		global_position = caster.global_position
 		initial_direction = caster.aim_direction
+		if "attempt_anim" in caster: caster.attempt_anim("windup")
 		
 	if delay_fire && $Sprite2D:
 		$Sprite2D.visible = true
@@ -28,7 +29,8 @@ func _ready():
 		tween.tween_property($Sprite2D, "scale", Vector2(2, 2), delay_time/2)
 		tween.tween_property($Sprite2D, "scale", Vector2(1.5, 1.5), delay_time/2)
 		await tween.finished
-		
+	
+	if caster != null and "attempt_anim" in caster: caster.attempt_anim("idle")
 	for i in bullets:
 		var bullet = bullet_scene.instantiate()
 		bullet.set_direction(initial_direction.rotated(deg_to_rad(-cone_range_deg/2 + i*(cone_range_deg/(bullets-1)))))

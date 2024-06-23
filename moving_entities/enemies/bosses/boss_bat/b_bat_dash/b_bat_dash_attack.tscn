@@ -21,6 +21,8 @@ func _ready():
 		caster.aim_direction = direction
 		ray_cast_2d.target_position = direction * 9999
 		ray_cast_2d.force_raycast_update()
+		
+		if \"attempt_anim\" in caster: caster.attempt_anim(\"dash\")
 
 		if is_multiplayer_authority():
 			dash(direction, ray_cast_2d.get_collision_point())
