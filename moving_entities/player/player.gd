@@ -122,7 +122,8 @@ func _process(delta):
 	# Dashing and invincibility
 	if dash_cooldown > 0:
 		dash_cooldown -= delta
-		dash_bar.value = dash_cooldown
+		if dash_bar:
+			dash_bar.value = dash_cooldown
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:

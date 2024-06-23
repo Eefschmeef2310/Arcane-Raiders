@@ -12,12 +12,17 @@ script/source = "extends Player
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
+signal wizard_hurt
+signal wizard_died(wizard: Node)
 
 @onready var nav_agent = $NavigationAgent2D
 
+@export var wizard_dash_cooldown: float = 1
+@export var wizard_dash_cooldown_max: float = 10
+
+var spell_position: Vector2 = Vector2.ZERO
+
 #endregion
-signal wizard_hurt
-signal wizard_died(wizard: Node)
 
 #region Godot methods
 func _ready():
@@ -28,15 +33,12 @@ func _ready():
 
 #region Signal methods
 
-
 #Physcis Process
+
 func _physics_process(delta):
-	#move_direction = global_position.direction_to(nav_agent.get_next_path_position())
 	nav_agent.set_velocity(global_position.direction_to(nav_agent.get_next_path_position()))
 	super._physics_process(delta)
-#Set move direction to direction of safe velocity
-
-
+	wizard_dash_cooldown -= delta
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -51,6 +53,7 @@ func _on_zero_health():
 	wizard_died.emit()
 	call_deferred(\"queue_free\")
 
+#Set move direction to direction of safe velocity
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2):
 	move_direction = safe_velocity.normalized()
 "
@@ -72,59 +75,21 @@ script/source = "extends State
 #region Signal methods
 
 #TODO when a player spell enters the collision field, call this signal if it is the current state
-func _spell_entered():
-	#TODO check if current state && multiplayer authority
-	if owner.state_machine.current_state.name.to_lower() == name.to_lower() && is_multiplayer_authority():
-		pass
-		#TODO check if dash is off cooldown
-		#TODO Emit signal
-	pass
-
+func _spell_entered(area):
+	if get_parent().current_state.name.to_lower() == name.to_lower() && owner.wizard_dash_cooldown <= 0 && is_multiplayer_authority():
+		owner.spell_position = area.global_position
+		Transitioned.emit(self, \"dashing\")
 #endregion
 
 #region Other methods (please try to separate and organise!)
 func physics_update(delta):
 	super.physics_update(delta)
 	
-	#Prioritise dashing over casting spells cause this guys is an annoying character to face :)
 	
-	
-	
-	
-	
+	#Check spell cooldowns to cast spells :D
 
 func set_position():
 	navigation_agent.target_position = get_closest_player().global_position
-#endregion
-
-"
-
-[sub_resource type="GDScript" id="GDScript_vn6ea"]
-resource_name = "calc_dash_wizard_state"
-script/source = "extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-
-#region Variables
-
-#endregion
-
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(delta):
-	#Runs per frame
-	pass
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
 #endregion
 
 "
@@ -146,6 +111,9 @@ script/source = "extends State
 #region Other methods (please try to separate and organise!)
 func enter():
 	if is_multiplayer_authority():
+		owner.aim_direction = owner.global_position.direction_to(owner.spell_position).rotated(deg_to_rad(90))
+		owner.move_direction = owner.aim_direction
+		owner.wizard_dash_cooldown = owner.wizard_dash_cooldown_max
 		owner.attempt_dash()
 
 func physics_update(delta):
@@ -167,9 +135,14 @@ resource_local_to_scene = true
 offsets = PackedFloat32Array(0, 0.546053)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_spcxr"]
+radius = 372.012
+
 [node name="EvilWizard" groups=["enemy"] instance=ExtResource("1_a4rya")]
 collision_layer = 8
 script = SubResource("GDScript_71bfm")
+wizard_dash_cooldown = 1.0
+wizard_dash_cooldown_max = 10.0
 debug = false
 movement_speed = 300.0
 death_sound = null
@@ -193,10 +166,7 @@ actual_first_state = NodePath("../Default")
 [node name="Default" type="Node" parent="Input" index="1"]
 script = SubResource("GDScript_sd0g0")
 
-[node name="CalculateDash" type="Node" parent="Input" index="2"]
-script = SubResource("GDScript_vn6ea")
-
-[node name="Dashing" type="Node" parent="Input" index="3"]
+[node name="Dashing" type="Node" parent="Input" index="2"]
 script = SubResource("GDScript_oflwe")
 
 [node name="Hurtbox" parent="." index="7"]
@@ -206,6 +176,9 @@ collision_mask = 272
 self_modulate = Color(0.305882, 0.0901961, 0, 1)
 
 [node name="MultiplayerSynchronizer" parent="." index="12" groups=["boss", "enemy"]]
+
+[node name="DashBar" parent="." index="15"]
+script = null
 
 [node name="StatusUI" parent="." index="16"]
 offset_top = -148.0
@@ -234,6 +207,16 @@ radius = 25.0
 max_speed = 1000.0
 avoidance_priority = 0.1
 
+[node name="DashDetector" type="Area2D" parent="." index="30"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashDetector" index="0"]
+position = Vector2(5, -29)
+shape = SubResource("CircleShape2D_spcxr")
+debug_color = Color(0, 0.6, 0.701961, 0.0745098)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="area_entered" from="DashDetector" to="Input/Default" method="_spell_entered"]
