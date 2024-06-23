@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=12 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
-[ext_resource type="PackedScene" uid="uid://waswmvkg1el3" path="res://moving_entities/enemies/boss_wizard/wizard_manager.tscn" id="6_ibjun"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -110,11 +109,35 @@ gradient = SubResource("Gradient_8fnr6")
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
 
-[node name="WizardManager" parent="." index="18" instance=ExtResource("6_ibjun")]
-position = Vector2(869, 565)
-
-[node name="Speed_pickup" parent="." index="19" instance=ExtResource("6_g35w8")]
+[node name="Speed_pickup" parent="." index="18" instance=ExtResource("6_g35w8")]
 position = Vector2(18, 576)
+
+[connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39522" to="TileMap/@Area2D@39522" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39522" to="TileMap/@Area2D@39522" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39523" to="TileMap/@Area2D@39523" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39523" to="TileMap/@Area2D@39523" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39524" to="TileMap/@Area2D@39524" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39524" to="TileMap/@Area2D@39524" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39525" to="TileMap/@Area2D@39525" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39525" to="TileMap/@Area2D@39525" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39526" to="TileMap/@Area2D@39526" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39526" to="TileMap/@Area2D@39526" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39527" to="TileMap/@Area2D@39527" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39527" to="TileMap/@Area2D@39527" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39528" to="TileMap/@Area2D@39528" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39528" to="TileMap/@Area2D@39528" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39529" to="TileMap/@Area2D@39529" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39529" to="TileMap/@Area2D@39529" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39530" to="TileMap/@Area2D@39530" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39530" to="TileMap/@Area2D@39530" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39531" to="TileMap/@Area2D@39531" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39531" to="TileMap/@Area2D@39531" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39532" to="TileMap/@Area2D@39532" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39532" to="TileMap/@Area2D@39532" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@39533" to="TileMap/@Area2D@39533" method="_on_area_entered"]
+[connection signal="body_entered" from="TileMap/@Area2D@39533" to="TileMap/@Area2D@39533" method="_on_body_entered"]
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
