@@ -109,8 +109,8 @@ gradient = SubResource("Gradient_8fnr6")
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
 
-[node name="WizardManager" parent="." index="18" instance=ExtResource("6_ibjun")]
-position = Vector2(869, 565)
+[node name="WizardManager2" parent="." index="18" instance=ExtResource("6_ibjun")]
+position = Vector2(882, 471)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

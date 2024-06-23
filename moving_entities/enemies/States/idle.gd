@@ -3,19 +3,7 @@ class_name Idle
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
 @export var actual_first_state: State
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
 
 #endregion
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=11 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
@@ -71,11 +71,87 @@ script/source = "extends State
 
 #region Signal methods
 
+#TODO when a player spell enters the collision field, call this signal if it is the current state
+func _spell_entered():
+	#TODO check if current state && multiplayer authority
+	if owner.state_machine.current_state.name.to_lower() == name.to_lower() && is_multiplayer_authority():
+		pass
+		#TODO check if dash is off cooldown
+		#TODO Emit signal
+	pass
+
 #endregion
 
 #region Other methods (please try to separate and organise!)
+func physics_update(delta):
+	super.physics_update(delta)
+	
+	#Prioritise dashing over casting spells cause this guys is an annoying character to face :)
+	
+	
+	
+	
+	
+
 func set_position():
 	navigation_agent.target_position = get_closest_player().global_position
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_vn6ea"]
+resource_name = "calc_dash_wizard_state"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_oflwe"]
+resource_name = "wizard_dash_state"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	if is_multiplayer_authority():
+		owner.attempt_dash()
+
+func physics_update(delta):
+	super.physics_update(delta)
+	if !owner.is_dashing:
+		Transitioned.emit(self, \"default\")
 #endregion
 
 "
@@ -112,10 +188,16 @@ debug_label = NodePath("../Label")
 
 [node name="Idle" type="Node" parent="Input" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_58eft")
-actual_first_state = NodePath("../Walk")
+actual_first_state = NodePath("../Default")
 
-[node name="Walk" type="Node" parent="Input" index="1"]
+[node name="Default" type="Node" parent="Input" index="1"]
 script = SubResource("GDScript_sd0g0")
+
+[node name="CalculateDash" type="Node" parent="Input" index="2"]
+script = SubResource("GDScript_vn6ea")
+
+[node name="Dashing" type="Node" parent="Input" index="3"]
+script = SubResource("GDScript_oflwe")
 
 [node name="Hurtbox" parent="." index="7"]
 collision_mask = 272
