@@ -44,7 +44,7 @@ func _update_health():
 
 [node name="WizardManager" groups=["boss"] instance=ExtResource("1_eytbb")]
 script = SubResource("GDScript_4pg0j")
-wizard_num = 4
+wizard_num = 2
 is_boss = true
 boss_name = "Shadow Wizard Guardians"
 ignoreForStats = true

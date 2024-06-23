@@ -228,7 +228,8 @@ func set_data(new_data: PlayerData, destroy_old := true):
 
 func set_input(id: int):
 	#print("Setting input" + str(id))
-	input_node.set_device(id)
+	if "set_device" in input_node:
+		input_node.set_device(id)
 
 func set_sprite_overlay(c: Color):
 	body_sprite.get_node("ColorRect").color = c

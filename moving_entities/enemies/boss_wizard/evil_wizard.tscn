@@ -38,6 +38,7 @@ var spell_position: Vector2 = Vector2.ZERO
 #region Godot methods
 func _ready():
 	super._ready()
+	set_data(data, false)
 	$Input.start_state_machine(nav_agent)
 
 #endregion
