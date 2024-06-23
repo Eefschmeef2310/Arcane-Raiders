@@ -44,6 +44,18 @@ func get_closest_player() -> CharacterBody2D:
 	if target: return target
 	return null
 
+func get_furthest_player() -> CharacterBody2D:
+	var p_arr = get_tree().get_nodes_in_group("player")
+	var target
+	var dist = 0
+	for p in p_arr:
+		if p is Player and enemy.global_position.distance_to(p.global_position) > dist:
+			target = p
+			dist = enemy.global_position.distance_to(p.global_position)
+			
+	if target: return target
+	return null
+
 func can_cast_spell(spell_slot: int) -> bool:
 	return enemy.enemy_spells.spell_cooldowns[spell_slot] <= 0 && enemy.can_cast
 	
@@ -51,7 +63,7 @@ func can_cast_spell_player(spell_slot: int) -> bool:
 	return enemy.enemy_spells.spell_cooldowns[spell_slot] <= 0 && owner.can_cast
 	
 func play_anim():
-	if "attempt_anim" in owner: enemy.attempt_anim(animation)
+	if "attempt_anim" in owner and animation != "": enemy.attempt_anim(animation)
 	
 func set_nav_agent(nav_agent: NavigationAgent2D):
 	if nav_agent:

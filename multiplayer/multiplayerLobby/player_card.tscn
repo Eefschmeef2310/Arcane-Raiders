@@ -162,10 +162,10 @@ _data = {
 "ready": SubResource("Animation_pr54l")
 }
 
-[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "remove_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
+[node name="PlayerCard" type="PanelContainer" node_paths=PackedStringArray("player_name", "all_panels", "most_panels", "panels_array", "ready_button", "ready_text", "remove_button", "raider_portrait", "raider_name", "raider_desc", "character_pips_box", "loadout_name", "loadout_desc", "loadout_pips_box", "spells_box", "color_name", "color_pips_box", "pre_head", "pre_body", "pre_l_hand", "pre_r_hand")]
 custom_minimum_size = Vector2(400, 200)
 offset_right = 400.0
-offset_bottom = 466.0
+offset_bottom = 487.0
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_j6vu7")
 script = ExtResource("1_6lvqp")
@@ -175,6 +175,7 @@ all_panels = NodePath("VBoxContainer")
 most_panels = NodePath("VBoxContainer/VBoxContainer")
 panels_array = [NodePath("RemovePlayerButton"), NodePath("VBoxContainer/VBoxContainer/CharacterContainer"), NodePath("VBoxContainer/VBoxContainer/ColorContainer"), NodePath("VBoxContainer/Button")]
 ready_button = NodePath("VBoxContainer/Button")
+ready_text = NodePath("VBoxContainer/Button/ReadyText")
 remove_button = NodePath("RemovePlayerButton")
 raider_portrait = NodePath("VBoxContainer/VBoxContainer/RaiderPortrait")
 raider_name = NodePath("VBoxContainer/VBoxContainer/CharacterContainer/CharacterSelector/VBoxContainer/RaiderName")

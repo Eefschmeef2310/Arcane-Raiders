@@ -68,8 +68,8 @@ position = Vector2(75, 81)
 collision_layer = 128
 collision_mask = 5
 script = SubResource("GDScript_0bil4")
-projectile_speed = 600.0
-base_damage = 100
+projectile_speed = 400.0
+base_damage = 75
 infliction_time = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

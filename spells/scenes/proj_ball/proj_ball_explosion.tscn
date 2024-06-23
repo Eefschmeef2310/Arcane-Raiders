@@ -5,8 +5,8 @@
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_gslav"]
 
 [sub_resource type="Gradient" id="Gradient_31mqn"]
-offsets = PackedFloat32Array(0, 0.171875, 0.50625, 0.840625, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.309804, 0.145098, 0.145098, 1, 1, 0, 0, 1, 0.988235, 0.862745, 0.72549, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.179688, 0.50625, 0.8125, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.988235, 0.862745, 0.72549, 1, 1, 0, 0, 1, 0.309804, 0.145098, 0.145098, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_pt7s0"]
 gradient = SubResource("Gradient_31mqn")
@@ -106,8 +106,7 @@ use_parent_material = true
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ajv3a")
 autoplay = "default"
-frame = 5
-frame_progress = 1.0
+frame = 2
 
 [node name="CollisionShape2D" parent="." index="3"]
 visible = false

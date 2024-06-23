@@ -40,6 +40,10 @@ func _on_area_entered(area):
 	if should_fire:
 		if area.owner is Player and !animation_player.is_playing():
 			animation_player.play("fire")
+
+func _on_area_exited(area):
+	if area is ReactionArea or area is ReactionNode:
+		should_fire = true
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -56,6 +60,7 @@ func spike_fired():
 			
 func players_still_overlapping():
 	if should_fire:
+		print("dingus")
 		for body in get_overlapping_areas():
 			if body.owner and body.owner.is_in_group("player"):
 				animation_player.play("fire")

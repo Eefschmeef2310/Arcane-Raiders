@@ -48,7 +48,9 @@ var enemy_types_per_floor : Array = [
 ]
 
 var number_of_players = 0
-var rng_floors: RandomNumberGenerator = RandomNumberGenerator.new()
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+@export var use_preset_seed: bool = false
+@export var preset_seed: int = 0
 @export var current_floor : int = -1
 
 var current_room_node : CastleRoom
@@ -62,6 +64,8 @@ func _ready():
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
+	
+	print(rng.seed)
 	
 	sector_room_pool.resize(sector_start_floors.size())
 	for j in sector_room_pool.size():
@@ -94,67 +98,77 @@ func _process(delta):
 func check_crown():
 	#calculate who should have the crown and gives it to them
 	#remove from all and check for highest score
-	var total_damage : int = 0
+	#var total_damage : int = 0
 	var highest_dmg = 0
 	var highest_player = -1
 	var players : int = number_of_players
 	if players > 1:
 		for i in players:
-			total_damage += player_data[i].damage
+			#total_damage += player_data[i].damage
 			player_data[i].has_crown = false
 			if(player_data[i].damage > highest_dmg):
 				highest_dmg = player_data[i].damage
 				highest_player = i
 		if(highest_player != -1):
 			player_data[highest_player].has_crown = true
-	return [total_damage, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage]
+	return [0, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage]
+	# this func shouldnt be used for stats see get_highest_damage
+
+func get_highest_damage():
+	var highest : int = 0
+	var player_id = -1
+	var total_damage = 0
+	for i in number_of_players:
+		total_damage += player_data[i].damage
+		if player_data[i].kills > highest:
+			player_id = i
+			highest = player_data[i].kills
+	return [total_damage, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].damage]
+
+
 
 func get_highest_kills():
 	var highest : int = 0
 	var player_id = -1
 	var total_kills = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			total_kills += player_data[i].kills
-			if player_data[i].kills > highest:
-				player_id = i
-				highest = player_data[i].kills
+	for i in number_of_players:
+		total_kills += player_data[i].kills
+		if player_data[i].kills > highest:
+			player_id = i
+			highest = player_data[i].kills
 	return [total_kills, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills]
 
 func get_highest_earner():
 	var highest : int = 0
 	var player_id = -1
 	var total_earnings = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			total_earnings += player_data[i].total_money
-			if player_data[i].total_money > highest:
-				player_id = i
-				highest = player_data[i].total_money
+	for i in number_of_players:
+		total_earnings += player_data[i].total_money
+		if player_data[i].total_money > highest:
+			player_id = i
+			highest = player_data[i].total_money
 	return [total_earnings, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].total_money]
 	
 func get_most_pickups():
 	var highest : int = 0
 	var player_id = -1
 	var most_pickups = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			most_pickups += player_data[i].pickups_obtained
-			if player_data[i].pickups_obtained > highest:
-				player_id = i
-				highest = player_data[i].pickups_obtained
+	for i in number_of_players:
+		most_pickups += player_data[i].pickups_obtained
+		if player_data[i].pickups_obtained > highest:
+			player_id = i
+			highest = player_data[i].pickups_obtained
 	return [most_pickups, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].pickups_obtained]
 
 func get_most_reactions():
 	var highest : int = 0
 	var player_id = -1
 	var most_reactions = 0
-	if number_of_players > 1:
-		for i in number_of_players:
-			most_reactions += player_data[i].reactions_created
-			if player_data[i].reactions_created > highest:
-				player_id = i
-				highest = player_data[i].reactions_created
+	for i in number_of_players:
+		most_reactions += player_data[i].reactions_created
+		if player_data[i].reactions_created > highest:
+			player_id = i
+			highest = player_data[i].reactions_created
 	return [most_reactions, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].reactions_created]
 
 
@@ -207,10 +221,10 @@ func start_next_floor():
 		print("Freeing old room.")
 		current_room_node.free()
 	
-	# Reset player health
-	for data in player_data:
-		if data.health <= 0:
-			data.health = 250
+	## Reset player health
+	#for data in player_data:
+		#if data.health <= 0:
+			#data.health = 250
 	
 	await get_tree().create_timer(0.8).timeout
 	
@@ -229,7 +243,7 @@ func start_next_floor():
 	else:
 		var sector = get_current_sector()
 		var id_pool = sector_room_pool[sector]
-		var rn = rng_floors.randi_range(id_pool[0], id_pool[id_pool.size()-1])
+		var rn = rng.randi_range(id_pool[0], id_pool[id_pool.size()-1])
 		sector_room_pool[sector].erase(rn)
 		basic_level_spawner.spawn(rn)
 	
@@ -262,6 +276,9 @@ func inject_data_to_current_room_node():
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
+	
+	current_room_node.rng = RandomNumberGenerator.new()
+	current_room_node.rng.seed = rng.randi()
 	
 	if current_floor > 0 and current_floor < enemy_types_per_floor.size():
 		current_room_node.spawn_keys = enemy_types_per_floor[current_floor]
@@ -326,6 +343,7 @@ func play_room_transition(next_floor: int):
 	current_floor = next_floor
 	for ui in player_ui:
 		ui.hide_equip_ui()
+		ui.hide_stats_ui()
 	
 	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(next_floor)
 	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(next_floor-1)
@@ -364,11 +382,11 @@ func setup_from_parent_multiplayer_lobby():
 		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"], dict["color"], dict["name"])
 		i += 1
 
-func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color, name: String):
+func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color, input_name: String):
 	var data = player_data[slot]
 	data.device_id = device_id
 	data.peer_id = peer_id
-	data.player_name = name
+	data.player_name = input_name
 	data.set_multiplayer_authority(peer_id)
 	
 	
@@ -386,3 +404,9 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	ui.show()
 	ui.set_data(data)
 	#print(data.device_id)
+
+func set_seed(seed: int):
+	print("Setting seed to " + str(seed))
+	use_preset_seed = true
+	preset_seed = seed
+	rng.seed = seed 

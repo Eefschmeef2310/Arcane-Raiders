@@ -12,6 +12,8 @@ radius = 65.123
 movement_speed = 0.0
 ignoreForStats = true
 max_health = 99999
+knockback_lerp_strength = 0.0
+knockback_initial_velocity = 0.0
 
 [node name="PointLight2D" parent="." index="0"]
 energy = 0.1

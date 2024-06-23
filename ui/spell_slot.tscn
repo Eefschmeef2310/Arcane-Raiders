@@ -14,7 +14,7 @@ gradient = SubResource("Gradient_6hhio")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uy6is"]
 resource_local_to_scene = true
 shader = ExtResource("1_uxkox")
-shader_parameter/final_saturation = 0.5
+shader_parameter/final_saturation = 0.75
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_fyuhq")
 

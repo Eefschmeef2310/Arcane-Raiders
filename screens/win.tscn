@@ -1,10 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://y2sc1lwuvuln"]
 
 [ext_resource type="PackedScene" uid="uid://cxnyp0ojcs588" path="res://screens/stat.tscn" id="1_42oyx"]
-[ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="2_c46gj"]
-[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="3_wjvpv"]
-[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="4_4btoj"]
-[ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="5_5ua7e"]
+[ext_resource type="PackedScene" uid="uid://dn432qgqq04aj" path="res://screens/player_panel.tscn" id="4_t8mik"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="6_o3j2u"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="7_7i8mg"]
 
@@ -33,6 +30,7 @@ script/source = "extends CanvasLayer
 @export_group(\"Node References\")
 @export var total_time : Label
 @export var leaderboard_panels : Array[Panel]
+@export var back_button_progress_bar : ProgressBar
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
@@ -40,60 +38,94 @@ script/source = "extends CanvasLayer
 	#Other Variables (please try to separate and organise!)
 var game : Control
 var back_timer : float
+var scores : Array[stat_score]
 
+class stat_score:
+	var player : Color
+	var wins : int
+	var damage : int
 #endregion
 
 #region Godot methods
 func _ready():
+	AudioManager.play_track_fade(\"win\")
+	
+	#display all the per player stats
+	for ui in castle_climb.player_ui:
+		var player_ui : PlayerUI = ui
+		player_ui.show_stats_ui()
+		player_ui.update_stats_ui()
+	
+	#pause the game in the background
 	get_tree().paused = true
 	
-	
-	 
-	damage_dealt.load_data(castle_climb.check_crown())
+	#print_debug(castle_climb.check_crown()) 
+	damage_dealt.load_data(castle_climb.get_highest_damage())
 	kills.load_data(castle_climb.get_highest_kills())
 	highest_earner.load_data(castle_climb.get_highest_earner())
 	most_pickups.load_data(castle_climb.get_most_pickups())
 	most_reactions.load_data(castle_climb.get_most_reactions())
 	
-	if(GameManager.isLocal()):
-		damage_dealt.stat_title.text = \"Most \" + damage_dealt.stat_title.text
-		kills.stat_title.text = \"Most \" + kills.stat_title.text
-		highest_earner.stat_title.text = \"Most \" + highest_earner.stat_title.text
-		most_pickups.stat_title.text = \"Most \" + most_pickups.stat_title.text
-		most_reactions.stat_title.text = \"Most \" + most_reactions.stat_title.text
+	for player in castle_climb.player_data:
+		if player.damage > 0:
+			var new_score = stat_score.new()
+			new_score.player = player.main_color
+			new_score.wins = 0
+			new_score.damage = player.damage
+			scores.append(new_score)
 	
-	var local_playerdata_id = -1
-	if(GameManager.isOnline()):
-		var local_peer_id = multiplayer.get_unique_id()
-		#print_debug(\"This peer id: \" + str(local_peer_id))
-		for i in castle_climb.player_data.size():
-			if local_peer_id == castle_climb.player_data[i].peer_id && local_playerdata_id == -1:
-				local_playerdata_id = i
-		#print_debug(\"This castleclimb id: \" + str(local_playerdata_id))
+	for stat in scores:
+		if damage_dealt.top_player() == stat.player: stat.wins += 1
+		if kills.top_player() == stat.player: stat.wins += 1
+		if highest_earner.top_player() == stat.player: stat.wins += 1
+		if most_pickups.top_player() == stat.player: stat.wins += 1
+		if most_reactions.top_player() == stat.player: stat.wins += 1
 	
-	if local_playerdata_id != -1:
-		damage_dealt.stat_title.text += str(castle_climb.player_data[local_playerdata_id].damage)
-		kills.stat_title.text += str(castle_climb.player_data[local_playerdata_id].kills)
-		highest_earner.stat_title.text += str(castle_climb.player_data[local_playerdata_id].total_money)
-		most_pickups.stat_title.text += str(castle_climb.player_data[local_playerdata_id].pickups_obtained)
-		most_reactions.stat_title.text += str(castle_climb.player_data[local_playerdata_id].reactions_created)
+
+	
+	
+	#if(GameManager.isLocal()):
+		#damage_dealt.stat_title.text = \"Most \" + damage_dealt.stat_title.text
+		#kills.stat_title.text = \"Most \" + kills.stat_title.text
+		#highest_earner.stat_title.text = \"Most \" + highest_earner.stat_title.text
+		#most_pickups.stat_title.text = \"Most \" + most_pickups.stat_title.text
+		#most_reactions.stat_title.text = \"Most \" + most_reactions.stat_title.text
+	#
+	#var local_playerdata_id = -1
+	#if(GameManager.isOnline()):
+		#var local_peer_id = multiplayer.get_unique_id()
+		##print_debug(\"This peer id: \" + str(local_peer_id))
+		#for i in castle_climb.player_data.size():
+			#if local_peer_id == castle_climb.player_data[i].peer_id && local_playerdata_id == -1:
+				#local_playerdata_id = i
+		##print_debug(\"This castleclimb id: \" + str(local_playerdata_id))
+	#
+	#if local_playerdata_id != -1:
+		#damage_dealt.stat_title.text += str(castle_climb.player_data[local_playerdata_id].damage)
+		#kills.stat_title.text += str(castle_climb.player_data[local_playerdata_id].kills)
+		#highest_earner.stat_title.text += str(castle_climb.player_data[local_playerdata_id].total_money)
+		#most_pickups.stat_title.text += str(castle_climb.player_data[local_playerdata_id].pickups_obtained)
+		#most_reactions.stat_title.text += str(castle_climb.player_data[local_playerdata_id].reactions_created)
 	
 	total_time.text += str(GameManager.format_timer(castle_climb.time_elapsed))
 	
 	#print_debug(str(castle_climb.get_leaderboard()))
-	var leaderboard : Array[int] = castle_climb.get_leaderboard()
+	#var leaderboard : Array[int] = castle_climb.get_leaderboard()
+	var leaderboard : Array[int] = get_leaderboard()
 	var players_in_leaderboard = leaderboard.size()
 	for i in [0,1,2,3]:
 		#set corresponding card
 		if i < players_in_leaderboard:
-			print_debug(\"we have \" + str(i))
+			#print_debug(\"we have \" + str(i))
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Head\").texture = castle_climb.player_data[leaderboard[i]].character.head_texture
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Body\").self_modulate = castle_climb.player_data[leaderboard[i]].main_color
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/RightHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/LeftHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color
+			if i == 0 and players_in_leaderboard >= 2:
+				leaderboard_panels[i].get_node(\"Label\").show()
 		else:
 			leaderboard_panels[i].visible = false
-			print_debug(\"we lack \" + str(i))
+			#print_debug(\"we lack \" + str(i))
 
  
 func _process(delta):
@@ -103,7 +135,7 @@ func _process(delta):
 			_on_quit_button_pressed()
 	else:
 		back_timer = 0
-	$PanelContainer/VBoxContainer/MarginContainer/BackButton/ProgressBar.value = (back_timer / 1) * 100
+	back_button_progress_bar.value = (back_timer / 1) * 100
 #endregion
 
 #region Signal methods
@@ -116,7 +148,46 @@ func _on_quit_button_pressed():
 #endregion
 
 #region Other methods (please try to separate and organise!)
+func get_leaderboard() -> Array[int]:
+	var leaders : Array[int] = [] # player id's only
+	var data : Array[stat_score] = scores.duplicate()
+	var passes = 0
+	
+	data.sort_custom(custom_sort_stat_scores)
+	
+	#populate leaders 
+	for x in data.size():
+		if data[x].wins > 0 or data[x].damage > 0:
+			var player_id = -1
+			#leaders[x] = -1
+			for i in castle_climb.player_data.size():
+				if castle_climb.player_data[i].main_color == data[x].player:
+					#leaders[x] = i
+					leaders.append(i)
+				
+	
+	#while passes < 4:
+		#var most_wins = -1
+		#var player_id = -1
+		#for i in castle_climb.number_of_players:
+			#if data[i].wins > most_wins:
+				#most_wins = data[i].wins
+				#player_id = i
+		#
+		#if(data[player_id].wins != -1):
+			#leaders.append(player_id)
+			#data[player_id].wins = -1
+		#passes += 1
+	
+	
+	#returns an array of player id's from 1st to 4th, missing players will return -1
+	return leaders 
 
+func custom_sort_stat_scores(a: stat_score, b: stat_score):
+	if (a.wins > b.wins) or (a.wins == b.wins and a.damage >= b.damage):
+		return true
+	return false
+	
 #endregion
 "
 
@@ -128,21 +199,66 @@ bg_color = Color(0.388235, 0.301961, 0.247059, 1)
 border_width_bottom = 8
 border_color = Color(0.65098, 0.54902, 0.423529, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbshq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmyfu"]
+bg_color = Color(0.541176, 0, 0, 0.588235)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi64w"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0nnuy"]
-font_size = 70
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_oxhx6"]
 font_size = 40
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbshq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xq6lx"]
+content_margin_left = 24.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmyfu"]
-bg_color = Color(0.541176, 0, 0, 0.588235)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehsd4"]
+content_margin_left = 24.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1r03"]
+content_margin_left = 24.0
+content_margin_top = 8.0
+content_margin_right = 24.0
+content_margin_bottom = 8.0
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
 font_size = 100
@@ -234,7 +350,7 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar")]
 process_mode = 3
 script = SubResource("GDScript_1hf64")
 damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt")
@@ -243,7 +359,8 @@ highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxCon
 most_pickups = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups")
 most_reactions = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions")
 total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
-leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3")]
+leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel1"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4")]
+back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton/ProgressBar")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -251,6 +368,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_h5nme")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
@@ -259,18 +377,50 @@ layout_mode = 2
 [node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 192)
 layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_jj0io")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/Panel"]
+layout_mode = 2
+offset_right = 160.0
+offset_bottom = 192.0
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 32
+
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/Panel/MarginContainer"]
+clip_children = 2
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("6_o3j2u")
+theme_override_font_sizes/font_size = 48
+text = "Back"
+script = ExtResource("7_7i8mg")
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_xbshq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fmyfu")
+show_percentage = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 120
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = -12
+theme_override_constants/margin_right = 70
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 48
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
@@ -279,11 +429,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_gi64w")
 
 [node name="Left Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 29
+theme_override_constants/separation = 23
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
 layout_mode = 2
-text = "Game Stats:"
 label_settings = SubResource("LabelSettings_0nnuy")
 horizontal_alignment = 1
 
@@ -295,30 +444,35 @@ horizontal_alignment = 1
 
 [node name="DamageDealt" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xq6lx")
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt/Stat" index="0"]
 text = "Damage Dealt: "
 
 [node name="HighestKills" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills/Stat" index="0"]
 text = "Enemies Defeated: "
 
 [node name="HighestEarner" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner/Stat" index="0"]
 text = "Money Earned: "
 
 [node name="MostReactions" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions/Stat" index="0"]
 text = "Reactions Created: "
 
 [node name="MostPickups" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups/Stat" index="0"]
 text = "Pickups Obtained: "
@@ -337,267 +491,39 @@ layout_mode = 2
 [node name="Stat1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5/Stat" index="0"]
 text = "X"
 
-[node name="Right Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(860, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/margin_top = 131
 
-[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side"]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1r03")
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2"]
 layout_mode = 2
-offset_top = 248.0
-offset_right = 838.0
-offset_bottom = 273.0
-text = "Top Scorer"
+alignment = 1
 
-[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(1.75, 1.75)
-size_flags_horizontal = 4
-
-[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip"]
-position = Vector2(0, -44)
-scale = Vector2(2, 2)
-
-[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
-visible = false
-position = Vector2(0, 11)
-texture = ExtResource("2_c46gj")
-offset = Vector2(0, -60)
-flip_h = true
-
-[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
-position = Vector2(0, -22)
-texture = ExtResource("3_wjvpv")
-
-[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
-position = Vector2(2, -75)
-texture = ExtResource("4_4btoj")
-
-[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(38, -28)
-texture = ExtResource("5_5ua7e")
-
-[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Panel/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(-37, -28)
-texture = ExtResource("5_5ua7e")
-flip_h = true
-
-[node name="Other Players" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side"]
+[node name="Panel1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
 
-[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 200)
+[node name="Panel2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 24.3333
-text = "2nd place"
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2" index="3"]
+wait_time = 0.2
 
-[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = 67.195
-offset_bottom = 67.195
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-
-[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip"]
-position = Vector2(0, -44)
-scale = Vector2(2, 2)
-
-[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
-visible = false
-position = Vector2(0, 11)
-texture = ExtResource("2_c46gj")
-offset = Vector2(0, -60)
-flip_h = true
-
-[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
-position = Vector2(0, -22)
-texture = ExtResource("3_wjvpv")
-
-[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
-position = Vector2(2, -75)
-texture = ExtResource("4_4btoj")
-
-[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(38, -28)
-texture = ExtResource("5_5ua7e")
-
-[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(-37, -28)
-texture = ExtResource("5_5ua7e")
-flip_h = true
-
-[node name="Panel2" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 200)
+[node name="Panel3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 24.3333
-text = "3rd place"
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3" index="3"]
+wait_time = 0.3
 
-[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = 67.195
-offset_bottom = 67.195
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-
-[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip"]
-position = Vector2(0, -44)
-scale = Vector2(2, 2)
-
-[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
-visible = false
-position = Vector2(0, 11)
-texture = ExtResource("2_c46gj")
-offset = Vector2(0, -60)
-flip_h = true
-
-[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
-position = Vector2(0, -22)
-texture = ExtResource("3_wjvpv")
-
-[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
-position = Vector2(2, -75)
-texture = ExtResource("4_4btoj")
-
-[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(38, -28)
-texture = ExtResource("5_5ua7e")
-
-[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel2/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(-37, -28)
-texture = ExtResource("5_5ua7e")
-flip_h = true
-
-[node name="Panel3" type="Panel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players"]
-clip_contents = true
-custom_minimum_size = Vector2(0, 200)
+[node name="Panel4" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 24.3333
-text = "4th place"
-
-[node name="SpritesFlip" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = 67.195
-offset_bottom = 67.195
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-
-[node name="SpritesScale" type="Node2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip"]
-position = Vector2(0, -44)
-scale = Vector2(2, 2)
-
-[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
-visible = false
-position = Vector2(0, 11)
-texture = ExtResource("2_c46gj")
-offset = Vector2(0, -60)
-flip_h = true
-
-[node name="Body" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
-position = Vector2(0, -22)
-texture = ExtResource("3_wjvpv")
-
-[node name="Head" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
-position = Vector2(2, -75)
-texture = ExtResource("4_4btoj")
-
-[node name="RightHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(38, -28)
-texture = ExtResource("5_5ua7e")
-
-[node name="LeftHand" type="Sprite2D" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/Right Side/Other Players/Panel3/SpritesFlip/SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
-position = Vector2(-37, -28)
-texture = ExtResource("5_5ua7e")
-flip_h = true
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 600
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 600
-
-[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer"]
-clip_children = 2
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("6_o3j2u")
-theme_override_font_sizes/font_size = 48
-text = "Back"
-script = ExtResource("7_7i8mg")
-
-[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/MarginContainer/BackButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxEmpty_xbshq")
-theme_override_styles/fill = SubResource("StyleBoxFlat_fmyfu")
-show_percentage = false
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4" index="3"]
+wait_time = 0.4
 
 [node name="Label2" type="Label" parent="."]
 anchors_preset = 5
@@ -607,7 +533,8 @@ offset_left = -953.5
 offset_right = 953.5
 offset_bottom = 190.0
 grow_horizontal = 2
-text = "TOWER RAIDED"
+size_flags_horizontal = 3
+text = "Tower Raided!"
 label_settings = SubResource("LabelSettings_uqpnd")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -618,7 +545,7 @@ libraries = {
 }
 autoplay = "default"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/BackButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton" to="." method="_on_quit_button_pressed"]
 
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills"]
@@ -627,3 +554,7 @@ autoplay = "default"
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel1"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4"]

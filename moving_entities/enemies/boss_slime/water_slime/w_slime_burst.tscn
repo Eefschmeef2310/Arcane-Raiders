@@ -1,5 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgu0y64hgxpkh"]
+[gd_scene load_steps=4 format=3 uid="uid://bgu0y64hgxpkh"]
 
+[ext_resource type="Script" path="res://moving_entities/enemies/attack_scripts/e_proj_local.gd" id="1_6dc40"]
+[ext_resource type="PackedScene" uid="uid://chlb2qldo07sj" path="res://moving_entities/enemies/boss_slime/water_slime/w_slime_proj.tscn" id="1_biuey"]
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="2_pe1vs"]
 
 [sub_resource type="GDScript" id="GDScript_7nbxi"]
@@ -64,17 +66,18 @@ func _ready():
 "
 
 [node name="WSlimeBurst" type="Node2D"]
-script = SubResource("GDScript_7nbxi")
+position = Vector2(191, 114)
+script = ExtResource("1_6dc40")
 burst_amount = 8
-base_damage = 100
+bullet_scene = ExtResource("1_biuey")
+base_damage = 75
 infliction_time = 5.0
 start_time = 1.0
 end_time = 2.0
-cooldown_time = 5.0
+cooldown_time = 10.0
 
 [node name="Indicator" type="Node2D" parent="."]
-visible = false
-modulate = Color(0.192157, 0.443137, 1, 0.501961)
+modulate = Color(0.92549, 0, 0.0666667, 0.447059)
 z_index = -1
 scale = Vector2(1, 0.5)
 

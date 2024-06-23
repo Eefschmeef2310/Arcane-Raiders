@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=3 uid="uid://dn432qgqq04aj"]
+
+[ext_resource type="Texture2D" uid="uid://rathvu7xrnpb" path="res://moving_entities/player/player_placeholder.png" id="1_c2irk"]
+[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="2_1asor"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="3_3u61v"]
+[ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="4_jnv38"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlh68"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_imp57"]
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_4aq5h"]
+resource_name = "jump"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesFlip/SpritesScale:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesFlip/SpritesScale/LeftHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-40, -79), Vector2(-50, -57), Vector2(-40, -79)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesFlip/SpritesScale/RightHand:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0169729, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(45, -80.4342), Vector2(51, -58), Vector2(45, -80.4342)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bigf6"]
+_data = {
+"jump": SubResource("Animation_4aq5h")
+}
+
+[sub_resource type="GDScript" id="GDScript_5pylo"]
+script/source = "extends AnimationPlayer
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Signal methods
+func _on_timer_timeout():
+	play(\"jump\")
+#endregion
+"
+
+[node name="PlayerPanel" type="Panel"]
+custom_minimum_size = Vector2(200, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jlh68")
+
+[node name="SpritesFlip" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -131.0
+offset_bottom = -131.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(-1, 1)
+size_flags_horizontal = 4
+
+[node name="SpritesScale" type="Node2D" parent="SpritesFlip"]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+visible = false
+position = Vector2(0, 11)
+texture = ExtResource("1_c2irk")
+offset = Vector2(0, -60)
+flip_h = true
+
+[node name="Body" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+position = Vector2(0, -22)
+texture = ExtResource("2_1asor")
+
+[node name="Head" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+position = Vector2(2, -75)
+texture = ExtResource("3_3u61v")
+
+[node name="RightHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(45, -80.4342)
+texture = ExtResource("4_jnv38")
+
+[node name="LeftHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
+self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+position = Vector2(-40, -79)
+texture = ExtResource("4_jnv38")
+flip_h = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = -98.0
+offset_right = 78.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "MVP!"
+label_settings = SubResource("LabelSettings_imp57")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bigf6")
+}
+script = SubResource("GDScript_5pylo")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="AnimationPlayer" method="_on_timer_timeout"]

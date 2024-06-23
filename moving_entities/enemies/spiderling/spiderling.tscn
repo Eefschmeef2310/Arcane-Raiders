@@ -148,6 +148,7 @@ radius = 8.0
 script = SubResource("GDScript_dbbaf")
 attack_movespeed = 600.0
 movement_speed = 200.0
+create_pickup = false
 ignoreForStats = true
 max_health = 25
 

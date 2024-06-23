@@ -16,6 +16,7 @@ class_name ElementResource
 @export_multiline var descrption_bb : String
 @export var colour : Color
 @export var gradient : GradientTexture1D
+@export var gradient_inverse : GradientTexture1D
 @export var pip_texture : Texture2D
 @export var max_infliction_time : float = 5
 @export var sound : AudioStream

@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=22 format=3 uid="uid://brmt3xwasqlgc"]
 
+[ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="1_tp6hm"]
 [ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/img/TOGETHER-small.png" id="1_usn4v"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="2_7gsyx"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_hcuag"]
@@ -113,6 +114,16 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0196078, 0.0745098, 0.101961, 1)
 
+[node name="BackgroundArt" type="TextureRect" parent="."]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_tp6hm")
+
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.384314)
@@ -164,7 +175,6 @@ starting_t = 10.0
 frequency = 1.5
 
 [node name="Logo" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0.588235)
 position = Vector2(1239, 291)
 script = ExtResource("7_7xhii")
 amplitude = 1.0

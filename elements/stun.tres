@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=6 format=3 uid="uid://l0pouj41mexa"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=8 format=3 uid="uid://l0pouj41mexa"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_lr73f"]
 [ext_resource type="Texture2D" uid="uid://baml53o2wog5l" path="res://elements/icons/stun_icon.png" id="1_n5tmm"]
@@ -11,6 +11,13 @@ colors = PackedColorArray(0, 0, 0, 1, 0.32, 0.1024, 0.11328, 1, 1, 0.466667, 0, 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_vkkhs"]
 gradient = SubResource("Gradient_y0l61")
 
+[sub_resource type="Gradient" id="Gradient_y6hb5"]
+offsets = PackedFloat32Array(0, 0.143266, 0.524355, 0.879656, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.88, 0.8, 1, 1, 0.466667, 0, 1, 0.32, 0.1024, 0.11328, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sg4i2"]
+gradient = SubResource("Gradient_y6hb5")
+
 [resource]
 script = ExtResource("1_lr73f")
 prefix = "Stun-"
@@ -18,6 +25,7 @@ descrption_bb = "[img]res://elements/icons/stun_icon.png[/img] Stuns briefly
 Reacts with [img]res://elements/icons/wind_icon.png[/img] and [img]res://elements/icons/burn_icon.png[/img]"
 colour = Color(1, 0.466667, 0.2, 1)
 gradient = SubResource("GradientTexture1D_vkkhs")
+gradient_inverse = SubResource("GradientTexture1D_sg4i2")
 pip_texture = ExtResource("1_n5tmm")
 max_infliction_time = 5.0
 sound = ExtResource("3_653il")
