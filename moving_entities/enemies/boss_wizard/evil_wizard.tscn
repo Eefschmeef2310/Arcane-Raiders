@@ -98,7 +98,9 @@ func _spell_entered(area):
 func physics_update(delta):
 	super.physics_update(delta)
 	if !is_multiplayer_authority(): return
-	if owner.global_position.distance_to(player.global_position) <= transition_range:
+	if player == null or !is_instance_valid(player):
+		Transitioned.emit(self, next_state.name.to_lower())
+	elif owner.global_position.distance_to(player.global_position) <= transition_range:
 		Transitioned.emit(self, next_state.name.to_lower())
 	#Check distance between player and me and if close enough transition into next state
 
@@ -143,6 +145,9 @@ func physics_update(delta):
 	if !is_multiplayer_authority(): return
 	
 	#if too far go back to default state
+	if player == null or !is_instance_valid(player):
+		Transitioned.emit(self, \"default\")
+		return
 	if owner.global_position.distance_to(player.global_position) >= transition_range:
 		Transitioned.emit(self, \"default\")
 		return
@@ -375,7 +380,6 @@ animation = ""
 [node name="PlayerData" parent="." index="5"]
 spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
 spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
-spell_cooldowns = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
 
 [node name="Hurtbox" parent="." index="7"]

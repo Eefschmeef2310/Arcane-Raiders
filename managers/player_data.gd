@@ -20,7 +20,7 @@ signal spell_ready(spell: int)
 		health = clamp(v, 0, max_health)
 @export var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
-@export var spell_cooldowns : Array[float] = [0,0,0]
+var spell_cooldowns : Array[float] = [0,0,0]
 @export var spell_strings : Array[String] = ["", "", ""]
 
 @export var main_color : Color = Color.RED
@@ -39,11 +39,8 @@ signal spell_ready(spell: int)
 func _ready():
 	#spell_strings.resize(3)
 	#spells.resize(3)
-	
-	#spell_cooldowns_max.resize(3)
-	spell_cooldowns.fill(1)
-	
-	#spell_cooldowns.resize(3)
+	spell_cooldowns_max.resize(spells.size())
+	spell_cooldowns.resize(spells.size())
 	spell_cooldowns.fill(0)
 	
 	for i in spells.size():
