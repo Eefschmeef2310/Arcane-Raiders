@@ -343,6 +343,7 @@ func play_room_transition(next_floor: int):
 	current_floor = next_floor
 	for ui in player_ui:
 		ui.hide_equip_ui()
+		ui.hide_stats_ui()
 	
 	$RoomTransitionUI/Items/VBoxContainer/NextFloorLabel.text = get_floor_name(next_floor)
 	$RoomTransitionUI/Items/VBoxContainer/LastFloorLabel.text = get_floor_name(next_floor-1)

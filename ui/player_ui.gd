@@ -169,13 +169,15 @@ func spell_not_ready(slot: int):
 #endregion
 
 func show_stats_ui():
+	$StatsAnimation.play("show")
 	show_stats = true
 	
 func hide_stats_ui():
+	$StatsAnimation.play("hide")
 	show_stats = false
 
 func update_stats_ui():
-	stat_panel.visible = show_stats and not $EquipUI.visible
+	$StatsUI.visible = show_stats and not $EquipUI.visible
 	damage_label.text = "Damage: " + str(data.damage)
 	kills_label.text = "Kills: " + str(data.kills)
 	money_label.text = "Total Money: " + str(data.total_money)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=27 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_178i1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwbbp"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bpmi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dv4j1"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8geey"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87ilf"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -72,6 +72,10 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_oqe1k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w8xoo"]
+
 [sub_resource type="Animation" id="Animation_3xk7l"]
 resource_name = "flash"
 loop_mode = 1
@@ -103,6 +107,59 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0ewip"]
 _data = {
 "flash": SubResource("Animation_3xk7l")
+}
+
+[sub_resource type="Animation" id="Animation_o7oqj"]
+resource_name = "show"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatsUI/PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6dmnr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatsUI/PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cl8ru"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatsUI/PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ulf6"]
+_data = {
+"RESET": SubResource("Animation_6dmnr"),
+"hide": SubResource("Animation_cl8ru"),
+"show": SubResource("Animation_o7oqj")
 }
 
 [node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
@@ -163,17 +220,17 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_178i1")
+material = SubResource("ShaderMaterial_wwbbp")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_3bpmi")
+material = SubResource("ShaderMaterial_dv4j1")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_8geey")
+material = SubResource("ShaderMaterial_87ilf")
 layout_mode = 2
 mouse_filter = 1
 
@@ -283,6 +340,7 @@ horizontal_alignment = 1
 position = Vector2(225.668, -55.615)
 
 [node name="PanelContainer" type="PanelContainer" parent="StatsUI"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(350, 30.06)
 anchors_preset = 15
 anchor_right = 1.0
@@ -303,16 +361,19 @@ size_flags_horizontal = 3
 [node name="Damage" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Damage: 1111111"
+label_settings = SubResource("LabelSettings_oqe1k")
 
 [node name="Kills" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Kills: 222"
+label_settings = SubResource("LabelSettings_w8xoo")
 
 [node name="Money" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Money Earnt: 222"
+label_settings = SubResource("LabelSettings_w8xoo")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="StatsUI/PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -322,11 +383,13 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reactions: 222"
+label_settings = SubResource("LabelSettings_w8xoo")
 
 [node name="Pickups" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Pickups: 222"
+label_settings = SubResource("LabelSettings_w8xoo")
 
 [node name="UsernameUI" type="Node2D" parent="."]
 
@@ -342,4 +405,10 @@ horizontal_alignment = 1
 [node name="Flasher" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0ewip")
+}
+
+[node name="StatsAnimation" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_0ulf6")
 }

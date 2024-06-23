@@ -1,8 +1,16 @@
 extends CastleRoom
 
+@export var show_stats: bool = false
+
 func _ready():
 	super._ready()
 	
+	if show_stats:
+		var castle_climb : CastleClimb = get_parent()
+		if castle_climb:
+			for child in castle_climb.player_ui:
+				child.show_stats_ui()
+		
 	var spells_remaining = max(2, number_of_players)
 	var elements_remaining = SpellManager.elements_sorted
 	var scenes_remaining = SpellManager.spell_scenes.keys()

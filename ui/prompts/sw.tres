@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("2_0wme0")
-spell0 = ExtResource("3_8qm5d")
-spell1 = ExtResource("4_vmiow")
+spell0 = ExtResource("4_vmiow")
+spell1 = ExtResource("3_8qm5d")
 spell2 = ExtResource("5_ep8hy")
 dash = ExtResource("1_ommsa")
