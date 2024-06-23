@@ -23,6 +23,8 @@ func _ready():
 		ray_cast_2d.force_raycast_update()
 		
 		if \"attempt_anim\" in caster: caster.attempt_anim(\"dash\")
+		
+		caster.get_node(\"Sprite2D\").rotation = caster.global_position.angle_to_point(ray_cast_2d.target_position)
 
 		if is_multiplayer_authority():
 			dash(direction, ray_cast_2d.get_collision_point())
