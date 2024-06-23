@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_m21q8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwbbp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6he6"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dv4j1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hpy2d"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_87ilf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54vms"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -109,22 +109,6 @@ _data = {
 "flash": SubResource("Animation_3xk7l")
 }
 
-[sub_resource type="Animation" id="Animation_o7oqj"]
-resource_name = "show"
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StatsUI/PanelContainer:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_6dmnr"]
 length = 0.001
 tracks/0/type = "value"
@@ -153,6 +137,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o7oqj"]
+resource_name = "show"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatsUI/PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0ulf6"]
@@ -220,17 +220,17 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_wwbbp")
+material = SubResource("ShaderMaterial_a6he6")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_dv4j1")
+material = SubResource("ShaderMaterial_hpy2d")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_87ilf")
+material = SubResource("ShaderMaterial_54vms")
 layout_mode = 2
 mouse_filter = 1
 

@@ -221,10 +221,10 @@ func start_next_floor():
 		print("Freeing old room.")
 		current_room_node.free()
 	
-	# Reset player health
-	for data in player_data:
-		if data.health <= 0:
-			data.health = 250
+	## Reset player health
+	#for data in player_data:
+		#if data.health <= 0:
+			#data.health = 250
 	
 	await get_tree().create_timer(0.8).timeout
 	

@@ -51,7 +51,7 @@ class stat_score:
 
 #region Godot methods
 func _ready():
-	
+	AudioManager.play_track_fade(\"win\")
 	
 	#display all the per player stats
 	for ui in castle_climb.player_ui:

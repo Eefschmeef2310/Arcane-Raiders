@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=22 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="8_q78au"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
 [ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
+[ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="13_d4e5r"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="13_ngagv"]
 
 [sub_resource type="Resource" id="Resource_1emuh"]
@@ -69,6 +70,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BackgroundArt" type="TextureRect" parent="Lobby"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("13_d4e5r")
+
 [node name="ColorRect" type="ColorRect" parent="Lobby"]
 z_index = -990
 layout_mode = 1
@@ -117,7 +129,7 @@ offset_bottom = 192.0
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 184.0
+offset_top = 176.0
 offset_bottom = 192.0
 grow_horizontal = 2
 max_value = 1.0

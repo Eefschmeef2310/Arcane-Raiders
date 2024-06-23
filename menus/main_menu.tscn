@@ -115,6 +115,7 @@ grow_vertical = 2
 color = Color(0.0196078, 0.0745098, 0.101961, 1)
 
 [node name="BackgroundArt" type="TextureRect" parent="."]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -174,7 +175,6 @@ starting_t = 10.0
 frequency = 1.5
 
 [node name="Logo" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0.588235)
 position = Vector2(1239, 291)
 script = ExtResource("7_7xhii")
 amplitude = 1.0
