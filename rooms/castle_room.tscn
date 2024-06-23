@@ -27,7 +27,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 [node name="CastleRoom" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_uk66y")
-pickups = Array[PackedScene]([ExtResource("2_bnel2"), ExtResource("3_xk6a2"), ExtResource("4_77ule")])
+pickups = Array[PackedScene]([ExtResource("2_bnel2"), ExtResource("3_xk6a2"), ExtResource("4_77ule"), ExtResource("2_bnel2")])
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -20

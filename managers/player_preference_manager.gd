@@ -43,12 +43,12 @@ func load_preferences():
 		AudioServer.set_bus_volume_db(index, player_preferences.bus_volumes[index])
 	
 	#Set fullscreen
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if player_preferences.full_screen else DisplayServer.WINDOW_MODE_WINDOWED)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if player_preferences.full_screen else DisplayServer.WINDOW_MODE_WINDOWED)
 	
 	#Vsync
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if player_preferences.v_sync else DisplayServer.VSYNC_DISABLED)
 	
-	#Max FPS
+	#Max FPS+
 	Engine.max_fps = 0 if player_preferences.max_fps == 0 else player_preferences.max_fps
 	
 	#Resolution

@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4gwsudecx32d"]
+
+[sub_resource type="Curve" id="Curve_qth2j"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b0glo"]
+curve = SubResource("Curve_qth2j")
+
+[sub_resource type="Curve" id="Curve_hggwn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.51), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ejtb4"]
+curve_x = SubResource("Curve_hggwn")
+
+[sub_resource type="Curve" id="Curve_8agl8"]
+_data = [Vector2(0.00383142, 0.53), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m8h1g"]
+curve = SubResource("Curve_8agl8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1xvjx"]
+particle_flag_disable_z = true
+angle_max = 360.0
+angular_velocity_min = -240.4
+angular_velocity_max = 597.52
+directional_velocity_min = -100.0
+directional_velocity_max = 100.0
+directional_velocity_curve = SubResource("CurveXYZTexture_ejtb4")
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 50.0
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_m8h1g")
+alpha_curve = SubResource("CurveTexture_b0glo")
+
+[sub_resource type="GDScript" id="GDScript_i8j7q"]
+script/source = "extends GPUParticles2D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	emitting = true
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+
+func _on_finished():
+	queue_free()
+"
+
+[node name="DustParticles" type="GPUParticles2D"]
+z_index = -1
+position = Vector2(0, 5)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_1xvjx")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+script = SubResource("GDScript_i8j7q")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

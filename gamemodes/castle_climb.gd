@@ -382,11 +382,11 @@ func setup_from_parent_multiplayer_lobby():
 		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"], dict["color"], dict["name"])
 		i += 1
 
-func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color, name: String):
+func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color, input_name: String):
 	var data = player_data[slot]
 	data.device_id = device_id
 	data.peer_id = peer_id
-	data.player_name = name
+	data.player_name = input_name
 	data.set_multiplayer_authority(peer_id)
 	
 	
@@ -409,4 +409,4 @@ func set_seed(seed: int):
 	print("Setting seed to " + str(seed))
 	use_preset_seed = true
 	preset_seed = seed
-	rng.seed = seed
+	rng.seed = seed 

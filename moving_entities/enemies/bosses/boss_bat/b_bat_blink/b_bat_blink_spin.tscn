@@ -17,7 +17,8 @@ func _ready():
 	super._ready()
 	await teleport_to_center()
 	await get_tree().create_timer(fire_delay)
-	if caster: global_position = caster.global_position
+	if caster: 
+		global_position = caster.global_position
 	fire()
 	#call_deferred(\"queue_free\")
 #endregion

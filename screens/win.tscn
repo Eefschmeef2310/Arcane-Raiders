@@ -44,9 +44,6 @@ class stat_score:
 	var player : Color
 	var wins : int
 	var damage : int
-	
-
-
 #endregion
 
 #region Godot methods
@@ -266,12 +263,18 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
+font_size = 100
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
 [sub_resource type="Animation" id="Animation_2gmii"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer/VBoxContainer/Panel/HBoxContainer/Label2:label_settings:font_size")
+tracks/0/path = NodePath("Label2:label_settings:font_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -286,7 +289,7 @@ resource_name = "default"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PanelContainer/VBoxContainer/Panel/HBoxContainer/Label2:position")
+tracks/0/path = NodePath("Label2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -298,7 +301,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer/VBoxContainer/Panel/HBoxContainer/Label2:label_settings:font_size")
+tracks/1/path = NodePath("Label2:label_settings:font_size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -310,7 +313,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PanelContainer/VBoxContainer/Panel/HBoxContainer/Label2:anchors_preset")
+tracks/2/path = NodePath("Label2:anchors_preset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -322,7 +325,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PanelContainer/VBoxContainer/Panel/HBoxContainer/Label2:size")
+tracks/3/path = NodePath("Label2:size")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -409,23 +412,6 @@ mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_xbshq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fmyfu")
 show_percentage = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 2
-
-[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/Panel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Tower Raided!"
-label_settings = SubResource("LabelSettings_uqpnd")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -527,11 +513,34 @@ layout_mode = 2
 [node name="Panel2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
 
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2" index="3"]
+wait_time = 0.2
+
 [node name="Panel3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
 
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3" index="3"]
+wait_time = 0.3
+
 [node name="Panel4" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
 layout_mode = 2
+
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4" index="3"]
+wait_time = 0.4
+
+[node name="Label2" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -953.5
+offset_right = 953.5
+offset_bottom = 190.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+text = "Tower Raided!"
+label_settings = SubResource("LabelSettings_uqpnd")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -548,3 +557,7 @@ autoplay = "default"
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel1"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4"]

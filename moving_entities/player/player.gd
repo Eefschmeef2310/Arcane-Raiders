@@ -6,6 +6,8 @@ signal spell_pickup_requested(Player, int, SpellPickup)
 signal dead(Player)
 signal revived(Player)
 
+const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn")
+
 @export var debug : bool = false
 @export var data: PlayerData
 
@@ -522,3 +524,8 @@ func add_cooldown_effect():
 	$"Audio Players/PickupSound".play()
 	add_child(cooldown_effect_scene.instantiate())
 	add_pickup()
+
+func spawn_particles():
+	var particles = DUST_PARTICLES.instantiate()
+	particles.global_position = global_position
+	add_sibling(particles)
