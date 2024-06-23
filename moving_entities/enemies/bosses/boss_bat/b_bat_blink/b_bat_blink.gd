@@ -26,10 +26,10 @@ func _ready():
 		
 	center_position = Vector2((pos_array[0].x + pos_array[1].x)/2,(pos_array[2].y + pos_array[3].y)/2)
 
-func caster_visibility(visible: bool):
+func caster_visibility(vis: bool):
 	#TODO Play particle effect
-	caster.visible = visible
-	caster.invincible = !visible
+	caster.visible = vis
+	caster.invincible = !vis
 	await get_tree().create_timer(particle_duration).timeout
 
 func teleport_to_center():

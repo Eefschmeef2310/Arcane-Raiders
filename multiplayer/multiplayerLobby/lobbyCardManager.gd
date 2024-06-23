@@ -38,6 +38,7 @@ extends Control
 @export var most_panels : VBoxContainer # modulate this to grey when a player is ready to show their choices are "locked"
 @export var panels_array : Array[Control]
 @export var ready_button : Button
+@export var ready_text : Label
 @export var remove_button : Button
 @export_subgroup("raider")
 @export var raider_portrait : TextureRect
@@ -309,13 +310,17 @@ func UpdateDisplay():
 			$AudioStreamPlayer.stream = lobby_manager.raiders[selected_raider].animal_sound
 			$AudioStreamPlayer.play()
 		readied_up = true
+		self_modulate = Color.DIM_GRAY
+		ready_text.text = "UNREADY"
 		$AnimationPlayer.play("ready")
 		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.DIM_GRAY
 		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.DIM_GRAY
 	else:
 		readied_up = false
 		$AudioStreamPlayer.stop()
+		self_modulate = Color.WHITE 
 		$AnimationPlayer.play("character_bob")
+		ready_text.text = "READY"
 		$VBoxContainer/VBoxContainer/CharacterContainer.modulate = Color.WHITE
 		$VBoxContainer/VBoxContainer/ColorContainer.modulate = Color.WHITE
 	
