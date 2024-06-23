@@ -46,7 +46,7 @@ func _update_health():
 script = SubResource("GDScript_4pg0j")
 wizard_num = 4
 is_boss = true
-boss_name = "Shadow Wizard Money Gang"
+boss_name = "Shadow Wizard Guardians"
 ignoreForStats = true
 death_sound = null
 max_health = 4000

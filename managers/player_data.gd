@@ -21,7 +21,7 @@ signal spell_ready(spell: int)
 @export var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 @export var spell_cooldowns : Array[float] = [0,0,0]
-@export var spell_strings : Array[String]
+@export var spell_strings : Array[String] = ["", "", ""]
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
@@ -37,13 +37,13 @@ signal spell_ready(spell: int)
 @export var has_crown : bool
 
 func _ready():
-	spell_strings.resize(3)
-	spells.resize(3)
+	#spell_strings.resize(3)
+	#spells.resize(3)
 	
-	spell_cooldowns_max.resize(3)
+	#spell_cooldowns_max.resize(3)
 	spell_cooldowns.fill(1)
 	
-	spell_cooldowns.resize(3)
+	#spell_cooldowns.resize(3)
 	spell_cooldowns.fill(0)
 	
 	for i in spells.size():

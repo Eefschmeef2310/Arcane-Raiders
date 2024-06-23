@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=23 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_v1y5u"]
 [ext_resource type="PackedScene" uid="uid://bq1ea3l23k3gq" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_laser.tscn" id="5_gr2yf"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
+[ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
+[ext_resource type="Texture2D" uid="uid://dpaoasia6x8rt" path="res://spells/projections/aoelarge.png" id="8_wla55"]
+[ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
+[ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="10_jni0s"]
+[ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="11_0gi6j"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
 resource_name = "EvilWizard"
@@ -77,7 +82,6 @@ script/source = "extends State
 
 #region Signal methods
 
-#TODO when a player spell enters the collision field, call this signal if it is the current state
 func _spell_entered(area):
 	if get_parent().current_state.name.to_lower() == name.to_lower() && owner.wizard_dash_cooldown <= 0 && is_multiplayer_authority():
 		owner.spell_position = area.global_position
@@ -87,8 +91,6 @@ func _spell_entered(area):
 #region Other methods (please try to separate and organise!)
 func physics_update(delta):
 	super.physics_update(delta)
-	
-	
 	#Check spell cooldowns to cast spells :D
 
 func set_position():
@@ -133,6 +135,27 @@ suffix = ""
 description = ""
 scene = ExtResource("5_gr2yf")
 projection_texture = ExtResource("4_v1y5u")
+
+[sub_resource type="Resource" id="Resource_hqfaj"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("7_rniqf")
+projection_texture = ExtResource("4_v1y5u")
+
+[sub_resource type="Resource" id="Resource_6foxl"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("9_3f166")
+projection_texture = ExtResource("8_wla55")
+
+[sub_resource type="Resource" id="Resource_c2t1r"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("11_0gi6j")
+projection_texture = ExtResource("10_jni0s")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_onr5v"]
 resource_local_to_scene = true
@@ -180,7 +203,10 @@ script = SubResource("GDScript_sd0g0")
 script = SubResource("GDScript_oflwe")
 
 [node name="PlayerData" parent="." index="5"]
-spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), null, null])
+spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
+spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
+spell_cooldowns = Array[float]([0.0, 0.0, 0.0, 0.0])
+spell_strings = Array[String](["", "", "", ""])
 
 [node name="Hurtbox" parent="." index="7"]
 collision_mask = 272
