@@ -69,5 +69,5 @@ func transfer_data(new: Node2D):
 	if "combined_spell_index" in new:
 		new.combined_spell_index = combined_spell_index
 	
-	if resource.element.gradient and material:
+	if resource and resource.element and resource.element.gradient and material:
 		(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)

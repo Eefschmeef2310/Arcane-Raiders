@@ -156,6 +156,7 @@ material = SubResource("ShaderMaterial_m4uup")
 base_damage = 100
 infliction_time = 3.0
 end_time = 0.2
+cooldown_time = 10.0
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 target_position = Vector2(1000, 0)

@@ -1,11 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=28 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_58eft"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="4_jwyjq"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_r8dyt"]
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_v1y5u"]
+[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_br33i"]
 [ext_resource type="PackedScene" uid="uid://bq1ea3l23k3gq" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_laser.tscn" id="5_gr2yf"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="5_rtfqf"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
 [ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
 [ext_resource type="Texture2D" uid="uid://dpaoasia6x8rt" path="res://spells/projections/aoelarge.png" id="8_wla55"]
@@ -73,7 +76,9 @@ script/source = "extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-
+@export var transition_range:float = 700
+@export var next_state: State
+var player:Player
 #endregion
 
 #region Godot methods
@@ -91,10 +96,145 @@ func _spell_entered(area):
 #region Other methods (please try to separate and organise!)
 func physics_update(delta):
 	super.physics_update(delta)
-	#Check spell cooldowns to cast spells :D
+	if !is_multiplayer_authority(): return
+	if owner.global_position.distance_to(player.global_position) <= transition_range:
+		Transitioned.emit(self, next_state.name.to_lower())
+	#Check distance between player and me and if close enough transition into next state
 
 func set_position():
-	navigation_agent.target_position = get_closest_player().global_position
+	if !is_multiplayer_authority(): return
+	player = get_closest_player()
+	if player:
+		navigation_agent.target_position = player.global_position
+	else:
+		Transitioned.emit(self, \"idle\")
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_phf1k"]
+resource_name = "wizard_strafe"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+var transition_range: float = 800
+var prefered_range: float = 500
+var strafe_dir: int = 1
+var player:Player
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+func _spell_entered(area):
+	if get_parent().current_state.name.to_lower() == name.to_lower() && owner.wizard_dash_cooldown <= 0 && is_multiplayer_authority():
+		owner.spell_position = area.global_position
+		Transitioned.emit(self, \"dashing\")
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func physics_update(delta):
+	super.physics_update(delta)
+	if !is_multiplayer_authority(): return
+	
+	#if too far go back to default state
+	if owner.global_position.distance_to(player.global_position) >= transition_range:
+		Transitioned.emit(self, \"default\")
+		return
+	
+	if can_cast_spell_player(0) && can_cast_spell_player(1):
+		#TODO calc the direction of attack then rpc aim direction to owner 
+		#use predictive ai here instead
+		set_direction.rpc(owner.global_position.direction_to(player.global_position))
+		Transitioned.emit(self, \"holdspell\")
+	#attack the player off cooldown
+
+func set_position():
+	if !is_multiplayer_authority(): return
+	player = get_closest_player()
+	if player:
+		var distance = player.global_position.distance_to(enemy.global_position)
+		var direction = enemy.global_position.direction_to(player.global_position)
+		var final_direction: Vector2 = Vector2.ZERO
+		
+		final_direction = direction if (distance > prefered_range) else -direction
+		
+		#Strafe direction
+		final_direction = direction.rotated(deg_to_rad(90*strafe_dir))
+		if (distance < prefered_range): final_direction -= direction
+		
+		if(randi() % 100 < 40*nav_timer_interval):
+			strafe_dir *= -1
+		
+		navigation_agent.target_position = enemy.global_position + 2 * final_direction * nav_timer_interval * enemy.movement_speed
+	else:
+		Transitioned.emit(self, \"idle\")
+		
+		
+		
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func set_direction(direction: Vector2):
+	owner.aim_direction = direction
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_cs2ry"]
+resource_name = "hold_spell_state"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+var spell_slot:int = 0
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	if !is_multiplayer_authority(): return
+	
+	if can_cast_spell_player(0): spell_slot = 0
+	elif can_cast_spell_player(1): spell_slot = 1
+	else: 
+		Transitioned.emit(self, \"default\")
+		return
+	
+	owner.prepare_cast(spell_slot)
+	await get_tree().create_timer(1).timeout
+	
+	var player = get_closest_player()
+	if player != null and is_instance_valid(player):
+		var direction = owner.global_position.direction_to(player.global_position) #dummy value
+		
+		if spell_slot == 0:
+			pass
+		#else:
+			#direction = owner.global_position.direction_to(get_closest_player().global_position)
+		
+		if spell_slot == 1: set_direction.rpc(direction)
+		
+		var next_state = \"laser\" if spell_slot == 0 else \"projectile\"
+		Transitioned.emit(self, next_state)
+	else:
+		Transitioned.emit(self, \"default\")
+
+
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func set_direction(direction: Vector2):
+	owner.aim_direction = direction
 #endregion
 
 "
@@ -106,7 +246,7 @@ script/source = "extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Godot methods
-
+var previous_state = \"\"
 #endregion
 
 #region Signal methods
@@ -124,26 +264,31 @@ func enter():
 func physics_update(delta):
 	super.physics_update(delta)
 	if !owner.is_dashing:
-		Transitioned.emit(self, \"default\")
+		Transitioned.emit(self, previous_state)
 #endregion
 
 "
 
 [sub_resource type="Resource" id="Resource_st64d"]
+resource_local_to_scene = true
 script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
 scene = ExtResource("5_gr2yf")
 projection_texture = ExtResource("4_v1y5u")
+element = ExtResource("5_br33i")
 
 [sub_resource type="Resource" id="Resource_hqfaj"]
+resource_local_to_scene = true
 script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
 scene = ExtResource("7_rniqf")
 projection_texture = ExtResource("4_v1y5u")
+element = ExtResource("5_rtfqf")
 
 [sub_resource type="Resource" id="Resource_6foxl"]
+resource_local_to_scene = true
 script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
@@ -151,6 +296,7 @@ scene = ExtResource("9_3f166")
 projection_texture = ExtResource("8_wla55")
 
 [sub_resource type="Resource" id="Resource_c2t1r"]
+resource_local_to_scene = true
 script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
@@ -195,12 +341,35 @@ debug_label = NodePath("../Label")
 [node name="Idle" type="Node" parent="Input" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_58eft")
 actual_first_state = NodePath("../Default")
+animation = ""
 
-[node name="Default" type="Node" parent="Input" index="1"]
+[node name="Default" type="Node" parent="Input" index="1" node_paths=PackedStringArray("next_state")]
 script = SubResource("GDScript_sd0g0")
+next_state = NodePath("../Strafe")
+animation = ""
 
-[node name="Dashing" type="Node" parent="Input" index="2"]
+[node name="Strafe" type="Node" parent="Input" index="2"]
+script = SubResource("GDScript_phf1k")
+animation = ""
+
+[node name="HoldSpell" type="Node" parent="Input" index="3"]
+script = SubResource("GDScript_cs2ry")
+animation = ""
+
+[node name="Laser" type="Node" parent="Input" index="4"]
+script = ExtResource("4_r8dyt")
+transition_out_when_can_cast = true
+animation = ""
+
+[node name="Projectile" type="Node" parent="Input" index="5"]
+script = ExtResource("4_r8dyt")
+spell_num = 1
+transition_out_when_can_cast = true
+animation = ""
+
+[node name="Dashing" type="Node" parent="Input" index="6"]
 script = SubResource("GDScript_oflwe")
+animation = ""
 
 [node name="PlayerData" parent="." index="5"]
 spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
@@ -259,3 +428,4 @@ debug_color = Color(0, 0.6, 0.701961, 0.0745098)
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="area_entered" from="DashDetector" to="Input/Default" method="_spell_entered"]
+[connection signal="area_entered" from="DashDetector" to="Input/Strafe" method="_spell_entered"]

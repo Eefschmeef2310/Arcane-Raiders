@@ -288,7 +288,7 @@ func prepare_cast_down(slot: int):
 	
 
 func prepare_cast(slot: int):
-	if can_cast and data.spell_strings[slot] != "" and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
+	if can_cast and data.spells[slot] != null and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
 		spell_sprite_2d_projection.texture = data.spells[slot].projection_texture
 		animation_player.stop()

@@ -133,6 +133,7 @@ script = SubResource("GDScript_ii77o")
 explosion_scene = ExtResource("1_p1jfn")
 base_damage = 75
 infliction_time = 1.5
+cooldown_time = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ogc0g")
@@ -162,3 +163,6 @@ debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
 energy = 0.3
 texture = ExtResource("6_c2vqq")
 texture_scale = 0.3
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
