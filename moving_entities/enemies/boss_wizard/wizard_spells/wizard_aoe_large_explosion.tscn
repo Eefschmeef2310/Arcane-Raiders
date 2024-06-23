@@ -60,7 +60,7 @@ var play_element_sound : bool = false
 func _ready():
 	if resource:
 		if resource.element.gradient:
-			(material as ShaderMaterial).set_shader_parameter(\"gradient\", resource.element.gradient)
+			(material as ShaderMaterial).set_shader_parameter(\"gradient\", resource.element.gradient_inverse)
 		else:
 			modulate = resource.element.colour
 		point_light_2d.color = resource.element.colour

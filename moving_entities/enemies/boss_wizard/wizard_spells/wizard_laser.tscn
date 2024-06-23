@@ -46,7 +46,7 @@ func _ready():
 	$Line2D.width = 5
 	
 	if owner.resource.element.gradient:
-		($Line2D.material as ShaderMaterial).set_shader_parameter(\"gradient\", owner.resource.element.gradient)
+		($Line2D.material as ShaderMaterial).set_shader_parameter(\"gradient\", owner.resource.element.gradient_inverse)
 	else:
 		$Line2D.default_color = owner.resource.element.colour
 	
