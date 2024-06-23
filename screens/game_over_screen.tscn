@@ -33,6 +33,11 @@ func _ready():
 	AudioManager.play_track_fade(\"lose\")
 	
 	$Control/MarginContainer/VBoxContainer/Label4.text = \"You cleared \" + str(castle_climb.current_floor) + \" floors in \" + str(GameManager.format_timer(castle_climb.time_elapsed))
+
+	for ui in castle_climb.player_ui:
+		var player_ui : PlayerUI = ui
+		player_ui.show_stats_ui()
+		player_ui.update_stats_ui()
 #endregion
 
 #region Signal methods
@@ -55,13 +60,13 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_c0pkf"]
 line_spacing = -25.0
-font_size = 64
+font_size = 48
 shadow_size = 10
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_w8xxp"]
 line_spacing = -25.0
-font_size = 80
+font_size = 48
 shadow_size = 10
 shadow_color = Color(0, 0, 0, 1)
 
@@ -160,13 +165,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -91.0
-offset_bottom = -91.0
+offset_top = -175.0
+offset_bottom = -175.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = -24
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
@@ -178,7 +184,8 @@ horizontal_alignment = 1
 [node name="Label3" type="Label" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Your plunder has been
-reclaimed by the Tower..."
+reclaimed by the Tower...
+ "
 label_settings = SubResource("LabelSettings_c0pkf")
 horizontal_alignment = 1
 
@@ -190,13 +197,13 @@ horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 600
+theme_override_constants/margin_left = 700
 theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 600
+theme_override_constants/margin_right = 700
 
 [node name="QuitButton" type="Button" parent="Control/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 81
+theme_override_font_sizes/font_size = 64
 text = "Quit to Menu"
 script = ExtResource("1_q0aqo")
 

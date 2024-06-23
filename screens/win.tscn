@@ -204,9 +204,6 @@ border_color = Color(0.65098, 0.54902, 0.423529, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmyfu"]
 bg_color = Color(0.541176, 0, 0, 0.588235)
 
-[sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
-font_size = 100
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gi64w"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 

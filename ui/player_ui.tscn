@@ -18,26 +18,26 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.756863, 0.756863, 0.756863, 1)
 
-[sub_resource type="Gradient" id="Gradient_m21q8"]
+[sub_resource type="Gradient" id="Gradient_oyrcg"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
-gradient = SubResource("Gradient_m21q8")
+gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6he6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l6kbp"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hpy2d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vhrq"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_54vms"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n10i8"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -220,17 +220,17 @@ texture = ExtResource("3_a7ijl")
 expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_a6he6")
+material = SubResource("ShaderMaterial_l6kbp")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_hpy2d")
+material = SubResource("ShaderMaterial_5vhrq")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_54vms")
+material = SubResource("ShaderMaterial_n10i8")
 layout_mode = 2
 mouse_filter = 1
 
