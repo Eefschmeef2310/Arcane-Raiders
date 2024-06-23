@@ -1,7 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://cnew2lxrfa7q7"]
+[gd_scene load_steps=36 format=3 uid="uid://cnew2lxrfa7q7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_gcbln"]
-[ext_resource type="Texture2D" uid="uid://dhllwaahe1u1j" path="res://moving_entities/enemies/bat_small/bat_small_idle.png" id="2_frhjg"]
+[ext_resource type="Texture2D" uid="uid://k86eniw42xb" path="res://moving_entities/enemies/bosses/boss_bat/sprites/001.png" id="2_h11k2"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_1ls6v"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_sk0yk"]
 [ext_resource type="PackedScene" uid="uid://42pqgoacrk05" path="res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn" id="4_0nrxh"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://bel63f5xhtsss" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_dash.tscn" id="7_k0tnq"]
 [ext_resource type="PackedScene" uid="uid://c2qvhqinofmoy" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spin.tscn" id="9_0h871"]
 [ext_resource type="PackedScene" uid="uid://cem3ar060j8d6" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spam.tscn" id="9_wsy56"]
+[ext_resource type="Texture2D" uid="uid://cj0qhp8t5epeu" path="res://moving_entities/enemies/bosses/boss_bat/sprites/002.png" id="12_5cm8x"]
+[ext_resource type="Texture2D" uid="uid://b408sdpf81sgy" path="res://moving_entities/enemies/bosses/boss_bat/sprites/000.png" id="13_rot2b"]
+[ext_resource type="Texture2D" uid="uid://7518x25dosji" path="res://moving_entities/enemies/bosses/boss_bat/sprites/003.png" id="14_b2m18"]
+[ext_resource type="Texture2D" uid="uid://cwdcy6ys7runt" path="res://moving_entities/enemies/bosses/boss_bat/sprites/004.png" id="15_1be68"]
+[ext_resource type="Texture2D" uid="uid://d04xlnuhber0i" path="res://moving_entities/enemies/bosses/boss_bat/sprites/005.png" id="16_ljwad"]
+[ext_resource type="Texture2D" uid="uid://c2hexg1aofj3n" path="res://moving_entities/enemies/bosses/boss_bat/sprites/006.png" id="17_jmbpq"]
 
 [sub_resource type="GDScript" id="GDScript_b5sd0"]
 script/source = "extends EnemyEntity
@@ -51,8 +57,9 @@ func on_hurt(attack):
 	super.on_hurt(attack)
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rrw4v"]
-radius = 71.0634
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hf3fn"]
+radius = 70.0
+height = 300.0
 
 [sub_resource type="Resource" id="Resource_sbqj1"]
 script = ExtResource("5_sn5q4")
@@ -264,59 +271,6 @@ func physics_update(delta):
 [sub_resource type="CircleShape2D" id="CircleShape2D_f8rpe"]
 radius = 14.1421
 
-[sub_resource type="Animation" id="Animation_w55vx"]
-resource_name = "idle"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_frhjg")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="Animation" id="Animation_jreu4"]
 length = 0.001
 tracks/0/type = "value"
@@ -329,39 +283,27 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_frhjg")]
+"values": [ExtResource("2_h11k2")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
+"update": 0,
+"values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/path = NodePath("Hurtbox:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -379,42 +321,71 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("2_frhjg")]
+"values": [ExtResource("2_h11k2"), ExtResource("12_5cm8x")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
+"update": 0,
+"values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/path = NodePath("Hurtbox:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 2]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+
+[sub_resource type="Animation" id="Animation_w55vx"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("13_rot2b"), ExtResource("2_h11k2"), ExtResource("12_5cm8x"), ExtResource("14_b2m18"), ExtResource("15_1be68"), ExtResource("16_ljwad"), ExtResource("17_jmbpq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -423,6 +394,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_8bjhm"]
 resource_name = "spin"
+length = 0.3
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -434,43 +406,31 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_frhjg")]
+"values": [ExtResource("13_rot2b")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/path = NodePath("Hurtbox:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 6.28319]
+"values": [0.0, -6.28319]
 }
 
 [sub_resource type="Animation" id="Animation_r1rus"]
@@ -484,42 +444,30 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("2_frhjg")]
+"values": [ExtResource("15_1be68"), ExtResource("16_ljwad")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
+"update": 0,
+"values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/path = NodePath("Hurtbox:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 4]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -543,18 +491,22 @@ is_boss = true
 boss_name = "Echo Onslaughter"
 death_sound = null
 max_health = 4000
+knockback_initial_velocity = 100.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -53)
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(0, -49)
-texture = ExtResource("2_frhjg")
-hframes = 7
+position = Vector2(0, -91)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_h11k2")
+
+[node name="Hurtbox" parent="." index="2"]
+position = Vector2(1, -74)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(0, 13)
-shape = SubResource("CircleShape2D_rrw4v")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hf3fn")
 debug_color = Color(0.956863, 0, 0.533333, 0.137255)
 
 [node name="ProgressBar" parent="." index="4"]
