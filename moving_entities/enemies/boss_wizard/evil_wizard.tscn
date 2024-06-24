@@ -138,16 +138,16 @@ func physics_update(delta):
 	super.physics_update(delta)
 	if !is_multiplayer_authority(): return
 	
-	#if too far go back to default state
+	#If too far from player or if player dies, transition back to default
 	if player == null or !is_instance_valid(player) or owner.global_position.distance_to(player.global_position) >= transition_range:
 		Transitioned.emit(self, \"default\")
 		return
 	
+	#Ranged combo
 	if can_cast_spell_player(0) && can_cast_spell_player(1):
 		#\"Predictive\" ai here for the laser
 		set_direction.rpc(owner.global_position.direction_to(player.global_position + player.velocity))
 		Transitioned.emit(self, \"holdspell\")
-	#attack the player off cooldown
 
 func set_position():
 	if !is_multiplayer_authority(): return
@@ -187,9 +187,16 @@ script/source = "extends State
 
 #region Variables
 
-var spell_slot:int = 0
+@export var spell0: int = 0
+@export var spell1: int = 1
+
 var is_tracking = false
+var fire_instantly = false
+
+var spell_slot:int = 0
 var player:Entity
+
+var spell_array = [\"laser\", \"projectile\", \"aoe\", \"cone\"]
 #endregion
 
 #region Godot methods
@@ -204,28 +211,26 @@ var player:Entity
 func enter():
 	if !is_multiplayer_authority(): return
 	
-	if can_cast_spell_player(0): spell_slot = 0; is_tracking = false
-	elif can_cast_spell_player(1): spell_slot = 1; is_tracking = true
+	if can_cast_spell_player(0) && (spell0 == 0 or spell1 == 0): spell_slot = 0; is_tracking = false
+	elif can_cast_spell_player(1) && (spell0 == 1 or spell1 == 1): spell_slot = 1; is_tracking = true
 	else: Transitioned.emit(self, \"default\"); return;
 	
 	var direction
 	
-	if spell_slot == 1: 
+	if is_tracking: 
 		direction = owner.global_position.direction_to(get_closest_player().global_position)
 		set_direction.rpc(direction)
 	
 	owner.prepare_cast(spell_slot)
-	await get_tree().create_timer(1).timeout
-	
-	player = get_closest_player()
-	var next_state = \"laser\" if spell_slot == 0 else \"projectile\"
-	
-	if player != null and is_instance_valid(player):
-		direction = owner.global_position.direction_to(player.global_position)
-		if spell_slot == 1: set_direction.rpc(direction)
-		Transitioned.emit(self, next_state)
+	if !fire_instantly:
+		await get_tree().create_timer(1).timeout
 		
-	Transitioned.emit(self, next_state)
+		player = get_closest_player()
+		
+		if player != null and is_instance_valid(player) and is_tracking:
+			direction = owner.global_position.direction_to(player.global_position)
+			set_direction.rpc(direction)
+	Transitioned.emit(self, spell_array[spell_slot])
 
 func update(delta):
 	super.update(delta)
