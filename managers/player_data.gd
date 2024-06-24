@@ -66,6 +66,7 @@ func _on_player_health_updated(amount):
 
 func start_cooldown(slot: int, time: float):
 	spell_cooldowns_max[slot] = time
+	
 	spell_cooldowns[slot] = time
 
 func set_spell_from_string(slot: int, string: String):

@@ -249,7 +249,7 @@ func StartGame():
 	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
 	if custom_seed_entry.text != "":
-		castle_climb.set_seed(hash(custom_seed_entry.text))
+		castle_climb.set_seed(custom_seed_entry.text)
 	add_child(castle_climb)
 	
 	hide_lobby.rpc()

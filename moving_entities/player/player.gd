@@ -30,7 +30,7 @@ const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn
 
 
 
-var preparing_cast_slot := -1
+@export var preparing_cast_slot := -1
 var is_casting := false
 var can_cast := true
 var cast_end_time : float

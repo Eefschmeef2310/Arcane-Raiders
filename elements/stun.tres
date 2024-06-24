@@ -27,5 +27,5 @@ colour = Color(1, 0.466667, 0.2, 1)
 gradient = SubResource("GradientTexture1D_vkkhs")
 gradient_inverse = SubResource("GradientTexture1D_sg4i2")
 pip_texture = ExtResource("1_n5tmm")
-max_infliction_time = 5.0
+max_infliction_time = 0.5
 sound = ExtResource("3_653il")

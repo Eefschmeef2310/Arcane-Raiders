@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_osx8t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8fwn"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nt5j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i85yr"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e25v1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vl05"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -211,26 +211,28 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_87ps5")
 
 [node name="Crown" type="TextureRect" parent="HBox/Stats/Spells/Head"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = -5.0
-offset_right = 63.0
-offset_bottom = 33.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_a7ijl")
-expand_mode = 1
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_osx8t")
+material = SubResource("ShaderMaterial_t8fwn")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_7nt5j")
+material = SubResource("ShaderMaterial_i85yr")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_e25v1")
+material = SubResource("ShaderMaterial_8vl05")
 layout_mode = 2
 mouse_filter = 1
 
