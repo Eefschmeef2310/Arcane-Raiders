@@ -24,8 +24,13 @@ func _ready():
 				wizard.wizard_hurt.connect(_update_health)
 				wizard.wizard_died.connect(_remove_wizard)
 				wizards.push_back(wizard)
+				
+				wizard.element_index = i
 				if i >= 2:wizard.is_ranged = false
 				else: wizard.is_ranged = true
+				wizard.set_spell_element.rpc(i)
+				#data.spells[i].element = SpellManager.elements[\"burn\"]
+				
 
 func _remove_wizard(dead_wizard):
 	if !is_multiplayer_authority(): return

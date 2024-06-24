@@ -63,10 +63,12 @@ y_sort_enabled = true
 material = SubResource("ShaderMaterial_mwij4")
 script = SubResource("GDScript_8f5a0")
 EXPLOSION = ExtResource("3_bcvkx")
-base_damage = 160
+base_damage = 250
+infliction_time = 5.0
 start_time = 0.05
 end_time = 0.0
 cancel_time = 0.0
+cooldown_time = 4.0
 play_sound_on_cast = false
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]

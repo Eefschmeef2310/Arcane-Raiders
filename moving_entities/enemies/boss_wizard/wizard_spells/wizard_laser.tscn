@@ -153,10 +153,10 @@ size = Vector2(0, 0)
 [node name="WizardLaser" instance=ExtResource("1_ljgd3")]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_m4uup")
-base_damage = 100
+base_damage = 150
 infliction_time = 3.0
 end_time = 0.2
-cooldown_time = 10.0
+cooldown_time = 5.0
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 target_position = Vector2(1000, 0)

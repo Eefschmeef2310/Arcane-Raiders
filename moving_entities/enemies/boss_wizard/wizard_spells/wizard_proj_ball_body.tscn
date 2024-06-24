@@ -131,9 +131,9 @@ y_sort_enabled = true
 collision_layer = 32
 script = SubResource("GDScript_ii77o")
 explosion_scene = ExtResource("1_p1jfn")
-base_damage = 75
-infliction_time = 1.5
-cooldown_time = 10.0
+base_damage = 150
+infliction_time = 5.0
+cooldown_time = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ogc0g")

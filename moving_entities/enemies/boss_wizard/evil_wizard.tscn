@@ -1,19 +1,22 @@
-[gd_scene load_steps=26 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=29 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_58eft"]
+[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="3_q1407"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="4_jwyjq"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_r8dyt"]
-[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_v1y5u"]
-[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_br33i"]
 [ext_resource type="PackedScene" uid="uid://bq1ea3l23k3gq" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_laser.tscn" id="5_gr2yf"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="5_rtfqf"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
+[ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="7_bt8co"]
 [ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="8_ni1h2"]
 [ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
-[ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="10_jni0s"]
+[ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="9_6xc7a"]
+[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="10_wxye7"]
 [ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="11_0gi6j"]
+[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="11_ba4mg"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
 resource_name = "EvilWizard"
@@ -31,14 +34,25 @@ signal wizard_died(wizard: Node)
 @export var wizard_dash_cooldown: float = 1
 @export var wizard_dash_cooldown_max: float = 10
 
+@export var default_spells: Array[Spell]
+
 var spell_position: Vector2 = Vector2.ZERO
+
+var element_array: Array = [\"burn\", \"frost\", \"wind\", \"stun\"]
+var element_index: int
+
+@export var enemy_raiders : Array[RaiderRes]
 
 #endregion
 
 #region Godot methods
 func _ready():
 	super._ready()
-	set_data(data, false)
+	
+	data.spells.resize(4)
+	data.spell_cooldowns.resize(4)
+	data.spell_cooldowns_max.resize(4)
+	
 	$Input.start_state_machine(nav_agent)
 
 func _physics_process(delta):
@@ -50,19 +64,63 @@ func _physics_process(delta):
 #region Signal methods
 
 #endregion
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func set_spell_element(i: int):
+	element_index = i
+	var element : ElementResource = SpellManager.elements[element_array[element_index]]
+	for slot in default_spells.size():
+		data.spells[slot] = default_spells[slot].duplicate()
+		data.spells[slot].element = element
+	data.main_color = element.colour.darkened(0.8)
+	data.character = enemy_raiders[i]
+	set_data(data, false)
 
 func on_hurt(attack):
 	super.on_hurt(attack)
-	wizard_hurt.emit()
+	if is_multiplayer_authority():
+		wizard_hurt.emit()
 
 func _on_zero_health():
-	wizard_died.emit()
-	call_deferred(\"queue_free\")
+	if is_multiplayer_authority():
+		wizard_died.emit(self)
+		call_deferred(\"queue_free\")
 
 #Set move direction to direction of safe velocity
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2):
 	move_direction = safe_velocity.normalized()
 "
+
+[sub_resource type="Resource" id="Resource_jegsn"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("5_gr2yf")
+projection_texture = ExtResource("3_q1407")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_gnj56"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("7_rniqf")
+projection_texture = ExtResource("3_q1407")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_h7deh"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("9_3f166")
+projection_texture = ExtResource("7_bt8co")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_3mjdw"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("11_0gi6j")
+projection_texture = ExtResource("7_bt8co")
+element = ExtResource("5_rtfqf")
 
 [sub_resource type="GDScript" id="GDScript_sd0g0"]
 resource_name = "wizard_walk"
@@ -233,7 +291,9 @@ func enter():
 	
 	var direction
 	
-	if is_tracking: 
+	player = get_closest_player()
+	
+	if player != null and is_instance_valid(player) and is_tracking:
 		direction = owner.global_position.direction_to(get_closest_player().global_position)
 		set_direction.rpc(direction)
 	
@@ -297,42 +357,6 @@ func physics_update(delta):
 
 "
 
-[sub_resource type="Resource" id="Resource_st64d"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("5_gr2yf")
-projection_texture = ExtResource("4_v1y5u")
-element = ExtResource("5_br33i")
-
-[sub_resource type="Resource" id="Resource_hqfaj"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("7_rniqf")
-projection_texture = ExtResource("4_v1y5u")
-element = ExtResource("5_rtfqf")
-
-[sub_resource type="Resource" id="Resource_6foxl"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("9_3f166")
-projection_texture = ExtResource("10_jni0s")
-element = ExtResource("5_rtfqf")
-
-[sub_resource type="Resource" id="Resource_c2t1r"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("11_0gi6j")
-projection_texture = ExtResource("10_jni0s")
-element = ExtResource("5_rtfqf")
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_onr5v"]
 resource_local_to_scene = true
 random_pitch = 1.1
@@ -348,6 +372,8 @@ script = SubResource("GDScript_71bfm")
 is_ranged = true
 wizard_dash_cooldown = 1.0
 wizard_dash_cooldown_max = 10.0
+default_spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_jegsn"), SubResource("Resource_gnj56"), SubResource("Resource_h7deh"), SubResource("Resource_3mjdw")])
+enemy_raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("8_ni1h2"), ExtResource("9_6xc7a"), ExtResource("10_wxye7"), ExtResource("11_ba4mg")])
 debug = false
 movement_speed = 300.0
 death_sound = null
@@ -417,7 +443,6 @@ script = SubResource("GDScript_oflwe")
 animation = ""
 
 [node name="PlayerData" parent="." index="4"]
-spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
 spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
 
