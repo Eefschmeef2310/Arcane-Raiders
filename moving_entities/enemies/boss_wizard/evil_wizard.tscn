@@ -41,19 +41,13 @@ func _ready():
 	set_data(data, false)
 	$Input.start_state_machine(nav_agent)
 
-#endregion
-
-#region Signal methods
-
-#Physcis Process
-
 func _physics_process(delta):
 	nav_agent.set_velocity(global_position.direction_to(nav_agent.get_next_path_position()))
 	super._physics_process(delta)
 	wizard_dash_cooldown -= delta
 #endregion
 
-#region Other methods (please try to separate and organise!)
+#region Signal methods
 
 #endregion
 
@@ -122,8 +116,8 @@ script/source = "extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-var transition_range: float = 800
-var prefered_range: float = 500
+@export var transition_range: float = 700
+@export var prefered_range: float = 500
 var strafe_dir: int = 1
 var player:Player
 #endregion
@@ -145,17 +139,13 @@ func physics_update(delta):
 	if !is_multiplayer_authority(): return
 	
 	#if too far go back to default state
-	if player == null or !is_instance_valid(player):
-		Transitioned.emit(self, \"default\")
-		return
-	if owner.global_position.distance_to(player.global_position) >= transition_range:
+	if player == null or !is_instance_valid(player) or owner.global_position.distance_to(player.global_position) >= transition_range:
 		Transitioned.emit(self, \"default\")
 		return
 	
 	if can_cast_spell_player(0) && can_cast_spell_player(1):
-		#TODO calc the direction of attack then rpc aim direction to owner 
-		#use predictive ai here instead
-		set_direction.rpc(owner.global_position.direction_to(player.global_position))
+		#\"Predictive\" ai here for the laser
+		set_direction.rpc(owner.global_position.direction_to(player.global_position + player.velocity))
 		Transitioned.emit(self, \"holdspell\")
 	#attack the player off cooldown
 
@@ -198,6 +188,8 @@ script/source = "extends State
 #region Variables
 
 var spell_slot:int = 0
+var is_tracking = false
+var player:Entity
 #endregion
 
 #region Godot methods
@@ -212,34 +204,42 @@ var spell_slot:int = 0
 func enter():
 	if !is_multiplayer_authority(): return
 	
-	if can_cast_spell_player(0): spell_slot = 0
-	elif can_cast_spell_player(1): spell_slot = 1
-	else: 
-		Transitioned.emit(self, \"default\")
-		return
+	if can_cast_spell_player(0): spell_slot = 0; is_tracking = false
+	elif can_cast_spell_player(1): spell_slot = 1; is_tracking = true
+	else: Transitioned.emit(self, \"default\"); return;
+	
+	var direction
+	
+	if spell_slot == 1: 
+		direction = owner.global_position.direction_to(get_closest_player().global_position)
+		set_direction.rpc(direction)
 	
 	owner.prepare_cast(spell_slot)
 	await get_tree().create_timer(1).timeout
 	
-	var player = get_closest_player()
+	player = get_closest_player()
+	var next_state = \"laser\" if spell_slot == 0 else \"projectile\"
+	
 	if player != null and is_instance_valid(player):
-		var direction = owner.global_position.direction_to(player.global_position) #dummy value
-		
-		if spell_slot == 0:
-			pass
-		#else:
-			#direction = owner.global_position.direction_to(get_closest_player().global_position)
-		
+		direction = owner.global_position.direction_to(player.global_position)
 		if spell_slot == 1: set_direction.rpc(direction)
-		
-		var next_state = \"laser\" if spell_slot == 0 else \"projectile\"
 		Transitioned.emit(self, next_state)
-	else:
-		Transitioned.emit(self, \"default\")
+		
+	Transitioned.emit(self, next_state)
+
+func update(delta):
+	super.update(delta)
+	if !is_multiplayer_authority(): return
+	if player != null && is_tracking:
+		update_tracking.rpc(owner.global_position.direction_to(player.global_position))
 
 
 @rpc(\"authority\", \"call_local\", \"reliable\")
 func set_direction(direction: Vector2):
+	owner.aim_direction = direction
+	
+@rpc(\"authority\", \"call_local\", \"unreliable\")
+func update_tracking(direction: Vector2):
 	owner.aim_direction = direction
 #endregion
 
@@ -351,6 +351,7 @@ animation = ""
 
 [node name="Default" type="Node" parent="Input" index="1" node_paths=PackedStringArray("next_state")]
 script = SubResource("GDScript_sd0g0")
+transition_range = 600.0
 next_state = NodePath("../Strafe")
 animation = ""
 
