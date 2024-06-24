@@ -144,7 +144,7 @@ end_time = 0.5
 cancel_time = 0.3
 cooldown_time = 3.0
 combined_spell_index = -1
-play_sound_on_cast = true
+play_sound_on_cast = false
 
 [node name="Sprite2D" parent="." index="1"]
 scale = Vector2(0.45, 0.45)

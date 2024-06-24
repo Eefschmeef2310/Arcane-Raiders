@@ -1,13 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=29 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_58eft"]
+[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="3_q1407"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="4_jwyjq"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_r8dyt"]
 [ext_resource type="PackedScene" uid="uid://bq1ea3l23k3gq" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_laser.tscn" id="5_gr2yf"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="5_rtfqf"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
+[ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="7_bt8co"]
 [ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="8_ni1h2"]
 [ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
@@ -80,7 +82,7 @@ func on_hurt(attack):
 
 func _on_zero_health():
 	if is_multiplayer_authority():
-		wizard_died.emit()
+		wizard_died.emit(self)
 		call_deferred(\"queue_free\")
 
 #Set move direction to direction of safe velocity
@@ -93,6 +95,7 @@ script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
 scene = ExtResource("5_gr2yf")
+projection_texture = ExtResource("3_q1407")
 element = ExtResource("5_rtfqf")
 
 [sub_resource type="Resource" id="Resource_gnj56"]
@@ -100,6 +103,7 @@ script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
 scene = ExtResource("7_rniqf")
+projection_texture = ExtResource("3_q1407")
 element = ExtResource("5_rtfqf")
 
 [sub_resource type="Resource" id="Resource_h7deh"]
@@ -107,6 +111,7 @@ script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
 scene = ExtResource("9_3f166")
+projection_texture = ExtResource("7_bt8co")
 element = ExtResource("5_rtfqf")
 
 [sub_resource type="Resource" id="Resource_3mjdw"]
@@ -114,6 +119,7 @@ script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
 scene = ExtResource("11_0gi6j")
+projection_texture = ExtResource("7_bt8co")
 element = ExtResource("5_rtfqf")
 
 [sub_resource type="GDScript" id="GDScript_sd0g0"]
@@ -484,6 +490,8 @@ position = Vector2(5, -29)
 shape = SubResource("CircleShape2D_spcxr")
 debug_color = Color(0, 0.6, 0.701961, 0.0745098)
 
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="area_entered" from="DashDetector" to="Input/Default" method="_spell_entered"]
 [connection signal="area_entered" from="DashDetector" to="Input/Strafe" method="_spell_entered"]
