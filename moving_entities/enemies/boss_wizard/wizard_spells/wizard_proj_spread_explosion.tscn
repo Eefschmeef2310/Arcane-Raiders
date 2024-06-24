@@ -135,6 +135,7 @@ speed_curve = SubResource("Curve_wguow")
 scale_falloff_curve = SubResource("Curve_f0omi")
 transparency_falloff_curve = SubResource("Curve_mw6el")
 area_enabled_curve = SubResource("Curve_53ry8")
+knockback = 5.0
 destroy_on_contact = true
 base_damage = 50
 infliction_time = 1.0

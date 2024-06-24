@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4p5ew4hagnul"]
+[gd_scene load_steps=7 format=3 uid="uid://c4p5ew4hagnul"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_rm4r1"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_bti2y"]
-[ext_resource type="PackedScene" uid="uid://br01dtr66kciu" path="res://spells/scenes/proj_burst/proj_burst_explosion.tscn" id="3_q2lla"]
 
 [sub_resource type="Gradient" id="Gradient_1mn2o"]
 
@@ -31,7 +30,7 @@ script/source = "extends SpellBase
 	#Exported Variables
 	#@export_group(\"Group\")
 	#@export_subgroup(\"Subgroup\")
-@export var EXPLOSION = preload(\"res://spells/scenes/proj_burst/proj_burst_explosion.tscn\")
+const EXPLOSION = preload(\"res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread_explosion.tscn\")
 @export var waves : int = 10
 @export var explosions_per_wave : int = 5
 @export_range(0, TAU) var max_radians : float = 0.2
@@ -84,7 +83,6 @@ func _on_wave_timer_timeout():
 [node name="WizardProjSpread" instance=ExtResource("1_rm4r1")]
 material = SubResource("ShaderMaterial_weijr")
 script = SubResource("GDScript_jldn7")
-EXPLOSION = ExtResource("3_q2lla")
 waves = 5
 explosions_per_wave = 5
 max_radians = 2.0

@@ -65,12 +65,14 @@ script = SubResource("GDScript_8f5a0")
 EXPLOSION = ExtResource("3_bcvkx")
 base_damage = 160
 start_time = 0.05
-cooldown_time = 7.0
+end_time = 0.0
+cancel_time = 0.0
 play_sound_on_cast = false
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="0"]
 
 [node name="ExplosionTimer" type="Timer" parent="." index="1"]
+wait_time = 1.5
 one_shot = true
 autostart = true
 
