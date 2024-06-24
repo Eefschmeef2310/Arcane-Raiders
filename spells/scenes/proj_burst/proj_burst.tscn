@@ -14,6 +14,7 @@ gradient = SubResource("Gradient_1mn2o")
 resource_local_to_scene = true
 shader = ExtResource("2_5jtuc")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
 
 [node name="proj_burst" instance=ExtResource("1_4le16")]

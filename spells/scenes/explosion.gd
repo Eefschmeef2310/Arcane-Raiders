@@ -76,14 +76,14 @@ func _physics_process(_delta):
 func _on_body_entered(body):
 	if body != caster and "on_hurt" in body:
 		body.on_hurt(self)
-		if destroy_on_contact:
-			queue_free()
+	if destroy_on_contact:
+		queue_free()
 
 func _on_area_entered(area):
 	if area != caster and "on_hurt" in area:
 		area.on_hurt(self)
-		if destroy_on_contact:
-			queue_free()
+	if destroy_on_contact:
+		queue_free()
 
 func _on_kill_timer_timeout():
 	queue_free()

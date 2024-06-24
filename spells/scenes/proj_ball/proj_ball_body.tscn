@@ -20,6 +20,7 @@ gradient = SubResource("Gradient_n4ea6")
 resource_local_to_scene = true
 shader = ExtResource("4_4wouh")
 shader_parameter/final_saturation = 0.65
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ugs5e")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pitru"]
