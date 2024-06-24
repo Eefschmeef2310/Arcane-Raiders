@@ -43,6 +43,7 @@ var dash_cooldown_max: float = 1.0
 var dash_direction: Vector2
 var dash_speed = 1200
 var dash_duration = 0.25 # Is only used for checking if a dash will end in a wall
+var dash_target_pos : Vector2
 
 var friends_nearby : Array = []
 @export var revival_time : float
@@ -111,6 +112,7 @@ func _process(delta):
 				if frost_speed_scale < 1:
 					dash_spd *= 0.5 
 				velocity = dash_direction * dash_spd
+				
 			else:
 				velocity = get_knockback_velocity() + get_attraction_velocity()
 				if can_input:
@@ -186,6 +188,12 @@ func _process(delta):
 		can_cast_label.text = str(can_cast)
 	
 	crown.visible = data.has_crown
+
+func _physics_process(delta):
+	super._physics_process(delta)
+	if is_dashing:
+		dash_muck_with_collider()
+
 #endregion
 
 #region Signal methods
@@ -255,18 +263,18 @@ func start_dash(dir: Vector2):
 	if frost_speed_scale < 1:
 		dash_spd *= 0.5 
 	
-	# Check if we're going to end in a wall or not.ds
+	# Check if we're going to end in a wall or not.
 	# Raycast with unwalkables:
-	dash_ray.target_position = (dir.normalized() * dash_spd * dash_duration)
+	dash_target_pos = to_global(dir.normalized() * dash_spd * dash_duration)
+	
+	dash_muck_with_collider()
+
+func dash_muck_with_collider():
+	dash_ray.get_parent().rotation = dash_direction.angle()
+	dash_ray.target_position = dash_ray.to_local(dash_target_pos)
 	dash_ray.force_raycast_update()
-	if !dash_ray.is_colliding():
-		# Point check for walkable floor:
-		var pp = PhysicsPointQueryParameters2D.new()
-		pp.collision_mask = collision_mask
-		pp.position = global_position + (dir.normalized() * dash_spd * dash_duration)
-		if !get_world_2d().direct_space_state.intersect_point(pp, 1):
-			# Disable collision and allow passthrough colliders.
-			collision_shape.disabled = true
+	
+	collision_shape.disabled = dash_ray.is_colliding()
 
 @rpc("authority", "call_local", "reliable")
 func play_emote(index : int):
@@ -529,3 +537,10 @@ func spawn_particles():
 	var particles = DUST_PARTICLES.instantiate()
 	particles.global_position = global_position
 	add_sibling(particles)
+
+
+func _on_hole_detector_body_exited(body):
+	print("We are not in a hole.")
+	if is_dashing:
+		print("Collision reenabled.")
+		collision_shape.disabled = false
