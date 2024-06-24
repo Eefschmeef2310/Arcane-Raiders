@@ -179,7 +179,7 @@ _data = {
 [node name="GiantSlime" groups=["boss"] instance=ExtResource("1_148eg")]
 script = SubResource("GDScript_3ka3a")
 calmdown_time = 0.2
-movement_speed = 100.0
+movement_speed = 200.0
 is_boss = true
 boss_name = "Conductive Amalgamate"
 max_health = 2000

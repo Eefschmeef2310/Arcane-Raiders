@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=7 format=3 uid="uid://bpyrqdxfyvpku"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=8 format=3 uid="uid://bpyrqdxfyvpku"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_moo0l"]
 [ext_resource type="Texture2D" uid="uid://t13216wk8eap" path="res://elements/icons/wind_icon.png" id="1_stng8"]
@@ -11,8 +11,12 @@ colors = PackedColorArray(1, 1, 1, 1, 0.8, 1, 0.94, 1, 0, 0.917647, 0, 1, 0, 0.1
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_cshek"]
 gradient = SubResource("Gradient_7dvtd")
 
+[sub_resource type="Gradient" id="Gradient_2mgj5"]
+offsets = PackedFloat32Array(0, 0.137536, 0.358166, 0.790831, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.136667, 0.2, 1, 0, 0.917647, 0, 1, 0.8, 1, 0.94, 1, 1, 1, 1, 1)
+
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ahjjk"]
-gradient = SubResource("Gradient_7dvtd")
+gradient = SubResource("Gradient_2mgj5")
 
 [resource]
 script = ExtResource("1_moo0l")

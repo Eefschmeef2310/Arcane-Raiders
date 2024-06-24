@@ -98,7 +98,6 @@ position = Vector2(510, 490)
 script = SubResource("GDScript_3d25w")
 base_damage = 100
 infliction_time = 5.0
-end_time = 2.0
 cooldown_time = 6.0
 
 [node name="Ring" type="Node2D" parent="."]
