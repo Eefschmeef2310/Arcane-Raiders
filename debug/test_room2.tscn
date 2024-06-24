@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=12 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
@@ -43,11 +43,6 @@ resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
-
-[sub_resource type="Gradient" id="Gradient_8fnr6"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.546053)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
 
@@ -97,15 +92,12 @@ data = NodePath("../../../Player/PlayerData")
 position = Vector2(96, 800)
 health = 250
 
-[node name="PlayerData" parent="Player" index="5"]
+[node name="PlayerData" parent="Player" index="4"]
 spell_strings = Array[String](["burn-proj_ball", "burn-aoe_large", "stun-aoe_large"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="AnimalSound" parent="Player" index="22"]
+[node name="AnimalSound" parent="Player" index="23"]
 stream = SubResource("AudioStreamRandomizer_doftm")
-
-[node name="DashTrail" parent="Player" index="24"]
-gradient = SubResource("Gradient_8fnr6")
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true

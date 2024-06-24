@@ -52,6 +52,7 @@ var live_players = 0
 var spawn_keys = []
 var number_of_players_health_scale: float = 1.0
 var number_of_players_difficulty_scale: float = 1.0
+var james_mode = false
 
 func _ready():
 	if !rng:
@@ -77,6 +78,7 @@ func _ready():
 		if is_multiplayer_authority():
 			number_of_enemies_left = 0
 			total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
+			if james_mode: total_difficulty_left *= 2
 			print("Difficulty modifier: " + str(difficulty_modifier))
 		
 			var arr = EnemyManager.Data.keys()

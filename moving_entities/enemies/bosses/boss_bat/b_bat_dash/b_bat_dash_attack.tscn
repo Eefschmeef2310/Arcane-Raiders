@@ -48,7 +48,7 @@ func fire():
 @rpc(\"authority\", \"call_local\", \"reliable\")
 func dash(direction, pos):
 	caster.aim_direction = direction
-	caster.dash_to(direction, pos)
+	end_time = caster.dash_to(direction, pos)
 
 func _on_fire_timer_timeout():
 	fire()

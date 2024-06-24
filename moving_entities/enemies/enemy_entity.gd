@@ -81,7 +81,6 @@ func _physics_process(delta):
 			intended_velocity = Vector2.ZERO
 			nav_agent.set_velocity(Vector2.ZERO)
 			velocity = get_knockback_velocity() + get_attraction_velocity()
-			move_and_slide()
 		
 		else:
 			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
@@ -89,7 +88,8 @@ func _physics_process(delta):
 		
 		#Update timers
 		update_dash(delta)
-	
+		
+		move_and_slide()
 	else:
 		call_deferred("actor_setup")
 	
@@ -148,12 +148,14 @@ func dash(dir: Vector2, duration: float):
 	is_dashing = true
 	velocity = dash_direction * dash_speed
 
-func dash_to(dir: Vector2, target: Vector2):
+func dash_to(dir: Vector2, target: Vector2) -> float:
 	dash_direction = dir
 	nav_agent.avoidance_enabled = false
 	dash_timer = global_position.distance_to(target)/dash_speed
 	is_dashing = true
 	velocity = dash_direction * dash_speed
+	
+	return dash_timer
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -161,7 +163,6 @@ func update_dash(delta):
 	if dash_timer > 0:
 		velocity = dash_direction * dash_speed
 		dash_timer -= delta
-		move_and_slide()
 	elif is_dashing:
 		dash_timer = 0
 		is_dashing = false

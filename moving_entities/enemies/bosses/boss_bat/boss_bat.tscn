@@ -172,32 +172,9 @@ script/source = "extends State
 #class_name
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
 @onready var ray_cast_2d = $\"../../RayCast2D\"
-	#Other Variables (please try to separate and organise!)
+var timeout = 3.0
 
-#endregion
-
-#region Godot methods
-
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
 func enter():
 	play_anim()
 	set_position()
@@ -213,13 +190,17 @@ func physics_update(delta):
 			enemy.aim_direction = enemy.global_position.direction_to(enemy.target_area)
 			enemy.target_player = get_closest_player()
 			Transitioned.emit(self, \"dashattack\")
+	timeout -= delta
+	if timeout <= 0:
+		if can_cast_spell(3): Transitioned.emit(self, \"blinkspam\")
+		elif can_cast_spell(4): Transitioned.emit(self, \"spinattack\")
+	
 	
 func set_position():
 	if is_multiplayer_authority():
 		if \"dash_prep_pos\" in enemy && enemy.dash_prep_pos:
 			navigation_agent.target_position = enemy.dash_prep_pos
 		else: Transitioned.emit(self, \"default\")
-#endregion
 
 "
 
@@ -271,7 +252,7 @@ func physics_update(delta):
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f8rpe"]
-radius = 14.1421
+radius = 67.0298
 
 [sub_resource type="Animation" id="Animation_jreu4"]
 length = 0.001
@@ -476,7 +457,7 @@ _data = {
 [node name="BossBat" groups=["boss"] instance=ExtResource("1_gcbln")]
 collision_mask = 1
 script = SubResource("GDScript_b5sd0")
-movement_speed = 300.0
+movement_speed = 200.0
 is_boss = true
 boss_name = "Echo Rusher"
 death_sound = null
@@ -487,12 +468,12 @@ knockback_initial_velocity = 100.0
 position = Vector2(0, -53)
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(0, -91)
+position = Vector2(0, -7.62939e-06)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_h11k2")
 
 [node name="Hurtbox" parent="." index="2"]
-position = Vector2(1, -74)
+position = Vector2(0, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 rotation = 1.5708
@@ -500,17 +481,21 @@ shape = SubResource("CapsuleShape2D_hf3fn")
 debug_color = Color(0.956863, 0, 0.533333, 0.137255)
 
 [node name="ProgressBar" parent="." index="4"]
-offset_top = -77.0
-offset_bottom = -70.0
+offset_left = -51.0
+offset_top = -3.0
+offset_right = 49.0
+offset_bottom = 4.0
 
 [node name="StatusUI" parent="." index="5"]
-offset_top = -111.0
-offset_bottom = -79.0
+offset_left = -101.0
+offset_top = -37.0
+offset_right = 99.0
+offset_bottom = -5.0
 
 [node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
-spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 10.0, 20.0])
+spell_cooldowns = Array[float]([2.0, 2.0, 2.0, 10.0, 0.0])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
@@ -537,20 +522,20 @@ script = ExtResource("4_77mgy")
 spell_num = 1
 transition_out_when_can_cast = true
 next_state = "default"
-animation = ""
-nav_timer_interval = 99.0
-nav_timer = 99
+animation = "windup"
 
 [node name="BlinkSpam" type="Node" parent="StateMachine" index="5"]
 script = ExtResource("4_77mgy")
 spell_num = 3
 transition_out_when_can_cast = true
+next_state = "default"
 animation = ""
 
 [node name="SpinAttack" type="Node" parent="StateMachine" index="6"]
 script = ExtResource("4_77mgy")
 spell_num = 4
 transition_out_when_can_cast = true
+next_state = "default"
 
 [node name="DarkenRoom" type="Node" parent="StateMachine" index="7"]
 script = SubResource("GDScript_prrkd")
@@ -571,7 +556,6 @@ nav_timer = 99
 navigation_layers = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
-position = Vector2(2, 0)
 shape = SubResource("CircleShape2D_f8rpe")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
@@ -583,7 +567,6 @@ libraries = {
 visible = false
 
 [node name="Label" type="Label" parent="." index="14"]
-visible = false
 offset_left = -23.0
 offset_top = -117.0
 offset_right = 17.0

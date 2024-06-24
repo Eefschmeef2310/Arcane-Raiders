@@ -46,11 +46,13 @@ var enemy_types_per_floor : Array = [
 	[], # boss
 	[], # end
 ]
+@export var james_mode: bool = false
 
 var number_of_players = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 @export var use_preset_seed: bool = false
 @export var preset_seed: int = 0
+var seed_text : String = ""
 @export var current_floor : int = -1
 
 var current_room_node : CastleRoom
@@ -273,6 +275,7 @@ func inject_data_to_current_room_node():
 	current_room_node.number_of_players = number_of_players
 	current_room_node.number_of_players_health_scale = number_of_players_health_scale[number_of_players - 1]
 	current_room_node.number_of_players_difficulty_scale = number_of_players_difficulty_scale[number_of_players - 1]
+	current_room_node.james_mode = james_mode
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
@@ -405,8 +408,10 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	ui.set_data(data)
 	#print(data.device_id)
 
-func set_seed(seed: int):
-	print("Setting seed to " + str(seed))
+func set_seed(seed: String):
+	var seed_int = hash(seed)
+	print("Setting seed to " + seed_int)
 	use_preset_seed = true
-	preset_seed = seed
-	rng.seed = seed 
+	preset_seed = seed_int
+	rng.seed = seed_int 
+	seed_text = seed

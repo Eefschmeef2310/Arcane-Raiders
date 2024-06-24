@@ -38,5 +38,5 @@ func fire():
 position = Vector2(105, 77)
 script = SubResource("GDScript_i2td0")
 base_damage = 100
-end_time = 6.0
+end_time = 7.0
 cooldown_time = 20.0
