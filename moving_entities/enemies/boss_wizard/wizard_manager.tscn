@@ -28,12 +28,9 @@ func _ready():
 				wizard.element_index = i
 				if i >= 2:wizard.is_ranged = false
 				else: wizard.is_ranged = true
-				wizard.set_wizard_elements.rpc(i)
+				wizard.set_spell_element.rpc(i)
 				#data.spells[i].element = SpellManager.elements[\"burn\"]
 				
-@rpc(\"authority\", \"call_local\", \"reliable\")
-func set_wizard_elements(index:int):
-	wizard.element_index = index
 
 func _remove_wizard(dead_wizard):
 	if !is_multiplayer_authority(): return
@@ -54,25 +51,11 @@ func _update_health():
 [node name="WizardManager" groups=["boss"] instance=ExtResource("1_eytbb")]
 script = SubResource("GDScript_4pg0j")
 wizard_num = 4
-movement_speed = null
-base_damage = null
-health_pickup_chance = null
-create_pickup = null
-dash_speed = null
 is_boss = true
 boss_name = "Shadow Wizard Guardians"
-show_boss_bar = null
-aim_direction = null
 ignoreForStats = true
-kill_credited = null
 death_sound = null
 max_health = 4000
-health = null
-do_damage_numbers = null
-print_velocity = null
-knockback_lerp_strength = null
-knockback_initial_velocity = null
-attraction_strength = null
 
 [node name="PointLight2D" parent="." index="0"]
 visible = false
