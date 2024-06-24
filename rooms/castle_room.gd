@@ -88,7 +88,7 @@ func _ready():
 				var spawn_pos_node = spawn_nodes[rng.randi_range(0, spawn_nodes.size() - 1)]
 				var spawn_pos = spawn_pos_node.global_position
 				var _enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
-				total_difficulty_left -= int(EnemyManager.Datad[key]["difficulty"])
+				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 				# print("New total: " + str(number_of_enemies_left))
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
