@@ -126,7 +126,8 @@ func _process(delta):
 	# Dashing and invincibility
 	if dash_cooldown > 0:
 		dash_cooldown -= delta
-		dash_bar.value = dash_cooldown
+		if dash_bar:
+			dash_bar.value = dash_cooldown
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
@@ -235,7 +236,8 @@ func set_data(new_data: PlayerData, destroy_old := true):
 
 func set_input(id: int):
 	#print("Setting input" + str(id))
-	input_node.set_device(id)
+	if "set_device" in input_node:
+		input_node.set_device(id)
 
 func set_sprite_overlay(c: Color):
 	body_sprite.get_node("ColorRect").color = c
@@ -295,7 +297,7 @@ func prepare_cast_down(slot: int):
 	
 
 func prepare_cast(slot: int):
-	if can_cast and data.spell_strings[slot] != "" and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
+	if can_cast and data.spells[slot] != null and !is_dashing and preparing_cast_slot < 0 and data.spell_cooldowns[slot] <= 0 and !is_near_pickup():
 		preparing_cast_slot = slot
 		spell_sprite_2d_projection.texture = data.spells[slot].projection_texture
 		animation_player.stop()

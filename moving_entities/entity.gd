@@ -268,7 +268,7 @@ func shock_effect():
 	
 	if(get_groups().size() > 0):
 		for entity in get_tree().get_nodes_in_group(get_groups()[0]):
-			if entity != self and global_position.distance_to(entity.global_position) < closest_distance and !entity.shocked_this_frame:
+			if entity is Entity and entity != self and global_position.distance_to(entity.global_position) < closest_distance and !entity.shocked_this_frame:
 				closest = entity
 				closest_distance = global_position.distance_to(entity.global_position)
 	

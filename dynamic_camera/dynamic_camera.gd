@@ -35,7 +35,8 @@ func dynamic_camera(_delta):
 	# Find the zoom that will contain all targets
 	var r : Rect2 = Rect2(position, Vector2.ONE)
 	for target in targets:
-		r = r.expand(target.position)
+		if is_instance_valid(target):
+			r = r.expand(target.position)
 	r = r.grow_individual(margin.x, margin.y, margin.x, margin.y)
 	
 	var z

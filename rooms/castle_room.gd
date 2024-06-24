@@ -92,7 +92,6 @@ func _ready():
 				var _enemy = enemy_spawner.spawn({ "key": key, "pos": spawn_pos })
 				total_difficulty_left -= int(EnemyManager.Data[key]["difficulty"])
 				# print("New total: " + str(number_of_enemies_left))
-			
 	if track_id != "":
 		AudioManager.play_track_fade(track_id)
 

@@ -1,9 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=27 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_58eft"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="4_jwyjq"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_r8dyt"]
+[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_v1y5u"]
+[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_br33i"]
+[ext_resource type="PackedScene" uid="uid://bq1ea3l23k3gq" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_laser.tscn" id="5_gr2yf"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="5_rtfqf"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
+[ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
+[ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
+[ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="10_jni0s"]
+[ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="11_0gi6j"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
 resource_name = "EvilWizard"
@@ -12,34 +22,32 @@ script/source = "extends Player
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
+signal wizard_hurt
+signal wizard_died(wizard: Node)
 
 @onready var nav_agent = $NavigationAgent2D
 
+@export var is_ranged:bool = true
+@export var wizard_dash_cooldown: float = 1
+@export var wizard_dash_cooldown_max: float = 10
+
+var spell_position: Vector2 = Vector2.ZERO
+
 #endregion
-signal wizard_hurt
-signal wizard_died(wizard: Node)
 
 #region Godot methods
 func _ready():
 	super._ready()
+	set_data(data, false)
 	$Input.start_state_machine(nav_agent)
 
+func _physics_process(delta):
+	nav_agent.set_velocity(global_position.direction_to(nav_agent.get_next_path_position()))
+	super._physics_process(delta)
+	wizard_dash_cooldown -= delta
 #endregion
 
 #region Signal methods
-
-
-#Physcis Process
-func _physics_process(delta):
-	#move_direction = global_position.direction_to(nav_agent.get_next_path_position())
-	nav_agent.set_velocity(global_position.direction_to(nav_agent.get_next_path_position()))
-	super._physics_process(delta)
-#Set move direction to direction of safe velocity
-
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
 
 #endregion
 
@@ -51,6 +59,7 @@ func _on_zero_health():
 	wizard_died.emit()
 	call_deferred(\"queue_free\")
 
+#Set move direction to direction of safe velocity
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2):
 	move_direction = safe_velocity.normalized()
 "
@@ -62,7 +71,145 @@ script/source = "extends State
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
+@export var transition_range:float = 700
+@export var next_state: State
+var player:Player
+#endregion
 
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+func _spell_entered(area):
+	if get_parent().current_state.name.to_lower() == name.to_lower() && owner.wizard_dash_cooldown <= 0 && is_multiplayer_authority():
+		owner.spell_position = area.global_position
+		Transitioned.emit(self, \"dashing\")
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func physics_update(delta):
+	super.physics_update(delta)
+	if !is_multiplayer_authority(): return
+	if player == null or !is_instance_valid(player):
+		Transitioned.emit(self, next_state.name.to_lower())
+	elif owner.global_position.distance_to(player.global_position) <= transition_range:
+		Transitioned.emit(self, next_state.name.to_lower())
+	#Check distance between player and me and if close enough transition into next state
+
+func set_position():
+	if !is_multiplayer_authority(): return
+	player = get_closest_player()
+	if player:
+		navigation_agent.target_position = player.global_position
+	else:
+		Transitioned.emit(self, \"idle\")
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_phf1k"]
+resource_name = "wizard_strafe"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+@export_group(\"RangedStats\")
+@export var transition_range: float = 700
+@export var prefered_range: float = 500
+
+
+@export_group(\"CloseStats\")
+@export var attack_range: float = 200
+
+var strafe_dir: int = 1
+var player:Player
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+func _spell_entered(area):
+	if get_parent().current_state.name.to_lower() == name.to_lower() && owner.wizard_dash_cooldown <= 0 && is_multiplayer_authority():
+		owner.spell_position = area.global_position
+		Transitioned.emit(self, \"dashing\")
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func physics_update(delta):
+	super.physics_update(delta)
+	if !is_multiplayer_authority(): return
+	
+	#If too far from player or if player dies, transition back to default
+	if player == null or !is_instance_valid(player) or owner.global_position.distance_to(player.global_position) >= transition_range:
+		Transitioned.emit(self, \"default\")
+		return
+	
+	#Ranged combo
+	if owner.is_ranged && can_cast_spell_player(0) && can_cast_spell_player(1):
+		#\"Predictive\" ai here for the laser
+		set_direction.rpc(owner.global_position.direction_to(player.global_position + player.velocity))
+		Transitioned.emit(self, \"holdspellrange\")
+		
+	#Close combo
+	elif !owner.is_ranged && can_cast_spell_player(2) && can_cast_spell_player(3) && \\
+	owner.global_position.distance_to(player.global_position) < attack_range:
+		set_direction.rpc(owner.global_position.direction_to(player.global_position))
+		Transitioned.emit(self, \"holdspellclose\")
+
+func set_position():
+	if !is_multiplayer_authority(): return
+	player = get_closest_player()
+	if player == null:Transitioned.emit(self, \"idle\"); return
+	
+	if owner.is_ranged:
+		var distance = player.global_position.distance_to(enemy.global_position)
+		var direction = enemy.global_position.direction_to(player.global_position)
+		var final_direction: Vector2 = Vector2.ZERO
+		
+		final_direction = direction if (distance > prefered_range) else -direction
+		
+		#Strafe direction
+		final_direction = direction.rotated(deg_to_rad(90*strafe_dir))
+		if (distance < prefered_range): final_direction -= direction
+		
+		if(randi() % 100 < 40*nav_timer_interval):
+			strafe_dir *= -1
+		
+		navigation_agent.target_position = enemy.global_position + 2 * final_direction * nav_timer_interval * enemy.movement_speed
+	else:
+		navigation_agent.target_position = player.global_position
+		
+		
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func set_direction(direction: Vector2):
+	owner.aim_direction = direction
+#endregion
+
+"
+
+[sub_resource type="GDScript" id="GDScript_cs2ry"]
+resource_name = "hold_spell_state"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+@export var spell0: int = 0
+@export var spell1: int = 1
+
+var is_tracking = false
+var fire_instantly = false
+
+var spell_slot:int = 0
+var player:Entity
+
+var spell_array = [\"laser\", \"projectile\", \"aoe\", \"spread\"]
 #endregion
 
 #region Godot methods
@@ -74,11 +221,117 @@ script/source = "extends State
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func set_position():
-	navigation_agent.target_position = get_closest_player().global_position
+func enter():
+	if !is_multiplayer_authority(): return
+	
+	fire_instantly = false
+	if can_cast_spell_player(0) && (spell0 == 0 or spell1 == 0): spell_slot = 0; is_tracking = false
+	elif can_cast_spell_player(1) && (spell0 == 1 or spell1 == 1): spell_slot = 1; is_tracking = true
+	elif can_cast_spell_player(2) && (spell0 == 2 or spell1 == 2): spell_slot = 2; is_tracking = true
+	elif can_cast_spell_player(3) && (spell0 == 3 or spell1 == 3): spell_slot = 3; is_tracking = true; fire_instantly = true
+	else: Transitioned.emit(self, \"default\"); return;
+	
+	var direction
+	
+	if is_tracking: 
+		direction = owner.global_position.direction_to(get_closest_player().global_position)
+		set_direction.rpc(direction)
+	
+	owner.prepare_cast(spell_slot)
+	if !fire_instantly:
+		await get_tree().create_timer(0.8).timeout
+		
+		player = get_closest_player()
+		
+		if player != null and is_instance_valid(player) and is_tracking:
+			direction = owner.global_position.direction_to(player.global_position)
+			set_direction.rpc(direction)
+	#else: await get_tree().create_timer(0.1).timeout
+	Transitioned.emit(self, spell_array[spell_slot])
+
+func update(delta):
+	super.update(delta)
+	if !is_multiplayer_authority(): return
+	if player != null && is_tracking:
+		update_tracking.rpc(owner.global_position.direction_to(player.global_position))
+
+
+@rpc(\"authority\", \"call_local\", \"reliable\")
+func set_direction(direction: Vector2):
+	owner.aim_direction = direction
+	
+@rpc(\"authority\", \"call_local\", \"unreliable\")
+func update_tracking(direction: Vector2):
+	owner.aim_direction = direction
 #endregion
 
 "
+
+[sub_resource type="GDScript" id="GDScript_oflwe"]
+resource_name = "wizard_dash_state"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Godot methods
+var previous_state = \"\"
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func enter():
+	if is_multiplayer_authority():
+		owner.aim_direction = owner.global_position.direction_to(owner.spell_position).rotated(deg_to_rad(90))
+		owner.move_direction = owner.aim_direction
+		owner.wizard_dash_cooldown = owner.wizard_dash_cooldown_max
+		owner.attempt_dash()
+
+func physics_update(delta):
+	super.physics_update(delta)
+	if !owner.is_dashing:
+		Transitioned.emit(self, previous_state)
+#endregion
+
+"
+
+[sub_resource type="Resource" id="Resource_st64d"]
+resource_local_to_scene = true
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("5_gr2yf")
+projection_texture = ExtResource("4_v1y5u")
+element = ExtResource("5_br33i")
+
+[sub_resource type="Resource" id="Resource_hqfaj"]
+resource_local_to_scene = true
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("7_rniqf")
+projection_texture = ExtResource("4_v1y5u")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_6foxl"]
+resource_local_to_scene = true
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("9_3f166")
+projection_texture = ExtResource("10_jni0s")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_c2t1r"]
+resource_local_to_scene = true
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("11_0gi6j")
+projection_texture = ExtResource("10_jni0s")
+element = ExtResource("5_rtfqf")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_onr5v"]
 resource_local_to_scene = true
@@ -86,9 +339,20 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
+[sub_resource type="Gradient" id="Gradient_cmhpy"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0, 0.546053)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spcxr"]
+radius = 372.012
+
 [node name="EvilWizard" groups=["enemy"] instance=ExtResource("1_a4rya")]
 collision_layer = 8
 script = SubResource("GDScript_71bfm")
+is_ranged = true
+wizard_dash_cooldown = 1.0
+wizard_dash_cooldown_max = 10.0
 debug = false
 movement_speed = 300.0
 death_sound = null
@@ -100,25 +364,82 @@ visible = false
 [node name="Sprite2D" parent="SpellDirection" index="1"]
 visible = false
 
-[node name="Input" parent="." index="2" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="Input" parent="." index="3" node_paths=PackedStringArray("initial_state", "debug_label")]
 script = ExtResource("2_r37mn")
 initial_state = NodePath("Idle")
 debug_label = NodePath("../Label")
 
 [node name="Idle" type="Node" parent="Input" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("3_58eft")
-actual_first_state = NodePath("../Walk")
+actual_first_state = NodePath("../Default")
+animation = ""
 
-[node name="Walk" type="Node" parent="Input" index="1"]
+[node name="Default" type="Node" parent="Input" index="1" node_paths=PackedStringArray("next_state")]
 script = SubResource("GDScript_sd0g0")
+transition_range = 600.0
+next_state = NodePath("../Strafe")
+animation = ""
 
-[node name="Hurtbox" parent="." index="6"]
+[node name="Strafe" type="Node" parent="Input" index="2"]
+script = SubResource("GDScript_phf1k")
+animation = ""
+
+[node name="HoldSpellRange" type="Node" parent="Input" index="3"]
+script = SubResource("GDScript_cs2ry")
+animation = ""
+
+[node name="HoldSpellClose" type="Node" parent="Input" index="4"]
+script = SubResource("GDScript_cs2ry")
+spell0 = 2
+spell1 = 3
+animation = ""
+
+[node name="Laser" type="Node" parent="Input" index="5"]
+script = ExtResource("4_r8dyt")
+transition_out_when_can_cast = true
+animation = ""
+
+[node name="Projectile" type="Node" parent="Input" index="6"]
+script = ExtResource("4_r8dyt")
+spell_num = 1
+transition_out_when_can_cast = true
+animation = ""
+
+[node name="Aoe" type="Node" parent="Input" index="7"]
+script = ExtResource("4_r8dyt")
+spell_num = 2
+transition_out_when_can_cast = true
+animation = ""
+
+[node name="Spread" type="Node" parent="Input" index="8"]
+script = ExtResource("4_r8dyt")
+spell_num = 3
+transition_out_when_can_cast = true
+animation = ""
+
+[node name="Dashing" type="Node" parent="Input" index="9"]
+script = SubResource("GDScript_oflwe")
+animation = ""
+
+[node name="PlayerData" parent="." index="5"]
+spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
+spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
+spell_strings = Array[String](["", "", "", ""])
+
+[node name="Hurtbox" parent="." index="7"]
 collision_mask = 272
 
 [node name="Body" parent="SpritesFlip/SpritesScale" index="0"]
 self_modulate = Color(0.305882, 0.0901961, 0, 1)
 
-[node name="MultiplayerSynchronizer" parent="." index="13" groups=["boss", "enemy"]]
+[node name="MultiplayerSynchronizer" parent="." index="12" groups=["boss", "enemy"]]
+
+[node name="DashBar" parent="." index="15"]
+script = null
+
+[node name="StatusUI" parent="." index="16"]
+offset_top = -148.0
+offset_bottom = -116.0
 
 [node name="Label" type="Label" parent="." index="17"]
 offset_left = 77.0
@@ -130,12 +451,11 @@ offset_bottom = -37.6667
 offset_top = -112.0
 offset_bottom = -108.0
 
-[node name="StatusUI" parent="." index="19"]
-offset_top = -148.0
-offset_bottom = -116.0
-
-[node name="AnimalSound" parent="." index="25"]
+[node name="AnimalSound" parent="." index="24"]
 stream = SubResource("AudioStreamRandomizer_onr5v")
+
+[node name="DashTrail" parent="." index="26"]
+gradient = SubResource("Gradient_cmhpy")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="28"]
 path_postprocessing = 1
@@ -144,6 +464,17 @@ radius = 25.0
 max_speed = 1000.0
 avoidance_priority = 0.1
 
+[node name="DashDetector" type="Area2D" parent="." index="30"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashDetector" index="0"]
+position = Vector2(5, -29)
+shape = SubResource("CircleShape2D_spcxr")
+debug_color = Color(0, 0.6, 0.701961, 0.0745098)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="area_entered" from="DashDetector" to="Input/Default" method="_spell_entered"]
+[connection signal="area_entered" from="DashDetector" to="Input/Strafe" method="_spell_entered"]

@@ -59,6 +59,9 @@ func get_furthest_player() -> CharacterBody2D:
 func can_cast_spell(spell_slot: int) -> bool:
 	return enemy.enemy_spells.spell_cooldowns[spell_slot] <= 0 && enemy.can_cast
 	
+func can_cast_spell_player(spell_slot: int) -> bool:
+	return owner.data.spell_cooldowns[spell_slot] <= 0 && owner.can_cast
+	
 func play_anim():
 	if "attempt_anim" in owner and animation != "": enemy.attempt_anim(animation)
 	

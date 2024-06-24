@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4p5ew4hagnul"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_rm4r1"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_bti2y"]
+
+[sub_resource type="Gradient" id="Gradient_1mn2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nati4"]
+gradient = SubResource("Gradient_1mn2o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_weijr"]
+resource_local_to_scene = true
+shader = ExtResource("2_bti2y")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
+
+[sub_resource type="GDScript" id="GDScript_jldn7"]
+resource_name = "wizard_proj_spread"
+script/source = "extends SpellBase
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+const EXPLOSION = preload(\"res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread_explosion.tscn\")
+@export var waves : int = 10
+@export var explosions_per_wave : int = 5
+@export_range(0, TAU) var max_radians : float = 0.2
+
+@export var distance_from_caster : float = 40
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster) + Vector2(0,-16)
+	# await get_tree().create_timer(start_time).timeout
+	_on_wave_timer_timeout()
+#endregion
+
+func _process(_delta):
+	#if caster : global_position = caster.global_position
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
+
+#region Signal methods
+func _on_wave_timer_timeout():
+	if waves > 0:
+		#spawn
+		var angle_step = max_radians / (explosions_per_wave - 1)
+		
+		for x in explosions_per_wave:
+			var explosion = EXPLOSION.instantiate()
+			transfer_data(explosion)
+			
+			var rotation_offset = angle_step * x - max_radians / 2
+			explosion.rotation = (caster.aim_direction.angle() if caster else 0.) + rotation_offset
+			
+			explosion.global_position = global_position
+			call_deferred(\"add_sibling\", explosion)
+		waves -= 1
+		$WaveTimer.start(0.05)
+	else:
+		queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[node name="WizardProjSpread" instance=ExtResource("1_rm4r1")]
+material = SubResource("ShaderMaterial_weijr")
+script = SubResource("GDScript_jldn7")
+waves = 5
+explosions_per_wave = 5
+max_radians = 2.0
+distance_from_caster = 40.0
+
+[node name="WaveTimer" type="Timer" parent="." index="0"]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

@@ -1,0 +1,221 @@
+[gd_scene load_steps=20 format=3 uid="uid://dq2k1imf86dh4"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_hv3d4"]
+[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_esakk"]
+[ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="3_q504i"]
+
+[sub_resource type="Gradient" id="Gradient_31mqn"]
+offsets = PackedFloat32Array(0, 0.171875, 0.50625, 0.840625, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.309804, 0.145098, 0.145098, 1, 1, 0, 0, 1, 0.988235, 0.862745, 0.72549, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pt7s0"]
+gradient = SubResource("Gradient_31mqn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gshti"]
+resource_local_to_scene = true
+shader = ExtResource("2_esakk")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_pt7s0")
+
+[sub_resource type="GDScript" id="GDScript_rt4q7"]
+resource_name = "wizard_proj_explosion"
+script/source = "extends SpellBase
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var match_tilemap_angle : bool = false
+@export var speed_curve : Curve
+@export var sprite_rotation_falloff_curve : Curve
+@export var scale_falloff_curve : Curve
+@export var transparency_falloff_curve: Curve
+@export var area_enabled_curve : Curve
+@export var knockback : float = 1
+@export var destroy_on_contact : bool = false
+
+	#Onready Variables
+@onready var kill_timer = $kill_timer
+@onready var sprite_2d = $Sprite2D
+@onready var point_light_2d = $PointLight2D
+@onready var collision_shape_2d = $CollisionShape2D
+
+	#Other Variables (please try to separate and organise!)
+
+var starting_scale : Vector2
+
+var lifetime_progress : float
+
+var play_element_sound : bool = false
+
+#endregion
+
+#region Godot methods
+func _ready():
+	if resource:
+		if resource.element.gradient:
+			(material as ShaderMaterial).set_shader_parameter(\"gradient\", resource.element.gradient_inverse)
+		else:
+			modulate = resource.element.colour
+		point_light_2d.color = resource.element.colour
+		if play_element_sound and resource.element.sound:
+			AudioManager.play_audio2D_at_point(global_position, resource.element.sound)
+	#sprite_2d.rotation_degrees = randf_range(0, 360)
+	starting_scale = scale
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
+
+func _physics_process(_delta):
+	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
+	
+	position += Vector2(cos(rotation), sin(rotation)/(2 if match_tilemap_angle else 1)) * \\
+		((speed_curve.sample(lifetime_progress) if speed_curve else 0.0))
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
+	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(lifetime_progress) if sprite_rotation_falloff_curve else 1.0
+	
+	(material as ShaderMaterial).set_shader_parameter(\"alpha\", transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.)
+	
+	#1.0 - so you can set the curve to 0 for disabled and 1 for enabled
+	collision_shape_2d.disabled = 1.0 - area_enabled_curve.sample(lifetime_progress) if area_enabled_curve else 0.0
+
+#endregion
+
+#region Signal methods
+func _on_body_entered(body):
+	if body != caster and \"on_hurt\" in body:
+		body.on_hurt(self)
+		if destroy_on_contact:
+			queue_free()
+
+func _on_area_entered(area):
+	if area != caster and \"on_hurt\" in area:
+		area.on_hurt(self)
+		if destroy_on_contact:
+			queue_free()
+
+func _on_kill_timer_timeout():
+	queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[sub_resource type="Curve" id="Curve_87acy"]
+_data = [Vector2(0, 0.183767), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_kwcg2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_dbmp7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0954198, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_ad33j"]
+_data = [Vector2(0.0992366, 1), 0.0, 0.0, 0, 0, Vector2(0.103053, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hspqe"]
+atlas = ExtResource("3_q504i")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1budx"]
+atlas = ExtResource("3_q504i")
+region = Rect2(500, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptmdb"]
+atlas = ExtResource("3_q504i")
+region = Rect2(1000, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybjrj"]
+atlas = ExtResource("3_q504i")
+region = Rect2(0, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56mna"]
+atlas = ExtResource("3_q504i")
+region = Rect2(500, 500, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g37ri"]
+atlas = ExtResource("3_q504i")
+region = Rect2(1000, 500, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ajv3a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hspqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1budx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptmdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybjrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56mna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g37ri")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hacmf"]
+radius = 80.0
+
+[node name="proj_ball_explosion" instance=ExtResource("1_hv3d4")]
+material = SubResource("ShaderMaterial_gshti")
+collision_layer = 64
+collision_mask = 5
+script = SubResource("GDScript_rt4q7")
+sprite_rotation_falloff_curve = SubResource("Curve_87acy")
+scale_falloff_curve = SubResource("Curve_kwcg2")
+transparency_falloff_curve = SubResource("Curve_dbmp7")
+area_enabled_curve = SubResource("Curve_ad33j")
+base_damage = 50
+infliction_time = 1.0
+start_time = 0.2
+end_time = 0.5
+cancel_time = 0.3
+cooldown_time = 3.0
+combined_spell_index = -1
+play_sound_on_cast = true
+
+[node name="PointLight2D" parent="." index="0"]
+energy = 0.3
+
+[node name="Sprite2D" parent="." index="1"]
+visible = false
+scale = Vector2(0.65625, 0.589844)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+use_parent_material = true
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ajv3a")
+autoplay = "default"
+frame = 5
+frame_progress = 1.0
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = false
+shape = SubResource("CircleShape2D_hacmf")
+
+[node name="kill_timer" parent="." index="4"]
+wait_time = 0.4
