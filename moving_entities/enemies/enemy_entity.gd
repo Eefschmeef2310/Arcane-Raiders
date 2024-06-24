@@ -52,11 +52,12 @@ func _ready():
 	nav_agent.velocity_computed.connect(_on_navigation_agent_2d_velocity_computed)
 	
 	# Connect to room
+	var room: CastleRoom = get_parent() as CastleRoom
 	if is_boss and show_boss_bar:
 		$ProgressBar.hide()
-		var room: CastleRoom = get_parent() as CastleRoom
 		if room:
 			room.create_boss_bar.call_deferred(self)
+	if room and room.james_mode: movement_speed *= 1.5
 
 func actor_setup():
 	if is_inside_tree():
@@ -76,12 +77,12 @@ func _physics_process(delta):
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
 		
 		#knockback code
-		if !can_input or nav_agent.is_navigation_finished():
+		if (!can_input or nav_agent.is_navigation_finished()) and !is_dashing:
 			#nav_agent.set_velocity(Vector2.ZERO)
 			intended_velocity = Vector2.ZERO
 			nav_agent.set_velocity(Vector2.ZERO)
 			velocity = get_knockback_velocity() + get_attraction_velocity()
-		
+			move_and_slide()
 		else:
 			nav_agent.set_velocity(intended_velocity + get_knockback_velocity() + get_attraction_velocity())
 			
@@ -89,7 +90,6 @@ func _physics_process(delta):
 		#Update timers
 		update_dash(delta)
 		
-		move_and_slide()
 	else:
 		call_deferred("actor_setup")
 	

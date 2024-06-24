@@ -271,7 +271,8 @@ Dragon Growl
 Snake hissing
 Owl 2 (UNIVERSFIELD)
 Dog Barking
-Coin upaif"
+Coin upaif
+Arcade Countdown"
 label_settings = SubResource("LabelSettings_axq2p")
 
 [node name="Text2" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]

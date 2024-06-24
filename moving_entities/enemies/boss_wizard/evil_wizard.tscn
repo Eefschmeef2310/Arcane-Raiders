@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=26 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
@@ -339,11 +339,6 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
-[sub_resource type="Gradient" id="Gradient_cmhpy"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.546053)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_spcxr"]
 radius = 372.012
 
@@ -364,7 +359,7 @@ visible = false
 [node name="Sprite2D" parent="SpellDirection" index="1"]
 visible = false
 
-[node name="Input" parent="." index="3" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="Input" parent="." index="2" node_paths=PackedStringArray("initial_state", "debug_label")]
 script = ExtResource("2_r37mn")
 initial_state = NodePath("Idle")
 debug_label = NodePath("../Label")
@@ -421,25 +416,21 @@ animation = ""
 script = SubResource("GDScript_oflwe")
 animation = ""
 
-[node name="PlayerData" parent="." index="5"]
+[node name="PlayerData" parent="." index="4"]
 spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
 spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
 
-[node name="Hurtbox" parent="." index="7"]
+[node name="Hurtbox" parent="." index="6"]
 collision_mask = 272
 
 [node name="Body" parent="SpritesFlip/SpritesScale" index="0"]
 self_modulate = Color(0.305882, 0.0901961, 0, 1)
 
-[node name="MultiplayerSynchronizer" parent="." index="12" groups=["boss", "enemy"]]
+[node name="MultiplayerSynchronizer" parent="." index="13" groups=["boss", "enemy"]]
 
-[node name="DashBar" parent="." index="15"]
+[node name="DashBar" parent="." index="16"]
 script = null
-
-[node name="StatusUI" parent="." index="16"]
-offset_top = -148.0
-offset_bottom = -116.0
 
 [node name="Label" type="Label" parent="." index="17"]
 offset_left = 77.0
@@ -451,11 +442,12 @@ offset_bottom = -37.6667
 offset_top = -112.0
 offset_bottom = -108.0
 
-[node name="AnimalSound" parent="." index="24"]
-stream = SubResource("AudioStreamRandomizer_onr5v")
+[node name="StatusUI" parent="." index="19"]
+offset_top = -148.0
+offset_bottom = -116.0
 
-[node name="DashTrail" parent="." index="26"]
-gradient = SubResource("Gradient_cmhpy")
+[node name="AnimalSound" parent="." index="25"]
+stream = SubResource("AudioStreamRandomizer_onr5v")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="28"]
 path_postprocessing = 1

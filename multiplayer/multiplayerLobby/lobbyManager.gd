@@ -39,10 +39,13 @@ const MAX_PLAYERS = 4
 var sent_first_update : bool = false
 var start_game_called : bool = false
 var ready_timer : float 
+var ready_timer_last_step : float = 4
 var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
 var server_browser_node : Node
+
+var james_mode := false
 
 var back_timer : float
 
@@ -65,7 +68,7 @@ func _ready():
 	if(GameManager.isOnline()):
 		server_browser_node = get_parent()
 		if !is_multiplayer_authority():
-			custom_seed_entry.hide()
+			$Lobby/VBoxContainer/HBoxContainer.hide()
 		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
@@ -92,8 +95,12 @@ func _process(delta):
 		if ready_timer < 0:
 			ready_timer = 0
 		lobby_title.text = "Starting in " + str(ceil(ready_timer)) + "..."
+		if floor(ready_timer) < ready_timer_last_step:
+			ready_timer_last_step = floor(ready_timer)
+			$CountdownPlayer.play()
 	else:
 		ready_timer = ready_delay
+		ready_timer_last_step = ready_delay + 1
 		lobby_title.text= "Prepare to raid!"
 		
 	# if the timer runs out, start the game 
@@ -250,6 +257,7 @@ func StartGame():
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
 	if custom_seed_entry.text != "":
 		castle_climb.set_seed(custom_seed_entry.text)
+	if james_mode: castle_climb.james_mode = true
 	add_child(castle_climb)
 	
 	hide_lobby.rpc()
@@ -319,4 +327,8 @@ func get_unjoined_devices():
 
 
 func _on_custom_seed_entry_text_changed(new_text):
-	$Lobby/CustomSeedEntry/Label.visible = new_text != ""
+	$Lobby/VBoxContainer/CustomSeedEntry/Label.visible = new_text != ""
+
+
+func _on_james_mode_toggle_toggled(toggled_on):
+	james_mode = toggled_on

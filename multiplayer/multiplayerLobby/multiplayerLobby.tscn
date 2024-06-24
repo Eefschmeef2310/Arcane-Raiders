@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=29 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
 [ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="13_d4e5r"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="13_ngagv"]
+[ext_resource type="AudioStream" uid="uid://dris1xaodfrdm" path="res://sounds/effects/menus/arcade-countdown-beep.wav" id="15_cdr5a"]
 
 [sub_resource type="Resource" id="Resource_1emuh"]
 script = ExtResource("6_mpv8m")
@@ -206,6 +207,7 @@ placeholder_text = "Custom Seed"
 max_length = 50
 
 [node name="Label" type="Label" parent="Lobby/VBoxContainer/CustomSeedEntry"]
+visible = false
 layout_mode = 0
 offset_left = 14.0
 offset_top = -33.0
@@ -218,7 +220,7 @@ label_settings = SubResource("LabelSettings_27h66")
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CheckBox" type="CheckButton" parent="Lobby/VBoxContainer/HBoxContainer"]
+[node name="JamesModeToggle" type="CheckBox" parent="Lobby/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_dykp4")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqa2k")
@@ -229,8 +231,8 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_0g7uk")
 
 [node name="Label" type="Label" parent="Lobby/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "James Mode"
+theme_override_font_sizes/font_size = 20
+text = "Master Mode"
 
 [node name="StartButton" type="Button" parent="Lobby"]
 visible = false
@@ -250,6 +252,12 @@ spawn_path = NodePath("../Lobby/MarginContainer/PlayerCardBox")
 _spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
 spawn_path = NodePath("..")
 
+[node name="CountdownPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_cdr5a")
+volume_db = -6.0
+bus = &"SFX"
+
 [connection signal="pressed" from="Lobby/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="text_changed" from="Lobby/VBoxContainer/CustomSeedEntry" to="." method="_on_custom_seed_entry_text_changed"]
+[connection signal="toggled" from="Lobby/VBoxContainer/HBoxContainer/JamesModeToggle" to="." method="_on_james_mode_toggle_toggled"]
 [connection signal="pressed" from="Lobby/StartButton" to="." method="_on_start_button_pressed"]

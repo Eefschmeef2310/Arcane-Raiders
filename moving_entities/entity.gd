@@ -184,7 +184,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 					new_reaction.caster = attack.caster
 					new_reaction.set_multiplayer_authority(attack.get_multiplayer_authority())
 					#print_debug(attack.caster.name)
-					if "add_reaction" in attack.caster:
+					if attack and attack.caster and "add_reaction" in attack.caster:
 						attack.caster.add_reaction.rpc()
 						#print_debug("Reactions: " + str(attack.caster.data.reactions_created))
 					
@@ -203,7 +203,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		
 	#Calculate final damage (bonus damage with wet)
 	var final_damage = damage * (1.5 if current_inflictions_dictionary.has(SpellManager.elements["wet"]) else 1.0)
-	if get_parent() is CastleClimb and get_parent().james_mode: final_damage *= 2
+	if get_parent() is CastleRoom and get_parent().james_mode: final_damage *= 2
 	
 	# Tell attack caster that they're the GOAT
 	if attack_path != null:
