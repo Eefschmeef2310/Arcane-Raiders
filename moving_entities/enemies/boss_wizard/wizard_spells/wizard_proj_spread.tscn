@@ -52,7 +52,8 @@ func _ready():
 
 func _process(_delta):
 	#if caster : global_position = caster.global_position
-	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
+	if is_instance_valid(caster):
+		global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
 
 #region Signal methods
 func _on_wave_timer_timeout():
@@ -87,6 +88,9 @@ waves = 5
 explosions_per_wave = 5
 max_radians = 2.0
 distance_from_caster = 40.0
+base_damage = 150
+infliction_time = 5.0
+cooldown_time = 4.0
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 wait_time = 0.05
