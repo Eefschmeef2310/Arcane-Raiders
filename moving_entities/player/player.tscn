@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=59 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -19,15 +19,12 @@
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
-[ext_resource type="Script" path="res://moving_entities/player/player_dash_trail.gd" id="17_erdnq"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
 [ext_resource type="AudioStream" uid="uid://chorsx3mmyjuv" path="res://sounds/effects/player/spell_click.wav" id="21_ig1r5"]
 [ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_sd8uw"]
 [ext_resource type="AudioStream" uid="uid://bejdfxbpqudeq" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
 [ext_resource type="Texture2D" uid="uid://o4ybtnyr1byl" path="res://moving_entities/enemies/healing.png" id="23_3frsv"]
 [ext_resource type="AudioStream" uid="uid://chdgqr03jjw61" path="res://items/pickups/coin-upaif-14631.mp3" id="23_sj6la"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
 
 [sub_resource type="GDScript" id="GDScript_qs58w"]
 resource_name = "spell_pickup_detector"
@@ -299,7 +296,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_0piqm"]
 resource_name = "dash"
 length = 0.25
-step = 0.01
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -347,18 +344,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-37, -28), Vector2(-44.1667, -33.75), Vector2(-44.1667, -33.75), Vector2(-37, -28)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("DashTrail:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
 }
 
 [sub_resource type="Animation" id="Animation_yhbvw"]
@@ -917,6 +902,8 @@ height = 26.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_vq7jj"]
 radius = 125.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6gabg"]
+
 [sub_resource type="Curve" id="Curve_1183a"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.801587, 0.978405), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -1008,15 +995,6 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
-[sub_resource type="Curve" id="Curve_otfui"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_gaksd"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.546053)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
@@ -1042,7 +1020,7 @@ spell_sprite_2d_projection = NodePath("SpellDirection/Sprite2DProjection")
 spell_sprite_2d = NodePath("SpellDirection/Sprite2D")
 empty_spell_sound = NodePath("Audio Players/EmptySpellSound")
 spell_equip_sound = NodePath("Audio Players/SpellEquipSound")
-dash_ray = NodePath("DashRay")
+dash_ray = NodePath("DashRayRotator/DashRay")
 dash_bar = NodePath("DashBar")
 dash_sound_player = NodePath("Audio Players/DashSound")
 animation_player = NodePath("Animation Players/AnimationPlayer")
@@ -1057,9 +1035,6 @@ left_hand_sprite = NodePath("SpritesFlip/SpritesScale/LeftHand")
 crown = NodePath("SpritesFlip/SpritesScale/HeadGroup/Crown")
 death_sound = ExtResource("15_74n7w")
 do_damage_numbers = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6gabg")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 show_behind_parent = true
@@ -1147,6 +1122,14 @@ collision_mask = 4
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_vq7jj")
 debug_color = Color(0.662745, 0.443137, 0, 0.419608)
+
+[node name="HoleDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoleDetector"]
+shape = SubResource("CircleShape2D_6gabg")
 
 [node name="SpritesFlip" type="Node2D" parent="."]
 
@@ -1243,6 +1226,9 @@ offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6gabg")
 
 [node name="HealingParticles" type="GPUParticles2D" parent="."]
 position = Vector2(0, -29)
@@ -1397,16 +1383,13 @@ bus = &"SFX"
 stream = ExtResource("15_qpnkh")
 bus = &"SFX"
 
-[node name="DashTrail" type="Line2D" parent="."]
-visible = false
-width_curve = SubResource("Curve_otfui")
-gradient = SubResource("Gradient_gaksd")
-script = ExtResource("17_erdnq")
-max_length = 50
+[node name="DashRayRotator" type="Node2D" parent="."]
 
-[node name="DashRay" type="RayCast2D" parent="."]
+[node name="DashRay" type="RayCast2D" parent="DashRayRotator"]
+position = Vector2(11, 0)
 enabled = false
 target_position = Vector2(150, 0)
+collision_mask = 1024
 
 [node name="NotifSpawnPos" type="Node2D" parent="."]
 position = Vector2(-80, -160)
@@ -1420,6 +1403,7 @@ position = Vector2(-80, -160)
 [connection signal="body_entered" from="FeetHurtbox" to="FeetHurtbox" method="_on_body_entered"]
 [connection signal="body_entered" from="RevivalZone" to="." method="_on_revival_zone_body_entered"]
 [connection signal="body_exited" from="RevivalZone" to="." method="_on_revival_zone_body_exited"]
+[connection signal="body_exited" from="HoleDetector" to="." method="_on_hole_detector_body_exited"]
 [connection signal="value_changed" from="DashBar" to="DashBar" method="_on_value_changed"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="DashTrailTimer" to="." method="_on_dash_trail_timer_timeout"]
