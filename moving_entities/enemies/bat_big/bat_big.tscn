@@ -237,7 +237,7 @@ radius = 379.033
 collision_mask = 1
 script = SubResource("GDScript_t3owp")
 dash_duration = 0.3
-movement_speed = 150.0
+movement_speed = 200.0
 death_sound = null
 max_health = 400
 
@@ -269,7 +269,7 @@ offset_bottom = -120.0
 
 [node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_03nfp")]([SubResource("Resource_2frcj"), SubResource("Resource_u6qed")])
-cast_time = Array[float]([0.2, 0.1, 0.2])
+cast_time = Array[float]([0.2, 0.0, 0.2])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")

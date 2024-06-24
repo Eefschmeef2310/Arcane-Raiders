@@ -457,12 +457,13 @@ _data = {
 [node name="BossBat" groups=["boss"] instance=ExtResource("1_gcbln")]
 collision_mask = 1
 script = SubResource("GDScript_b5sd0")
-movement_speed = 200.0
+movement_speed = 300.0
 is_boss = true
 boss_name = "Echo Rusher"
 death_sound = null
-max_health = 4000
-knockback_initial_velocity = 100.0
+max_health = 3000
+knockback_lerp_strength = 40.0
+knockback_initial_velocity = 40.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -53)

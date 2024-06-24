@@ -13,6 +13,7 @@ func physics_update(delta):
 	
 	if enemy.perma_enraged:
 		Transitioned.emit(self, "bslimesolo")
+		return
 	enemy.aim_direction = enemy.global_position.direction_to(player.global_position)
 	if enemy.can_cast:
 		if(enemy.enraged && can_cast_spell(1)):
