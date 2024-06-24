@@ -1,18 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=23 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_58eft"]
 [ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="4_jwyjq"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_r8dyt"]
-[ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="4_v1y5u"]
-[ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="5_br33i"]
 [ext_resource type="PackedScene" uid="uid://bq1ea3l23k3gq" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_laser.tscn" id="5_gr2yf"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="5_rtfqf"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
 [ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
 [ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
-[ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="10_jni0s"]
 [ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="11_0gi6j"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
@@ -31,14 +28,21 @@ signal wizard_died(wizard: Node)
 @export var wizard_dash_cooldown: float = 1
 @export var wizard_dash_cooldown_max: float = 10
 
+@export var default_spells: Array[Spell]
+
 var spell_position: Vector2 = Vector2.ZERO
+
+var element_array: Array = [\"burn\", \"frost\", \"wind\", \"stun\"]
+var element_index: int
 
 #endregion
 
 #region Godot methods
 func _ready():
 	super._ready()
+	print
 	set_data(data, false)
+	set_spell_element()
 	$Input.start_state_machine(nav_agent)
 
 func _physics_process(delta):
@@ -50,19 +54,57 @@ func _physics_process(delta):
 #region Signal methods
 
 #endregion
+func set_spell_element():
+	data.spells.resize(4)
+	data.spell_cooldowns.resize(4)
+	data.spell_cooldowns_max.resize(4)
+	
+	for slot in default_spells.size():
+		data.spells[slot] = default_spells[slot].duplicate()
+		data.spells[slot].element = SpellManager.elements[element_array[element_index]]
 
 func on_hurt(attack):
 	super.on_hurt(attack)
-	wizard_hurt.emit()
+	if is_multiplayer_authority():
+		wizard_hurt.emit()
 
 func _on_zero_health():
-	wizard_died.emit()
-	call_deferred(\"queue_free\")
+	if is_multiplayer_authority():
+		wizard_died.emit()
+		call_deferred(\"queue_free\")
 
 #Set move direction to direction of safe velocity
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2):
 	move_direction = safe_velocity.normalized()
 "
+
+[sub_resource type="Resource" id="Resource_jegsn"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("5_gr2yf")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_gnj56"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("7_rniqf")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_h7deh"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("9_3f166")
+element = ExtResource("5_rtfqf")
+
+[sub_resource type="Resource" id="Resource_3mjdw"]
+script = ExtResource("6_ku3qc")
+suffix = ""
+description = ""
+scene = ExtResource("11_0gi6j")
+element = ExtResource("5_rtfqf")
 
 [sub_resource type="GDScript" id="GDScript_sd0g0"]
 resource_name = "wizard_walk"
@@ -297,52 +339,11 @@ func physics_update(delta):
 
 "
 
-[sub_resource type="Resource" id="Resource_st64d"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("5_gr2yf")
-projection_texture = ExtResource("4_v1y5u")
-element = ExtResource("5_br33i")
-
-[sub_resource type="Resource" id="Resource_hqfaj"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("7_rniqf")
-projection_texture = ExtResource("4_v1y5u")
-element = ExtResource("5_rtfqf")
-
-[sub_resource type="Resource" id="Resource_6foxl"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("9_3f166")
-projection_texture = ExtResource("10_jni0s")
-element = ExtResource("5_rtfqf")
-
-[sub_resource type="Resource" id="Resource_c2t1r"]
-resource_local_to_scene = true
-script = ExtResource("6_ku3qc")
-suffix = ""
-description = ""
-scene = ExtResource("11_0gi6j")
-projection_texture = ExtResource("10_jni0s")
-element = ExtResource("5_rtfqf")
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_onr5v"]
 resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
-
-[sub_resource type="Gradient" id="Gradient_cmhpy"]
-resource_local_to_scene = true
-offsets = PackedFloat32Array(0, 0.546053)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_spcxr"]
 radius = 372.012
@@ -350,13 +351,93 @@ radius = 372.012
 [node name="EvilWizard" groups=["enemy"] instance=ExtResource("1_a4rya")]
 collision_layer = 8
 script = SubResource("GDScript_71bfm")
-is_ranged = true
-wizard_dash_cooldown = 1.0
-wizard_dash_cooldown_max = 10.0
-debug = false
-movement_speed = 300.0
+debug = null
+data = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://managers/player_data.gd"),"device_id":-2,"peer_id":1,"player_name":"","max_health":1000,"health":1000,"spell_cooldowns_max":Array[float]([0.0, 0.0, 0.0, 0.0]),"spell_strings":Array[String](["", "", "", ""]),"main_color":Color(1, 0, 0, 1),"character":Resource("res://multiplayer/multiplayerLobby/raiders/Cat.tres"),"money":0,"total_money":0,"damage":0,"kills":0,"reactions_created":0,"pickups_obtained":0,"has_crown":false)
+
+movement_speed = null
+move_direction = null
+aim_direction = null
+revival_time = null
+revival_meter = Object(ProgressBar,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":50,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(120, 12),"layout_direction":0,"layout_mode":3,"anchors_preset":7,"anchor_left":0.5,"anchor_top":1.0,"anchor_right":0.5,"anchor_bottom":1.0,"offset_left":-60.0,"offset_top":-91.0,"offset_right":60.0,"offset_bottom":-79.0,"grow_horizontal":2,"grow_vertical":0,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":0,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","theme_override_styles/background":null,"theme_override_styles/fill":null,"min_value":0.0,"max_value":100.0,"step":0.01,"page":0.0,"value":70.0,"exp_edit":false,"rounded":false,"allow_greater":false,"allow_lesser":false,"fill_mode":0,"show_percentage":false,"script":null)
+
+hurtbox = Object(Area2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":4,"collision_mask":272,"collision_priority":1.0,"input_pickable":true,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector2(0, 1),"gravity_direction":Vector2(0, 1),"gravity":980.0,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":1.0,"audio_bus_override":false,"audio_bus_name":&"Master","script":Resource("res://moving_entities/player/player_hurtbox.gd"))
+
+help_label = Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":true,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":50,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(300, 0),"layout_direction":0,"layout_mode":1,"anchors_preset":7,"anchor_left":0.5,"anchor_top":1.0,"anchor_right":0.5,"anchor_bottom":1.0,"offset_left":-72.5,"offset_top":-77.0,"offset_right":32.5,"offset_bottom":-4.0,"grow_horizontal":2,"grow_vertical":0,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":4,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":2,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","theme_override_fonts/font":Resource("res://ui/fonts/Rakkas-Regular.ttf"),"theme_override_font_sizes/font_size":48,"text":"Help!","label_settings":null,"horizontal_alignment":1,"vertical_alignment":0,"autowrap_mode":0,"justification_flags":163,"clip_text":false,"text_overrun_behavior":0,"uppercase":false,"tab_stops":PackedFloat32Array(),"lines_skipped":0,"max_lines_visible":-1,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+
+collision_shape = Object(CollisionShape2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"shape":null,"disabled":false,"one_way_collision":false,"one_way_collision_margin":1.0,"script":null)
+
+input_node = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("2_r37mn"),"initial_state":Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("3_58eft"),"actual_first_state":Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":SubResource("GDScript_sd0g0"),"transition_range":600.0,"next_state":Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":SubResource("GDScript_phf1k"),"transition_range":700.0,"prefered_range":500.0,"attack_range":200.0,"animation":"","nav_timer_interval":0.5,"nav_timer":0)
+,"animation":"","nav_timer_interval":0.5,"nav_timer":0)
+,"animation":"","nav_timer_interval":0.5,"nav_timer":0)
+,"debug_label":Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":3,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":77.0,"offset_top":-62.0,"offset_right":117.0,"offset_bottom":-37.6667,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":4,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":2,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","text":"","label_settings":null,"horizontal_alignment":0,"vertical_alignment":0,"autowrap_mode":0,"justification_flags":163,"clip_text":false,"text_overrun_behavior":0,"uppercase":false,"tab_stops":PackedFloat32Array(),"lines_skipped":0,"max_lines_visible":-1,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+)
+
+invincibility_timer = Object(Timer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","process_callback":1,"wait_time":1.5,"one_shot":false,"autostart":false,"script":null)
+
+healing_particles = Object(GPUParticles2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, -29),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"emitting":false,"amount":8,"amount_ratio":1.0,"sub_emitter":NodePath(""),"process_material":null,"texture":Resource("res://moving_entities/enemies/healing.png"),"lifetime":1.0,"one_shot":true,"preprocess":0.0,"speed_scale":1.0,"explosiveness":1.0,"randomness":0.0,"fixed_fps":30,"interpolate":true,"fract_delta":true,"interp_to_end":0.0,"collision_base_size":1.0,"visibility_rect":Rect2(-100, -100, 200, 200),"local_coords":true,"draw_order":1,"trail_enabled":false,"trail_lifetime":0.3,"trail_sections":8,"trail_section_subdivisions":4,"script":null)
+
+notif_spawn_pos = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-80, -160),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":null)
+
+spell_pickup_detector_node = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":null,"detect_pickups":true)
+
+prepare_cast_label = Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":false,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":3,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":-20.0,"offset_top":-140.0,"offset_right":20.0,"offset_bottom":-117.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":4,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":2,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","text":"","label_settings":null,"horizontal_alignment":1,"vertical_alignment":0,"autowrap_mode":0,"justification_flags":163,"clip_text":false,"text_overrun_behavior":0,"uppercase":false,"tab_stops":PackedFloat32Array(),"lines_skipped":0,"max_lines_visible":-1,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+
+can_cast_label = Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":false,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":3,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":-20.0,"offset_top":-161.0,"offset_right":20.0,"offset_bottom":-138.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":4,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":2,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","text":"","label_settings":null,"horizontal_alignment":1,"vertical_alignment":0,"autowrap_mode":0,"justification_flags":163,"clip_text":false,"text_overrun_behavior":0,"uppercase":false,"tab_stops":PackedFloat32Array(),"lines_skipped":0,"max_lines_visible":-1,"visible_characters":-1,"visible_characters_behavior":0,"visible_ratio":1.0,"text_direction":0,"language":"","structured_text_bidi_override":0,"structured_text_bidi_override_options":[],"script":null)
+
+spell_sprite_2d_projection = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(0.564706, 0.286275, 1, 0.501961),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":Resource("res://spells/projections/straight.png"),"centered":true,"offset":Vector2(162, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+spell_sprite_2d = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":false,"modulate":Color(0.564706, 0.286275, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":Resource("res://moving_entities/player/player_pointer.svg"),"centered":true,"offset":Vector2(16.5, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+empty_spell_sound = Object(AudioStreamPlayer2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"stream":Resource("res://sounds/effects/player/spell_click.wav"),"volume_db":0.0,"pitch_scale":1.0,"autoplay":false,"stream_paused":false,"max_distance":2000.0,"attenuation":1.0,"max_polyphony":1,"panning_strength":1.0,"bus":&"SFX","area_mask":1,"script":null)
+
+spell_equip_sound = Object(AudioStreamPlayer2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"stream":Resource("res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav"),"volume_db":0.0,"pitch_scale":1.0,"autoplay":false,"stream_paused":false,"max_distance":2000.0,"attenuation":1.0,"max_polyphony":1,"panning_strength":1.0,"bus":&"SFX","area_mask":1,"script":null)
+
+dash_ray = Object(RayCast2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(11, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"enabled":false,"exclude_parent":true,"target_position":Vector2(150, 0),"collision_mask":1024,"hit_from_inside":false,"collide_with_areas":false,"collide_with_bodies":true,"script":null)
+
+dash_bar = Object(ProgressBar,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":false,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":3,"anchors_preset":7,"anchor_left":0.5,"anchor_top":1.0,"anchor_right":0.5,"anchor_bottom":1.0,"offset_left":-50.0,"offset_top":-111.0,"offset_right":50.0,"offset_bottom":-106.0,"grow_horizontal":2,"grow_vertical":0,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":0,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","theme_override_styles/background":null,"theme_override_styles/fill":null,"min_value":0.0,"max_value":1.0,"step":0.01,"page":0.0,"value":1.0,"exp_edit":false,"rounded":false,"allow_greater":false,"allow_lesser":false,"fill_mode":0,"show_percentage":false,"script":null)
+
+dash_sound_player = Object(AudioStreamPlayer2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"stream":Resource("res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav"),"volume_db":-2.0,"pitch_scale":1.0,"autoplay":false,"stream_paused":false,"max_distance":2000.0,"attenuation":1.0,"max_polyphony":1,"panning_strength":1.0,"bus":&"SFX","area_mask":1,"script":null)
+
+animation_player = Object(AnimationPlayer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","active":true,"deterministic":false,"reset_on_save":true,"root_node":NodePath("../.."),"root_motion_track":NodePath(""),"audio_max_polyphony":32,"callback_mode_process":1,"callback_mode_method":0,"libraries":{
+"": null
+},"autoplay":"idle","playback_default_blend_time":0.0,"speed_scale":1.0,"movie_quit_on_finish":false,"blend_times":[],"script":null)
+
+invincibility_animation = Object(AnimationPlayer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","active":true,"deterministic":false,"reset_on_save":true,"root_node":NodePath("../.."),"root_motion_track":NodePath(""),"audio_max_polyphony":32,"callback_mode_process":1,"callback_mode_method":0,"libraries":{
+"": null
+},"autoplay":"RESET","playback_default_blend_time":0.0,"speed_scale":1.0,"movie_quit_on_finish":false,"blend_times":[],"script":null)
+
+flashing_animation = Object(AnimationPlayer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","active":true,"deterministic":false,"reset_on_save":true,"root_node":NodePath(".."),"root_motion_track":NodePath(""),"audio_max_polyphony":32,"callback_mode_process":1,"callback_mode_method":0,"libraries":{
+"": null
+},"autoplay":"","playback_default_blend_time":0.0,"speed_scale":1.0,"movie_quit_on_finish":false,"blend_times":[],"script":null)
+
+sprites_flip = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":null)
+
+sprites_scale = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":null)
+
+body_sprite = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(0.305882, 0.0901961, 0, 1),"show_behind_parent":false,"top_level":false,"clip_children":2,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, -22),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":Resource("res://moving_entities/player/player_pieces/Body3.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+head_sprite = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":2,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":Resource("res://moving_entities/player/player_pieces/head-cat.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+right_hand_sprite = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(0.552941, 0.388235, 0.282353, 1),"show_behind_parent":false,"top_level":false,"clip_children":2,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(38, -28),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":Resource("res://moving_entities/player/player_pieces/hand.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+left_hand_sprite = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(0.552941, 0.388235, 0.282353, 1),"show_behind_parent":false,"top_level":false,"clip_children":2,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-37, -28),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":Resource("res://moving_entities/player/player_pieces/hand.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":true,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+crown = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":2,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-2, -20.2402),"rotation":0.0,"scale":Vector2(0.46, 0.46),"skew":0.0,"texture":Resource("res://moving_entities/player/player_pieces/crown.png"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+
+ignoreForStats = null
+kill_credited = null
 death_sound = null
-do_damage_numbers = true
+max_health = null
+health = null
+do_damage_numbers = null
+print_velocity = null
+knockback_lerp_strength = null
+knockback_initial_velocity = null
+attraction_strength = null
+is_ranged = null
+wizard_dash_cooldown = null
+wizard_dash_cooldown_max = null
+default_spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_jegsn"), SubResource("Resource_gnj56"), SubResource("Resource_h7deh"), SubResource("Resource_3mjdw")])
 
 [node name="Sprite2DShadow" parent="SpellDirection" index="0"]
 visible = false
@@ -364,7 +445,7 @@ visible = false
 [node name="Sprite2D" parent="SpellDirection" index="1"]
 visible = false
 
-[node name="Input" parent="." index="3" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="Input" parent="." index="2" node_paths=PackedStringArray("initial_state", "debug_label")]
 script = ExtResource("2_r37mn")
 initial_state = NodePath("Idle")
 debug_label = NodePath("../Label")
@@ -421,25 +502,20 @@ animation = ""
 script = SubResource("GDScript_oflwe")
 animation = ""
 
-[node name="PlayerData" parent="." index="5"]
-spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_st64d"), SubResource("Resource_hqfaj"), SubResource("Resource_6foxl"), SubResource("Resource_c2t1r")])
+[node name="PlayerData" parent="." index="4"]
 spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
 
-[node name="Hurtbox" parent="." index="7"]
+[node name="Hurtbox" parent="." index="6"]
 collision_mask = 272
 
 [node name="Body" parent="SpritesFlip/SpritesScale" index="0"]
 self_modulate = Color(0.305882, 0.0901961, 0, 1)
 
-[node name="MultiplayerSynchronizer" parent="." index="12" groups=["boss", "enemy"]]
+[node name="MultiplayerSynchronizer" parent="." index="13" groups=["boss", "enemy"]]
 
-[node name="DashBar" parent="." index="15"]
+[node name="DashBar" parent="." index="16"]
 script = null
-
-[node name="StatusUI" parent="." index="16"]
-offset_top = -148.0
-offset_bottom = -116.0
 
 [node name="Label" type="Label" parent="." index="17"]
 offset_left = 77.0
@@ -451,11 +527,12 @@ offset_bottom = -37.6667
 offset_top = -112.0
 offset_bottom = -108.0
 
-[node name="AnimalSound" parent="." index="24"]
-stream = SubResource("AudioStreamRandomizer_onr5v")
+[node name="StatusUI" parent="." index="19"]
+offset_top = -148.0
+offset_bottom = -116.0
 
-[node name="DashTrail" parent="." index="26"]
-gradient = SubResource("Gradient_cmhpy")
+[node name="AnimalSound" parent="." index="25"]
+stream = SubResource("AudioStreamRandomizer_onr5v")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="28"]
 path_postprocessing = 1
