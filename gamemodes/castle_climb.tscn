@@ -195,7 +195,7 @@ common_levels = {
 "shop": ExtResource("2_ynx3r")
 }
 basic_levels = Array[PackedScene]([ExtResource("7_mole1"), ExtResource("6_8eavx"), ExtResource("11_ed6tu"), ExtResource("8_5mkrr"), ExtResource("8_gd3sw"), ExtResource("12_bgvea"), ExtResource("9_wet5w"), ExtResource("3_i3kdw"), ExtResource("8_wyblb"), ExtResource("10_434mj")])
-boss_levels = Array[PackedScene]([ExtResource("15_jp5f8"), ExtResource("13_qv4s1"), ExtResource("10_xt0uv"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
+boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("15_jp5f8"), ExtResource("13_qv4s1"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
 total_floors = 12
 sector_start_floors = Array[int]([0, 4, 8])
 sector_room_split_starts = Array[int]([0, 4, 7])
@@ -271,9 +271,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 120.0
-offset_right = 1920.0
-offset_bottom = 708.0
+offset_left = -960.0
+offset_top = -420.0
+offset_right = 960.0
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 
