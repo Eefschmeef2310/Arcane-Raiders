@@ -2,6 +2,7 @@ extends CastleRoom
 
 @export var boss_id: String
 @export var bosses_to_kill = 3
+var slimes = ["boss_slime", "fire_ice_slime", "wind_rock_slime"]
 
 func _ready():
 	super._ready()
@@ -10,7 +11,11 @@ func _ready():
 	
 	if is_multiplayer_authority() and boss_id != "":
 		number_of_enemies_left = bosses_to_kill
-		var _boss = enemy_spawner.spawn({"key": boss_id, "pos":enemy_spawns.get_child(0).global_position})
+		if boss_id == "random_slime":
+			var key = slimes[rng.randi_range(0,slimes.size()-1)]
+			var _boss = enemy_spawner.spawn({"key": key, "pos":enemy_spawns.get_child(0).global_position})
+		else:
+			var _boss = enemy_spawner.spawn({"key": boss_id, "pos":enemy_spawns.get_child(0).global_position})
 		room_exit.lock()
 
 func on_floor_cleared():
