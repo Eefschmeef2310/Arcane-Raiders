@@ -18,7 +18,7 @@ signal spell_ready(spell: int)
 @export var health : int = 1000:
 	set(v):
 		health = clamp(v, 0, max_health)
-@export var spells : Array[Spell] = [null,null,null]
+var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 var spell_cooldowns : Array[float] = [0,0,0]
 @export var spell_strings : Array[String] = ["", "", ""]
@@ -39,6 +39,11 @@ var spell_cooldowns : Array[float] = [0,0,0]
 func _ready():
 	#spell_strings.resize(3)
 	#spells.resize(3)
+	
+	for i in spells.size():
+		if spells[i] != null:
+			spells[i] = spells[i].duplicate(true)
+	
 	spell_cooldowns_max.resize(spells.size())
 	spell_cooldowns.resize(spells.size())
 	spell_cooldowns.fill(0)

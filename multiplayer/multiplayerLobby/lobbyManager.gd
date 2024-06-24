@@ -68,7 +68,7 @@ func _ready():
 	if(GameManager.isOnline()):
 		server_browser_node = get_parent()
 		if !is_multiplayer_authority():
-			$Lobby/VBoxContainer/HBoxContainer.hide()
+			$Lobby/VBoxContainer.hide()
 		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
