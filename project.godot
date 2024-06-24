@@ -275,6 +275,7 @@ debug_toggle_stats={
 2d_physics/layer_8="ProjectileEnemy"
 2d_physics/layer_9="Traps"
 2d_physics/layer_10="EntityFeet"
+2d_physics/layer_11="Floor"
 
 [physics]
 
