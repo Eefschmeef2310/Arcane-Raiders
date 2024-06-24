@@ -163,6 +163,7 @@ func update_dash(delta):
 	if dash_timer > 0:
 		velocity = dash_direction * dash_speed
 		dash_timer -= delta
+		move_and_slide()
 	elif is_dashing:
 		dash_timer = 0
 		is_dashing = false

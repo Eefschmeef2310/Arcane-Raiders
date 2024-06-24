@@ -6,7 +6,7 @@
 
 [node name="CastleRoom" instance=ExtResource("1_htpk2")]
 script = ExtResource("1_tb0uw")
-boss_id = "boss_slime"
+boss_id = "random_slime"
 bosses_to_kill = 3
 
 [node name="TileMap" parent="." index="0"]
