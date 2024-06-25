@@ -404,9 +404,9 @@ script = SubResource("GDScript_fiano")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Frozen Daughter Slime"
-max_health = 2500
+max_health = 1500
 knockback_lerp_strength = 40.0
-knockback_initial_velocity = 100.0
+knockback_initial_velocity = 60.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -55)
@@ -450,6 +450,7 @@ script = ExtResource("8_ri7kj")
 
 [node name="BSlimeSolo" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("9_y6qjg")
+animation = "enrage"
 
 [node name="BSlimePerma" type="Node" parent="StateMachine" index="3"]
 script = ExtResource("10_ae1hh")
@@ -482,7 +483,6 @@ libraries = {
 }
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
-[connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/BSlimeSolo" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PrimaryAttack" method="_on_animation_player_animation_finished"]

@@ -17,4 +17,4 @@ func _ready():
 
 [node name="Dash" type="Node2D"]
 script = SubResource("GDScript_5sxyk")
-cooldown_time = 15.0
+cooldown_time = 8.0

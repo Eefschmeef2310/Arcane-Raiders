@@ -58,6 +58,7 @@ func _on_fire_timer_timeout():
 position = Vector2(188, 140)
 script = SubResource("GDScript_5fg5p")
 interval_time = 0.1
+base_damage = 150
 end_time = 2.0
 cooldown_time = 15.0
 

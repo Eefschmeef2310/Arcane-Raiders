@@ -18,16 +18,8 @@ script/source = "extends EnemyEntity
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
 @export var calmdown_time: float = 0.2
-	#Onready Variables
 
-	#Other Variables (please try to separate and organise!)
 var enraged = false
 #endregion
 
@@ -178,8 +170,8 @@ calmdown_time = 0.2
 movement_speed = 100.0
 is_boss = true
 boss_name = "Frostfire Amalgamate"
-max_health = 4000
-knockback_initial_velocity = 50.0
+max_health = 1500
+knockback_initial_velocity = 40.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -70)
@@ -200,19 +192,19 @@ scale = Vector2(1.27, 1)
 shape = SubResource("CircleShape2D_1ih77")
 debug_color = Color(1, 0, 0.137255, 0.419608)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -214.0
 offset_bottom = -207.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -248.0
 offset_bottom = -216.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_nb01y")]([SubResource("Resource_ct66w"), SubResource("Resource_hqf66"), SubResource("Resource_82tr8")])
 spell_cooldowns = Array[float]([3.0, 0.0, 0.0])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -256,5 +248,4 @@ libraries = {
 }
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
-[connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]
