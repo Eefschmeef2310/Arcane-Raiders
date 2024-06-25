@@ -147,7 +147,6 @@ offset_bottom = 192.0
 grow_horizontal = 2
 max_value = 1.0
 step = 0.0
-value = 1.0
 nine_patch_stretch = true
 texture_progress = SubResource("GradientTexture1D_rsc3f")
 

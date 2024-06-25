@@ -1176,8 +1176,6 @@ color = Color(1, 1, 1, 0)
 
 [node name="Crown" type="Sprite2D" parent="SpritesFlip/SpritesScale/HeadGroup"]
 clip_children = 2
-position = Vector2(-2, -20.2402)
-scale = Vector2(0.46, 0.46)
 texture = ExtResource("14_k3oth")
 
 [node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/HeadGroup/Crown"]
