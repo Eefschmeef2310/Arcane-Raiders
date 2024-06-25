@@ -5,15 +5,15 @@
 [ext_resource type="AudioStream" uid="uid://cbyo8f37xrkv7" path="res://sounds/effects/elements/fast-whoosh_studiokolomna_pixabay.wav" id="3_hk2tc"]
 
 [sub_resource type="Gradient" id="Gradient_7dvtd"]
-offsets = PackedFloat32Array(0, 0.209169, 0.641834, 0.862464, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.8, 1, 0.94, 1, 0, 0.917647, 0, 1, 0, 0.136667, 0.2, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.137536, 0.358166, 0.790831, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.136667, 0.2, 1, 0, 0.917647, 0, 1, 0.8, 1, 0.94, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_cshek"]
 gradient = SubResource("Gradient_7dvtd")
 
 [sub_resource type="Gradient" id="Gradient_2mgj5"]
-offsets = PackedFloat32Array(0, 0.137536, 0.358166, 0.790831, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0.136667, 0.2, 1, 0, 0.917647, 0, 1, 0.8, 1, 0.94, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.209169, 0.641834, 0.862464, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.8, 1, 0.94, 1, 0, 0.917647, 0, 1, 0, 0.136667, 0.2, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ahjjk"]
 gradient = SubResource("Gradient_2mgj5")

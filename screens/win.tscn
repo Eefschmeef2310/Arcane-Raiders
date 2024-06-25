@@ -352,6 +352,7 @@ _data = {
 
 [node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar")]
 process_mode = 3
+layer = 2
 script = SubResource("GDScript_1hf64")
 damage_dealt = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/DamageDealt")
 kills = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestKills")
