@@ -33,7 +33,6 @@ AudioManager="*res://managers/audio_manager.tscn"
 GameManager="*res://managers/game_manager.gd"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
 PlayerPreferenceManager="*res://managers/player_preference_manager.gd"
-WinScreenSpawner="*res://debug/win_screen_spawner.gd"
 
 [display]
 
