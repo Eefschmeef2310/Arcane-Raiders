@@ -31,6 +31,8 @@ script/source = "extends CanvasLayer
 @export var total_time : Label
 @export var leaderboard_panels : Array[Panel]
 @export var back_button_progress_bar : ProgressBar
+@export var seed : Label
+@export var master_mode : Label
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
@@ -82,11 +84,15 @@ func _ready():
 		if most_reactions.top_player() == stat.player: stat.wins += 1
 	
 	if castle_climb.james_mode:
-		$VBoxContainer/MasterMode.show()
+		master_mode.show()
+	else:
+		master_mode.hide()
 	
 	if castle_climb.preset_seed:
-		$VBoxContainer/Seed.show()
-		$VBoxContainer/Seed.text = 'Custom seed used: \"' + castle_climb.seed_text + '\"'
+		seed.show()
+		seed.text = 'Custom seed used: \"' + castle_climb.seed_text + '\"'
+	else:
+		seed.hide()
 	
 	
 	#if(GameManager.isLocal()):
@@ -249,6 +255,11 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="LabelSettings" id="LabelSettings_mrhxc"]
+font_size = 32
+font_color = Color(1, 1, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1r03"]
 content_margin_left = 24.0
 content_margin_top = 8.0
@@ -264,11 +275,6 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-
-[sub_resource type="LabelSettings" id="LabelSettings_mrhxc"]
-font_size = 32
-font_color = Color(1, 1, 0, 1)
-shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqpnd"]
 font_size = 100
@@ -360,7 +366,7 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "seed", "master_mode")]
 process_mode = 3
 layer = 2
 script = SubResource("GDScript_1hf64")
@@ -370,8 +376,10 @@ highest_earner = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxCon
 most_pickups = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups")
 most_reactions = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostReactions")
 total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
-leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel1"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4")]
+leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel1"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel3"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel4")]
 back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton/ProgressBar")
+seed = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Seed")
+master_mode = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/MasterMode")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -505,56 +513,57 @@ text = "X"
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(860, 0)
 layout_mode = 2
-theme_override_constants/margin_top = 131
+theme_override_constants/margin_top = 35
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_l1r03")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2"]
-layout_mode = 2
-alignment = 1
-
-[node name="Panel1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Panel2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-
-[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2" index="3"]
-wait_time = 0.2
-
-[node name="Panel3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
-layout_mode = 2
-
-[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3" index="3"]
-wait_time = 0.3
-
-[node name="Panel4" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
-layout_mode = 2
-
-[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4" index="3"]
-wait_time = 0.4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 998.0
-offset_top = 193.0
-offset_right = 1844.0
-offset_bottom = 316.0
 theme_override_constants/separation = -8
 alignment = 1
 
-[node name="MasterMode" type="Label" parent="VBoxContainer"]
+[node name="MasterMode" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Cleared on Master Mode!"
 label_settings = SubResource("LabelSettings_mrhxc")
 horizontal_alignment = 1
 
-[node name="Seed" type="Label" parent="VBoxContainer"]
+[node name="Seed" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Seed used: XXXXX"
 label_settings = SubResource("LabelSettings_mrhxc")
 horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1r03")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Panel1" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
+layout_mode = 2
+
+[node name="Panel2" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
+layout_mode = 2
+
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel2" index="3"]
+wait_time = 0.2
+
+[node name="Panel3" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
+layout_mode = 2
+
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel3" index="3"]
+wait_time = 0.3
+
+[node name="Panel4" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer" instance=ExtResource("4_t8mik")]
+layout_mode = 2
+
+[node name="Timer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel4" index="3"]
+wait_time = 0.4
 
 [node name="Label2" type="Label" parent="."]
 anchors_preset = 5
@@ -585,7 +594,7 @@ autoplay = "default"
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/MostPickups"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner4"]
 [editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/HighestEarner5"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel1"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel2"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel3"]
-[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/PanelContainer2/HBoxContainer/Panel4"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel1"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel2"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel3"]
+[editable path="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel4"]
