@@ -203,7 +203,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		
 	#Calculate final damage (bonus damage with wet)
 	var final_damage = damage * (1.5 if current_inflictions_dictionary.has(SpellManager.elements["wet"]) else 1.0)
-	if get_parent() is CastleRoom and get_parent().james_mode: final_damage *= 2
+	if is_in_group("player") and get_parent() is CastleRoom and get_parent().james_mode: final_damage *= 2
 	
 	# Tell attack caster that they're the GOAT
 	if attack_path != null:

@@ -150,7 +150,7 @@ func _process(delta):
 			elif !animation_player.current_animation.contains("emote"):
 				animation_player.play("idle", -1, 1)
 	
-	spell_sprite_2d_projection.visible = (preparing_cast_slot >= 0 and !is_near_pickup())
+	spell_sprite_2d_projection.visible = !is_dead and preparing_cast_slot >= 0 and !is_near_pickup()
 	
 	# Death logic
 	if is_dead:
