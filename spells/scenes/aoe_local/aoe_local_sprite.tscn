@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://sps1j7ba4ag0"]
 
 [ext_resource type="Texture2D" uid="uid://d0gvocnmmf1d" path="res://spells/scenes/aoe_local/local.png" id="1_jnpwy"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_ntjg4"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="1_ntjg4"]
 [ext_resource type="Script" path="res://spells/scenes/aoe_local/aoe_local_sprite.gd" id="2_dwlgt"]
 
 [sub_resource type="Gradient" id="Gradient_gml7d"]

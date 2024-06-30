@@ -3,7 +3,7 @@ extends Area2D
 
 #region Signal methods
 func _on_body_entered(_body):
-	var win_screen = load("res://screens/win.tscn").instantiate()
+	var win_screen = load("res://screens/win_screen.tscn").instantiate()
 	win_screen.game = get_parent()
 	call_deferred("add_sibling", win_screen)
 #endregion

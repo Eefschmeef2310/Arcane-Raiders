@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://spells/scenes/laser_straight/laser_straight_raycast.gd" id="2_y0bv7"]
 [ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="3_74myo"]
 [ext_resource type="Texture2D" uid="uid://4pblykgmf71k" path="res://spells/scenes/laser_straight/laser.png" id="3_hc3ji"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_g2h38"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_g2h38"]
 
 [sub_resource type="Gradient" id="Gradient_1mn2o"]
 

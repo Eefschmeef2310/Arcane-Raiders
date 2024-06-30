@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4p5ew4hagnul"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_rm4r1"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_bti2y"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_bti2y"]
 
 [sub_resource type="Gradient" id="Gradient_1mn2o"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://tilesets/traps/dart_trap/dart_trap.gd" id="1_s720t"]
 [ext_resource type="Texture2D" uid="uid://jtppbmbwenny" path="res://tilesets/traps/dart_trap/dart_trap.png" id="2_4sqar"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_ie5cd"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_ie5cd"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="4_jw6vq"]
 [ext_resource type="AudioStream" uid="uid://be4avp2sx0gs4" path="res://sounds/effects/traps/dart_trap.wav" id="5_jcuwo"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctlrtrpxed1cg"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_4le16"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_5jtuc"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_20gq8"]
 [ext_resource type="Script" path="res://spells/scenes/proj_spread/proj_spread.gd" id="2_qrfy8"]
 [ext_resource type="PackedScene" uid="uid://br01dtr66kciu" path="res://spells/scenes/proj_burst/proj_burst_explosion.tscn" id="3_qeevp"]
 
@@ -12,7 +12,7 @@ gradient = SubResource("Gradient_1mn2o")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u1d8t"]
 resource_local_to_scene = true
-shader = ExtResource("2_5jtuc")
+shader = ExtResource("2_20gq8")
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_nati4")

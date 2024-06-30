@@ -57,6 +57,7 @@ var revival_time_max : float = 3
 @export var input_node : Node
 @export var invincibility_timer : Timer
 @export var healing_particles : GPUParticles2D
+@export var pickup_sound : AudioStreamPlayer2D
 
 @export_subgroup("Spells")
 @export var notif_spawn_pos : Node2D
@@ -515,23 +516,22 @@ func spawn_speech_polygons():
 	
 func _on_spell_changed(_slot):
 	spell_equip_sound.play()
-	
 
 @rpc("any_peer", "call_local", "reliable")
 func heal_damage(amount):
 	super.heal_damage(amount)
 	healing_particles.emitting = true;
-	$"Audio Players/PickupSound".play()
+	AudioManager.play_audio2D_at_point(global_position, pickup_sound.stream)
 
 @rpc("any_peer", "call_local", "reliable")
 func add_speed_effect():
-	$"Audio Players/PickupSound".play()
+	AudioManager.play_audio2D_at_point(global_position, pickup_sound.stream)
 	add_child(speed_effect_scene.instantiate())
 	add_pickup()
 
 @rpc("any_peer", "call_local", "reliable")
 func add_cooldown_effect():
-	$"Audio Players/PickupSound".play()
+	AudioManager.play_audio2D_at_point(global_position, pickup_sound.stream)
 	add_child(cooldown_effect_scene.instantiate())
 	add_pickup()
 
@@ -539,7 +539,6 @@ func spawn_particles():
 	var particles = DUST_PARTICLES.instantiate()
 	particles.global_position = global_position
 	add_sibling(particles)
-
 
 func _on_hole_detector_body_exited(body):
 	print("We are not in a hole.")

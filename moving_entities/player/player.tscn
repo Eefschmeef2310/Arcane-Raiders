@@ -998,7 +998,7 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
@@ -1015,6 +1015,7 @@ collision_shape = NodePath("CollisionShape2D")
 input_node = NodePath("Input")
 invincibility_timer = NodePath("InvincibilityTimer")
 healing_particles = NodePath("HealingParticles")
+pickup_sound = NodePath("Audio Players/PickupSound")
 notif_spawn_pos = NodePath("NotifSpawnPos")
 spell_pickup_detector_node = NodePath("SpellPickupDetector")
 prepare_cast_label = NodePath("PrepareCast")
@@ -1299,7 +1300,6 @@ offset_right = 40.0
 offset_bottom = -85.0
 
 [node name="HelpLabel" type="Label" parent="HelpContainer"]
-unique_name_in_owner = true
 z_index = 50
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2xy1c"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
 [ext_resource type="PackedScene" uid="uid://waswmvkg1el3" path="res://moving_entities/enemies/boss_wizard/wizard_manager.tscn" id="6_aeg1y"]
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]

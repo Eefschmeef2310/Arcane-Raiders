@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cxv6ps3wfo0nu"]
 
 [ext_resource type="Script" path="res://spells/scenes/explosion.gd" id="1_5ldg7"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_nome1"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="1_nome1"]
 [ext_resource type="Texture2D" uid="uid://qssovmkgqvgv" path="res://spells/scenes/explosive/81310-orange-art-explosion-sprite-pixel-download-hq-png.png" id="2_08nyf"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_cy2gd"]
 

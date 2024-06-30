@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dq2k1imf86dh4" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_explosion.tscn" id="1_p1jfn"]
 [ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="3_ki7or"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_tifbd"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_tifbd"]
 [ext_resource type="Texture2D" uid="uid://cmedkofd4l4gm" path="res://spells/scenes/proj_ball/proj_ball_sheet.png" id="5_li5y5"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="6_c2vqq"]
 

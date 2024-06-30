@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dt3a5xl27x1rt"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_hrp8u"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_vh0nd"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_vh0nd"]
 [ext_resource type="PackedScene" uid="uid://c20ykcgg3e6nd" path="res://spells/scenes/aoe_local/aoe_local_explosion.tscn" id="3_4cecx"]
 [ext_resource type="Script" path="res://spells/scenes/aoe_local/aoe_local.gd" id="3_x4mbi"]
 

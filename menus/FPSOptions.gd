@@ -28,9 +28,9 @@ var rates : Array = [
 
 #region Godot methods
 func _ready():
-	for r in range(resolutions.size()):
-		add_item(resolutions[r][0])
-		if (DisplayServer.window_get_size() as Vector2) == resolutions[r][1]:
+	for r in range(rates.size()):
+		add_item(rates[r][0])
+		if (DisplayServer.window_get_size() as Vector2) == rates[r][1]:
 			selected = r
 #endregion
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://bq1ea3l23k3gq"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_ljgd3"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_kybek"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_kybek"]
 [ext_resource type="Texture2D" uid="uid://4pblykgmf71k" path="res://spells/scenes/laser_straight/laser.png" id="4_uy7cb"]
 [ext_resource type="Script" path="res://spells/scripts/spell_area2d.gd" id="5_kwhts"]
 

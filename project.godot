@@ -49,6 +49,7 @@ enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg", "res://ad
 [file_customization]
 
 folder_colors={
+"res://dynamic_camera/": "red",
 "res://elements/": "orange",
 "res://items/": "blue",
 "res://managers/": "red",
