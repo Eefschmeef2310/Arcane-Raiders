@@ -540,7 +540,7 @@ func spawn_particles():
 	particles.global_position = global_position
 	add_sibling(particles)
 
-func _on_hole_detector_body_exited(body):
+func _on_hole_detector_body_exited(_body):
 	print("We are not in a hole.")
 	if is_dashing:
 		print("Collision reenabled.")
