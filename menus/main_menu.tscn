@@ -33,6 +33,7 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 #region Godot methods
 func _ready():
 	GameManager.isPaused = false
+	Dialogic.end_timeline()
 	
 	$VBoxContainer/Horiz/QuitButton.visible = OS.get_name() != \"Web\"
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"

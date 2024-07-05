@@ -544,4 +544,4 @@ func _on_hole_detector_body_exited(_body):
 	print("We are not in a hole.")
 	if is_dashing:
 		print("Collision reenabled.")
-		collision_shape.disabled = false
+		collision_shape.set_deferred("disabled", false)

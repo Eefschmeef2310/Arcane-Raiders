@@ -210,6 +210,9 @@ func start_climb():
 func start_next_floor():
 	if !is_multiplayer_authority():
 		return
+		
+	#Close any current dialogue boxes
+	Dialogic.end_timeline()
 	
 	# Increase floor count
 	current_floor += 1
