@@ -19,12 +19,9 @@ func _ready() -> void:
 	if apply_overrides_on_ready and not Engine.is_editor_hint():
 		_apply_export_overrides()
 
-
-
 ## Override this and load all your exported settings (apply them to the scene)
 func _apply_export_overrides() -> void:
 	pass
-
 
 func apply_export_overrides() -> void:
 	if disabled:
@@ -37,7 +34,6 @@ func apply_export_overrides() -> void:
 		process_mode = Node.PROCESS_MODE_INHERIT
 
 	_apply_export_overrides()
-
 
 ## Use this to get potential global settings.
 func get_global_setting(setting_name:StringName, default:Variant) -> Variant:

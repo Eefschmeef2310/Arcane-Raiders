@@ -62,19 +62,15 @@ var fallback_bubble: TextBubble = null
 
 const textbubble_scene: PackedScene = preload("res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble.tscn")
 
-
 func add_bubble() -> TextBubble:
 	var new_bubble: TextBubble = textbubble_scene.instantiate()
 	add_child(new_bubble)
 	bubbles.append(new_bubble)
 	return new_bubble
 
-
 ## Called by dialogic whenever export overrides might change
 func _apply_export_overrides() -> void:
 	pass
-
-
 
 ## Called by the base layer before opening the bubble
 func bubble_apply_overrides(bubble:TextBubble) -> void:

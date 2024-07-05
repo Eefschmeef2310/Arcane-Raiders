@@ -28,17 +28,18 @@ const DEFAULT_FROG = preload("res://dialogic_timelines_and_characters/characters
 #endregion
 
 #region Godot methods
+func _process(_delta):
+	if Dialogic.Styles.get_layout_node():
+		print(Dialogic.Styles.get_layout_node().bubbles[1].node_to_point_at)
+		pass
+	
+
 func _input(event):
 	if prompt.visible and event.is_action_pressed("interact"):
 		prompt.visible = false
 		if !Dialogic.timeline_ended.is_connected(dialogue_ended): Dialogic.timeline_ended.connect(dialogue_ended)
 		
 		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1))).register_character(DEFAULT_FROG, marker)
-		#else:
-			#
-		#var chosen_chat = str(randi_range(0, 1))
-		#
-		#Dialogic.start("random_" + chosen_chat).register_character(DEFAULT_FROG, marker)
 #endregion
 
 #region Signal methods
@@ -50,6 +51,11 @@ func _on_player_enter_zone_area_exited(_area):
 	for ar in player_enter_zone.get_overlapping_areas():
 		if ar.owner is Player:
 			return
+			
+	#If the currently open dialogue involves this character, but no players in proximity, end the chat early
+	if Dialogic.Styles.get_layout_node() and Dialogic.Styles.get_layout_node().bubbles[1].node_to_point_at.owner == self:
+		Dialogic.end_timeline()
+	
 	prompt.visible = false
 
 func dialogue_ended():
