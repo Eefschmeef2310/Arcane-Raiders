@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://be5tod8c2jxdr"]
+[gd_scene load_steps=11 format=3 uid="uid://be5tod8c2jxdr"]
 
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="1_2g0ys"]
 [ext_resource type="Script" path="res://npcs/frog_dialogue.gd" id="1_mqk84"]
@@ -11,6 +11,47 @@ radius = 128.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_h4ik7"]
 font_size = 30
+
+[sub_resource type="Animation" id="Animation_6biw1"]
+resource_name = "dance"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesScale/RightHand:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.385, 0.75, 1.125, 1.5, 1.875, 2.25, 2.625, 3.01),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(31, -31), Vector2(31, -25), Vector2(31, -31), Vector2(31, -25), Vector2(31, -31), Vector2(43, -31), Vector2(21, -31), Vector2(43, -31), Vector2(21, -31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesScale/LeftHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.385, 0.75, 1.125, 1.5, 1.875, 2.25, 2.625, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, 1, -2, -2, -2),
+"update": 0,
+"values": [Vector2(6, -25), Vector2(6, -31), Vector2(6, -25), Vector2(6, -31), Vector2(6, -25), Vector2(0, -25), Vector2(24, -25), Vector2(0, -25), Vector2(6, -25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesScale/HeadGroup:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.01, 0.1875, 0.375, 0.5625, 0.75, 0.9375, 1.125, 1.315, 1.5, 1.6875, 1.875, 2.0625, 2.25, 2.4375, 2.625, 2.8125, 3),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74), Vector2(2, -77), Vector2(2, -74)]
+}
 
 [sub_resource type="Animation" id="Animation_moalt"]
 resource_name = "idle"
@@ -55,6 +96,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s8my6"]
 _data = {
+"dance": SubResource("Animation_6biw1"),
 "idle": SubResource("Animation_moalt")
 }
 

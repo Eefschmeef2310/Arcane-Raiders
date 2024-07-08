@@ -97,7 +97,8 @@ folder_colors={
 "res://shaders/": "green",
 "res://sounds/": "green",
 "res://spells/": "purple",
-"res://spells/scenes/explosive/": "red"
+"res://spells/scenes/explosive/": "red",
+"res://tilesets/decorations/": "green"
 }
 
 [gui]
