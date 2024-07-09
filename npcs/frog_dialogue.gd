@@ -15,6 +15,7 @@ const DEFAULT_FROG = preload("res://dialogic_timelines_and_characters/characters
 	#@export_subgroup("Subgroup")
 @export_group("Timeline")
 @export var timeline: DialogicTimeline
+@export var character : DialogicCharacter
 
 @export_group("Node References")
 @export var prompt : Label
@@ -28,18 +29,13 @@ const DEFAULT_FROG = preload("res://dialogic_timelines_and_characters/characters
 #endregion
 
 #region Godot methods
-func _process(_delta):
-	if Dialogic.Styles.get_layout_node():
-		print(Dialogic.Styles.get_layout_node().bubbles[1].node_to_point_at)
-		pass
-	
-
 func _input(event):
 	if prompt.visible and event.is_action_pressed("interact"):
 		prompt.visible = false
 		if !Dialogic.timeline_ended.is_connected(dialogue_ended): Dialogic.timeline_ended.connect(dialogue_ended)
 		
-		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1))).register_character(DEFAULT_FROG, marker)
+		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
+		.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
 #endregion
 
 #region Signal methods

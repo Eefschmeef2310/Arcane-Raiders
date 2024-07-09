@@ -38,12 +38,18 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
-"default_frog": "res://dialogic_timelines_and_characters/characters/default_frog.dch"
+"default_frog": "res://dialogic_timelines_and_characters/characters/default_frog.dch",
+"disco_frog": "res://dialogic_timelines_and_characters/disco_frog.dch",
+"fashion_frog": "res://dialogic_timelines_and_characters/characters/fashion_frog.dch",
+"zoology_frog": "res://dialogic_timelines_and_characters/characters/zoology_frog.dch"
 }
 directories/dtl_directory={
+"disco_frog": "res://dialogic_timelines_and_characters/timelines/disco_frog.dtl",
+"fashion_frog": "res://dialogic_timelines_and_characters/timelines/fashion_frog.dtl",
 "random_0": "res://dialogic_timelines_and_characters/timelines/random_0.dtl",
 "random_1": "res://dialogic_timelines_and_characters/timelines/random_1.dtl",
-"test_set_timeline": "res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl"
+"test_set_timeline": "res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl",
+"zoology_frog": "res://dialogic_timelines_and_characters/timelines/zoology_frog.dtl"
 }
 layout/style_list=["res://dialogic_timelines_and_characters/styles/bubble.tres"]
 layout/default_style="res://dialogic_timelines_and_characters/styles/bubble.tres"
