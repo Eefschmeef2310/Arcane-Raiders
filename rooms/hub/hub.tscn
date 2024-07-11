@@ -27,15 +27,15 @@
 offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
 colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 1, 0.261828, 1, 0, 1, 0, 1, 0.941437, 1, 0, 0.0257359, 1, 1, 0.548928, 0, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gps12"]
-shader = ExtResource("13_o80m4")
-shader_parameter/strength = 5
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qg5go"]
 resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gps12"]
+shader = ExtResource("13_o80m4")
+shader_parameter/strength = 5
 
 [node name="CastleRoom" instance=ExtResource("1_vicu8")]
 
@@ -160,8 +160,55 @@ position = Vector2(6, -25)
 [node name="AnimationPlayer" parent="DiscoFrog" index="3"]
 autoplay = "dance"
 
-[node name="Trees" type="Node2D" parent="." index="25"]
-visible = false
+[node name="Player" parent="." index="25" instance=ExtResource("17_81u3b")]
+position = Vector2(57, 862)
+
+[node name="AnimalSound" parent="Player" index="23"]
+stream = SubResource("AudioStreamRandomizer_qg5go")
+
+[node name="Robes" type="Node2D" parent="." index="26"]
+
+[node name="Body3" type="Sprite2D" parent="Robes" index="0"]
+modulate = Color(0.737255, 0.231373, 0.192157, 1)
+position = Vector2(-238, 925)
+texture = ExtResource("20_d8qci")
+
+[node name="Body4" type="Sprite2D" parent="Robes" index="1"]
+modulate = Color(0.972549, 0.443137, 0, 1)
+position = Vector2(-295, 963)
+texture = ExtResource("20_d8qci")
+
+[node name="Body5" type="Sprite2D" parent="Robes" index="2"]
+modulate = Color(0.780392, 0.756863, 0.101961, 1)
+position = Vector2(-323, 1025)
+texture = ExtResource("20_d8qci")
+
+[node name="Body6" type="Sprite2D" parent="Robes" index="3"]
+modulate = Color(0.211765, 0.521569, 0.180392, 1)
+position = Vector2(-299, 1092)
+texture = ExtResource("20_d8qci")
+
+[node name="Body7" type="Sprite2D" parent="Robes" index="4"]
+modulate = Color(0.188235, 0.388235, 0.760784, 1)
+position = Vector2(-147, 1155)
+texture = ExtResource("20_d8qci")
+
+[node name="Body8" type="Sprite2D" parent="Robes" index="5"]
+modulate = Color(0.490196, 0.203922, 0.760784, 1)
+position = Vector2(-56, 1151)
+texture = ExtResource("20_d8qci")
+
+[node name="Body9" type="Sprite2D" parent="Robes" index="6"]
+modulate = Color(0.839216, 0.376471, 0.701961, 1)
+position = Vector2(20, 1112)
+texture = ExtResource("20_d8qci")
+
+[node name="Body10" type="Sprite2D" parent="Robes" index="7"]
+modulate = Color(0, 0.623529, 0.505882, 1)
+position = Vector2(-238, 1138)
+texture = ExtResource("20_d8qci")
+
+[node name="Trees" type="Node2D" parent="." index="27"]
 
 [node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Trees" index="0"]
 material = SubResource("ShaderMaterial_gps12")
@@ -252,54 +299,6 @@ material = SubResource("ShaderMaterial_gps12")
 position = Vector2(1893, 910)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
-
-[node name="Player" parent="." index="26" instance=ExtResource("17_81u3b")]
-position = Vector2(57, 862)
-
-[node name="AnimalSound" parent="Player" index="23"]
-stream = SubResource("AudioStreamRandomizer_qg5go")
-
-[node name="Robes" type="Node2D" parent="." index="27"]
-
-[node name="Body3" type="Sprite2D" parent="Robes" index="0"]
-modulate = Color(0.737255, 0.231373, 0.192157, 1)
-position = Vector2(-238, 925)
-texture = ExtResource("20_d8qci")
-
-[node name="Body4" type="Sprite2D" parent="Robes" index="1"]
-modulate = Color(0.972549, 0.443137, 0, 1)
-position = Vector2(-295, 963)
-texture = ExtResource("20_d8qci")
-
-[node name="Body5" type="Sprite2D" parent="Robes" index="2"]
-modulate = Color(0.780392, 0.756863, 0.101961, 1)
-position = Vector2(-323, 1025)
-texture = ExtResource("20_d8qci")
-
-[node name="Body6" type="Sprite2D" parent="Robes" index="3"]
-modulate = Color(0.211765, 0.521569, 0.180392, 1)
-position = Vector2(-299, 1092)
-texture = ExtResource("20_d8qci")
-
-[node name="Body7" type="Sprite2D" parent="Robes" index="4"]
-modulate = Color(0.188235, 0.388235, 0.760784, 1)
-position = Vector2(-147, 1155)
-texture = ExtResource("20_d8qci")
-
-[node name="Body8" type="Sprite2D" parent="Robes" index="5"]
-modulate = Color(0.490196, 0.203922, 0.760784, 1)
-position = Vector2(-56, 1151)
-texture = ExtResource("20_d8qci")
-
-[node name="Body9" type="Sprite2D" parent="Robes" index="6"]
-modulate = Color(0.839216, 0.376471, 0.701961, 1)
-position = Vector2(20, 1112)
-texture = ExtResource("20_d8qci")
-
-[node name="Body10" type="Sprite2D" parent="Robes" index="7"]
-modulate = Color(0, 0.623529, 0.505882, 1)
-position = Vector2(-238, 1138)
-texture = ExtResource("20_d8qci")
 
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
