@@ -102,6 +102,7 @@ _data = {
 
 [node name="Frog" type="Node2D" node_paths=PackedStringArray("prompt", "player_enter_zone", "marker")]
 script = ExtResource("1_mqk84")
+dialogues = Array[StringName]([&"Bingus"])
 prompt = NodePath("Label")
 player_enter_zone = NodePath("PlayerEnterZone")
 marker = NodePath("SpeakingMarker")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=18 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="7_8v5ti"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl" id="7_cgjul"]
+[ext_resource type="PackedScene" uid="uid://cut3gxxksdwqc" path="res://debug/bubble_test.tscn" id="8_yphsi"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+[ext_resource type="Shader" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble.gdshader" id="10_f1alq"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -44,6 +46,26 @@ resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lsfnp"]
+noise_type = 0
+fractal_type = 0
+cellular_jitter = 0.15
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kr7hw"]
+seamless = true
+noise = SubResource("FastNoiseLite_lsfnp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_al2g1"]
+resource_local_to_scene = true
+shader = ExtResource("10_f1alq")
+shader_parameter/radius = 200.0
+shader_parameter/box_size = Vector2(100, 100)
+shader_parameter/box_padding = 10.0
+shader_parameter/wobble_amount = 0.75
+shader_parameter/wobble_speed = 10.0
+shader_parameter/wobble_detail = 0.51
+shader_parameter/deformation_sampler = SubResource("NoiseTexture2D_kr7hw")
 
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
 
@@ -109,10 +131,23 @@ position = Vector2(18, 576)
 [node name="Frog" parent="." index="19" instance=ExtResource("7_8v5ti")]
 position = Vector2(241, 777)
 timeline = ExtResource("7_cgjul")
+character_name = "Frog Name Test"
+dialogues = Array[StringName]([&"Random Text 1", &"More random text"])
 
 [node name="Frog2" parent="." index="20" instance=ExtResource("7_8v5ti")]
 position = Vector2(579, 884)
 
+[node name="BubbleTest" parent="." index="21" instance=ExtResource("8_yphsi")]
+visible = false
+
+[node name="TextBubble" parent="BubbleTest/TextBubbleLayer" index="0" node_paths=PackedStringArray("node_to_point_at")]
+node_to_point_at = NodePath("../../../Frog")
+
+[node name="Background" parent="BubbleTest/TextBubbleLayer/TextBubble/Group" index="1"]
+material = SubResource("ShaderMaterial_al2g1")
+
 [editable path="DynamicCamera"]
 [editable path="Player"]
 [editable path="GuideArrow"]
+[editable path="BubbleTest"]
+[editable path="BubbleTest/TextBubbleLayer/TextBubble"]

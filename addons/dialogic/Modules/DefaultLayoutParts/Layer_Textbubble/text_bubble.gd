@@ -9,7 +9,7 @@ extends Control
 @onready var name_label_box: PanelContainer = (%NameLabelPanel as PanelContainer)
 @onready var name_label_holder: HBoxContainer = $DialogText/NameLabelPositioner
 
-var node_to_point_at: Node = null
+@export var node_to_point_at: Node = null
 var current_character: DialogicCharacter = null
 
 var max_width := 300
@@ -31,7 +31,7 @@ var bg_padding := 30
 
 
 func _ready() -> void:
-	reset()
+	#reset()
 	DialogicUtil.autoload().Choices.choices_shown.connect(_on_choices_shown)
 
 

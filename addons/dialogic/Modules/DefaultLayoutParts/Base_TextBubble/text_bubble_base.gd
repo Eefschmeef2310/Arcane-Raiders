@@ -9,7 +9,6 @@ var registered_characters: Dictionary = {}
 @export_group("Main")
 @export_range(1, 25, 1) var bubble_count : int = 2
 
-
 func _ready():
 	if Engine.is_editor_hint():
 		return
@@ -23,12 +22,10 @@ func _ready():
 	if len(bubbles) < bubble_count:
 		add_bubble()
 
-
 func register_character(character:DialogicCharacter, node:Node):
 	registered_characters[character] = node
 	if len(registered_characters) > len(bubbles) and len(bubbles) < bubble_count:
 		add_bubble()
-
 
 func add_bubble() -> void:
 	if not has_node('TextBubbleLayer'):
@@ -36,7 +33,6 @@ func add_bubble() -> void:
 
 	var new_bubble: Control = get_node("TextBubbleLayer").add_bubble()
 	bubbles.append(new_bubble)
-
 
 func _on_dialogic_text_event(info:Dictionary):
 	var bubble_to_use: Node

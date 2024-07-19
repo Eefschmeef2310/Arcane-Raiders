@@ -9,6 +9,7 @@ extends Node2D
 
 	#Constants
 const DEFAULT_FROG = preload("res://dialogic_timelines_and_characters/characters/default_frog.dch")
+const textbubble_scene: PackedScene = preload("res://debug/bubble_test.tscn")
 
 	#Exported Variables
 	#@export_group("Group")
@@ -16,6 +17,8 @@ const DEFAULT_FROG = preload("res://dialogic_timelines_and_characters/characters
 @export_group("Timeline")
 @export var timeline: DialogicTimeline
 @export var character : DialogicCharacter
+@export var character_name : String
+@export var dialogues : Array[StringName]
 
 @export_group("Node References")
 @export var prompt : Label
@@ -25,6 +28,7 @@ const DEFAULT_FROG = preload("res://dialogic_timelines_and_characters/characters
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
+var fresh_bubble : CanvasLayer
 
 #endregion
 
@@ -34,14 +38,25 @@ func _input(event):
 		prompt.visible = false
 		if !Dialogic.timeline_ended.is_connected(dialogue_ended): Dialogic.timeline_ended.connect(dialogue_ended)
 		
-		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
-		.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
+		#Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
+		#.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
+		
+		
 #endregion
 
 #region Signal methods
 func _on_player_enter_zone_area_entered(area):
 	if area.owner is Player:
 		prompt.visible = true
+		
+		#Spawn bubble
+		fresh_bubble = textbubble_scene.instantiate()
+		fresh_bubble.bubble.node_to_point_at = marker
+		add_child(fresh_bubble)
+		fresh_bubble.bubble.position = marker.get_global_transform_with_canvas().get_origin()
+		fresh_bubble.bubble.text.text = dialogues.pick_random()
+		fresh_bubble.bubble.name_label.text = str(character_name)
+		fresh_bubble.bubble._resize_bubble(fresh_bubble.bubble.get_base_content_size())
 		
 func _on_player_enter_zone_area_exited(_area):
 	for ar in player_enter_zone.get_overlapping_areas():
@@ -51,6 +66,9 @@ func _on_player_enter_zone_area_exited(_area):
 	#If the currently open dialogue involves this character, but no players in proximity, end the chat early
 	if Dialogic.Styles.get_layout_node() and Dialogic.Styles.get_layout_node().bubbles[1].node_to_point_at.owner == self:
 		Dialogic.end_timeline()
+		
+	if fresh_bubble:
+		fresh_bubble.queue_free()
 	
 	prompt.visible = false
 
