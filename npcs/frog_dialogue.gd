@@ -38,8 +38,8 @@ func _input(event):
 		prompt.visible = false
 		if !Dialogic.timeline_ended.is_connected(dialogue_ended): Dialogic.timeline_ended.connect(dialogue_ended)
 		
-		#Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
-		#.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
+		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
+		.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
 		
 		
 #endregion
@@ -51,14 +51,14 @@ func _on_player_enter_zone_area_entered(area):
 		
 		#Spawn bubble
 		fresh_bubble = textbubble_scene.instantiate()
-		fresh_bubble.bubble.node_to_point_at = marker
 		add_child(fresh_bubble)
+		fresh_bubble.bubble.node_to_point_at = marker
 		fresh_bubble.bubble.position = marker.get_global_transform_with_canvas().get_origin()
-		fresh_bubble.bubble.text.text = dialogues.pick_random()
 		fresh_bubble.bubble.name_label.text = str(character_name)
 		fresh_bubble.bubble._resize_bubble(fresh_bubble.bubble.get_base_content_size())
+		fresh_bubble.bubble.text.reveal_text(str(dialogues.pick_random()) if dialogues.size() > 0 else "")
 		
-func _on_player_enter_zone_area_exited(_area):
+func _on_player_enterd_zone_area_exited(_area):
 	for ar in player_enter_zone.get_overlapping_areas():
 		if ar.owner is Player:
 			return
@@ -71,14 +71,12 @@ func _on_player_enter_zone_area_exited(_area):
 		fresh_bubble.queue_free()
 	
 	prompt.visible = false
+#endregion
 
+#region Other methods (please try to separate and organise!)
 func dialogue_ended():
 	Dialogic.timeline_ended.disconnect(dialogue_ended)
 	for ar in player_enter_zone.get_overlapping_areas():
 		if ar.owner is Player:
 			prompt.visible = true
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
 #endregion
