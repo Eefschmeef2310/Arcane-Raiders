@@ -98,6 +98,7 @@ folder_colors={
 "res://npcs/": "teal",
 "res://online/": "pink",
 "res://rooms/": "pink",
+"res://rooms/hub/": "purple",
 "res://saves/": "green",
 "res://screens/": "yellow",
 "res://shaders/": "green",
