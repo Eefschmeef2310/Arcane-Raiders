@@ -38,6 +38,14 @@ func client_disconnected():
 func disconnected():
 	pass
 
+#when any controllers are connected but not ingame, show join prompt
+func controller_connected():
+	pass
+
+#remove the relevant player with remove_player()
+func controller_disconnected():
+	pass
+
 #endregion 
 
 #region - Game Management
@@ -49,6 +57,12 @@ func start_game():
 #called when a run finishes, returns player to hub
 func game_finished():
 	pass
+
+#endregion
+
+#region - Notes
+
+#may need to manage syncing player choices here (animal, color, ect)
 
 #endregion
 
