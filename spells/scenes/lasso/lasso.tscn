@@ -1,18 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://st53ca8alpuc"]
+[gd_scene load_steps=5 format=3 uid="uid://st53ca8alpuc"]
 
 [ext_resource type="Script" path="res://spells/scenes/lasso/lasso.gd" id="1_g26yd"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_k33h5"]
 
 [sub_resource type="Curve2D" id="Curve2D_qemrv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0)
+"points": PackedVector2Array(-175.25, 131.05, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0)
 }
 point_count = 2
 
-[node name="Lasso" type="Node2D" node_paths=PackedStringArray("path_follow", "kill_timer")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_prvw0"]
+
+[node name="Lasso" type="Node2D" node_paths=PackedStringArray("path_follow", "kill_timer", "line", "hurtbox")]
+y_sort_enabled = true
 script = ExtResource("1_g26yd")
+knockback = -10.0
 path_follow = NodePath("Path2D/PathFollow2D")
 kill_timer = NodePath("KillTimer")
+line = NodePath("Line2D")
+hurtbox = NodePath("Path2D/PathFollow2D/Hurtbox")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_qemrv")
@@ -23,9 +32,19 @@ curve = SubResource("Curve2D_qemrv")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_k33h5")
 
+[node name="Hurtbox" type="Area2D" parent="Path2D/PathFollow2D"]
+collision_layer = 16
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Hurtbox"]
+shape = SubResource("CircleShape2D_prvw0")
+debug_color = Color(0.701961, 0.0431373, 0, 0.419608)
+
 [node name="KillTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 0.5
 one_shot = true
 autostart = true
 
+[connection signal="area_entered" from="Path2D/PathFollow2D/Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Path2D/PathFollow2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

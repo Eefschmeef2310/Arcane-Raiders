@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvdcq1e7topub"]
+
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_dsskn"]
+[ext_resource type="Script" path="res://spells/scenes/lasso/lasso_hit.gd" id="1_sebwu"]
+
+[node name="LassoHit" type="Node2D" node_paths=PackedStringArray("line", "wrap")]
+script = ExtResource("1_sebwu")
+line = NodePath("LassoRope")
+wrap = NodePath("LassoWrap")
+
+[node name="LassoWrap" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -18)
+scale = Vector2(1, 0.28125)
+texture = ExtResource("1_dsskn")
+
+[node name="LassoRope" type="Line2D" parent="."]
+points = PackedVector2Array(100, 0, 0, 0)
+default_color = Color(1, 0.988235, 0, 1)
+texture = ExtResource("1_dsskn")
+texture_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

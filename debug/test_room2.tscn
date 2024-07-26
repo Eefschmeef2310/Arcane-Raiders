@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=14 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
@@ -6,8 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="7_8v5ti"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl" id="7_cgjul"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="8_r63w0"]
-[ext_resource type="PackedScene" uid="uid://st53ca8alpuc" path="res://spells/scenes/lasso/lasso.tscn" id="9_msr0d"]
+[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="8_a8v3g"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -46,15 +45,6 @@ resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
-
-[sub_resource type="GDScript" id="GDScript_yo5k2"]
-script/source = "extends Sprite2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	print(get_rect().size * scale)
-"
 
 [node name="CastleRoom" instance=ExtResource("1_fdu1f")]
 
@@ -105,7 +95,7 @@ position = Vector2(96, 800)
 health = 250
 
 [node name="PlayerData" parent="Player" index="4"]
-spell_strings = Array[String](["burn-proj_ball", "burn-aoe_large", "stun-aoe_large"])
+spell_strings = Array[String](["burn-proj_ball", "null-lasso", "stun-aoe_large"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="AnimalSound" parent="Player" index="23"]
@@ -126,14 +116,8 @@ dialogues = Array[StringName]([&"Random Text 1", &"More random text"])
 [node name="Frog2" parent="." index="20" instance=ExtResource("7_8v5ti")]
 position = Vector2(579, 884)
 
-[node name="Icon" type="Sprite2D" parent="." index="21"]
-position = Vector2(617, 682)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_r63w0")
-script = SubResource("GDScript_yo5k2")
-
-[node name="Lasso" parent="." index="22" instance=ExtResource("9_msr0d")]
-position = Vector2(456, 729)
+[node name="SlimeBig" parent="." index="21" instance=ExtResource("8_a8v3g")]
+position = Vector2(583, 729)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

@@ -88,11 +88,12 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/mult
 [file_customization]
 
 folder_colors={
+"res://debug/": "red",
 "res://dialogic_timelines_and_characters/": "purple",
-"res://dynamic_camera/": "red",
+"res://dynamic_camera/": "green",
 "res://elements/": "orange",
 "res://items/": "blue",
-"res://managers/": "red",
+"res://managers/": "orange",
 "res://moving_entities/": "teal",
 "res://moving_entities/player/": "green",
 "res://npcs/": "teal",
