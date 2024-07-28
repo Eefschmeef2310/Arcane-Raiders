@@ -40,8 +40,6 @@ func _input(event):
 		
 		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
 		.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
-		
-		
 #endregion
 
 #region Signal methods
@@ -58,7 +56,7 @@ func _on_player_enter_zone_area_entered(area):
 		fresh_bubble.bubble._resize_bubble(fresh_bubble.bubble.get_base_content_size())
 		fresh_bubble.bubble.text.reveal_text(str(dialogues.pick_random()) if dialogues.size() > 0 else "")
 		
-func _on_player_enterd_zone_area_exited(_area):
+func _on_player_enter_zone_area_exited(_area):
 	for ar in player_enter_zone.get_overlapping_areas():
 		if ar.owner is Player:
 			return
@@ -67,7 +65,7 @@ func _on_player_enterd_zone_area_exited(_area):
 	if Dialogic.Styles.get_layout_node() and Dialogic.Styles.get_layout_node().bubbles[1].node_to_point_at.owner == self:
 		Dialogic.end_timeline()
 		
-	if fresh_bubble:
+	if is_instance_valid(fresh_bubble):
 		fresh_bubble.queue_free()
 	
 	prompt.visible = false
