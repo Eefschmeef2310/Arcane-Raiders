@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf81fxufqd30m"]
+
+[ext_resource type="Script" path="res://hats/scenes/health_hat.gd" id="1_vyja7"]
+
+[node name="HealthHat" type="Node"]
+script = ExtResource("1_vyja7")

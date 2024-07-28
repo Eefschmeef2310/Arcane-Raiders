@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=14 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
+[ext_resource type="PackedScene" uid="uid://cf81fxufqd30m" path="res://hats/scenes/health_hat.tscn" id="5_uaevt"]
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="7_8v5ti"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl" id="7_cgjul"]
@@ -99,6 +100,8 @@ main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="AnimalSound" parent="Player" index="23"]
 stream = SubResource("AudioStreamRandomizer_doftm")
+
+[node name="HealthHat" parent="Player" index="27" instance=ExtResource("5_uaevt")]
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true

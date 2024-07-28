@@ -92,6 +92,7 @@ folder_colors={
 "res://dialogic_timelines_and_characters/": "purple",
 "res://dynamic_camera/": "green",
 "res://elements/": "orange",
+"res://hats/": "teal",
 "res://items/": "blue",
 "res://managers/": "orange",
 "res://moving_entities/": "teal",
