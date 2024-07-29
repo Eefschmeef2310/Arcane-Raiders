@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
-[ext_resource type="PackedScene" uid="uid://cf81fxufqd30m" path="res://hats/scenes/health_hat.tscn" id="5_uaevt"]
+[ext_resource type="PackedScene" uid="uid://dpu3i2bvxup6g" path="res://hats/scenes/explosion_hat/explosion_hat.tscn" id="5_rjj0l"]
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="7_8v5ti"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl" id="7_cgjul"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
+[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="10_5v2er"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -101,7 +102,7 @@ main_color = Color(0.737255, 0.231373, 0.192157, 1)
 [node name="AnimalSound" parent="Player" index="23"]
 stream = SubResource("AudioStreamRandomizer_doftm")
 
-[node name="HealthHat" parent="Player" index="27" instance=ExtResource("5_uaevt")]
+[node name="ExplosionHat" parent="Player" index="27" instance=ExtResource("5_rjj0l")]
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
@@ -118,6 +119,9 @@ dialogues = Array[StringName]([&"Random Text 1", &"More random text"])
 [node name="Frog2" parent="." index="20" instance=ExtResource("7_8v5ti")]
 position = Vector2(579, 884)
 character_name = "Bingus"
+
+[node name="SlimeBig" parent="." index="21" instance=ExtResource("10_5v2er")]
+position = Vector2(679, 674)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

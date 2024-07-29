@@ -5,6 +5,9 @@ class_name Player
 signal spell_pickup_requested(Player, int, SpellPickup)
 signal dead(Player)
 signal revived(Player)
+signal dash_signal()
+signal dash_cooldown_complete()
+signal taken_damage()
 
 const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn")
 
@@ -129,6 +132,8 @@ func _process(delta):
 		dash_cooldown -= delta
 		if dash_bar:
 			dash_bar.value = dash_cooldown
+	else:
+		dash_cooldown_complete.emit()
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
@@ -253,7 +258,7 @@ func attempt_dash():
 		
 @rpc("authority", "call_local", "reliable")
 func start_dash(dir: Vector2):
-	#print("dash!")
+	dash_signal.emit()
 	dash_sound_player.play()
 	if dir == Vector2.ZERO:
 		dir = Vector2(1, 0)
@@ -381,6 +386,8 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	
 	if is_dead:
 		return
+	
+	taken_damage.emit()
 	
 	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
 

@@ -30,6 +30,7 @@ extends Area2D
 var base_damage : int
 var resource : Spell
 var caster : Player
+var deal_force : bool
 
 var starting_scale : Vector2
 
@@ -43,6 +44,7 @@ var play_element_sound : bool = false
 
 #region Godot methods
 func _ready():
+	print("created")
 	if resource:
 		if resource.element.gradient:
 			(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
@@ -80,8 +82,8 @@ func _on_body_entered(body):
 		queue_free()
 
 func _on_area_entered(area):
-	if area != caster and "on_hurt" in area:
-		area.on_hurt(self)
+	if area.owner != caster and "on_hurt" in area.owner:
+		area.owner.on_hurt(self)
 	if destroy_on_contact:
 		queue_free()
 
