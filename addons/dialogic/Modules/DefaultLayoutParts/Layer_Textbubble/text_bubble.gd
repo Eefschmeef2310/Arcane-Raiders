@@ -68,7 +68,8 @@ func _process(delta:float) -> void:
 		)
 	p = p.clamp(bubble_rect.size / 2.0, get_viewport_rect().size - bubble_rect.size / 2.0)
 
-	position = position.lerp(p, 5 * delta)
+	#position = position.lerp(p, 5 * delta)
+	position = p
 
 	var point_a: Vector2 = Vector2.ZERO
 	var point_b: Vector2 = (base_position - position) * 0.75
@@ -126,7 +127,7 @@ func _resize_bubble(content_size:Vector2, popup:=false) -> void:
 	else:
 		bubble.scale = Vector2.ONE
 
-	bubble.material.set(&"shader_parameter/box_size", bubble_size)
+	#bubble.material.set(&"shader_parameter/box_size", bubble_size)
 	name_label_holder.position = Vector2(0, bubble.position.y - text.position.y - name_label_holder.size.y/2.0)
 	name_label_holder.position += name_label_offset
 	name_label_holder.alignment = name_label_alignment
