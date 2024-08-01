@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_3yuf6"]
 [ext_resource type="PackedScene" uid="uid://cr1h1dxl5yo6r" path="res://spells/reactions/burn-frost/burn_frost_explosion.tscn" id="2_dvkgq"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_vc563"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_vc563"]
 
 [sub_resource type="Gradient" id="Gradient_1mn2o"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://7ackwtsdw4us"]
 
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="1_aj5py"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="1_aj5py"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_71ocd"]
 [ext_resource type="Script" path="res://tilesets/decorations/window_daynight_cycle.gd" id="2_lha6k"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="3_db250"]

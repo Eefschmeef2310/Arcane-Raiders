@@ -34,7 +34,7 @@ func _ready():
 
 func _process(_delta):
 	#if caster : global_position = caster.global_position
-	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster) + Vector2(0,-16)
 
 #region Signal methods
 func _on_wave_timer_timeout():

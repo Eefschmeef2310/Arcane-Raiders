@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cceu5pa434epk"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player_notif.gd" id="1_2oxk6"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_2npng"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2npng"]
 [ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="3_2qlnw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ybd7"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://b2taq0rorcwle"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_islpd"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_wad5y"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_wad5y"]
 [ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="3_bll18"]
 [ext_resource type="Texture2D" uid="uid://d0gvocnmmf1d" path="res://spells/scenes/aoe_local/local.png" id="4_w28i4"]
 

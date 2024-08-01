@@ -28,14 +28,16 @@ var rates : Array = [
 
 #region Godot methods
 func _ready():
-	for r in range(resolutions.size()):
-		add_item(resolutions[r][0])
-		if (DisplayServer.window_get_size() as Vector2) == resolutions[r][1]:
+	for r in range(rates.size()):
+		add_item(rates[r][0])
+		if (DisplayServer.window_get_size() as Vector2) == rates[r][1]:
 			selected = r
 #endregion
 
 #region Signal methods
-
+func _on_item_selected(index):
+	var size = rates[index][1]
+	DisplayServer.window_set_size(size)
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -43,6 +45,4 @@ func _ready():
 #endregion
 
 
-func _on_item_selected(index):
-	var size = resolutions[index][1]
-	DisplayServer.window_set_size(size)
+

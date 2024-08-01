@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://20ej7fio4eqo"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_nvmls"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_gfhkv"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_gfhkv"]
 [ext_resource type="PackedScene" uid="uid://b2taq0rorcwle" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large_explosion.tscn" id="3_bcvkx"]
 [ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="4_bsb6q"]
 

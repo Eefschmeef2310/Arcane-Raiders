@@ -1,12 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvlicvm1ejylu"]
+[gd_scene load_steps=9 format=3 uid="uid://cvlicvm1ejylu"]
 
 [ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_r37sd"]
 [ext_resource type="Script" path="res://spells/scenes/aoe_large/aoe_large.gd" id="2_6hqll"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_8pt86"]
 [ext_resource type="PackedScene" uid="uid://oudjhge6qn0v" path="res://spells/scenes/aoe_large/aoe_large_explosion.tscn" id="3_8s1x3"]
 [ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="3_gt4r0"]
 
+[sub_resource type="Gradient" id="Gradient_1mn2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nati4"]
+gradient = SubResource("Gradient_1mn2o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gklr1"]
+resource_local_to_scene = true
+shader = ExtResource("2_8pt86")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
+
 [node name="AoeLarge" instance=ExtResource("1_r37sd")]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_gklr1")
 script = ExtResource("2_6hqll")
 EXPLOSION = ExtResource("3_8s1x3")
 base_damage = 160

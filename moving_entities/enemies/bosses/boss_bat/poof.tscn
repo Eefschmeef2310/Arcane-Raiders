@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://xu15mrux3237"]
 
 [ext_resource type="Texture2D" uid="uid://bag08vt1m47yo" path="res://spells/scenes/explosive/explosion.png" id="1_tu0w7"]
-[ext_resource type="Script" path="res://screens/kill_on_signal.gd" id="2_tplc5"]
+[ext_resource type="Script" path="res://moving_entities/enemies/bosses/boss_bat/kill_on_signal.gd" id="2_tplc5"]
 [ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="3_kokpv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hspqe"]

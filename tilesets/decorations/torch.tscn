@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_gl3o8"]
 [ext_resource type="Script" path="res://tilesets/decorations/torch.gd" id="2_v84hn"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="3_5nbkh"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="3_llv6y"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="3_llv6y"]
 [ext_resource type="Texture2D" uid="uid://ca301pyfbxaie" path="res://tilesets/decorations/torch.png" id="4_mgxeh"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="6_t1jvc"]
 

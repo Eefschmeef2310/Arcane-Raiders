@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=3 format=3 uid="uid://djq31t76sh4r6"]
+
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="1_2p022"]
+[ext_resource type="PackedScene" uid="uid://st53ca8alpuc" path="res://spells/scenes/lasso/lasso.tscn" id="1_2y41a"]
+
+[resource]
+script = ExtResource("1_2p022")
+suffix = "Lasso"
+description = ""
+scene = ExtResource("1_2y41a")

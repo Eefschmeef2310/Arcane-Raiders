@@ -1,11 +1,11 @@
-[gd_resource type="TileSet" load_steps=27 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=28 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
 [ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
 [ext_resource type="PackedScene" uid="uid://bhexq08sb2msk" path="res://tilesets/decorations/torch_other_way.tscn" id="3_vx6cj"]
 [ext_resource type="PackedScene" uid="uid://rjdf8vu04xyv" path="res://tilesets/decorations/window_other_way.tscn" id="4_6n5bn"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_ep2uc"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_ep2uc"]
 [ext_resource type="Texture2D" uid="uid://reyrua0dcxmu" path="res://tilesets/decorations/cracks_tileset.png" id="4_ew2ml"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="5_futuj"]
 [ext_resource type="Texture2D" uid="uid://cfvo71m485f0q" path="res://tilesets/decorations/window.png" id="6_omrmw"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://x7nsi77vpnvj" path="res://tilesets/traps/spike_traps/spike_trap.tscn" id="9_4y0o1"]
 [ext_resource type="PackedScene" uid="uid://b1xslj4koa4ta" path="res://tilesets/traps/dart_trap/dart_trap.tscn" id="10_3x5et"]
 [ext_resource type="PackedScene" uid="uid://m7iax2fg8po8" path="res://tilesets/traps/dart_trap/dart_trap_other.tscn" id="11_fbnbu"]
+[ext_resource type="PackedScene" uid="uid://dnabcmd0hxe6s" path="res://tilesets/decorations/disco_floor/disco_tile.tscn" id="12_56okc"]
 
 [sub_resource type="Gradient" id="Gradient_oh054"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -52,6 +53,7 @@ scenes/5/scene = ExtResource("4_6n5bn")
 scenes/6/scene = ExtResource("11_fbnbu")
 scenes/7/scene = ExtResource("10_3x5et")
 scenes/8/scene = ExtResource("9_4y0o1")
+scenes/9/scene = ExtResource("12_56okc")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ap3w"]
 resource_name = "edges"

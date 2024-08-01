@@ -100,8 +100,10 @@ func _physics_process(delta):
 	if knockback_hold_timer > 0:
 		knockback_hold_timer -= delta
 	else:
-		knockback_velocity = lerp(knockback_velocity, 0.0, clamp(delta * knockback_lerp_strength, 0.0, 1.0))
-		if knockback_velocity <= knockback_floor:
+		knockback_velocity = lerp(knockback_velocity, 0.0, clamp(delta * knockback_lerp_strength, 0, 1.0))
+		if knockback_velocity > 0 and knockback_velocity <= knockback_floor:
+			can_input = true
+		elif knockback_velocity < 0 and knockback_velocity >= -knockback_floor:
 			can_input = true
 	
 	set_deferred("ice_speed_scale", 1.0)
@@ -306,7 +308,6 @@ func add_knockback(attack_path):
 	if attack:
 		knockback_direction = get_node(attack_path).global_position.direction_to(global_position)
 		if "knockback" in attack:
-			#dsprint(attack.knockback)
 			knockback_velocity *= attack.knockback
 	can_input = false
 

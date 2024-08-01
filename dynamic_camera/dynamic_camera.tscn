@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://83gie5tlktus"]
 
 [ext_resource type="Script" path="res://dynamic_camera/dynamic_camera.gd" id="1_tka6i"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_pjfas"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_a725u"]
 [ext_resource type="Texture2D" uid="uid://b65cdnki3bs6s" path="res://tilesets/decorations/Black-Circle-Fade-Sphere-PNG-Image-HD.png" id="3_fuxwj"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -12,7 +12,7 @@ colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.2592
 gradient = SubResource("Gradient_mkddu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxurv"]
-shader = ExtResource("2_pjfas")
+shader = ExtResource("2_a725u")
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1nlfu")

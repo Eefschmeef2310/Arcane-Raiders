@@ -7,10 +7,10 @@ class_name DynamicCamera
 @export var min_zoom := 2.
 @export var max_zoom := 1.
 @export var margin := Vector2(400,400) #Safe zone around players
+@export var targets: Array[Node] = []
 
 	#Onready Variables
 @onready var screen_size = get_viewport_rect().size
-var targets: Array[Node] = []
 #endregion
 
 #region Godot methods

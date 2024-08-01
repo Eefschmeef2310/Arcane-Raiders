@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball_body.gd" id="1_x5adh"]
 [ext_resource type="PackedScene" uid="uid://6hpw555slkv6" path="res://spells/scenes/proj_ball/proj_ball_explosion.tscn" id="2_1pp8o"]
 [ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="2_ir44m"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="4_4wouh"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_i2f7a"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="4_isauo"]
 [ext_resource type="Texture2D" uid="uid://cmedkofd4l4gm" path="res://spells/scenes/proj_ball/proj_ball_sheet.png" id="4_tkjnx"]
 
@@ -18,7 +18,7 @@ gradient = SubResource("Gradient_n4ea6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hi2g8"]
 resource_local_to_scene = true
-shader = ExtResource("4_4wouh")
+shader = ExtResource("4_i2f7a")
 shader_parameter/final_saturation = 0.65
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ugs5e")

@@ -20,21 +20,13 @@ extends Node
 #endregion
 
 #region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-	
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
 		var array = get_all_children(get_tree().root)
 		for child in array:
 			if child is CastleRoom:
 				print(child)
-				child.add_child(load("res://screens/win.tscn").instantiate())
+				child.add_child(load("res://screens/win_screen.tscn").instantiate())
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_G:
 		var array = get_all_children(get_tree().root)

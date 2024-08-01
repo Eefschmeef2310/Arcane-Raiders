@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://x7nsi77vpnvj"]
 
 [ext_resource type="Script" path="res://tilesets/traps/spike_traps/spike_trap.gd" id="1_bkgxk"]
-[ext_resource type="Shader" path="res://debug/tilemap_gradient_map.gdshader" id="2_8sk3r"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_8sk3r"]
 [ext_resource type="Texture2D" uid="uid://s5dk1cx6a85e" path="res://tilesets/traps/spike_traps/spike_trap_waiting.png" id="3_ugwcy"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="4_wwjis"]
 [ext_resource type="Texture2D" uid="uid://8e3f4ke48uho" path="res://tilesets/traps/spike_traps/spike_trap_peek.png" id="5_421aa"]

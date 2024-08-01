@@ -1,5 +1,5 @@
 extends Area2D
-	#class_name
+#class_name ExplosionBaseScript
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
