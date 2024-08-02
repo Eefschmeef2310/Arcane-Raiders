@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ouxe3ksjlhd4"]
+
+[ext_resource type="Script" path="res://hats/scenes/vampire_hat.gd" id="1_bb330"]
+
+[node name="VampireHat" type="Node"]
+script = ExtResource("1_bb330")

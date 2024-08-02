@@ -44,7 +44,6 @@ var play_element_sound : bool = false
 
 #region Godot methods
 func _ready():
-	print("created")
 	if resource:
 		if resource.element.gradient:
 			(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
