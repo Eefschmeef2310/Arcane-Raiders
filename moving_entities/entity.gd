@@ -68,6 +68,9 @@ var knockback_hold_timer = 0
 
 #for attraction stuff
 var attraction_direction : Vector2
+
+#Damage multiplier
+var entity_damage_multiplier = 1.0
 #endregion
 
 #region Godot methods

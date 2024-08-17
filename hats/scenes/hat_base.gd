@@ -12,6 +12,7 @@ class_name Hat
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var sprite : Texture
 
 	#Onready Variables
 @onready var player : Player = get_parent()
@@ -21,7 +22,8 @@ class_name Hat
 #endregion
 
 #region Godot methods
-
+func _ready():
+	player.crown.texture = sprite
 #endregion
 
 #region Signal methods

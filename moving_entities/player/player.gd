@@ -194,7 +194,8 @@ func _process(delta):
 		prepare_cast_label.text = str(preparing_cast_slot)
 		can_cast_label.text = str(can_cast)
 	
-	crown.visible = data.has_crown
+	#crown.visible = data.has_crown
+	crown.visible = crown.texture != null
 
 func _physics_process(delta):
 	super._physics_process(delta)
@@ -348,6 +349,7 @@ func cast_spell(slot: int):
 			var spell_node = data.spells[slot].scene.instantiate()
 			spell_node.resource = data.spells[slot]
 			spell_node.caster = self
+			spell_node.base_damage *= entity_damage_multiplier
 			spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
 			add_sibling(spell_node)
 			

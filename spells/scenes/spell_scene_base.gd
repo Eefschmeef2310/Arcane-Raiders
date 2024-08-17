@@ -45,9 +45,6 @@ class_name SpellBase
 	#Other Variables (please try to separate and organise!)
 var resource : Spell #This is set in code
 var caster : Entity #This is also set in code
-
-
-
 #endregion
 
 func _enter_tree():

@@ -209,6 +209,7 @@ position = Vector2(-238, 1138)
 texture = ExtResource("20_d8qci")
 
 [node name="Trees" type="Node2D" parent="." index="27"]
+visible = false
 
 [node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Trees" index="0"]
 material = SubResource("ShaderMaterial_gps12")

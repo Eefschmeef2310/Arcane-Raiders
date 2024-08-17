@@ -12,7 +12,6 @@ extends Hat
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var health_increase : int = 250
 
 	#Onready Variables
 
@@ -23,13 +22,13 @@ extends Hat
 #region Godot methods
 func _ready():
 	super._ready()
-	#player.max_health += health_increase
-	player.set_health(player.health + health_increase)
-	player.data.max_health += health_increase
+	player.killed_entity.connect(increase_damage)
+	
 #endregion
 
 #region Signal methods
-
+func increase_damage():
+	print("damage increase")
 #endregion
 
 #region Other methods (please try to separate and organise!)

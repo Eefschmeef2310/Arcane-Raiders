@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bknbc75mbixrs"]
+
+[ext_resource type="Script" path="res://hats/scenes/snowball_hat.gd" id="1_202r6"]
+
+[node name="SnowballHat" type="Node"]
+script = ExtResource("1_202r6")
