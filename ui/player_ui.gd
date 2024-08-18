@@ -80,9 +80,8 @@ func update_prompts(id: int):
 				spells[i].change_prompt(icons[i])
 
 func _on_player_health_updated(_player_data, _amount):
-	#print("updating health bar")
-	health_bar.value = data.health
 	health_bar.max_value = data.max_health
+	health_bar.value = data.health
 	if health_bar.value <= 0.25 * health_bar.max_value:
 		$Flasher.play("flash")
 	else:

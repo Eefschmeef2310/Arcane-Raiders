@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_dsskn"]
 [ext_resource type="Script" path="res://spells/scenes/lasso/lasso_hit.gd" id="1_sebwu"]
 
-[node name="LassoHit" type="Node2D" node_paths=PackedStringArray("line", "wrap")]
+[node name="LassoHit" type="Node2D" node_paths=PackedStringArray("line", "loop")]
 script = ExtResource("1_sebwu")
 line = NodePath("LassoRope")
-wrap = NodePath("LassoWrap")
+loop = NodePath("LassoWrap")
 
 [node name="LassoWrap" type="Sprite2D" parent="."]
 z_index = 1

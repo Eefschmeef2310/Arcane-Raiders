@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=60 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -39,6 +39,34 @@ func _physics_process(_delta):
 	closest_pickup = null
 	if detect_pickups:
 		var all_pickups = get_tree().get_nodes_in_group(\"spell_pickup\")
+		if all_pickups.size() > 0:
+			var closest = max_distance
+			for pickup in all_pickups:
+				var dist = owner.global_position.distance_to(pickup.global_position)
+				if dist < closest:
+					closest = dist
+					closest_pickup = pickup
+		
+		if had_closest_last_frame and closest_pickup:
+			owner.data.pickup_proximity_changed.emit(true)
+		elif had_closest_last_frame and !closest_pickup:
+			owner.data.pickup_proximity_changed.emit(false)
+		had_closest_last_frame = (closest_pickup != null)
+"
+
+[sub_resource type="GDScript" id="GDScript_3en0v"]
+resource_name = "hat_pickup_detector"
+script/source = "extends Node
+
+@export var detect_pickups: bool = true
+var closest_pickup: HatPickup = null
+var had_closest_last_frame = false
+var max_distance = 100
+
+func _physics_process(_delta):
+	closest_pickup = null
+	if detect_pickups:
+		var all_pickups = get_tree().get_nodes_in_group(\"hat_pickup\")
 		if all_pickups.size() > 0:
 			var closest = max_distance
 			for pickup in all_pickups:
@@ -1071,6 +1099,9 @@ script = ExtResource("3_h46ns")
 
 [node name="SpellPickupDetector" type="Node" parent="."]
 script = SubResource("GDScript_qs58w")
+
+[node name="HatPickupDetector" type="Node" parent="."]
+script = SubResource("GDScript_3en0v")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")

@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cf81fxufqd30m"]
-
-[ext_resource type="Script" path="res://hats/scenes/health_hat.gd" id="1_vyja7"]
-[ext_resource type="Texture2D" uid="uid://c11shmi1m4cjj" path="res://items/pickups/pickup_health.png" id="2_ahi0u"]
-
-[node name="HealthHat" type="Node"]
-script = ExtResource("1_vyja7")
-sprite = ExtResource("2_ahi0u")

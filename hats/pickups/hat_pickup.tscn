@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://nnvvipwr6cnf"]
+
+[ext_resource type="Script" path="res://hats/pickups/hat_pickup.gd" id="1_su0cv"]
+[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="2_ekbpr"]
+[ext_resource type="Texture2D" uid="uid://bl812jtw0j6dq" path="res://spells/sprites/icons/proj_spread.png" id="3_6mrws"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cocqd"]
+radius = 100.0
+
+[node name="HatPickup" type="Node2D" groups=["hat_pickup"]]
+script = ExtResource("1_su0cv")
+
+[node name="Outline" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -35.2)
+scale = Vector2(1.08, 1.08)
+texture = ExtResource("2_ekbpr")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -38.2)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 38.2)
+shape = SubResource("CircleShape2D_cocqd")
+
+[node name="Icon" type="Node2D" parent="."]
+position = Vector2(0, -35)
+
+[node name="Hat" type="Sprite2D" parent="Icon"]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("3_6mrws")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

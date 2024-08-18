@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://hats/scenes/explosion_hat/explosion_hat.gd" id="1_gjlyi"]
 
-[node name="ExplosionHat" type="Node" node_paths=PackedStringArray("active_timer")]
+[node name="ExplosionHat" type="Node" node_paths=PackedStringArray("active_timer") groups=["hat"]]
 script = ExtResource("1_gjlyi")
 active_timer = NodePath("Timer")
 

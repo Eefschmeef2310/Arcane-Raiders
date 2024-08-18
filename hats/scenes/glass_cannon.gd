@@ -12,7 +12,8 @@ extends Hat
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var health_increase : int = 250
+@export var health_increase : int = -250
+@export var damage_buff : float = 1.0
 
 	#Onready Variables
 
@@ -26,6 +27,12 @@ func _ready():
 	#player.max_health += health_increase
 	player.set_health(player.health + health_increase)
 	player.data.max_health += health_increase
+	player.entity_damage_multiplier += damage_buff
+
+func _exit_tree():
+	player.data.max_health -= health_increase
+	player.set_health(player.health - health_increase)
+	player.entity_damage_multiplier -= damage_buff
 #endregion
 
 #region Signal methods

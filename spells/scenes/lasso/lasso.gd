@@ -53,7 +53,7 @@ func _process(_delta):
 func _on_kill_timer_timeout():
 	queue_free()
 	
-func _on_hurtbox_body_entered(body):
+func _on_hurtbox_body_entered(_body):
 	#print(initai - kill_timer.time_left)
 	#Hits a wall: detract immediately
 	kill_timer.start(initial_freq - kill_timer.time_left)

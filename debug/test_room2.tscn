@@ -1,14 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
-[ext_resource type="PackedScene" uid="uid://bknbc75mbixrs" path="res://hats/scenes/snowball_hat.tscn" id="5_gfo8w"]
-[ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
-[ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="7_8v5ti"]
-[ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl" id="7_cgjul"]
+[ext_resource type="PackedScene" uid="uid://cf81fxufqd30m" path="res://hats/scenes/glass_cannon.tscn" id="5_jgchq"]
+[ext_resource type="PackedScene" uid="uid://b7ucgdokfb826" path="res://hats/pickups/hat_destroyer.tscn" id="6_b2bj2"]
+[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="7_etswy"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
-[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="10_5v2er"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -93,35 +91,24 @@ data = NodePath("../../../Player/PlayerData")
 
 [node name="Player" parent="." index="15" instance=ExtResource("2_177bf")]
 position = Vector2(96, 800)
-health = 250
 
-[node name="PlayerData" parent="Player" index="4"]
+[node name="PlayerData" parent="Player" index="5"]
 spell_strings = Array[String](["burn-proj_ball", "null-lasso", "stun-aoe_large"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="AnimalSound" parent="Player" index="23"]
+[node name="AnimalSound" parent="Player" index="24"]
 stream = SubResource("AudioStreamRandomizer_doftm")
 
-[node name="SnowballHat" parent="Player" index="27" instance=ExtResource("5_gfo8w")]
+[node name="GlassCannonHat" parent="Player" index="28" instance=ExtResource("5_jgchq")]
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
 
-[node name="Speed_pickup" parent="." index="18" instance=ExtResource("6_g35w8")]
-position = Vector2(18, 576)
+[node name="HatDestroyer" parent="." index="18" instance=ExtResource("6_b2bj2")]
+position = Vector2(890, 496)
 
-[node name="Frog" parent="." index="19" instance=ExtResource("7_8v5ti")]
-position = Vector2(241, 777)
-timeline = ExtResource("7_cgjul")
-character_name = "Frog Name Test"
-dialogues = Array[StringName]([&"Random Text 1", &"More random text"])
-
-[node name="Frog2" parent="." index="20" instance=ExtResource("7_8v5ti")]
-position = Vector2(579, 884)
-character_name = "Bingus"
-
-[node name="SlimeBig" parent="." index="21" instance=ExtResource("10_5v2er")]
-position = Vector2(679, 674)
+[node name="SlimeBig" parent="." index="19" instance=ExtResource("7_etswy")]
+position = Vector2(1493, 714)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

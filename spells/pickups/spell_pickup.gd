@@ -72,10 +72,7 @@ func set_spell_from_string(s):
 		if spell.spells[1].element.descrption_bb != "":
 			string = string + "\n\n" + spell.spells[1].element.descrption_bb
 		$HBoxContainer/InfoBox1/VBoxContainer/Description.text = string
-		
-			
 	else:
-		
 		$Icon/SpriteSingle.show()
 		$Icon/Sprite0.hide()
 		$Icon/Sprite1.hide()

@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://hats/scenes/vampire_hat.gd" id="1_bb330"]
 
-[node name="VampireHat" type="Node"]
+[node name="VampireHat" type="Node" groups=["hat"]]
 script = ExtResource("1_bb330")
