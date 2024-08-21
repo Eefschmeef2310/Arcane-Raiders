@@ -1,0 +1,234 @@
+[gd_scene load_steps=17 format=3 uid="uid://wxrjwhoc1x72"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobby_manager_hub.gd" id="1_7hwlx"]
+[ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="13_1v2je"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="14_43sx8"]
+[ext_resource type="AudioStream" uid="uid://dris1xaodfrdm" path="res://sounds/effects/menus/arcade-countdown-beep.wav" id="15_no867"]
+
+[sub_resource type="Gradient" id="Gradient_4lc54"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rsc3f"]
+gradient = SubResource("Gradient_4lc54")
+
+[sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
+font_size = 96
+font_color = Color(1, 0.921569, 0.929412, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjlfo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvfcj"]
+bg_color = Color(0.541176, 0, 0, 0.588235)
+
+[sub_resource type="LabelSettings" id="LabelSettings_27h66"]
+font_size = 20
+font_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dykp4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqa2k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0g7hb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxupu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m4evt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0g7uk"]
+
+[node name="MultiplayerLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7hwlx")
+
+[node name="Lobby" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundArt" type="TextureRect" parent="Lobby"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("13_1v2je")
+
+[node name="ColorRect" type="ColorRect" parent="Lobby"]
+z_index = -990
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0745098, 0.101961, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 0
+
+[node name="PlayerCardBox" type="HBoxContainer" parent="Lobby/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="Lobby/MarginContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("14_43sx8")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Press Space /[img width=92]res://ui/join_button.svg[/img] to join!"
+
+[node name="TopPanel" type="Panel" parent="Lobby"]
+layout_mode = 0
+offset_left = -94.0
+offset_top = -48.0
+offset_right = 2007.0
+offset_bottom = 192.0
+
+[node name="ReadyProgress" type="TextureProgressBar" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 176.0
+offset_bottom = 192.0
+grow_horizontal = 2
+max_value = 1.0
+step = 0.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture1D_rsc3f")
+
+[node name="Label" type="Label" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -509.0
+offset_right = 509.0
+offset_bottom = 200.0
+grow_horizontal = 2
+text = "Prepare to raid!"
+label_settings = SubResource("LabelSettings_dkcho")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="Lobby"]
+clip_children = 2
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 182.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("14_43sx8")
+theme_override_font_sizes/font_size = 48
+text = "Back"
+
+[node name="ProgressBar" type="ProgressBar" parent="Lobby/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_kjlfo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gvfcj")
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -82.0
+offset_right = 332.0
+offset_bottom = -32.0
+grow_vertical = 0
+
+[node name="CustomSeedEntry" type="LineEdit" parent="Lobby/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+placeholder_text = "Custom Seed"
+max_length = 50
+
+[node name="Label" type="Label" parent="Lobby/VBoxContainer/CustomSeedEntry"]
+visible = false
+layout_mode = 0
+offset_left = 14.0
+offset_top = -33.0
+offset_right = 286.0
+offset_bottom = -2.0
+text = "Custom seed in use!"
+label_settings = SubResource("LabelSettings_27h66")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lobby/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="JamesModeToggle" type="CheckBox" parent="Lobby/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dykp4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqa2k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0g7hb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pxupu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_m4evt")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0g7uk")
+
+[node name="Label" type="Label" parent="Lobby/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Master Mode"
+
+[node name="StartButton" type="Button" parent="Lobby"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Force Start Game"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Lobby/MarginContainer/PlayerCardBox")
+
+[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
+spawn_path = NodePath("..")
+
+[node name="CountdownPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_no867")
+volume_db = -6.0
+bus = &"SFX"
+
+[connection signal="pressed" from="Lobby/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="text_changed" from="Lobby/VBoxContainer/CustomSeedEntry" to="." method="_on_custom_seed_entry_text_changed"]
+[connection signal="toggled" from="Lobby/VBoxContainer/HBoxContainer/JamesModeToggle" to="." method="_on_james_mode_toggle_toggled"]
+[connection signal="pressed" from="Lobby/StartButton" to="." method="_on_start_button_pressed"]

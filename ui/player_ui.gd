@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 class_name PlayerUI
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
@@ -26,6 +26,7 @@ var show_stats : bool = false
 @export var reactions_label : Label
 @export var pickups_label : Label
 
+@onready var select : JoinSelectUI = $SelectUI
 
 #@export var stats_ticker : ScrollContainer
 #@export var stats_ticker_label : Label
@@ -119,6 +120,15 @@ func set_data(d: PlayerData):
 
 # TODO RUNS EVERY FRAME
 # convert to signals if possible
+
+func show_select_ui():
+	$HBox.hide()
+	$SelectUI.show()
+
+func hide_select_ui():
+	$HBox.show()
+	$SelectUI.hide()
+
 func show_equip_ui():
 	$EquipUI.show()
 	$EquipUI/Label.text = "Press to equip!"
