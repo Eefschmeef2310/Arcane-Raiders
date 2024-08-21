@@ -21,6 +21,7 @@ extends Hat
 
 #region Godot methods
 func _ready():
+	super._ready()
 	player.killed_entity.connect(attack_made)
 #endregion
 

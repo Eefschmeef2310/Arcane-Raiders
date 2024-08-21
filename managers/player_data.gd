@@ -23,6 +23,10 @@ var spells : Array[Spell] = [null,null,null]
 var spell_cooldowns : Array[float] = [0,0,0]
 @export var spell_strings : Array[String] = ["", "", ""]
 
+@export_category("Hats")
+@export var hat : Hat
+@export var hat_string : String = ""
+
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
 
@@ -51,6 +55,9 @@ func _ready():
 	for i in spells.size():
 		if spell_strings[i] != "":
 			spells[i] = SpellManager.get_spell_from_string(spell_strings[i])
+	
+	if hat_string != "":
+		hat = HatManager.get_hat_from_string(hat_string).instantiate()
 
 func _process(delta):
 	for i in spell_cooldowns.size():
@@ -66,7 +73,6 @@ func _on_player_health_updated(amount):
 
 func start_cooldown(slot: int, time: float):
 	spell_cooldowns_max[slot] = time
-	
 	spell_cooldowns[slot] = time
 
 func set_spell_from_string(slot: int, string: String):

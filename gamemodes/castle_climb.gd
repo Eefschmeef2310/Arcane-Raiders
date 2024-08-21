@@ -290,7 +290,7 @@ func inject_data_to_current_room_node():
 		current_room_node.spawn_keys = enemy_types_per_floor[current_floor]
 	
 	var i = get_current_sector()
-	print("Using Sector "+ str(i) +" data.")
+	#print("Using Sector "+ str(i) +" data.")
 	current_room_node.gradient_map = sector_gradient_maps[i]
 	current_room_node.saturation = sector_gradient_saturations[i]
 

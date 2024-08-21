@@ -24,6 +24,7 @@ class_name Hat
 #region Godot methods
 func _ready():
 	player.crown.texture = sprite
+	player.data.hat_string = "vampire_hat"
 #endregion
 
 #region Signal methods

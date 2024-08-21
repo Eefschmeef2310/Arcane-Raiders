@@ -99,7 +99,7 @@ func _on_enemy_zero_health():
 	await get_tree().process_frame
 	if is_multiplayer_authority():
 		number_of_enemies_left -= 1
-		print("Enemies left: " + str(number_of_enemies_left))
+		#print("Enemies left: " + str(number_of_enemies_left))
 		if number_of_enemies_left <= 0:
 			on_floor_cleared.rpc()
 
@@ -142,14 +142,14 @@ func report_player_revival(player):
 		dead_players.erase(player)
 
 func _on_player_spell_pickup_requested(p: Player, i: int, sp: SpellPickup):
-	print("Sending sddspell change request.")
+	#print("Sending spell change request.")
 	spell_change_requested.emit(p.data, i, sp)
 
 func spawn_enemy(data) -> Node2D:
 	var id = data.key
 	var pos = data.pos
 	
-	print("Spawning " + str(id))
+	#print("Spawning " + str(id))
 	var enemy_data = EnemyManager.Data[id]
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos

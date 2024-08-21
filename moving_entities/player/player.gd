@@ -220,6 +220,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
+	print(data.hat_string)
 	
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
@@ -550,7 +551,7 @@ func spawn_particles():
 	add_sibling(particles)
 
 func _on_hole_detector_body_exited(_body):
-	print("We are not in a hole.")
+	#print("We are not in a hole.")
 	if is_dashing:
-		print("Collision reenabled.")
+		#print("Collision reenabled.")
 		collision_shape.set_deferred("disabled", false)
