@@ -107,11 +107,11 @@ func _process(_delta):
 		#resendValues.rpc()
 		finished_connecting = true
 	
-	get_controller_input()
-	
 	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
 		$PanelContainer/OnlineShieldPanel.hide()
 		if $PanelContainer.visible:
+			get_controller_input()
+			
 			if("down" in mouse_input):
 				if not player_ready:
 					selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
@@ -149,16 +149,18 @@ func _process(_delta):
 			
 			if("confirm" in mouse_input):
 				if(selected_panel == 2 and valid_color): #ready button selected
-					spawn_player.rpc(username, selected_raider, selected_color)
+					spawn_player.rpc(player_name.text, selected_raider, selected_color)
+			
+			UpdateDisplay()
+			mouse_input.clear()
 	else:
 		$PanelContainer/OnlineShieldPanel.show()
 	
-	UpdateDisplay()
-	mouse_input.clear()
+	
 
 func UpdateDisplay():
 	# hide everything if there isnt a player to use it
-	select_controls_panel.visible = show_panels
+	# select_controls_panel.visible = show_panels
 	
 	# set some basic values
 	if GameManager.isLocal():
@@ -213,13 +215,12 @@ func UpdateDisplay():
 
 @rpc("authority", "call_local", "reliable")
 func spawn_player(na, raider_id, color_id):
-	username = na
-	selected_raider = raider_id
-	selected_color = color_id
 	
-	player_data.player_name = username
-	player_data.character = lobby_manager.raiders[selected_raider]
-	player_data.main_color = lobby_manager.player_colors[selected_color]
+	player_data.player_name = na
+	player_data.character = lobby_manager.raiders[raider_id]
+	player_data.main_color = lobby_manager.player_colors[color_id]
+	player_data.peer_id = peer_id
+	player_data.device_id = device_id
 	
 	raider_selected.emit(peer_id, device_id)
 	
@@ -227,11 +228,12 @@ func spawn_player(na, raider_id, color_id):
 	add_child(new_ui)
 	new_ui.set_data(player_data)
 	
-	$PanelContainer.hide()
+	$PanelContainer.visible = false
 	
 
 func _remove_player():
 	# Clean up player here
+	player_data.destroy.emit()
 	if player_node:
 		player_node.queue_free()
 	queue_free()

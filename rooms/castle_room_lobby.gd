@@ -60,13 +60,18 @@ func _process(delta):
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
 	
-	var new_player_card = lobby_player_select_scene.instantiate()
+	var new_player_card : JoinSelectUI = lobby_player_select_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
+	new_player_card.raider_selected.connect(_on_card_raider_selected)
 	
 	new_player_card.set_multiplayer_authority(peer_id, true)
 	player_joined.emit()
 	return new_player_card
+
+func _on_card_raider_selected(p, d):
+	player_spawner.spawn({peer_id = p, device_id = d})
+	
 
 #region Local Input Management
 # call this from a loop in the main menu or anywhere they can join
@@ -139,14 +144,19 @@ func _on_controller_changed(device : int, connected : bool):
 	if not connected and GameManager.isLocal():
 		for card in player_ui_container.get_children():
 			if card.device_id == device:
-				card.queue_free()
+				card._remove_player()
 
 func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	var player: Player = PLAYER_SCENE.instantiate()
-	for card in player_ui_container:
+	var i = 0
+	for card in player_ui_container.get_children():
 		if card.peer_id == dict.peer_id and card.device_id == dict.device_id:
 			player.set_data(card.player_data)
-	player.global_position = player_spawns[0].global_position
+			card.player_node = player
+			break
+		else:
+			i += 1
+	player.global_position = player_spawns[i].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	player.dead.connect(report_player_death)
 	player.revived.connect(report_player_revival)

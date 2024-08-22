@@ -44,8 +44,9 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[node name="LobbySelect" type="HBoxContainer" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data")]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data")]
 custom_minimum_size = Vector2(450, 200)
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,7 +54,6 @@ offset_right = -1470.0
 offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 script = ExtResource("1_b2j28")
 player_name = NodePath("PanelContainer/VBoxContainer/Username")
 select_controls_panel = NodePath("PanelContainer")
@@ -62,12 +62,24 @@ ready_button = NodePath("PanelContainer/VBoxContainer/Button")
 player_data = NodePath("PlayerData")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -187.0
+offset_right = 61.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7rye4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
+alignment = 2
 
 [node name="Username" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -203,7 +215,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "Ready"
+text = "Join!"
 label_settings = SubResource("LabelSettings_kvkxc")
 horizontal_alignment = 1
 vertical_alignment = 1

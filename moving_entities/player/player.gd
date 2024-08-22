@@ -189,7 +189,8 @@ func _process(delta):
 		prepare_cast_label.text = str(preparing_cast_slot)
 		can_cast_label.text = str(can_cast)
 	
-	crown.visible = data.has_crown
+	if is_instance_valid(data):
+		crown.visible = data.has_crown
 
 func _physics_process(delta):
 	super._physics_process(delta)

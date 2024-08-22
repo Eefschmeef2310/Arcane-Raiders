@@ -60,20 +60,14 @@ layer_5/tile_data = PackedInt32Array(1179644, 327682, 0, 1245181, 327682, 0, 131
 layer = 3
 
 [node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="0"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -900.0
-offset_top = -190.0
-offset_right = 900.0
+custom_minimum_size = Vector2(1800, 190)
+offset_left = 60.0
+offset_top = 890.0
+offset_right = 1860.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
-
-[node name="DynamicCamera" parent="." index="2" node_paths=PackedStringArray("targets")]
-targets = [null]
 
 [node name="RoomExit" parent="." index="12"]
 position = Vector2(1450, 454)

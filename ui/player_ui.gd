@@ -53,7 +53,7 @@ func _process(delta):
 	damage_stat.text = "Damage: " + str(data.damage)
 	kills_stat.text = "Kills: " + str(data.kills)
 	crown.visible = data.has_crown
-	player_username.visible = GameManager.isOnline()
+	player_username.visible = true
 	player_username.text = data.player_name
 	player_username.self_modulate = data.main_color
 	
