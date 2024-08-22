@@ -121,14 +121,6 @@ func set_data(d: PlayerData):
 # TODO RUNS EVERY FRAME
 # convert to signals if possible
 
-func show_select_ui():
-	$HBox.hide()
-	$SelectUI.show()
-
-func hide_select_ui():
-	$HBox.show()
-	$SelectUI.hide()
-
 func show_equip_ui():
 	$EquipUI.show()
 	$EquipUI/Label.text = "Press to equip!"

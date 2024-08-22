@@ -219,6 +219,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
+	if !data.destroy.is_connected(_on_data_destroy): data.destroy.connect(_on_data_destroy)
 	
 	set_input(data.device_id)
 	spell_sprite_2d.modulate = data.main_color
@@ -234,6 +235,9 @@ func set_data(new_data: PlayerData, destroy_old := true):
 		left_hand_sprite.self_modulate = data.character.skin_color
 	
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
+
+func _on_data_destroy():
+	queue_free()
 
 func set_input(id: int):
 	#print("Setting input" + str(id))

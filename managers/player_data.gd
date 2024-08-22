@@ -9,6 +9,7 @@ signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
 signal spell_casted_but_not_ready(spell: int)
 signal spell_ready(spell: int)
+signal destroy()
 
 @export var device_id : int = -2
 @export var peer_id : int = 1

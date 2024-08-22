@@ -1,18 +1,27 @@
-[gd_scene load_steps=25 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=34 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
 [ext_resource type="Texture2D" uid="uid://r2gf37mnk185" path="res://rooms/exit/exit_locked2.png" id="2_qh5o2"]
 [ext_resource type="Texture2D" uid="uid://cb77lume0sc8l" path="res://rooms/exit/exit_unlocked.png" id="3_omd6e"]
+[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="3_vtfoc"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="4_7li37"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="4_htp5m"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="5_2h0mv"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/zoology_frog.dtl" id="5_ecdvf"]
+[ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="5_qbfsh"]
 [ext_resource type="Texture2D" uid="uid://da3o08jsb7k8m" path="res://moving_entities/player/player_pieces/head-cow.png" id="6_82u67"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/characters/zoology_frog.dch" id="6_jcfjo"]
+[ext_resource type="Resource" uid="uid://nclgt66btvdo" path="res://multiplayer/multiplayerLobby/raiders/horse.tres" id="6_qduwx"]
 [ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="7_2m020"]
+[ext_resource type="Resource" uid="uid://wunw15qbe5he" path="res://multiplayer/multiplayerLobby/raiders/lizard.tres" id="7_buy8l"]
+[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_x0p4y"]
 [ext_resource type="Texture2D" uid="uid://3md1hv7rghxy" path="res://moving_entities/player/player_pieces/head-horse.png" id="8_y5srt"]
+[ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_piyvy"]
 [ext_resource type="Texture2D" uid="uid://bn8h332covd1w" path="res://moving_entities/player/player_pieces/head-lizard.png" id="9_vo2e1"]
+[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="10_db361"]
 [ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="10_jar8q"]
+[ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="11_coaxx"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="11_m7u4e"]
 [ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="12_xlyq7"]
 [ext_resource type="Texture2D" uid="uid://umv5me504xvb" path="res://debug/pngtree-tree-forest-tree-png-image_14619746.png" id="13_1x8ko"]
@@ -34,9 +43,9 @@ shader_parameter/strength = 5
 [node name="CastleRoom" node_paths=PackedStringArray("player_ui") instance=ExtResource("1_vicu8")]
 script = ExtResource("2_34pa5")
 player_ui = []
-raiders = []
-player_colors = []
-castle_climb_scene = null
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy")])
+player_colors = Array[Color]([Color(0.490196, 0.203922, 0.760784, 1), Color(0.780392, 0.756863, 0.101961, 1), Color(0.737255, 0.231373, 0.192157, 1), Color(0, 0.623529, 0.505882, 1), Color(0.211765, 0.521569, 0.180392, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.972549, 0.443137, 0, 1)])
+castle_climb_scene = ExtResource("11_coaxx")
 pickups = []
 
 [node name="TileMap" parent="." index="0"]
@@ -315,7 +324,7 @@ position = Vector2(1893, 910)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="PlayerUISpawner" type="MultiplayerSpawner" parent="." index="28"]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="28"]
 spawn_path = NodePath("../GameUI/PlayerUIContainer")
 
 [node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="29"]
