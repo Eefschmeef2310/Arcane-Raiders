@@ -6,3 +6,4 @@
 [node name="VampireHat" type="Node" groups=["hat"]]
 script = ExtResource("1_bb330")
 sprite = ExtResource("2_c88s8")
+manager_key = &"vampire_hat"

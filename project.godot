@@ -34,7 +34,7 @@ GameManager="*res://managers/game_manager.gd"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
 PlayerPreferenceManager="*res://managers/player_preference_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
-HatManager="*res://managers/HatManager.tscn"
+HatManager="*res://managers/hat_manager.tscn"
 
 [dialogic]
 

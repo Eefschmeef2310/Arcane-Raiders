@@ -13,6 +13,7 @@ class_name Hat
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var sprite : Texture
+@export var manager_key : StringName
 
 	#Onready Variables
 @onready var player : Player = get_parent()
@@ -24,7 +25,7 @@ class_name Hat
 #region Godot methods
 func _ready():
 	player.crown.texture = sprite
-	player.data.hat_string = "vampire_hat"
+	player.data.hat_string = manager_key
 #endregion
 
 #region Signal methods

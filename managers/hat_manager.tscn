@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dng1co3cgqevi"]
+
+[ext_resource type="Script" path="res://managers/hat_manager.gd" id="1_iu5i5"]
+[ext_resource type="PackedScene" uid="uid://ouxe3ksjlhd4" path="res://hats/scenes/vampire_hat.tscn" id="2_r6rhe"]
+
+[node name="hat_manager" type="Node"]
+script = ExtResource("1_iu5i5")
+hats = {
+"vampire_hat": ExtResource("2_r6rhe")
+}
