@@ -44,7 +44,7 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data")]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15

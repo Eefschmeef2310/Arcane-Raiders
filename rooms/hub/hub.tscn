@@ -1,17 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=33 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
-[ext_resource type="Texture2D" uid="uid://r2gf37mnk185" path="res://rooms/exit/exit_locked2.png" id="2_qh5o2"]
-[ext_resource type="Texture2D" uid="uid://cb77lume0sc8l" path="res://rooms/exit/exit_unlocked.png" id="3_omd6e"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="3_vtfoc"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="4_7li37"]
 [ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="4_htp5m"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="5_2h0mv"]
-[ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/zoology_frog.dtl" id="5_ecdvf"]
 [ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="5_qbfsh"]
 [ext_resource type="Texture2D" uid="uid://da3o08jsb7k8m" path="res://moving_entities/player/player_pieces/head-cow.png" id="6_82u67"]
-[ext_resource type="Resource" path="res://dialogic_timelines_and_characters/characters/zoology_frog.dch" id="6_jcfjo"]
 [ext_resource type="Resource" uid="uid://nclgt66btvdo" path="res://multiplayer/multiplayerLobby/raiders/horse.tres" id="6_qduwx"]
 [ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="7_2m020"]
 [ext_resource type="Resource" uid="uid://wunw15qbe5he" path="res://multiplayer/multiplayerLobby/raiders/lizard.tres" id="7_buy8l"]
@@ -23,7 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="10_jar8q"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="11_coaxx"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="11_m7u4e"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="12_5bwfn"]
 [ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="12_xlyq7"]
+[ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="12_xu7yv"]
 [ext_resource type="Texture2D" uid="uid://umv5me504xvb" path="res://debug/pngtree-tree-forest-tree-png-image_14619746.png" id="13_1x8ko"]
 [ext_resource type="Shader" path="res://shaders/blur_shader.gdshader" id="13_o80m4"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/disco_frog.dtl" id="13_ts3tr"]
@@ -31,6 +29,9 @@
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/fashion_frog.dtl" id="15_3unb3"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/characters/fashion_frog.dch" id="16_2ukv7"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="20_d8qci"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u03uf"]
+font_size = 32
 
 [sub_resource type="Gradient" id="Gradient_iw6gt"]
 offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
@@ -40,13 +41,14 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[node name="CastleRoom" node_paths=PackedStringArray("player_ui") instance=ExtResource("1_vicu8")]
+[node name="Hub" node_paths=PackedStringArray("player_ui", "hide_on_game_start", "join_indicator_node") instance=ExtResource("1_vicu8")]
 script = ExtResource("2_34pa5")
 player_ui = []
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy")])
 player_colors = Array[Color]([Color(0.490196, 0.203922, 0.760784, 1), Color(0.780392, 0.756863, 0.101961, 1), Color(0.737255, 0.231373, 0.192157, 1), Color(0, 0.623529, 0.505882, 1), Color(0.211765, 0.521569, 0.180392, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.972549, 0.443137, 0, 1)])
 castle_climb_scene = ExtResource("11_coaxx")
-pickups = []
+hide_on_game_start = [NodePath("TileMap"), NodePath("GameUI"), NodePath("DynamicCamera"), NodePath("RoomExit"), NodePath("CanvasModulate"), NodePath("CanvasLayer"), NodePath("GuideArrow"), NodePath("Decorations")]
+join_indicator_node = NodePath("GameUI/PlayerUIContainer/JoinIndicator")
 
 [node name="TileMap" parent="." index="0"]
 layer_0/tile_data = PackedInt32Array(1114108, 196610, 2, 1179644, 196610, 2, 1245181, 196610, 2, 1310717, 196610, 2, 1376254, 196610, 2, 1441790, 196610, 0, 1507327, 196610, 0, 1572863, 196610, 0, 1572864, 196610, 0, 1638400, 196610, 0, 1703937, 196610, 0, 1769473, 196610, 0, 1835010, 196610, 0, 1900546, 196610, 2, 1966083, 196610, 2, 2031619, 196610, 2, 1966084, 196610, 2, 1900548, 196610, 2, 1835013, 196610, 0, 1769477, 196610, 0, 1703942, 196610, 0, 1638406, 196610, 0, 1572871, 196610, 0, 1507335, 196610, 0, 1441800, 196610, 0, 1376264, 196610, 0, 1310729, 196610, 2, 1245193, 196610, 2, 1179658, 196610, 2, 1114122, 196610, 2, 1048587, 196610, 2, 983050, 196610, 2, 917514, 196610, 2, 851977, 196610, 2, 786441, 196610, 2, 720904, 196610, 2, 655368, 196610, 2, 1048572, 196610, 2, 983037, 196610, 2, 917501, 196610, 2, 851966, 196610, 2, 786430, 196610, 0, 720895, 196610, 0, 655359, 196610, 2, 524288, 196610, 2, 458752, 196610, 2, 393217, 196610, 2, 327681, 196610, 0, 262146, 196610, 0, 196610, 196610, 0, 131075, 196610, 0, 65539, 196610, 0, 131076, 196610, 0, 196612, 196610, 0, 262149, 196610, 0, 327685, 196610, 0, 393222, 196610, 2, 458758, 196610, 2, 1245187, 196610, 0, 1310724, 196610, 0, 1376260, 196610, 0, 1310725, 196610, 0, 1245189, 196610, 0, 1179654, 196610, 0, 1114117, 196610, 0, 1048581, 196610, 0, 1114116, 196610, 0, 1179652, 196610, 0, 1245188, 196610, 0, 1179653, 196610, 0, 1048578, 196610, 0, 983041, 196610, 0, 917505, 196610, 0, 851969, 196610, 0, 786434, 196610, 0, 720898, 196610, 0, 786435, 196610, 0, 851971, 196610, 0, 917507, 196610, 0, 983042, 196610, 0, 917506, 196610, 0, 851970, 196610, 0, 524293, 196610, 0, 458757, 196610, 0, 393221, 196610, 0, 327684, 196610, 0, 262148, 196610, 0, 196611, 196610, 0, 262147, 196610, 0, 327682, 196610, 0, 393218, 196610, 0, 458753, 196610, 0, 524289, 196610, 0, 589824, 196610, 0, 655360, 196610, 0, 786431, 196610, 0, 851967, 196610, 0, 917502, 196610, 0, 983038, 196610, 0, 1048573, 196610, 0, 1114109, 196610, 0, 1179645, 196610, 0, 1114110, 196610, 0, 1048574, 196610, 0, 983039, 196610, 0, 917503, 196610, 0, 786432, 196610, 0, 720896, 196610, 0, 655361, 196610, 0, 589825, 196610, 0, 524290, 196610, 0, 458754, 196610, 0, 393219, 196610, 0, 327683, 196610, 0, 393220, 196610, 0, 458755, 196610, 0, 524291, 196610, 0, 589826, 196610, 0, 655362, 196610, 0, 720897, 196610, 0, 786433, 196610, 0, 851968, 196610, 0, 917504, 196610, 0, 1048575, 196610, 0, 1114111, 196610, 0, 1179646, 196610, 0, 1245182, 196610, 0, 1310718, 196610, 0, 1245183, 196610, 0, 1179647, 196610, 0, 1048576, 196610, 0, 983040, 196610, 0, 1048577, 196610, 0, 1114112, 196610, 0, 1179648, 196610, 0, 1310719, 196610, 0, 1376255, 196610, 0, 1441791, 196610, 0, 1310720, 196610, 0, 1245184, 196610, 0, 1179649, 196610, 0, 1114113, 196610, 0, 1179650, 196610, 0, 1114114, 196610, 0, 1048579, 196610, 0, 983043, 196610, 0, 917508, 196610, 0, 851972, 196610, 0, 786437, 196610, 0, 720901, 196610, 0, 655366, 196610, 0, 589830, 196610, 0, 655367, 196610, 0, 720902, 196610, 0, 786438, 196610, 0, 851973, 196610, 0, 917509, 196610, 0, 983044, 196610, 0, 1048580, 196610, 0, 1114115, 196610, 0, 1179651, 196610, 0, 1245186, 196610, 0, 1310722, 196610, 0, 1245185, 196610, 0, 1310721, 196610, 0, 1376256, 196610, 0, 1441792, 196610, 0, 1507328, 196610, 0, 1441793, 196610, 0, 1376257, 196610, 0, 1441794, 196610, 0, 1376258, 196610, 0, 1310723, 196610, 0, 1376259, 196610, 0, 1441795, 196610, 0, 1507330, 196610, 0, 1572866, 196610, 0, 1507329, 196610, 0, 1572865, 196610, 0, 1638401, 196610, 0, 1703938, 196610, 0, 1638402, 196610, 0, 1572867, 196610, 0, 1507331, 196610, 0, 1441796, 196610, 0, 1507332, 196610, 0, 1441797, 196610, 0, 1376261, 196610, 0, 1310726, 196610, 0, 1245190, 196610, 0, 1179655, 196610, 0, 1114119, 196610, 0, 1048584, 196610, 0, 983048, 196610, 0, 917513, 196610, 0, 851976, 196610, 0, 786440, 196610, 0, 720903, 196610, 0, 786439, 196610, 0, 851974, 196610, 0, 917510, 196610, 0, 983045, 196610, 0, 1048582, 196610, 0, 983046, 196610, 0, 917511, 196610, 0, 851975, 196610, 0, 917512, 196610, 0, 983047, 196610, 0, 1048583, 196610, 0, 1114118, 196610, 0, 983049, 196610, 0, 1048585, 196610, 0, 1114120, 196610, 0, 1179656, 196610, 0, 1245191, 196610, 0, 1310727, 196610, 0, 1376262, 196610, 0, 1441798, 196610, 0, 1507333, 196610, 0, 1572869, 196610, 0, 1638404, 196610, 0, 1572868, 196610, 0, 1638403, 196610, 0, 1703939, 196610, 0, 1769474, 196610, 0, 1835011, 196610, 0, 1769475, 196610, 0, 1703940, 196610, 0, 1769476, 196610, 0, 1703941, 196610, 0, 1638405, 196610, 0, 1572870, 196610, 0, 1507334, 196610, 0, 1441799, 196610, 0, 1376263, 196610, 0, 1310728, 196610, 0, 1245192, 196610, 0, 1179657, 196610, 0, 1114121, 196610, 0, 1048586, 196610, 0, 1835012, 196610, 0, 1900547, 196610, 0, 524294, 196610, 0, 589829, 196610, 0, 655365, 196610, 0, 589828, 196610, 0, 524292, 196610, 0, 458756, 196610, 0, 589827, 196610, 0, 655363, 196610, 0, 720899, 196610, 0, 655364, 196610, 0, 720900, 196610, 0, 786436, 196610, 0, 524295, 196610, 2, 589831, 196610, 2, 3932176, 196610, 2, 3997711, 196610, 2, 4063248, 196610, 2, 3801105, 196610, 2, 3866640, 196610, 2, 4128784, 196610, 2, 4194321, 196610, 2, 3735569, 196610, 2, 4259857, 196610, 2, 3538963, 196610, 2, 3407892, 196610, 2, 3473427, 196610, 2, 3342356, 196610, 2, 4849686, 196610, 2, 4915222, 196610, 2, 4980759, 196610, 2, 4849688, 196610, 2, 4915223, 196610, 2, 3342361, 196610, 2, 3407898, 196610, 2, 3473434, 196610, 2, 3538971, 196610, 2, 3604507, 196610, 2, 3670044, 196610, 2, 3735580, 196610, 2, 3801117, 196610, 2, 4194333, 196610, 2, 4259868, 196610, 2, 3866653, 196610, 2, 3932190, 196610, 2, 4063262, 196610, 2, 4128797, 196610, 2, 3997726, 196610, 2, 1703931, 196610, 2, 655356, 196610, 2, 1572860, 196610, 2, 1638396, 196610, 2, 1703932, 196610, 0, 1769468, 196610, 2, 1835004, 196610, 2, 524285, 196610, 2, 589821, 196610, 2, 655357, 196610, 0, 720893, 196610, 2, 786429, 196610, 2, 1441789, 196610, 2, 1507325, 196610, 2, 1572861, 196610, 0, 1638397, 196610, 0, 1703933, 196610, 0, 1769469, 196610, 0, 1835005, 196610, 0, 1900541, 196610, 2, 1966077, 196610, 2, 458750, 196610, 2, 524286, 196610, 2, 589822, 196610, 0, 655358, 196610, 0, 720894, 196610, 0, 1507326, 196610, 0, 1572862, 196610, 0, 1638398, 196610, 0, 1703934, 196610, 0, 1769470, 196610, 0, 1835006, 196610, 0, 1900542, 196610, 0, 1966078, 196610, 0, 2031614, 196610, 2, 2097150, 196610, 2, 589823, 196610, 2, 1638399, 196610, 0, 1703935, 196610, 0, 1769471, 196610, 0, 1835007, 196610, 0, 1900543, 196610, 0, 1966079, 196610, 0, 2031615, 196610, 0, 2097151, 196610, 2, 2162687, 196610, 2, 196608, 196610, 2, 327680, 196610, 2, 1703936, 196610, 0, 1769472, 196610, 0, 1835008, 196610, 0, 1900544, 196610, 2, 1966080, 196610, 2, 65537, 196610, 2, 131073, 196610, 2, 196609, 196610, 0, 262145, 196610, 2, 1835009, 196610, 0, 1900545, 196610, 2, 1966081, 196610, 2, -65534, 196610, 2, 2, 196610, 2, 65538, 196610, 0, 131074, 196610, 0, 1966082, 196610, 2, -196605, 196610, 2, -131069, 196610, 2, -65533, 196610, 0, 3, 196610, 0, -131068, 196610, 2, -65532, 196610, 2, 4, 196610, 0, 65540, 196610, 0, 5, 196610, 2, 65541, 196610, 2, 131077, 196610, 0, 196613, 196610, 0, 1900549, 196610, 2, 1966085, 196610, 2, 131078, 196610, 2, 196614, 196610, 2, 262150, 196610, 2, 327686, 196610, 2, 1769478, 196610, 0, 1835014, 196610, 0, 1900550, 196610, 2, 1966086, 196610, 2, 1638407, 196610, 0, 1703943, 196610, 0, 1769479, 196610, 0, 1835015, 196610, 0, 1900551, 196610, 0, 1966087, 196610, 2, 2031623, 196610, 2, 1507336, 196610, 0, 1572872, 196610, 0, 1638408, 196610, 0, 1703944, 196610, 0, 1769480, 196610, 0, 1835016, 196610, 0, 1900552, 196610, 0, 1966088, 196610, 0, 2031624, 196610, 2, 2097160, 196610, 2, 1376265, 196610, 2, 1441801, 196610, 0, 1507337, 196610, 0, 1572873, 196610, 0, 1638409, 196610, 0, 1703945, 196610, 0, 1769481, 196610, 0, 1835017, 196610, 0, 1900553, 196610, 2, 1966089, 196610, 2, 1441802, 196610, 2, 1507338, 196610, 2, 1572874, 196610, 0, 1638410, 196610, 0, 1703946, 196610, 0, 1769482, 196610, 2, 1835018, 196610, 2, 1572875, 196610, 2, 1638411, 196610, 2, 1703947, 196610, 2)
@@ -65,88 +67,113 @@ offset_left = 60.0
 offset_top = 890.0
 offset_right = 1860.0
 offset_bottom = 1080.0
+theme_override_constants/separation = 0
+
+[node name="JoinIndicator" type="Control" parent="GameUI/PlayerUIContainer" index="0"]
+custom_minimum_size = Vector2(450, 200)
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="GameUI/PlayerUIContainer/JoinIndicator" index="0"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 0
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("12_5bwfn")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Press Space /[img width=48]res://ui/join_button.svg[/img] to join!"
+
+[node name="PlayerSpawn0" parent="." index="3"]
+visible = false
+position = Vector2(526, 117)
+
+[node name="PlayerSpawn1" parent="." index="4"]
+visible = false
+position = Vector2(637, 57)
+
+[node name="PlayerSpawn2" parent="." index="5"]
+visible = false
+position = Vector2(634, 187)
+
+[node name="PlayerSpawn3" parent="." index="6"]
+visible = false
+position = Vector2(741, 127)
 
 [node name="RoomExit" parent="." index="12"]
 position = Vector2(1450, 454)
+wait_for_all_players = true
 
 [node name="Label" type="Label" parent="RoomExit" index="3"]
-offset_left = -41.0
-offset_top = -21.0
-offset_right = 28.0
-offset_bottom = 4.0
-text = "Real Game"
+offset_left = -68.0
+offset_top = -122.0
+offset_right = 64.0
+offset_bottom = -73.0
+text = "Start Run!"
+label_settings = SubResource("LabelSettings_u03uf")
+horizontal_alignment = 1
 
-[node name="TutorialDoor" type="Sprite2D" parent="." index="16"]
-position = Vector2(-95, 398)
-texture = ExtResource("2_qh5o2")
-flip_h = true
+[node name="Decorations" type="Node2D" parent="." index="16"]
 
-[node name="Label" type="Label" parent="TutorialDoor" index="0"]
-offset_left = -15.0
-offset_right = 52.0
-offset_bottom = 48.0
-text = "Tutorial"
+[node name="Label" type="Label" parent="Decorations" index="0"]
+offset_left = -152.0
+offset_top = 276.0
+offset_right = -20.0
+offset_bottom = 325.0
+text = "Exit Party"
+label_settings = SubResource("LabelSettings_u03uf")
+horizontal_alignment = 1
 
-[node name="ExitUnlocked" type="Sprite2D" parent="." index="17"]
-position = Vector2(-282, 525)
-texture = ExtResource("3_omd6e")
+[node name="PartyExit" parent="Decorations" index="1" instance=ExtResource("12_xu7yv")]
+material = null
+position = Vector2(-97, 413)
+scale = Vector2(-1, 1)
 
-[node name="Label" type="Label" parent="ExitUnlocked" index="0"]
-offset_left = -27.0
-offset_top = -13.0
-offset_right = 32.0
-offset_bottom = 12.0
-text = "Tute Exit"
-
-[node name="ZoologyFrog" parent="." index="18" instance=ExtResource("4_7li37")]
-position = Vector2(640, 259)
-timeline = ExtResource("5_ecdvf")
-character = ExtResource("6_jcfjo")
-
-[node name="Heads" type="Node2D" parent="." index="19"]
+[node name="Heads" type="Node2D" parent="Decorations" index="2"]
 visible = false
 
-[node name="Head-cat" type="Sprite2D" parent="Heads" index="0"]
+[node name="Head-cat" type="Sprite2D" parent="Decorations/Heads" index="0"]
 position = Vector2(390, 248)
 texture = ExtResource("5_2h0mv")
 
-[node name="Head-cow" type="Sprite2D" parent="Heads" index="1"]
+[node name="Head-cow" type="Sprite2D" parent="Decorations/Heads" index="1"]
 position = Vector2(496, 108)
 texture = ExtResource("6_82u67")
 
-[node name="Head-croc" type="Sprite2D" parent="Heads" index="2"]
+[node name="Head-croc" type="Sprite2D" parent="Decorations/Heads" index="2"]
 position = Vector2(583, 66)
 texture = ExtResource("7_2m020")
 
-[node name="Head-horse" type="Sprite2D" parent="Heads" index="3"]
+[node name="Head-horse" type="Sprite2D" parent="Decorations/Heads" index="3"]
 position = Vector2(698, 63)
 texture = ExtResource("8_y5srt")
 
-[node name="Head-lizard" type="Sprite2D" parent="Heads" index="4"]
+[node name="Head-lizard" type="Sprite2D" parent="Decorations/Heads" index="4"]
 position = Vector2(865, 176)
 texture = ExtResource("9_vo2e1")
 
-[node name="Head-owl" type="Sprite2D" parent="Heads" index="5"]
+[node name="Head-owl" type="Sprite2D" parent="Decorations/Heads" index="5"]
 position = Vector2(880, 268)
 texture = ExtResource("10_jar8q")
 
-[node name="Head-squid" type="Sprite2D" parent="Heads" index="6"]
+[node name="Head-squid" type="Sprite2D" parent="Decorations/Heads" index="6"]
 position = Vector2(429, 160)
 texture = ExtResource("11_m7u4e")
 
-[node name="Head-wolf" type="Sprite2D" parent="Heads" index="7"]
+[node name="Head-wolf" type="Sprite2D" parent="Decorations/Heads" index="7"]
 position = Vector2(801, 98)
 texture = ExtResource("12_xlyq7")
 
-[node name="ColourFrog" parent="." index="20" instance=ExtResource("4_7li37")]
+[node name="ColourFrog" parent="Decorations" index="3" instance=ExtResource("4_7li37")]
 position = Vector2(-127, 1050)
 timeline = ExtResource("15_3unb3")
 character = ExtResource("16_2ukv7")
 
-[node name="Line2D" type="Line2D" parent="." index="21"]
+[node name="Line2D" type="Line2D" parent="Decorations" index="4"]
 visible = false
 points = PackedVector2Array(-234, 908, -327, 977, -357, 1074, -290, 1136, -201, 1161, -75, 1195, 122, 1093)
 gradient = SubResource("Gradient_iw6gt")
@@ -154,177 +181,179 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="Frog" parent="." index="22" instance=ExtResource("4_7li37")]
+[node name="Frog" parent="Decorations" index="5" instance=ExtResource("4_7li37")]
 position = Vector2(283, 720)
 character_name = "Sol Badguy"
 dialogues = Array[StringName]([&"NOW THIS BULLSHIT BLAZING, STILL MY HEART IS BLAZING, IF WORDS DON\'T KILL ME I DON\'T NEED A NEW WORLD ORDER YOU, SOON YOU WILL KNOW, WE ALL READY KNOW THE SMELL OF THE GAME"])
 
-[node name="Frog2" parent="." index="23" instance=ExtResource("4_7li37")]
+[node name="Frog2" parent="Decorations" index="6" instance=ExtResource("4_7li37")]
 position = Vector2(647, 499)
 
-[node name="Frog3" parent="." index="24" instance=ExtResource("4_7li37")]
+[node name="Frog3" parent="Decorations" index="7" instance=ExtResource("4_7li37")]
 position = Vector2(883, 763)
 
-[node name="DiscoFrog" parent="." index="25" instance=ExtResource("4_7li37")]
+[node name="DiscoFrog" parent="Decorations" index="8" instance=ExtResource("4_7li37")]
 position = Vector2(1361, 1041)
 timeline = ExtResource("13_ts3tr")
 character = ExtResource("14_oo7ad")
 
-[node name="HeadGroup" parent="DiscoFrog/SpritesScale" index="1"]
+[node name="HeadGroup" parent="Decorations/DiscoFrog/SpritesScale" index="1"]
 position = Vector2(2, -74.0154)
 
-[node name="RightHand" parent="DiscoFrog/SpritesScale" index="2"]
+[node name="RightHand" parent="Decorations/DiscoFrog/SpritesScale" index="2"]
 position = Vector2(31, -31)
 
-[node name="LeftHand" parent="DiscoFrog/SpritesScale" index="3"]
+[node name="LeftHand" parent="Decorations/DiscoFrog/SpritesScale" index="3"]
 position = Vector2(6, -25)
 
-[node name="AnimationPlayer" parent="DiscoFrog" index="3"]
+[node name="AnimationPlayer" parent="Decorations/DiscoFrog" index="3"]
 autoplay = "dance"
 
-[node name="Robes" type="Node2D" parent="." index="26"]
+[node name="Robes" type="Node2D" parent="Decorations" index="9"]
 visible = false
 
-[node name="Body3" type="Sprite2D" parent="Robes" index="0"]
+[node name="Body3" type="Sprite2D" parent="Decorations/Robes" index="0"]
 modulate = Color(0.737255, 0.231373, 0.192157, 1)
 position = Vector2(-238, 925)
 texture = ExtResource("20_d8qci")
 
-[node name="Body4" type="Sprite2D" parent="Robes" index="1"]
+[node name="Body4" type="Sprite2D" parent="Decorations/Robes" index="1"]
 modulate = Color(0.972549, 0.443137, 0, 1)
 position = Vector2(-295, 963)
 texture = ExtResource("20_d8qci")
 
-[node name="Body5" type="Sprite2D" parent="Robes" index="2"]
+[node name="Body5" type="Sprite2D" parent="Decorations/Robes" index="2"]
 modulate = Color(0.780392, 0.756863, 0.101961, 1)
 position = Vector2(-323, 1025)
 texture = ExtResource("20_d8qci")
 
-[node name="Body6" type="Sprite2D" parent="Robes" index="3"]
+[node name="Body6" type="Sprite2D" parent="Decorations/Robes" index="3"]
 modulate = Color(0.211765, 0.521569, 0.180392, 1)
 position = Vector2(-299, 1092)
 texture = ExtResource("20_d8qci")
 
-[node name="Body7" type="Sprite2D" parent="Robes" index="4"]
+[node name="Body7" type="Sprite2D" parent="Decorations/Robes" index="4"]
 modulate = Color(0.188235, 0.388235, 0.760784, 1)
 position = Vector2(-147, 1155)
 texture = ExtResource("20_d8qci")
 
-[node name="Body8" type="Sprite2D" parent="Robes" index="5"]
+[node name="Body8" type="Sprite2D" parent="Decorations/Robes" index="5"]
 modulate = Color(0.490196, 0.203922, 0.760784, 1)
 position = Vector2(-56, 1151)
 texture = ExtResource("20_d8qci")
 
-[node name="Body9" type="Sprite2D" parent="Robes" index="6"]
+[node name="Body9" type="Sprite2D" parent="Decorations/Robes" index="6"]
 modulate = Color(0.839216, 0.376471, 0.701961, 1)
 position = Vector2(20, 1112)
 texture = ExtResource("20_d8qci")
 
-[node name="Body10" type="Sprite2D" parent="Robes" index="7"]
+[node name="Body10" type="Sprite2D" parent="Decorations/Robes" index="7"]
 modulate = Color(0, 0.623529, 0.505882, 1)
 position = Vector2(-238, 1138)
 texture = ExtResource("20_d8qci")
 
-[node name="Trees" type="Node2D" parent="." index="27"]
+[node name="Trees" type="Node2D" parent="Decorations" index="10"]
 visible = false
 
-[node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Trees" index="0"]
+[node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Decorations/Trees" index="0"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(-34, 138)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619756" type="Sprite2D" parent="Trees" index="1"]
+[node name="Pngtree-tree-forest-tree-png-image14619756" type="Sprite2D" parent="Decorations/Trees" index="1"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(-560, 282)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619757" type="Sprite2D" parent="Trees" index="2"]
+[node name="Pngtree-tree-forest-tree-png-image14619757" type="Sprite2D" parent="Decorations/Trees" index="2"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(459, -338)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619758" type="Sprite2D" parent="Trees" index="3"]
+[node name="Pngtree-tree-forest-tree-png-image14619758" type="Sprite2D" parent="Decorations/Trees" index="3"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(986, -244)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619759" type="Sprite2D" parent="Trees" index="4"]
+[node name="Pngtree-tree-forest-tree-png-image14619759" type="Sprite2D" parent="Decorations/Trees" index="4"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(1309, 75.0001)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619760" type="Sprite2D" parent="Trees" index="5"]
+[node name="Pngtree-tree-forest-tree-png-image14619760" type="Sprite2D" parent="Decorations/Trees" index="5"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(1937, 456)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619746" type="Sprite2D" parent="Trees" index="6"]
+[node name="Pngtree-tree-forest-tree-png-image14619746" type="Sprite2D" parent="Decorations/Trees" index="6"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(276, 1363)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619748" type="Sprite2D" parent="Trees" index="7"]
+[node name="Pngtree-tree-forest-tree-png-image14619748" type="Sprite2D" parent="Decorations/Trees" index="7"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(-346, 1468)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619749" type="Sprite2D" parent="Trees" index="8"]
+[node name="Pngtree-tree-forest-tree-png-image14619749" type="Sprite2D" parent="Decorations/Trees" index="8"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(-754, 1014)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619750" type="Sprite2D" parent="Trees" index="9"]
+[node name="Pngtree-tree-forest-tree-png-image14619750" type="Sprite2D" parent="Decorations/Trees" index="9"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(-655, 759)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619747" type="Sprite2D" parent="Trees" index="10"]
+[node name="Pngtree-tree-forest-tree-png-image14619747" type="Sprite2D" parent="Decorations/Trees" index="10"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(820, 1383)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619751" type="Sprite2D" parent="Trees" index="11"]
+[node name="Pngtree-tree-forest-tree-png-image14619751" type="Sprite2D" parent="Decorations/Trees" index="11"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(1287, 1467)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619752" type="Sprite2D" parent="Trees" index="12"]
+[node name="Pngtree-tree-forest-tree-png-image14619752" type="Sprite2D" parent="Decorations/Trees" index="12"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(1763, 1374)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619753" type="Sprite2D" parent="Trees" index="13"]
+[node name="Pngtree-tree-forest-tree-png-image14619753" type="Sprite2D" parent="Decorations/Trees" index="13"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(2005, 1012)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Pngtree-tree-forest-tree-png-image14619754" type="Sprite2D" parent="Trees" index="14"]
+[node name="Pngtree-tree-forest-tree-png-image14619754" type="Sprite2D" parent="Decorations/Trees" index="14"]
 material = SubResource("ShaderMaterial_gps12")
 position = Vector2(1893, 910)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="28"]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="17"]
 spawn_path = NodePath("../GameUI/PlayerUIContainer")
 
-[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="29"]
+[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="18"]
 _spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
 spawn_path = NodePath("..")
 
+[connection signal="player_entered" from="Decorations/PartyExit" to="." method="_on_party_exit_player_entered"]
+
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
-[editable path="DiscoFrog"]
+[editable path="Decorations/DiscoFrog"]

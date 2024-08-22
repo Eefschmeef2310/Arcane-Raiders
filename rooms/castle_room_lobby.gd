@@ -24,6 +24,8 @@ const MAX_PLAYERS = 4
 @onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var castle_climb_spawner = $CastleClimbSpawner
 
+@export var hide_on_game_start: Array[Node]
+
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
 var start_game_called : bool = false
@@ -33,6 +35,7 @@ var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
 var server_browser_node : Node
+@export var join_indicator_node: Control
 
 func _ready():
 	#debug_start_button.disabled = not multiplayer.is_server()
@@ -45,6 +48,8 @@ func _ready():
 	multiplayer_spawner.spawn_function = CreateNewCard
 	player_spawner.spawn_function = spawn_player_from_ids
 	
+	room_exited.connect(_on_hub_room_exited)
+	
 	set_multiplayer_authority(1)
 	
 	if(GameManager.isOnline()):
@@ -54,8 +59,13 @@ func _ready():
 		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
-	if GameManager.isLocal():
-		handle_join_input()
+	if !start_game_called:
+		if GameManager.isLocal():
+			handle_join_input()
+			join_indicator_node.show()
+			player_ui_container.move_child(join_indicator_node, -1)
+		else:
+			join_indicator_node.hide()
 
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
@@ -91,15 +101,16 @@ func handle_join_input():
 
 func is_device_joined(device: int) -> bool:
 	for card in player_ui_container.get_children():
-		var d = card.device_id
-		if device == d: return true
+		if card is JoinSelectUI:
+			var d = card.device_id
+			if device == d: return true
 	return false
 
 # returns a valid player integer for a new player.
 # returns -1 if there is no room for a new player.
 func next_player() -> int:
 	var i = player_ui_container.get_child_count() -1
-	if player_ui_container.get_child_count() -1 < MAX_PLAYERS:
+	if i < MAX_PLAYERS:
 		return i
 	return -1
 
@@ -125,7 +136,7 @@ func _on_peer_disconnected(id:int):
 	print("Peer " + str(id) + " has disconnected D:")
 	#destroy their player card
 	for card in player_ui_container.get_children():
-		if card.peer_id == id:
+		if card is JoinSelectUI and card.peer_id == id:
 			card.queue_free()
 	#emit a signal for removing them from the actual game 
 	player_left.emit(id)
@@ -143,14 +154,14 @@ func _on_server_disconnected():
 func _on_controller_changed(device : int, connected : bool):
 	if not connected and GameManager.isLocal():
 		for card in player_ui_container.get_children():
-			if card.device_id == device:
+			if card is JoinSelectUI and card.device_id == device:
 				card._remove_player()
 
 func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	var player: Player = PLAYER_SCENE.instantiate()
 	var i = 0
 	for card in player_ui_container.get_children():
-		if card.peer_id == dict.peer_id and card.device_id == dict.device_id:
+		if card is JoinSelectUI and card.peer_id == dict.peer_id and card.device_id == dict.device_id:
 			player.set_data(card.player_data)
 			card.player_node = player
 			break
@@ -163,17 +174,57 @@ func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	dynamic_camera.add_target(player)
 	live_players += 1
 	#print("Spawned player of peer_id " + 1str(player.data.peer_id))
+	
+	player.add_to_group("hub_exclusive")
+	
 	return player
 
 func get_card_data() -> Array:
 	var arr = []
 	for card in player_ui_container.get_children():
-		arr.append({
-			"device_id": card.device_id,
-			"peer_id": card.peer_id,
-			"spells": card.data.spell_strings,
-			"raider": raiders[card.selected_raider],
-			"color": player_colors[card.selected_color],
-			"name": card.player_name.text
-			})
+		if card is JoinSelectUI:
+			arr.append({
+				"device_id": card.device_id,
+				"peer_id": card.peer_id,
+				"spells": card.player_data.spell_strings,
+				"raider": raiders[card.selected_raider],
+				"color": player_colors[card.selected_color],
+				"name": card.player_name.text
+				})
 	return arr
+
+func _on_hub_room_exited():
+	if is_multiplayer_authority():
+		if get_tree().get_nodes_in_group("player").size() >= get_tree().get_nodes_in_group("hub_select").size():
+			StartGame()
+
+func StartGame():
+	print("Attempting to spawn castle climb.")
+	start_game_called = true
+	if GameManager.isOnline():
+		server_browser_node.peer.set_lobby_joinable(false)
+	print("START THE GAME!!!!")
+	
+	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
+	#if custom_seed_entry.text != "":
+		#castle_climb.set_seed(custom_seed_entry.text)
+	#if james_mode: castle_climb.james_mode = true
+	add_child(castle_climb)
+	
+	hide_lobby.rpc()
+	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+	
+	castle_climb.start_climb()
+
+@rpc("reliable", "call_local", "authority")
+func hide_lobby():
+	for node in hide_on_game_start:
+		node.queue_free()
+	for node in get_tree().get_nodes_in_group("hub_exclusive"):
+		node.queue_free()
+
+
+func _on_party_exit_player_entered(player):
+	for card in player_ui_container.get_children():
+		if card is JoinSelectUI and card.player_data == player.data:
+			card._remove_player()

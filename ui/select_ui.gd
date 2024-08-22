@@ -210,7 +210,7 @@ func UpdateDisplay():
 	valid_color = true
 	#ready_button.text = "READY"
 	for card in lobby_manager.player_ui_container.get_children():
-		if card.selected_color == selected_color and not player_ready and not card.peer_id == peer_id:
+		if card is JoinSelectUI and card.selected_color == selected_color and not player_ready and not card.peer_id == peer_id:
 			valid_color = false
 
 @rpc("authority", "call_local", "reliable")

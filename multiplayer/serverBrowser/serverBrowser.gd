@@ -82,6 +82,10 @@ func spawn_level(data):
 	
 	return a 
 
+func restart_level():
+	get_node("Hub").queue_free()
+	multiplayer_spawner.spawn(gameScene)
+
 func join_lobby(id):
 	loading_panel.show()
 	loading_text.text = "Loading into...\n" + Steam.getLobbyData(id,"name")
