@@ -55,9 +55,6 @@ func _ready():
 	for i in spells.size():
 		if spell_strings[i] != "":
 			spells[i] = SpellManager.get_spell_from_string(spell_strings[i])
-	
-	if hat_string != "":
-		hat = HatManager.get_hat_from_string(hat_string).instantiate()
 
 func _process(delta):
 	for i in spell_cooldowns.size():

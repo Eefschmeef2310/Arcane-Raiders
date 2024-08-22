@@ -101,6 +101,9 @@ func _ready():
 	killed_entity.connect(_on_killed_entity);
 	dealt_damage.connect(_on_dealt_damage)
 	
+	if data.hat_string:
+		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
+	
 	# TODO temporary lines here
 	if debug:
 		set_data(data, false)
@@ -220,7 +223,6 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
-	print(data.hat_string)
 	
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
