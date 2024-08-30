@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8jp3w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pxbs7"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i0p2r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4e8sd"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_866op"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o31nc"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -222,17 +222,17 @@ grow_vertical = 2
 texture = ExtResource("3_a7ijl")
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_8jp3w")
+material = SubResource("ShaderMaterial_pxbs7")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_i0p2r")
+material = SubResource("ShaderMaterial_4e8sd")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_866op")
+material = SubResource("ShaderMaterial_o31nc")
 layout_mode = 2
 mouse_filter = 1
 
@@ -327,6 +327,7 @@ mouse_filter = 1
 text = "Damage: 11111111, Kills: 2222, Reactions: 333, Pickups: 4444, Revies: 55 "
 
 [node name="EquipUI" type="Node2D" parent="."]
+visible = false
 position = Vector2(273, 0)
 
 [node name="Label" type="Label" parent="EquipUI"]
@@ -403,6 +404,16 @@ offset_bottom = 189.706
 mouse_filter = 1
 text = "Nintendo Switch Pro Controller"
 horizontal_alignment = 1
+
+[node name="HatLabelUI" type="Node2D" parent="."]
+
+[node name="HatLabel" type="Label" parent="HatLabelUI"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 156.15
+offset_right = 356.15
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
 
 [node name="Flasher" type="AnimationPlayer" parent="."]
 libraries = {

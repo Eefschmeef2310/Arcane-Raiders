@@ -25,6 +25,8 @@ var show_stats : bool = false
 @export var money_label : Label
 @export var reactions_label : Label
 @export var pickups_label : Label
+@onready var hat_label = $HatLabelUI/HatLabel
+
 
 
 #@export var stats_ticker : ScrollContainer
@@ -106,6 +108,7 @@ func set_data(d: PlayerData):
 		if data.spell_casted_but_not_ready.is_connected(spell_not_ready): data.spell_casted_but_not_ready.disconnect(spell_not_ready)
 		if data.spell_casted_and_ready.is_connected(spell_casted): data.spell_casted_and_ready.disconnect(spell_casted)
 		if data.spell_ready.is_connected(spell_ready): data.spell_ready.disconnect(spell_ready)
+		if data.spellhat_label_changed_ready.is_connected(hat_label_changed): data.hat_label_changed.disconnect(hat_label_changed)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
@@ -114,6 +117,7 @@ func set_data(d: PlayerData):
 	data.spell_casted_but_not_ready.connect(spell_not_ready)
 	data.spell_casted_and_ready.connect(spell_casted)
 	data.spell_ready.connect(spell_ready)
+	data.hat_label_changed.connect(hat_label_changed)
 	update_prompts(data.device_id)
 	update_spells(0)
 	$HBox/Stats/HealthBar.tint_progress = data.main_color
@@ -145,6 +149,9 @@ func spell_casted(slot: int):
 func spell_ready(slot: int):
 	if "shake" in spells[slot]:
 		spells[slot].flash()
+
+func hat_label_changed(str: String):
+	hat_label.text = str
 #endregion
 
 #region Stats Ticker Experiment
