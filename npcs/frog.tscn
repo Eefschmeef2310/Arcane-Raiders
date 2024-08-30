@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://be5tod8c2jxdr"]
+[gd_scene load_steps=10 format=3 uid="uid://be5tod8c2jxdr"]
 
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="1_2g0ys"]
 [ext_resource type="Script" path="res://npcs/frog_dialogue.gd" id="1_mqk84"]
@@ -8,9 +8,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5sdne"]
 radius = 128.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_h4ik7"]
-font_size = 30
 
 [sub_resource type="Animation" id="Animation_6biw1"]
 resource_name = "dance"
@@ -100,14 +97,14 @@ _data = {
 "idle": SubResource("Animation_moalt")
 }
 
-[node name="Frog" type="Node2D" node_paths=PackedStringArray("prompt", "player_enter_zone", "marker")]
+[node name="Frog" type="Node2D" node_paths=PackedStringArray("player_enter_zone", "marker")]
 script = ExtResource("1_mqk84")
 dialogues = Array[StringName]([&"The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start."])
-prompt = NodePath("Label")
 player_enter_zone = NodePath("PlayerEnterZone")
 marker = NodePath("SpeakingMarker")
 
 [node name="PlayerEnterZone" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerEnterZone"]
@@ -146,16 +143,6 @@ clip_children = 2
 position = Vector2(-36, -28)
 texture = ExtResource("3_4hdyh")
 flip_h = true
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -21.0
-offset_top = -143.0
-offset_right = 19.0
-offset_bottom = -97.0
-text = "E"
-label_settings = SubResource("LabelSettings_h4ik7")
-horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

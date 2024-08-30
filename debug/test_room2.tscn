@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=15 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://ccjuaawldv0ad" path="res://items/pickups/speed_pickup.tscn" id="6_g35w8"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="7_8v5ti"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/test_set_timeline.dtl" id="7_cgjul"]
+[ext_resource type="PackedScene" uid="uid://byabxygfvnpvx" path="res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn" id="8_8v1a7"]
+[ext_resource type="PackedScene" uid="uid://b4u2wuk1f06f7" path="res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn" id="9_axnx6"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -115,6 +117,12 @@ dialogues = Array[StringName]([&"Random Text 1", &"More random text"])
 [node name="Frog2" parent="." index="20" instance=ExtResource("7_8v5ti")]
 position = Vector2(579, 884)
 character_name = "Bingus"
+
+[node name="SmallSlime" parent="." index="21" instance=ExtResource("8_8v1a7")]
+position = Vector2(991, 455)
+
+[node name="GiantSlime" parent="." index="22" instance=ExtResource("9_axnx6")]
+position = Vector2(884, 562)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
