@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=62 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
