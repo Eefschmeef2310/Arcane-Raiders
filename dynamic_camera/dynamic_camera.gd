@@ -26,13 +26,7 @@ func dynamic_camera(_delta):
 
 	# Keep the camera centered among all targets
 	var p = Vector2.ZERO
-	#for target in targets:
-		#if is_instance_valid(target):
-			#p += target.position
-		#else:
-			#targets.remove_at(targets.find(target))
-	var index = 0
-	while(index < targets.size()):
+	for index in targets.size():
 		var target = targets[index]
 		if is_instance_valid(target):
 			p += target.position

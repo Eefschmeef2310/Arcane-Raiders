@@ -462,8 +462,7 @@ is_boss = true
 boss_name = "Echo Rusher"
 death_sound = null
 max_health = 3000
-knockback_lerp_strength = 40.0
-knockback_initial_velocity = 40.0
+knockback_initial_velocity = 20.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -53)
