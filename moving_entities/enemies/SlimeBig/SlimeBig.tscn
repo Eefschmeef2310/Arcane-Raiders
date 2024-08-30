@@ -107,6 +107,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(5, -41)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LassoLine:points")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-85, -14, 99, -11)]
+}
 
 [sub_resource type="Animation" id="Animation_45tuv"]
 resource_name = "attack"
@@ -214,6 +226,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-85, -14, 99, -11), PackedVector2Array(-88, -8, 103, -6), PackedVector2Array(-91, -8, 109, -7), PackedVector2Array(-86, -8, 102, -7), PackedVector2Array(-83, -11, 99, -9), PackedVector2Array(-73, -15, 88, -14)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mkull"]
 _data = {
@@ -296,6 +320,9 @@ width = 80.0
 [node name="BurnParticles" parent="StatusParticles" index="0"]
 amount = 10
 lifetime = 1.5
+
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-85, -14, 99, -11)
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]

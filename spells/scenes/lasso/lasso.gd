@@ -18,6 +18,7 @@ const LASSO_HIT = preload("res://spells/scenes/lasso/lasso_hit.tscn")
 
 @export_group("Node References")
 @export var path_follow : PathFollow2D
+@export var icon : Sprite2D
 @export var kill_timer : Timer
 @export var line : Line2D
 @export var hurtbox : Area2D
@@ -33,6 +34,13 @@ const LASSO_HIT = preload("res://spells/scenes/lasso/lasso_hit.tscn")
 func _ready():
 	global_position = caster.global_position + (caster.aim_direction * distance_from_caster) + Vector2(0,-30)
 	rotation = caster.aim_direction.angle()
+	
+	if resource.element.gradient:
+		(line.material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
+		(icon.material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
+	else:
+		line.modulate = resource.element.colour
+		icon.modulate = resource.element.colour
 
 func _process(_delta):
 	#print((kill_timer.wait_time - kill_timer.time_left))
@@ -62,7 +70,7 @@ func _on_hurtbox_body_entered(_body):
 func _on_hurtbox_area_entered(area):
 	if area.owner != caster and "on_hurt" in area.owner:
 		var hit = LASSO_HIT.instantiate()
-		hit.init(area.owner, caster)
+		hit.init(area.owner, caster, resource.element)
 		add_sibling(hit)
 		
 		area.owner.on_hurt(self)

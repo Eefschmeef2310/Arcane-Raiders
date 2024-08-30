@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://ouxe3ksjlhd4"]
 
 [ext_resource type="Script" path="res://hats/scenes/vampire_hat.gd" id="1_bb330"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="2_c88s8"]
+[ext_resource type="Texture2D" uid="uid://byg1lp65ne0aa" path="res://hats/sprites/top_hat.png" id="2_jtm5q"]
 
 [node name="VampireHat" type="Node" groups=["hat"]]
 script = ExtResource("1_bb330")
-sprite = ExtResource("2_c88s8")
+sprite = ExtResource("2_jtm5q")
 manager_key = &"vampire_hat"

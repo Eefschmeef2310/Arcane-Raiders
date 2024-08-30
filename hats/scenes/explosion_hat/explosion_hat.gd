@@ -24,6 +24,7 @@ var active : bool = true
 
 #region Godot methods
 func _ready():
+	super._ready()
 	player.taken_damage.connect(explode)
 #endregion
 

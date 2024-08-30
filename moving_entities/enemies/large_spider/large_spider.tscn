@@ -256,4 +256,7 @@ avoidance_priority = 0.7
 stream = ExtResource("9_meo6t")
 pitch_scale = 0.75
 
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-20, -42, 31, -36)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

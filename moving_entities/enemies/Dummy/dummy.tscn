@@ -41,4 +41,7 @@ offset_bottom = -133.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
 shape = SubResource("CircleShape2D_m1k2w")
 
+[node name="LassoLine" parent="." index="14"]
+points = PackedVector2Array(-16, -67, 16, -66)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

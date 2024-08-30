@@ -171,4 +171,7 @@ libraries = {
 "": SubResource("AnimationLibrary_mcocv")
 }
 
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-33, -30, 31, -30)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

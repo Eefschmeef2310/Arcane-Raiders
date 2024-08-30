@@ -26,6 +26,7 @@ class_name Hat
 func _ready():
 	player.crown.texture = sprite
 	player.data.hat_string = manager_key
+	print(player.data.hat_string)
 #endregion
 
 #region Signal methods

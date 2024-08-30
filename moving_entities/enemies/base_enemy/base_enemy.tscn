@@ -115,6 +115,10 @@ process_material = SubResource("ParticleProcessMaterial_7sn17")
 texture = ExtResource("10_j1o0m")
 local_coords = true
 
+[node name="LassoLine" type="Line2D" parent="."]
+points = PackedVector2Array(-33, -6, 34, -6)
+default_color = Color(1, 1, 1, 0)
+
 [connection signal="zero_health" from="." to="." method="_on_zero_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_entered" from="GroundHurtbox" to="." method="_on_hurtbox_area_entered"]

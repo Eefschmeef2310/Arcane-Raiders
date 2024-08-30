@@ -389,6 +389,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-107, -33, 94, -33), PackedVector2Array(-100.465, -33, 89.235, -33), PackedVector2Array(-95.33, -33, 83.76, -33), PackedVector2Array(-85.26, -33, 74.365, -33), PackedVector2Array(-94.21, -33, 84.815, -33), PackedVector2Array(-100.56, -33, 89.05, -33), PackedVector2Array(-100.56, -33, 89.05, -33)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_coowq"]
 _data = {
@@ -481,6 +493,9 @@ shape = SubResource("CircleShape2D_ofg1l")
 libraries = {
 "": SubResource("AnimationLibrary_coowq")
 }
+
+[node name="LassoLine" parent="." index="16"]
+points = PackedVector2Array(-100.56, -33, 89.05, -33)
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]

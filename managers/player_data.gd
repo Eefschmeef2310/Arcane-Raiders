@@ -27,7 +27,7 @@ var spell_cooldowns : Array[float] = [0,0,0]
 @export var spell_strings : Array[String] = ["", "", ""]
 
 @export_category("Hats")
-@export var hat_string : String = ""
+@export var hat_string : StringName = ""
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
