@@ -152,7 +152,7 @@ func on_hurt(attack):
 	if current_inflictions_dictionary.has(SpellManager.elements["shock"]):
 		shock_effect()
 	
-	if damage != 0 && (!("can_knockback" in attack) || attack.can_knockback):
+	if (!("can_knockback" in attack) || attack.can_knockback):
 		add_knockback.rpc(attack.get_path())
 
 @rpc("authority", "call_local", "reliable")
@@ -222,7 +222,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	# Deal damage!!!
 	health -= final_damage
 	
-	if do_damage_numbers:
+	if do_damage_numbers and final_damage > 0:
 		var dm: DamageNumber
 		if !is_instance_valid(damage_number) or create_new or is_critical:
 			dm = DAMAGE_NUMBER.instantiate()

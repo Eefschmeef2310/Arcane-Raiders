@@ -13,6 +13,7 @@ gradient = SubResource("Gradient_gml7d")
 resource_local_to_scene = true
 shader = ExtResource("1_ntjg4")
 shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_0rff4")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vgcpc"]
@@ -71,6 +72,8 @@ material = SubResource("ShaderMaterial_wf8fa")
 scale = Vector2(1.5, 0.75)
 sprite_frames = SubResource("SpriteFrames_a2b1q")
 autoplay = "default"
+frame = 5
+frame_progress = 1.0
 script = ExtResource("2_dwlgt")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://be5tod8c2jxdr"]
+[gd_scene load_steps=11 format=3 uid="uid://be5tod8c2jxdr"]
 
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="1_2g0ys"]
 [ext_resource type="Script" path="res://npcs/frog_dialogue.gd" id="1_mqk84"]
-[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_qqhu8"]
+[ext_resource type="Texture2D" uid="uid://3d74qunlnont" path="res://moving_entities/player/player_pieces/head-frog.png" id="3_2wi4d"]
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="3_4hdyh"]
-[ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="3_mqbds"]
+[ext_resource type="Texture2D" uid="uid://dkpnosl74iyee" path="res://hats/sprites/wizard_hat.png" id="4_ud38r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5sdne"]
 radius = 128.0
@@ -91,13 +91,68 @@ tracks/2/keys = {
 "values": [Vector2(-36, -28), Vector2(-37, -31)]
 }
 
+[sub_resource type="Animation" id="Animation_acy3n"]
+resource_name = "jump"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritesScale:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritesScale/LeftHand:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-40, -79), Vector2(-50, -57), Vector2(-40, -79)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpritesScale/RightHand:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0169729, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(45, -80.4342), Vector2(51, -58), Vector2(45, -80.4342)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesScale:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s8my6"]
 _data = {
 "dance": SubResource("Animation_6biw1"),
-"idle": SubResource("Animation_moalt")
+"idle": SubResource("Animation_moalt"),
+"jump": SubResource("Animation_acy3n")
 }
 
 [node name="Frog" type="Node2D" node_paths=PackedStringArray("player_enter_zone", "marker")]
+y_sort_enabled = true
 script = ExtResource("1_mqk84")
 dialogues = Array[StringName]([&"The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start."])
 player_enter_zone = NodePath("PlayerEnterZone")
@@ -112,35 +167,35 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_5sdne")
 
 [node name="SpritesScale" type="Node2D" parent="."]
-scale = Vector2(1, 0.85)
+position = Vector2(0, -0.951083)
 
 [node name="Body" type="Sprite2D" parent="SpritesScale"]
-self_modulate = Color(0.156863, 0.466667, 0.266667, 1)
+self_modulate = Color(0.0313726, 0.2, 0.0901961, 1)
 clip_children = 2
 position = Vector2(0, -22)
 texture = ExtResource("1_2g0ys")
 
 [node name="HeadGroup" type="Node2D" parent="SpritesScale"]
-position = Vector2(2, -74)
+position = Vector2(2, -74.6675)
 
 [node name="Head" type="Sprite2D" parent="SpritesScale/HeadGroup"]
 clip_children = 2
-texture = ExtResource("2_qqhu8")
+texture = ExtResource("3_2wi4d")
 
 [node name="Crown" type="Sprite2D" parent="SpritesScale/HeadGroup"]
 clip_children = 2
-texture = ExtResource("3_mqbds")
+texture = ExtResource("4_ud38r")
 
 [node name="RightHand" type="Sprite2D" parent="SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+self_modulate = Color(0.576471, 0.862745, 0.298039, 1)
 clip_children = 2
-position = Vector2(37, -28)
+position = Vector2(37.2225, -28.6675)
 texture = ExtResource("3_4hdyh")
 
 [node name="LeftHand" type="Sprite2D" parent="SpritesScale"]
-self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
+self_modulate = Color(0.576471, 0.862745, 0.298039, 1)
 clip_children = 2
-position = Vector2(-36, -28)
+position = Vector2(-36.2225, -28.6675)
 texture = ExtResource("3_4hdyh")
 flip_h = true
 

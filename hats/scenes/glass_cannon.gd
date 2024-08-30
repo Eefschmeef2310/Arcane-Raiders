@@ -24,20 +24,11 @@ extends Hat
 #region Godot methods
 func _ready():
 	super._ready()
-	#player.max_health += health_increase
-	player.set_health(player.health + health_increase)
-	player.data.max_health += health_increase
-	player.entity_damage_multiplier += damage_buff
-
-func _exit_tree():
-	if is_instance_valid(player.data.max_health):
-		player.data.max_health -= health_increase
-		player.set_health(player.health - health_increase)
-		player.entity_damage_multiplier -= damage_buff
+	player.movement_speed *= 0.75
+	player.entity_damage_multiplier *= 1.5
 #endregion
 
 #region Signal methods
-
 #endregion
 
 #region Other methods (please try to separate and organise!)

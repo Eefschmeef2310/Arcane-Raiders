@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://nnvvipwr6cnf"]
+[gd_scene load_steps=8 format=3 uid="uid://nnvvipwr6cnf"]
 
 [ext_resource type="Script" path="res://hats/pickups/hat_pickup.gd" id="1_su0cv"]
-[ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="2_ekbpr"]
 [ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="3_e2ldn"]
 [ext_resource type="Texture2D" uid="uid://c65sms42phg1g" path="res://hats/sprites/cowboy_hat.png" id="4_41jd3"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_31nyu"]
@@ -18,10 +17,8 @@ script = ExtResource("1_su0cv")
 info_container = NodePath("HBoxContainer")
 
 [node name="Outline" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(0, -35.2)
 scale = Vector2(1.08, 1.08)
-texture = ExtResource("2_ekbpr")
 
 [node name="Shadow" parent="." instance=ExtResource("3_e2ldn")]
 scale = Vector2(0.25, 0.125)

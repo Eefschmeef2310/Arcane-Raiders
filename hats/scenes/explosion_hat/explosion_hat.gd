@@ -26,6 +26,10 @@ var active : bool = true
 func _ready():
 	super._ready()
 	player.taken_damage.connect(explode)
+
+func _process(_delta):
+	if !active:
+		player.data.hat_label_changed.emit(str(active_timer.time_left))
 #endregion
 
 #region Signal methods
