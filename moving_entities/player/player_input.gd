@@ -54,7 +54,7 @@ func _process(_delta):
 			
 			# If we have an input object, use it
 			if !GameManager.isPaused:
-				if input:
+				if input: #Online
 					# Movement
 					move_dir = input.get_vector("left", "right", "up", "down").normalized()
 					if input.is_keyboard():
@@ -85,10 +85,13 @@ func _process(_delta):
 						if input.is_action_just_pressed("Emote" + str(i)):
 							owner.play_emote.rpc(i)
 					#print(input.is_action_just_pressed("Emote2"))
+					
+					if input.is_action_just_pressed("interact") and $"../HatPickupDetector".closest_pickup != null:
+						$"../HatPickupDetector".closest_pickup.pickup_function(owner)
 				
 				# Otherwise, use any connected controller
 				else:	
-					for device in GameManager.devices:
+					for device in GameManager.devices: #Local play
 						var d: Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
 						if d.length() > move_dir.length():
 							move_dir = d
@@ -120,6 +123,9 @@ func _process(_delta):
 						for i in 3:
 							if MultiplayerInput.is_action_just_pressed(device, "Emote" + str(i)):
 								owner.play_emote.rpc(i)
+								
+						if MultiplayerInput.is_action_just_pressed(device, "interact") and $"../HatPickupDetector".closest_pickup != null:
+							$"../HatPickupDetector".closest_pickup.pickup_function(owner)
 						
 			
 			# Send input to owner

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf81fxufqd30m"]
+
+[ext_resource type="Script" path="res://hats/scenes/glass_cannon.gd" id="1_3jeef"]
+[ext_resource type="Texture2D" uid="uid://c11shmi1m4cjj" path="res://items/pickups/pickup_health.png" id="2_nrn0j"]
+
+[node name="GlassCannonHat" type="Node" groups=["hat"]]
+script = ExtResource("1_3jeef")
+health_increase = -500
+sprite = ExtResource("2_nrn0j")
+manager_key = &"glass_cannon_hat"

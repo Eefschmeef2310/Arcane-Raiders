@@ -56,6 +56,34 @@ func _physics_process(_delta):
 		had_closest_last_frame = (closest_pickup != null)
 "
 
+[sub_resource type="GDScript" id="GDScript_3en0v"]
+resource_name = "hat_pickup_detector"
+script/source = "extends Node
+
+@export var detect_pickups: bool = true
+var closest_pickup: HatPickup = null
+var had_closest_last_frame = false
+var max_distance = 100
+
+func _physics_process(_delta):
+	closest_pickup = null
+	if detect_pickups:
+		var all_pickups = get_tree().get_nodes_in_group(\"hat_pickup\")
+		if all_pickups.size() > 0:
+			var closest = max_distance
+			for pickup in all_pickups:
+				var dist = owner.global_position.distance_to(pickup.global_position)
+				if dist < closest:
+					closest = dist
+					closest_pickup = pickup
+		
+		if had_closest_last_frame and closest_pickup:
+			owner.data.pickup_proximity_changed.emit(true)
+		elif had_closest_last_frame and !closest_pickup:
+			owner.data.pickup_proximity_changed.emit(false)
+		had_closest_last_frame = (closest_pickup != null)
+"
+
 [sub_resource type="Animation" id="Animation_y4ic7"]
 length = 0.001
 tracks/0/type = "value"
@@ -1099,6 +1127,9 @@ script = ExtResource("3_h46ns")
 [node name="SpellPickupDetector" type="Node" parent="."]
 script = SubResource("GDScript_qs58w")
 
+[node name="HatPickupDetector" type="Node" parent="."]
+script = SubResource("GDScript_3en0v")
+
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")
 character = ExtResource("12_ndveq")
@@ -1320,6 +1351,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HelpContainer" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = -125.0
@@ -1390,6 +1422,7 @@ layout_mode = 2
 base_alpha = 0.75
 
 [node name="RevivalMeter" type="ProgressBar" parent="."]
+visible = false
 z_index = 50
 custom_minimum_size = Vector2(120, 12)
 anchors_preset = 7

@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3 uid="uid://dng1co3cgqevi"]
+
+[ext_resource type="Script" path="res://managers/hat_manager.gd" id="1_iu5i5"]
+[ext_resource type="PackedScene" uid="uid://ouxe3ksjlhd4" path="res://hats/scenes/vampire_hat.tscn" id="2_r6rhe"]
+[ext_resource type="PackedScene" uid="uid://bknbc75mbixrs" path="res://hats/scenes/snowball_hat.tscn" id="3_8ddi5"]
+[ext_resource type="PackedScene" uid="uid://cf81fxufqd30m" path="res://hats/scenes/glass_cannon.tscn" id="4_q6jwc"]
+[ext_resource type="PackedScene" uid="uid://dpu3i2bvxup6g" path="res://hats/scenes/explosion_hat/explosion_hat.tscn" id="5_b34a1"]
+
+[node name="hat_manager" type="Node"]
+script = ExtResource("1_iu5i5")
+hats = {
+"explosion_hat": ExtResource("5_b34a1"),
+"glass_cannon_hat": ExtResource("4_q6jwc"),
+"snowball_hat": ExtResource("3_8ddi5"),
+"vampire_hat": ExtResource("2_r6rhe")
+}

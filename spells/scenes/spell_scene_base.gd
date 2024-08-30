@@ -37,15 +37,16 @@ class_name SpellBase
 # 1: Second of a combined spell
 @export var combined_spell_index : int = -1
 
+#Controls whether or not sound plays either on spawn or on explosion. If false, sound will play on impact
+@export var play_sound_on_cast : bool = true
+
+@export var deal_force : bool = true
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
 var resource : Spell #This is set in code
 var caster : Entity #This is also set in code
-
-#Controls whether or not sound plays either on spawn or on explosion. If false, sound will play on impact
-@export var play_sound_on_cast : bool = true
-
 #endregion
 
 func _enter_tree():
@@ -64,6 +65,8 @@ func transfer_data(new: Node2D):
 		new.resource = resource
 	if "caster" in new:
 		new.caster = caster
+	if "deal_force" in new:
+		new.deal_force = deal_force
 	if "infliction_time" in new:
 		new.infliction_time = infliction_time
 	if "play_element_sound" in new && !play_sound_on_cast:

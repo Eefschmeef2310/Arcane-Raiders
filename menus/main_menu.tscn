@@ -70,7 +70,7 @@ func _on_online_button_pressed():
 	
 func _on_local_play_button_pressed():
 	GameManager.mode = GameManager.MultiplayerMode.Local
-	get_tree().change_scene_to_file(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
+	get_tree().change_scene_to_file(\"res://rooms/hub/hub.tscn\")
 	#var lobby_scene = multiplayer_lobby.instantiate()
 	#lobby_scene.InitLobby(0)
 	#get_tree().root.add_child(lobby_scene)

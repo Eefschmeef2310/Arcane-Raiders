@@ -13,7 +13,7 @@ extends Node2D
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var line : Line2D
-@export var wrap : Sprite2D
+@export var loop : Sprite2D
 
 	#Onready Variables
 
@@ -44,5 +44,5 @@ func init(new_target : Node2D, new_caster : Node2D):
 	#Set size of sprite
 	var target_sprite = (target.get_node("Sprite2D") as Sprite2D)
 	if target_sprite:
-		wrap.scale.x = ((target_sprite.get_rect().size.x * target.scale.x) / wrap.get_rect().size.x) / 2
+		loop.scale.x = ((target_sprite.get_rect().size.x * target.scale.x) / loop.get_rect().size.x) / 2
 #endregion

@@ -11,6 +11,7 @@ signal player_entered(player: Player)
 @onready var collision = $CollisionPolygon2D
 
 var entered_players : Array[Player]
+var number_of_players : int
 
 func _ready():
 	if is_locked:
@@ -19,6 +20,9 @@ func _ready():
 func _process(_delta):
 	var cam = get_viewport().get_camera_2d()
 	$LabelSize.scale = Vector2(1,1) / cam.zoom
+	if !is_locked:
+		number_of_players = max(get_tree().get_nodes_in_group("player").size(), get_tree().get_nodes_in_group("hub_select").size())
+	$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(number_of_players)
 
 func lock():
 	is_locked = true
@@ -37,13 +41,12 @@ func _on_body_entered(body):
 		if !body in entered_players:
 			entered_players.append(body)
 			
-		var all_players = get_tree().get_nodes_in_group("player")
-		if !wait_for_all_players or entered_players.size() >= all_players.size():
+		var all_players = max(get_tree().get_nodes_in_group("player").size(), get_tree().get_nodes_in_group("hub_select").size())
+		if !wait_for_all_players or entered_players.size() >= all_players:
 			player_entered.emit(body)
 		
 		if wait_for_all_players:
 			$LabelSize/Label.show()
-			$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(all_players.size()) 
 
 
 func _on_body_exited(body):
@@ -53,8 +56,5 @@ func _on_body_exited(body):
 		if body in entered_players:
 			entered_players.erase(body)
 		
-		var all_players = get_tree().get_nodes_in_group("player")
-		
 		if wait_for_all_players:
 			$LabelSize/Label.visible = entered_players.size() > 0
-			$LabelSize/Label.text = "Players ready: " + str(entered_players.size()) + "/" + str(all_players.size())

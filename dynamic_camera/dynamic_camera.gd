@@ -21,7 +21,7 @@ func _process(_delta):
 #region Other methods (please try to separate and organise!)
 
 func dynamic_camera(_delta):
-	if !targets:
+	if !targets or targets.size() == 0:
 		return
 
 	# Keep the camera centered among all targets
@@ -29,6 +29,8 @@ func dynamic_camera(_delta):
 	for target in targets:
 		if is_instance_valid(target):
 			p += target.position
+		else:
+			targets.remove_at(targets.find(target))
 	p /= targets.size()
 	position = p
 

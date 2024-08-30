@@ -5,6 +5,9 @@ class_name Player
 signal spell_pickup_requested(Player, int, SpellPickup)
 signal dead(Player)
 signal revived(Player)
+signal dash_signal()
+signal dash_cooldown_complete()
+signal taken_damage()
 
 const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn")
 
@@ -99,6 +102,9 @@ func _ready():
 	killed_entity.connect(_on_killed_entity);
 	dealt_damage.connect(_on_dealt_damage)
 	
+	if data.hat_string:
+		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
+	
 	# TODO temporary lines here
 	if debug:
 		set_data(data, false)
@@ -130,6 +136,8 @@ func _process(delta):
 		dash_cooldown -= delta
 		if dash_bar:
 			dash_bar.value = dash_cooldown
+	else:
+		dash_cooldown_complete.emit()
 	
 	var overlay_col = Color.WHITE
 	if data and is_dashing:
@@ -190,7 +198,8 @@ func _process(delta):
 		prepare_cast_label.text = str(preparing_cast_slot)
 		can_cast_label.text = str(can_cast)
 	
-	crown.visible = data.has_crown
+	#crown.visible = data.has_crown
+	crown.visible = crown.texture != null
 
 func _physics_process(delta):
 	super._physics_process(delta)
@@ -220,6 +229,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
+	if !data.destroy.is_connected(_on_data_destroy): data.destroy.connect(_on_data_destroy)
 	
 	set_input(data.device_id)
 	hud.set_data(new_data)
@@ -236,6 +246,9 @@ func set_data(new_data: PlayerData, destroy_old := true):
 		left_hand_sprite.self_modulate = data.character.skin_color
 	
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
+
+func _on_data_destroy():
+	queue_free()
 
 func set_input(id: int):
 	#print("Setting input" + str(id))
@@ -255,7 +268,7 @@ func attempt_dash():
 		
 @rpc("authority", "call_local", "reliable")
 func start_dash(dir: Vector2):
-	#print("dash!")
+	dash_signal.emit()
 	dash_sound_player.play()
 	if dir == Vector2.ZERO:
 		dir = Vector2(1, 0)
@@ -347,6 +360,7 @@ func cast_spell(slot: int):
 			var spell_node = data.spells[slot].scene.instantiate()
 			spell_node.resource = data.spells[slot]
 			spell_node.caster = self
+			spell_node.base_damage *= entity_damage_multiplier
 			spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
 			add_sibling(spell_node)
 			
@@ -385,6 +399,8 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	
 	if is_dead:
 		return
+	
+	taken_damage.emit()
 	
 	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
 
@@ -545,7 +561,7 @@ func spawn_particles():
 	add_sibling(particles)
 
 func _on_hole_detector_body_exited(_body):
-	print("We are not in a hole.")
+	#print("We are not in a hole.")
 	if is_dashing:
-		print("Collision reenabled.")
+		#print("Collision reenabled.")
 		collision_shape.set_deferred("disabled", false)

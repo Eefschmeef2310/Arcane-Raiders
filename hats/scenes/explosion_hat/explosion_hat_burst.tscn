@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://yqr866dsh3bp"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_e5uom"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_x7toj"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8k2mj"]
+resource_local_to_scene = true
+shader = ExtResource("2_x7toj")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qlas"]
+radius = 125.0
+
+[node name="explosion_hat_burst" instance=ExtResource("1_e5uom")]
+material = SubResource("ShaderMaterial_8k2mj")
+knockback = 10.0
+
+[node name="PointLight2D" parent="." index="0"]
+visible = false
+
+[node name="Sprite2D" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="2"]
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_0qlas")
+
+[node name="kill_timer" parent="." index="3"]
+wait_time = 0.1

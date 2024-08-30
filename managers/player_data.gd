@@ -11,6 +11,7 @@ signal spell_casted_but_not_ready(spell: int)
 signal spell_casted_and_ready(spell: int)
 signal spell_ready(spell: int)
 signal hat_label_changed(text: String)
+signal destroy()
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
@@ -24,6 +25,9 @@ var spells : Array[Spell] = [null,null,null]
 @export var spell_cooldowns_max : Array[float] = [0,0,0]
 var spell_cooldowns : Array[float] = [0,0,0]
 @export var spell_strings : Array[String] = ["", "", ""]
+
+@export_category("Hats")
+@export var hat_string : String = ""
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
@@ -68,7 +72,6 @@ func _on_player_health_updated(amount):
 
 func start_cooldown(slot: int, time: float):
 	spell_cooldowns_max[slot] = time
-	
 	spell_cooldowns[slot] = time
 
 func set_spell_from_string(slot: int, string: String):

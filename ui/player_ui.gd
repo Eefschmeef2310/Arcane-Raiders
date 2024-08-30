@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 class_name PlayerUI
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
@@ -28,6 +28,7 @@ var show_stats : bool = false
 @onready var hat_label = $HatLabelUI/HatLabel
 
 
+@onready var select : JoinSelectUI = $SelectUI
 
 #@export var stats_ticker : ScrollContainer
 #@export var stats_ticker_label : Label
@@ -54,7 +55,7 @@ func _process(delta):
 	damage_stat.text = "Damage: " + str(data.damage)
 	kills_stat.text = "Kills: " + str(data.kills)
 	crown.visible = data.has_crown
-	player_username.visible = GameManager.isOnline()
+	player_username.visible = true
 	player_username.text = data.player_name
 	player_username.self_modulate = data.main_color
 	
@@ -82,9 +83,8 @@ func update_prompts(id: int):
 				spells[i].change_prompt(icons[i])
 
 func _on_player_health_updated(_player_data, _amount):
-	#print("updating health bar")
-	health_bar.value = data.health
 	health_bar.max_value = data.max_health
+	health_bar.value = data.health
 	if health_bar.value <= 0.25 * health_bar.max_value:
 		$Flasher.play("flash")
 	else:
@@ -127,6 +127,7 @@ func set_data(d: PlayerData):
 
 # TODO RUNS EVERY FRAME
 # convert to signals if possible
+
 func show_equip_ui():
 	$EquipUI.show()
 	$EquipUI/Label.text = "Press to equip!"
