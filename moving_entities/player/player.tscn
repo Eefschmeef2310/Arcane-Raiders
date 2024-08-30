@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=61 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -20,6 +20,8 @@
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="19_5ormi"]
+[ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="19_ccbim"]
+[ext_resource type="Script" path="res://moving_entities/player/player_ui.gd" id="19_t4fmv"]
 [ext_resource type="AudioStream" uid="uid://chorsx3mmyjuv" path="res://sounds/effects/player/spell_click.wav" id="21_ig1r5"]
 [ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_sd8uw"]
 [ext_resource type="AudioStream" uid="uid://bejdfxbpqudeq" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
@@ -523,6 +525,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(45, -80.4342), Vector2(51, -58), Vector2(45, -80.4342)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpritesFlip/SpritesScale:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_plrvr"]
 resource_name = "emote_1"
@@ -816,6 +830,18 @@ tracks/5/keys = {
 "method": &"spawn_particles"
 }]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SpritesFlip/SpritesScale:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dg52v"]
 _data = {
@@ -998,7 +1024,7 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "hud", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
@@ -1016,6 +1042,7 @@ input_node = NodePath("Input")
 invincibility_timer = NodePath("InvincibilityTimer")
 healing_particles = NodePath("HealingParticles")
 pickup_sound = NodePath("Audio Players/PickupSound")
+hud = NodePath("HUD")
 notif_spawn_pos = NodePath("NotifSpawnPos")
 spell_pickup_detector_node = NodePath("SpellPickupDetector")
 prepare_cast_label = NodePath("PrepareCast")
@@ -1324,6 +1351,43 @@ libraries = {
 "": SubResource("AnimationLibrary_og3mc")
 }
 autoplay = "loop"
+
+[node name="HUD" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_right = 53.0
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(0.6, 0.6)
+script = ExtResource("19_t4fmv")
+
+[node name="SpellContainer" type="HBoxContainer" parent="HUD"]
+modulate = Color(1, 1, 1, 0.686275)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 26.6667
+offset_right = 114.0
+offset_bottom = 96.6667
+grow_horizontal = 2
+
+[node name="Spell" parent="HUD/SpellContainer" instance=ExtResource("19_ccbim")]
+layout_mode = 2
+base_alpha = 0.75
+
+[node name="Spell2" parent="HUD/SpellContainer" instance=ExtResource("19_ccbim")]
+layout_mode = 2
+base_alpha = 0.75
+
+[node name="Spell3" parent="HUD/SpellContainer" instance=ExtResource("19_ccbim")]
+layout_mode = 2
+base_alpha = 0.75
 
 [node name="RevivalMeter" type="ProgressBar" parent="."]
 z_index = 50

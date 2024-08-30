@@ -58,6 +58,7 @@ var revival_time_max : float = 3
 @export var invincibility_timer : Timer
 @export var healing_particles : GPUParticles2D
 @export var pickup_sound : AudioStreamPlayer2D
+@export var hud : PlayerHUD
 
 @export_subgroup("Spells")
 @export var notif_spawn_pos : Node2D
@@ -221,6 +222,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
 	
 	set_input(data.device_id)
+	hud.set_data(new_data)
 	spell_sprite_2d.modulate = data.main_color
 	spell_sprite_2d_projection.modulate = data.main_color
 	spell_sprite_2d_projection.modulate.a = 0.5
@@ -316,6 +318,8 @@ func cast_spell(slot: int):
 		var cooldown_time
 		var end_time
 		var cancel_time
+		
+		data.spell_casted_and_ready.emit(slot)
 		
 		if data.spells[slot] is CombinedSpell:
 			var spell_node0 = data.spells[slot].spells[0].scene.instantiate()

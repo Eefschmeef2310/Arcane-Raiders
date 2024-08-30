@@ -8,6 +8,7 @@ signal spell_changed(slot)
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
 signal spell_casted_but_not_ready(spell: int)
+signal spell_casted_and_ready(spell: int)
 signal spell_ready(spell: int)
 
 @export var device_id : int = -2

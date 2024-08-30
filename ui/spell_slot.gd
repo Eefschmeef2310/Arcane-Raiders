@@ -9,9 +9,16 @@ var freq = 10
 
 @onready var null_icon = preload("res://spells/sprites/icons/blank_spell_icon.png")
 @onready var shaker = $Shaker
+@onready var flasher = $Flasher
+
+@export var no_prompt = false
+@export var base_alpha : float = 1
 
 func _ready():
 	base_arrow_pos = $EquipArrow.position
+	if no_prompt:
+		hide_prompt()
+	set_alpha(base_alpha)
 
 func _process(delta):
 	i += delta
@@ -51,6 +58,9 @@ func set_spell(spell: Spell):
 			else:
 				$Control/SpellSingle.self_modulate = spell.element.colour
 
+func set_alpha(a):
+	($Control/SpellSingle.material as ShaderMaterial).set_shader_parameter("alpha", a)
+
 func set_cooldown_percent(p: float):
 	$Control/ProgressBar.value = p
 
@@ -71,3 +81,9 @@ func show_arrow():
 
 func shake():
 	shaker.play("shake")
+
+func pulse():
+	shaker.play("pulse")
+
+func flash():
+	flasher.play("flash")
