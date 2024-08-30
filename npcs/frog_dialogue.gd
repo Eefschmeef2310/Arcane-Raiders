@@ -21,7 +21,6 @@ const textbubble_scene: PackedScene = preload("res://debug/bubble_test.tscn")
 @export var dialogues : Array[StringName]
 
 @export_group("Node References")
-@export var prompt : Label
 @export var player_enter_zone : Area2D
 @export var marker : Marker2D
 
@@ -33,20 +32,18 @@ var fresh_bubble : CanvasLayer
 #endregion
 
 #region Godot methods
-func _input(event):
-	if prompt.visible and event.is_action_pressed("interact"):
-		prompt.visible = false
-		if !Dialogic.timeline_ended.is_connected(dialogue_ended): Dialogic.timeline_ended.connect(dialogue_ended)
-		
-		Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
-		.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
+#func _input(event):
+	#if prompt.visible and event.is_action_pressed("interact"):
+		#prompt.visible = false
+		#if !Dialogic.timeline_ended.is_connected(dialogue_ended): Dialogic.timeline_ended.connect(dialogue_ended)
+		#
+		#Dialogic.start(timeline if is_instance_valid(timeline) else "random_" + str(randi_range(0, 1)))\
+		#.register_character(character if is_instance_valid(character) else DEFAULT_FROG, marker)
 #endregion
 
 #region Signal methods
 func _on_player_enter_zone_area_entered(area):
 	if area.owner is Player:
-		prompt.visible = true
-		
 		#Spawn bubble
 		fresh_bubble = textbubble_scene.instantiate()
 		add_child(fresh_bubble)
@@ -67,14 +64,9 @@ func _on_player_enter_zone_area_exited(_area):
 		
 	if is_instance_valid(fresh_bubble):
 		fresh_bubble.queue_free()
-	
-	prompt.visible = false
 #endregion
 
 #region Other methods (please try to separate and organise!)
 func dialogue_ended():
 	Dialogic.timeline_ended.disconnect(dialogue_ended)
-	for ar in player_enter_zone.get_overlapping_areas():
-		if ar.owner is Player:
-			prompt.visible = true
 #endregion
