@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 class_name PlayerUI
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
@@ -26,6 +26,7 @@ var show_stats : bool = false
 @export var reactions_label : Label
 @export var pickups_label : Label
 
+@onready var select : JoinSelectUI = $SelectUI
 
 #@export var stats_ticker : ScrollContainer
 #@export var stats_ticker_label : Label
@@ -52,7 +53,7 @@ func _process(delta):
 	damage_stat.text = "Damage: " + str(data.damage)
 	kills_stat.text = "Kills: " + str(data.kills)
 	crown.visible = data.has_crown
-	player_username.visible = GameManager.isOnline()
+	player_username.visible = true
 	player_username.text = data.player_name
 	player_username.self_modulate = data.main_color
 	
@@ -118,6 +119,7 @@ func set_data(d: PlayerData):
 
 # TODO RUNS EVERY FRAME
 # convert to signals if possible
+
 func show_equip_ui():
 	$EquipUI.show()
 	$EquipUI/Label.text = "Press to equip!"

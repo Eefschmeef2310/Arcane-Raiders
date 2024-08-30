@@ -67,7 +67,9 @@ func _process(_delta):
 						aim_dir = owner.get_global_mouse_position() - owner.global_position
 						aim_dir = aim_dir.normalized()
 					else:
-						var a : Vector2 = input.get_vector("left", "right", "up", "down")
+						var a : Vector2 = input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+						if a == Vector2.ZERO:
+							a = input.get_vector("left", "right", "up", "down")
 						if a.length() > 0:
 							aim_dir = a.normalized()
 					
@@ -102,7 +104,9 @@ func _process(_delta):
 							aim_dir = owner.get_global_mouse_position() - owner.global_position
 							aim_dir = aim_dir.normalized()
 						else:
-							var a : Vector2 = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
+							var a : Vector2 = MultiplayerInput.get_vector(device, "aim_left", "aim_right", "aim_up", "aim_down")
+							if a == Vector2.ZERO:
+								a = MultiplayerInput.get_vector(device, "left", "right", "up", "down")
 							if a.length() > 0:
 								aim_dir = a.normalized()
 							

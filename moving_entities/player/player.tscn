@@ -1324,6 +1324,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HelpContainer" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = -125.0
@@ -1357,6 +1358,7 @@ libraries = {
 autoplay = "loop"
 
 [node name="RevivalMeter" type="ProgressBar" parent="."]
+visible = false
 z_index = 50
 custom_minimum_size = Vector2(120, 12)
 anchors_preset = 7

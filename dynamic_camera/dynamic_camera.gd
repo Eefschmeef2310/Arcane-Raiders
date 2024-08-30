@@ -21,7 +21,7 @@ func _process(_delta):
 #region Other methods (please try to separate and organise!)
 
 func dynamic_camera(_delta):
-	if !targets:
+	if !targets or targets.size() == 0:
 		return
 
 	# Keep the camera centered among all targets

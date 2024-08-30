@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlx7jcvm52tyw"]
+[gd_scene load_steps=8 format=3 uid="uid://dlx7jcvm52tyw"]
 
 [ext_resource type="Script" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble.gd" id="1_jdhpk"]
-[ext_resource type="Shader" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble.gdshader" id="2_1mhvf"]
 [ext_resource type="Script" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="3_syv35"]
 [ext_resource type="Script" path="res://addons/dialogic/Modules/Text/node_type_sound.gd" id="4_7bm4b"]
 [ext_resource type="Script" path="res://addons/dialogic/Modules/Text/node_name_label.gd" id="6_5gd03"]
@@ -10,25 +9,12 @@
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_lsfnp"]
-noise_type = 0
-fractal_type = 0
-cellular_jitter = 0.15
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kr7hw"]
-seamless = true
-noise = SubResource("FastNoiseLite_lsfnp")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_60xbe"]
-resource_local_to_scene = true
-shader = ExtResource("2_1mhvf")
-shader_parameter/radius = 200.0
-shader_parameter/box_size = Vector2(100, 100)
-shader_parameter/box_padding = 10.0
-shader_parameter/wobble_amount = 0.75
-shader_parameter/wobble_speed = 10.0
-shader_parameter/wobble_detail = 0.51
-shader_parameter/deformation_sampler = SubResource("NoiseTexture2D_kr7hw")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y24o8"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6ls0"]
 content_margin_left = 5.0
@@ -54,14 +40,14 @@ points = PackedVector2Array(-9, 7, -29, 118, -95, 174, -193, 195)
 width = 96.0
 width_curve = SubResource("Curve_0j8nu")
 
-[node name="Background" type="ColorRect" parent="Group"]
+[node name="Background" type="Panel" parent="Group"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_60xbe")
 offset_left = -115.0
 offset_top = -69.0
 offset_right = 108.0
 offset_bottom = 83.0
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y24o8")
 
 [node name="DialogText" type="RichTextLabel" parent="." node_paths=PackedStringArray("textbox_root")]
 unique_name_in_owner = true
