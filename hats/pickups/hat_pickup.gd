@@ -18,9 +18,11 @@ extends HatPickup
 
 	#Other Variables (please try to separate and organise!)
 
+
 #endregion
 
 #region Godot methods
+
 #endregion
 
 #region Signal methods
@@ -31,5 +33,5 @@ extends HatPickup
 func pickup_function(player):
 	super.pickup_function(player)
 	if hat_string:
-		player.add_child(HatManager.get_hat_from_string(hat_string))
+		player.add_child(HatManager.get_hat_from_string(hat_string).instantiate())
 #endregion

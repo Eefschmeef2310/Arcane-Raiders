@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpu3i2bvxup6g"]
+[gd_scene load_steps=3 format=3 uid="uid://dpu3i2bvxup6g"]
 
 [ext_resource type="Script" path="res://hats/scenes/explosion_hat/explosion_hat.gd" id="1_gjlyi"]
+[ext_resource type="Texture2D" uid="uid://c65sms42phg1g" path="res://hats/sprites/cowboy_hat.png" id="2_7bfi6"]
 
 [node name="ExplosionHat" type="Node" node_paths=PackedStringArray("active_timer") groups=["hat"]]
 script = ExtResource("1_gjlyi")
 active_timer = NodePath("Timer")
+sprite = ExtResource("2_7bfi6")
 manager_key = &"explosion_hat"
 
 [node name="Timer" type="Timer" parent="."]

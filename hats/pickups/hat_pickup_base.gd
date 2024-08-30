@@ -12,15 +12,37 @@ class_name HatPickup #THIS MUST BE A SEPARATE CLASS BCS THIS SCRIPT IS USED FOR 
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var info_container : HBoxContainer
 
 	#Onready Variables
+@onready var init_pos = $Shadow.scale
+@onready var icon = $Icon
 
 	#Other Variables (please try to separate and organise!)
 var target_info_modulate_a = 0
+var i = 0
+var base_sprite_pos: Vector2
+var amp = 10
+var freq = 2
 
 #endregion
 
 #region Godot methods
+func _ready():
+	i = randf_range(0, 360)
+	base_sprite_pos = icon.position
+	
+func _process(delta):
+	i += delta
+	if i > 360:
+		i -= 360
+	$Icon.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
+	$Outline.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
+	
+	info_container.modulate.a = move_toward(info_container.modulate.a, target_info_modulate_a, delta*10)
+	
+	var test = 1 + sin(i*2)*0.25
+	$Shadow.scale = Vector2(init_pos.x*test, init_pos.y*test)
 #endregion
 
 #region Signal methods
