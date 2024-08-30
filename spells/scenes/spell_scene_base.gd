@@ -29,6 +29,8 @@ class_name SpellBase
 # The time before this spell can be cast again.
 @export var cooldown_time : float = 3.0
 
+@export var can_knockback: bool = true
+
 # Whether this spell is part of a combined spell, and which one it is.
 # -1: Single spell
 # 0: First of a combined spell
@@ -68,6 +70,8 @@ func transfer_data(new: Node2D):
 		new.play_element_sound = true
 	if "combined_spell_index" in new:
 		new.combined_spell_index = combined_spell_index
+	if "can_knockback" in new:
+		new.can_knockback = can_knockback
 	
 	if resource and resource.element and resource.element.gradient and material:
 		(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)

@@ -25,9 +25,10 @@ var caster : Node2D
 
 #region Godot methods
 func _process(_delta):
-	wrap.global_position = target.global_position
-	line.points[0] = target.position
-	line.points[1] = caster.position
+	if(is_instance_valid(target)):
+		wrap.global_position = target.global_position
+		line.points[0] = target.position
+		line.points[1] = caster.position
 #endregion
 
 #region Signal methods

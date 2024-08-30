@@ -16,6 +16,7 @@ const REACTION_ELEMENTS_UI = preload("res://spells/reactions/reaction_elements_u
 @export var base_damage : int = 10
 @export var reaction_name : String
 @export var limit_spawns : bool = true
+@export var can_knockback:bool = false
 
 	#Onready Variables
 
