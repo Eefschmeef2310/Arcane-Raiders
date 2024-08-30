@@ -108,7 +108,7 @@ func set_data(d: PlayerData):
 		if data.spell_casted_but_not_ready.is_connected(spell_not_ready): data.spell_casted_but_not_ready.disconnect(spell_not_ready)
 		if data.spell_casted_and_ready.is_connected(spell_casted): data.spell_casted_and_ready.disconnect(spell_casted)
 		if data.spell_ready.is_connected(spell_ready): data.spell_ready.disconnect(spell_ready)
-		if data.spellhat_label_changed_ready.is_connected(hat_label_changed): data.hat_label_changed.disconnect(hat_label_changed)
+		if data.hat_label_changed.is_connected(hat_label_changed): data.hat_label_changed.disconnect(hat_label_changed)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
