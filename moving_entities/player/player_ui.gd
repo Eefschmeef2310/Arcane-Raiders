@@ -39,13 +39,13 @@ func update_spells(_slot):
 			spells[i].set_spell(data.spells[i])
 
 func spell_not_ready(slot: int):
-	if "shake" in spells[slot]:
+	if slot < spells.size() && "shake" in spells[slot]:
 		spells[slot].shake()
 
 func spell_casted(slot: int):
-	if "pulse" in spells[slot]:
+	if slot < spells.size() && "pulse" in spells[slot]:
 		spells[slot].pulse()
 
 func spell_ready(slot: int):
-	if "shake" in spells[slot]:
+	if slot < spells.size() && "shake" in spells[slot]:
 		spells[slot].flash()

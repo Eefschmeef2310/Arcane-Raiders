@@ -464,6 +464,9 @@ script = null
 offset_top = -148.0
 offset_bottom = -116.0
 
+[node name="HUD" parent="." index="21"]
+visible = false
+
 [node name="AnimalSound" parent="." index="26"]
 stream = SubResource("AudioStreamRandomizer_onr5v")
 
