@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://st53ca8alpuc"]
+[gd_scene load_steps=6 format=3 uid="uid://st53ca8alpuc"]
 
 [ext_resource type="Script" path="res://spells/scenes/lasso/lasso.gd" id="1_g26yd"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_k33h5"]
+[ext_resource type="Texture2D" uid="uid://cvxjk2rd6qi05" path="res://spells/scenes/lasso/lassoloop.png" id="2_p26ug"]
+[ext_resource type="Texture2D" uid="uid://cemt4b8oe530u" path="res://spells/scenes/lasso/lassobase.png" id="2_x1kio"]
 
 [sub_resource type="Curve2D" id="Curve2D_qemrv"]
 _data = {
@@ -21,7 +22,9 @@ line = NodePath("Line2D")
 hurtbox = NodePath("Path2D/PathFollow2D/Hurtbox")
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 0, 0)
+points = PackedVector2Array(0, 0, 0, 0, 234, -84)
+texture = ExtResource("2_x1kio")
+texture_mode = 1
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_qemrv")
@@ -30,7 +33,7 @@ curve = SubResource("Curve2D_qemrv")
 
 [node name="Icon" type="Sprite2D" parent="Path2D/PathFollow2D"]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_k33h5")
+texture = ExtResource("2_p26ug")
 
 [node name="Hurtbox" type="Area2D" parent="Path2D/PathFollow2D"]
 collision_layer = 16

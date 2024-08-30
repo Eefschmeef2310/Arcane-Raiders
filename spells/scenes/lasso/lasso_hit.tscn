@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvdcq1e7topub"]
+[gd_scene load_steps=4 format=3 uid="uid://dvdcq1e7topub"]
 
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_dsskn"]
 [ext_resource type="Script" path="res://spells/scenes/lasso/lasso_hit.gd" id="1_sebwu"]
+[ext_resource type="Texture2D" uid="uid://cvxjk2rd6qi05" path="res://spells/scenes/lasso/lassoloop.png" id="2_62ax6"]
+[ext_resource type="Texture2D" uid="uid://cemt4b8oe530u" path="res://spells/scenes/lasso/lassobase.png" id="3_xydi0"]
 
 [node name="LassoHit" type="Node2D" node_paths=PackedStringArray("line", "loop")]
 script = ExtResource("1_sebwu")
@@ -12,12 +13,12 @@ loop = NodePath("LassoWrap")
 z_index = 1
 position = Vector2(0, -18)
 scale = Vector2(1, 0.28125)
-texture = ExtResource("1_dsskn")
+texture = ExtResource("2_62ax6")
 
 [node name="LassoRope" type="Line2D" parent="."]
 points = PackedVector2Array(100, 0, 0, 0)
 default_color = Color(1, 0.988235, 0, 1)
-texture = ExtResource("1_dsskn")
+texture = ExtResource("3_xydi0")
 texture_mode = 2
 
 [node name="Timer" type="Timer" parent="."]
