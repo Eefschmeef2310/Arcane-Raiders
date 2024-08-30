@@ -127,6 +127,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-174.56, -13, 167.355, -14)]
+}
 
 [sub_resource type="Animation" id="Animation_c0vuq"]
 resource_name = "idle"
@@ -168,6 +180,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-174.56, -13, 167.355, -14), PackedVector2Array(-183.87, -13, 181.435, -13), PackedVector2Array(-193.97, -13, 194.73, -13), PackedVector2Array(-205.99, -13, 207.45, -13), PackedVector2Array(-216.02, -13, 215.565, -13), PackedVector2Array(-207.375, -13, 207.61, -13), PackedVector2Array(-195.97, -13, 196.32, -13), PackedVector2Array(-179.63, -13, 179.45, -13), PackedVector2Array(-179.63, -13, 179.45, -13)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kh1iu"]
@@ -265,6 +289,9 @@ debug_color = Color(0, 0.647059, 0.215686, 0.419608)
 libraries = {
 "": SubResource("AnimationLibrary_kh1iu")
 }
+
+[node name="LassoLine" parent="." index="16"]
+points = PackedVector2Array(-174.56, -13, 167.355, -14)
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]

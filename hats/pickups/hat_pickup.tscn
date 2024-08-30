@@ -43,16 +43,16 @@ position = Vector2(0, -35)
 texture = ExtResource("4_41jd3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(600, 148)
+custom_minimum_size = Vector2(0, 148)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -220.0
-offset_right = 300.0
-offset_bottom = -72.0
+offset_left = -119.0
+offset_top = -230.0
+offset_right = 119.0
+offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1

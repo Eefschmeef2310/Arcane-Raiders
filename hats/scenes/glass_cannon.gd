@@ -30,9 +30,10 @@ func _ready():
 	player.entity_damage_multiplier += damage_buff
 
 func _exit_tree():
-	player.data.max_health -= health_increase
-	player.set_health(player.health - health_increase)
-	player.entity_damage_multiplier -= damage_buff
+	if is_instance_valid(player.data.max_health):
+		player.data.max_health -= health_increase
+		player.set_health(player.health - health_increase)
+		player.entity_damage_multiplier -= damage_buff
 #endregion
 
 #region Signal methods

@@ -136,5 +136,9 @@ libraries = {
 "": SubResource("AnimationLibrary_i7tm6")
 }
 
+[node name="LassoLine" parent="." index="15"]
+position = Vector2(22, -42)
+points = PackedVector2Array(-26, -19, -25, 12)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="navigation_finished" from="NavigationAgent2D" to="StateMachine/BeeChase" method="_on_navigation_agent_2d_target_reached"]

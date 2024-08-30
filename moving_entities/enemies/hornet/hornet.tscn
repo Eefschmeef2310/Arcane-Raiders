@@ -69,19 +69,19 @@ position = Vector2(0, 13)
 shape = SubResource("CircleShape2D_26wc2")
 debug_color = Color(0.964706, 0, 0.501961, 0.164706)
 
-[node name="ProgressBar" parent="." index="3"]
+[node name="ProgressBar" parent="." index="4"]
 offset_top = -100.0
 offset_bottom = -93.0
 
-[node name="StatusUI" parent="." index="4"]
+[node name="StatusUI" parent="." index="5"]
 offset_top = -134.0
 offset_bottom = -102.0
 
-[node name="EnemySpells" parent="." index="5"]
+[node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_fld7n")]([SubResource("Resource_qfxhu")])
 cast_time = Array[float]([0.5, 0.2, 0.2])
 
-[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
@@ -103,7 +103,7 @@ script = SubResource("GDScript_1185l")
 nav_timer_interval = 99.0
 nav_timer = 99
 
-[node name="NavigationAgent2D" parent="." index="7"]
+[node name="NavigationAgent2D" parent="." index="8"]
 navigation_layers = 3
 avoidance_layers = 2
 avoidance_mask = 2
@@ -117,5 +117,7 @@ libraries = {
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_tok1y")
 
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-9, -52, 19, -62)
+
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
-[connection signal="zero_health" from="." to="." method="_on_zero_health"]

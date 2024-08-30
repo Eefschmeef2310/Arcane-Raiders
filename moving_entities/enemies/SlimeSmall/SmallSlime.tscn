@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://byabxygfvnpvx"]
+[gd_scene load_steps=20 format=3 uid="uid://byabxygfvnpvx"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_6yb0e"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="2_6b7pw"]
@@ -11,11 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://6sxunwsek3lb" path="res://moving_entities/enemies/SlimeSmall/slime_small_attack.png" id="6_iyxd1"]
 [ext_resource type="Texture2D" uid="uid://bwxc4t6k7e8sl" path="res://moving_entities/enemies/SlimeSmall/slime_small_idle.png" id="7_g2nlb"]
 [ext_resource type="AudioStream" uid="uid://bltk7bw0u5iid" path="res://sounds/effects/enemies/SLIME SQUISHY - (Sound Effect).wav" id="11_k22ys"]
-
-[sub_resource type="GDScript" id="GDScript_60b0v"]
-resource_name = "small_slime"
-script/source = "extends EnemyEntity
-"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3s8j"]
 radius = 53.0377
@@ -82,6 +77,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LassoLine:points")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-27.575, -6, 34, -6)]
 }
 
 [sub_resource type="Animation" id="Animation_2ryb5"]
@@ -187,6 +194,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LassoLine:points")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-27.575, -6, 34, -6), PackedVector2Array(-32.59, -6, 41.245, -6), PackedVector2Array(-27.71, -6, 33.555, -6), PackedVector2Array(-20.76, -6, 27.615, -6), PackedVector2Array(-20.76, -6, 27.615, -6)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xr58l"]
 _data = {
@@ -196,7 +215,6 @@ _data = {
 }
 
 [node name="SmallSlime" instance=ExtResource("1_6yb0e")]
-script = SubResource("GDScript_60b0v")
 movement_speed = 150.0
 max_health = 300
 
@@ -240,6 +258,9 @@ libraries = {
 
 [node name="AttackSound" parent="." index="12"]
 stream = ExtResource("11_k22ys")
+
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-27.575, -6, 34, -6)
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
