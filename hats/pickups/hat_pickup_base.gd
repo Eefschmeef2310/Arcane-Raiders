@@ -1,5 +1,5 @@
 extends Node
-class_name HatPickup
+class_name HatPickup #THIS MUST BE A SEPARATE CLASS BCS THIS SCRIPT IS USED FOR THE HAT DESTROYER
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables

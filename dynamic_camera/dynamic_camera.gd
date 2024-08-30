@@ -29,6 +29,8 @@ func dynamic_camera(_delta):
 	for target in targets:
 		if is_instance_valid(target):
 			p += target.position
+		else:
+			targets.remove_at(targets.find(target))
 	p /= targets.size()
 	position = p
 

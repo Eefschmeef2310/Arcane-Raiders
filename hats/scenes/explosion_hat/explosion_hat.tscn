@@ -5,6 +5,7 @@
 [node name="ExplosionHat" type="Node" node_paths=PackedStringArray("active_timer") groups=["hat"]]
 script = ExtResource("1_gjlyi")
 active_timer = NodePath("Timer")
+manager_key = &"explosion_hat"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

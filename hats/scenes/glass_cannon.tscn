@@ -7,3 +7,4 @@
 script = ExtResource("1_3jeef")
 health_increase = -500
 sprite = ExtResource("2_nrn0j")
+manager_key = &"glass_cannon_hat"

@@ -12,7 +12,7 @@ extends HatPickup
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var hat : PackedScene
+@export var hat_string : String
 
 	#Onready Variables
 
@@ -21,7 +21,6 @@ extends HatPickup
 #endregion
 
 #region Godot methods
-
 #endregion
 
 #region Signal methods
@@ -31,5 +30,6 @@ extends HatPickup
 #region Other methods (please try to separate and organise!)
 func pickup_function(player):
 	super.pickup_function(player)
-	player.add_child(hat.instantiate())
+	if hat_string:
+		player.add_child(HatManager.get_hat_from_string(hat_string))
 #endregion

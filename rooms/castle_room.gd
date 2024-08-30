@@ -120,7 +120,7 @@ func spawn_players(num_players: int):
 # Runs on all peers
 func spawn_player(player_number: int) -> Node2D:
 	var player: Player = PLAYER_SCENE.instantiate()
-	player.set_data(player_data[player_number])
+	player.set_daa(player_data[player_number])
 	player.global_position = player_spawns[player_number].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	player.dead.connect(report_player_death)
