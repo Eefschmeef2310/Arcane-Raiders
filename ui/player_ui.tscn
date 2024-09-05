@@ -23,21 +23,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2mnk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrt5p"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_poy14"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8bbr"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xg7rc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5f1sk"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -222,17 +222,17 @@ grow_vertical = 2
 texture = ExtResource("3_a7ijl")
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_k2mnk")
+material = SubResource("ShaderMaterial_lrt5p")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_poy14")
+material = SubResource("ShaderMaterial_r8bbr")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_xg7rc")
+material = SubResource("ShaderMaterial_5f1sk")
 layout_mode = 2
 mouse_filter = 1
 
@@ -373,6 +373,7 @@ text = "Kills: 222"
 label_settings = SubResource("LabelSettings_w8xoo")
 
 [node name="Money" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Money Earnt: 222"
@@ -383,6 +384,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Reactions" type="Label" parent="StatsUI/PanelContainer/HBoxContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reactions: 222"
