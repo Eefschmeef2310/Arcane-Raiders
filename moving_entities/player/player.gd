@@ -499,9 +499,9 @@ func _on_killed_entity(entity: Entity):
 		#print(data.money)
 
 func _on_dealt_damage(_entity: Entity, damage : int):
-	if is_multiplayer_authority() and data:
-		#sdata.damage += damage 
-		add_damage.rpc(damage)
+	if is_multiplayer_authority() and data: 
+		var actual_damage = clampi(damage, 0, _entity.health) # prevents overkill damage glitch
+		add_damage.rpc(actual_damage)
 	pass
 
 @rpc("any_peer", "call_local", "reliable")

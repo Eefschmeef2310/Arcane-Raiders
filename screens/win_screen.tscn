@@ -437,6 +437,7 @@ theme_override_constants/margin_top = -12
 theme_override_constants/margin_right = 70
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(0, 550)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 48
@@ -449,6 +450,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_gi64w")
 [node name="Left Side" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 23
+alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side"]
 layout_mode = 2
@@ -476,6 +478,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 text = "Enemies Defeated: "
 
 [node name="HighestEarner" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 
@@ -483,6 +486,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 text = "Money Earned: "
 
 [node name="MostReactions" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side" instance=ExtResource("1_42oyx")]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ehsd4")
 
