@@ -1,6 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://brodj84jliqtq"]
-
-[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="1_ot87u"]
+[gd_scene load_steps=8 format=3 uid="uid://brodj84jliqtq"]
 
 [sub_resource type="GDScript" id="GDScript_gacho"]
 resource_name = "pause_menu"
@@ -8,46 +6,92 @@ script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 var just_spawned := true
-var device_index : int = -2
+var device_id : int = -2
 var new_settings
+var current_button = 0
+var input : DeviceInput
+var mouse_input = []
+var devices = []
+var submenu = null
+
+@export var panels_array : Array[Control]
+
+@export var stylebox_normal : StyleBoxFlat
+@export var stylebox_selected : StyleBoxFlat
 
 #region Godot methods
 func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
 	
+	Input.joy_connection_changed.connect(update_device_list)
+	update_device_list(0, true)
+	
+	if device_id != -2:
+		input = DeviceInput.new(device_id)
+	
 	#MultiplayerInput.set_ui_action_device(device_index)
 	#if device_index > -1 and GameManager.isLocal():
 		##MultiplayerInput._create_actions_for_device(device_index)
 		#set_button_mouse()
-	
-func _input(event):
-	if GameManager.isLocal():
-		#If keyboard
-		if device_index == -1:
-			if event.is_action_released(\"keyboard_pause\") and !just_spawned:
-				_on_continue_button_pressed()
-		else: #If controller
-			if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and (MultiplayerInput.is_action_just_released(device_index, \"ui_pause\") or MultiplayerInput.is_action_just_released(device_index, \"ui_cancel\")) and !just_spawned:
-				if !is_instance_valid(new_settings):
-					_on_continue_button_pressed()
-			
-		#Set just_spawned
-		if just_spawned:
-			if device_index == -1:
-				if event.is_action_released(\"keyboard_pause\"):
-					just_spawned = false
-			else:
-				if InputMap.get_actions().has(str(device_index) + \"ui_pause\") and MultiplayerInput.is_action_just_released(device_index, \"ui_pause\"):
-					just_spawned = false
-					
-	elif GameManager.isOnline():		
-		if !just_spawned and (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"ui_cancel\")):
-			if !is_instance_valid(new_settings):
-				_on_continue_button_pressed()
+
+func _process(delta):
+	if !is_instance_valid(submenu):
+		get_controller_input()
 		
-		if (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"keyboard_pause\") and just_spawned):
-			just_spawned = false
+		if (\"down\") in mouse_input:
+			print(\"down\")
+			current_button = clampi(current_button + 1, 0, panels_array.size()-1)
+			
+		if (\"up\") in mouse_input:
+			print(\"up\")
+			current_button = clampi(current_button - 1, 0, panels_array.size()-1)
+		
+		if (\"confirm\" in mouse_input):
+			print(\"Confirm\")
+			match current_button:
+				0: _on_continue_button_pressed()
+				1: _on_settings_button_pressed()
+				2: _on_quit_button_pressed()
+		
+		if (\"cancel\" in mouse_input or \"pause\" in mouse_input):
+			_on_continue_button_pressed()
+	
+	for i in panels_array.size():
+		if current_button == i:
+			panels_array[i].add_theme_stylebox_override(\"panel\", stylebox_selected.duplicate())
+		else:
+			panels_array[i].add_theme_stylebox_override(\"panel\", stylebox_normal.duplicate())
+
+	mouse_input.clear()
+
+#func _input(event):
+	#if GameManager.isLocal():
+		##If keyboard
+		#if device_id == -1:
+			#if event.is_action_released(\"keyboard_pause\") and !just_spawned:
+				#_on_continue_button_pressed()
+		#else: #If controller
+			#if InputMap.get_actions().has(str(device_id) + \"ui_pause\") and (MultiplayerInput.is_action_just_released(device_id, \"ui_pause\") or MultiplayerInput.is_action_just_released(device_id, \"ui_cancel\")) and !just_spawned:
+				#if !is_instance_valid(new_settings):
+					#_on_continue_button_pressed()
+			#
+		##Set just_spawned
+		#if just_spawned:
+			#if device_id == -1:
+				#if event.is_action_released(\"keyboard_pause\"):
+					#just_spawned = false
+			#else:
+				#if InputMap.get_actions().has(str(device_id) + \"ui_pause\") and MultiplayerInput.is_action_just_released(device_id, \"ui_pause\"):
+					#just_spawned = false
+					#
+	#elif GameManager.isOnline():		
+		#if !just_spawned and (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"ui_cancel\")):
+			#if !is_instance_valid(new_settings):
+				#_on_continue_button_pressed()
+		#
+		#if (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"keyboard_pause\") and just_spawned):
+			#just_spawned = false
 #endregion
 
 #region Signal methods
@@ -64,6 +108,7 @@ func _on_continue_button_pressed():
 func _on_settings_button_pressed():
 	new_settings = load(\"res://menus/settings.tscn\").instantiate()
 	new_settings.destroyed.connect(settings_set_focus)
+	submenu = new_settings
 	get_tree().root.add_child(new_settings)
 	
 func _on_quit_button_pressed():
@@ -92,6 +137,36 @@ func _on_quit_button_pressed():
 		
 #endregion
 
+func update_device_list(_device: int, _connected: bool):
+	devices.clear()
+	devices = Input.get_connected_joypads()
+	devices.append(-1)
+
+func get_controller_input():
+	if input:
+		if input.is_action_just_pressed(\"lobby_up\"):
+			mouse_input.append(\"up\")
+		if input.is_action_just_pressed(\"lobby_down\"):
+			mouse_input.append(\"down\")
+		if input.is_action_just_pressed(\"lobby_pause\"):
+			mouse_input.append(\"pause\")
+		if input.is_action_just_pressed(\"lobby_confirm\"):
+			mouse_input.append(\"confirm\")
+		if input.is_action_just_pressed(\"lobby_cancel\"):
+			mouse_input.append(\"cancel\")
+	else:
+		for device in GameManager.devices:
+			if MultiplayerInput.is_action_just_pressed(device, \"lobby_up\"):
+				mouse_input.append(\"up\")
+			if MultiplayerInput.is_action_just_pressed(device, \"lobby_down\"):
+				mouse_input.append(\"down\")
+			if MultiplayerInput.is_action_just_pressed(device, \"lobby_pause\"):
+				mouse_input.append(\"pause\")
+			if MultiplayerInput.is_action_just_pressed(device, \"lobby_confirm\"):
+				mouse_input.append(\"confirm\")
+			if MultiplayerInput.is_action_just_pressed(device, \"lobby_cancel\"):
+				mouse_input.append(\"cancel\")
+
 #region Other methods (please try to separate and organise!)
 func set_panel_color(col: Color):
 	($Control/MarginContainer/Panel as Panel).self_modulate = col
@@ -100,13 +175,48 @@ func set_panel_color(col: Color):
 
 func settings_set_focus():
 	$Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
-	
-func set_button_mouse():
-	($Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
-	($Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
-	($Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton as Button).mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 #endregion
+
+
+func _on_continue_button_mouse_entered():
+	if device_id <= -1 and is_multiplayer_authority():
+		current_button = 0
+
+
+func _on_settings_button_mouse_entered():
+	if device_id <= -1 and is_multiplayer_authority():
+		current_button = 1
+
+
+func _on_quit_button_mouse_entered():
+	if device_id <= -1 and is_multiplayer_authority():
+		current_button = 2
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adoh7"]
+bg_color = Color(0.2, 0.113725, 0.0705882, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqpjl"]
+bg_color = Color(0.419608, 0.262745, 0.180392, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 8
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wyv4k"]
 bg_color = Color(0.854902, 0.854902, 0.854902, 1)
@@ -120,41 +230,8 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="GDScript" id="GDScript_xbonc"]
-resource_name = "quit_button"
-script/source = "extends Button
-	#class_name
-#Authored by Ethan. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-#endregion
-
-#region Signal methods
-func warning_closed():
-	grab_focus()
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-"
+[sub_resource type="LabelSettings" id="LabelSettings_yrycy"]
+font_size = 48
 
 [sub_resource type="Animation" id="Animation_yg65t"]
 resource_name = "default"
@@ -177,9 +254,12 @@ _data = {
 "default": SubResource("Animation_yg65t")
 }
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("panels_array")]
 process_mode = 3
 script = SubResource("GDScript_gacho")
+panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
+stylebox_normal = SubResource("StyleBoxFlat_adoh7")
+stylebox_selected = SubResource("StyleBoxFlat_iqpjl")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -188,6 +268,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 1
@@ -237,22 +318,32 @@ theme_override_font_sizes/font_size = 92
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="ContinueButton" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="ContinueButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"]
+layout_mode = 2
 text = "Continue"
-script = ExtResource("1_ot87u")
+label_settings = SubResource("LabelSettings_yrycy")
+horizontal_alignment = 1
 
-[node name="SettingsButton" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="SettingsButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"]
+layout_mode = 2
 text = "Settings"
+label_settings = SubResource("LabelSettings_yrycy")
+horizontal_alignment = 1
 
-[node name="QuitButton" type="Button" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Quit"
-script = SubResource("GDScript_xbonc")
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton"]
+layout_mode = 2
+text = "Quit to Title"
+label_settings = SubResource("LabelSettings_yrycy")
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -261,6 +352,6 @@ libraries = {
 autoplay = "default"
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="button_up" from="Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="button_up" from="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="button_up" from="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
+[connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_mouse_entered"]
+[connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_mouse_entered"]

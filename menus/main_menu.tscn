@@ -94,9 +94,6 @@ func _on_credits_button_pressed():
 func set_white(_arg, arg2, _arg3):
 	Steam.setLEDColor(arg2, 255, 255, 255, 0)
 #endregion
-
-func _input(event):
-	print(event.device)
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
