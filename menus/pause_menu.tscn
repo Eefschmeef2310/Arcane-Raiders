@@ -8,7 +8,7 @@ script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 var just_spawned := true
-var device_index : int
+var device_index : int = -2
 var new_settings
 
 #region Godot methods
@@ -16,9 +16,10 @@ func _ready():
 	#Pause the game if we're LOCAL ONLY
 	get_tree().paused = GameManager.isLocal()
 	
-	if device_index != -1 and GameManager.isLocal():
-		MultiplayerInput._create_actions_for_device(device_index)
-		set_button_mouse()
+	#MultiplayerInput.set_ui_action_device(device_index)
+	#if device_index > -1 and GameManager.isLocal():
+		##MultiplayerInput._create_actions_for_device(device_index)
+		#set_button_mouse()
 	
 func _input(event):
 	if GameManager.isLocal():
@@ -54,9 +55,9 @@ func _on_continue_button_pressed():
 	get_tree().paused = false
 	GameManager.isPaused = false
 	
-	MultiplayerInput.set_ui_action_device(-2)
-	for device_id in Input.get_connected_joypads():
-		MultiplayerInput._create_actions_for_device(device_id)
+	#MultiplayerInput.set_ui_action_device(-2)
+	#for device_id in Input.get_connected_joypads():
+		#MultiplayerInput._create_actions_for_device(device_id)
 		
 	queue_free()
 	
@@ -79,10 +80,12 @@ func _on_quit_button_pressed():
 		get_tree().paused = false
 		GameManager.isPaused = false
 		
-		MultiplayerInput.set_ui_action_device(-2)
+		#MultiplayerInput.set_ui_action_device(-2)
 
-		for device_id in Input.get_connected_joypads():
-			MultiplayerInput._create_actions_for_device(device_id)
+		#for device_id in Input.get_connected_joypads():
+			#MultiplayerInput._create_actions_for_device(device_id)
+		
+		print(\"erm... hello?\")
 		
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
