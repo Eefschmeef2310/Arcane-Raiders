@@ -9,7 +9,7 @@ signal raider_selected(peer_id, device_id)
 @export var selected_raider : int = 0
 @export var selected_loadout : int = 0
 @export var selected_color : int = 0
-@export var selected_panel : int = 1 #0=close_button 1=raider, 2=loadout, 3=ready
+@export var selected_panel : int = 0 # 0 raider, 1 color, 2 ready
 @export var show_panels : bool = true #dont show stuff until a player connects
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED # this should be player colour
@@ -147,8 +147,12 @@ func _process(_delta):
 				#elif(selected_panel == 3): #loadout selected
 					#selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			
-			if("confirm" in mouse_input):
-				if(selected_panel == 2 and valid_color): #ready button selected
+			if ("confirm" in mouse_input):
+				if (valid_color): # NOTE: removed ready button hover requirement
+					spawn_player.rpc(player_name.text, selected_raider, selected_color)
+			
+			if ("confirm_click" in mouse_input):
+				if (valid_color and selected_panel == 2):
 					spawn_player.rpc(player_name.text, selected_raider, selected_color)
 			
 			UpdateDisplay()
@@ -274,7 +278,7 @@ func _on_right_arrow_clicked(event):
 
 func _on_button_pressed():
 	if device_id <= -1 and is_multiplayer_authority():
-		mouse_input.append("confirm")
+		mouse_input.append("confirm_click")
 
 func _on_raider_pip_gui_input(event, node):
 	if is_event_click(event) and device_id <= -1 and visible and is_multiplayer_authority():

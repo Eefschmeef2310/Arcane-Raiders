@@ -57,6 +57,8 @@ func _ready():
 	Steam.input_configuration_loaded.connect(set_white)
 	
 	$VBoxContainer/LocalPlayButton.grab_focus()
+	
+	#MultiplayerInput.set_ui_action_device(-2)
 ##endregion
 
 #region Signal methods

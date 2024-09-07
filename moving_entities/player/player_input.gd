@@ -25,19 +25,19 @@ func _process(_delta):
 		#region - For pausing
 		var do_pause = false
 		if input: # For local
-			do_pause = input.is_action_just_pressed("keyboard_pause") if input.device == -1 else input.is_action_just_pressed("ui_pause")
+			do_pause = input.is_action_just_pressed("lobby_pause")
 		else: # For online
-			do_pause = Input.is_action_pressed("ui_pause") or Input.is_action_just_pressed("keyboard_pause")
+			do_pause = Input.is_action_just_pressed("lobby_pause")
 		
 		if do_pause and !GameManager.isPaused:
 			GameManager.isPaused = true
-			if input:
-				MultiplayerInput.set_ui_action_device(input.device)
+			#if input:
+				#MultiplayerInput.set_ui_action_device(input.device)
 			
 			var pause_menu = PAUSE_MENU.instantiate()
 			pause_menu.set_panel_color(owner.data.main_color)
 			if input:
-				pause_menu.device_index = input.device
+				pause_menu.device_id = input.device
 				
 			#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
 			get_tree().root.add_child(pause_menu)
