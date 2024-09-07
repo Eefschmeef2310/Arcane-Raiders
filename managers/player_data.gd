@@ -5,6 +5,7 @@ enum {DEVICE_NONE = -3, DEVICE_ANY = -2, DEVICE_KEYB = -1}
 
 signal health_changed(object, health)
 signal spell_changed(slot)
+signal hat_changed()
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
 signal spell_casted_but_not_ready(spell: int)
@@ -28,6 +29,10 @@ var spell_cooldowns : Array[float] = [0,0,0]
 
 @export_category("Hats")
 @export var hat_string : StringName = ""
+@export var hat_sprite : Texture2D:
+	set(value):
+		hat_sprite = value
+		hat_changed.emit()
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes

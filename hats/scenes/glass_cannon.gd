@@ -26,6 +26,10 @@ func _ready():
 	super._ready()
 	player.movement_speed *= 0.75
 	player.entity_damage_multiplier *= 1.5
+
+func _exit_tree():
+	player.movement_speed /= 0.75
+	player.entity_damage_multiplier /= 1.5
 #endregion
 
 #region Signal methods

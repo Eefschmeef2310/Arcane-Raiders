@@ -4,6 +4,7 @@ class_name SpellPickup
 
 @export var spell_string: String
 @export var spell: Spell
+@export var show_equip_prompt : bool = true
 
 var i = 0
 @onready var icon = $Icon

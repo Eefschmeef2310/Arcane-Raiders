@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=61 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
 [ext_resource type="Script" path="res://moving_entities/player/DashBar.gd" id="14_0l6jn"]
-[ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="14_k3oth"]
 [ext_resource type="AudioStream" uid="uid://dbas3omejodbf" path="res://sounds/effects/player/grunt2-85989.mp3" id="15_74n7w"]
 [ext_resource type="AudioStream" uid="uid://c7ifvirbio4bs" path="res://sounds/effects/player/footstep_concrete_walk_05.wav" id="15_qpnkh"]
 [ext_resource type="AudioStream" uid="uid://1sh6ehf2p1j8" path="res://sounds/effects/player/WHOOSH_ARM_SWING_HEAVY.wav" id="16_n6b8a"]
@@ -50,6 +49,7 @@ func _physics_process(_delta):
 					closest_pickup = pickup
 		
 		if had_closest_last_frame and closest_pickup:
+			print(closest_pickup.show_equip_prompt)
 			owner.data.pickup_proximity_changed.emit(true)
 		elif had_closest_last_frame and !closest_pickup:
 			owner.data.pickup_proximity_changed.emit(false)
@@ -78,7 +78,7 @@ func _physics_process(_delta):
 					closest_pickup = pickup
 		
 		if had_closest_last_frame and closest_pickup:
-			owner.data.pickup_proximity_changed.emit(true)
+			owner.data.pickup_proximity_changed.emit(false)
 		elif had_closest_last_frame and !closest_pickup:
 			owner.data.pickup_proximity_changed.emit(false)
 		had_closest_last_frame = (closest_pickup != null)
@@ -1236,7 +1236,6 @@ color = Color(1, 1, 1, 0)
 [node name="Crown" type="Sprite2D" parent="SpritesFlip/SpritesScale/HeadGroup"]
 visible = false
 clip_children = 2
-texture = ExtResource("14_k3oth")
 
 [node name="ColorRect" type="ColorRect" parent="SpritesFlip/SpritesScale/HeadGroup/Crown"]
 anchors_preset = 15

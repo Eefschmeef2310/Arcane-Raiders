@@ -18,7 +18,6 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-expand_margin_left = 4.0
 expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
@@ -57,7 +56,7 @@ grow_vertical = 2
 script = ExtResource("1_b2j28")
 player_name = NodePath("PanelContainer/VBoxContainer/Username")
 select_controls_panel = NodePath("PanelContainer")
-panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer"), NodePath("PanelContainer/VBoxContainer/Button")]
+panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer")]
 ready_button = NodePath("PanelContainer/VBoxContainer/Button")
 player_data = NodePath("PlayerData")
 
@@ -69,9 +68,8 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -61.0
-offset_top = -187.0
+offset_top = -166.0
 offset_right = 61.0
-offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 0
@@ -193,7 +191,16 @@ modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 texture = ExtResource("2_6jqx5")
 
+[node name="Label" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_vertical = 8
+bbcode_enabled = true
+text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=20]res://ui/join_button.svg[/img] : Ready!"
+fit_content = true
+
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+visible = false
 self_modulate = Color(0.192157, 0.360784, 0.647059, 1)
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2

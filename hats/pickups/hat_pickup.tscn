@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://nnvvipwr6cnf"]
 
-[ext_resource type="Script" path="res://hats/pickups/hat_pickup.gd" id="1_su0cv"]
+[ext_resource type="Script" path="res://hats/pickups/hat_pickup_base.gd" id="1_kd5f3"]
 [ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="3_e2ldn"]
 [ext_resource type="Texture2D" uid="uid://c65sms42phg1g" path="res://hats/sprites/cowboy_hat.png" id="4_41jd3"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_31nyu"]
@@ -13,7 +13,7 @@ radius = 100.0
 polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 
 [node name="HatPickup" type="Node2D" node_paths=PackedStringArray("info_container") groups=["hat_pickup"]]
-script = ExtResource("1_su0cv")
+script = ExtResource("1_kd5f3")
 info_container = NodePath("HBoxContainer")
 
 [node name="Outline" type="Sprite2D" parent="."]
@@ -86,6 +86,16 @@ at the same time!
 [/font_size]"
 fit_content = true
 scroll_active = false
+autowrap_mode = 2
+
+[node name="Equip" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/line_spacing = -12
+theme_override_fonts/font = ExtResource("5_31nyu")
+theme_override_font_sizes/font_size = 25
+text = "Press E/R1 to equip"
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

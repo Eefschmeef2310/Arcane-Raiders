@@ -145,7 +145,6 @@ func _on_choices_shown(info:Dictionary) -> void:
 	content_size.x = max(content_size.x, choice_container.size.x)
 	_resize_bubble(content_size)
 
-
 func get_base_content_size() -> Vector2:
 	var font: Font = text.get_theme_font(&"normal_font")
 	return font.get_multiline_string_size(
@@ -154,7 +153,6 @@ func get_base_content_size() -> Vector2:
 		max_width,
 		text.get_theme_font_size(&"normal_font_size")
 		)
-
 
 func add_choice_container(node:Container, alignment:=FlowContainer.ALIGNMENT_BEGIN) -> void:
 	if choice_container:

@@ -190,7 +190,8 @@ func get_card_data() -> Array:
 				"raider": raiders[card.selected_raider],
 				"color": player_colors[card.selected_color],
 				"name": card.player_name.text,
-				"hat": card.player_data.hat_string
+				"hat": card.player_data.hat_string,
+				"new_hat_sprite" : card.player_data.hat_sprite,
 				})
 	return arr
 

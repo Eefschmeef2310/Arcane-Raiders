@@ -1,9 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=26 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_5ffs4"]
-[ext_resource type="Texture2D" uid="uid://bnv0apj8h0k23" path="res://moving_entities/player/player_pieces/crown.png" id="3_a7ijl"]
 [ext_resource type="Texture2D" uid="uid://cjnod02s0jvku" path="res://elements/sprites/white.png" id="3_e57h4"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_7o55i"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_86qwp"]
@@ -23,21 +22,21 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfk5r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7beh"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mk0v8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qoni4"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5d3y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrp72"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -219,20 +218,19 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_a7ijl")
 
 [node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_kfk5r")
+material = SubResource("ShaderMaterial_f7beh")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_mk0v8")
+material = SubResource("ShaderMaterial_qoni4")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_p5d3y")
+material = SubResource("ShaderMaterial_wrp72")
 layout_mode = 2
 mouse_filter = 1
 

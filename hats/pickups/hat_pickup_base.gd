@@ -13,6 +13,8 @@ class_name HatPickup #THIS MUST BE A SEPARATE CLASS BCS THIS SCRIPT IS USED FOR 
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var info_container : HBoxContainer
+@export var show_equip_prompt : bool = false
+@export var hat_string : String
 
 	#Onready Variables
 @onready var init_pos = $Shadow.scale
@@ -39,7 +41,8 @@ func _process(delta):
 	$Icon.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 	$Outline.position.y = base_sprite_pos.y + (sin(i*freq)*amp)
 	
-	info_container.modulate.a = move_toward(info_container.modulate.a, target_info_modulate_a, delta*10)
+	if info_container:
+		info_container.modulate.a = move_toward(info_container.modulate.a, target_info_modulate_a, delta*10)
 	
 	var test = 1 + sin(i*2)*0.25
 	$Shadow.scale = Vector2(init_pos.x*test, init_pos.y*test)
@@ -48,7 +51,6 @@ func _process(delta):
 #region Signal methods
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
-		$Outline.self_modulate = body.data.main_color
 		$Outline.show()
 		target_info_modulate_a = 1
 
@@ -74,4 +76,11 @@ func pickup_function(player):
 		if child is Hat:
 			child.queue_free()
 			player.crown.texture = null
+	
+	if hat_string:
+		var hat = HatManager.get_hat_from_string(hat_string).instantiate()
+		player.add_child(hat)
+		player.data.hat_sprite = hat.sprite
+	else:
+		player.data.hat_sprite = null
 #endregion
