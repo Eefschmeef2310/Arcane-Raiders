@@ -93,7 +93,7 @@ position = Vector2(96, 800)
 health = 250
 
 [node name="PlayerData" parent="Player" index="5"]
-spell_strings = Array[String](["burn-proj_ball", "burn-lasso", "stun-aoe_large"])
+spell_strings = Array[String](["burn-proj_ball", "burn-proj_ball", "stun-proj_ball"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="AnimalSound" parent="Player" index="25"]
@@ -105,7 +105,7 @@ stream = SubResource("AudioStreamRandomizer_doftm")
 visible = true
 
 [node name="SlimeBig" parent="." index="18" instance=ExtResource("6_w8jk0")]
-position = Vector2(889, 575)
+position = Vector2(889, 554)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

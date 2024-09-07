@@ -174,6 +174,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		
 		#Check if a reaction has occurred, may need to be moved further up the method
 		for key in current_inflictions_dictionary.keys():
+			continue
 			var reaction = SpellManager.get_reaction(key, element)
 			if reaction and !current_reactions_dictionary.has(reaction):
 				#apply bonus damage (Extra 1/4 of the spell you were just hit by to cause the reaction)

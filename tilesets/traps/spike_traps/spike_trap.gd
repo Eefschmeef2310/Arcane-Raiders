@@ -29,7 +29,8 @@ func _ready():
 	#if castle_climb and castle_climb.get_current_sector() < first_available_sector:
 		#queue_free()
 		#
-	get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
+	if "all_waves_cleared" in get_parent().get_parent():
+		get_parent().get_parent().all_waves_cleared.connect(toggle_fire)
 #endregion
 
 #region Signal methods
