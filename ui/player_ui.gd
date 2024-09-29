@@ -26,8 +26,6 @@ var show_stats : bool = false
 @export var reactions_label : Label
 @export var pickups_label : Label
 @onready var hat_label = $HatLabelUI/HatLabel
-
-
 @onready var select : JoinSelectUI = $SelectUI
 
 #@export var stats_ticker : ScrollContainer

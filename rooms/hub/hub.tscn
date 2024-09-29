@@ -73,7 +73,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3awi1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w40yt"]
 resource_local_to_scene = true
 shader = ExtResource("37_k8mf7")
 shader_parameter/speed = 2.0
@@ -87,7 +87,6 @@ shader_parameter/heightOffset = null
 shader_parameter/offset = 0.0
 
 [node name="Hub" node_paths=PackedStringArray("player_ui", "hide_on_game_start", "join_indicator_node") instance=ExtResource("1_vicu8")]
-position = Vector2(-48, 3)
 script = ExtResource("2_34pa5")
 player_ui = []
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy")])
@@ -480,7 +479,7 @@ scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
 [node name="Bush" parent="Decorations" index="10" instance=ExtResource("36_k1eci")]
-material = SubResource("ShaderMaterial_3awi1")
+material = SubResource("ShaderMaterial_w40yt")
 position = Vector2(1187, 776)
 
 [node name="Dirt1" type="Sprite2D" parent="Decorations" index="11"]
@@ -497,11 +496,11 @@ position = Vector2(-169, 596)
 scale = Vector2(-1, 1)
 
 [node name="Bush4" parent="Decorations" index="14" instance=ExtResource("36_k1eci")]
-position = Vector2(699, 986)
+position = Vector2(87, 782)
 scale = Vector2(-1, 1)
 
 [node name="Bush5" parent="Decorations" index="15" instance=ExtResource("36_k1eci")]
-position = Vector2(574, 981)
+position = Vector2(-38, 777)
 
 [node name="Grass1" type="Sprite2D" parent="Decorations" index="16"]
 position = Vector2(236, 788)
