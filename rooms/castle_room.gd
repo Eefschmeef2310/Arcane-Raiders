@@ -30,7 +30,7 @@ const SPELL_PICKUP = preload("res://spells/pickups/spell_pickup.tscn")
 
 @onready var health_pickup_spawner = $HealthPickupSpawner
 
-@onready var tile_map = $TileMap
+@onready var tile_map = $TileMapwad
 @onready var room_exit = $RoomExit
 @onready var camera_background = $DynamicCamera/ParallaxBackground/ColorRect
 
