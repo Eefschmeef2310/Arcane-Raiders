@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=5 format=3 uid="uid://cvockmiklc8m7"]
+
+[ext_resource type="Texture2D" uid="uid://dloigwtmdrcc4" path="res://spells/projections/local.png" id="1_kt752"]
+[ext_resource type="PackedScene" uid="uid://b7mvmittffi60" path="res://spells/scenes/proj_orbit/proj_orbit.tscn" id="2_sodnj"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="3_waei6"]
+[ext_resource type="Texture2D" uid="uid://dlgnwh6r6kto0" path="res://spells/sprites/icons/proj_orbit.png" id="4_nchc4"]
+
+[resource]
+script = ExtResource("3_waei6")
+suffix = "Orbit"
+description = "Cast five orbiting projectiles."
+scene = ExtResource("2_sodnj")
+ui_texture = ExtResource("4_nchc4")
+projection_texture = ExtResource("1_kt752")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c46yagmhp1673"]
+
+[ext_resource type="Script" path="res://spells/scenes/proj_orbit/proj_orbit_follow.gd" id="1_qtk6y"]
+
+[node name="ProjOrbitFollow" type="PathFollow2D"]
+position = Vector2(-200, 0)
+rotation = -1.5708
+rotates = false
+script = ExtResource("1_qtk6y")
+orbit_time = 0.75

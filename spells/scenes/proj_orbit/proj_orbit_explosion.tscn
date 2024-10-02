@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://ci63hwjjtbtbt"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_tkkr6"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_c3wmu"]
+[ext_resource type="Texture2D" uid="uid://bxn057pa4pb24" path="res://spells/scenes/proj_spread/proj_spread.png" id="3_jrnu4"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nfrch"]
+resource_local_to_scene = true
+shader = ExtResource("2_c3wmu")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="Curve" id="Curve_75tsi"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150579, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_f2dg3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(0.25, 0), 0.0, 0.0, 1, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="ProjOrbitExplosion" instance=ExtResource("1_tkkr6")]
+material = SubResource("ShaderMaterial_nfrch")
+scale_falloff_curve = SubResource("Curve_75tsi")
+area_enabled_curve = SubResource("Curve_f2dg3")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_jrnu4")
+
+[node name="kill_timer" parent="." index="3"]
+wait_time = 8.0
+autostart = false
