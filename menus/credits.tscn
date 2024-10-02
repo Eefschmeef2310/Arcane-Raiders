@@ -179,7 +179,7 @@ label_settings = SubResource("LabelSettings_8sg03")
 
 [node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom/Text"]
 layout_mode = 2
-text = "Programming, netcode, wizardry"
+text = "Programming, netcode, witchery"
 label_settings = SubResource("LabelSettings_tdqs5")
 
 [node name="Lauren" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray"]
