@@ -8,15 +8,18 @@ class_name PlayerUI
 @export var data: PlayerData
 @export var scroll_speed : int = 30
 
-@onready var spells: Array = [$HBox/Stats/Spells/VBoxContainer/HBoxContainer/Spell0, $HBox/Stats/Spells/VBoxContainer/HBoxContainer/Spell1, $HBox/Stats/Spells/VBoxContainer/HBoxContainer/Spell2]
 @onready var health_bar = $HBox/Stats/HealthBar
 @onready var health_bar_linger = $HBox/Stats/HealthBar/HealthBarLinger
 
 @export var damage_stat : Label
 @export var kills_stat :Label
+
 @export_group("Node References")
 @export var crown : TextureRect
 @export var player_username : Label
+@export var synergy_text : Label
+@export var spells: Array[SpellUISlot]
+
 @export_subgroup("StatBox")
 var show_stats : bool = false
 @export var stat_panel : PanelContainer
@@ -24,12 +27,10 @@ var show_stats : bool = false
 @export var kills_label : Label
 @export var money_label : Label
 @export var reactions_label : Label
-
-
  
 @export var pickups_label : Label
 @onready var hat_label = $HatLabelUI/HatLabel
-@onready var select : JoinSelectUI = $SelectUI
+#@onready var select : JoinSelectUI = $SelectUI
 
 #@export var stats_ticker : ScrollContainer
 #@export var stats_ticker_label : Label
@@ -92,7 +93,7 @@ func _on_player_health_updated(_player_data, _amount):
 		$Flasher.stop()
 		$HBox/Stats/HealthBar/Border.modulate = Color.WHITE
 		
-	$HBox/Stats/HealthBar/Label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
+	$Stats/HealthBar/Label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
 
 func _pickup_proximity_changed(b: bool):
 	show_equip_ui() if b else hide_equip_ui()
@@ -111,6 +112,7 @@ func set_data(d: PlayerData):
 		if data.spell_ready.is_connected(spell_ready): data.spell_ready.disconnect(spell_ready)
 		if data.hat_label_changed.is_connected(hat_label_changed): data.hat_label_changed.disconnect(hat_label_changed)
 		if data.hat_changed.is_connected(show_hat): data.hat_label_changed.disconnect(show_hat)
+		if data.synergy_updated.is_connected(synergy_updated): data.synergy_updated.disconnect(synergy_updated)
 	data = d
 	data.device_changed.connect(update_prompts)
 	data.spell_changed.connect(update_spells)
@@ -121,6 +123,7 @@ func set_data(d: PlayerData):
 	data.spell_ready.connect(spell_ready)
 	data.hat_changed.connect(show_hat)
 	data.hat_label_changed.connect(hat_label_changed)
+	data.synergy_updated.connect(synergy_updated)
 	update_prompts(data.device_id)
 	update_spells(0)
 	$HBox/Stats/HealthBar.tint_progress = data.main_color
@@ -159,6 +162,13 @@ func hat_label_changed(str: String):
 
 func show_hat():
 	crown.texture = data.hat_sprite
+
+func synergy_updated(synergy_bonus, color):
+	if synergy_bonus == 0:
+		synergy_text.text = ""
+	else:
+		synergy_text.text = "Synergy Bonus! + " + synergy_bonus + "x damage!"
+		synergy_text.label_settings.font_color = color
 #endregion
 
 #region Stats Ticker Experiment

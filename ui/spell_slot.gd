@@ -1,5 +1,5 @@
 extends Control
-#class_name
+class_name SpellUISlot
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
 var i = 0

@@ -5,6 +5,7 @@ enum {DEVICE_NONE = -3, DEVICE_ANY = -2, DEVICE_KEYB = -1}
 
 signal health_changed(object, health)
 signal spell_changed(slot)
+signal synergy_updated(amount : float, color : Color)
 signal hat_changed()
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)

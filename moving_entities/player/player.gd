@@ -48,6 +48,8 @@ var dash_speed = 1200
 var dash_duration = 0.25 # Is only used for checking if a dash will end in a wall
 var dash_target_pos : Vector2
 
+var synergy_bonus : float
+
 var friends_nearby : Array = []
 @export var revival_time : float
 var revival_time_max : float = 3
@@ -91,7 +93,6 @@ var revival_time_max : float = 3
 @export var right_hand_sprite : Sprite2D
 @export var left_hand_sprite : Sprite2D
 @export var crown : Node2D
-
 
 #region Godot methods
 func _ready():
@@ -335,6 +336,7 @@ func cast_spell(slot: int):
 		data.spell_casted_and_ready.emit(slot)
 		
 		if data.spells[slot] is CombinedSpell:
+			#NOTE: THIS IF STATEMENT IS NOT UP TO DATE WITH SINGLE SPELL UNDERNEATH - ETHAN 2/10/2024
 			var spell_node0 = data.spells[slot].spells[0].scene.instantiate()
 			spell_node0.resource = data.spells[slot].spells[0]
 			spell_node0.caster = self
@@ -360,7 +362,7 @@ func cast_spell(slot: int):
 			var spell_node = data.spells[slot].scene.instantiate()
 			spell_node.resource = data.spells[slot]
 			spell_node.caster = self
-			spell_node.base_damage *= entity_damage_multiplier
+			spell_node.base_damage *= (entity_damage_multiplier + synergy_bonus)
 			spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
 			add_sibling(spell_node)
 			
@@ -535,6 +537,22 @@ func spawn_speech_polygons():
 	$SpritesFlip/SpritesScale.add_child(container)
 	
 func _on_spell_changed(_slot):
+	#Update synergy mutliplier
+	var color : Color
+	if data.spells[0].element == data.spells[1].element and data.spells[1].element == data.spells[2].element: #All same element
+		synergy_bonus = 1.0
+		color = data.spells[0].element.colour
+	elif data.spells[0].element == data.spells[1].element or data.spells[0].element == data.spells[2].element:
+		synergy_bonus = 0.5
+		color = data.spells[0].element.colour
+	elif data.spells[1].element == data.spells[2].element:
+		synergy_bonus = 0.5
+		color = data.spells[1].element.colour
+	else:
+		synergy_bonus = 0
+	
+	data.synergy_updated.emit(synergy_bonus, color)
+	
 	spell_equip_sound.play()
 
 @rpc("any_peer", "call_local", "reliable")
