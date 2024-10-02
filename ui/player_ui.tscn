@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=27 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
@@ -22,26 +22,29 @@ border_color = Color(0.756863, 0.756863, 0.756863, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub3x2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bngs1"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_01sh4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u5ay3"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqkcf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7lyo1"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
+
+[sub_resource type="LabelSettings" id="LabelSettings_pt4hi"]
+font_size = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_yjyhi"]
 font = ExtResource("4_86qwp")
@@ -81,7 +84,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HBox/Stats/HealthBar/Border:modulate")
+tracks/0/path = NodePath("Stats/HealthBar/Border:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -93,7 +96,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HBox/Stats/HealthBar/HealthBarLinger:tint_under")
+tracks/1/path = NodePath("Stats/HealthBar/HealthBarLinger:tint_under")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -163,12 +166,14 @@ _data = {
 
 [node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
 custom_minimum_size = Vector2(450, 200)
+offset_right = 450.0
+offset_bottom = 200.0
 scale = Vector2(0.935, 0.935)
 alignment = 1
 script = ExtResource("1_cbyu2")
-damage_stat = NodePath("HBox/Stats/Stats/Damage Stat")
-kills_stat = NodePath("HBox/Stats/Stats/Kills Stat")
-crown = NodePath("HBox/Stats/Spells/Head/Crown")
+damage_stat = NodePath("Stats/Stats/Damage Stat")
+kills_stat = NodePath("Stats/Stats/Kills Stat")
+crown = NodePath("Stats/Spells/Head/Crown")
 player_username = NodePath("UsernameUI/PlayerUsername")
 stat_panel = NodePath("StatsUI/PanelContainer")
 damage_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Damage")
@@ -177,39 +182,45 @@ money_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Money
 reactions_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer2/Reactions")
 pickups_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer2/Pickups")
 
-[node name="HBox" type="HBoxContainer" parent="."]
+[node name="Stats" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 6
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Stats" type="VBoxContainer" parent="HBox"]
+[node name="Spells" type="HBoxContainer" parent="Stats"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Spells" type="HBoxContainer" parent="HBox/Stats"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Head" type="TextureRect" parent="HBox/Stats/Spells"]
+[node name="Head" type="TextureRect" parent="Stats/Spells"]
+custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 texture = ExtResource("2_5ffs4")
-expand_mode = 2
+expand_mode = 4
 stretch_mode = 3
 
-[node name="Panel" type="Panel" parent="HBox/Stats/Spells/Head"]
+[node name="Panel" type="Panel" parent="Stats/Spells/Head"]
 show_behind_parent = true
-layout_mode = 2
-offset_left = -18.0
-offset_top = 17.0
-offset_right = 57.0
-offset_bottom = 91.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -36.0
+offset_right = 34.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
 rotation = -0.383972
+pivot_offset = Vector2(37, 37)
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_87ps5")
 
-[node name="Crown" type="TextureRect" parent="HBox/Stats/Spells/Head"]
+[node name="Crown" type="TextureRect" parent="Stats/Spells/Head"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -219,35 +230,93 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Spell0" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ub3x2")
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/Spells"]
+custom_minimum_size = Vector2(0, 95)
+layout_mode = 2
+alignment = 1
+
+[node name="HatLabelHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="HatLabel" type="Label" parent="Stats/Spells/VBoxContainer/HatLabelHeightControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -15.5
+offset_right = 125.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Hat label here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Stats/Spells/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
+material = SubResource("ShaderMaterial_bngs1")
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Spell1" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_01sh4")
+[node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
+material = SubResource("ShaderMaterial_u5ay3")
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Spell2" parent="HBox/Stats/Spells" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_kqkcf")
+[node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
+material = SubResource("ShaderMaterial_7lyo1")
 layout_mode = 2
 mouse_filter = 1
 
-[node name="HealthBar" type="TextureProgressBar" parent="HBox/Stats"]
+[node name="SynergyHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Synergy Label" type="Label" parent="Stats/Spells/VBoxContainer/SynergyHeightControl"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -8.0
+offset_right = 32.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "i wanna kms frfr"
+label_settings = SubResource("LabelSettings_pt4hi")
+horizontal_alignment = 1
+
+[node name="HealthBar" type="TextureProgressBar" parent="Stats"]
 custom_minimum_size = Vector2(350, 35)
 layout_mode = 2
 max_value = 1000.0
 value = 1000.0
 nine_patch_stretch = true
-stretch_margin_left = 12
 stretch_margin_top = 12
 stretch_margin_right = 12
 stretch_margin_bottom = 12
 texture_progress = ExtResource("3_e57h4")
 tint_progress = Color(0.992157, 0, 0.254902, 1)
 
-[node name="HealthBarLinger" type="TextureProgressBar" parent="HBox/Stats/HealthBar"]
+[node name="HealthBarLinger" type="TextureProgressBar" parent="Stats/HealthBar"]
 show_behind_parent = true
 custom_minimum_size = Vector2(300, 24)
 layout_mode = 1
@@ -266,7 +335,7 @@ texture_under = ExtResource("3_e57h4")
 texture_progress = ExtResource("3_e57h4")
 tint_under = Color(0.0862745, 0.0627451, 0.0627451, 0.784314)
 
-[node name="Label" type="Label" parent="HBox/Stats/HealthBar"]
+[node name="Label" type="Label" parent="Stats/HealthBar"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = -4.0
@@ -277,17 +346,15 @@ text = "100/100"
 label_settings = SubResource("LabelSettings_yjyhi")
 vertical_alignment = 1
 
-[node name="Border" type="NinePatchRect" parent="HBox/Stats/HealthBar"]
+[node name="Border" type="NinePatchRect" parent="Stats/HealthBar"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -22.5
-offset_right = 180.0
-offset_bottom = 22.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -297,29 +364,29 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="Stats" type="HBoxContainer" parent="HBox/Stats"]
+[node name="Stats" type="HBoxContainer" parent="Stats"]
 layout_mode = 2
 
-[node name="Damage Stat" type="Label" parent="HBox/Stats/Stats"]
+[node name="Damage Stat" type="Label" parent="Stats/Stats"]
 visible = false
 layout_mode = 2
 mouse_filter = 1
 text = "Damage: 0000"
 
-[node name="Kills Stat" type="Label" parent="HBox/Stats/Stats"]
+[node name="Kills Stat" type="Label" parent="Stats/Stats"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 mouse_filter = 1
 text = "Kills: 000"
 
-[node name="StatsTicker" type="ScrollContainer" parent="HBox/Stats"]
+[node name="StatsTicker" type="ScrollContainer" parent="Stats"]
 visible = false
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 
-[node name="Stats" type="Label" parent="HBox/Stats/StatsTicker"]
+[node name="Stats" type="Label" parent="Stats/StatsTicker"]
 layout_mode = 2
 mouse_filter = 1
 text = "Damage: 11111111, Kills: 2222, Reactions: 333, Pickups: 4444, Revies: 55 "
@@ -338,6 +405,7 @@ label_settings = SubResource("LabelSettings_ml2ad")
 horizontal_alignment = 1
 
 [node name="StatsUI" type="Node2D" parent="."]
+visible = false
 position = Vector2(225.668, -55.615)
 
 [node name="PanelContainer" type="PanelContainer" parent="StatsUI"]
@@ -398,22 +466,14 @@ label_settings = SubResource("LabelSettings_w8xoo")
 
 [node name="PlayerUsername" type="Label" parent="UsernameUI"]
 offset_left = 50.2674
-offset_top = 164.706
+offset_top = 173.262
 offset_right = 400.267
-offset_bottom = 189.706
+offset_bottom = 198.262
 mouse_filter = 1
 text = "Nintendo Switch Pro Controller"
 horizontal_alignment = 1
 
 [node name="HatLabelUI" type="Node2D" parent="."]
-
-[node name="HatLabel" type="Label" parent="HatLabelUI"]
-custom_minimum_size = Vector2(200, 0)
-offset_left = 156.15
-offset_right = 356.15
-offset_bottom = 49.0
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_font_sizes/font_size = 20
 
 [node name="Flasher" type="AnimationPlayer" parent="."]
 libraries = {

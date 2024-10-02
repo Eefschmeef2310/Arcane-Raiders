@@ -8,7 +8,7 @@ class_name PlayerUI
 @export var data: PlayerData
 @export var scroll_speed : int = 30
 
-@onready var spells: Array = [$HBox/Stats/Spells/Spell0, $HBox/Stats/Spells/Spell1, $HBox/Stats/Spells/Spell2]
+@onready var spells: Array = [$HBox/Stats/Spells/VBoxContainer/HBoxContainer/Spell0, $HBox/Stats/Spells/VBoxContainer/HBoxContainer/Spell1, $HBox/Stats/Spells/VBoxContainer/HBoxContainer/Spell2]
 @onready var health_bar = $HBox/Stats/HealthBar
 @onready var health_bar_linger = $HBox/Stats/HealthBar/HealthBarLinger
 
