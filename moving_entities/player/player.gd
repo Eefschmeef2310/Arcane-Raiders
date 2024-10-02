@@ -539,13 +539,13 @@ func spawn_speech_polygons():
 func _on_spell_changed(_slot):
 	#Update synergy mutliplier
 	var color : Color
-	if data.spells[0].element == data.spells[1].element and data.spells[1].element == data.spells[2].element: #All same element
+	if data.spells[0].element == data.spells[1].element and data.spells[1].element == data.spells[2].element and data.spells[0].element.prefix != "": #All same element
 		synergy_bonus = 1.0
 		color = data.spells[0].element.colour
-	elif data.spells[0].element == data.spells[1].element or data.spells[0].element == data.spells[2].element:
+	elif (data.spells[0].element == data.spells[1].element or data.spells[0].element == data.spells[2].element) and data.spells[0].element.prefix != "":
 		synergy_bonus = 0.5
 		color = data.spells[0].element.colour
-	elif data.spells[1].element == data.spells[2].element:
+	elif data.spells[1].element == data.spells[2].element and data.spells[1].element.prefix != "":
 		synergy_bonus = 0.5
 		color = data.spells[1].element.colour
 	else:

@@ -8,9 +8,6 @@ class_name PlayerUI
 @export var data: PlayerData
 @export var scroll_speed : int = 30
 
-@onready var health_bar = $HBox/Stats/HealthBar
-@onready var health_bar_linger = $HBox/Stats/HealthBar/HealthBarLinger
-
 @export var damage_stat : Label
 @export var kills_stat :Label
 
@@ -19,6 +16,13 @@ class_name PlayerUI
 @export var player_username : Label
 @export var synergy_text : Label
 @export var spells: Array[SpellUISlot]
+@export var health_bar : TextureProgressBar
+@export var border : NinePatchRect
+@export var head_panel : Panel
+@export var head : TextureRect
+@export var health_bar_linger : TextureProgressBar
+@export var hat_label : Label
+@export var health_bar_label : Label
 
 @export_subgroup("StatBox")
 var show_stats : bool = false
@@ -29,7 +33,6 @@ var show_stats : bool = false
 @export var reactions_label : Label
  
 @export var pickups_label : Label
-@onready var hat_label = $HatLabelUI/HatLabel
 #@onready var select : JoinSelectUI = $SelectUI
 
 #@export var stats_ticker : ScrollContainer
@@ -45,6 +48,8 @@ var input_prompts: Array
 func _ready():
 	if is_instance_valid(data):
 		set_data(data)
+		
+	synergy_updated(0, Color.WHITE)
 
 func _process(delta):
 	if is_instance_valid(data):
@@ -91,9 +96,9 @@ func _on_player_health_updated(_player_data, _amount):
 		$Flasher.play("flash")
 	else:
 		$Flasher.stop()
-		$HBox/Stats/HealthBar/Border.modulate = Color.WHITE
+		border.modulate = Color.WHITE
 		
-	$Stats/HealthBar/Label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
+	health_bar_label.text = str(floor(health_bar.value/10)) + "/" + str(health_bar.max_value/10)
 
 func _pickup_proximity_changed(b: bool):
 	show_equip_ui() if b else hide_equip_ui()
@@ -126,10 +131,11 @@ func set_data(d: PlayerData):
 	data.synergy_updated.connect(synergy_updated)
 	update_prompts(data.device_id)
 	update_spells(0)
-	$HBox/Stats/HealthBar.tint_progress = data.main_color
-	$HBox/Stats/HealthBar/Border.self_modulate = data.main_color
-	$HBox/Stats/Spells/Head/Panel.self_modulate = data.main_color
-	$HBox/Stats/Spells/Head.texture = data.character.head_texture
+	
+	health_bar.tint_progress = data.main_color
+	border.self_modulate = data.main_color
+	head_panel.self_modulate = data.main_color
+	head.texture = data.character.head_texture
 
 # TODO RUNS EVERY FRAME
 # convert to signals if possible
@@ -164,11 +170,12 @@ func show_hat():
 	crown.texture = data.hat_sprite
 
 func synergy_updated(synergy_bonus, color):
+	print(synergy_bonus)
 	if synergy_bonus == 0:
 		synergy_text.text = ""
 	else:
-		synergy_text.text = "Synergy Bonus! + " + synergy_bonus + "x damage!"
-		synergy_text.label_settings.font_color = color
+		synergy_text.text = "Synergy Bonus! + " + str(synergy_bonus) + "x damage!"
+		synergy_text.add_theme_color_override("font_color", color)
 #endregion
 
 #region Stats Ticker Experiment
