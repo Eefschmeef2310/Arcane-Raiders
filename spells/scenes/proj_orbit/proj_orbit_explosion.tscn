@@ -17,11 +17,11 @@ shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_75tsi"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.150579, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.05, 1), 0.0, 0.0, 0, 0, Vector2(0.95, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="Curve" id="Curve_f2dg3"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(0.25, 0), 0.0, 0.0, 1, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(0.1, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), inf, 0.0, 1, 0]
 point_count = 3
 
 [node name="ProjOrbitExplosion" instance=ExtResource("1_tkkr6")]
@@ -34,5 +34,4 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_jrnu4")
 
 [node name="kill_timer" parent="." index="3"]
-wait_time = 8.0
-autostart = false
+wait_time = 3.0

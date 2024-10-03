@@ -12,7 +12,7 @@ point_count = 5
 scale = Vector2(1e-05, 1e-05)
 script = ExtResource("1_22t4f")
 proj_amount = 5.0
-expand_time = 3.0
+expand_time = 3.5
 base_damage = 12
 cooldown_time = 5.0
 

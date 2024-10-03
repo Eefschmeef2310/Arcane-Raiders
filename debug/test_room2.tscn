@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://boiy76e7inqgl"]
+[gd_scene load_steps=12 format=3 uid="uid://boiy76e7inqgl"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
 [ext_resource type="PackedScene" uid="uid://dpu3i2bvxup6g" path="res://hats/scenes/explosion_hat/explosion_hat.tscn" id="5_onx36"]
+[ext_resource type="PackedScene" uid="uid://clt4qye3cjvyg" path="res://moving_entities/enemies/SlimeBig/SlimeBig.tscn" id="6_aab8u"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -92,7 +93,7 @@ position = Vector2(96, 800)
 health = 250
 
 [node name="PlayerData" parent="Player" index="5"]
-spell_strings = Array[String](["burn-proj_ball", "burn-proj_ball", "stun-proj_ball"])
+spell_strings = Array[String](["burn-proj_ball", "wet-proj_orbit", "wind-proj_ball"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="AnimalSound" parent="Player" index="25"]
@@ -102,6 +103,15 @@ stream = SubResource("AudioStreamRandomizer_doftm")
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
+
+[node name="SlimeBig" parent="." index="18" instance=ExtResource("6_aab8u")]
+position = Vector2(806, 430)
+
+[node name="SlimeBig2" parent="." index="19" instance=ExtResource("6_aab8u")]
+position = Vector2(1218, 614)
+
+[node name="SlimeBig3" parent="." index="20" instance=ExtResource("6_aab8u")]
+position = Vector2(1253, 843)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]
