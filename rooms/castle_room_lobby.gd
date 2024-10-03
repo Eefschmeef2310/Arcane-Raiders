@@ -54,8 +54,8 @@ func _ready():
 	
 	if(GameManager.isOnline()):
 		server_browser_node = get_parent()
-		if !is_multiplayer_authority():
-			$Lobby/VBoxContainer.hide()
+		#if !is_multiplayer_authority():
+			#$Lobby/VBoxContainer.hide()
 		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
@@ -135,10 +135,11 @@ func _on_peer_connected(id:int): #this isnt triggering when a client joins
 func _on_peer_disconnected(id:int):
 	print("Peer " + str(id) + " has disconnected D:")
 	#destroy their player card
-	for card in player_ui_container.get_children():
-		if card is JoinSelectUI and card.peer_id == id:
-			card.queue_free()
-	#emit a signal for removing them from the actual game 
+	if is_instance_valid(player_ui_container):
+		for card in player_ui_container.get_children():
+			if card is JoinSelectUI and card.peer_id == id:
+				card.queue_free()
+		#emit a signal for removing them from the actual game 
 	player_left.emit(id)
 
 func _on_connected_to_server(): #this isnt working at all
