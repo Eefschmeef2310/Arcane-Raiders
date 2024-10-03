@@ -236,6 +236,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
 	if !data.destroy.is_connected(_on_data_destroy): data.destroy.connect(_on_data_destroy)
+	if !data.hat_changed.is_connected(_on_hat_changed): data.hat_changed.connect(_on_hat_changed)
 	
 	set_input(data.device_id)
 	hud.set_data(new_data)
@@ -588,3 +589,19 @@ func _on_hole_detector_body_exited(_body):
 	if is_dashing:
 		#print("Collision reenabled.")
 		collision_shape.set_deferred("disabled", false)
+
+func set_hat_from_pickup(s : String):
+	data.set_hat_from_string(s)
+
+func _on_hat_changed():
+	for child in get_children():
+		if child is Hat:
+			child.queue_free()
+			crown.texture = null
+	
+	if data.hat_string != "":
+		var hat = HatManager.get_hat_from_string(data.hat_string).instantiate()
+		add_child(hat)
+		data.hat_sprite = hat.sprite
+	else:
+		data.hat_sprite = null

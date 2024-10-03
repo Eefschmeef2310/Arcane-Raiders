@@ -30,10 +30,10 @@ var spell_cooldowns : Array[float] = [0,0,0]
 
 @export_category("Hats")
 @export var hat_string : StringName = ""
-@export var hat_sprite : Texture2D:
-	set(value):
-		hat_sprite = value
-		hat_changed.emit()
+@export var hat_sprite : Texture2D
+	#set(value):
+		#hat_sprite = value
+		#hat_changed.emit()
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
@@ -85,3 +85,7 @@ func set_spell_from_string(slot: int, string: String):
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0
 	spell_changed.emit(slot)
+
+func set_hat_from_string(s: String):
+	hat_string = s
+	hat_changed.emit()
