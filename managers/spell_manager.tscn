@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bircxyrmnpixt"]
+[gd_scene load_steps=24 format=3 uid="uid://bircxyrmnpixt"]
 
 [ext_resource type="Script" path="res://managers/spell_manager.gd" id="1_dxaf6"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="2_d4pfh"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://b70sy17w68ow1" path="res://spells/reactions/frost-wet/frost-wet.tscn" id="16_wsnsn"]
 [ext_resource type="PackedScene" uid="uid://0u08iljqx1w1" path="res://spells/reactions/shock-wind/shock-wind.tscn" id="17_aynrb"]
 [ext_resource type="PackedScene" uid="uid://cnvowsw0l752i" path="res://spells/reactions/wind-earth/wind-earth.tscn" id="17_kvxt3"]
+[ext_resource type="Resource" uid="uid://di72ny32qbxvr" path="res://spells/resources/lunge.tres" id="17_ws15m"]
 [ext_resource type="PackedScene" uid="uid://bloo38yivbufm" path="res://spells/reactions/stun-burn/stun-burn.tscn" id="18_4t6um"]
 
 [node name="SpellManager" type="Node"]
@@ -39,6 +40,7 @@ spell_scenes = {
 "aoe_local": ExtResource("7_vdst2"),
 "laser": ExtResource("10_xk4cv"),
 "lasso": ExtResource("15_2oddj"),
+"lunge": ExtResource("17_ws15m"),
 "proj_ball": ExtResource("8_6tv1p"),
 "proj_burst": ExtResource("9_dbdg1"),
 "proj_orbit": ExtResource("16_mh1xg"),
