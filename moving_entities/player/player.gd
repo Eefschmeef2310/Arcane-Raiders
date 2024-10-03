@@ -590,10 +590,13 @@ func _on_hole_detector_body_exited(_body):
 		#print("Collision reenabled.")
 		collision_shape.set_deferred("disabled", false)
 
+@rpc("any_peer", "call_local", "reliable")
 func set_hat_from_pickup(s : String):
+	print("Owner received input")
 	data.set_hat_from_string(s)
 
 func _on_hat_changed():
+	print("Player received signal")
 	for child in get_children():
 		if child is Hat:
 			child.queue_free()

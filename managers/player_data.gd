@@ -87,5 +87,6 @@ func set_spell_from_string(slot: int, string: String):
 	spell_changed.emit(slot)
 
 func set_hat_from_string(s: String):
+	print("Data received string")
 	hat_string = s
 	hat_changed.emit()

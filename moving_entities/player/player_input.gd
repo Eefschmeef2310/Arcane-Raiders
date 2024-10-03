@@ -87,7 +87,7 @@ func _process(_delta):
 					#print(input.is_action_just_pressed("Emote2"))
 					
 					if input.is_action_just_pressed("interact") and $"../HatPickupDetector".closest_pickup != null:
-						owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup)
+						owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
 				
 				# Otherwise, use any connected controller
 				else:	
@@ -125,7 +125,7 @@ func _process(_delta):
 								owner.play_emote.rpc(i)
 								
 						if MultiplayerInput.is_action_just_pressed(device, "interact") and $"../HatPickupDetector".closest_pickup != null:
-							owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup)
+							owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
 						
 			
 			# Send input to owner
