@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cl6evd5eokmpu"]
+[gd_scene load_steps=18 format=3 uid="uid://cl6evd5eokmpu"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
 [ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
@@ -109,6 +109,21 @@ _data = {
 "idle": SubResource("Animation_0g3bu")
 }
 
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_50lci"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
 [node name="BasicNest" instance=ExtResource("1_2tj8e")]
 script = SubResource("GDScript_p1xr3")
 spawn_amount = 1
@@ -170,6 +185,24 @@ radius = 5.0
 libraries = {
 "": SubResource("AnimationLibrary_mcocv")
 }
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
 
 [node name="LassoLine" parent="." index="15"]
 points = PackedVector2Array(-33, -30, 31, -30)

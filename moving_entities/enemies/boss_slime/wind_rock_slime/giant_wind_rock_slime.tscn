@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ceoi8oy6dnxbt"]
+[gd_scene load_steps=25 format=3 uid="uid://ceoi8oy6dnxbt"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_wdl1v"]
 [ext_resource type="Texture2D" uid="uid://0y6lx26khpp3" path="res://moving_entities/enemies/boss_slime/giant_slime/rock_wind_giant_slime_idle_sketch.png" id="2_i1r4n"]
@@ -172,6 +172,21 @@ _data = {
 "idle": SubResource("Animation_c0vuq")
 }
 
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bkwsj"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
 [node name="GiantSlime" groups=["boss"] instance=ExtResource("1_wdl1v")]
 script = SubResource("GDScript_3ka3a")
 calmdown_time = 0.2
@@ -254,6 +269,29 @@ debug_color = Color(0, 0.647059, 0.215686, 0.419608)
 libraries = {
 "": SubResource("AnimationLibrary_kh1iu")
 }
+
+[node name="StatusParticles" parent="." index="15"]
+position = Vector2(0, 40)
+lifetime = 2.25
+width = 200.0
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_bkwsj")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_bkwsj")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_bkwsj")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_bkwsj")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_bkwsj")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_bkwsj")
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
 [connection signal="area_entered" from="FieldDetector" to="." method="_on_field_detector_area_entered"]

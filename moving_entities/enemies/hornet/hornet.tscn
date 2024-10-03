@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bsf2hjv17k50v"]
+[gd_scene load_steps=19 format=3 uid="uid://bsf2hjv17k50v"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_rk7t8"]
 [ext_resource type="Texture2D" uid="uid://btbi414bn10a5" path="res://moving_entities/enemies/hornet/Hornet.png" id="2_42gvm"]
@@ -54,6 +54,21 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tok1y"]
 radius = 11.0454
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0q4vo"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
 
 [node name="Hornet" instance=ExtResource("1_rk7t8")]
 collision_mask = 1
@@ -116,6 +131,24 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="12"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_tok1y")
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_0q4vo")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_0q4vo")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_0q4vo")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_0q4vo")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_0q4vo")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_0q4vo")
 
 [node name="LassoLine" parent="." index="15"]
 points = PackedVector2Array(-9, -52, 19, -62)

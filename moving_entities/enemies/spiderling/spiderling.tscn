@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ijxu84lyomhr"]
+[gd_scene load_steps=17 format=3 uid="uid://ijxu84lyomhr"]
 
 [ext_resource type="Texture2D" uid="uid://cccbtx0s5e3k2" path="res://moving_entities/enemies/spiderling/spiderling_move.png" id="1_3vw24"]
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ljokn"]
@@ -168,6 +168,21 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_033am"]
 radius = 8.0
 
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d8wab"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
 [node name="Spiderling" instance=ExtResource("1_ljokn")]
 script = SubResource("GDScript_dbbaf")
 attack_movespeed = 600.0
@@ -222,6 +237,27 @@ shape = SubResource("CircleShape2D_033am")
 
 [node name="AttackSound" parent="." index="12"]
 stream = ExtResource("7_wiqno")
+
+[node name="StatusParticles" parent="." index="14"]
+width = 30.0
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
 
 [node name="LassoLine" parent="." index="15"]
 points = PackedVector2Array(-20.975, -6, 5.7, -6)

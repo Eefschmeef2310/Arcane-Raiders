@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://jnglr8tluu0q"]
+[gd_scene load_steps=25 format=3 uid="uid://jnglr8tluu0q"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_thfql"]
 [ext_resource type="Texture2D" uid="uid://dhllwaahe1u1j" path="res://moving_entities/enemies/bat_small/bat_small_idle.png" id="2_ckdw4"]
@@ -257,6 +257,21 @@ radius = 18.0278
 [sub_resource type="CircleShape2D" id="CircleShape2D_a15i4"]
 radius = 379.033
 
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_014r3"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
 [node name="BatBig" instance=ExtResource("1_thfql")]
 collision_mask = 1
 script = SubResource("GDScript_t3owp")
@@ -350,6 +365,24 @@ debug_color = Color(0, 0.6, 0.698039, 0)
 [node name="RayCast2D" type="RayCast2D" parent="." index="14"]
 visible = false
 hit_from_inside = true
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
 
 [node name="LassoLine" parent="." index="17"]
 points = PackedVector2Array(-24, -21, 15, -23)
