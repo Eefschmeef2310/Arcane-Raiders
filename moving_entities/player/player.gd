@@ -94,6 +94,8 @@ var revival_time_max : float = 3
 @export var left_hand_sprite : Sprite2D
 @export var crown : Node2D
 
+var ignore_movement_input_next_tick : bool = false
+
 #region Godot methods
 func _ready():
 	aim_direction = Vector2(1,1)
@@ -114,23 +116,26 @@ func _process(delta):
 	super._process(delta)
 	if is_instance_valid(data):
 		if get_multiplayer_authority() == data.peer_id:
-			if is_dead:
-				velocity = Vector2.ZERO
-			elif is_dashing:
-				var dash_spd = dash_speed
-				if frost_speed_scale < 1:
-					dash_spd *= 0.5 
-				velocity = dash_direction * dash_spd
-				
+			if ignore_movement_input_next_tick:
+				ignore_movement_input_next_tick = false
 			else:
-				velocity = get_knockback_velocity() + get_attraction_velocity()
-				if can_input:
-					var input_velocity = move_direction * movement_speed * frost_speed_scale
-					if is_casting or preparing_cast_slot >= 0:
-						input_velocity *= 0.25
-					velocity += input_velocity
+				if is_dead:
+					velocity = Vector2.ZERO
+				elif is_dashing:
+					var dash_spd = dash_speed
+					if frost_speed_scale < 1:
+						dash_spd *= 0.5 
+					velocity = dash_direction * dash_spd
 					
-			move_and_slide()
+				else:
+					velocity = get_knockback_velocity() + get_attraction_velocity()
+					if can_input:
+						var input_velocity = move_direction * movement_speed * frost_speed_scale
+						if is_casting or preparing_cast_slot >= 0:
+							input_velocity *= 0.25
+						velocity += input_velocity
+				
+				move_and_slide()
 	
 	# Dashing and invincibility
 	if dash_cooldown > 0:

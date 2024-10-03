@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://bw2whu5m64tdb"]
+
+[ext_resource type="Script" path="res://spells/scenes/lunge/lunge.gd" id="1_xitd7"]
+[ext_resource type="PackedScene" uid="uid://bjlg68hxpss53" path="res://spells/scenes/lunge/lunge_explosion.tscn" id="2_2bhfj"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="3_778vv"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wiejp"]
+resource_local_to_scene = true
+shader = ExtResource("3_778vv")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="Curve" id="Curve_7ixom"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[node name="Lunge" type="Node2D"]
+script = ExtResource("1_xitd7")
+lunge_speed = 800.0
+end_time = 0.8
+cancel_time = 0.5
+
+[node name="DashRayRotator" type="Node2D" parent="."]
+
+[node name="DashRay" type="RayCast2D" parent="DashRayRotator"]
+position = Vector2(11, 0)
+enabled = false
+target_position = Vector2(150, 0)
+collision_mask = 1024
+
+[node name="LungeExplosion" parent="." instance=ExtResource("2_2bhfj")]
+material = SubResource("ShaderMaterial_wiejp")
+position = Vector2(0, -35)
+area_enabled_curve = SubResource("Curve_7ixom")
