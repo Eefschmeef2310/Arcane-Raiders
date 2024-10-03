@@ -21,8 +21,7 @@ gradient = SubResource("Gradient_nyox6")
 [resource]
 script = ExtResource("1_ejp4o")
 prefix = "Aqua-"
-descrption_bb = "[img]res://elements/icons/weak_icon.png[/img] Decreases defense
-Reacts with [img]res://elements/icons/frost_icon.png[/img] and [img]res://elements/icons/shock_icon.png[/img]"
+descrption_bb = "[img]res://elements/icons/weak_icon.png[/img] Decreases defense"
 colour = Color(0.270588, 0.415686, 1, 1)
 gradient = SubResource("GradientTexture1D_livq0")
 gradient_inverse = SubResource("GradientTexture1D_1lxtx")

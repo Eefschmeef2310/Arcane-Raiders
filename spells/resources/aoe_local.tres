@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("1_5bif7")
 suffix = "Blast"
-description = "Cast a short-ranged blast in all directions."
+description = "A short-ranged blast in all directions."
 scene = ExtResource("1_8wsyp")
 ui_texture = ExtResource("3_2u0an")
 projection_texture = ExtResource("2_fj356")

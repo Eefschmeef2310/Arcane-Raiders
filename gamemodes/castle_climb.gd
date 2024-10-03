@@ -211,8 +211,12 @@ func start_next_floor():
 	if !is_multiplayer_authority():
 		return
 		
-	#Close any current dialogue boxes
+	# Close any current dialogue boxes
 	Dialogic.end_timeline()
+	
+	# Delete any lingering ghost sprites
+	for child in get_tree().get_nodes_in_group("temp_ghost"):
+		child.queue_free()
 	
 	# Increase floor count
 	current_floor += 1

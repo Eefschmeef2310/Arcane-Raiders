@@ -21,8 +21,7 @@ gradient = SubResource("Gradient_v207w")
 [resource]
 script = ExtResource("1_gsbof")
 prefix = "Pyro-"
-descrption_bb = "[img]res://elements/icons/burn_icon.png[/img] Damage over time
-Reacts with [img]res://elements/icons/stun_icon.png[/img] and [img]res://elements/icons/frost_icon.png[/img]"
+descrption_bb = "[img]res://elements/icons/burn_icon.png[/img] Damage over time"
 colour = Color(1, 0.305882, 0.129412, 1)
 gradient = SubResource("GradientTexture1D_yr424")
 gradient_inverse = SubResource("GradientTexture1D_l5up8")

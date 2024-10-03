@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("3_mtver")
 suffix = "Lunge"
-description = "Lunge forward and damage enemies in your path."
+description = "A lunge that damages enemies in the way."
 scene = ExtResource("2_tkfxw")
 ui_texture = ExtResource("4_2frot")
 projection_texture = ExtResource("1_5st34")

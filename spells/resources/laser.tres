@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_kx4jn")
 suffix = "Laser"
-description = "Cast a laser that pierces enemies."
+description = "A laser that pierces enemies."
 scene = ExtResource("1_ywxyl")
 ui_texture = ExtResource("3_4os00")
 projection_texture = ExtResource("1_as02j")

@@ -482,6 +482,7 @@ func create_after_image(time: float):
 	after_image.global_position = global_position
 	after_image.modulate = data.main_color
 	after_image.modulate.a = 0.5
+	after_image.add_to_group("temp_ghost")
 	add_sibling(after_image)
 	
 	var sprites = sprites_flip.duplicate()
