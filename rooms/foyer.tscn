@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgtisn4gy31jx"]
+[gd_scene load_steps=7 format=3 uid="uid://dgtisn4gy31jx"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_87uam"]
 [ext_resource type="Texture2D" uid="uid://b5jb61vijlub3" path="res://ui/wheel of reactions.png" id="2_8m1wt"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_m3chr"]
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="3_eike6"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_m0grr"]
+[ext_resource type="PackedScene" uid="uid://c2sydwom5yb2y" path="res://spells/pickups/spell_pickup.tscn" id="6_vgne4"]
 
 [node name="CastleRoom" instance=ExtResource("1_87uam")]
 script = ExtResource("2_m3chr")
@@ -95,6 +96,18 @@ theme_override_fonts/normal_font = ExtResource("5_m0grr")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[wave center]Press Space /[img width=60]res://ui/join_button.svg[/img] to dash!"
+
+[node name="SpellPickup" parent="." index="22" instance=ExtResource("6_vgne4")]
+position = Vector2(716, 738)
+spell_string = "burn-lasso"
+
+[node name="SpellPickup2" parent="." index="23" instance=ExtResource("6_vgne4")]
+position = Vector2(925, 655)
+spell_string = "burn-lasso"
+
+[node name="SpellPickup3" parent="." index="24" instance=ExtResource("6_vgne4")]
+position = Vector2(1125, 556)
+spell_string = "burn-lasso"
 
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]

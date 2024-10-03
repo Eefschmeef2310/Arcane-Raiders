@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b4dyl3ppwa1rc"]
+[gd_scene load_steps=23 format=3 uid="uid://b4dyl3ppwa1rc"]
 
 [ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
 [ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_vpuq0"]
@@ -9,8 +9,8 @@
 [ext_resource type="Script" path="res://moving_entities/status_particles.gd" id="4_g2jk5"]
 [ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="7_qxifu"]
 [ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
-[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="10_1dpu8"]
 [ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="10_j1o0m"]
+[ext_resource type="Shader" path="res://shaders/self_colouring_outline.gdshader" id="10_pmcnq"]
 [ext_resource type="Texture2D" uid="uid://wv5jw8o5ednx" path="res://elements/icons/frost_icon.png" id="11_oqgek"]
 [ext_resource type="Texture2D" uid="uid://bgpdq58unaoti" path="res://elements/icons/shock_icon.png" id="12_g4b5c"]
 [ext_resource type="Texture2D" uid="uid://t13216wk8eap" path="res://elements/icons/wind_icon.png" id="13_yqo0f"]
@@ -28,10 +28,10 @@ properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/replication_mode = 2
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qbw5g"]
-shader = ExtResource("10_1dpu8")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12rpn"]
+shader = ExtResource("10_pmcnq")
 shader_parameter/outline_width = 0.5
-shader_parameter/outline_color = Color(0.34902, 0.105882, 0.0470588, 1)
+shader_parameter/darken_amount = 0.5
 
 [sub_resource type="Curve" id="Curve_aq1wo"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -48,30 +48,10 @@ emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
 alpha_curve = SubResource("CurveTexture_swxsv")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmbxw"]
-shader = ExtResource("10_1dpu8")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wujhe"]
+shader = ExtResource("10_pmcnq")
 shader_parameter/outline_width = 0.5
-shader_parameter/outline_color = Color(0.12549, 0.380392, 0.478431, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wr0sq"]
-shader = ExtResource("10_1dpu8")
-shader_parameter/outline_width = 0.5
-shader_parameter/outline_color = Color(0.478431, 0.466667, 0.12549, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_61ffr"]
-shader = ExtResource("10_1dpu8")
-shader_parameter/outline_width = 0.5
-shader_parameter/outline_color = Color(0.12549, 0.478431, 0.12549, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vyd3u"]
-shader = ExtResource("10_1dpu8")
-shader_parameter/outline_width = 0.5
-shader_parameter/outline_color = Color(0.12549, 0.133333, 0.478431, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5lnpn"]
-shader = ExtResource("10_1dpu8")
-shader_parameter/outline_width = 0.5
-shader_parameter/outline_color = Color(0.478431, 0.333333, 0.12549, 1)
+shader_parameter/darken_amount = 0.5
 
 [node name="BaseEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
@@ -146,7 +126,7 @@ lifetime = 1.0
 width = 45.0
 
 [node name="BurnParticles" type="GPUParticles2D" parent="StatusParticles"]
-material = SubResource("ShaderMaterial_qbw5g")
+material = SubResource("ShaderMaterial_12rpn")
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7sn17")
@@ -154,7 +134,7 @@ texture = ExtResource("10_j1o0m")
 local_coords = true
 
 [node name="FrostParticles" type="GPUParticles2D" parent="StatusParticles"]
-material = SubResource("ShaderMaterial_hmbxw")
+material = SubResource("ShaderMaterial_wujhe")
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7sn17")
@@ -162,7 +142,7 @@ texture = ExtResource("11_oqgek")
 local_coords = true
 
 [node name="ShockParticles" type="GPUParticles2D" parent="StatusParticles"]
-material = SubResource("ShaderMaterial_wr0sq")
+material = SubResource("ShaderMaterial_wujhe")
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7sn17")
@@ -170,7 +150,7 @@ texture = ExtResource("12_g4b5c")
 local_coords = true
 
 [node name="WindParticles" type="GPUParticles2D" parent="StatusParticles"]
-material = SubResource("ShaderMaterial_61ffr")
+material = SubResource("ShaderMaterial_wujhe")
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7sn17")
@@ -178,7 +158,7 @@ texture = ExtResource("13_yqo0f")
 local_coords = true
 
 [node name="WetParticles" type="GPUParticles2D" parent="StatusParticles"]
-material = SubResource("ShaderMaterial_vyd3u")
+material = SubResource("ShaderMaterial_wujhe")
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7sn17")
@@ -186,7 +166,7 @@ texture = ExtResource("14_s763y")
 local_coords = true
 
 [node name="StunParticles" type="GPUParticles2D" parent="StatusParticles"]
-material = SubResource("ShaderMaterial_5lnpn")
+material = SubResource("ShaderMaterial_wujhe")
 emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7sn17")

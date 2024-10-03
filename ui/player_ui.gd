@@ -23,6 +23,7 @@ class_name PlayerUI
 @export var health_bar_linger : TextureProgressBar
 @export var hat_label : Label
 @export var health_bar_label : Label
+@export var element_particle : GPUParticles2D
 
 @export_subgroup("StatBox")
 var show_stats : bool = false
@@ -170,10 +171,18 @@ func show_hat():
 	crown.texture = data.hat_sprite
 
 func synergy_updated(synergy_bonus, color):
-	print(synergy_bonus)
 	if synergy_bonus == 0:
 		synergy_text.text = ""
+		for slot in spells:
+			slot.set_particles(false)
 	else:
+		for slot in range(spells.size()):
+			print(data.spells[slot].element == data.synergy_element)
+			spells[slot].set_particles(data.spells[slot].element == data.synergy_element)
+		
+		element_particle.texture = data.spells[0].element.pip_texture
+		element_particle.emitting = data.spells[0].element == data.spells[1].element and data.spells[0].element == data.spells[2].element
+			
 		synergy_text.text = "Synergy Bonus! + " + str(synergy_bonus) + "x damage!"
 		synergy_text.add_theme_color_override("font_color", color)
 #endregion

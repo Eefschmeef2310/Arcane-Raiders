@@ -1,15 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://c8tisd7v43c66"]
+[gd_scene load_steps=28 format=3 uid="uid://c8tisd7v43c66"]
 
 [ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="1_116hg"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="1_uxkox"]
 [ext_resource type="Script" path="res://ui/spell_slot.gd" id="2_dapti"]
 [ext_resource type="Texture2D" uid="uid://da1niepub7xwn" path="res://ui/prompts/ps/playstation_button_color_square_outline.png" id="3_rekfs"]
+[ext_resource type="Shader" path="res://shaders/self_colouring_outline.gdshader" id="4_aktyk"]
 [ext_resource type="Texture2D" uid="uid://m0y1kvx31hii" path="res://ui/equip_arrow.png" id="4_cbfbj"]
+[ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="4_r61a1"]
 
-[sub_resource type="Gradient" id="Gradient_6hhio"]
+[sub_resource type="Gradient" id="Gradient_fci5l"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fyuhq"]
-gradient = SubResource("Gradient_6hhio")
+gradient = SubResource("Gradient_fci5l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uy6is"]
 resource_local_to_scene = true
@@ -17,6 +19,28 @@ shader = ExtResource("1_uxkox")
 shader_parameter/final_saturation = 0.75
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_fyuhq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phkhs"]
+shader = ExtResource("4_aktyk")
+shader_parameter/outline_width = 0.5
+shader_parameter/darken_amount = 0.361
+
+[sub_resource type="Curve" id="Curve_5bfnc"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1jf6g"]
+curve_y = SubResource("Curve_5bfnc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7qg1i"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(31, 1, 1)
+directional_velocity_min = 100.0
+directional_velocity_max = 100.0
+directional_velocity_curve = SubResource("CurveXYZTexture_1jf6g")
+gravity = Vector3(0, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_ifn5m"]
 
@@ -135,7 +159,7 @@ _data = {
 "flash": SubResource("Animation_vkiyt")
 }
 
-[node name="Spell" type="Control"]
+[node name="Spell" type="Control" node_paths=PackedStringArray("element_particle")]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 3
 anchors_preset = 0
@@ -143,6 +167,7 @@ offset_right = 70.0
 offset_bottom = 70.0
 script = ExtResource("2_dapti")
 no_prompt = true
+element_particle = NodePath("Control/SpellSingle/ElementParticle")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -166,6 +191,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="ElementParticle" type="GPUParticles2D" parent="Control/SpellSingle"]
+modulate = Color(1, 1, 1, 0.658824)
+material = SubResource("ShaderMaterial_phkhs")
+position = Vector2(35, 74)
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_7qg1i")
+texture = ExtResource("4_r61a1")
 
 [node name="SpellDouble1" type="TextureRect" parent="Control"]
 visible = false

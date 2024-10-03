@@ -31,8 +31,6 @@ const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn
 #stats
 #@onready var crown = $SpritesFlip/SpritesScale/HeadGroup/Crown
 
-
-
 @export var preparing_cast_slot := -1
 var is_casting := false
 var can_cast := true
@@ -47,8 +45,6 @@ var dash_direction: Vector2
 var dash_speed = 1200
 var dash_duration = 0.25 # Is only used for checking if a dash will end in a wall
 var dash_target_pos : Vector2
-
-var synergy_bonus : float
 
 var friends_nearby : Array = []
 @export var revival_time : float
@@ -231,6 +227,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.spell_ready.is_connected(_on_spell_ready): data.spell_ready.connect(_on_spell_ready)
 	if !data.spell_changed.is_connected(_on_spell_changed): data.spell_changed.connect(_on_spell_changed)
 	if !data.destroy.is_connected(_on_data_destroy): data.destroy.connect(_on_data_destroy)
+	if !data.synergy_updated.is_connected(_on_synergy_updated): data.synergy_updated.connect(_on_synergy_updated)
 	
 	set_input(data.device_id)
 	hud.set_data(new_data)
@@ -362,7 +359,7 @@ func cast_spell(slot: int):
 			var spell_node = data.spells[slot].scene.instantiate()
 			spell_node.resource = data.spells[slot]
 			spell_node.caster = self
-			spell_node.base_damage *= (entity_damage_multiplier + synergy_bonus)
+			spell_node.base_damage *= (entity_damage_multiplier + (data.synergy_bonus if data.spells[slot].element == data.synergy_element else 0))
 			spell_node.set_multiplayer_authority(get_multiplayer_authority(), true)
 			add_sibling(spell_node)
 			
@@ -531,28 +528,20 @@ func _on_spell_ready(slot: int):
 	notif.set_spell_ready(data.spells[slot])
 	notif.start_tween()
 
+func _on_synergy_updated(amount : float, color : Color):
+	if data.synergy_bonus > 0:
+		var notif: PlayerNotif = player_notif_scene.instantiate()
+		add_child(notif)
+		notif.position = notif_spawn_pos.position
+		notif.init_synergy(data.synergy_element, amount, color)
+		notif.start_tween()
+
 func spawn_speech_polygons():
 	var container = preload("res://moving_entities/player/polygon_container.tscn").instantiate()
 	container.set_color(data.main_color)
 	$SpritesFlip/SpritesScale.add_child(container)
 	
 func _on_spell_changed(_slot):
-	#Update synergy mutliplier
-	var color : Color
-	if data.spells[0].element == data.spells[1].element and data.spells[1].element == data.spells[2].element and data.spells[0].element.prefix != "": #All same element
-		synergy_bonus = 1.0
-		color = data.spells[0].element.colour
-	elif (data.spells[0].element == data.spells[1].element or data.spells[0].element == data.spells[2].element) and data.spells[0].element.prefix != "":
-		synergy_bonus = 0.5
-		color = data.spells[0].element.colour
-	elif data.spells[1].element == data.spells[2].element and data.spells[1].element.prefix != "":
-		synergy_bonus = 0.5
-		color = data.spells[1].element.colour
-	else:
-		synergy_bonus = 0
-	
-	data.synergy_updated.emit(synergy_bonus, color)
-	
 	spell_equip_sound.play()
 
 @rpc("any_peer", "call_local", "reliable")

@@ -48,9 +48,14 @@ var spell_cooldowns : Array[float] = [0,0,0]
 @export var pickups_obtained : int
 @export var has_crown : bool
 
+@export var synergy_bonus : float
+@export var synergy_element : ElementResource
+
 func _ready():
 	#spell_strings.resize(3)
 	#spells.resize(3)
+	
+	spell_changed.connect(get_synergy)
 	
 	for i in spells.size():
 		if spells[i] != null:
@@ -85,3 +90,25 @@ func set_spell_from_string(slot: int, string: String):
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0
 	spell_changed.emit(slot)
+
+func get_synergy(_slot):
+	#Update synergy mutliplier
+	var color : Color
+	if spells[0] and spells[1] and spells[2]:
+		if spells[0].element == spells[1].element and spells[1].element == spells[2].element and spells[0].element.prefix != "": #All same element
+			synergy_bonus = 0.5
+			color = spells[0].element.colour
+			synergy_element = spells[0].element
+		elif (spells[0].element == spells[1].element or spells[0].element == spells[2].element) and spells[0].element.prefix != "":
+			synergy_bonus = 0.25
+			color = spells[0].element.colour
+			synergy_element = spells[0].element
+		elif spells[1].element == spells[2].element and spells[1].element.prefix != "":
+			synergy_bonus = 0.25
+			color = spells[1].element.colour
+			synergy_element = spells[1].element
+		else:
+			synergy_bonus = 0
+			synergy_element = null
+		
+		synergy_updated.emit(synergy_bonus, color)

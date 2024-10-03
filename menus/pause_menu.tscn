@@ -29,11 +29,6 @@ func _ready():
 	
 	if device_id != -2:
 		input = DeviceInput.new(device_id)
-	
-	#MultiplayerInput.set_ui_action_device(device_index)
-	#if device_index > -1 and GameManager.isLocal():
-		##MultiplayerInput._create_actions_for_device(device_index)
-		#set_button_mouse()
 
 func _process(delta):
 	if !is_instance_valid(submenu):
@@ -64,34 +59,6 @@ func _process(delta):
 			panels_array[i].add_theme_stylebox_override(\"panel\", stylebox_normal.duplicate())
 
 	mouse_input.clear()
-
-#func _input(event):
-	#if GameManager.isLocal():
-		##If keyboard
-		#if device_id == -1:
-			#if event.is_action_released(\"keyboard_pause\") and !just_spawned:
-				#_on_continue_button_pressed()
-		#else: #If controller
-			#if InputMap.get_actions().has(str(device_id) + \"ui_pause\") and (MultiplayerInput.is_action_just_released(device_id, \"ui_pause\") or MultiplayerInput.is_action_just_released(device_id, \"ui_cancel\")) and !just_spawned:
-				#if !is_instance_valid(new_settings):
-					#_on_continue_button_pressed()
-			#
-		##Set just_spawned
-		#if just_spawned:
-			#if device_id == -1:
-				#if event.is_action_released(\"keyboard_pause\"):
-					#just_spawned = false
-			#else:
-				#if InputMap.get_actions().has(str(device_id) + \"ui_pause\") and MultiplayerInput.is_action_just_released(device_id, \"ui_pause\"):
-					#just_spawned = false
-					#
-	#elif GameManager.isOnline():		
-		#if !just_spawned and (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"ui_cancel\")):
-			#if !is_instance_valid(new_settings):
-				#_on_continue_button_pressed()
-		#
-		#if (Input.is_action_just_released(\"ui_pause\") or Input.is_action_just_released(\"keyboard_pause\") and just_spawned):
-			#just_spawned = false
 #endregion
 
 #region Signal methods

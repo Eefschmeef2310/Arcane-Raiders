@@ -3,9 +3,14 @@ class_name PlayerNotif
 #Authored by Xander. Please consult for any modifications or major feature requests.
 
 @onready var label = $Label
-@onready var spell_box = $HBox
-@onready var spell_rect = $HBox/TextureRect
-@onready var spell_label = $HBox/Label
+
+@export var spell_box : HBoxContainer
+@export var spell_rect : TextureRect
+@export var spell_label : Label
+
+@export var synergy_box : HBoxContainer
+@export var element_pip : TextureRect
+@export var synergy_label : Label
 
 var move_distance = 48
 var fade_time = 0.75
@@ -35,3 +40,12 @@ func set_spell_ready(spell: Spell):
 		
 	label.hide()
 	spell_box.show()
+
+func init_synergy(element : ElementResource, amount : float, col : Color):
+	synergy_box.visible = true
+	spell_box.visible = false
+	label.visible = false
+	
+	element_pip.texture = element.pip_texture
+	synergy_label.text = "+" + str(amount) + "x synergy bonus!"
+	synergy_label.add_theme_color_override("font_color", col)

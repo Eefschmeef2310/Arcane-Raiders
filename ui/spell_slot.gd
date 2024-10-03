@@ -14,6 +14,8 @@ var freq = 10
 @export var no_prompt = false
 @export var base_alpha : float = 1
 
+@export var element_particle : GPUParticles2D
+
 func _ready():
 	base_arrow_pos = $EquipArrow.position
 	if no_prompt:
@@ -53,6 +55,8 @@ func set_spell(spell: Spell):
 			$Control/ProgressBar.texture_progress = spell.ui_texture
 			
 			$Control/SpellSingle.texture = spell.ui_texture
+			element_particle.texture =  spell.element.pip_texture
+			
 			if spell.element.gradient:
 				($Control/SpellSingle.material as ShaderMaterial).set_shader_parameter("gradient", spell.element.gradient)
 			else:
@@ -87,3 +91,6 @@ func pulse():
 
 func flash():
 	flasher.play("flash")
+
+func set_particles(setting : bool):
+	element_particle.emitting = setting
