@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_ryaan")
 suffix = "Ball"
-description = "Cast a projectile that explodes on contact."
+description = "A projectile that explodes on contact."
 scene = ExtResource("2_sc6cg")
 ui_texture = ExtResource("3_c3uk4")
 projection_texture = ExtResource("1_owray")

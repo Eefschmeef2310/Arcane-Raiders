@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="1_2p022"]
 [ext_resource type="PackedScene" uid="uid://st53ca8alpuc" path="res://spells/scenes/lasso/lasso.tscn" id="1_2y41a"]
 [ext_resource type="Texture2D" uid="uid://d05bffs8s001d" path="res://spells/projections/straight.png" id="1_bdq7y"]
-[ext_resource type="Texture2D" uid="uid://dw1ci71nknbvy" path="res://spells/sprites/icons/lasso.png" id="4_ndkrn"]
+[ext_resource type="Texture2D" uid="uid://bg5c1u6qqnvye" path="res://spells/sprites/icons/lasso.png" id="4_ndkrn"]
 
 [resource]
 script = ExtResource("1_2p022")
 suffix = "Lasso"
-description = "Cast a mid-range lasso that pulls in enemies."
+description = "A lasso that pulls the first enemy it hits."
 scene = ExtResource("1_2y41a")
 ui_texture = ExtResource("4_ndkrn")
 projection_texture = ExtResource("1_bdq7y")

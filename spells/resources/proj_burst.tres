@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_pw8uy")
 suffix = "Burst"
-description = "Cast a burst of pellets."
+description = "A burst of pellets."
 scene = ExtResource("1_efoxd")
 ui_texture = ExtResource("3_m15wb")
 projection_texture = ExtResource("1_eafdq")

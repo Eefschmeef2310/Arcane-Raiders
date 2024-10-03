@@ -30,10 +30,10 @@ var spell_cooldowns : Array[float] = [0,0,0]
 
 @export_category("Hats")
 @export var hat_string : StringName = ""
-@export var hat_sprite : Texture2D:
-	set(value):
-		hat_sprite = value
-		hat_changed.emit()
+@export var hat_sprite : Texture2D
+	#set(value):
+		#hat_sprite = value
+		#hat_changed.emit()
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
@@ -112,3 +112,8 @@ func get_synergy(_slot):
 			synergy_element = null
 		
 		synergy_updated.emit(synergy_bonus, color)
+
+func set_hat_from_string(s: String):
+	print("Data received string")
+	hat_string = s
+	hat_changed.emit()

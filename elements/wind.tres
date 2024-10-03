@@ -21,8 +21,7 @@ gradient = SubResource("Gradient_2mgj5")
 [resource]
 script = ExtResource("1_moo0l")
 prefix = "Wind-"
-descrption_bb = "[img]res://elements/icons/wind_icon.png[/img] Increases knockback
-Reacts with [img]res://elements/icons/shock_icon.png[/img] and [img]res://elements/icons/stun_icon.png[/img]"
+descrption_bb = "[img]res://elements/icons/wind_icon.png[/img] Increases knockback"
 colour = Color(0.466667, 1, 0.431373, 1)
 gradient = SubResource("GradientTexture1D_cshek")
 gradient_inverse = SubResource("GradientTexture1D_ahjjk")

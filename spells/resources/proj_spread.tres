@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_foi5g")
 suffix = "Spread"
-description = "Cast a cone of rapid-damage magic."
+description = "A short-ranged cone of rapid-damage projectiles."
 scene = ExtResource("1_07iu8")
 ui_texture = ExtResource("3_i0q2r")
 projection_texture = ExtResource("1_3yfcu")

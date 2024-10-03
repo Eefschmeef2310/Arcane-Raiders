@@ -21,8 +21,7 @@ gradient = SubResource("Gradient_y6hb5")
 [resource]
 script = ExtResource("1_lr73f")
 prefix = "Stun-"
-descrption_bb = "[img]res://elements/icons/stun_icon.png[/img] Stuns briefly
-Reacts with [img]res://elements/icons/wind_icon.png[/img] and [img]res://elements/icons/burn_icon.png[/img]"
+descrption_bb = "[img]res://elements/icons/stun_icon.png[/img] Stuns briefly"
 colour = Color(1, 0.466667, 0.2, 1)
 gradient = SubResource("GradientTexture1D_vkkhs")
 gradient_inverse = SubResource("GradientTexture1D_sg4i2")

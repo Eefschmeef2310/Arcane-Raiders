@@ -1,14 +1,12 @@
-[gd_scene load_steps=34 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=26 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_5ffs4"]
 [ext_resource type="Texture2D" uid="uid://cjnod02s0jvku" path="res://elements/sprites/white.png" id="3_e57h4"]
-[ext_resource type="Shader" path="res://shaders/self_colouring_outline.gdshader" id="3_i7vjg"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_7o55i"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_86qwp"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_b30oo"]
-[ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="4_yf6j7"]
 [ext_resource type="Texture2D" uid="uid://dsl64ayuqe51k" path="res://ui/bar_border.png" id="6_8mvmc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ps5"]
@@ -19,57 +17,26 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.756863, 0.756863, 0.756863, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xvgoj"]
-shader = ExtResource("3_i7vjg")
-shader_parameter/outline_width = 0.5
-shader_parameter/darken_amount = 0.361
-
-[sub_resource type="Curve" id="Curve_ouhiy"]
-_data = [Vector2(0, 0), 0.0, 8.58053, 0, 0, Vector2(0.253425, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.3967, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_5i8g4"]
-curve = SubResource("Curve_ouhiy")
-
-[sub_resource type="Curve" id="Curve_c3ea6"]
-min_value = -1.0
-_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_6wial"]
-curve_y = SubResource("Curve_c3ea6")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xdask"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(114.485, 1, 1)
-directional_velocity_min = 70.0
-directional_velocity_max = 70.0
-directional_velocity_curve = SubResource("CurveXYZTexture_6wial")
-gravity = Vector3(0, 0, 0)
-scale_max = 2.0
-alpha_curve = SubResource("CurveTexture_5i8g4")
-
 [sub_resource type="Gradient" id="Gradient_oyrcg"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ui17l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3rgx"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtqo6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2m535"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3su0h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41wvx"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -194,7 +161,7 @@ _data = {
 "show": SubResource("Animation_o7oqj")
 }
 
-[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "synergy_text", "spells", "health_bar", "border", "head_panel", "head", "health_bar_linger", "hat_label", "health_bar_label", "element_particle", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
+[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "synergy_text", "spells", "health_bar", "border", "head_panel", "head", "health_bar_linger", "hat_label", "health_bar_label", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
 custom_minimum_size = Vector2(450, 200)
 offset_right = 450.0
 offset_bottom = 200.0
@@ -214,7 +181,6 @@ head = NodePath("Stats/Spells/Head")
 health_bar_linger = NodePath("Stats/HealthBar/HealthBarLinger")
 hat_label = NodePath("Stats/Spells/VBoxContainer/HatLabelHeightControl/HatLabel")
 health_bar_label = NodePath("Stats/HealthBar/Label")
-element_particle = NodePath("Stats/Spells/VBoxContainer/HatLabelHeightControl/ElementParticle")
 stat_panel = NodePath("StatsUI/PanelContainer")
 damage_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Damage")
 kills_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Kills")
@@ -298,42 +264,31 @@ text = "Hat label here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ElementParticle" type="GPUParticles2D" parent="Stats/Spells/VBoxContainer/HatLabelHeightControl"]
-modulate = Color(1, 1, 1, 0.658824)
-material = SubResource("ShaderMaterial_xvgoj")
-position = Vector2(125.588, 92.7861)
-emitting = false
-amount = 30
-process_material = SubResource("ParticleProcessMaterial_xdask")
-texture = ExtResource("4_yf6j7")
-
 [node name="HBoxContainer" type="HBoxContainer" parent="Stats/Spells/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ui17l")
+material = SubResource("ShaderMaterial_x3rgx")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_vtqo6")
+material = SubResource("ShaderMaterial_2m535")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_3su0h")
+material = SubResource("ShaderMaterial_41wvx")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="SynergyHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="Synergy Label" type="Label" parent="Stats/Spells/VBoxContainer/SynergyHeightControl"]
-visible = false
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 1
 anchors_preset = 5

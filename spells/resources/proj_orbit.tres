@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("3_waei6")
 suffix = "Orbit"
-description = "Cast five orbiting projectiles."
+description = "Five lingering projectiles that orbit you."
 scene = ExtResource("2_sodnj")
 ui_texture = ExtResource("4_nchc4")
 projection_texture = ExtResource("1_kt752")
