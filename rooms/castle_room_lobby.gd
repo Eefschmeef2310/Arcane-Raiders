@@ -62,10 +62,12 @@ func _process(delta):
 	if !start_game_called:
 		if GameManager.isLocal():
 			handle_join_input()
-			join_indicator_node.show()
-			player_ui_container.move_child(join_indicator_node, -1)
+			if is_instance_valid(join_indicator_node):
+				join_indicator_node.show()
+				player_ui_container.move_child(join_indicator_node, -1)
 		else:
-			join_indicator_node.hide()
+			if is_instance_valid(join_indicator_node):
+				join_indicator_node.hide()
 
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
