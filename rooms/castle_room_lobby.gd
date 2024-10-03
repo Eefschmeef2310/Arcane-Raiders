@@ -230,3 +230,25 @@ func _on_party_exit_player_entered(player):
 	for card in player_ui_container.get_children():
 		if card is JoinSelectUI and card.player_data == player.data:
 			card._remove_player()
+
+
+## called after the lobby mode has been decided 
+func InitLobby(new_lobby_id : int):
+	#mode = online_mode
+	lobby_id = new_lobby_id
+	
+	#server_browser_scene = preload("res://multiplayer/serverBrowser/serverBrowser.tscn") if mode == MultiplayerMode.Online else preload("res://menus/main_menu.tscn")
+	
+	if GameManager.isOnline():
+		#get the peer id the player who has just joined (by loading this scenes ready func)
+		var incoming_peer_id = multiplayer.get_unique_id()
+		
+		if(multiplayer.is_server()):
+		#CreateNewCard.rpc(incoming_peer_id)
+			#CreateNewCard(incoming_peer_id)
+			multiplayer_spawner.spawn(incoming_peer_id)
+		
+			
+		print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
+		pass
+	pass
