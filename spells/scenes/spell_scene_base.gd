@@ -14,6 +14,9 @@ class_name SpellBase
 # Damage the spell deals.
 @export var base_damage : int = 50
 
+# Maximum damage one cast of this spell can deal to an enemy. 0 = infinity
+@export var max_damage : int = 0
+
 #How long the entity will be affected for
 @export var infliction_time : float = 1
 
@@ -47,13 +50,20 @@ class_name SpellBase
 	#Other Variables (please try to separate and organise!)
 var resource : Spell #This is set in code
 var caster : Entity #This is also set in code
+
+var cast_uuid : CastUUIDManager # The uuid of this particular cast
 #endregion
 
 func _enter_tree():
 	var pos = global_position
 	if caster:
 		pos = caster.global_position
-		
+	
+	if !is_instance_valid(cast_uuid):
+		cast_uuid = CastUUIDManager.new()
+		add_child(cast_uuid)
+		cast_uuid.max_damage = max_damage
+	
 	if play_sound_on_cast && resource and resource.element and resource.element.sound:
 		if !(caster and !caster is Player and resource.element == SpellManager.elements["null"]):
 			AudioManager.play_audio2D_at_point(pos, resource.element.sound)
@@ -75,6 +85,9 @@ func transfer_data(new: Node2D):
 		new.combined_spell_index = combined_spell_index
 	if "can_knockback" in new:
 		new.can_knockback = can_knockback
+	if "cast_uuid" in new and "cast_uuid" in self:
+		new.cast_uuid = cast_uuid
+		print(new.cast_uuid)
 	
 	if resource and resource.element and resource.element.gradient and material:
 		(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)
