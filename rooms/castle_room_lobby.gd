@@ -54,18 +54,20 @@ func _ready():
 	
 	if(GameManager.isOnline()):
 		server_browser_node = get_parent()
-		if !is_multiplayer_authority():
-			$Lobby/VBoxContainer.hide()
+		#if !is_multiplayer_authority():
+			#$Lobby/VBoxContainer.hide()
 		#print("browser node: "+ server_browser_node.name)
 
 func _process(delta):
 	if !start_game_called:
 		if GameManager.isLocal():
 			handle_join_input()
-			join_indicator_node.show()
-			player_ui_container.move_child(join_indicator_node, -1)
+			if is_instance_valid(join_indicator_node):
+				join_indicator_node.show()
+				player_ui_container.move_child(join_indicator_node, -1)
 		else:
-			join_indicator_node.hide()
+			if is_instance_valid(join_indicator_node):
+				join_indicator_node.hide()
 
 @rpc("any_peer", "call_local")
 func CreateNewCard(peer_id : int):
@@ -135,10 +137,11 @@ func _on_peer_connected(id:int): #this isnt triggering when a client joins
 func _on_peer_disconnected(id:int):
 	print("Peer " + str(id) + " has disconnected D:")
 	#destroy their player card
-	for card in player_ui_container.get_children():
-		if card is JoinSelectUI and card.peer_id == id:
-			card.queue_free()
-	#emit a signal for removing them from the actual game 
+	if is_instance_valid(player_ui_container):
+		for card in player_ui_container.get_children():
+			if card is JoinSelectUI and card.peer_id == id:
+				card.queue_free()
+		#emit a signal for removing them from the actual game 
 	player_left.emit(id)
 
 func _on_connected_to_server(): #this isnt working at all
@@ -230,3 +233,25 @@ func _on_party_exit_player_entered(player):
 	for card in player_ui_container.get_children():
 		if card is JoinSelectUI and card.player_data == player.data:
 			card._remove_player()
+
+
+## called after the lobby mode has been decided 
+func InitLobby(new_lobby_id : int):
+	#mode = online_mode
+	lobby_id = new_lobby_id
+	
+	#server_browser_scene = preload("res://multiplayer/serverBrowser/serverBrowser.tscn") if mode == MultiplayerMode.Online else preload("res://menus/main_menu.tscn")
+	
+	if GameManager.isOnline():
+		#get the peer id the player who has just joined (by loading this scenes ready func)
+		var incoming_peer_id = multiplayer.get_unique_id()
+		
+		if(multiplayer.is_server()):
+		#CreateNewCard.rpc(incoming_peer_id)
+			#CreateNewCard(incoming_peer_id)
+			multiplayer_spawner.spawn(incoming_peer_id)
+		
+			
+		print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
+		pass
+	pass

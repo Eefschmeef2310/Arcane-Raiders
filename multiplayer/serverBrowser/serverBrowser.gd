@@ -21,7 +21,7 @@ extends Node
 @export var template_button : Button
 
 @export_group("Scenes")
-@export var gameScene : String = "res://multiplayer/multiplayerLobby/multiplayerLobby.tscn"
+@export var gameScene : String = "res://rooms/hub/hub.tscn"
 @export var disconnect_scene : PackedScene
 
 

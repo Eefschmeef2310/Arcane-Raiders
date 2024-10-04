@@ -121,7 +121,7 @@ func _process(_delta):
 					if(GameManager.isLocal()):
 						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 					else:
-						selected_panel = clampi(selected_panel - 1, 1,panels_array.size()-1)
+						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
@@ -154,6 +154,8 @@ func _process(_delta):
 			if ("confirm_click" in mouse_input):
 				if (valid_color and selected_panel == 2):
 					spawn_player.rpc(player_name.text, selected_raider, selected_color)
+			
+			username = Steam.getPersonaName()
 			
 			UpdateDisplay()
 			mouse_input.clear()
@@ -231,6 +233,7 @@ func spawn_player(na, raider_id, color_id):
 	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
+	new_ui.scale = Vector2(1,1)
 	
 	$PanelContainer.visible = false
 	

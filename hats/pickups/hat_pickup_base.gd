@@ -71,16 +71,16 @@ func _on_area_2d_body_exited(body):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func pickup_function(player):
-	for child in player.get_children():
-		if child is Hat:
-			child.queue_free()
-			player.crown.texture = null
-	
-	if hat_string:
-		var hat = HatManager.get_hat_from_string(hat_string).instantiate()
-		player.add_child(hat)
-		player.data.hat_sprite = hat.sprite
-	else:
-		player.data.hat_sprite = null
+#func pickup_function(player):
+	#for child in player.get_children():
+		#if child is Hat:
+			#child.queue_free()
+			#player.crown.texture = null
+	#
+	#if hat_string:
+		#var hat = HatManager.get_hat_from_string(hat_string).instantiate()
+		#player.add_child(hat)
+		#player.data.hat_sprite = hat.sprite
+	#else:
+		#player.data.hat_sprite = null
 #endregion

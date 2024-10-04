@@ -21,8 +21,7 @@ gradient = SubResource("Gradient_bxa5n")
 [resource]
 script = ExtResource("1_btad0")
 prefix = "Shock-"
-descrption_bb = "[img]res://elements/icons/shock_icon.png[/img] Chains damage
-Reacts with [img]res://elements/icons/weak_icon.png[/img] and [img]res://elements/icons/wind_icon.png[/img]"
+descrption_bb = "[img]res://elements/icons/shock_icon.png[/img] Chains damage to other enemies"
 colour = Color(1, 0.94902, 0, 1)
 gradient = SubResource("GradientTexture1D_sndj2")
 gradient_inverse = SubResource("GradientTexture1D_xk82l")
