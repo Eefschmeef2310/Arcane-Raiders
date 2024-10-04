@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwasq3ujtfaqr"]
+[gd_scene load_steps=3 format=3 uid="uid://cwasq3ujtfaqr"]
 
 [ext_resource type="Script" path="res://moving_entities/shock_effect_laser.gd" id="1_figus"]
+[ext_resource type="Texture2D" uid="uid://cvpemrebrbliw" path="res://elements/sprites/electric-zap.png" id="1_kdbb7"]
 
 [node name="ShockEffectLaser" type="Line2D"]
-points = PackedVector2Array(0, 0, 0, 0)
-default_color = Color(1, 0.760784, 0, 1)
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 417, 0)
+width = 100.0
+texture = ExtResource("1_kdbb7")
+texture_mode = 1
 script = ExtResource("1_figus")
 
 [node name="Timer" type="Timer" parent="."]

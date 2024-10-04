@@ -1,93 +1,314 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsie8gn5hesf4"]
+[gd_scene load_steps=14 format=3 uid="uid://dsie8gn5hesf4"]
 
-[sub_resource type="GDScript" id="GDScript_slpb3"]
-resource_name = "settings"
-script/source = "extends Control
-	#class_name
-#Authored by Ethan. Please consult for any modifications or major feature requests.
+[ext_resource type="Script" path="res://menus/added_menu.gd" id="1_86kdw"]
+[ext_resource type="Script" path="res://menus/volume_slider.gd" id="1_r4v4d"]
+[ext_resource type="Script" path="res://menus/window_options.gd" id="3_dgvic"]
+[ext_resource type="Script" path="res://menus/settings_button.gd" id="4_y6ral"]
+[ext_resource type="Script" path="res://menus/vsync_button.gd" id="5_avu0h"]
+[ext_resource type="Script" path="res://menus/resolution_options.gd" id="5_f5lin"]
+[ext_resource type="Script" path="res://menus/frame_slider.gd" id="6_ovx28"]
 
-#region Variables
-	#Signals
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdq3x"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
-	#Enums
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eklr"]
+bg_color = Color(0.270588, 0.180392, 0.14902, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
-	#Constants
+[sub_resource type="LabelSettings" id="LabelSettings_fkkg5"]
+font_size = 120
 
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
+[sub_resource type="LabelSettings" id="LabelSettings_oh4pd"]
+font_size = 42
 
-	#Onready Variables
+[sub_resource type="LabelSettings" id="LabelSettings_cdapm"]
+font_size = 25
 
-	#Other Variables (please try to separate and organise!)
+[sub_resource type="LabelSettings" id="LabelSettings_l8o8s"]
+font_size = 42
 
-#endregion
-
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
-
-#region Signal methods
-func _on_back_button_pressed():
-	queue_free()
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-"
-
-[node name="Settings" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = SubResource("GDScript_slpb3")
+[node name="Settings" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_86kdw")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2, 0.2, 0.2, 1)
+color = Color(0, 0, 0, 0.588235)
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -896.0
-offset_top = 446.0
-offset_right = 897.0
-offset_bottom = 598.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 111
-text = "We don't have any settings yet lol"
-
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[node name="Background" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -109.0
-offset_top = -180.0
-offset_right = 109.0
-offset_bottom = -46.9991
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 91
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="BackPanel" type="Panel" parent="Background"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kdq3x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsContainer" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="Buttons" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="GraphicsButton" type="Button" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../../Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/Fullscreen")
+theme_override_font_sizes/font_size = 42
+text = "Graphics"
+script = ExtResource("4_y6ral")
+showing_container = NodePath("../../../Contents/MarginContainer/GraphicsContainer")
+focused_button = true
+
+[node name="SoundButton" type="Button" parent="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons" node_paths=PackedStringArray("showing_container") groups=["settings_navigable"]]
+layout_mode = 2
+focus_neighbor_right = NodePath("../../../Contents/MarginContainer/SoundContainer/AllSettings/Settings/MasterSlider")
+focus_neighbor_bottom = NodePath("../../../../BackButton")
+theme_override_font_sizes/font_size = 42
+text = "Sound"
+script = ExtResource("4_y6ral")
+showing_container = NodePath("../../../Contents/MarginContainer/SoundContainer")
+
+[node name="Contents" type="PanelContainer" parent="Background/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1eklr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer/Contents"]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_right = 128
+
+[node name="GraphicsContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer"]
+layout_mode = 2
+text = "Graphics"
+label_settings = SubResource("LabelSettings_fkkg5")
+horizontal_alignment = 1
+
+[node name="AllSettings" type="HBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer"]
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "Fullscreen"
+label_settings = SubResource("LabelSettings_oh4pd")
+
+[node name="Label2" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "VSync"
+label_settings = SubResource("LabelSettings_oh4pd")
+
+[node name="Label3" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "Max FPS"
+label_settings = SubResource("LabelSettings_oh4pd")
+
+[node name="Label4" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "Resolution"
+label_settings = SubResource("LabelSettings_oh4pd")
+
+[node name="Settings" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Fullscreen" type="CheckBox" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../../../../../../ButtonsContainer/Buttons/GraphicsButton")
+focus_neighbor_top = NodePath("../../../../../../ButtonsContainer/Buttons/GraphicsButton")
+theme_override_constants/h_separation = 40
+theme_override_font_sizes/font_size = 32
+button_pressed = true
+flat = true
+alignment = 1
+script = ExtResource("3_dgvic")
+
+[node name="CheckBox" type="CheckBox" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../../../../../../ButtonsContainer/Buttons/GraphicsButton")
+flat = true
+alignment = 1
+script = ExtResource("5_avu0h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../../../../../../ButtonsContainer/Buttons/GraphicsButton")
+focus_neighbor_top = NodePath("../../CheckBox")
+focus_neighbor_bottom = NodePath("../../OptionButton")
+min_value = 30.0
+max_value = 241.0
+value = 30.0
+script = ExtResource("6_ovx28")
+
+[node name="FPS" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "144"
+label_settings = SubResource("LabelSettings_cdapm")
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../../../../ButtonsContainer/Buttons/GraphicsButton")
+focus_neighbor_top = NodePath("../HBoxContainer/HSlider")
+focus_neighbor_bottom = NodePath("../../../../../../../BackButton")
+script = ExtResource("5_f5lin")
+
+[node name="SoundContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer"]
+layout_mode = 2
+text = "Sound"
+label_settings = SubResource("LabelSettings_fkkg5")
+horizontal_alignment = 1
+
+[node name="AllSettings" type="HBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer"]
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Master" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "Master Volume"
+label_settings = SubResource("LabelSettings_l8o8s")
+
+[node name="Music" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "Music Volume"
+label_settings = SubResource("LabelSettings_l8o8s")
+
+[node name="SFX" type="Label" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings/Labels"]
+layout_mode = 2
+text = "SFX Volume"
+label_settings = SubResource("LabelSettings_l8o8s")
+
+[node name="Settings" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings/Settings" groups=["settings_navigable"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../../../../../ButtonsContainer/Buttons/SoundButton")
+focus_neighbor_top = NodePath("../../../../../../ButtonsContainer/Buttons/SoundButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../MusicSlider")
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("1_r4v4d")
+bus_name = "Master"
+
+[node name="MusicSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings/Settings" groups=["settings_navigable"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../../../../../ButtonsContainer/Buttons/SoundButton")
+focus_neighbor_top = NodePath("../MasterSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../SFXSlider")
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("1_r4v4d")
+bus_name = "Music"
+
+[node name="SFXSlider" type="HSlider" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/SoundContainer/AllSettings/Settings" groups=["settings_navigable"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../../../../../ButtonsContainer/Buttons/SoundButton")
+focus_neighbor_top = NodePath("../MusicSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../../../../../../BackButton")
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("1_r4v4d")
+bus_name = "SFX"
+
+[node name="BackButton" type="Button" parent="Background/VBoxContainer" groups=["settings_navigable"]]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 text = "Back"
 
-[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="button_down" from="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/GraphicsButton" to="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/GraphicsButton" method="on_button_down"]
+[connection signal="button_down" from="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/SoundButton" to="Background/VBoxContainer/HBoxContainer/ButtonsContainer/Buttons/SoundButton" method="on_button_down"]
+[connection signal="toggled" from="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/Fullscreen" to="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/Fullscreen" method="_on_toggled"]
+[connection signal="toggled" from="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/CheckBox" to="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/CheckBox" method="_on_toggled"]
+[connection signal="value_changed" from="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/HBoxContainer/HSlider" to="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/HBoxContainer/HSlider" method="_on_value_changed"]
+[connection signal="item_selected" from="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/OptionButton" to="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer/GraphicsContainer/AllSettings/Settings/OptionButton" method="_on_item_selected"]
+[connection signal="pressed" from="Background/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

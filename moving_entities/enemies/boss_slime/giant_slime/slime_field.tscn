@@ -1,0 +1,219 @@
+[gd_scene load_steps=12 format=3 uid="uid://d3ysm2lr7sn5t"]
+
+[ext_resource type="Shader" path="res://shaders/corrosion.gdshader" id="2_01emv"]
+[ext_resource type="Texture2D" uid="uid://cu68yb2eq7bxf" path="res://spells/reactions/sprites/white_pool.png" id="3_y4o2s"]
+
+[sub_resource type="GDScript" id="GDScript_g2p4w"]
+script/source = "extends Area2D
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var field_damage: int = 0
+@export var max_puddles : int = 10
+
+	#Onready Variables
+@onready var animation_player = $AnimationPlayer
+@onready var group = get_tree().get_nodes_in_group(get_groups()[0])
+
+	#Other Variables (please try to separate and organise!)
+var base_damage
+var resource 
+var caster 
+var infliction_time = 1
+
+var up_time : float = 0
+#endregion
+
+#region Godot methods
+func _ready():
+	$Sprite2D.modulate = resource.element.colour
+	base_damage = field_damage
+	print()
+	
+	#Impose limit
+	if group.size() > max_puddles:
+		destroy_oldest()
+		#group[group.size() - 1].animation_player.play(\"kill\")
+	
+	AudioManager.play_audio2D_at_point(global_position, load(\"res://sounds/effects/elements/water_splash_pixabay_universfield.wav\"))
+
+func _process(delta):
+	up_time += delta
+#endregion
+
+#region Signal methods
+func _on_hurt_timer_timeout():
+	for moving_entity in get_overlapping_areas():
+		if moving_entity.owner.is_in_group(\"player\") and moving_entity.owner != caster:
+			moving_entity.owner.on_hurt(self)
+			
+func _on_kill_timer_timeout():
+	$AnimationPlayer.play(\"kill\")
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func destroy_oldest():
+	var oldest_node : Node2D
+	var oldest_lifetime = 0
+	
+	for node in group:
+		if node != self and node.up_time > oldest_lifetime:
+			oldest_lifetime = node.up_time
+			oldest_node = node
+			
+	#oldest_node.remove_from_group(group)
+	oldest_node.animation_player.play(\"kill\")
+			
+#endregion
+
+
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jg4j1"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6x46e"]
+seamless = true
+noise = SubResource("FastNoiseLite_jg4j1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gneoq"]
+resource_local_to_scene = true
+shader = ExtResource("2_01emv")
+shader_parameter/fade_scale = 0.0
+shader_parameter/alpha = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_6x46e")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
+radius = 102.0
+
+[sub_resource type="Animation" id="Animation_ew3gm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/fade_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_oaxwp"]
+resource_name = "kill"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/fade_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_22v3d"]
+resource_name = "spawn"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(-2, -0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tls52"]
+_data = {
+"RESET": SubResource("Animation_ew3gm"),
+"kill": SubResource("Animation_oaxwp"),
+"spawn": SubResource("Animation_22v3d")
+}
+
+[node name="SlimeField" type="Area2D" groups=["slime_field"]]
+z_index = -19
+collision_layer = 64
+collision_mask = 512
+script = SubResource("GDScript_g2p4w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_gneoq")
+scale = Vector2(1, 0.5)
+texture = ExtResource("3_y4o2s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9, 0)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_ft1mc")
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tls52")
+}
+autoplay = "spawn"
+
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

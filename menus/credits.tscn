@@ -1,0 +1,309 @@
+[gd_scene load_steps=15 format=3 uid="uid://wdi172ymyn1k"]
+
+[ext_resource type="Script" path="res://menus/credits.gd" id="1_u18pg"]
+[ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="2_5w5v0"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_ktj4p"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="3_l1n4c"]
+[ext_resource type="Texture2D" uid="uid://bn8h332covd1w" path="res://moving_entities/player/player_pieces/head-lizard.png" id="4_f73s6"]
+[ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="5_hle1y"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_r0t5o"]
+[ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="7_nwdc7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24lqv"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_i085p"]
+font_size = 120
+
+[sub_resource type="LabelSettings" id="LabelSettings_8sg03"]
+font_size = 58
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdqs5"]
+font = ExtResource("3_l1n4c")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_lt5jb"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_axq2p"]
+font = ExtResource("3_l1n4c")
+font_size = 24
+
+[node name="Credits" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_u18pg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="Background" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="BackPanel" type="Panel" parent="Background"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_24lqv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_i085p")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/VBoxContainer"]
+custom_minimum_size = Vector2(1500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+script = ExtResource("2_ktj4p")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = -48
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 16
+
+[node name="CreditsContent" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Stingray" type="GridContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
+layout_mode = 2
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = -80
+columns = 2
+
+[node name="Xander" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Head" type="TextureRect" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Xander"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+texture = ExtResource("2_5w5v0")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Xander"]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Xander/Text"]
+layout_mode = 2
+text = "Xander Akkari"
+label_settings = SubResource("LabelSettings_8sg03")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Xander/Text"]
+layout_mode = 2
+text = "Design, programming, music"
+label_settings = SubResource("LabelSettings_tdqs5")
+
+[node name="Ethan" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Head" type="TextureRect" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Ethan"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+texture = ExtResource("4_f73s6")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Ethan"]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Ethan/Text"]
+layout_mode = 2
+text = "Ethan Lucas"
+label_settings = SubResource("LabelSettings_8sg03")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Ethan/Text"]
+layout_mode = 2
+text = "Programming, technical art, sound"
+label_settings = SubResource("LabelSettings_tdqs5")
+
+[node name="Tom" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Head" type="TextureRect" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+texture = ExtResource("5_hle1y")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom"]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom/Text"]
+layout_mode = 2
+text = "Tom Howarth"
+label_settings = SubResource("LabelSettings_8sg03")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Tom/Text"]
+layout_mode = 2
+text = "Programming, netcode, witchery"
+label_settings = SubResource("LabelSettings_tdqs5")
+
+[node name="Lauren" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Head" type="TextureRect" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Lauren"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+texture = ExtResource("6_r0t5o")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Lauren"]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Lauren/Text"]
+layout_mode = 2
+text = "Lauren Szmandiuk"
+label_settings = SubResource("LabelSettings_8sg03")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Lauren/Text"]
+layout_mode = 2
+text = "Art, illustrations, visuals"
+label_settings = SubResource("LabelSettings_tdqs5")
+
+[node name="Alex" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Head" type="TextureRect" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex"]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 2
+texture = ExtResource("7_nwdc7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex"]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex/Text"]
+layout_mode = 2
+text = "Alex Valacos"
+label_settings = SubResource("LabelSettings_8sg03")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/Stingray/Alex/Text"]
+layout_mode = 2
+text = "Design, programming, sadism"
+label_settings = SubResource("LabelSettings_tdqs5")
+
+[node name="HSeparator" type="HSeparator" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer"]
+layout_mode = 2
+
+[node name="Text" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text"]
+layout_mode = 2
+text = "Pixabay"
+label_settings = SubResource("LabelSettings_lt5jb")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text"]
+layout_mode = 2
+text = "Ice-10
+Simple Zaps
+Egg Cracking
+Spider Squeek
+Spellcast
+Falling Pebbles, Rocks and Boulders (VoiceBosch)
+Fast Whoosh (StudioKolomna)
+Water Splash (UNIVERSFIELD)
+Cat call meow
+Mooing cow
+Neighing of a horse
+Dragon Growl
+Snake hissing
+Owl 2 (UNIVERSFIELD)
+Dog Barking
+Coin upaif
+Arcade Countdown"
+label_settings = SubResource("LabelSettings_axq2p")
+
+[node name="Text2" type="VBoxContainer" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Name" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text2"]
+layout_mode = 2
+text = "SIL Open Font License"
+label_settings = SubResource("LabelSettings_lt5jb")
+
+[node name="Description" type="Label" parent="Background/VBoxContainer/ScrollContainer/MarginContainer/CreditsContent/VBoxContainer/HBoxContainer/Text2"]
+layout_mode = 2
+text = "Rakkas
+Merriweather
+Full license available at https://openfontlicense.org
+"
+label_settings = SubResource("LabelSettings_axq2p")
+
+[node name="ButtonMargin" type="MarginContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="BackButton" type="Button" parent="Background/VBoxContainer/ButtonMargin" groups=["settings_navigable"]]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Back"
+
+[connection signal="pressed" from="Background/VBoxContainer/ButtonMargin/BackButton" to="." method="_on_back_button_pressed"]

@@ -1,32 +1,61 @@
-[gd_scene load_steps=6 format=3 uid="uid://br01dtr66kciu"]
+[gd_scene load_steps=13 format=3 uid="uid://br01dtr66kciu"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_pkplm"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_gt3p1"]
+[ext_resource type="Texture2D" uid="uid://dhc2a4psbls0o" path="res://spells/scenes/proj_burst/proj_burst.png" id="3_0hysr"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n623v"]
+resource_local_to_scene = true
+shader = ExtResource("2_gt3p1")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 
 [sub_resource type="Curve" id="Curve_v48oq"]
-_data = [Vector2(0, 7), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
-point_count = 2
+max_value = 25.0
+_data = [Vector2(0, 25), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_436of"]
 
 [sub_resource type="Curve" id="Curve_fjpuw"]
-_data = [Vector2(0, 0), 0.0, 1.712, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0.99999, 1), 0.0, 0.0, 0, 0]
+point_count = 1
 
 [sub_resource type="Curve" id="Curve_6x5nu"]
 _data = [Vector2(0.744275, 0.990046), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tu2u5"]
-radius = 50.0
+[sub_resource type="Curve" id="Curve_dmfs4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxpw6"]
+radius = 11.0
+height = 56.0
 
 [node name="proj_burst_explosion" instance=ExtResource("1_pkplm")]
+material = SubResource("ShaderMaterial_n623v")
+scale = Vector2(1.25, 1.25)
 speed_curve = SubResource("Curve_v48oq")
+sprite_rotation_falloff_curve = SubResource("Curve_436of")
 scale_falloff_curve = SubResource("Curve_fjpuw")
 transparency_falloff_curve = SubResource("Curve_6x5nu")
+area_enabled_curve = SubResource("Curve_dmfs4")
+destroy_on_contact = true
 
-[node name="Sprite2D" parent="." index="0"]
-scale = Vector2(0.394531, 0.40625)
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_0hysr")
 
-[node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource("CircleShape2D_tu2u5")
+[node name="CollisionShape2D" parent="." index="2"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_sxpw6")
 
-[node name="kill_timer" parent="." index="2"]
-wait_time = 0.75
+[node name="kill_timer" parent="." index="3"]
+wait_time = 0.4

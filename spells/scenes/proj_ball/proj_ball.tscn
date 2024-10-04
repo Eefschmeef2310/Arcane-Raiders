@@ -1,9 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4td8rjmyf2lq"]
+[gd_scene load_steps=7 format=3 uid="uid://c4td8rjmyf2lq"]
 
-[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_iaq8n"]
-[ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball.gd" id="2_0bmxd"]
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_4jqnj"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_nm32l"]
+[ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball.gd" id="2_qb32q"]
 
-[node name="ProjBall" instance=ExtResource("1_iaq8n")]
-script = ExtResource("2_0bmxd")
-base_damage = 20
+[sub_resource type="Gradient" id="Gradient_1mn2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nati4"]
+gradient = SubResource("Gradient_1mn2o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jwrim"]
+resource_local_to_scene = true
+shader = ExtResource("2_nm32l")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
+
+[node name="ProjBall" instance=ExtResource("1_4jqnj")]
+material = SubResource("ShaderMaterial_jwrim")
+script = ExtResource("2_qb32q")
+base_damage = 75
 infliction_time = 1.5
+play_sound_on_cast = false

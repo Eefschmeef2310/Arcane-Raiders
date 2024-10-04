@@ -1,0 +1,182 @@
+[gd_scene load_steps=23 format=3 uid="uid://b4dyl3ppwa1rc"]
+
+[ext_resource type="Texture2D" uid="uid://d0sdy2c2pi2hr" path="res://moving_entities/enemies/enemy_placeholder.png" id="1_nu363"]
+[ext_resource type="Script" path="res://moving_entities/enemies/enemy_entity.gd" id="1_vpuq0"]
+[ext_resource type="PackedScene" uid="uid://fpqy0jpm8ydv" path="res://moving_entities/health_bar.tscn" id="2_03lay"]
+[ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="3_rokae"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="3_y0btb"]
+[ext_resource type="PackedScene" uid="uid://cg32micych1fa" path="res://moving_entities/enemies/enemy_spells.tscn" id="4_bakas"]
+[ext_resource type="Script" path="res://moving_entities/status_particles.gd" id="4_g2jk5"]
+[ext_resource type="AudioStream" uid="uid://d135w05c1qwrr" path="res://sounds/effects/enemies/Cartoon Poof Sound Effect.wav" id="7_qxifu"]
+[ext_resource type="PackedScene" uid="uid://hljlvyqaxc2" path="res://moving_entities/enemies/States/state_machine.tscn" id="9_sqryx"]
+[ext_resource type="Texture2D" uid="uid://ttsqiyte3q3i" path="res://elements/icons/burn_icon.png" id="10_j1o0m"]
+[ext_resource type="Shader" path="res://shaders/self_colouring_outline.gdshader" id="10_pmcnq"]
+[ext_resource type="Texture2D" uid="uid://wv5jw8o5ednx" path="res://elements/icons/frost_icon.png" id="11_oqgek"]
+[ext_resource type="Texture2D" uid="uid://bgpdq58unaoti" path="res://elements/icons/shock_icon.png" id="12_g4b5c"]
+[ext_resource type="Texture2D" uid="uid://t13216wk8eap" path="res://elements/icons/wind_icon.png" id="13_yqo0f"]
+[ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="14_s763y"]
+[ext_resource type="Texture2D" uid="uid://baml53o2wog5l" path="res://elements/icons/stun_icon.png" id="15_gpqcv"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hcj8c"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:max_health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12rpn"]
+shader = ExtResource("10_pmcnq")
+shader_parameter/outline_width = 0.5
+shader_parameter/darken_amount = 0.5
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7sn17"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wujhe"]
+shader = ExtResource("10_pmcnq")
+shader_parameter/outline_width = 0.5
+shader_parameter/darken_amount = 0.5
+
+[node name="BaseEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_vpuq0")
+death_sound = ExtResource("7_qxifu")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.2
+texture = ExtResource("3_y0btb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("1_nu363")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -64)
+collision_layer = 8
+collision_mask = 16
+
+[node name="GroundHurtbox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundHurtbox"]
+debug_color = Color(0.701961, 0.027451, 0, 0.419608)
+
+[node name="ProgressBar" parent="." instance=ExtResource("2_03lay")]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = -39.0
+metadata/_edit_use_anchors_ = true
+
+[node name="StatusUI" parent="." instance=ExtResource("3_rokae")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemySpells" parent="." instance=ExtResource("4_bakas")]
+
+[node name="StateMachine" parent="." instance=ExtResource("9_sqryx")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+max_speed = 2000.0
+avoidance_priority = 0.1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hcj8c")
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[node name="StatusParticles" type="Node2D" parent="."]
+script = ExtResource("4_g2jk5")
+lifetime = 1.0
+width = 45.0
+
+[node name="BurnParticles" type="GPUParticles2D" parent="StatusParticles"]
+material = SubResource("ShaderMaterial_12rpn")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("10_j1o0m")
+local_coords = true
+
+[node name="FrostParticles" type="GPUParticles2D" parent="StatusParticles"]
+material = SubResource("ShaderMaterial_wujhe")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("11_oqgek")
+local_coords = true
+
+[node name="ShockParticles" type="GPUParticles2D" parent="StatusParticles"]
+material = SubResource("ShaderMaterial_wujhe")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("12_g4b5c")
+local_coords = true
+
+[node name="WindParticles" type="GPUParticles2D" parent="StatusParticles"]
+material = SubResource("ShaderMaterial_wujhe")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("13_yqo0f")
+local_coords = true
+
+[node name="WetParticles" type="GPUParticles2D" parent="StatusParticles"]
+material = SubResource("ShaderMaterial_wujhe")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("14_s763y")
+local_coords = true
+
+[node name="StunParticles" type="GPUParticles2D" parent="StatusParticles"]
+material = SubResource("ShaderMaterial_wujhe")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7sn17")
+texture = ExtResource("15_gpqcv")
+local_coords = true
+
+[node name="LassoLine" type="Line2D" parent="."]
+points = PackedVector2Array(-33, -6, 34, -6)
+default_color = Color(1, 1, 1, 0)
+
+[connection signal="zero_health" from="." to="." method="_on_zero_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="GroundHurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://cceu5pa434epk"]
+
+[ext_resource type="Script" path="res://moving_entities/player/player_notif.gd" id="1_2oxk6"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2npng"]
+[ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="3_2qlnw"]
+[ext_resource type="Shader" path="res://shaders/self_colouring_outline.gdshader" id="4_dbk5g"]
+[ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="5_ixnug"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ybd7"]
+resource_local_to_scene = true
+shader = ExtResource("2_2npng")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8orte"]
+shader = ExtResource("4_dbk5g")
+shader_parameter/outline_width = 0.5
+shader_parameter/darken_amount = 0.3
+
+[node name="PlayerNotif" type="Control" node_paths=PackedStringArray("spell_box", "spell_rect", "spell_label", "synergy_box", "element_pip", "synergy_label")]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -1080.0
+offset_right = -800.0
+offset_bottom = -1020.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_2oxk6")
+spell_box = NodePath("SpellBox")
+spell_rect = NodePath("SpellBox/TextureRect")
+spell_label = NodePath("SpellBox/Label")
+synergy_box = NodePath("SynergyBox")
+element_pip = NodePath("SynergyBox/TextureRect")
+synergy_label = NodePath("SynergyBox/Label")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Recharging! 5.5 sec"
+horizontal_alignment = 1
+
+[node name="SpellBox" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="SpellBox"]
+material = SubResource("ShaderMaterial_4ybd7")
+layout_mode = 2
+texture = ExtResource("3_2qlnw")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="SpellBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ready!"
+horizontal_alignment = 1
+
+[node name="SynergyBox" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="SynergyBox"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_8orte")
+layout_mode = 2
+texture = ExtResource("5_ixnug")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="SynergyBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ready!"
+horizontal_alignment = 1

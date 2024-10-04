@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bknbc75mbixrs"]
+
+[ext_resource type="Script" path="res://hats/scenes/snowball_hat.gd" id="1_202r6"]
+[ext_resource type="Texture2D" uid="uid://bsx13sd0vwllp" path="res://hats/sprites/cap.png" id="2_ml8js"]
+
+[node name="SnowballHat" type="Node" groups=["hat"]]
+script = ExtResource("1_202r6")
+sprite = ExtResource("2_ml8js")
+manager_key = &"snowball_hat"

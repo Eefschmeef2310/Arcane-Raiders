@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://st53ca8alpuc"]
+
+[ext_resource type="Script" path="res://spells/scenes/lasso/lasso.gd" id="1_g26yd"]
+[ext_resource type="Texture2D" uid="uid://cvxjk2rd6qi05" path="res://spells/scenes/lasso/lassoloop.png" id="2_p26ug"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_s1hdo"]
+[ext_resource type="Texture2D" uid="uid://cemt4b8oe530u" path="res://spells/scenes/lasso/lassobase.png" id="2_x1kio"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3k42y"]
+resource_local_to_scene = true
+shader = ExtResource("2_s1hdo")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="Curve2D" id="Curve2D_qemrv"]
+_data = {
+"points": PackedVector2Array(-175.25, 131.05, 0, 0, 0, 0, 0, 0, 48.0833, -137.179, 300, 0)
+}
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1v1lu"]
+resource_local_to_scene = true
+shader = ExtResource("2_s1hdo")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_prvw0"]
+radius = 56.0357
+
+[node name="Lasso" type="Node2D" node_paths=PackedStringArray("path_follow", "icon", "kill_timer", "line", "hurtbox")]
+y_sort_enabled = true
+script = ExtResource("1_g26yd")
+knockback = -10.0
+path_follow = NodePath("Path2D/PathFollow2D")
+icon = NodePath("Path2D/PathFollow2D/Icon")
+kill_timer = NodePath("KillTimer")
+line = NodePath("Line2D")
+hurtbox = NodePath("Path2D/PathFollow2D/Hurtbox")
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_3k42y")
+points = PackedVector2Array(0, 0, 0, 0)
+width = 30.0
+texture = ExtResource("2_x1kio")
+texture_mode = 1
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_qemrv")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[node name="Icon" type="Sprite2D" parent="Path2D/PathFollow2D"]
+material = SubResource("ShaderMaterial_1v1lu")
+position = Vector2(50, 0)
+texture = ExtResource("2_p26ug")
+
+[node name="Hurtbox" type="Area2D" parent="Path2D/PathFollow2D"]
+position = Vector2(50, 0)
+collision_layer = 16
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/PathFollow2D/Hurtbox"]
+shape = SubResource("CircleShape2D_prvw0")
+debug_color = Color(0.701961, 0.0431373, 0, 0.419608)
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="Path2D/PathFollow2D/Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Path2D/PathFollow2D/Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

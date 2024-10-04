@@ -1,0 +1,127 @@
+[gd_scene load_steps=4 format=3 uid="uid://dllvos5q8qik5"]
+
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="1_td1vj"]
+
+[sub_resource type="GDScript" id="GDScript_85fue"]
+resource_name = "quit_warning"
+script/source = "extends CanvasLayer
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+signal destroyed()
+
+#region Signal methods
+func _on_back_button_pressed():
+	destroyed.emit()
+	queue_free()
+
+func _on_quit_button_pressed():
+	get_tree().paused = false
+	GameManager.isPaused = false
+	AudioManager.play_track_instant(\"\")
+	
+	MultiplayerInput.set_ui_action_device(-2)
+
+	for device_id in Input.get_connected_joypads():
+		MultiplayerInput._create_actions_for_device(device_id)
+			
+	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
+	get_parent().queue_free()
+#endregion
+
+func set_text(string : String):
+	$MarginContainer/MarginContainer/VBoxContainer/Label2.text = string
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkfmb"]
+bg_color = Color(0.388235, 0.301961, 0.247059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65098, 0.54902, 0.423529, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="QuitWarning" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = SubResource("GDScript_85fue")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.207843, 0.207843, 0.207843, 0.603922)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -389.5
+offset_top = -110.5
+offset_right = 389.5
+offset_bottom = 110.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jkfmb")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 160
+text = "WARNING"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = -16
+theme_override_font_sizes/font_size = 58
+text = "By quitting, you will no longer be able to join this game.
+Are you sure you want to quit?"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = -16
+theme_override_font_sizes/font_size = 58
+text = " "
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Resume"
+script = ExtResource("1_td1vj")
+
+[node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

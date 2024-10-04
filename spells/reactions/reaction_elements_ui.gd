@@ -14,9 +14,10 @@ extends Control
 	#@export_subgroup("Subgroup")
 
 	#Onready Variables
-@onready var element_1 = $AnimationContainer/ReactionElementsUI/Element1
-@onready var plus_icon = $AnimationContainer/ReactionElementsUI/PlusIcon
-@onready var element_2 = $AnimationContainer/ReactionElementsUI/Element2
+@onready var element_1 = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/Element1
+@onready var plus_icon = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/PlusIcon
+@onready var element_2 = $AnimationContainer/Panel/VBoxContainer/ReactionElementsUI/Element2
+@onready var reaction_name = $AnimationContainer/Panel/VBoxContainer/ReactionName
 
 	#Other Variables (please try to separate and organise!)
 
@@ -30,5 +31,4 @@ extends Control
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
 #endregion

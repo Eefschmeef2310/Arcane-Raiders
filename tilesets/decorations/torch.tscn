@@ -1,0 +1,75 @@
+[gd_scene load_steps=17 format=3 uid="uid://bs50gcb1skgp4"]
+
+[ext_resource type="Shader" path="res://shaders/toon_fire.gdshader" id="1_tmson"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_gl3o8"]
+[ext_resource type="Script" path="res://tilesets/decorations/torch.gd" id="2_v84hn"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="3_5nbkh"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="3_llv6y"]
+[ext_resource type="Texture2D" uid="uid://ca301pyfbxaie" path="res://tilesets/decorations/torch.png" id="4_mgxeh"]
+[ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="6_t1jvc"]
+
+[sub_resource type="Gradient" id="Gradient_rnyub"]
+offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.317647, 0.00392157, 0.329412, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.964706, 0.772549, 0.584314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lxbe0"]
+gradient = SubResource("Gradient_rnyub")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_061cr"]
+shader = ExtResource("3_llv6y")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_lxbe0")
+
+[sub_resource type="Gradient" id="Gradient_mkddu"]
+offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
+gradient = SubResource("Gradient_mkddu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fl6p3"]
+shader = ExtResource("3_llv6y")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ttldr"]
+seed = 86
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ltec"]
+seamless = true
+noise = SubResource("FastNoiseLite_ttldr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hr8de"]
+resource_local_to_scene = true
+shader = ExtResource("1_tmson")
+shader_parameter/spread = 0.25
+shader_parameter/speed = 0.1
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 0.66
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
+
+[node name="Torch" type="Node2D"]
+z_index = 4
+material = SubResource("ShaderMaterial_061cr")
+script = ExtResource("2_v84hn")
+
+[node name="Torch" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_fl6p3")
+position = Vector2(31, -12)
+rotation = -0.0564448
+texture = ExtResource("4_mgxeh")
+script = ExtResource("6_t1jvc")
+
+[node name="Flame" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hr8de")
+position = Vector2(34, -45)
+texture = ExtResource("3_5nbkh")
+script = ExtResource("6_t1jvc")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(38, -27)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("2_gl3o8")

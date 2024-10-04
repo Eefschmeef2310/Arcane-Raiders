@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://20ej7fio4eqo"]
+
+[ext_resource type="PackedScene" uid="uid://c1m7ibet8h0u5" path="res://spells/scenes/spell_scene_base.tscn" id="1_nvmls"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_gfhkv"]
+[ext_resource type="PackedScene" uid="uid://b2taq0rorcwle" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large_explosion.tscn" id="3_bcvkx"]
+[ext_resource type="Texture2D" uid="uid://chll8mb4q2v0m" path="res://spells/sprites/spell_ring.png" id="4_bsb6q"]
+
+[sub_resource type="Gradient" id="Gradient_1mn2o"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nati4"]
+gradient = SubResource("Gradient_1mn2o")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwij4"]
+resource_local_to_scene = true
+shader = ExtResource("2_gfhkv")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_nati4")
+
+[sub_resource type="GDScript" id="GDScript_8f5a0"]
+resource_name = "wizard_aoe_large"
+script/source = "extends SpellBase
+#class_name
+#Authored by Xander. Please consult for any modifications or major feature requests.
+
+@export var EXPLOSION : PackedScene
+@onready var raycast = $RayCast2D
+
+var cast_distance: float = 250
+
+func _ready():
+	
+	# Set modulation
+	$Ring/Sprite2D.modulate = resource.element.colour
+	
+	# Setup raycast
+	global_position = caster.global_position
+	raycast.global_position = caster.global_position
+	raycast.target_position = raycast.position + (caster.aim_direction * cast_distance)
+	raycast.force_raycast_update()
+	
+	#Check for collision with wall
+	if raycast.is_colliding():
+		global_position = raycast.get_collision_point()
+	else:
+		global_position = caster.global_position + (caster.aim_direction * cast_distance)
+
+func _process(delta):
+	$Ring/Sprite2D.rotation += delta
+
+
+func _on_explosion_timer_timeout():
+	$Ring/Sprite2D.hide()
+	var explosion = EXPLOSION.instantiate()
+	transfer_data(explosion)
+	explosion.global_position = global_position
+	add_sibling(explosion)
+	queue_free()
+"
+
+[node name="WizardAoeLarge" instance=ExtResource("1_nvmls")]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_mwij4")
+script = SubResource("GDScript_8f5a0")
+EXPLOSION = ExtResource("3_bcvkx")
+base_damage = 250
+infliction_time = 5.0
+start_time = 0.05
+end_time = 0.0
+cancel_time = 0.0
+cooldown_time = 4.0
+play_sound_on_cast = false
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="0"]
+
+[node name="ExplosionTimer" type="Timer" parent="." index="1"]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="Ring" type="Node2D" parent="." index="2"]
+scale = Vector2(1, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ring" index="0"]
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("4_bsb6q")
+
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]

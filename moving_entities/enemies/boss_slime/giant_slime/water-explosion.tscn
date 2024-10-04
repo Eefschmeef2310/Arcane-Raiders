@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhyoh404jt1at"]
+
+[ext_resource type="Texture2D" uid="uid://bi7d3ove438fc" path="res://moving_entities/enemies/boss_slime/giant_slime/water-explosion-temp-export.png" id="1_l7ch1"]
+
+[sub_resource type="GDScript" id="GDScript_p40op"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	$\"Water-explosion-temp\".modulate = resource.element.colour
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, \"scale\", Vector2.ZERO, 1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN);
+	tween.tween_callback(self.queue_free)
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0j6b0"]
+radius = 117.273
+
+[node name="Water-explosion" type="Area2D"]
+position = Vector2(242, 178)
+collision_layer = 64
+collision_mask = 0
+script = SubResource("GDScript_p40op")
+
+[node name="Water-explosion-temp" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("1_l7ch1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -19)
+shape = SubResource("CircleShape2D_0j6b0")

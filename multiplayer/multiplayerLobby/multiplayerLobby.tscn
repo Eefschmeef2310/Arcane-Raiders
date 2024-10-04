@@ -1,45 +1,60 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8oqal4h1mv7a"]
+[gd_scene load_steps=29 format=3 uid="uid://c8oqal4h1mv7a"]
 
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/lobbyManager.gd" id="1_7ydb8"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="2_837od"]
 [ext_resource type="PackedScene" uid="uid://bg1xa4bpkhjf7" path="res://multiplayer/multiplayerLobby/player_card.tscn" id="2_bq112"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="2_cbho8"]
-[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_pgemf"]
+[ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="3_w5lpx"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="4_r1oq1"]
+[ext_resource type="Resource" uid="uid://nclgt66btvdo" path="res://multiplayer/multiplayerLobby/raiders/horse.tres" id="6_bfemw"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/loadoutRes.gd" id="6_mpv8m"]
+[ext_resource type="Resource" uid="uid://wunw15qbe5he" path="res://multiplayer/multiplayerLobby/raiders/lizard.tres" id="7_p8g7q"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="8_q78au"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="9_fkiis"]
+[ext_resource type="Resource" uid="uid://yrm45a54jqh1" path="res://multiplayer/multiplayerLobby/raiders/squid.tres" id="9_wr8px"]
+[ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="13_d4e5r"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="13_ngagv"]
+[ext_resource type="AudioStream" uid="uid://dris1xaodfrdm" path="res://sounds/effects/menus/arcade-countdown-beep.wav" id="15_cdr5a"]
 
-[sub_resource type="Resource" id="Resource_gs5db"]
+[sub_resource type="Resource" id="Resource_1emuh"]
 script = ExtResource("6_mpv8m")
-loadout_name = "Flame"
+loadout_name = "You can't see this!"
 loadout_desc = ""
-spell_ids = Array[String](["burn-proj_ball", "null-proj_spread", "null-aoe_large"])
+spell_ids = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large"])
 
-[sub_resource type="Resource" id="Resource_if0ax"]
-script = ExtResource("6_mpv8m")
-loadout_name = "Frost"
-loadout_desc = ""
-spell_ids = Array[String](["frost-aoe_local", "null-proj_ball", "null-proj_burst"])
+[sub_resource type="Gradient" id="Gradient_4lc54"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_tnrv2"]
-colors = PackedColorArray(0.679015, 1.16717e-06, 3.85046e-07, 1, 0.33331, 3.13452e-06, 1.70864e-06, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_m1bvv"]
-gradient = SubResource("Gradient_tnrv2")
-fill_from = Vector2(1, 1)
-
-[sub_resource type="Gradient" id="Gradient_c8thl"]
-colors = PackedColorArray(1, 0.28472, 0.959037, 1, 0.989239, 0, 0.277317, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mkxvn"]
-gradient = SubResource("Gradient_c8thl")
-fill_from = Vector2(1, 1)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rsc3f"]
+gradient = SubResource("Gradient_4lc54")
 
 [sub_resource type="LabelSettings" id="LabelSettings_dkcho"]
-font_size = 90
+font_size = 96
 font_color = Color(1, 0.921569, 0.929412, 1)
 
-[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox", "multiplayer_spawner", "debug_start_button", "ready_progress_bar", "lobby_title")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjlfo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvfcj"]
+bg_color = Color(0.541176, 0, 0, 0.588235)
+
+[sub_resource type="LabelSettings" id="LabelSettings_27h66"]
+font_size = 20
+font_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dykp4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqa2k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0g7hb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxupu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m4evt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0g7uk"]
+
+[node name="MultiplayerLobby" type="Control" node_paths=PackedStringArray("player_card_hbox", "multiplayer_spawner", "debug_start_button", "ready_progress_bar", "lobby_title", "custom_seed_entry")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,14 +66,16 @@ player_card_hbox = NodePath("Lobby/MarginContainer/PlayerCardBox")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 debug_start_button = NodePath("Lobby/StartButton")
 ready_progress_bar = NodePath("Lobby/ReadyProgress")
-lobby_title = NodePath("Lobby/ReadyProgress/Label")
-raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_cbho8"), ExtResource("3_pgemf"), ExtResource("4_r1oq1"), ExtResource("2_837od")])
-loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_gs5db"), SubResource("Resource_if0ax")])
-player_colors = Array[Color]([Color(0.737255, 0.231373, 0.192157, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.784314, 0.6, 0.101961, 1), Color(0.156863, 0.466667, 0.266667, 1), Color(0.686275, 0.00392157, 0.886275, 1), Color(0.972549, 0.443137, 0, 1), Color(0, 0.690196, 0.686275, 1)])
+lobby_title = NodePath("Lobby/Label")
+custom_seed_entry = NodePath("Lobby/VBoxContainer/CustomSeedEntry")
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("2_837od"), ExtResource("3_w5lpx"), ExtResource("2_cbho8"), ExtResource("4_r1oq1"), ExtResource("6_bfemw"), ExtResource("7_p8g7q"), ExtResource("8_q78au"), ExtResource("9_wr8px")])
+loadouts = Array[ExtResource("6_mpv8m")]([SubResource("Resource_1emuh")])
+player_colors = Array[Color]([Color(0.490196, 0.203922, 0.760784, 1), Color(0.780392, 0.756863, 0.101961, 1), Color(0.737255, 0.231373, 0.192157, 1), Color(0, 0.623529, 0.505882, 1), Color(0.211765, 0.521569, 0.180392, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.972549, 0.443137, 0, 1)])
 player_card_scene = ExtResource("2_bq112")
 castle_climb_scene = ExtResource("9_fkiis")
 
 [node name="Lobby" type="Control" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,14 +83,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="Lobby"]
+[node name="BackgroundArt" type="TextureRect" parent="Lobby"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+size_flags_horizontal = 4
+texture = ExtResource("13_d4e5r")
+
+[node name="ColorRect" type="ColorRect" parent="Lobby"]
+z_index = -990
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0745098, 0.101961, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Lobby"]
 layout_mode = 1
@@ -83,54 +112,126 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 200
+theme_override_constants/margin_top = 300
 theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_bottom = 0
 
 [node name="PlayerCardBox" type="HBoxContainer" parent="Lobby/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Label" type="Label" parent="Lobby/MarginContainer"]
+[node name="Label" type="RichTextLabel" parent="Lobby/MarginContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-theme_override_font_sizes/font_size = 71
-text = "Press Space or bottom action on controller to join"
-horizontal_alignment = 1
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("13_ngagv")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Press Space /[img width=92]res://ui/join_button.svg[/img] to join!"
+
+[node name="TopPanel" type="Panel" parent="Lobby"]
+layout_mode = 0
+offset_left = -94.0
+offset_top = -48.0
+offset_right = 2007.0
+offset_bottom = 192.0
 
 [node name="ReadyProgress" type="TextureProgressBar" parent="Lobby"]
-custom_minimum_size = Vector2(0, 125)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 125.0
+offset_top = 176.0
+offset_bottom = 192.0
 grow_horizontal = 2
 max_value = 1.0
 step = 0.0
-value = 1.0
 nine_patch_stretch = true
-texture_under = SubResource("GradientTexture2D_m1bvv")
-texture_progress = SubResource("GradientTexture2D_mkxvn")
+texture_progress = SubResource("GradientTexture1D_rsc3f")
 
-[node name="Label" type="Label" parent="Lobby/ReadyProgress"]
+[node name="Label" type="Label" parent="Lobby"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -509.0
 offset_right = 509.0
-offset_bottom = 125.0
+offset_bottom = 200.0
 grow_horizontal = 2
-text = "CHOOSE YOUR RAIDER!"
+text = "Prepare to raid!"
 label_settings = SubResource("LabelSettings_dkcho")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="Lobby"]
+clip_children = 2
+custom_minimum_size = Vector2(150, 100)
 layout_mode = 1
-offset_right = 45.0
-offset_bottom = 31.0
-theme_override_font_sizes/font_size = 85
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 182.0
+offset_bottom = 132.0
+theme_override_fonts/font = ExtResource("13_ngagv")
+theme_override_font_sizes/font_size = 48
 text = "Back"
+
+[node name="ProgressBar" type="ProgressBar" parent="Lobby/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_kjlfo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gvfcj")
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -82.0
+offset_right = 332.0
+offset_bottom = -32.0
+grow_vertical = 0
+
+[node name="CustomSeedEntry" type="LineEdit" parent="Lobby/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+placeholder_text = "Custom Seed"
+max_length = 50
+
+[node name="Label" type="Label" parent="Lobby/VBoxContainer/CustomSeedEntry"]
+visible = false
+layout_mode = 0
+offset_left = 14.0
+offset_top = -33.0
+offset_right = 286.0
+offset_bottom = -2.0
+text = "Custom seed in use!"
+label_settings = SubResource("LabelSettings_27h66")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lobby/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="JamesModeToggle" type="CheckBox" parent="Lobby/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dykp4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqa2k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0g7hb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pxupu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_m4evt")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0g7uk")
+
+[node name="Label" type="Label" parent="Lobby/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Master Mode"
 
 [node name="StartButton" type="Button" parent="Lobby"]
 visible = false
@@ -150,5 +251,12 @@ spawn_path = NodePath("../Lobby/MarginContainer/PlayerCardBox")
 _spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
 spawn_path = NodePath("..")
 
+[node name="CountdownPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_cdr5a")
+volume_db = -6.0
+bus = &"SFX"
+
 [connection signal="pressed" from="Lobby/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="text_changed" from="Lobby/VBoxContainer/CustomSeedEntry" to="." method="_on_custom_seed_entry_text_changed"]
+[connection signal="toggled" from="Lobby/VBoxContainer/HBoxContainer/JamesModeToggle" to="." method="_on_james_mode_toggle_toggled"]
 [connection signal="pressed" from="Lobby/StartButton" to="." method="_on_start_button_pressed"]

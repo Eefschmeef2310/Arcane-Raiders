@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbnhiry3st2hn"]
+
+[ext_resource type="Texture2D" uid="uid://b65cdnki3bs6s" path="res://tilesets/decorations/Black-Circle-Fade-Sphere-PNG-Image-HD.png" id="1_44n43"]
+
+[node name="Shadow" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.533333)
+z_index = -1
+position = Vector2(0, 10)
+scale = Vector2(0.3, 0.15)
+texture = ExtResource("1_44n43")

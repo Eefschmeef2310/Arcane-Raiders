@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsxedp4cmgmfm"]
+
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="1_nw14q"]
+
+[sub_resource type="Curve2D" id="Curve2D_7la1r"]
+_data = {
+"points": PackedVector2Array(-45, 0, 45, 0, 0, -50, 0, -30, 0, 30, 100, 0, 30, 0, -30, 0, 0, 50, 0, 30, 0, -30, -100, 0, -30, 0, 30, 0, 0, -50)
+}
+point_count = 5
+
+[node name="OrbitHat" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Path2D" type="Path2D" parent="."]
+y_sort_enabled = true
+curve = SubResource("Curve2D_7la1r")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+y_sort_enabled = true
+position = Vector2(0, -50)
+rotates = false
+
+[node name="Icon" type="Sprite2D" parent="Path2D/PathFollow2D"]
+y_sort_enabled = true
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_nw14q")

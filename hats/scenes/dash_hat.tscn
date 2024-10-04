@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkfe4nhafht7p"]
+
+[ext_resource type="Script" path="res://hats/scenes/dash_hat.gd" id="1_4y5xj"]
+
+[node name="DashHat" type="Node" node_paths=PackedStringArray("dash_window")]
+script = ExtResource("1_4y5xj")
+dash_window = NodePath("SecondaryDashWindow")
+
+[node name="SecondaryDashWindow" type="Timer" parent="."]
+wait_time = 0.1

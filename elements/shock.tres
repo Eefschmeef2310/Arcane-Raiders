@@ -1,10 +1,30 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=3 format=3 uid="uid://mreb46qhdtv2"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=8 format=3 uid="uid://mreb46qhdtv2"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_btad0"]
 [ext_resource type="Texture2D" uid="uid://bgpdq58unaoti" path="res://elements/icons/shock_icon.png" id="1_qyye0"]
+[ext_resource type="AudioStream" uid="uid://ww0xg3tqwnkt" path="res://sounds/effects/elements/simple_zaps_pixabay.wav" id="3_pq46s"]
+
+[sub_resource type="Gradient" id="Gradient_5vx4d"]
+offsets = PackedFloat32Array(0, 0.277937, 0.618911, 0.833811, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.76, 0.383167, 0.114, 1, 1, 0.916667, 0, 1, 0.983333, 1, 0.75, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sndj2"]
+gradient = SubResource("Gradient_5vx4d")
+
+[sub_resource type="Gradient" id="Gradient_bxa5n"]
+offsets = PackedFloat32Array(0, 0.277937, 0.618911, 0.833811, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.983333, 1, 0.75, 1, 0.76, 0.383167, 0.114, 1, 1, 0.916667, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xk82l"]
+gradient = SubResource("Gradient_bxa5n")
 
 [resource]
 script = ExtResource("1_btad0")
-colour = Color(0.913725, 0.866667, 0, 1)
+prefix = "Shock-"
+descrption_bb = "[img]res://elements/icons/shock_icon.png[/img] Chains damage to other enemies"
+colour = Color(1, 0.94902, 0, 1)
+gradient = SubResource("GradientTexture1D_sndj2")
+gradient_inverse = SubResource("GradientTexture1D_xk82l")
 pip_texture = ExtResource("1_qyye0")
 max_infliction_time = 5.0
+sound = ExtResource("3_pq46s")

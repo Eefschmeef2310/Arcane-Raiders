@@ -1,0 +1,154 @@
+[gd_scene load_steps=12 format=3 uid="uid://cm218iwxtixwi"]
+
+[ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_5mcgt"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_wli2u"]
+[ext_resource type="Texture2D" uid="uid://bxn057pa4pb24" path="res://spells/scenes/proj_spread/proj_spread.png" id="3_ok7n4"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p2ju2"]
+resource_local_to_scene = true
+shader = ExtResource("2_wli2u")
+shader_parameter/final_saturation = 0.7
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="GDScript" id="GDScript_k7rw0"]
+resource_name = "wizard_spread_explosion"
+script/source = "extends SpellBase
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var match_tilemap_angle : bool = false
+@export var speed_curve : Curve
+@export var sprite_rotation_falloff_curve : Curve
+@export var scale_falloff_curve : Curve
+@export var transparency_falloff_curve: Curve
+@export var area_enabled_curve : Curve
+@export var knockback : float = 1
+@export var destroy_on_contact : bool = false
+
+	#Onready Variables
+@onready var kill_timer = $kill_timer
+@onready var sprite_2d = $Sprite2D
+@onready var point_light_2d = $PointLight2D
+@onready var collision_shape_2d = $CollisionShape2D
+
+	#Other Variables (please try to separate and organise!)
+var starting_scale : Vector2
+
+var lifetime_progress : float
+
+var play_element_sound : bool = false
+
+#endregion
+
+#region Godot methods
+func _ready():
+	if resource:
+		if resource.element.gradient:
+			(material as ShaderMaterial).set_shader_parameter(\"gradient\", resource.element.gradient_inverse)
+		else:
+			modulate = resource.element.colour
+		point_light_2d.color = resource.element.colour
+		if play_element_sound and resource.element.sound:
+			AudioManager.play_audio2D_at_point(global_position, resource.element.sound)
+	#sprite_2d.rotation_degrees = randf_range(0, 360)
+	starting_scale = scale
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
+
+func _physics_process(_delta):
+	lifetime_progress = (kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time
+	
+	position += Vector2(cos(rotation), sin(rotation)/(2 if match_tilemap_angle else 1)) * \\
+		((speed_curve.sample(lifetime_progress) if speed_curve else 0.0))
+	scale = starting_scale * (scale_falloff_curve.sample((kill_timer.wait_time - kill_timer.time_left)/kill_timer.wait_time) if scale_falloff_curve else 1.0)
+	point_light_2d.texture_scale = scale.x * 1.5
+	sprite_2d.rotation_degrees += sprite_rotation_falloff_curve.sample(lifetime_progress) if sprite_rotation_falloff_curve else 1.0
+	
+	(material as ShaderMaterial).set_shader_parameter(\"alpha\", transparency_falloff_curve.sample(lifetime_progress) if transparency_falloff_curve else 1.)
+	
+	#1.0 - so you can set the curve to 0 for disabled and 1 for enabled
+	collision_shape_2d.disabled = 1.0 - area_enabled_curve.sample(lifetime_progress) if area_enabled_curve else 0.0
+
+#endregion
+
+#region Signal methods
+func _on_body_entered(body):
+	if body != caster and \"on_hurt\" in body:
+		body.on_hurt(self)
+		if destroy_on_contact:
+			queue_free()
+
+func _on_area_entered(area):
+	if area != caster and \"on_hurt\" in area:
+		area.on_hurt(self)
+		if destroy_on_contact:
+			queue_free()
+
+func _on_kill_timer_timeout():
+	queue_free()
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[sub_resource type="Curve" id="Curve_wguow"]
+max_value = 10.0
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(0.754098, 10), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_f0omi"]
+_data = [Vector2(0, 0), 0.0, 13.5163, 0, 0, Vector2(0.160305, 1), 0.0, 0.0, 0, 0, Vector2(0.896175, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.493433), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_mw6el"]
+_data = [Vector2(0.751908, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_53ry8"]
+_data = [Vector2(0.755725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="WizardProjSpread" instance=ExtResource("1_5mcgt")]
+material = SubResource("ShaderMaterial_p2ju2")
+scale = Vector2(1.1, 1.1)
+collision_layer = 64
+collision_mask = 5
+script = SubResource("GDScript_k7rw0")
+speed_curve = SubResource("Curve_wguow")
+scale_falloff_curve = SubResource("Curve_f0omi")
+transparency_falloff_curve = SubResource("Curve_mw6el")
+area_enabled_curve = SubResource("Curve_53ry8")
+knockback = 5.0
+destroy_on_contact = true
+base_damage = 50
+infliction_time = 1.0
+start_time = 0.2
+end_time = 0.5
+cancel_time = 0.3
+cooldown_time = 3.0
+combined_spell_index = -1
+play_sound_on_cast = false
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("3_ok7n4")
+
+[node name="kill_timer" parent="." index="3"]
+wait_time = 0.3

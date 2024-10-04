@@ -1,7 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2sydwom5yb2y"]
+[gd_scene load_steps=21 format=3 uid="uid://c2sydwom5yb2y"]
 
 [ext_resource type="Script" path="res://spells/pickups/spell_pickup.gd" id="1_ey1r6"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="3_0hw4k"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="3_iw5eo"]
+[ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="3_pmcv8"]
 [ext_resource type="Texture2D" uid="uid://cmd2gcq1wvrjl" path="res://spells/sprites/icons/aoe_large.png" id="3_y5wrp"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_835q6"]
+[ext_resource type="Texture2D" uid="uid://bl812jtw0j6dq" path="res://spells/sprites/icons/proj_spread.png" id="4_ivpgi"]
+
+[sub_resource type="Gradient" id="Gradient_2tv42"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2nbqu"]
+gradient = SubResource("Gradient_2tv42")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ll5gu"]
+resource_local_to_scene = true
+shader = ExtResource("3_iw5eo")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_2nbqu")
+
+[sub_resource type="Gradient" id="Gradient_4mwvq"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vg1ry"]
+gradient = SubResource("Gradient_4mwvq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk36j"]
+resource_local_to_scene = true
+shader = ExtResource("3_iw5eo")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_vg1ry")
+
+[sub_resource type="Gradient" id="Gradient_jwqlp"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hjnji"]
+gradient = SubResource("Gradient_jwqlp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4cue"]
+resource_local_to_scene = true
+shader = ExtResource("3_iw5eo")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_hjnji")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wsr7e"]
 properties/0/path = NodePath(".:position")
@@ -10,6 +51,20 @@ properties/0/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dj34"]
 radius = 100.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_negf4"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.298039, 0.298039, 0.298039, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_30e0m"]
+polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 
 [node name="SpellPickup" type="Node2D" groups=["spell_pickup"]]
 script = ExtResource("1_ey1r6")
@@ -20,22 +75,145 @@ position = Vector2(0, -35.2)
 scale = Vector2(1.08, 1.08)
 texture = ExtResource("3_y5wrp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -35.2)
-texture = ExtResource("3_y5wrp")
+[node name="Shadow" parent="." instance=ExtResource("3_pmcv8")]
+scale = Vector2(0.25, 0.125)
+
+[node name="Icon" type="Node2D" parent="."]
+position = Vector2(0, -35)
+
+[node name="SpriteSingle" type="Sprite2D" parent="Icon"]
+material = SubResource("ShaderMaterial_ll5gu")
+texture = ExtResource("4_ivpgi")
+
+[node name="Sprite1" type="Sprite2D" parent="Icon"]
+material = SubResource("ShaderMaterial_yk36j")
+position = Vector2(16, -17)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_ivpgi")
+
+[node name="Sprite0" type="Sprite2D" parent="Icon"]
+material = SubResource("ShaderMaterial_k4cue")
+position = Vector2(-16, 16)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_ivpgi")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wsr7e")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 position = Vector2(0, -38.2)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 38.2)
+scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_7dj34")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(600, 148)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -246.0
+offset_right = 300.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="InfoBox" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="HBoxContainer/InfoBox"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_30e0m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoBox"]
+custom_minimum_size = Vector2(232, 132)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/line_spacing = -12
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 30
+text = "Pyro-Laser"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox/VBoxContainer"]
+custom_minimum_size = Vector2(10, 55)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_835q6")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[center][font_size=18]Cast these two spells
+at the same time!
+[/font_size]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Name2" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InfoBox1" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="HBoxContainer/InfoBox1"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_30e0m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoBox1"]
+custom_minimum_size = Vector2(232, 132)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer/InfoBox1/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/line_spacing = -12
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 30
+text = "Pyro-Laser"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox1/VBoxContainer"]
+custom_minimum_size = Vector2(10, 55)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_835q6")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[center][font_size=18]Cast these two spells
+at the same time!
+[/font_size]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Name2" type="Label" parent="HBoxContainer/InfoBox1/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_0hw4k")
+theme_override_font_sizes/font_size = 2
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

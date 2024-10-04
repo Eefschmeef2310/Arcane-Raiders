@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvdcq1e7topub"]
+
+[ext_resource type="Script" path="res://spells/scenes/lasso/lasso_hit.gd" id="1_sebwu"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="3_31hha"]
+[ext_resource type="Texture2D" uid="uid://cemt4b8oe530u" path="res://spells/scenes/lasso/lassobase.png" id="3_xydi0"]
+
+[sub_resource type="Gradient" id="Gradient_f7grb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ejo71"]
+gradient = SubResource("Gradient_f7grb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdyge"]
+resource_local_to_scene = true
+shader = ExtResource("3_31hha")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1avm"]
+resource_local_to_scene = true
+shader = ExtResource("3_31hha")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
+
+[node name="LassoHit" type="Node2D" node_paths=PackedStringArray("line", "wrap")]
+script = ExtResource("1_sebwu")
+line = NodePath("LassoRope")
+wrap = NodePath("LassoWrap")
+
+[node name="LassoWrap" type="Line2D" parent="."]
+z_index = 3
+texture_repeat = 2
+material = SubResource("ShaderMaterial_sdyge")
+points = PackedVector2Array(0, 0, 149, -74)
+width = 20.0
+texture = ExtResource("3_xydi0")
+texture_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LassoRope" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_r1avm")
+points = PackedVector2Array(100, 0, 0, 0)
+texture = ExtResource("3_xydi0")
+texture_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

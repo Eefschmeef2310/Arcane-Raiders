@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnabcmd0hxe6s"]
+
+[ext_resource type="Script" path="res://tilesets/decorations/disco_floor/disco_tile.gd" id="1_2n726"]
+
+[sub_resource type="Gradient" id="Gradient_320we"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.143, 0.286, 0.428, 0.571, 0.714, 0.857)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.593245, 0, 1, 1, 0.954413, 0, 1, 0.147071, 1, 0, 1, 0, 0.0723271, 1, 1, 0.542603, 0, 1, 1, 1, 0, 0.821623, 1)
+
+[node name="DiscoTile" type="Polygon2D"]
+color = Color(1, 0.593245, 0, 1)
+polygon = PackedVector2Array(-80, 0, 0, -40, 80, 0, 0, 40)
+script = ExtResource("1_2n726")
+colors = SubResource("Gradient_320we")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-80, 0, 0, -40, 80, 0, 0, 40)
+closed = true
+width = 2.0
+default_color = Color(0, 0, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

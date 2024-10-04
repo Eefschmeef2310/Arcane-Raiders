@@ -4,44 +4,46 @@ class_name DynamicCamera
 
 #region Variables
 	#Exported Variables
-@export var move_speed := 30.
-@export var zoom_speed := 10.
 @export var min_zoom := 2.
 @export var max_zoom := 1.
 @export var margin := Vector2(400,400) #Safe zone around players
+@export var targets: Array[Node] = []
 
 	#Onready Variables
 @onready var screen_size = get_viewport_rect().size
-var targets: Array[Node] = []
 #endregion
 
 #region Godot methods
-func _ready():
-	#dynamic_camera(-1)
-	pass
-
-func _process(delta):
-	dynamic_camera(delta)
+func _process(_delta):
+	dynamic_camera(_delta)
 #endregion
-
 
 #region Other methods (please try to separate and organise!)
 
-func dynamic_camera(delta):
-	if !targets:
+func dynamic_camera(_delta):
+	if !targets or targets.size() == 0:
 		return
 
 	# Keep the camera centered among all targets
 	var p = Vector2.ZERO
-	for target in targets:
-		p += target.position
+	for index in targets.size():
+		var target = targets[index]
+		if is_instance_valid(target):
+			p += target.position
+		else:
+			targets.remove_at(index)
+			break
+		index += 1
+	
+	if targets.size() <= 0: return
 	p /= targets.size()
-	position = lerp(position, p, move_speed * delta)
+	position = p
 
 	# Find the zoom that will contain all targets
-	var r = Rect2(position, Vector2.ONE)
+	var r : Rect2 = Rect2(position, Vector2.ONE)
 	for target in targets:
-		r = r.expand(target.position)
+		if is_instance_valid(target):
+			r = r.expand(target.position)
 	r = r.grow_individual(margin.x, margin.y, margin.x, margin.y)
 	
 	var z
@@ -49,7 +51,8 @@ func dynamic_camera(delta):
 		z = 1 / clamp(r.size.x / screen_size.x, max_zoom, min_zoom)
 	else:
 		z = 1 / clamp(r.size.y / screen_size.y, max_zoom, min_zoom)
-	zoom = lerp(zoom, Vector2.ONE * z, zoom_speed * delta)
+		
+	zoom = Vector2.ONE * z
 	
 	#get_parent().draw_cam_rect(r)
 

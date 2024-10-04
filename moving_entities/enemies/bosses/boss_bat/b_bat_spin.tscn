@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://ts6qycimtc85"]
+
+[sub_resource type="GDScript" id="GDScript_l47ja"]
+resource_name = "b_bat_spin_attack"
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+const B_BAT_PROJ = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_proj.tscn\")
+
+@export var bullets_per_second: float = 10
+@export var spell_duration: float = 4
+var current_fire_angle: float = 0
+var fire_angle_change_rate: float = 82
+var fire_angle_change_rate_change_rate: float = 0
+
+var timer: float = 0
+#endregion
+
+#region Godot methods
+func _ready():
+	if caster: global_position = caster.global_position
+
+func _physics_process(delta):
+	if !is_instance_valid(caster):
+		queue_free()
+		return
+	if caster: global_position = caster.global_position
+	timer -= delta
+	spell_duration -= delta
+	if spell_duration < 0: queue_free()
+	elif timer <= 0: fire()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func fire():
+	timer = 1/bullets_per_second
+	current_fire_angle += fire_angle_change_rate
+	fire_angle_change_rate += fire_angle_change_rate_change_rate
+	var bullet = B_BAT_PROJ.instantiate()
+	bullet.set_direction(Vector2.RIGHT.rotated(deg_to_rad(current_fire_angle)))
+	bullet.global_position = global_position
+	add_sibling(bullet)
+#endregion
+
+"
+
+[node name="BBatSpin" type="Node2D"]
+position = Vector2(290, 169)
+script = SubResource("GDScript_l47ja")
+bullets_per_second = 25.0
+spell_duration = 6.0

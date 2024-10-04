@@ -1,4 +1,5 @@
 extends SpellBase
+class_name ProjSpread
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -10,7 +11,7 @@ extends SpellBase
 
 	#Exported Variables
 	#@export_group("Group")
-	#@export_subgroup("Subgroup")s
+	#@export_subgroup("Subgroup")
 @export var EXPLOSION = preload("res://spells/scenes/proj_burst/proj_burst_explosion.tscn")
 @export var waves : int = 10
 @export var explosions_per_wave : int = 5
@@ -33,8 +34,7 @@ func _ready():
 
 func _process(_delta):
 	#if caster : global_position = caster.global_position
-	global_position = caster.global_position + (caster.aim_direction * distance_from_caster)
-	pass
+	global_position = caster.global_position + (caster.aim_direction * distance_from_caster) + Vector2(0,-16)
 
 #region Signal methods
 func _on_wave_timer_timeout():

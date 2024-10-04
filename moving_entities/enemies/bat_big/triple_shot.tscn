@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cshbksmdkf5f6"]
+
+[ext_resource type="Script" path="res://moving_entities/enemies/attack_scripts/e_proj_cone.gd" id="1_oqjjx"]
+[ext_resource type="PackedScene" uid="uid://dneaed1rm6xx2" path="res://moving_entities/enemies/bat_small/bat_attack.tscn" id="1_qw0wc"]
+
+[node name="TripleShot" type="Node2D"]
+position = Vector2(289, 228)
+script = ExtResource("1_oqjjx")
+bullet_scene = ExtResource("1_qw0wc")
+cone_range_deg = 75.0
+end_time = 2.0
+cooldown_time = 6.0

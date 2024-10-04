@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://drlxxgykev2g2"]
+
+[ext_resource type="PackedScene" uid="uid://d2it0xiap3gnt" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble_layer.tscn" id="1_me8x1"]
+[ext_resource type="Script" path="res://debug/bubble_test.gd" id="1_shkcf"]
+[ext_resource type="PackedScene" uid="uid://dlx7jcvm52tyw" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble.tscn" id="2_ipbjq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5x60y"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="BubbleTest" type="CanvasLayer" node_paths=PackedStringArray("bubble")]
+script = ExtResource("1_shkcf")
+bubble = NodePath("TextBubbleLayer/TextBubble")
+
+[node name="TextBubbleLayer" parent="." instance=ExtResource("1_me8x1")]
+
+[node name="TextBubble" parent="TextBubbleLayer" instance=ExtResource("2_ipbjq")]
+
+[node name="DialogText" parent="TextBubbleLayer/TextBubble" index="1"]
+start_hidden = false
+
+[node name="NameLabel" parent="TextBubbleLayer/TextBubble/DialogText/NameLabelPositioner/NameLabelPanel" index="0"]
+text = "test"
+label_settings = SubResource("LabelSettings_5x60y")
+
+[editable path="TextBubbleLayer/TextBubble"]

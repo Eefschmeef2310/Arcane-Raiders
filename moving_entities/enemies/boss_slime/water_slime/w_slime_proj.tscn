@@ -1,0 +1,87 @@
+[gd_scene load_steps=4 format=3 uid="uid://chlb2qldo07sj"]
+
+[ext_resource type="Texture2D" uid="uid://p03r8k20wtlm" path="res://moving_entities/enemies/boss_slime/giant_slime/large_bullet-export.png" id="1_dctk1"]
+
+[sub_resource type="GDScript" id="GDScript_0bil4"]
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+const WATER_EXPLOSION = preload(\"res://moving_entities/enemies/boss_slime/giant_slime/water-explosion.tscn\")
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var projectile_speed: float = 500
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+var direction: Vector2 = Vector2.RIGHT
+#endregion
+
+#region Godot methods
+func _ready():
+	$Sprite2D.modulate = resource.element.colour
+	if caster: 
+		global_position = caster.global_position
+		direction = caster.aim_direction if direction == Vector2.RIGHT else direction 
+		#I ain't updatin enemy enity for one thing, so if called by burst attack, will set the direction before hand, otherwise get the entity's target direction
+	look_at(global_position + direction)
+
+func _process(delta):
+	position += direction * projectile_speed * delta
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+func set_direction(new_direction: Vector2):
+	self.direction = new_direction
+
+func _on_body_entered(_body):
+	create_explosion()
+
+func create_explosion():
+	var explosion = WATER_EXPLOSION.instantiate()
+	explosion.global_position = global_position
+	transfer_data(explosion)
+	call_deferred(\"add_sibling\", explosion)
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tyulw"]
+radius = 32.0
+
+[node name="WSlimeProj" type="Area2D"]
+position = Vector2(75, 81)
+collision_layer = 128
+collision_mask = 5
+script = SubResource("GDScript_0bil4")
+projectile_speed = 400.0
+base_damage = 75
+infliction_time = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_dctk1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tyulw")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="KillTimer" to="." method="create_explosion"]

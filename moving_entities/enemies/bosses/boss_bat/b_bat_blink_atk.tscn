@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4kxt0qwproh3"]
+
+[sub_resource type="GDScript" id="GDScript_rnbds"]
+resource_name = "blink_attack"
+script/source = "extends SpellBase
+#class_name
+const B_BAT_DASH_ATTACK = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_dash_attack.tscn\")
+@onready var ray_cast_2d = $RayCast2D
+
+#region Godot methods
+func _ready():
+	#Will be deleted soon since its now irrelevant
+	check_caster()
+	global_position = caster.global_position
+	caster.hide()
+	
+	#TODO Play some sfx/particle effect
+	await get_tree().create_timer(1).timeout
+	if check_caster(): return
+	caster.visible = true
+	caster.global_position = caster.dash_prep_pos
+	await get_tree().create_timer(1).timeout
+	
+	if check_caster(): return
+	#TODO Play some sfx/particle effect
+	
+	ray_cast_2d.target_position = caster.aim_direction * 9999
+	ray_cast_2d.force_raycast_update()
+	caster.target_area = ray_cast_2d.get_collision_point()
+	var attack = B_BAT_DASH_ATTACK.instantiate()
+	attack.global_position = global_position
+	transfer_data(attack)
+	add_sibling(attack)
+	queue_free()
+	
+func check_caster() -> bool:
+	if !is_instance_valid(caster): 
+		queue_free()
+		return true
+	return false
+#endregion
+"
+
+[node name="BBatBlinkAtk" type="Node2D"]
+script = SubResource("GDScript_rnbds")
+base_damage = 100
+end_time = 5.0
+cooldown_time = 0.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false

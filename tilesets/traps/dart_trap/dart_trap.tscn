@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1xslj4koa4ta"]
+
+[ext_resource type="Script" path="res://tilesets/traps/dart_trap/dart_trap.gd" id="1_s720t"]
+[ext_resource type="Texture2D" uid="uid://jtppbmbwenny" path="res://tilesets/traps/dart_trap/dart_trap.png" id="2_4sqar"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_ie5cd"]
+[ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="4_jw6vq"]
+[ext_resource type="AudioStream" uid="uid://be4avp2sx0gs4" path="res://sounds/effects/traps/dart_trap.wav" id="5_jcuwo"]
+
+[sub_resource type="Gradient" id="Gradient_mkddu"]
+offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
+gradient = SubResource("Gradient_mkddu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w171k"]
+shader = ExtResource("2_ie5cd")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[node name="DartTrap" type="Node2D"]
+z_index = 4
+y_sort_enabled = true
+script = ExtResource("1_s720t")
+dart_fire_rotation = 26.5
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_w171k")
+texture = ExtResource("2_4sqar")
+script = ExtResource("4_jw6vq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_jcuwo")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

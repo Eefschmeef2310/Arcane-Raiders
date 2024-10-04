@@ -1,17 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://ngf5irvgldhp"]
+[gd_scene load_steps=5 format=3 uid="uid://ngf5irvgldhp"]
 
 [ext_resource type="Script" path="res://multiplayer/serverBrowser/serverBrowser.gd" id="1_ih681"]
 [ext_resource type="PackedScene" uid="uid://brmt3xwasqlgc" path="res://menus/main_menu.tscn" id="2_gq6d0"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="3_ixota"]
 
-[node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel")]
+[sub_resource type="LabelSettings" id="LabelSettings_u0dj5"]
+font_size = 24
+
+[node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel", "template_button")]
+process_mode = 3
 script = ExtResource("1_ih681")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
 server_browser = NodePath("ServerBrowser")
-lobbies_vbox = NodePath("ServerBrowser/Margin/LobbyContainer/Lobbies")
-server_count_text = NodePath("ServerBrowser/Margin/VBoxContainer2/ServerDebugText")
+lobbies_vbox = NodePath("ServerBrowser/HBoxContainer/MarginContainer2/LobbyContainer/Lobbies")
+server_count_text = NodePath("ServerBrowser/HBoxContainer/MarginContainer/Buttons/ServerDebugText")
 loading_text = NodePath("LoadingPanel/LoadingText")
 loading_panel = NodePath("LoadingPanel")
+template_button = NodePath("ServerButton")
 disconnect_scene = ExtResource("2_gq6d0")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = -1000
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0745098, 0.101961, 1)
+
+[node name="ServerButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 60)
+offset_right = 1284.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 32
+
+[node name="MarginContainer" type="MarginContainer" parent="ServerButton"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -18.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ServerButton/MarginContainer"]
+layout_mode = 2
+
+[node name="ServerName" type="Label" parent="ServerButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cookie's Lobby"
+label_settings = SubResource("LabelSettings_u0dj5")
+
+[node name="ServerFill" type="Label" parent="ServerButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "1/4 Players"
+label_settings = SubResource("LabelSettings_u0dj5")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
@@ -24,7 +74,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Margin" type="HSplitContainer" parent="ServerBrowser"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ServerBrowser"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,40 +82,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ServerBrowser/Margin"]
+[node name="MarginContainer" type="MarginContainer" parent="ServerBrowser/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 16
+
+[node name="Buttons" type="VBoxContainer" parent="ServerBrowser/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_neighbor_right = NodePath("../../MarginContainer2/LobbyContainer/Lobbies")
+theme_override_constants/separation = 8
 
-[node name="Host" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
+[node name="Host" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Host"
+script = ExtResource("3_ixota")
 
-[node name="Local" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
+[node name="Local" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Local"
 
-[node name="Refresh" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
+[node name="Refresh" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Refresh"
 
-[node name="Back" type="Button" parent="ServerBrowser/Margin/VBoxContainer2"]
+[node name="Back" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Back"
 
-[node name="ServerDebugText" type="Label" parent="ServerBrowser/Margin/VBoxContainer2"]
+[node name="ServerDebugText" type="Label" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
-text = "1/100 Servers Shown"
+theme_override_font_sizes/font_size = 24
+text = "Loading servers..."
+horizontal_alignment = 1
 
-[node name="LobbyContainer" type="ScrollContainer" parent="ServerBrowser/Margin"]
+[node name="MarginContainer2" type="MarginContainer" parent="ServerBrowser/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 16
+
+[node name="LobbyContainer" type="ScrollContainer" parent="ServerBrowser/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Lobbies" type="VBoxContainer" parent="ServerBrowser/Margin/LobbyContainer"]
+[node name="Lobbies" type="VBoxContainer" parent="ServerBrowser/HBoxContainer/MarginContainer2/LobbyContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+focus_neighbor_left = NodePath("../../../MarginContainer/Buttons/Host")
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="LoadingPanel" type="VBoxContainer" parent="."]
@@ -84,22 +161,27 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 mouse_filter = 2
+theme_override_constants/separation = 16
 
 [node name="LoadingText" type="Label" parent="LoadingPanel"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+theme_override_constants/line_spacing = -8
+theme_override_font_sizes/font_size = 32
 text = "Loading into lobby:
 Clevertop"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="DisconnectButton" type="Button" parent="LoadingPanel"]
+process_mode = 3
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Disconnect"
 
-[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Local" to="." method="_on_local_pressed"]
-[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Refresh" to="." method="_on_refresh_pressed"]
-[connection signal="pressed" from="ServerBrowser/Margin/VBoxContainer2/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Local" to="." method="_on_local_pressed"]
+[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Refresh" to="." method="_on_refresh_pressed"]
+[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="LoadingPanel/DisconnectButton" to="." method="_on_disconnect_button_pressed"]

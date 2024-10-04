@@ -1,0 +1,168 @@
+[gd_scene load_steps=17 format=3 uid="uid://3lsjnqa75f7t"]
+
+[ext_resource type="PackedScene" uid="uid://dq2k1imf86dh4" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_explosion.tscn" id="1_p1jfn"]
+[ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="3_ki7or"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_tifbd"]
+[ext_resource type="Texture2D" uid="uid://cmedkofd4l4gm" path="res://spells/scenes/proj_ball/proj_ball_sheet.png" id="5_li5y5"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="6_c2vqq"]
+
+[sub_resource type="GDScript" id="GDScript_ii77o"]
+resource_name = "wizard_proj_ball"
+script/source = "extends SpellBase
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+
+	#Exported Variables
+@export var move_speed : float = 1000
+
+	#Onready Variables
+@export var explosion_scene : PackedScene
+
+var direction : Vector2
+
+var play_element_sound : bool = false
+
+#endregion
+
+#region Godot methods
+func _ready():
+	direction = caster.aim_direction
+	global_position = caster.global_position + (direction * 40)
+	look_at(global_position + direction)
+	
+	if resource.element.gradient:
+		($AnimatedSprite2D.material as ShaderMaterial).set_shader_parameter(\"gradient\", resource.element.gradient_inverse)
+	else:
+		modulate = resource.element.colour
+	$PointLight2D.color = resource.element.colour
+	
+	$AnimatedSprite2D.play(\"default\")
+
+func _process(delta):
+	position += direction * move_speed * delta
+#endregion
+
+#region Signal methods
+func _on_hitbox_body_entered(_body):
+	if(_body.owner != caster):
+		create_explosion()
+
+func _on_explosion_timer_timeout():
+	create_explosion()
+#endregion
+
+#region Other methods
+func create_explosion():
+	var explosion = explosion_scene.instantiate()
+	
+	explosion.base_damage = base_damage
+	explosion.resource = resource
+	explosion.caster = caster
+	explosion.position = position
+	explosion.infliction_time = infliction_time
+	explosion.visible = true
+	explosion.play_element_sound = play_element_sound
+	call_deferred(\"add_sibling\", explosion)
+	
+	queue_free()
+	
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
+
+[sub_resource type="Gradient" id="Gradient_n4ea6"]
+offsets = PackedFloat32Array(0, 0.146132, 0.524355, 0.879656, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.32, 0.1024, 0.11328, 1, 1, 0.466667, 0, 1, 1, 0.88, 0.8, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ugs5e"]
+gradient = SubResource("Gradient_n4ea6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hi2g8"]
+resource_local_to_scene = true
+shader = ExtResource("4_tifbd")
+shader_parameter/final_saturation = 0.65
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ugs5e")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pitru"]
+atlas = ExtResource("5_li5y5")
+region = Rect2(0, 0, 115, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pd13"]
+atlas = ExtResource("5_li5y5")
+region = Rect2(115, 0, 115, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rola"]
+atlas = ExtResource("5_li5y5")
+region = Rect2(0, 50, 115, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_helwx"]
+atlas = ExtResource("5_li5y5")
+region = Rect2(115, 50, 115, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y5dbw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pitru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pd13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rola")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_helwx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_selhr"]
+radius = 26.0
+
+[node name="WizardProjBody" type="Area2D"]
+y_sort_enabled = true
+collision_layer = 32
+script = SubResource("GDScript_ii77o")
+explosion_scene = ExtResource("1_p1jfn")
+base_damage = 150
+infliction_time = 5.0
+cooldown_time = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ogc0g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-27.5, 0)
+texture = ExtResource("3_ki7or")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_hi2g8")
+position = Vector2(-34, 0)
+sprite_frames = SubResource("SpriteFrames_y5dbw")
+frame = 1
+frame_progress = 0.315976
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 32
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_selhr")
+debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("6_c2vqq")
+texture_scale = 0.3
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -1,0 +1,210 @@
+[gd_scene load_steps=18 format=3 uid="uid://cl6evd5eokmpu"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
+[ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_gbedi"]
+[ext_resource type="PackedScene" uid="uid://bpmywahil36ui" path="res://moving_entities/enemies/nest/spawn_spiderling.tscn" id="4_p16fd"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_undgi"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_g4ndh"]
+
+[sub_resource type="GDScript" id="GDScript_p1xr3"]
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+@export var spawn_amount: int = 1 #How many spiders spawn at a time
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_keh3l"]
+radius = 16.0312
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1hq56"]
+radius = 56.0357
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6yjf"]
+radius = 14.0357
+
+[sub_resource type="Resource" id="Resource_prk6q"]
+script = ExtResource("5_g4ndh")
+suffix = ""
+description = ""
+scene = ExtResource("4_p16fd")
+element = ExtResource("3_gbedi")
+
+[sub_resource type="GDScript" id="GDScript_6aaa5"]
+resource_name = "nest_idle"
+script/source = "extends State
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func enter():
+	play_anim()
+	print(name)
+	
+func physics_update(delta):
+	super.physics_update(delta)
+	if(can_cast_spell(0)):
+		Transitioned.emit(self, \"attack\")
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="Animation" id="Animation_0g3bu"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mcocv"]
+_data = {
+"idle": SubResource("Animation_0g3bu")
+}
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_50lci"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[node name="BasicNest" instance=ExtResource("1_2tj8e")]
+script = SubResource("GDScript_p1xr3")
+spawn_amount = 1
+movement_speed = 10.0
+max_health = 200
+
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -40)
+texture_scale = 0.5
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(4, -30)
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("2_74bdc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_keh3l")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-1, 24)
+shape = SubResource("CircleShape2D_1hq56")
+debug_color = Color(0.701961, 0.0156863, 0, 0.419608)
+
+[node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_j6yjf")
+
+[node name="ProgressBar" parent="." index="5"]
+offset_left = -51.0
+offset_top = -81.0
+offset_right = 49.0
+offset_bottom = -74.0
+
+[node name="StatusUI" parent="." index="6"]
+offset_left = -101.0
+offset_top = -115.0
+offset_right = 99.0
+offset_bottom = -83.0
+
+[node name="EnemySpells" parent="." index="7"]
+spells = Array[ExtResource("5_g4ndh")]([SubResource("Resource_prk6q")])
+spell_cooldowns = Array[float]([5.0, 0.0, 0.0])
+
+[node name="StateMachine" parent="." index="8" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("NestIdle")
+
+[node name="NestIdle" type="Node" parent="StateMachine" index="0"]
+script = SubResource("GDScript_6aaa5")
+
+[node name="Attack" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("4_undgi")
+transition_out_instantly = true
+
+[node name="NavigationAgent2D" parent="." index="9"]
+radius = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
+libraries = {
+"": SubResource("AnimationLibrary_mcocv")
+}
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_50lci")
+
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-33, -30, 31, -30)
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

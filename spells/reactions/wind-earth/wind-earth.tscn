@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnvowsw0l752i"]
+[gd_scene load_steps=11 format=3 uid="uid://cnvowsw0l752i"]
 
 [ext_resource type="Texture2D" uid="uid://dv5iywijn4olv" path="res://spells/reactions/sprites/cyclone.png" id="1_tspbn"]
 [ext_resource type="Texture2D" uid="uid://ciwqdrmt6qc3w" path="res://spells/reactions/sprites/sandstorm_sheet.png" id="2_6u4pa"]
@@ -9,18 +9,19 @@ resource_name = "wind-earth"
 script/source = "extends ReactionArea
 #Authored by Ethan.
 
-var entity
+var entity : Node2D
 
 func _process(delta):
 	$Sprite2D.rotation += 1 * delta
 
 func _on_timer_timeout():
 	for moving_entity in get_overlapping_bodies():
-		if moving_entity.is_in_group(\"enemy\") and moving_entity != entity:
-			moving_entity.on_hurt(self)
+		if entity.get_groups().size() >= 1:
+			if moving_entity.is_in_group(entity.get_groups()[0]):
+				moving_entity.on_hurt(self)
 
 func _on_kill_timer_timeout():
-	queue_free()
+	$AnimationPlayer.play(\"kill\")
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b2x0x"]
@@ -29,7 +30,7 @@ radius = 148.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0qdfs"]
 resource_local_to_scene = true
 shader = ExtResource("2_p4oge")
-shader_parameter/outline_width = 0.25
+shader_parameter/outline_width = 0.15
 shader_parameter/outline_color = null
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u80t5"]
@@ -39,11 +40,78 @@ angular_velocity_max = 199.03
 gravity = Vector3(0, -200, 0)
 scale_max = 1.5
 
+[sub_resource type="Animation" id="Animation_gqjbl"]
+resource_name = "kill"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(1, 0.5), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jmu1j"]
+resource_name = "spawn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dyibs"]
+_data = {
+"kill": SubResource("Animation_gqjbl"),
+"spawn": SubResource("Animation_jmu1j")
+}
+
 [node name="Wind-earth" type="Area2D" groups=["wind-earth"]]
-scale = Vector2(1, 0.5)
+z_index = -2
+scale = Vector2(1.5, 0.751)
 collision_layer = 16
 collision_mask = 8
 script = SubResource("GDScript_fgibt")
+reaction_name = "Sandstorm"
+limit_spawns = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b2x0x")
@@ -63,12 +131,19 @@ wait_time = 5.0
 autostart = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_0qdfs")
 amount = 21
 process_material = SubResource("ParticleProcessMaterial_u80t5")
 texture = ExtResource("2_6u4pa")
 randomness = 1.0
 local_coords = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dyibs")
+}
+autoplay = "spawn"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

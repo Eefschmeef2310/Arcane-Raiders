@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://crqcab008e1pm"]
+
+[sub_resource type="GDScript" id="GDScript_5sxyk"]
+resource_name = "dash"
+script/source = "extends SpellBase
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Godot methods
+func _ready():
+	if caster:
+		if caster.has_method(\"dash\"):
+			caster.dash(caster.aim_direction if !caster.check_wall(caster.aim_direction) else caster.aim_direction.rotated(deg_to_rad(180)), caster.dash_duration)
+	queue_free()
+#endregion
+"
+
+[node name="Dash" type="Node2D"]
+script = SubResource("GDScript_5sxyk")
+cooldown_time = 8.0

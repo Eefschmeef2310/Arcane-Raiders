@@ -1,19 +1,31 @@
-[gd_scene load_steps=30 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=45 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_tpid8"]
 [ext_resource type="PackedScene" uid="uid://b01k41p44far4" path="res://rooms/shop/shop.tscn" id="2_ynx3r"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="3_gy723"]
-[ext_resource type="PackedScene" uid="uid://bo20otyo337dw" path="res://rooms/basic/basic_fork.tscn" id="3_i3kdw"]
+[ext_resource type="PackedScene" uid="uid://dc55egfcons22" path="res://rooms/basic/basic_spider.tscn" id="3_i3kdw"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_ft2nk"]
 [ext_resource type="PackedScene" uid="uid://bs14qtk2at5lb" path="res://rooms/final_room.tscn" id="4_xewuu"]
-[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="5_ohq6b"]
+[ext_resource type="Resource" uid="uid://c6esfkvr6if8c" path="res://multiplayer/multiplayerLobby/raiders/cow.tres" id="5_ohq6b"]
 [ext_resource type="PackedScene" uid="uid://cjtf6hsua8mls" path="res://rooms/basic/basic_luti.tscn" id="6_8eavx"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="6_sfo2l"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="7_ee2cn"]
 [ext_resource type="PackedScene" uid="uid://dfdsvgq51s380" path="res://rooms/basic/basic_standard.tscn" id="7_mole1"]
+[ext_resource type="PackedScene" uid="uid://r5cylbdsa503" path="res://rooms/basic/basic_sans.tscn" id="8_5mkrr"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="8_ds4tw"]
+[ext_resource type="PackedScene" uid="uid://n043b7rhjev3" path="res://rooms/basic/basic_wide.tscn" id="8_gd3sw"]
+[ext_resource type="PackedScene" uid="uid://dutidxrbw7ab7" path="res://rooms/basic/basic_butterfly.tscn" id="8_wyblb"]
+[ext_resource type="PackedScene" uid="uid://bv47kko8wdikc" path="res://rooms/basic/basic_rigid.tscn" id="9_wet5w"]
+[ext_resource type="PackedScene" uid="uid://dfvnj026hw322" path="res://rooms/basic/basic_clover.tscn" id="10_434mj"]
+[ext_resource type="PackedScene" uid="uid://dqb1oj7yfqvid" path="res://rooms/boss/bossroom_slime.tscn" id="10_xt0uv"]
+[ext_resource type="PackedScene" uid="uid://bj3otdt6c8n8a" path="res://rooms/basic/basic_jumper.tscn" id="11_ed6tu"]
+[ext_resource type="PackedScene" uid="uid://chixk1ymd6bb4" path="res://rooms/boss/bossroom_slime_fire_ice.tscn" id="11_pq0fh"]
+[ext_resource type="PackedScene" uid="uid://744trjs2wlhk" path="res://rooms/basic/basic_saber.tscn" id="12_bgvea"]
+[ext_resource type="PackedScene" uid="uid://xsb7s37pr065" path="res://rooms/boss/bossroom_slime_wind_rock.tscn" id="12_rmsyq"]
+[ext_resource type="PackedScene" uid="uid://da2frvq80qm3s" path="res://rooms/boss/bossroom_wizards.tscn" id="13_qv4s1"]
+[ext_resource type="PackedScene" uid="uid://vsdcfys28pej" path="res://rooms/boss/bossroom_bat.tscn" id="15_jp5f8"]
 
 [sub_resource type="Gradient" id="Gradient_5svcn"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
@@ -21,13 +33,6 @@ colors = PackedColorArray(0.0247597, 3.85648e-06, 0.174761, 1, 0.101563, 0.18575
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6w63w"]
 gradient = SubResource("Gradient_5svcn")
-
-[sub_resource type="Gradient" id="Gradient_lm115"]
-offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
-colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
-gradient = SubResource("Gradient_lm115")
 
 [sub_resource type="Gradient" id="Gradient_kafx6"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
@@ -43,14 +48,27 @@ colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.2592
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_oyho1"]
 gradient = SubResource("Gradient_57svc")
 
+[sub_resource type="Gradient" id="Gradient_lm115"]
+offsets = PackedFloat32Array(0, 0.429293, 0.580808, 0.712121, 1)
+colors = PackedColorArray(1.20327e-08, 0.067361, 0.108478, 1, 1.08294e-06, 0.24183, 0.336008, 1, 0, 0.562097, 0.593316, 1, 0.326373, 0.812367, 0.709213, 1, 0.594854, 0.925393, 0.731484, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vw6rt"]
+gradient = SubResource("Gradient_lm115")
+
 [sub_resource type="Gradient" id="Gradient_tk1wv"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_o17fi"]
 gradient = SubResource("Gradient_tk1wv")
 
+[sub_resource type="Curve" id="Curve_1si0i"]
+min_value = 1.0
+max_value = 3.5
+_data = [Vector2(0, 1), 0.0, 2.5, 0, 1, Vector2(1, 3.5), 2.5, 0.0, 1, 0]
+point_count = 2
+
 [sub_resource type="LabelSettings" id="LabelSettings_ahfih"]
 font = ExtResource("4_ft2nk")
-font_size = 96
+font_size = 48
 shadow_color = Color(0, 0, 0, 0.501961)
 shadow_offset = Vector2(2, 2)
 
@@ -144,6 +162,29 @@ _data = {
 "next_floor": SubResource("Animation_vgyv8")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_s0131"]
+font = ExtResource("4_ft2nk")
+font_size = 32
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_owfno"]
+properties/0/path = NodePath(".:current_floor")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("PlayerData0:health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("PlayerData1:health")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("PlayerData2:health")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("PlayerData3:health")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
 [node name="CastleClimb" type="Node" node_paths=PackedStringArray("player_data", "player_ui")]
 script = ExtResource("1_jx40r")
 player_data = [NodePath("PlayerData0"), NodePath("PlayerData1"), NodePath("PlayerData2"), NodePath("PlayerData3")]
@@ -153,12 +194,17 @@ common_levels = {
 "foyer": ExtResource("2_0olmr"),
 "shop": ExtResource("2_ynx3r")
 }
-basic_levels = Array[PackedScene]([ExtResource("3_i3kdw"), ExtResource("6_8eavx"), ExtResource("7_mole1")])
-total_floors = 10
-sector_start_floors = Array[int]([0, 3, 6])
-shop_floors = Array[int]([3, 6])
-sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_o17fi")])
-sector_gradient_saturations = Array[float]([0.62, 0.5, 0.8, 0.5])
+basic_levels = Array[PackedScene]([ExtResource("7_mole1"), ExtResource("6_8eavx"), ExtResource("11_ed6tu"), ExtResource("8_5mkrr"), ExtResource("8_gd3sw"), ExtResource("12_bgvea"), ExtResource("9_wet5w"), ExtResource("3_i3kdw"), ExtResource("8_wyblb"), ExtResource("10_434mj")])
+boss_levels = Array[PackedScene]([ExtResource("10_xt0uv"), ExtResource("15_jp5f8"), ExtResource("13_qv4s1"), ExtResource("12_rmsyq"), ExtResource("11_pq0fh")])
+total_floors = 12
+sector_start_floors = Array[int]([0, 4, 8])
+sector_room_split_starts = Array[int]([0, 4, 7])
+shop_floors = Array[int]([4, 8])
+boss_floors = Array[int]([3, 7, 11])
+sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
+sector_gradient_saturations = Array[float]([0.62, 0.8, 0.5, 0.5])
+wave_difficulty_curve = SubResource("Curve_1si0i")
+show_speedrun_timer = true
 
 [node name="PlayerData0" type="Node" parent="."]
 script = ExtResource("2_tpid8")
@@ -193,8 +239,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="FloorLabel" type="Label" parent="RunUI"]
 offset_left = 32.0
-offset_right = 115.0
-offset_bottom = 146.0
+offset_top = 16.0
+offset_right = 175.0
+offset_bottom = 162.0
 label_settings = SubResource("LabelSettings_ahfih")
 
 [node name="RoomTransitionUI" type="CanvasLayer" parent="."]
@@ -250,6 +297,7 @@ libraries = {
 }
 
 [node name="GameUI" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI"]
 anchors_preset = 7
@@ -265,7 +313,6 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="PlayerUI0" parent="GameUI/PlayerUIContainer" node_paths=PackedStringArray("data") instance=ExtResource("3_gy723")]
-visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData0")
 
@@ -284,8 +331,27 @@ visible = false
 layout_mode = 2
 data = NodePath("../../../PlayerData3")
 
+[node name="SpeedrunUI" type="CanvasLayer" parent="."]
+
+[node name="SpeedrunTimer" type="Label" parent="SpeedrunUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 13.0
+offset_bottom = 159.0
+grow_horizontal = 0
+text = "00:00:00"
+label_settings = SubResource("LabelSettings_s0131")
+
 [node name="CommonLevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
 
 [node name="BasicLevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
+
+[node name="BossLevelSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_owfno")

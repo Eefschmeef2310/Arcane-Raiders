@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_j27yy"]
 
 [node name="DamageNumber" type="Control"]
-z_index = 1
+z_index = 29
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -24,7 +24,7 @@ offset_right = 80.0
 offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.501961)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2

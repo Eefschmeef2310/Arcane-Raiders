@@ -1,0 +1,266 @@
+[gd_scene load_steps=17 format=3 uid="uid://ijxu84lyomhr"]
+
+[ext_resource type="Texture2D" uid="uid://cccbtx0s5e3k2" path="res://moving_entities/enemies/spiderling/spiderling_move.png" id="1_3vw24"]
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ljokn"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_pb4nr"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="4_4etky"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="5_4a10u"]
+[ext_resource type="Resource" uid="uid://i1l3rxlb3iec" path="res://moving_entities/enemies/spiderling/spider_leap.tres" id="6_vx5h5"]
+[ext_resource type="AudioStream" uid="uid://dpvavhup0uhk6" path="res://sounds/effects/enemies/spider-squeek-85399.wav" id="7_wiqno"]
+
+[sub_resource type="GDScript" id="GDScript_dbbaf"]
+resource_name = "spiderling"
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var attack_movespeed: float = 500
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+var attacking: bool = false
+#endregion
+
+#region Godot methods
+func _physics_process(delta):
+	super._physics_process(delta)
+	if attacking:
+		velocity = aim_direction * dash_speed
+		dash_speed = lerp(dash_speed, 0.0, 0.05)
+		move_and_slide()
+		if dash_speed < 50:
+			attacking = false
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_26476"]
+radius = 27.074
+
+[sub_resource type="Animation" id="Animation_hy8ql"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_3vw24")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-20.975, -6, 5.7, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_nnpma"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_3vw24")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-20.975, -6, 5.7, -6), PackedVector2Array(-20.975, -6, 5.7, -6), PackedVector2Array(-14, -8, 12, -15), PackedVector2Array(-4, -19, 18, -7), PackedVector2Array(3, -10, 22, -2), PackedVector2Array(3, -10, 22, -2), PackedVector2Array(-3, -21, 17, -5), PackedVector2Array(-15, -6, 5, -18), PackedVector2Array(-15, -6, 5, -18)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4e5s6"]
+_data = {
+"RESET": SubResource("Animation_hy8ql"),
+"idle": SubResource("Animation_nnpma")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_033am"]
+radius = 8.0
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d8wab"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[node name="Spiderling" instance=ExtResource("1_ljokn")]
+script = SubResource("GDScript_dbbaf")
+attack_movespeed = 600.0
+movement_speed = 200.0
+create_pickup = false
+ignoreForStats = true
+max_health = 25
+
+[node name="PointLight2D" parent="." index="0"]
+position = Vector2(0, -7)
+energy = 0.05
+texture_scale = 0.3
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(2, -12)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_3vw24")
+hframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-10, 54)
+shape = SubResource("CircleShape2D_26476")
+debug_color = Color(0.972549, 0, 0.431373, 0.419608)
+
+[node name="EnemySpells" parent="." index="6"]
+spells = Array[Resource("res://spells/spell_base.gd")]([ExtResource("6_vx5h5")])
+
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_pb4nr")
+actual_first_state = NodePath("../BasicChase")
+
+[node name="BasicChase" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("4_4etky")
+attack_distance = 200.0
+nav_timer_interval = 0.4
+
+[node name="Attack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("5_4a10u")
+transition_out_when_can_cast = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+"": SubResource("AnimationLibrary_4e5s6")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_033am")
+
+[node name="AttackSound" parent="." index="12"]
+stream = ExtResource("7_wiqno")
+
+[node name="StatusParticles" parent="." index="14"]
+width = 30.0
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_d8wab")
+
+[node name="LassoLine" parent="." index="15"]
+points = PackedVector2Array(-20.975, -6, 5.7, -6)
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]

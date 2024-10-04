@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://diqk4riipjepp"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_040kn"]
+[ext_resource type="Texture2D" uid="uid://dxww667gtraf1" path="res://moving_entities/enemies/Dummy/dumby.png" id="2_pnsbf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rk1iu"]
+radius = 65.123
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m1k2w"]
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pradt"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[node name="Dummy" instance=ExtResource("1_040kn")]
+movement_speed = 0.0
+ignoreForStats = true
+max_health = 99999
+knockback_lerp_strength = 0.0
+knockback_initial_velocity = 0.0
+
+[node name="PointLight2D" parent="." index="0"]
+energy = 0.1
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(5, -60)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_pnsbf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(2, -2)
+scale = Vector2(0.705, 1)
+shape = SubResource("CircleShape2D_rk1iu")
+debug_color = Color(0.984314, 0, 0.356863, 0.419608)
+
+[node name="ProgressBar" parent="." index="4"]
+modulate = Color(1, 1, 1, 0)
+offset_top = -131.0
+offset_bottom = -124.0
+
+[node name="StatusUI" parent="." index="5"]
+offset_top = -165.0
+offset_bottom = -133.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
+shape = SubResource("CircleShape2D_m1k2w")
+
+[node name="StatusParticles" parent="." index="13"]
+lifetime = 1.5
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+emitting = true
+process_material = SubResource("ParticleProcessMaterial_pradt")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_pradt")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_pradt")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_pradt")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_pradt")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_pradt")
+
+[node name="LassoLine" parent="." index="14"]
+points = PackedVector2Array(-16, -67, 16, -66)
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]

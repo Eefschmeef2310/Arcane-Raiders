@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmrv6r8nkl4fe"]
+
+[ext_resource type="Script" path="res://managers/point_audio_2d.gd" id="1_f6kld"]
+
+[node name="PointAudio2d" type="AudioStreamPlayer2D"]
+autoplay = true
+bus = &"SFX"
+script = ExtResource("1_f6kld")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

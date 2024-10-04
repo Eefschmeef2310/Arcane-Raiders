@@ -1,107 +1,329 @@
-[gd_scene load_steps=3 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=22 format=3 uid="uid://brmt3xwasqlgc"]
 
-[ext_resource type="Texture2D" uid="uid://b0wd7cki57iq3" path="res://menus/splash2.png" id="1_ag66g"]
+[ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="1_tp6hm"]
+[ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/img/TOGETHER-small.png" id="1_usn4v"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="2_7gsyx"]
+[ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="2_hcuag"]
+[ext_resource type="Texture2D" uid="uid://cne6fpt7xivst" path="res://menus/img/croc-solo-small.png" id="4_mhyuj"]
+[ext_resource type="Script" path="res://menus/sine_movement.gd" id="5_5b4y2"]
+[ext_resource type="Texture2D" uid="uid://s1dipfhyxqyt" path="res://menus/img/owl-solo-small.png" id="5_5qk6n"]
+[ext_resource type="Texture2D" uid="uid://bgwuoolllkfm7" path="res://menus/img/cat-solo-spawn.png" id="6_jrd33"]
+[ext_resource type="Script" path="res://menus/sine_rotation.gd" id="7_7xhii"]
+[ext_resource type="Texture2D" uid="uid://cow3oxt3giy3c" path="res://menus/img/wolf-solo-spawn.png" id="7_e1fty"]
+[ext_resource type="Texture2D" uid="uid://crqrx1cku3gbj" path="res://menus/img/ICE_EFFECTS_SMALL.png" id="7_jxm1l"]
+[ext_resource type="Texture2D" uid="uid://c4hcj1x0p0xoj" path="res://menus/img/FIRE_EFFECTS_SMALL.png" id="8_j54kg"]
+[ext_resource type="Texture2D" uid="uid://bqson8xojve8p" path="res://menus/img/LOGO-ARCANE.png" id="8_y2apg"]
+[ext_resource type="Texture2D" uid="uid://bohnfxrfkbdcq" path="res://menus/img/LOGO-RAIDERS.png" id="9_7dx0p"]
+[ext_resource type="Texture2D" uid="uid://pd7i4i8j1dqx" path="res://menus/img/WATER_EFFECTS_SMALL.png" id="9_uyrbg"]
+[ext_resource type="Texture2D" uid="uid://bnv1hr4yvuwr5" path="res://menus/img/ROCK_EFFECTS_SMALL.png" id="10_k7nue"]
+[ext_resource type="Texture2D" uid="uid://dg4oi66c20d63" path="res://menus/img/ELECTRC_EFFECTS_SMALL.png" id="11_ybop7"]
+[ext_resource type="Texture2D" uid="uid://j0xqv51txihy" path="res://menus/img/WIND_EFFECTS_SMALL.png" id="12_t3345"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
-script/source = "extends Control
+script/source = "extends CanvasLayer
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerLobby/multiplayerLobby.tscn\")
-#w@export var menu : Node
-
+#@export var menu : Node
+@export var steam_error_window : PanelContainer
+@export var steam_error_label : Label
+@export var online_button : Button
 
 #region Godot methods
 func _ready():
-	$VBoxContainer/QuitButton.visible = OS.get_name() != \"Web\"
+	GameManager.isPaused = false
+	Dialogic.end_timeline()
+	
+	$VBoxContainer/Horiz/QuitButton.visible = OS.get_name() != \"Web\"
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
-#endregion
+	
+	AudioManager.play_track_instant(\"menu\")
+	
+	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
+	if (!Steam.loggedOn()):
+		steam_error_window.show()
+		steam_error_label.text = \" Connection to steam failed, Online functions disabled: Not logged into steam \"
+	if (!Steam.isSubscribed()):
+		steam_error_window.show()
+		steam_error_label.text += \"\\n Connection to steam failed, Online functions disabled: Game is not owned \"
+		online_button.disabled = true
+	if(!SteamManager.live_mode):
+		steam_error_window.show()
+		steam_error_label.label_settings.font_color = Color.YELLOW
+		steam_error_label.text += \"\\n Warning: Spacewar in use, Controller input may break \"
+		online_button.disabled=false
+	
+	Steam.input_configuration_loaded.connect(set_white)
+	
+	$VBoxContainer/LocalPlayButton.grab_focus()
+	
+	#MultiplayerInput.set_ui_action_device(-2)
+##endregion
 
 #region Signal methods
 func _on_quit_button_pressed():
+	#await Analytics.handle_exit() #sends exit game event to analytics
 	get_tree().quit()
 	
 func _on_online_button_pressed():
+	GameManager.mode = GameManager.MultiplayerMode.Online
 	get_tree().change_scene_to_file(\"res://multiplayer/serverBrowser/serverBrowser.tscn\")
 	
 func _on_local_play_button_pressed():
-	var lobby_scene = multiplayer_lobby.instantiate()
-	lobby_scene.InitLobby(lobby_scene.MultiplayerMode.Local, 0)
-	get_tree().root.add_child(lobby_scene)
-	queue_free()
+	GameManager.mode = GameManager.MultiplayerMode.Local
+	get_tree().change_scene_to_file(\"res://rooms/hub/hub.tscn\")
+	#var lobby_scene = multiplayer_lobby.instantiate()
+	#lobby_scene.InitLobby(0)
+	#get_tree().root.add_child(lobby_scene)
+	#queue_free()
 	
 func _on_settings_button_pressed():
-	
-	get_tree().root.add_child(load(\"res://menus/settings.tscn\").instantiate())
-	
+	var new_settings = load(\"res://menus/settings.tscn\").instantiate()
+	new_settings.destroyed.connect($VBoxContainer/SettingsButton.grab_focus)
+	get_tree().root.add_child(new_settings)
+
+func _on_credits_button_pressed():
+	var new_settings = load(\"res://menus/credits.tscn\").instantiate()
+	new_settings.destroyed.connect($VBoxContainer/Horiz/CreditsButton.grab_focus)
+	get_tree().root.add_child(new_settings)
+
+#endregion
+
+#region Other methods
+func set_white(_arg, arg2, _arg3):
+	Steam.setLEDColor(arg2, 255, 255, 255, 0)
 #endregion
 "
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_sscpa"]
+font_size = 32
+font_color = Color(0.905882, 0, 0.466667, 1)
+
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button")]
 script = SubResource("GDScript_mpxdx")
+steam_error_window = NodePath("SteamErrorWindow")
+steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
+online_button = NodePath("VBoxContainer/OnlineButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.0196078, 0.0745098, 0.101961, 1)
+
+[node name="BackgroundArt" type="TextureRect" parent="."]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_tp6hm")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
+visible = false
+modulate = Color(1, 1, 1, 0.384314)
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1559.0
-offset_top = -877.0
+offset_left = -1323.0
+offset_top = -940.0
+offset_right = -63.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("1_ag66g")
+texture = ExtResource("1_usn4v")
 stretch_mode = 4
 
+[node name="BouncingArt" type="Node2D" parent="."]
+
+[node name="Croc-solo-small" type="Sprite2D" parent="BouncingArt"]
+position = Vector2(811.4, 878.4)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("4_mhyuj")
+script = ExtResource("5_5b4y2")
+starting_t = 40.0
+frequency = 1.5
+
+[node name="Owl-solo-small" type="Sprite2D" parent="BouncingArt"]
+position = Vector2(1096.4, 833)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("5_5qk6n")
+script = ExtResource("5_5b4y2")
+starting_t = 30.0
+frequency = 1.5
+
+[node name="Cat-solo-spawn" type="Sprite2D" parent="BouncingArt"]
+position = Vector2(1398, 865.4)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("6_jrd33")
+script = ExtResource("5_5b4y2")
+starting_t = 20.0
+frequency = 1.5
+
+[node name="Wolf-solo-spawn" type="Sprite2D" parent="BouncingArt"]
+position = Vector2(1671.4, 919.4)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("7_e1fty")
+script = ExtResource("5_5b4y2")
+starting_t = 10.0
+frequency = 1.5
+
+[node name="Logo" type="Node2D" parent="."]
+position = Vector2(1239, 291)
+script = ExtResource("7_7xhii")
+amplitude = 1.0
+frequency = 2.0
+
+[node name="IceEffectsSmall" type="Sprite2D" parent="Logo"]
+position = Vector2(-483, 132)
+scale = Vector2(0.140655, -0.140655)
+texture = ExtResource("7_jxm1l")
+
+[node name="FireEffectsSmall" type="Sprite2D" parent="Logo"]
+position = Vector2(525, 122)
+scale = Vector2(0.2, -0.2)
+texture = ExtResource("8_j54kg")
+
+[node name="WaterEffectsSmall" type="Sprite2D" parent="Logo"]
+position = Vector2(567, -98)
+rotation = 2.84175
+scale = Vector2(0.2, -0.2)
+texture = ExtResource("9_uyrbg")
+
+[node name="RockEffectsSmall" type="Sprite2D" parent="Logo"]
+position = Vector2(-463, -88)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("10_k7nue")
+
+[node name="ElectrcEffectsSmall" type="Sprite2D" parent="Logo"]
+position = Vector2(-791, 36)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("11_ybop7")
+
+[node name="WindEffectsSmall" type="Sprite2D" parent="Logo"]
+position = Vector2(835, 25)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("12_t3345")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 25.81)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 585.0
+offset_top = 226.0
+offset_right = -29.0
+offset_bottom = 531.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="ARCANE" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_y2apg")
+expand_mode = 3
+
+[node name="RAIDERS" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_7dx0p")
+expand_mode = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 594.0
-offset_bottom = 673.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -318.5
+offset_right = 558.0
+offset_bottom = 318.5
+grow_vertical = 2
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
-text = "Local Play"
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 52
+text = "Play Local"
+script = ExtResource("2_hcuag")
 
 [node name="OnlineButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
-text = "Online"
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 52
+text = "Play Online"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="Horiz" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 60
+theme_override_constants/separation = 24
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../SettingsButton")
+focus_neighbor_right = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
+text = "Credits"
+script = ExtResource("2_hcuag")
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../CreditsButton")
+focus_neighbor_top = NodePath("../../SettingsButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
 text = "Quit"
+
+[node name="VersionLabel" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -204.0
+offset_right = 277.0
+offset_bottom = -155.0
+grow_vertical = 0
+text = "Ver. 24-05-14"
+label_settings = SubResource("LabelSettings_ko00r")
+
+[node name="SteamErrorWindow" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -442.0
+offset_top = -48.6666
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SteamErrorText" type="Label" parent="SteamErrorWindow"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_sscpa")
 
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]

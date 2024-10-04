@@ -1,0 +1,391 @@
+[gd_scene load_steps=25 format=3 uid="uid://jnglr8tluu0q"]
+
+[ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_thfql"]
+[ext_resource type="Texture2D" uid="uid://dhllwaahe1u1j" path="res://moving_entities/enemies/bat_small/bat_small_idle.png" id="2_ckdw4"]
+[ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_j407q"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_ljwno"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_263t8"]
+[ext_resource type="PackedScene" uid="uid://cshbksmdkf5f6" path="res://moving_entities/enemies/bat_big/triple_shot.tscn" id="4_cnvka"]
+[ext_resource type="Script" path="res://spells/spell_base.gd" id="5_03nfp"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/bat_attack.gd" id="5_wc8po"]
+[ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="6_1damq"]
+[ext_resource type="PackedScene" uid="uid://crqcab008e1pm" path="res://moving_entities/enemies/bat_big/dash.tscn" id="6_qhgr4"]
+[ext_resource type="AudioStream" uid="uid://bpcm3il7ov3bm" path="res://sounds/effects/enemies/Single Bat Call - QuickSounds.com.wav" id="11_13pvv"]
+
+[sub_resource type="GDScript" id="GDScript_t3owp"]
+resource_name = "bat_big"
+script/source = "extends EnemyEntity
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+@export var dash_duration: float = 0.3
+	#Onready Variables
+@onready var ray_cast_2d = $RayCast2D
+	#Other Variables (please try to separate and organise!)
+var can_dodge: bool = false
+var dodge_spell_pos: Vector2
+
+#endregion
+
+#region Godot methods
+
+#endregion
+
+#region Signal methods
+func _on_dodge_area_area_entered(area):
+	if enemy_spells.spell_cooldowns[1] <= 0 && can_cast:
+		dodge_spell_pos = area.global_position
+		can_dodge = true
+#endregion
+
+#region Other methods (please try to separate and organise!)
+func check_wall(dir: Vector2) -> bool:
+	ray_cast_2d.target_position = dir*dash_speed*0.2
+	return ray_cast_2d.is_colliding()
+
+func dash(dir: Vector2, duration: float):
+	can_dodge = false
+	super.dash(dir, duration)
+#endregion
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3yp8g"]
+radius = 31.1947
+
+[sub_resource type="Resource" id="Resource_2frcj"]
+script = ExtResource("5_03nfp")
+suffix = ""
+description = ""
+scene = ExtResource("4_cnvka")
+element = ExtResource("3_j407q")
+
+[sub_resource type="Resource" id="Resource_u6qed"]
+script = ExtResource("5_03nfp")
+suffix = ""
+description = ""
+scene = ExtResource("6_qhgr4")
+element = ExtResource("3_j407q")
+
+[sub_resource type="Animation" id="Animation_vcnon"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ckdw4")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LassoLine:points")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-24, -21, 15, -23)]
+}
+
+[sub_resource type="Animation" id="Animation_brair"]
+resource_name = "roll"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ckdw4")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_c8kpd"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ckdw4")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LassoLine:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-24, -21, 15, -23), PackedVector2Array(-24, -21, 15, -23), PackedVector2Array(-21, -34, 14, -39), PackedVector2Array(-22, -47, 14, -52), PackedVector2Array(-22, -54, 13, -58), PackedVector2Array(-22, -38, 12, -42), PackedVector2Array(-22, -30, 14, -35), PackedVector2Array(-22, -30, 14, -35)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dmerj"]
+_data = {
+"RESET": SubResource("Animation_vcnon"),
+"dodge": SubResource("Animation_brair"),
+"idle": SubResource("Animation_c8kpd")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wux1d"]
+radius = 18.0278
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a15i4"]
+radius = 379.033
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_014r3"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[node name="BatBig" instance=ExtResource("1_thfql")]
+collision_mask = 1
+script = SubResource("GDScript_t3owp")
+dash_duration = 0.3
+movement_speed = 200.0
+death_sound = null
+max_health = 400
+
+[node name="Sprite2D" parent="." index="1"]
+modulate = Color(1, 0, 0.396078, 1)
+position = Vector2(1.35003e-12, -43)
+rotation = 6.28319
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_ckdw4")
+hframes = 7
+
+[node name="Hurtbox" parent="." index="2"]
+position = Vector2(0, -86)
+scale = Vector2(1.555, 1.555)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-1.28617, 32.1543)
+rotation = -0.113446
+shape = SubResource("CircleShape2D_3yp8g")
+debug_color = Color(0.976471, 0, 0.411765, 0.419608)
+
+[node name="ProgressBar" parent="." index="4"]
+offset_top = -118.0
+offset_bottom = -111.0
+
+[node name="StatusUI" parent="." index="5"]
+offset_top = -152.0
+offset_bottom = -120.0
+
+[node name="EnemySpells" parent="." index="6"]
+spells = Array[ExtResource("5_03nfp")]([SubResource("Resource_2frcj"), SubResource("Resource_u6qed")])
+cast_time = Array[float]([0.2, 0.0, 0.2])
+
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
+script = ExtResource("3_ljwno")
+actual_first_state = NodePath("../BatChase")
+
+[node name="BatChase" type="Node" parent="StateMachine" index="1"]
+script = ExtResource("4_263t8")
+
+[node name="BatAttack" type="Node" parent="StateMachine" index="2"]
+script = ExtResource("5_wc8po")
+prefered_range = 250.0
+far_range = 700.0
+nav_timer_interval = 1.0
+
+[node name="Attack" type="Node" parent="StateMachine" index="3"]
+script = ExtResource("6_1damq")
+transition_out_when_can_cast = true
+
+[node name="Dodge" type="Node" parent="StateMachine" index="4"]
+script = ExtResource("6_1damq")
+spell_num = 1
+transition_out_when_can_cast = true
+animation = "dodge"
+
+[node name="NavigationAgent2D" parent="." index="8"]
+navigation_layers = 3
+avoidance_layers = 2
+avoidance_mask = 2
+
+[node name="AttackSound" parent="." index="10"]
+stream = ExtResource("11_13pvv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="11"]
+libraries = {
+"": SubResource("AnimationLibrary_dmerj")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="12"]
+position = Vector2(0, -15)
+shape = SubResource("CircleShape2D_wux1d")
+
+[node name="Dodge Detection" type="Area2D" parent="." index="13"]
+collision_layer = 0
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dodge Detection" index="0"]
+position = Vector2(-3, -61)
+shape = SubResource("CircleShape2D_a15i4")
+debug_color = Color(0, 0.6, 0.698039, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="14"]
+visible = false
+hit_from_inside = true
+
+[node name="BurnParticles" parent="StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="FrostParticles" parent="StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="ShockParticles" parent="StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="WindParticles" parent="StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="WetParticles" parent="StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="StunParticles" parent="StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_014r3")
+
+[node name="LassoLine" parent="." index="17"]
+points = PackedVector2Array(-24, -21, 15, -23)
+
+[connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
+[connection signal="area_entered" from="Dodge Detection" to="." method="_on_dodge_area_area_entered"]

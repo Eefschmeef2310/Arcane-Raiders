@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://11s7wrfbg1h1"]
+
+[ext_resource type="Shader" path="res://shaders/bush_sway.gdshader" id="1_3o0wm"]
+[ext_resource type="Texture2D" uid="uid://buwvonv4ndyrw" path="res://tilesets/decorations/sprites/bush.png" id="2_joo8y"]
+[ext_resource type="Script" path="res://tilesets/decorations/bush.gd" id="3_xnvx7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_chgwu"]
+resource_local_to_scene = true
+shader = ExtResource("1_3o0wm")
+shader_parameter/speed = 2.0
+shader_parameter/minStrength = 0.071
+shader_parameter/maxStrength = 0.061
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[node name="Bush" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Bush" type="Sprite2D" parent="."]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_chgwu")
+position = Vector2(0, -47)
+texture = ExtResource("2_joo8y")
+script = ExtResource("3_xnvx7")

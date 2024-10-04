@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7ucgdokfb826"]
+
+[ext_resource type="Script" path="res://hats/pickups/hat_pickup_base.gd" id="1_y5ga5"]
+[ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="3_juk8f"]
+[ext_resource type="Texture2D" uid="uid://djpicus4kp4nx" path="res://ui/timer_circle.png" id="3_oyvvf"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_boq1i"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="5_fyhtc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cocqd"]
+radius = 100.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_n700w"]
+polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
+
+[node name="HatDestroyer" type="Node2D" node_paths=PackedStringArray("info_container") groups=["hat_pickup"]]
+script = ExtResource("1_y5ga5")
+info_container = NodePath("HBoxContainer")
+
+[node name="Outline" type="Sprite2D" parent="."]
+modulate = Color(0.596078, 0, 0, 1)
+position = Vector2(0, -45)
+scale = Vector2(2.56, 2.56)
+
+[node name="Shadow" parent="." instance=ExtResource("3_juk8f")]
+scale = Vector2(0.25, 0.125)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -38.2)
+scale = Vector2(1, 0.5)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 38.2)
+shape = SubResource("CircleShape2D_cocqd")
+
+[node name="Icon" type="Node2D" parent="."]
+position = Vector2(0, -35)
+
+[node name="Hat" type="Sprite2D" parent="Icon"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -6)
+scale = Vector2(2.22, 2.22)
+texture = ExtResource("3_oyvvf")
+
+[node name="Line2D" type="Line2D" parent="Icon"]
+points = PackedVector2Array(-22, -31, 23, 16)
+default_color = Color(1, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 148)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = -230.0
+offset_right = 119.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="InfoBox" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="HBoxContainer/InfoBox"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_n700w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoBox"]
+custom_minimum_size = Vector2(232, 126.675)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/line_spacing = -12
+theme_override_fonts/font = ExtResource("4_boq1i")
+theme_override_font_sizes/font_size = 30
+text = "Remove Hat"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox/VBoxContainer"]
+custom_minimum_size = Vector2(10, 55)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_fyhtc")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "[center][font_size=18]Deletes your hat from reality
+[/font_size]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

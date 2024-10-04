@@ -19,7 +19,7 @@ func init(player_num: int, device: int):
 	$Player.text = "%s" % player_num
 
 func _process(_delta):
-	var move = input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var move = input.get_vector("left", "right", "up", "down")
 	position += move
 	
 	# let the player leave by pressing the "join" button

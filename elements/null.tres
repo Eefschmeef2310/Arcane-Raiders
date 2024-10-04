@@ -1,8 +1,31 @@
-[gd_resource type="Resource" script_class="ElementResource" load_steps=2 format=3 uid="uid://ctj0uyr81n57k"]
+[gd_resource type="Resource" script_class="ElementResource" load_steps=8 format=3 uid="uid://ctj0uyr81n57k"]
 
 [ext_resource type="Script" path="res://elements/element.gd" id="1_4mdce"]
+[ext_resource type="AudioStream" uid="uid://b3rieo04l77hk" path="res://sounds/effects/elements/spellcast-46164.mp3" id="2_8icsr"]
+
+[sub_resource type="Gradient" id="Gradient_ip6tf"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o4tad"]
+gradient = SubResource("Gradient_ip6tf")
+
+[sub_resource type="Gradient" id="Gradient_k42uf"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7m5yt"]
+gradient = SubResource("Gradient_k42uf")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_11yuf"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("2_8icsr")
+stream_0/weight = 1.0
 
 [resource]
 script = ExtResource("1_4mdce")
+prefix = ""
+descrption_bb = "Has no element."
 colour = Color(1, 1, 1, 1)
+gradient = SubResource("GradientTexture1D_o4tad")
+gradient_inverse = SubResource("GradientTexture1D_7m5yt")
 max_infliction_time = 5.0
+sound = SubResource("AudioStreamRandomizer_11yuf")

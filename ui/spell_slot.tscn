@@ -1,29 +1,251 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8tisd7v43c66"]
+[gd_scene load_steps=28 format=3 uid="uid://c8tisd7v43c66"]
 
 [ext_resource type="Texture2D" uid="uid://ci3o857iqx563" path="res://spells/sprites/icons/blank_spell_icon.png" id="1_116hg"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="1_uxkox"]
 [ext_resource type="Script" path="res://ui/spell_slot.gd" id="2_dapti"]
 [ext_resource type="Texture2D" uid="uid://da1niepub7xwn" path="res://ui/prompts/ps/playstation_button_color_square_outline.png" id="3_rekfs"]
+[ext_resource type="Shader" path="res://shaders/self_colouring_outline.gdshader" id="4_aktyk"]
 [ext_resource type="Texture2D" uid="uid://m0y1kvx31hii" path="res://ui/equip_arrow.png" id="4_cbfbj"]
+[ext_resource type="Texture2D" uid="uid://bj2u1bnkwcdsf" path="res://elements/icons/weak_icon.png" id="4_r61a1"]
 
-[node name="Spell" type="TextureRect"]
-custom_minimum_size = Vector2(64, 64)
-texture = ExtResource("1_116hg")
-stretch_mode = 5
+[sub_resource type="Gradient" id="Gradient_fci5l"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fyuhq"]
+gradient = SubResource("Gradient_fci5l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uy6is"]
+resource_local_to_scene = true
+shader = ExtResource("1_uxkox")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_fyuhq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phkhs"]
+shader = ExtResource("4_aktyk")
+shader_parameter/outline_width = 0.5
+shader_parameter/darken_amount = 0.361
+
+[sub_resource type="Curve" id="Curve_5bfnc"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1jf6g"]
+curve_y = SubResource("Curve_5bfnc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7qg1i"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(31, 1, 1)
+directional_velocity_min = 100.0
+directional_velocity_max = 100.0
+directional_velocity_curve = SubResource("CurveXYZTexture_1jf6g")
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ifn5m"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yrlys"]
+gradient = SubResource("Gradient_ifn5m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uie60"]
+resource_local_to_scene = true
+shader = ExtResource("1_uxkox")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_yrlys")
+
+[sub_resource type="Gradient" id="Gradient_qmcpw"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dpvaj"]
+gradient = SubResource("Gradient_qmcpw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k050g"]
+resource_local_to_scene = true
+shader = ExtResource("1_uxkox")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_dpvaj")
+
+[sub_resource type="Animation" id="Animation_vopjy"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nf45u"]
+resource_name = "pulse"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -10), Vector2(0, 10), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0w3pc"]
+resource_name = "shake"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-5, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y5tl2"]
+_data = {
+"RESET": SubResource("Animation_vopjy"),
+"pulse": SubResource("Animation_nf45u"),
+"shake": SubResource("Animation_0w3pc")
+}
+
+[sub_resource type="Animation" id="Animation_p6hq5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/SpellSingle/FlashRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vkiyt"]
+resource_name = "flash"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/SpellSingle/FlashRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ubvqv"]
+_data = {
+"RESET": SubResource("Animation_p6hq5"),
+"flash": SubResource("Animation_vkiyt")
+}
+
+[node name="Spell" type="Control" node_paths=PackedStringArray("element_particle")]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 70.0
+offset_bottom = 70.0
 script = ExtResource("2_dapti")
+no_prompt = true
+element_particle = NodePath("Control/SpellSingle/ElementParticle")
 
-[node name="ProgressBar" type="TextureProgressBar" parent="."]
-layout_mode = 0
-offset_right = 4.0
-offset_bottom = 27.0
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpellSingle" type="TextureRect" parent="Control"]
+clip_children = 2
+material = SubResource("ShaderMaterial_uy6is")
+layout_mode = 1
+offset_right = 70.0
+offset_bottom = 70.0
+texture = ExtResource("1_116hg")
+
+[node name="FlashRect" type="ColorRect" parent="Control/SpellSingle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="ElementParticle" type="GPUParticles2D" parent="Control/SpellSingle"]
+modulate = Color(1, 1, 1, 0.658824)
+material = SubResource("ShaderMaterial_phkhs")
+position = Vector2(35, 74)
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_7qg1i")
+texture = ExtResource("4_r61a1")
+
+[node name="SpellDouble1" type="TextureRect" parent="Control"]
+visible = false
+material = SubResource("ShaderMaterial_uie60")
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 43.0
+offset_bottom = 47.0
+grow_horizontal = 0
+texture = ExtResource("1_116hg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SpellDouble0" type="TextureRect" parent="Control"]
+visible = false
+material = SubResource("ShaderMaterial_k050g")
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -17.0
+offset_right = 52.0
+offset_bottom = 38.0
+grow_vertical = 0
+texture = ExtResource("1_116hg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ProgressBar" type="TextureProgressBar" parent="Control"]
+layout_mode = 1
+offset_right = 70.0
+offset_bottom = 70.0
 fill_mode = 5
 texture_progress = ExtResource("1_116hg")
 tint_progress = Color(0.25098, 0.25098, 0.25098, 1)
 
 [node name="Prompt" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 40.0
+offset_left = 45.0
 offset_top = 31.0
-offset_right = 88.0
+offset_right = 93.0
 offset_bottom = 79.0
 texture = ExtResource("3_rekfs")
 expand_mode = 2
@@ -38,3 +260,13 @@ texture = ExtResource("4_cbfbj")
 [node name="EquipArrow2" type="Sprite2D" parent="EquipArrow"]
 position = Vector2(0, -3)
 texture = ExtResource("4_cbfbj")
+
+[node name="Shaker" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y5tl2")
+}
+
+[node name="Flasher" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ubvqv")
+}

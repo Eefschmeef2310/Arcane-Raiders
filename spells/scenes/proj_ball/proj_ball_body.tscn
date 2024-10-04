@@ -1,17 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmxs62fwihysk"]
+[gd_scene load_steps=17 format=3 uid="uid://bmxs62fwihysk"]
 
 [ext_resource type="Script" path="res://spells/scenes/proj_ball/proj_ball_body.gd" id="1_x5adh"]
 [ext_resource type="PackedScene" uid="uid://6hpw555slkv6" path="res://spells/scenes/proj_ball/proj_ball_explosion.tscn" id="2_1pp8o"]
 [ext_resource type="Texture2D" uid="uid://dt35pds71p5v1" path="res://spells/scenes/proj_ball/proj_ball.png" id="2_ir44m"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_i2f7a"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="4_isauo"]
+[ext_resource type="Texture2D" uid="uid://cmedkofd4l4gm" path="res://spells/scenes/proj_ball/proj_ball_sheet.png" id="4_tkjnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogc0g"]
 
+[sub_resource type="Gradient" id="Gradient_n4ea6"]
+offsets = PackedFloat32Array(0, 0.146132, 0.524355, 0.879656, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.32, 0.1024, 0.11328, 1, 1, 0.466667, 0, 1, 1, 0.88, 0.8, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ugs5e"]
+gradient = SubResource("Gradient_n4ea6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hi2g8"]
+resource_local_to_scene = true
+shader = ExtResource("4_i2f7a")
+shader_parameter/final_saturation = 0.65
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_ugs5e")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pitru"]
+atlas = ExtResource("4_tkjnx")
+region = Rect2(0, 0, 115, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pd13"]
+atlas = ExtResource("4_tkjnx")
+region = Rect2(115, 0, 115, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rola"]
+atlas = ExtResource("4_tkjnx")
+region = Rect2(0, 50, 115, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_helwx"]
+atlas = ExtResource("4_tkjnx")
+region = Rect2(115, 50, 115, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y5dbw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pitru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pd13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rola")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_helwx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_selhr"]
-radius = 23.0
+radius = 26.0
 
 [node name="ProjBallBody" type="RigidBody2D"]
 y_sort_enabled = true
-position = Vector2(0, -16)
 collision_layer = 32
 gravity_scale = 0.0
 script = ExtResource("1_x5adh")
@@ -21,15 +73,30 @@ explosion_scene = ExtResource("2_1pp8o")
 shape = SubResource("CircleShape2D_ogc0g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-27.5, 0)
 texture = ExtResource("2_ir44m")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_hi2g8")
+position = Vector2(-34, 0)
+sprite_frames = SubResource("SpriteFrames_y5dbw")
+frame = 1
+frame_progress = 0.315976
+
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
-collision_mask = 13
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_selhr")
 debug_color = Color(0.701961, 0, 0.0509804, 0.419608)
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.3
+texture = ExtResource("4_isauo")
+texture_scale = 0.3
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
