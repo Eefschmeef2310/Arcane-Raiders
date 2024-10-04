@@ -117,7 +117,7 @@ func set_data(d: PlayerData):
 		if data.spell_casted_and_ready.is_connected(spell_casted): data.spell_casted_and_ready.disconnect(spell_casted)
 		if data.spell_ready.is_connected(spell_ready): data.spell_ready.disconnect(spell_ready)
 		if data.hat_label_changed.is_connected(hat_label_changed): data.hat_label_changed.disconnect(hat_label_changed)
-		if data.hat_changed.is_connected(show_hat): data.hat_label_changed.disconnect(show_hat)
+		if data.hat_changed.is_connected(show_hat): data.hat_changed.disconnect(show_hat)
 		if data.synergy_updated.is_connected(synergy_updated): data.synergy_updated.disconnect(synergy_updated)
 	data = d
 	data.device_changed.connect(update_prompts)
@@ -164,8 +164,8 @@ func spell_ready(slot: int):
 	if "shake" in spells[slot]:
 		spells[slot].flash()
 
-func hat_label_changed(str: String):
-	hat_label.text = str
+func hat_label_changed(stri: String):
+	hat_label.text = stri
 
 func show_hat():
 	crown.texture = data.hat_sprite

@@ -2,6 +2,8 @@ extends Node
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
+#NOTE - ATTACH THIS SCRIPT TO A NODE AS A CHILD OF A CASTLE ROOM
+
 #region Variables
 	#Signals
 
@@ -21,12 +23,13 @@ extends Node
 
 #region Godot methods
 func _input(event):
-	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
-		var array = get_all_children(get_tree().root)
-		for child in array:
-			if child is CastleRoom:
-				print(child)
-				child.add_child(load("res://screens/win_screen.tscn").instantiate())
+	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
+		get_parent().add_child(load("res://screens/win_screen.tscn").instantiate())
+		#var array = get_all_children(get_tree().root)
+		#for child in array:
+			#if child is CastleRoom:
+				#print(child)
+				#child.add_child(load("res://screens/win_screen.tscn").instantiate())
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_G:
 		var array = get_all_children(get_tree().root)

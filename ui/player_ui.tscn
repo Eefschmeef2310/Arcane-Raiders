@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ui17l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvu3i"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtqo6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fenx3"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3su0h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w8x6j"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -276,6 +276,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="HatLabelHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
@@ -313,17 +314,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ui17l")
+material = SubResource("ShaderMaterial_yvu3i")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_vtqo6")
+material = SubResource("ShaderMaterial_fenx3")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_3su0h")
+material = SubResource("ShaderMaterial_w8x6j")
 layout_mode = 2
 mouse_filter = 1
 

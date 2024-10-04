@@ -163,6 +163,7 @@ func get_leaderboard() -> Array[int]:
 	var leaders : Array[int] = [] # player id's only
 	var data : Array[stat_score] = scores.duplicate()
 	var passes = 0
+	print(scores)
 	
 	data.sort_custom(custom_sort_stat_scores)
 	

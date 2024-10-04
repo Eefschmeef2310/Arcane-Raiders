@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arcane Raiders"
-config/version="0.8.1"
+config/version="0.9"
 run/main_scene="res://menus/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://SteamTingrayGradient.png"

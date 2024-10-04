@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgtisn4gy31jx"]
+[gd_scene load_steps=6 format=3 uid="uid://dgtisn4gy31jx"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_87uam"]
 [ext_resource type="Texture2D" uid="uid://b5jb61vijlub3" path="res://ui/wheel of reactions.png" id="2_8m1wt"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_m3chr"]
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="3_eike6"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_m0grr"]
-[ext_resource type="PackedScene" uid="uid://c2sydwom5yb2y" path="res://spells/pickups/spell_pickup.tscn" id="6_vgne4"]
 
 [node name="CastleRoom" instance=ExtResource("1_87uam")]
 script = ExtResource("2_m3chr")
@@ -51,6 +50,7 @@ position = Vector2(1053, 53)
 position = Vector2(1293, -69)
 
 [node name="WheelOfReactions" type="Sprite2D" parent="." index="14"]
+visible = false
 self_modulate = Color(1, 1, 1, 0.588235)
 z_index = -1
 position = Vector2(1249, 409)
@@ -67,7 +67,7 @@ position = Vector2(1155, 774)
 position = Vector2(963, 870)
 
 [node name="ReactionTutorial" type="Node2D" parent="." index="18"]
-position = Vector2(958, 965)
+position = Vector2(0, 626)
 rotation = -0.462512
 skew = 0.462512
 
@@ -79,13 +79,27 @@ theme_override_constants/line_separation = -12
 theme_override_fonts/normal_font = ExtResource("5_m0grr")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "[wave center]Combine elements to
-create powerful reactions!"
+text = "[wave center]Pick up new spells here!"
 
-[node name="DashTutorial" type="Node2D" parent="." index="19"]
-position = Vector2(1430, 725)
+[node name="ReactionTutorial2" type="Node2D" parent="." index="19"]
+position = Vector2(1033, 874)
 rotation = -0.462512
 skew = 0.462512
+
+[node name="Label" type="RichTextLabel" parent="ReactionTutorial2" index="0"]
+offset_right = 557.0
+offset_bottom = 254.0
+theme_override_colors/default_color = Color(1, 1, 1, 0.784314)
+theme_override_constants/line_separation = -12
+theme_override_fonts/normal_font = ExtResource("5_m0grr")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[wave center]Test your spells here!"
+
+[node name="DashTutorial" type="Node2D" parent="." index="20"]
+position = Vector2(1325, 164)
+rotation = 0.462512
+skew = -0.462512
 
 [node name="Label" type="RichTextLabel" parent="DashTutorial" index="0"]
 offset_right = 557.0
@@ -96,18 +110,6 @@ theme_override_fonts/normal_font = ExtResource("5_m0grr")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[wave center]Press Space /[img width=60]res://ui/join_button.svg[/img] to dash!"
-
-[node name="SpellPickup" parent="." index="22" instance=ExtResource("6_vgne4")]
-position = Vector2(716, 738)
-spell_string = "burn-lasso"
-
-[node name="SpellPickup2" parent="." index="23" instance=ExtResource("6_vgne4")]
-position = Vector2(925, 655)
-spell_string = "burn-lasso"
-
-[node name="SpellPickup3" parent="." index="24" instance=ExtResource("6_vgne4")]
-position = Vector2(1125, 556)
-spell_string = "burn-lasso"
 
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]

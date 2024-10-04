@@ -414,10 +414,10 @@ func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[Stri
 	ui.set_data(data)
 	#print(data.device_id)
 
-func set_seed(seed: String):
-	var seed_int = hash(seed)
+func set_seed(seed_string: String):
+	var seed_int = hash(seed_string)
 	print("Setting seed to " + str(seed_int))
 	use_preset_seed = true
 	preset_seed = seed_int
 	rng.seed = seed_int 
-	seed_text = seed
+	seed_text = seed_string
