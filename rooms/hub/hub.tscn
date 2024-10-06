@@ -68,7 +68,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwdla"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rk0p8"]
 resource_local_to_scene = true
 shader = ExtResource("37_k8mf7")
 shader_parameter/speed = 2.0
@@ -174,21 +174,23 @@ horizontal_alignment = 1
 
 [node name="Decorations" type="Node2D" parent="." index="16"]
 
-[node name="Label" type="Label" parent="Decorations" index="0"]
-offset_left = -152.0
-offset_top = 276.0
-offset_right = -20.0
-offset_bottom = 325.0
+[node name="PartyExit" parent="Decorations" index="0" instance=ExtResource("12_xu7yv")]
+material = null
+position = Vector2(-97, 413)
+scale = Vector2(-1, 1)
+destroy_if_online = true
+
+[node name="Label" type="Label" parent="Decorations/PartyExit" index="3"]
+offset_left = 55.0
+offset_top = -137.0
+offset_right = 187.0
+offset_bottom = -88.0
+scale = Vector2(-1, 1)
 text = "Exit Party"
 label_settings = SubResource("LabelSettings_u03uf")
 horizontal_alignment = 1
 
-[node name="PartyExit" parent="Decorations" index="1" instance=ExtResource("12_xu7yv")]
-material = null
-position = Vector2(-97, 413)
-scale = Vector2(-1, 1)
-
-[node name="Heads" type="Node2D" parent="Decorations" index="2"]
+[node name="Heads" type="Node2D" parent="Decorations" index="1"]
 visible = false
 
 [node name="Head-cat" type="Sprite2D" parent="Decorations/Heads" index="0"]
@@ -223,7 +225,7 @@ texture = ExtResource("11_m7u4e")
 position = Vector2(801, 98)
 texture = ExtResource("12_xlyq7")
 
-[node name="Line2D" type="Line2D" parent="Decorations" index="3"]
+[node name="Line2D" type="Line2D" parent="Decorations" index="2"]
 visible = false
 points = PackedVector2Array(-234, 908, -327, 977, -357, 1074, -290, 1136, -201, 1161, -75, 1195, 122, 1093)
 gradient = SubResource("Gradient_iw6gt")
@@ -231,7 +233,7 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="GameFrog" parent="Decorations" index="4" instance=ExtResource("4_7li37")]
+[node name="GameFrog" parent="Decorations" index="3" instance=ExtResource("4_7li37")]
 position = Vector2(1374, 685)
 character_name = "Master Frog"
 dialogues = Array[StringName]([&"Battle to the top of the Arcane Tower!"])
@@ -239,7 +241,7 @@ dialogues = Array[StringName]([&"Battle to the top of the Arcane Tower!"])
 [node name="Crown" parent="Decorations/GameFrog/SpritesScale/HeadGroup" index="1"]
 texture = ExtResource("32_mb7kk")
 
-[node name="ExitFrog" parent="Decorations" index="5" instance=ExtResource("4_7li37")]
+[node name="ExitFrog" parent="Decorations" index="4" instance=ExtResource("4_7li37")]
 position = Vector2(21, 743)
 character_name = "Cool Frog"
 dialogues = Array[StringName]([&"Use this door to leave!"])
@@ -259,7 +261,7 @@ self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
 [node name="LeftHand" parent="Decorations/ExitFrog/SpritesScale" index="3"]
 self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
 
-[node name="HatFrog" parent="Decorations" index="6" instance=ExtResource("4_7li37")]
+[node name="HatFrog" parent="Decorations" index="5" instance=ExtResource("4_7li37")]
 position = Vector2(648, 381)
 character_name = "Milliner Frog"
 dialogues = Array[StringName]([&"Pick a hat using E or R1!"])
@@ -273,7 +275,7 @@ position = Vector2(37, -28)
 [node name="LeftHand" parent="Decorations/HatFrog/SpritesScale" index="3"]
 position = Vector2(-36, -28)
 
-[node name="WelcomeFrog" parent="Decorations" index="7" instance=ExtResource("4_7li37")]
+[node name="WelcomeFrog" parent="Decorations" index="6" instance=ExtResource("4_7li37")]
 position = Vector2(634, 956)
 character_name = "Frog"
 dialogues = Array[StringName]([&"Welcome wizards!"])
@@ -296,7 +298,7 @@ position = Vector2(-40, -79)
 [node name="AnimationPlayer" parent="Decorations/WelcomeFrog" index="2"]
 autoplay = "jump"
 
-[node name="DiscoFrog" parent="Decorations" index="8" instance=ExtResource("4_7li37")]
+[node name="DiscoFrog" parent="Decorations" index="7" instance=ExtResource("4_7li37")]
 position = Vector2(1361, 1041)
 timeline = ExtResource("13_ts3tr")
 character = ExtResource("14_oo7ad")
@@ -326,7 +328,7 @@ position = Vector2(6, -25)
 [node name="AnimationPlayer" parent="Decorations/DiscoFrog" index="2"]
 autoplay = "dance"
 
-[node name="Robes" type="Node2D" parent="Decorations" index="9"]
+[node name="Robes" type="Node2D" parent="Decorations" index="8"]
 visible = false
 
 [node name="Body3" type="Sprite2D" parent="Decorations/Robes" index="0"]
@@ -369,7 +371,7 @@ modulate = Color(0, 0.623529, 0.505882, 1)
 position = Vector2(-238, 1138)
 texture = ExtResource("20_d8qci")
 
-[node name="Trees" type="Node2D" parent="Decorations" index="10"]
+[node name="Trees" type="Node2D" parent="Decorations" index="9"]
 visible = false
 
 [node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Decorations/Trees" index="0"]
@@ -462,83 +464,83 @@ position = Vector2(1893, 910)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Bush" parent="Decorations" index="11" instance=ExtResource("36_k1eci")]
-material = SubResource("ShaderMaterial_gwdla")
+[node name="Bush" parent="Decorations" index="10" instance=ExtResource("36_k1eci")]
+material = SubResource("ShaderMaterial_rk0p8")
 position = Vector2(1187, 776)
 
-[node name="Dirt1" type="Sprite2D" parent="Decorations" index="12"]
+[node name="Dirt1" type="Sprite2D" parent="Decorations" index="11"]
 modulate = Color(1, 1, 1, 0.87451)
 z_index = -1
 position = Vector2(640, 647)
 texture = ExtResource("38_iyu5g")
 
-[node name="Bush2" parent="Decorations" index="13" instance=ExtResource("36_k1eci")]
+[node name="Bush2" parent="Decorations" index="12" instance=ExtResource("36_k1eci")]
 position = Vector2(70, 475)
 
-[node name="Bush3" parent="Decorations" index="14" instance=ExtResource("36_k1eci")]
+[node name="Bush3" parent="Decorations" index="13" instance=ExtResource("36_k1eci")]
 position = Vector2(-169, 596)
 scale = Vector2(-1, 1)
 
-[node name="Bush4" parent="Decorations" index="15" instance=ExtResource("36_k1eci")]
+[node name="Bush4" parent="Decorations" index="14" instance=ExtResource("36_k1eci")]
 position = Vector2(89, 772)
 scale = Vector2(-1, 1)
 
-[node name="Bush5" parent="Decorations" index="16" instance=ExtResource("36_k1eci")]
+[node name="Bush5" parent="Decorations" index="15" instance=ExtResource("36_k1eci")]
 position = Vector2(-36, 767)
 
-[node name="Grass1" type="Sprite2D" parent="Decorations" index="17"]
+[node name="Grass1" type="Sprite2D" parent="Decorations" index="16"]
 position = Vector2(236, 788)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass2" type="Sprite2D" parent="Decorations" index="18"]
+[node name="Grass2" type="Sprite2D" parent="Decorations" index="17"]
 position = Vector2(950, 920)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass3" type="Sprite2D" parent="Decorations" index="19"]
+[node name="Grass3" type="Sprite2D" parent="Decorations" index="18"]
 position = Vector2(164, 587)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass4" type="Sprite2D" parent="Decorations" index="20"]
+[node name="Grass4" type="Sprite2D" parent="Decorations" index="19"]
 position = Vector2(380, 462)
 texture = ExtResource("42_27olt")
 
-[node name="Grass5" type="Sprite2D" parent="Decorations" index="21"]
+[node name="Grass5" type="Sprite2D" parent="Decorations" index="20"]
 position = Vector2(1106, 538)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass6" type="Sprite2D" parent="Decorations" index="22"]
+[node name="Grass6" type="Sprite2D" parent="Decorations" index="21"]
 position = Vector2(1443, 740)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass7" type="Sprite2D" parent="Decorations" index="23"]
+[node name="Grass7" type="Sprite2D" parent="Decorations" index="22"]
 position = Vector2(861, 1074)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass8" type="Sprite2D" parent="Decorations" index="24"]
+[node name="Grass8" type="Sprite2D" parent="Decorations" index="23"]
 position = Vector2(541, 1123)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass9" type="Sprite2D" parent="Decorations" index="25"]
+[node name="Grass9" type="Sprite2D" parent="Decorations" index="24"]
 position = Vector2(-271, 695)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass10" type="Sprite2D" parent="Decorations" index="26"]
+[node name="Grass10" type="Sprite2D" parent="Decorations" index="25"]
 position = Vector2(356, 973)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass11" type="Sprite2D" parent="Decorations" index="27"]
+[node name="Grass11" type="Sprite2D" parent="Decorations" index="26"]
 position = Vector2(1353, 1230)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass12" type="Sprite2D" parent="Decorations" index="28"]
+[node name="Grass12" type="Sprite2D" parent="Decorations" index="27"]
 position = Vector2(1755, 1036)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass13" type="Sprite2D" parent="Decorations" index="29"]
+[node name="Grass13" type="Sprite2D" parent="Decorations" index="28"]
 position = Vector2(1563, 934)
 texture = ExtResource("42_27olt")
 
-[node name="Grass14" type="Sprite2D" parent="Decorations" index="30"]
+[node name="Grass14" type="Sprite2D" parent="Decorations" index="29"]
 position = Vector2(644, 175)
 texture = ExtResource("41_e61ky")
 

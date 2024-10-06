@@ -27,8 +27,10 @@ func _process(_delta):
 		if input: # For local
 			do_pause = input.is_action_just_pressed("lobby_pause")
 		else: # For online
-			do_pause = Input.is_action_just_pressed("lobby_pause")
-		
+			for device in GameManager.devices:
+				do_pause = MultiplayerInput.is_action_just_pressed(device, "lobby_pause")
+				if do_pause: break
+				
 		if do_pause and !GameManager.isPaused:
 			GameManager.isPaused = true
 			#if input:

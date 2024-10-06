@@ -487,7 +487,8 @@ func create_after_image(time: float):
 	
 	await get_tree().create_timer(time).timeout
 	
-	after_image.queue_free()
+	if is_instance_valid(after_image):
+		after_image.queue_free()
 
 func _on_health_updated(_health):
 	if is_in_group("enemy"): return
