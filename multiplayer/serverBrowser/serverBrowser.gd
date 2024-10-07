@@ -43,6 +43,7 @@ func _ready():
 	multiplayer_spawner.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_match_list.connect(on_lobby_match_list)
+	SteamManager.server_browser_node = self
 	open_lobby_list()
 #endregion
 
