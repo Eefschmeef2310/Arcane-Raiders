@@ -42,7 +42,7 @@ func _process(_delta):
 				pause_menu.device_id = input.device
 				
 			#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
-			get_tree().root.add_child(pause_menu)
+			add_sibling(pause_menu)
 		#endregion
 	
 		if !owner.is_dead:

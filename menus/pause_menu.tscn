@@ -124,7 +124,7 @@ func get_controller_input():
 			mouse_input.append(\"confirm\")
 		if input.is_action_just_pressed(\"lobby_cancel\"):
 			mouse_input.append(\"cancel\")
-		if input.device == -2 and input.is_action_just_pressed(\"lobby_click\"):
+		if input.device == -1 and input.is_action_just_pressed(\"lobby_click\"):
 			mouse_input.append(\"click_confirm\")
 	else:
 		for device in GameManager.devices:
