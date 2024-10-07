@@ -195,8 +195,8 @@ func _on_server_disconnected():
 func _on_back_button_pressed():
 	#TODO close server
 	if GameManager.isOnline() and multiplayer.is_server():
-		server_browser_node.peer.set_lobby_joinable(false)
-		#print("Did the lobby close??: "+str(result))
+		var result = server_browser_node.peer.set_lobby_joinable(false)
+		print("Did the lobby close??: "+str(result))
 		pass
 	#print("peer: "+str(multiplayer.multiplayer_peer))
 	#multiplayer.multiplayer_peer = null
