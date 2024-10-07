@@ -1,5 +1,10 @@
 extends Node
 
+const version_id : int = 3062240
+#3062240 for DEMO
+#2899410 for MAIN GAME
+#480 for SPACEWAR
+
 const live_mode = true #switches the app id to the real id and 
 #enables functions such as leaderboards and acheivements
 
@@ -9,12 +14,8 @@ var server_browser_node : Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if live_mode:
-		OS.set_environment("SteamAppID", str(2899410))
-		OS.set_environment("SteamGameID", str(2899410))
-	else:
-		OS.set_environment("SteamAppID", str(480))
-		OS.set_environment("SteamGameID", str(480))
+	OS.set_environment("SteamAppID", str(version_id))
+	OS.set_environment("SteamGameID", str(version_id))
 	
 	var initialize_response: Dictionary = Steam.steamInitEx()
 	print("Did Steam initialize?: %s" % initialize_response)
