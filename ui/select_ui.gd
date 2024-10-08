@@ -116,7 +116,7 @@ func check_for_existing_player():
 		for player in get_tree().get_nodes_in_group("player"):
 			if player.get_multiplayer_authority() == get_multiplayer_authority():
 				player_node = player
-				player.set_data(player_data)
+				player.set_data(player_data, false)
 				convert_to_ui()
 
 func _process(_delta):
@@ -252,7 +252,7 @@ func spawn_player(na, raider_id, color_id):
 func convert_to_ui():
 	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
-	new_ui.set_data(player_data)
+	new_ui.set_data(player_data, false)
 	new_ui.scale = Vector2(1,1)
 	$PanelContainer.visible = false
 
