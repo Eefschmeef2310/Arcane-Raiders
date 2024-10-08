@@ -1,5 +1,5 @@
 @tool
-extends Sprite2D
+extends CanvasItem
 
 @onready var tiles : TileMap = get_parent().get_parent() as TileMap
 

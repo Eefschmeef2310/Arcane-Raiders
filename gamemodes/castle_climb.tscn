@@ -203,6 +203,7 @@ shop_floors = Array[int]([4, 8])
 boss_floors = Array[int]([3, 7, 11])
 sector_gradient_maps = Array[GradientTexture1D]([SubResource("GradientTexture1D_6w63w"), SubResource("GradientTexture1D_s26q1"), SubResource("GradientTexture1D_oyho1"), SubResource("GradientTexture1D_vw6rt"), SubResource("GradientTexture1D_o17fi")])
 sector_gradient_saturations = Array[float]([0.62, 0.8, 0.5, 0.5])
+sector_noise_min = Array[float]([0.96, 0.95, 0.83])
 wave_difficulty_curve = SubResource("Curve_1si0i")
 show_speedrun_timer = true
 

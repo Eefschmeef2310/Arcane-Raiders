@@ -11,6 +11,7 @@ signal tilemap_updated()
 @export var wave_total_difficulty : Array[int]
 @export var gradient_map : GradientTexture1D
 @export var saturation : float
+@export var noise_min : float
 @export var track_id : String
 
 @export var pickups : Array[PackedScene]
@@ -61,7 +62,7 @@ func _ready():
 	
 	max_waves = wave_total_difficulty.size()
 	if gradient_map:
-		set_gradient_map(gradient_map, saturation)
+		set_gradient_map(gradient_map, saturation, noise_min)
 	
 	player_spawner.spawn_function = spawn_player
 	enemy_spawner.spawn_function = spawn_enemy
@@ -180,7 +181,7 @@ func spawn_health_pickup(info : Dictionary):
 	pickup.global_position = info["pos"]
 	return pickup
 	
-func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
+func set_gradient_map(new_map: GradientTexture1D, saturation_value : float, noise_min_value : float):
 	gradient_map = new_map
 	saturation = saturation_value
 	
@@ -190,6 +191,9 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	camera_background.material = tile_map.material
+	
+	($TileMap/Floor/Floor.material as ShaderMaterial).set_shader_parameter("noise_min", noise_min_value)
+	
 	
 func _on_room_exit_player_entered(_player):
 	print("Exit detected. Telling climb...")

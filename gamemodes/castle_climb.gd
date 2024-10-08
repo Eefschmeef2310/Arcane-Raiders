@@ -26,6 +26,7 @@ var sector_room_pool: Array
 @export var boss_floors: Array[int]
 @export var sector_gradient_maps: Array[GradientTexture1D]
 @export var sector_gradient_saturations : Array[float]
+@export var sector_noise_min : Array[float]
 
 @export_group("Difficulty")
 @export var number_of_players_health_scale : Array = [1.0, 1.5, 2.0, 2.4]
@@ -297,6 +298,7 @@ func inject_data_to_current_room_node():
 	#print("Using Sector "+ str(i) +" data.")
 	current_room_node.gradient_map = sector_gradient_maps[i]
 	current_room_node.saturation = sector_gradient_saturations[i]
+	current_room_node.noise_min = sector_noise_min[i]
 
 func get_current_sector():
 	var i = 0

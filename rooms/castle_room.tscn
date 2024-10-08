@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=20 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="PackedScene" uid="uid://otbl7685h64s" path="res://items/pickups/health_pickup.tscn" id="2_bnel2"]
@@ -11,7 +11,6 @@
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="5_tvm45"]
 [ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="7_yovep"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="9_v1tue"]
-[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="12_tmvay"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.195556, 0.424242, 0.621212, 0.838384)
@@ -55,10 +54,12 @@ void fragment() {
 offsets = PackedFloat32Array(0, 0.342175)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ecbat"]
-frequency = 0.07
+frequency = 0.015
 fractal_type = 0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e168e"]
+width = 2048
+height = 2048
 invert = true
 seamless = true
 color_ramp = SubResource("Gradient_rhqox")
@@ -67,7 +68,7 @@ noise = SubResource("FastNoiseLite_ecbat")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anhvb"]
 shader = SubResource("Shader_6ismg")
 shader_parameter/final_saturation = 0.5
-shader_parameter/noise_min = 0.815
+shader_parameter/noise_min = 0.82
 shader_parameter/noise_max = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 shader_parameter/noise = SubResource("NoiseTexture2D_e168e")
@@ -113,12 +114,14 @@ layer_5/tile_data = PackedInt32Array(720898, 327682, 0, 786435, 327682, 0, 85197
 
 [node name="Floor" type="Node2D" parent="TileMap"]
 
-[node name="Floor" type="Sprite2D" parent="TileMap/Floor"]
+[node name="Floor" type="ColorRect" parent="TileMap/Floor"]
 z_index = -2
 material = SubResource("ShaderMaterial_anhvb")
-position = Vector2(711.5, 554)
-scale = Vector2(30, 30)
-texture = ExtResource("12_tmvay")
+offset_left = -4110.0
+offset_top = -1883.0
+offset_right = -3110.0
+offset_bottom = -1383.0
+scale = Vector2(10, 10)
 script = ExtResource("9_v1tue")
 
 [node name="DynamicCamera" parent="." instance=ExtResource("3_thfvk")]
