@@ -100,6 +100,7 @@ func _ready():
 	pass
 	
 	UpdateDisplay()
+	request_update_from_authority.rpc()
 
 func _process(_delta):
 	connected_time += _delta
@@ -261,6 +262,7 @@ func receive_from_authority(dict : Dictionary):
 	selected_color = dict["color"]
 	player_data.set_hat_from_string(dict["hat"])
 	player_data.reassign.emit()
+	UpdateDisplay()
 	
 
 
