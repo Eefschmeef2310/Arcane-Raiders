@@ -101,10 +101,16 @@ func _ready():
 	
 	UpdateDisplay()
 	
+	await get_tree().create_timer(0.1).timeout
+	call_deferred("check_for_existing_player")
+
+func check_for_existing_player():
 	if GameManager.isOnline():
 		for player in get_tree().get_nodes_in_group("player"):
 			if player.get_multiplayer_authority() == get_multiplayer_authority():
+				player_node = player
 				player.set_data(player_data)
+				convert_to_ui()
 
 func _process(_delta):
 	connected_time += _delta
@@ -235,13 +241,15 @@ func spawn_player(na, raider_id, color_id):
 	
 	raider_selected.emit(peer_id, device_id)
 	
+	convert_to_ui()
+
+func convert_to_ui():
 	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
-	
 	$PanelContainer.visible = false
-	
+
 
 func _remove_player():
 	# Clean up player here
