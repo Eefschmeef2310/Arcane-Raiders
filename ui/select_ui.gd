@@ -102,6 +102,13 @@ func _ready():
 	UpdateDisplay()
 	
 	await get_tree().create_timer(0.1).timeout
+	
+	player_data.name = username
+	player_data.character = lobby_manager.raiders[selected_raider]
+	player_data.main_color = lobby_manager.player_colors[selected_color]
+	player_data.peer_id = peer_id
+	player_data.device_id = device_id
+	
 	call_deferred("check_for_existing_player")
 
 func check_for_existing_player():
@@ -238,9 +245,8 @@ func spawn_player(na, raider_id, color_id):
 	player_data.main_color = lobby_manager.player_colors[color_id]
 	player_data.peer_id = peer_id
 	player_data.device_id = device_id
-	
+
 	raider_selected.emit(peer_id, device_id)
-	
 	convert_to_ui()
 
 func convert_to_ui():
