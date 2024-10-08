@@ -62,6 +62,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath(".:username")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath("PlayerData:hat_string")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
