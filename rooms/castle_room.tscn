@@ -67,7 +67,7 @@ noise = SubResource("FastNoiseLite_ecbat")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anhvb"]
 shader = SubResource("Shader_6ismg")
 shader_parameter/final_saturation = 0.5
-shader_parameter/noise_min = 0.78
+shader_parameter/noise_min = 0.815
 shader_parameter/noise_max = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 shader_parameter/noise = SubResource("NoiseTexture2D_e168e")

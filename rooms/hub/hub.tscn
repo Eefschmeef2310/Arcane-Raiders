@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=56 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -57,6 +57,53 @@ shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_wtl25")
 
+[sub_resource type="Shader" id="Shader_6ismg"]
+code = "shader_type canvas_item;
+
+uniform sampler2D gradient;
+
+uniform float final_saturation: hint_range(0.0, 1.0, 0.01) = 0.5;
+
+uniform sampler2D noise : repeat_enable;
+
+uniform float noise_min : hint_range(0.0, 1.0) = 0;
+uniform float noise_max : hint_range(0.0, 1.0) = 1;
+
+void fragment() {
+	vec3 col = texture(noise, UV).rgb;
+	col = clamp(col, noise_min, noise_max);
+	
+	//Get desaturated value
+	float luminance = dot(col, vec3(0.2126,0.7152,0.0722));
+	
+	//Use lumincance to get final desaturated pixel
+	vec3 recoloured_pixel = texture(gradient, vec2(luminance,0)).rgb;
+	
+	COLOR.rgb = mix(vec3( dot(recoloured_pixel, vec3(0.2126,0.7152,0.0722) ) ), recoloured_pixel, final_saturation);
+}"
+
+[sub_resource type="Gradient" id="Gradient_rhqox"]
+offsets = PackedFloat32Array(0, 0.342175)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oge7n"]
+frequency = 0.2
+fractal_type = 3
+fractal_weighted_strength = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_smrd5"]
+invert = true
+seamless = true
+color_ramp = SubResource("Gradient_rhqox")
+noise = SubResource("FastNoiseLite_oge7n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ej8t1"]
+shader = SubResource("Shader_6ismg")
+shader_parameter/final_saturation = 0.5
+shader_parameter/noise_min = 0.815
+shader_parameter/noise_max = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_wtl25")
+shader_parameter/noise = SubResource("NoiseTexture2D_smrd5")
+
 [sub_resource type="LabelSettings" id="LabelSettings_u03uf"]
 font_size = 32
 
@@ -68,7 +115,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1pht"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2l2hj"]
 resource_local_to_scene = true
 shader = ExtResource("37_k8mf7")
 shader_parameter/speed = 2.0
@@ -105,6 +152,9 @@ layer_6/name = "floor_decorations"
 layer_6/y_sort_enabled = true
 layer_6/z_index = 6
 layer_6/tile_data = PackedInt32Array()
+
+[node name="Floor" parent="TileMap/Floor" index="0"]
+material = SubResource("ShaderMaterial_ej8t1")
 
 [node name="GameUI" type="CanvasLayer" parent="." index="1"]
 layer = 3
@@ -466,7 +516,7 @@ scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
 [node name="Bush" parent="Decorations" index="10" instance=ExtResource("36_k1eci")]
-material = SubResource("ShaderMaterial_g1pht")
+material = SubResource("ShaderMaterial_2l2hj")
 position = Vector2(1187, 776)
 
 [node name="Dirt1" type="Sprite2D" parent="Decorations" index="11"]
