@@ -100,7 +100,7 @@ func _ready():
 	pass
 	
 	UpdateDisplay()
-	request_update_from_authority.rpc()
+	#request_update_from_authority.rpc()
 
 func _process(_delta):
 	connected_time += _delta
@@ -246,23 +246,23 @@ func _remove_player():
 		player_node.queue_free()
 	queue_free()
 
-@rpc("any_peer", "call_remote", "reliable")
-func request_update_from_authority():
-	if is_multiplayer_authority():
-		var dict = {
-			"raider" : selected_raider,
-			"color" : selected_color,
-			"hat" : player_data.hat_string
-		}
-		receive_from_authority.rpc(dict)
-		
-@rpc("authority", "call_remote", "reliable")
-func receive_from_authority(dict : Dictionary):
-	selected_raider = dict["raider"]
-	selected_color = dict["color"]
-	player_data.set_hat_from_string(dict["hat"])
-	player_data.reassign.emit()
-	UpdateDisplay()
+#@rpc("any_peer", "call_remote", "reliable")
+#func request_update_from_authority():
+	#if is_multiplayer_authority():
+		#var dict = {
+			#"raider" : selected_raider,
+			#"color" : selected_color,
+			#"hat" : player_data.hat_string
+		#}
+		#receive_from_authority.rpc(dict)
+		#
+#@rpc("authority", "call_remote", "reliable")
+#func receive_from_authority(dict : Dictionary):
+	#selected_raider = dict["raider"]
+	#selected_color = dict["color"]
+	#player_data.set_hat_from_string(dict["hat"])
+	#player_data.reassign.emit()
+	#UpdateDisplay()
 	
 
 
