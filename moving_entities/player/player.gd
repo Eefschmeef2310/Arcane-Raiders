@@ -250,6 +250,9 @@ func set_data(new_data: PlayerData, destroy_old := true):
 		right_hand_sprite.self_modulate = data.character.skin_color
 		left_hand_sprite.self_modulate = data.character.skin_color
 	
+	if data.hat_string:
+		data.set_hat_from_string(data.hat_string)
+	
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
 
 func _on_data_reassign():
