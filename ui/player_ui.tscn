@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bk3bj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sjlym"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kjm4f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbmf7"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1vhm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpgyh"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -214,7 +214,7 @@ head = NodePath("Stats/Spells/Head")
 health_bar_linger = NodePath("Stats/HealthBar/HealthBarLinger")
 hat_label = NodePath("Stats/Spells/VBoxContainer/HatLabelHeightControl/HatLabel")
 health_bar_label = NodePath("Stats/HealthBar/Label")
-element_particle = NodePath("Stats/Spells/VBoxContainer/HatLabelHeightControl/ElementParticle")
+element_particle = NodePath("Stats/Spells/VBoxContainer/ElementParticle")
 stat_panel = NodePath("StatsUI/PanelContainer")
 damage_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Damage")
 kills_label = NodePath("StatsUI/PanelContainer/HBoxContainer/VBoxContainer/Kills")
@@ -275,8 +275,16 @@ custom_minimum_size = Vector2(0, 95)
 layout_mode = 2
 alignment = 1
 
+[node name="ElementParticle" type="GPUParticles2D" parent="Stats/Spells/VBoxContainer"]
+modulate = Color(1, 1, 1, 0.658824)
+material = SubResource("ShaderMaterial_xvgoj")
+position = Vector2(125.588, 100.786)
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_xdask")
+texture = ExtResource("4_yf6j7")
+
 [node name="HatLabelHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
@@ -299,32 +307,23 @@ text = "Hat label here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ElementParticle" type="GPUParticles2D" parent="Stats/Spells/VBoxContainer/HatLabelHeightControl"]
-modulate = Color(1, 1, 1, 0.658824)
-material = SubResource("ShaderMaterial_xvgoj")
-position = Vector2(125.588, 92.7861)
-emitting = false
-amount = 30
-process_material = SubResource("ParticleProcessMaterial_xdask")
-texture = ExtResource("4_yf6j7")
-
 [node name="HBoxContainer" type="HBoxContainer" parent="Stats/Spells/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_bk3bj")
+material = SubResource("ShaderMaterial_sjlym")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_kjm4f")
+material = SubResource("ShaderMaterial_tbmf7")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_d1vhm")
+material = SubResource("ShaderMaterial_xpgyh")
 layout_mode = 2
 mouse_filter = 1
 

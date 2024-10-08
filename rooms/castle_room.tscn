@@ -27,10 +27,12 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yxloj"]
 shader = ExtResource("11_vkgv3")
+shader_parameter/final_saturation = 0.5
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_iry4c"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8xcsr"]
+seamless = true
 color_ramp = SubResource("Gradient_mkddu")
 noise = SubResource("FastNoiseLite_iry4c")
 
@@ -142,6 +144,7 @@ screen_margin = 150.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_yxloj")
+position = Vector2(544, 385)
 texture = SubResource("NoiseTexture2D_8xcsr")
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
