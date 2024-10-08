@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=18 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="PackedScene" uid="uid://otbl7685h64s" path="res://items/pickups/health_pickup.tscn" id="2_bnel2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="5_dh6mk"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="5_tvm45"]
 [ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="7_yovep"]
+[ext_resource type="Shader" path="res://shaders/desaturator.gdshader" id="11_vkgv3"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -23,6 +24,15 @@ shader = ExtResource("5_tvm45")
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxloj"]
+shader = ExtResource("11_vkgv3")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iry4c"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8xcsr"]
+color_ramp = SubResource("Gradient_mkddu")
+noise = SubResource("FastNoiseLite_iry4c")
 
 [node name="CastleRoom" type="Node2D"]
 y_sort_enabled = true
@@ -129,6 +139,10 @@ visible = false
 exit = NodePath("../../RoomExit")
 camera = NodePath("../../DynamicCamera")
 screen_margin = 150.0
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yxloj")
+texture = SubResource("NoiseTexture2D_8xcsr")
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="all_waves_cleared" from="." to="GuideArrow/Sprite2D" method="_on_castle_room_all_waves_cleared"]
