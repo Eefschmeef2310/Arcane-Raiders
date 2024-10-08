@@ -603,3 +603,5 @@ func _on_hat_changed():
 		data.hat_sprite = hat.sprite
 	else:
 		data.hat_sprite = null
+
+

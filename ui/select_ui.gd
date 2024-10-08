@@ -100,7 +100,11 @@ func _ready():
 	pass
 	
 	UpdateDisplay()
-	#request_update_from_authority.rpc()
+	
+	if GameManager.isOnline():
+		for player in get_tree().get_nodes_in_group("player"):
+			if player.get_multiplayer_authority() == get_multiplayer_authority():
+				player.set_data(player_data)
 
 func _process(_delta):
 	connected_time += _delta
