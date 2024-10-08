@@ -6,6 +6,7 @@ signal room_exited
 signal all_waves_cleared
 signal all_players_dead
 signal spell_change_requested(Player, int, SpellPickup)
+signal tilemap_updated()
 
 @export var wave_total_difficulty : Array[int]
 @export var gradient_map : GradientTexture1D
@@ -185,6 +186,7 @@ func set_gradient_map(new_map: GradientTexture1D, saturation_value : float):
 	
 	(tile_map.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(tile_map.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
+	tilemap_updated.emit()
 	(room_exit.material as ShaderMaterial).set_shader_parameter("gradient", new_map)
 	(room_exit.material as ShaderMaterial).set_shader_parameter("final_saturation", saturation)
 	camera_background.material = tile_map.material

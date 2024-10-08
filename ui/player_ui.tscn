@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sjlym"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mh6o7"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbmf7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xk7rx"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpgyh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2fb6"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -285,6 +285,7 @@ process_material = SubResource("ParticleProcessMaterial_xdask")
 texture = ExtResource("4_yf6j7")
 
 [node name="HatLabelHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
@@ -313,17 +314,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_sjlym")
+material = SubResource("ShaderMaterial_mh6o7")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_tbmf7")
+material = SubResource("ShaderMaterial_xk7rx")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_xpgyh")
+material = SubResource("ShaderMaterial_l2fb6")
 layout_mode = 2
 mouse_filter = 1
 

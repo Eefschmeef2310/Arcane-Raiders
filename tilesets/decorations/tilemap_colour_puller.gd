@@ -1,8 +1,14 @@
 @tool
 extends Sprite2D
 
+@onready var tiles : TileMap = get_parent().get_parent() as TileMap
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if owner.get_parent() is TileMap:
-		(material as ShaderMaterial).set_shader_parameter("gradient", (owner.get_parent().material as ShaderMaterial).get_shader_parameter("gradient") )
-		(material as ShaderMaterial).set_shader_parameter("final_saturation", (owner.get_parent().material as ShaderMaterial).get_shader_parameter("final_saturation"))
+	if tiles:
+		(material as ShaderMaterial).set_shader_parameter("gradient", (tiles.material as ShaderMaterial).get_shader_parameter("gradient") )
+		(material as ShaderMaterial).set_shader_parameter("final_saturation", (tiles.material as ShaderMaterial).get_shader_parameter("final_saturation")) 
+
+
+func _on_castle_room_tilemap_updated():
+	_ready()
