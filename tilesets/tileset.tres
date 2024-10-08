@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=28 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
 [ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
+[ext_resource type="PackedScene" uid="uid://7ic6tmc26syr" path="res://tilesets/decorations/chest.tscn" id="2_ha725"]
 [ext_resource type="PackedScene" uid="uid://bhexq08sb2msk" path="res://tilesets/decorations/torch_other_way.tscn" id="3_vx6cj"]
 [ext_resource type="PackedScene" uid="uid://rjdf8vu04xyv" path="res://tilesets/decorations/window_other_way.tscn" id="4_6n5bn"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_ep2uc"]
@@ -54,6 +55,7 @@ scenes/6/scene = ExtResource("11_fbnbu")
 scenes/7/scene = ExtResource("10_3x5et")
 scenes/8/scene = ExtResource("9_4y0o1")
 scenes/9/scene = ExtResource("12_56okc")
+scenes/10/scene = ExtResource("2_ha725")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ap3w"]
 resource_name = "edges"
