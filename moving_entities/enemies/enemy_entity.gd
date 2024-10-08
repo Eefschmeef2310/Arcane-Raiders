@@ -104,7 +104,7 @@ func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 		move_and_slide()
 	
 func _on_hurtbox_area_entered(area):
-	print("hit at " + str(area.name))
+	#print("hit at " + str(area.name))
 	on_hurt(area as Node2D)
 	
 func _on_zero_health():

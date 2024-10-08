@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=12 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -42,6 +42,29 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i7afp"]
+properties/0/path = NodePath(".:peer_id")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:device_id")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:selected_raider")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:selected_loadout")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:selected_color")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:username")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("PlayerData:hat_string")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
@@ -251,6 +274,9 @@ script = ExtResource("2_6iir5")
 spell_strings = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large"])
 
 [node name="Node2D" type="Node2D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_i7afp")
 
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]

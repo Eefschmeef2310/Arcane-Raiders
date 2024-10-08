@@ -234,6 +234,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if !data.destroy.is_connected(_on_data_destroy): data.destroy.connect(_on_data_destroy)
 	if !data.synergy_updated.is_connected(_on_synergy_updated): data.synergy_updated.connect(_on_synergy_updated)
 	if !data.hat_changed.is_connected(_on_hat_changed): data.hat_changed.connect(_on_hat_changed)
+	if !data.reassign.is_connected(_on_data_reassign): data.reassign.connect(_on_data_reassign)
 	
 	set_input(data.device_id)
 	hud.set_data(new_data)
@@ -249,7 +250,13 @@ func set_data(new_data: PlayerData, destroy_old := true):
 		right_hand_sprite.self_modulate = data.character.skin_color
 		left_hand_sprite.self_modulate = data.character.skin_color
 	
+	if data.hat_string:
+		data.set_hat_from_string(data.hat_string)
+	
 	call_deferred("set_multiplayer_authority", data.peer_id, true)
+
+func _on_data_reassign():
+	set_data(data, false)
 
 func _on_data_destroy():
 	queue_free()
@@ -599,3 +606,5 @@ func _on_hat_changed():
 		data.hat_sprite = hat.sprite
 	else:
 		data.hat_sprite = null
+
+

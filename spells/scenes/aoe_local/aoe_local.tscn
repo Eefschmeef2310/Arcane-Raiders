@@ -26,6 +26,7 @@ explosions_per_wave = 7
 max_radians = 6.283
 distance_from_caster = 0.0
 base_damage = 25
+max_damage = 50
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 

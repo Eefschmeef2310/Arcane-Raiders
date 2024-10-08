@@ -14,6 +14,7 @@ var direction : Vector2
 var base_damage : int
 var resource : Spell
 var caster : Player
+var cast_uuid : CastUUIDManager
 var infliction_time : float
 
 var play_element_sound : bool = false

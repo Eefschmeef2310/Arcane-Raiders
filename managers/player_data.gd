@@ -14,6 +14,7 @@ signal spell_casted_and_ready(spell: int)
 signal spell_ready(spell: int)
 signal hat_label_changed(text: String)
 signal destroy()
+signal reassign()
 
 @export var device_id : int = -2
 @export var peer_id : int = 1

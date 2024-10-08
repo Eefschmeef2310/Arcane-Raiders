@@ -25,6 +25,7 @@ const MAX_PLAYERS = 4
 @onready var castle_climb_spawner = $CastleClimbSpawner
 
 @export var hide_on_game_start: Array[Node]
+@export var invis_on_game_start: Array[Node]
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
@@ -223,8 +224,11 @@ func StartGame():
 
 @rpc("reliable", "call_local", "authority")
 func hide_lobby():
+	await get_tree().create_timer(0.1).timeout
 	for node in hide_on_game_start:
 		node.queue_free()
+	for node in invis_on_game_start:
+		node.hide()
 	for node in get_tree().get_nodes_in_group("hub_exclusive"):
 		node.queue_free()
 

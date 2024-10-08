@@ -58,18 +58,18 @@ func _process(delta):
 			var p = (data.spell_cooldowns[i] / data.spell_cooldowns_max[i]) * 100
 			spells[i].set_cooldown_percent(p)
 	
-	health_bar_linger.value = move_toward(health_bar_linger.value, health_bar.value, delta*100)
-	
-	damage_stat.text = "Damage: " + str(data.damage)
-	kills_stat.text = "Kills: " + str(data.kills)
-	crown.visible = crown.texture != null
-	player_username.visible = true
-	player_username.text = data.player_name
-	player_username.self_modulate = data.main_color
-	
-	update_stats_ui()
-	if(Input.is_action_just_pressed("debug_toggle_stats")):
-		show_stats = not show_stats
+		health_bar_linger.value = move_toward(health_bar_linger.value, health_bar.value, delta*100)
+		
+		damage_stat.text = "Damage: " + str(data.damage)
+		kills_stat.text = "Kills: " + str(data.kills)
+		crown.visible = crown.texture != null
+		player_username.visible = true
+		player_username.text = data.player_name
+		player_username.self_modulate = data.main_color
+		
+		update_stats_ui()
+		if(Input.is_action_just_pressed("debug_toggle_stats")):
+			show_stats = not show_stats
 #endregion
 
 #region Signal methods
@@ -136,7 +136,8 @@ func set_data(d: PlayerData):
 	health_bar.tint_progress = data.main_color
 	border.self_modulate = data.main_color
 	head_panel.self_modulate = data.main_color
-	head.texture = data.character.head_texture
+	if data.character:
+		head.texture = data.character.head_texture
 
 # TODO RUNS EVERY FRAME
 # convert to signals if possible

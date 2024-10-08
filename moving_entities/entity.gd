@@ -128,10 +128,26 @@ func on_hurt(attack):
 	var infliction_time: float
 	var element: ElementResource
 	var should_make_new_numbers : bool = false
+	var cast_uuid : CastUUIDManager
 	
 	#Apply base damage
 	if "base_damage" in attack:
 		damage = attack.base_damage
+	
+	if "cast_uuid" in attack:
+		if is_instance_valid(attack.cast_uuid):
+			cast_uuid = attack.cast_uuid
+			print("~~~~~~~~~~~~~~~~~~~~~")
+			print("Max damage: " + str(cast_uuid.max_damage))
+			if cast_uuid.damage_dealt_to_each_enemy.has(self):
+				print("Running total damage: " + str(cast_uuid.damage_dealt_to_each_enemy[self]))
+				var total_damage = cast_uuid.damage_dealt_to_each_enemy[self] + damage
+				if cast_uuid.max_damage != 0 and total_damage > cast_uuid.max_damage:
+					damage = total_damage - cast_uuid.max_damage
+					print("Limiting damage to " + str(damage))
+				cast_uuid.damage_dealt_to_each_enemy[self] = cast_uuid.damage_dealt_to_each_enemy[self] + damage
+			else:
+				cast_uuid.damage_dealt_to_each_enemy[self] = damage
 	
 	if "infliction_time" in attack:
 		infliction_time = attack.infliction_time

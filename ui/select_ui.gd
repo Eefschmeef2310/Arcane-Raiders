@@ -100,6 +100,25 @@ func _ready():
 	pass
 	
 	UpdateDisplay()
+	
+	await get_tree().create_timer(0.1).timeout
+	
+	if !is_multiplayer_authority():
+		player_data.name = username
+		player_data.character = lobby_manager.raiders[selected_raider]
+		player_data.main_color = lobby_manager.player_colors[selected_color]
+		player_data.peer_id = peer_id
+		player_data.device_id = device_id
+	
+		call_deferred("check_for_existing_player")
+
+func check_for_existing_player():
+	if GameManager.isOnline():
+		for player in get_tree().get_nodes_in_group("player"):
+			if player.get_multiplayer_authority() == get_multiplayer_authority():
+				player_node = player
+				player.set_data(player_data, false)
+				convert_to_ui()
 
 func _process(_delta):
 	connected_time += _delta
@@ -227,16 +246,17 @@ func spawn_player(na, raider_id, color_id):
 	player_data.main_color = lobby_manager.player_colors[color_id]
 	player_data.peer_id = peer_id
 	player_data.device_id = device_id
-	
+
 	raider_selected.emit(peer_id, device_id)
-	
+	convert_to_ui()
+
+func convert_to_ui():
 	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
-	
 	$PanelContainer.visible = false
-	
+
 
 func _remove_player():
 	# Clean up player here
@@ -244,6 +264,26 @@ func _remove_player():
 	if player_node:
 		player_node.queue_free()
 	queue_free()
+
+#@rpc("any_peer", "call_remote", "reliable")
+#func request_update_from_authority():
+	#if is_multiplayer_authority():
+		#var dict = {
+			#"raider" : selected_raider,
+			#"color" : selected_color,
+			#"hat" : player_data.hat_string
+		#}
+		#receive_from_authority.rpc(dict)
+		#
+#@rpc("authority", "call_remote", "reliable")
+#func receive_from_authority(dict : Dictionary):
+	#selected_raider = dict["raider"]
+	#selected_color = dict["color"]
+	#player_data.set_hat_from_string(dict["hat"])
+	#player_data.reassign.emit()
+	#UpdateDisplay()
+	
+
 
 func get_cropped_texture(texture : Texture, region : Rect2) -> AtlasTexture:
 	var atlas_texture := AtlasTexture.new()
