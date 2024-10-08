@@ -252,7 +252,7 @@ func spawn_player(na, raider_id, color_id):
 func convert_to_ui():
 	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
-	new_ui.set_data(player_data, false)
+	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
 	$PanelContainer.visible = false
 
