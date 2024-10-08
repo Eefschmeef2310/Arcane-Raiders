@@ -136,7 +136,8 @@ func set_data(d: PlayerData):
 	health_bar.tint_progress = data.main_color
 	border.self_modulate = data.main_color
 	head_panel.self_modulate = data.main_color
-	head.texture = data.character.head_texture
+	if data.character:
+		head.texture = data.character.head_texture
 
 # TODO RUNS EVERY FRAME
 # convert to signals if possible
