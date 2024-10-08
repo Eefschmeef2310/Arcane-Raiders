@@ -38,8 +38,9 @@ func set_spell_ready(spell: Spell):
 		else:
 			spell_rect.self_modulate = spell.element.colour
 		
-	label.hide()
-	spell_box.show()
+	if label and spell_box:
+		label.hide()
+		spell_box.show()
 
 func init_synergy(element : ElementResource, amount : float, col : Color):
 	synergy_box.visible = true

@@ -46,7 +46,7 @@ font_size = 42
 
 [node name="Settings" type="CanvasLayer"]
 process_mode = 3
-layer = 2
+layer = 3
 script = ExtResource("1_86kdw")
 
 [node name="ColorRect" type="ColorRect" parent="."]

@@ -7,6 +7,8 @@ signal player_entered(player: Player)
 @export var is_locked := false
 @export var locked_texture : Texture2D
 @export var unlocked_texture : Texture2D
+@export var destroy_if_online : bool = false
+
 @onready var sprite = $Sprite2D
 @onready var collision = $CollisionPolygon2D
 
@@ -16,6 +18,9 @@ var number_of_players : int
 func _ready():
 	if is_locked:
 		lock()
+		
+	if GameManager.isOnline() and destroy_if_online:
+		queue_free()
 
 func _process(_delta):
 	var cam = get_viewport().get_camera_2d()

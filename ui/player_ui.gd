@@ -168,6 +168,7 @@ func hat_label_changed(stri: String):
 	hat_label.text = stri
 
 func show_hat():
+	#hat_label.visible = data.hat_string
 	crown.texture = data.hat_sprite
 
 func synergy_updated(synergy_bonus, color):

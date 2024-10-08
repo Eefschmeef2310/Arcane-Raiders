@@ -1,4 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://brodj84jliqtq"]
+[gd_scene load_steps=9 format=3 uid="uid://brodj84jliqtq"]
+
+[ext_resource type="Script" path="res://menus/quit_button.gd" id="1_wqbwj"]
 
 [sub_resource type="GDScript" id="GDScript_gacho"]
 resource_name = "pause_menu"
@@ -13,6 +15,7 @@ var input : DeviceInput
 var mouse_input = []
 var devices = []
 var submenu = null
+var quit_warning
 
 @export var panels_array : Array[Control]
 
@@ -42,8 +45,7 @@ func _process(delta):
 			print(\"up\")
 			current_button = clampi(current_button - 1, 0, panels_array.size()-1)
 		
-		if (\"confirm\" in mouse_input):
-			print(\"Confirm\")
+		if ((\"confirm\" in mouse_input) or \"click_confirm\" in mouse_input) and !quit_warning:
 			match current_button:
 				0: _on_continue_button_pressed()
 				1: _on_settings_button_pressed()
@@ -51,6 +53,7 @@ func _process(delta):
 		
 		if (\"cancel\" in mouse_input or \"pause\" in mouse_input):
 			_on_continue_button_pressed()
+					
 	
 	for i in panels_array.size():
 		if current_button == i:
@@ -80,7 +83,7 @@ func _on_settings_button_pressed():
 	
 func _on_quit_button_pressed():
 	if GameManager.isOnline():
-		var quit_warning = load(\"res://menus/quit_warning.tscn\").instantiate()
+		quit_warning = load(\"res://menus/quit_warning.tscn\").instantiate()
 		
 		if is_multiplayer_authority():
 			quit_warning.set_text(\"By quitting, you will close the server. \\nAre you sure you want to quit?\")
@@ -97,7 +100,7 @@ func _on_quit_button_pressed():
 		#for device_id in Input.get_connected_joypads():
 			#MultiplayerInput._create_actions_for_device(device_id)
 		
-		print(\"erm... hello?\")
+		#print(\"erm... hello?\")
 		
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
@@ -121,6 +124,8 @@ func get_controller_input():
 			mouse_input.append(\"confirm\")
 		if input.is_action_just_pressed(\"lobby_cancel\"):
 			mouse_input.append(\"cancel\")
+		if input.device == -1 and input.is_action_just_pressed(\"lobby_click\"):
+			mouse_input.append(\"click_confirm\")
 	else:
 		for device in GameManager.devices:
 			if MultiplayerInput.is_action_just_pressed(device, \"lobby_up\"):
@@ -133,6 +138,8 @@ func get_controller_input():
 				mouse_input.append(\"confirm\")
 			if MultiplayerInput.is_action_just_pressed(device, \"lobby_cancel\"):
 				mouse_input.append(\"cancel\")
+			if device <= -1 and MultiplayerInput.is_action_just_pressed(device, \"lobby_click\"):
+				mouse_input.append(\"click_confirm\")
 
 #region Other methods (please try to separate and organise!)
 func set_panel_color(col: Color):
@@ -142,19 +149,15 @@ func set_panel_color(col: Color):
 
 func settings_set_focus():
 	$Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton.grab_focus()
-
 #endregion
-
 
 func _on_continue_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
 		current_button = 0
 
-
 func _on_settings_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
 		current_button = 1
-
 
 func _on_quit_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
@@ -305,6 +308,7 @@ horizontal_alignment = 1
 
 [node name="QuitButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+script = ExtResource("1_wqbwj")
 
 [node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton"]
 layout_mode = 2

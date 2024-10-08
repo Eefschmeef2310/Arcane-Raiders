@@ -19,6 +19,7 @@ const textbubble_scene: PackedScene = preload("res://debug/bubble_test.tscn")
 @export var character : DialogicCharacter
 @export var character_name : String
 @export var dialogues : Array[StringName]
+@export var destroy_if_online : bool = false
 
 @export_group("Node References")
 @export var player_enter_zone : Area2D
@@ -32,6 +33,9 @@ var fresh_bubble : CanvasLayer
 #endregion
 
 #region Godot methods
+func _ready():
+	if GameManager.isOnline() and destroy_if_online:
+		queue_free()
 #func _input(event):
 	#if prompt.visible and event.is_action_pressed("interact"):
 		#prompt.visible = false
