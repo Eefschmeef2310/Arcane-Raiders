@@ -223,6 +223,7 @@ func StartGame():
 
 @rpc("reliable", "call_local", "authority")
 func hide_lobby():
+	await get_tree().create_timer(0.1).timeout
 	for node in hide_on_game_start:
 		node.queue_free()
 	for node in get_tree().get_nodes_in_group("hub_exclusive"):
