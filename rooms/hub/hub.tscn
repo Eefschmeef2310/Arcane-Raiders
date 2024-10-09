@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=55 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -36,7 +36,6 @@
 [ext_resource type="Texture2D" uid="uid://byg1lp65ne0aa" path="res://hats/sprites/top_hat.png" id="34_5q4m5"]
 [ext_resource type="Texture2D" uid="uid://dkpnosl74iyee" path="res://hats/sprites/wizard_hat.png" id="35_dt86x"]
 [ext_resource type="PackedScene" uid="uid://11s7wrfbg1h1" path="res://tilesets/decorations/bush.tscn" id="36_k1eci"]
-[ext_resource type="Shader" path="res://shaders/bush_sway.gdshader" id="37_k8mf7"]
 [ext_resource type="Texture2D" uid="uid://btamxs2mkjwox" path="res://tilesets/decorations/dirt1.png" id="38_iyu5g"]
 [ext_resource type="Texture2D" uid="uid://ch4e5y1iefvoj" path="res://tilesets/decorations/grass1.png" id="39_whnr4"]
 [ext_resource type="Texture2D" uid="uid://c31gixqqe88mm" path="res://tilesets/decorations/grass2.png" id="40_yx4qc"]
@@ -108,26 +107,6 @@ shader_parameter/noise = SubResource("NoiseTexture2D_smrd5")
 font_size = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o3vje"]
-[sub_resource type="Gradient" id="Gradient_iw6gt"]
-offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 1, 0.261828, 1, 0, 1, 0, 1, 0.941437, 1, 0, 0.0257359, 1, 1, 0.548928, 0, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gps12"]
-shader = ExtResource("13_o80m4")
-shader_parameter/strength = 5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7lqrk"]
-resource_local_to_scene = true
-shader = ExtResource("37_k8mf7")
-shader_parameter/speed = 2.0
-shader_parameter/minStrength = 0.071
-shader_parameter/maxStrength = 0.061
-shader_parameter/strengthScale = 100.0
-shader_parameter/interval = 3.5
-shader_parameter/detail = 1.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
-shader_parameter/offset = 0.0
 
 [sub_resource type="Gradient" id="Gradient_iw6gt"]
 offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
