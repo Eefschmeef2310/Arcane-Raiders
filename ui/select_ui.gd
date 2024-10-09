@@ -26,6 +26,8 @@ signal raider_selected(peer_id, device_id)
 @export var ready_text : Label
 @export var remove_button : Button
 
+var display_name : String
+
 var finished_connecting : bool
 var valid_color : bool
 var input
@@ -168,11 +170,11 @@ func _process(_delta):
 			
 			if ("confirm" in mouse_input):
 				if (valid_color): # NOTE: removed ready button hover requirement
-					spawn_player.rpc(player_name.text, selected_raider, selected_color)
+					spawn_player.rpc(display_name, selected_raider, selected_color)
 			
 			if ("confirm_click" in mouse_input):
 				if (valid_color and selected_panel == 2):
-					spawn_player.rpc(player_name.text, selected_raider, selected_color)
+					spawn_player.rpc(display_name, selected_raider, selected_color)
 			
 			username = Steam.getPersonaName()
 			
@@ -192,9 +194,9 @@ func UpdateDisplay():
 		var s = "Keyboard & Mouse"
 		if device_id >= 0:
 			s = Input.get_joy_name(device_id)
-		player_name.text = s
+		display_name = s
 	else:
-		player_name.text = username
+		display_name = username
 	
 	# Manage the pips under raider and loadout title
 	highlight_color = lobby_manager.player_colors[selected_color]
