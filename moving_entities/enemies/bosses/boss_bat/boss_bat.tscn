@@ -50,7 +50,7 @@ func change_room_light():
 	for p in p_arr:
 		if p.has_node(\"PointLight2D\"):
 			var light = p.get_node(\"PointLight2D\")
-			var tween0 = create_tween()
+			var tween0 = get_tree().create_tween()
 			tween0.tween_property(light, \"energy\", player_lvl, 2)
 			tween0.parallel().tween_property(light, \"texture_scale\", player_size, 2)
 			
