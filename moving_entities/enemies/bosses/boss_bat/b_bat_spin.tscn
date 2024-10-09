@@ -12,8 +12,8 @@ const B_BAT_PROJ = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_bat
 
 @export var bullets_per_second: float = 10
 @export var spell_duration: float = 4
+@export var fire_angle_change_rate: float = 82
 var current_fire_angle: float = 0
-var fire_angle_change_rate: float = 82
 var fire_angle_change_rate_change_rate: float = 0
 
 var timer: float = 0

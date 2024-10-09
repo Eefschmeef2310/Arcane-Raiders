@@ -162,7 +162,6 @@ func spawn_enemy(data) -> Node2D:
 	if enemy.is_in_group("boss"):
 		enemy.max_health = floor(enemy.max_health * number_of_players_health_scale)
 		if !enemy.zero_health.is_connected(_on_boss_zero_health): enemy.zero_health.connect(_on_boss_zero_health) #See above
-
 	return enemy
 
 func spawn_spell_pickup(spell_string: String):

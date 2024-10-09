@@ -30,7 +30,7 @@ var base_damage
 var resource 
 var caster 
 var infliction_time = 1
-var knockback = 0
+var knockback = 1
 
 var up_time : float = 0
 #endregion
