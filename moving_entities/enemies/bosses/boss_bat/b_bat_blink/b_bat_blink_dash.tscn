@@ -30,6 +30,6 @@ func _ready():
 
 [node name="BBatBlinkDash" type="Node2D"]
 script = SubResource("GDScript_55t6r")
-base_damage = 150
+base_damage = 100
 end_time = 3.0
 cooldown_time = 5.0
