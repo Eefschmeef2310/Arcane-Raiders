@@ -29,9 +29,8 @@ func _ready():
 
 func _process(_delta):
 	if !active:
-		player.data.hat_label_changed.emit(str(active_timer.time_left))
+		player.data.hat_label_changed.emit(str(snapped(active_timer.time_left, 0.1)) + "s until explosion")
 	else:
-		#print("explosion")
 		player.data.hat_label_changed.emit("Explosion ready!")
 #endregion
 
@@ -42,6 +41,7 @@ func _on_timer_timeout():
 func explode():
 	if active:
 		active = false
+		active_timer.start(5)
 		
 		var burst = EXPLOSION_HAT_BURST.instantiate()
 		burst.global_position = player.global_position

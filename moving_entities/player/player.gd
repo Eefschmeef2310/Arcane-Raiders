@@ -597,6 +597,7 @@ func _on_hat_changed():
 	print("Player received signal")
 	for child in get_children():
 		if child is Hat:
+			data.hat_label_changed.emit("")
 			child.queue_free()
 			crown.texture = null
 	
@@ -606,5 +607,3 @@ func _on_hat_changed():
 		data.hat_sprite = hat.sprite
 	else:
 		data.hat_sprite = null
-
-

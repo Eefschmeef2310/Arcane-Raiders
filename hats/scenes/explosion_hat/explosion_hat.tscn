@@ -10,6 +10,6 @@ sprite = ExtResource("2_7bfi6")
 manager_key = &"explosion_hat"
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

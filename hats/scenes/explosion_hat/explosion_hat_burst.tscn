@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://yqr866dsh3bp"]
+[gd_scene load_steps=11 format=3 uid="uid://yqr866dsh3bp"]
 
 [ext_resource type="PackedScene" uid="uid://cxv6ps3wfo0nu" path="res://spells/scenes/explosion.tscn" id="1_e5uom"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_x7toj"]
-[ext_resource type="Texture2D" uid="uid://d0gvocnmmf1d" path="res://spells/scenes/aoe_local/local.png" id="3_rfiki"]
+[ext_resource type="PackedScene" uid="uid://sps1j7ba4ag0" path="res://spells/scenes/aoe_local/aoe_local_sprite.tscn" id="3_3lcpc"]
 
 [sub_resource type="Gradient" id="Gradient_f7grb"]
 
@@ -19,48 +19,17 @@ shader_parameter/gradient = SubResource("GradientTexture1D_ejo71")
 [sub_resource type="CircleShape2D" id="CircleShape2D_0qlas"]
 radius = 125.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vw81d"]
-atlas = ExtResource("3_rfiki")
-region = Rect2(0, 0, 500, 500)
+[sub_resource type="Gradient" id="Gradient_gml7d"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_efrme"]
-atlas = ExtResource("3_rfiki")
-region = Rect2(500, 0, 500, 500)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0rff4"]
+gradient = SubResource("Gradient_gml7d")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t23td"]
-atlas = ExtResource("3_rfiki")
-region = Rect2(1000, 0, 500, 500)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rc0ds"]
-atlas = ExtResource("3_rfiki")
-region = Rect2(0, 500, 500, 500)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q8gtw"]
-atlas = ExtResource("3_rfiki")
-region = Rect2(500, 500, 500, 500)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_lrxur"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vw81d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_efrme")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t23td")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rc0ds")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q8gtw")
-}],
-"loop": false,
-"name": &"default",
-"speed": 20.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sgqur"]
+resource_local_to_scene = true
+shader = ExtResource("2_x7toj")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_0rff4")
 
 [node name="explosion_hat_burst" instance=ExtResource("1_e5uom")]
 material = SubResource("ShaderMaterial_8k2mj")
@@ -79,11 +48,5 @@ shape = SubResource("CircleShape2D_0qlas")
 [node name="kill_timer" parent="." index="3"]
 wait_time = 0.3
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
-z_index = -1
-scale = Vector2(1, 0.5)
-sprite_frames = SubResource("SpriteFrames_lrxur")
-autoplay = "default"
-frame = 4
-frame_progress = 1.0
-speed_scale = 0.5
+[node name="aoe_local_sprite" parent="." index="4" instance=ExtResource("3_3lcpc")]
+material = SubResource("ShaderMaterial_sgqur")
