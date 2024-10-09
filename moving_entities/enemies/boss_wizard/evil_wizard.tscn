@@ -13,9 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="8_ni1h2"]
 [ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
+[ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="9_5nwwe"]
 [ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="9_6xc7a"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="10_wxye7"]
-[ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="11_0gi6j"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="11_ba4mg"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
@@ -118,7 +118,7 @@ element = ExtResource("5_rtfqf")
 script = ExtResource("6_ku3qc")
 suffix = ""
 description = ""
-scene = ExtResource("11_0gi6j")
+scene = ExtResource("9_5nwwe")
 projection_texture = ExtResource("7_bt8co")
 element = ExtResource("5_rtfqf")
 

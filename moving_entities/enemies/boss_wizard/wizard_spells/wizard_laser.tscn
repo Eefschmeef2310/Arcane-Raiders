@@ -29,12 +29,16 @@ var is_casting : bool = false
 var t = 0
 var y_offset = -16
 var track_aim := true
+var initial_beam_width = 5
 var beam_width = 30
 
 var base_damage : int
 var resource : Spell
 var caster : Player
 var infliction_time : float
+
+var cast_point: Vector2
+var cast_length: float
 #endregion
 
 #region Godot methods
@@ -56,8 +60,7 @@ func _ready():
 	target_position = global_position + (caster.aim_direction * 999999)
 	target_position.y += y_offset
 	
-	var cast_point = target_position
-	var cast_length: float
+	cast_point = target_position
 	force_raycast_update()
 	
 	if is_colliding():
@@ -65,14 +68,9 @@ func _ready():
 		cast_length = position.distance_to(cast_point)
 		
 	$Line2D.points[1] = cast_point
-	$Line2D.width = beam_width
-	$Area2D.monitorable = true
-	$Area2D/CollisionShape2D.position = (position + cast_point)/2
-	$Area2D/CollisionShape2D.rotation = position.direction_to(cast_point).angle()
-	$Area2D/CollisionShape2D.shape.size = Vector2(cast_length, beam_width)
+	$Line2D.width = initial_beam_width
 	
-	$KillTimer.start()
-	$AnimationPlayer.play(\"beam\", -1, 1/$KillTimer.wait_time)
+	$ActiveTimer.start()
 
 func _process(_delta):
 	if track_aim:
@@ -87,17 +85,26 @@ func update_raycast():
 	target_position = global_position + (caster.aim_direction * 999999)
 	target_position.y += y_offset
 	force_raycast_update()
-
 #endregion
 
 #region Signal methods
+func _on_active_timer_timeout():
+	$Line2D.points[1] = cast_point
+	$Line2D.width = initial_beam_width
+	$Area2D.monitorable = true
+	$Area2D/CollisionShape2D.position = (position + cast_point)/2
+	$Area2D/CollisionShape2D.rotation = position.direction_to(cast_point).angle()
+	$Area2D/CollisionShape2D.shape.size = Vector2(cast_length, beam_width)
+	
+	$KillTimer.start()
+	$AnimationPlayer.play(\"beam\", -1, 1/$KillTimer.wait_time)
+
 func _on_kill_timer_timeout():
 	owner.queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)
 #endregion
-
 "
 
 [sub_resource type="Gradient" id="Gradient_l8plh"]
@@ -171,17 +178,20 @@ texture_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="KillTimer" type="Timer" parent="RayCast2D" index="1"]
+[node name="ActiveTimer" type="Timer" parent="RayCast2D" index="1"]
+one_shot = true
+
+[node name="KillTimer" type="Timer" parent="RayCast2D" index="2"]
 wait_time = 0.4
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RayCast2D" index="2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RayCast2D" index="3"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_5h5wq")
 }
 
-[node name="Area2D" type="Area2D" parent="RayCast2D" index="3"]
+[node name="Area2D" type="Area2D" parent="RayCast2D" index="4"]
 collision_layer = 64
 collision_mask = 4
 monitorable = false
@@ -191,4 +201,5 @@ script = ExtResource("5_kwhts")
 position = Vector2(105, 0)
 shape = SubResource("RectangleShape2D_285tt")
 
+[connection signal="timeout" from="RayCast2D/ActiveTimer" to="RayCast2D" method="_on_active_timer_timeout"]
 [connection signal="timeout" from="RayCast2D/KillTimer" to="RayCast2D" method="_on_kill_timer_timeout"]
