@@ -29,6 +29,7 @@ signal raider_selected(peer_id, device_id)
 var display_name : String
 
 var finished_connecting : bool
+var valid_raider : bool
 var valid_color : bool
 var input
 var mouse_input: Array[String]
@@ -105,6 +106,8 @@ func _ready():
 	
 	await get_tree().create_timer(0.1).timeout
 	
+	
+	
 	if !is_multiplayer_authority():
 		player_data.name = username
 		player_data.character = lobby_manager.raiders[selected_raider]
@@ -129,7 +132,7 @@ func _process(_delta):
 		finished_connecting = true
 	
 	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
-		$PanelContainer/OnlineShieldPanel.hide()
+		$PanelContainer/OnlineShieldPanel.hide() 
 		if $PanelContainer.visible:
 			get_controller_input()
 			
@@ -151,7 +154,7 @@ func _process(_delta):
 						selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
 				elif(selected_panel == 1): #color selected
 					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
-					while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
+					while !has_valid_color():
 						selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
 				#elif(selected_panel == 3): #loadout selected
 					#selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
@@ -163,7 +166,7 @@ func _process(_delta):
 						selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
 				elif(selected_panel == 1): #loadout selected
 					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
-					while lobby_manager.picked_colors.has(selected_color) and not lobby_manager.allow_duplicate_colors:
+					while !has_valid_color():
 						selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 				#elif(selected_panel == 3): #loadout selected
 					#selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
@@ -211,8 +214,8 @@ func UpdateDisplay():
 	for pip in color_pips_box.get_children().size():
 		if pip == selected_color:
 			color_pips_box.get_child(pip).modulate = Color.WHITE
-		elif lobby_manager.picked_colors.has(pip) and not lobby_manager.allow_duplicate_colors:
-			color_pips_box.get_child(pip).modulate = Color8(255,255,255,40)
+		elif some_player_has_color(pip):
+			color_pips_box.get_child(pip).modulate = Color8(255,255,255,20)
 		else: 
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	
@@ -234,11 +237,17 @@ func UpdateDisplay():
 	pass
 	
 	#check for valid color
-	valid_color = true
+	valid_raider = true
 	#ready_button.text = "READY"
 	for card in lobby_manager.player_ui_container.get_children():
-		if card is JoinSelectUI and card.selected_color == selected_color and not player_ready and not card.peer_id == peer_id:
-			valid_color = false
+		if card is JoinSelectUI and card.selected_raider == selected_raider and not card.peer_id == peer_id:
+			valid_raider = false
+	
+	#check for valid color
+	has_valid_color()
+	
+	$ColorLabel.text = str(selected_color)
+		
 
 @rpc("authority", "call_local", "reliable")
 func spawn_player(na, raider_id, color_id):
@@ -284,7 +293,6 @@ func _remove_player():
 	#player_data.set_hat_from_string(dict["hat"])
 	#player_data.reassign.emit()
 	#UpdateDisplay()
-	
 
 
 func get_cropped_texture(texture : Texture, region : Rect2) -> AtlasTexture:
@@ -365,3 +373,20 @@ func get_controller_input():
 				mouse_input.append("confirm")
 			if MultiplayerInput.is_action_just_pressed(device, "lobby_cancel"):
 				mouse_input.append("cancel")
+ 
+
+func has_valid_color():
+	valid_color = true
+	#ready_button.text = "READY"
+	for card in lobby_manager.player_ui_container.get_children():
+		if card is JoinSelectUI and card != self and card.selected_color == selected_color:
+			valid_color = false
+	return valid_color
+
+
+func some_player_has_color(i : int) -> bool:
+	for card in lobby_manager.player_ui_container.get_children():
+		if card is JoinSelectUI and card != self and card.selected_color == i:
+			print(valid_color)
+			return true
+	return false
