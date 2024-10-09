@@ -102,6 +102,9 @@ func _ready():
 		color_pips_box.add_child(new_pip)
 	pass
 	
+	selected_raider = max(get_index()-1, 0)
+	selected_color = max(get_index()-1, 0)
+	
 	UpdateDisplay()
 	
 	await get_tree().create_timer(0.1).timeout
