@@ -102,6 +102,11 @@ func _ready():
 		color_pips_box.add_child(new_pip)
 	pass
 	
+	selected_raider = max(get_index()-1, 0)
+	selected_color = max(get_index()-1, 0)
+	while !has_valid_color():
+		selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
+	
 	UpdateDisplay()
 	
 	await get_tree().create_timer(0.1).timeout
