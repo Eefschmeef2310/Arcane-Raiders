@@ -106,7 +106,7 @@ alignment = 2
 [node name="Username" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Cookie"
+text = "Customise Raider"
 label_settings = SubResource("LabelSettings_lpa0r")
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -277,6 +277,15 @@ spell_strings = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_l
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_i7afp")
+
+[node name="ColorLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = -36.0
+offset_right = 51.0
+offset_bottom = -11.0
+text = "0"
 
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
