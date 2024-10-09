@@ -104,6 +104,8 @@ func _ready():
 	
 	selected_raider = max(get_index()-1, 0)
 	selected_color = max(get_index()-1, 0)
+	while !has_valid_color():
+		selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 	
 	UpdateDisplay()
 	
