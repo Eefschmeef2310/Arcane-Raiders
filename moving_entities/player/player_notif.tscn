@@ -18,6 +18,7 @@ shader_parameter/outline_width = 0.5
 shader_parameter/darken_amount = 0.3
 
 [node name="PlayerNotif" type="Control" node_paths=PackedStringArray("spell_box", "spell_rect", "spell_label", "synergy_box", "element_pip", "synergy_label")]
+z_index = 1
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5

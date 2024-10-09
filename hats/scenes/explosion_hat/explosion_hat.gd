@@ -30,6 +30,9 @@ func _ready():
 func _process(_delta):
 	if !active:
 		player.data.hat_label_changed.emit(str(active_timer.time_left))
+	else:
+		#print("explosion")
+		player.data.hat_label_changed.emit("Explosion ready!")
 #endregion
 
 #region Signal methods

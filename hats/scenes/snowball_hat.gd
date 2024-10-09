@@ -24,20 +24,25 @@ var total_bonus : float
 #region Godot methods
 func _ready():
 	super._ready()
+	player.data.hat_label_changed.emit(str(total_bonus) + "x bonus damage!") 
 	player.killed_entity.connect(increase_damage)
 	player.taken_damage.connect(damage_taken)
 	
 func _exit_tree():
-	damage_taken()
+	super._exit_tree()
+	player.entity_damage_multiplier -= total_bonus
+	total_bonus = 0.0
 #endregion
 
 #region Signal methods
 func increase_damage(entity : Entity):
 	if !entity.ignoreForStats:
+		player.data.hat_label_changed.emit(str(total_bonus) + "x bonus damage!")
 		player.entity_damage_multiplier += bonus
 		total_bonus += bonus
 	
 func damage_taken():
+	player.data.hat_label_changed.emit(str(total_bonus) + "x bonus damage!")
 	player.entity_damage_multiplier -= total_bonus
 	total_bonus = 0.0
 #endregion

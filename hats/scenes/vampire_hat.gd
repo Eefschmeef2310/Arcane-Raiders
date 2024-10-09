@@ -22,12 +22,15 @@ extends Hat
 #region Godot methods
 func _ready():
 	super._ready()
+	player.data.hat_label_changed.emit("Kill enemy to heal!")
 	player.killed_entity.connect(attack_made)
+
 #endregion
 
 #region Signal methods
 func attack_made(entity : Entity):
 	if !entity.ignoreForStats:
+		
 		player.heal_damage(10)
 #endregion
 

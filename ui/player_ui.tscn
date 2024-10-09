@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mh6o7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8gph8"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xk7rx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wdy7"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2fb6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enr8p"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -285,7 +285,6 @@ process_material = SubResource("ParticleProcessMaterial_xdask")
 texture = ExtResource("4_yf6j7")
 
 [node name="HatLabelHeightControl" type="Control" parent="Stats/Spells/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 
@@ -304,7 +303,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_font_sizes/font_size = 20
-text = "Hat label here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -314,17 +312,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_mh6o7")
+material = SubResource("ShaderMaterial_8gph8")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_xk7rx")
+material = SubResource("ShaderMaterial_6wdy7")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_l2fb6")
+material = SubResource("ShaderMaterial_enr8p")
 layout_mode = 2
 mouse_filter = 1
 

@@ -26,6 +26,10 @@ class_name Hat
 func _ready():
 	player.crown.texture = sprite
 	player.data.hat_string = manager_key
+
+func _exit_tree():
+	player.data.hat_label_changed.emit("")
+	pass
 #endregion
 
 #region Signal methods

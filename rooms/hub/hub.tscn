@@ -107,15 +107,7 @@ shader_parameter/noise = SubResource("NoiseTexture2D_smrd5")
 [sub_resource type="LabelSettings" id="LabelSettings_u03uf"]
 font_size = 32
 
-[sub_resource type="Gradient" id="Gradient_iw6gt"]
-offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 1, 0.261828, 1, 0, 1, 0, 1, 0.941437, 1, 0, 0.0257359, 1, 1, 0.548928, 0, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gps12"]
-shader = ExtResource("13_o80m4")
-shader_parameter/strength = 5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_whssv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_55fjq"]
 resource_local_to_scene = true
 shader = ExtResource("37_k8mf7")
 shader_parameter/speed = 2.0
@@ -127,6 +119,14 @@ shader_parameter/detail = 1.0
 shader_parameter/distortion = null
 shader_parameter/heightOffset = null
 shader_parameter/offset = 0.0
+
+[sub_resource type="Gradient" id="Gradient_iw6gt"]
+offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 1, 0.261828, 1, 0, 1, 0, 1, 0.941437, 1, 0, 0.0257359, 1, 1, 0.548928, 0, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gps12"]
+shader = ExtResource("13_o80m4")
+shader_parameter/strength = 5
 
 [node name="Hub" node_paths=PackedStringArray("player_ui", "hide_on_game_start", "invis_on_game_start", "join_indicator_node") instance=ExtResource("1_vicu8")]
 position = Vector2(-48, 3)
@@ -223,7 +223,123 @@ text = "Start Run!"
 label_settings = SubResource("LabelSettings_u03uf")
 horizontal_alignment = 1
 
-[node name="Decorations" type="Node2D" parent="." index="16"]
+[node name="GameFrog" parent="." index="16" instance=ExtResource("4_7li37")]
+position = Vector2(1374, 685)
+character_name = "Master Frog"
+dialogues = Array[StringName]([&"Battle to the top of the Arcane Tower!"])
+
+[node name="Crown" parent="GameFrog/SpritesScale/HeadGroup" index="1"]
+texture = ExtResource("32_mb7kk")
+
+[node name="ExitFrog" parent="." index="17" instance=ExtResource("4_7li37")]
+position = Vector2(21, 743)
+character_name = "Cool Frog"
+dialogues = Array[StringName]([&"Use this door to leave!"])
+destroy_if_online = true
+
+[node name="Body" parent="ExitFrog/SpritesScale" index="0"]
+self_modulate = Color(0.0666667, 0.254902, 0.505882, 1)
+
+[node name="Head" parent="ExitFrog/SpritesScale/HeadGroup" index="0"]
+texture = ExtResource("24_3nove")
+
+[node name="Crown" parent="ExitFrog/SpritesScale/HeadGroup" index="1"]
+texture = ExtResource("34_5q4m5")
+
+[node name="RightHand" parent="ExitFrog/SpritesScale" index="2"]
+self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
+
+[node name="LeftHand" parent="ExitFrog/SpritesScale" index="3"]
+self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
+
+[node name="HatFrog" parent="." index="18" instance=ExtResource("4_7li37")]
+position = Vector2(648, 381)
+character_name = "Milliner Frog"
+dialogues = Array[StringName]([&"Pick a hat using E or R1!"])
+
+[node name="HeadGroup" parent="HatFrog/SpritesScale" index="1"]
+position = Vector2(2, -74)
+
+[node name="RightHand" parent="HatFrog/SpritesScale" index="2"]
+position = Vector2(37, -28)
+
+[node name="LeftHand" parent="HatFrog/SpritesScale" index="3"]
+position = Vector2(-36, -28)
+
+[node name="WelcomeFrog" parent="." index="19" instance=ExtResource("4_7li37")]
+position = Vector2(634, 956)
+character_name = "Frog"
+dialogues = Array[StringName]([&"Welcome wizards!"])
+
+[node name="SpritesScale" parent="WelcomeFrog" index="1"]
+position = Vector2(0, 0)
+
+[node name="HeadGroup" parent="WelcomeFrog/SpritesScale" index="1"]
+position = Vector2(2, -74.0154)
+
+[node name="Crown" parent="WelcomeFrog/SpritesScale/HeadGroup" index="1"]
+visible = false
+
+[node name="RightHand" parent="WelcomeFrog/SpritesScale" index="2"]
+position = Vector2(45, -80.4342)
+
+[node name="LeftHand" parent="WelcomeFrog/SpritesScale" index="3"]
+position = Vector2(-40, -79)
+
+[node name="AnimationPlayer" parent="WelcomeFrog" index="2"]
+autoplay = "jump"
+
+[node name="DiscoFrog" parent="." index="20" instance=ExtResource("4_7li37")]
+position = Vector2(1361, 1041)
+timeline = ExtResource("13_ts3tr")
+character = ExtResource("14_oo7ad")
+character_name = "Disco Frog"
+dialogues = Array[StringName]([&"Dancing is so much fun! Press 1,2,3 or D-Pad keys to emote!"])
+
+[node name="Body" parent="DiscoFrog/SpritesScale" index="0"]
+self_modulate = Color(0.384314, 0.188235, 0.0313726, 1)
+
+[node name="HeadGroup" parent="DiscoFrog/SpritesScale" index="1"]
+position = Vector2(2, -74.0154)
+
+[node name="Head" parent="DiscoFrog/SpritesScale/HeadGroup" index="0"]
+texture = ExtResource("28_a3fgk")
+
+[node name="Crown" parent="DiscoFrog/SpritesScale/HeadGroup" index="1"]
+texture = ExtResource("33_5avpe")
+
+[node name="RightHand" parent="DiscoFrog/SpritesScale" index="2"]
+self_modulate = Color(0.756863, 0.576471, 0.34902, 1)
+position = Vector2(31, -31)
+
+[node name="LeftHand" parent="DiscoFrog/SpritesScale" index="3"]
+self_modulate = Color(0.756863, 0.576471, 0.34902, 1)
+position = Vector2(6, -25)
+
+[node name="AnimationPlayer" parent="DiscoFrog" index="2"]
+autoplay = "dance"
+
+[node name="Bush" parent="." index="21" instance=ExtResource("36_k1eci")]
+material = SubResource("ShaderMaterial_55fjq")
+position = Vector2(1187, 776)
+
+[node name="Bush2" parent="." index="22" instance=ExtResource("36_k1eci")]
+position = Vector2(70, 475)
+
+[node name="Bush3" parent="." index="23" instance=ExtResource("36_k1eci")]
+position = Vector2(-169, 596)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="Bush4" parent="." index="24" instance=ExtResource("36_k1eci")]
+position = Vector2(89, 762.91)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="Bush5" parent="." index="25" instance=ExtResource("36_k1eci")]
+position = Vector2(-36, 762.91)
+
+[node name="Decorations" type="Node2D" parent="." index="26"]
 
 [node name="PartyExit" parent="Decorations" index="0" instance=ExtResource("12_xu7yv")]
 position = Vector2(-97, 413)
@@ -283,103 +399,7 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="GameFrog" parent="Decorations" index="3" instance=ExtResource("4_7li37")]
-position = Vector2(1374, 685)
-character_name = "Master Frog"
-dialogues = Array[StringName]([&"Battle to the top of the Arcane Tower!"])
-
-[node name="Crown" parent="Decorations/GameFrog/SpritesScale/HeadGroup" index="1"]
-texture = ExtResource("32_mb7kk")
-
-[node name="ExitFrog" parent="Decorations" index="4" instance=ExtResource("4_7li37")]
-position = Vector2(21, 743)
-character_name = "Cool Frog"
-dialogues = Array[StringName]([&"Use this door to leave!"])
-destroy_if_online = true
-
-[node name="Body" parent="Decorations/ExitFrog/SpritesScale" index="0"]
-self_modulate = Color(0.0666667, 0.254902, 0.505882, 1)
-
-[node name="Head" parent="Decorations/ExitFrog/SpritesScale/HeadGroup" index="0"]
-texture = ExtResource("24_3nove")
-
-[node name="Crown" parent="Decorations/ExitFrog/SpritesScale/HeadGroup" index="1"]
-texture = ExtResource("34_5q4m5")
-
-[node name="RightHand" parent="Decorations/ExitFrog/SpritesScale" index="2"]
-self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
-
-[node name="LeftHand" parent="Decorations/ExitFrog/SpritesScale" index="3"]
-self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
-
-[node name="HatFrog" parent="Decorations" index="5" instance=ExtResource("4_7li37")]
-position = Vector2(648, 381)
-character_name = "Milliner Frog"
-dialogues = Array[StringName]([&"Pick a hat using E or R1!"])
-
-[node name="HeadGroup" parent="Decorations/HatFrog/SpritesScale" index="1"]
-position = Vector2(2, -74)
-
-[node name="RightHand" parent="Decorations/HatFrog/SpritesScale" index="2"]
-position = Vector2(37, -28)
-
-[node name="LeftHand" parent="Decorations/HatFrog/SpritesScale" index="3"]
-position = Vector2(-36, -28)
-
-[node name="WelcomeFrog" parent="Decorations" index="6" instance=ExtResource("4_7li37")]
-position = Vector2(634, 956)
-character_name = "Frog"
-dialogues = Array[StringName]([&"Welcome wizards!"])
-
-[node name="SpritesScale" parent="Decorations/WelcomeFrog" index="1"]
-position = Vector2(0, 0)
-
-[node name="HeadGroup" parent="Decorations/WelcomeFrog/SpritesScale" index="1"]
-position = Vector2(2, -74.0154)
-
-[node name="Crown" parent="Decorations/WelcomeFrog/SpritesScale/HeadGroup" index="1"]
-visible = false
-
-[node name="RightHand" parent="Decorations/WelcomeFrog/SpritesScale" index="2"]
-position = Vector2(45, -80.4342)
-
-[node name="LeftHand" parent="Decorations/WelcomeFrog/SpritesScale" index="3"]
-position = Vector2(-40, -79)
-
-[node name="AnimationPlayer" parent="Decorations/WelcomeFrog" index="2"]
-autoplay = "jump"
-
-[node name="DiscoFrog" parent="Decorations" index="7" instance=ExtResource("4_7li37")]
-position = Vector2(1361, 1041)
-timeline = ExtResource("13_ts3tr")
-character = ExtResource("14_oo7ad")
-character_name = "Disco Frog"
-dialogues = Array[StringName]([&"Dancing is so much fun! Press 1,2,3 or D-Pad keys to emote!"])
-
-[node name="Body" parent="Decorations/DiscoFrog/SpritesScale" index="0"]
-self_modulate = Color(0.384314, 0.188235, 0.0313726, 1)
-
-[node name="HeadGroup" parent="Decorations/DiscoFrog/SpritesScale" index="1"]
-position = Vector2(2, -74.0154)
-
-[node name="Head" parent="Decorations/DiscoFrog/SpritesScale/HeadGroup" index="0"]
-texture = ExtResource("28_a3fgk")
-
-[node name="Crown" parent="Decorations/DiscoFrog/SpritesScale/HeadGroup" index="1"]
-texture = ExtResource("33_5avpe")
-
-[node name="RightHand" parent="Decorations/DiscoFrog/SpritesScale" index="2"]
-self_modulate = Color(0.756863, 0.576471, 0.34902, 1)
-position = Vector2(31, -31)
-
-[node name="LeftHand" parent="Decorations/DiscoFrog/SpritesScale" index="3"]
-self_modulate = Color(0.756863, 0.576471, 0.34902, 1)
-position = Vector2(6, -25)
-
-[node name="AnimationPlayer" parent="Decorations/DiscoFrog" index="2"]
-autoplay = "dance"
-
-[node name="Robes" type="Node2D" parent="Decorations" index="8"]
+[node name="Robes" type="Node2D" parent="Decorations" index="3"]
 visible = false
 
 [node name="Body3" type="Sprite2D" parent="Decorations/Robes" index="0"]
@@ -422,7 +442,7 @@ modulate = Color(0, 0.623529, 0.505882, 1)
 position = Vector2(-238, 1138)
 texture = ExtResource("20_d8qci")
 
-[node name="Trees" type="Node2D" parent="Decorations" index="9"]
+[node name="Trees" type="Node2D" parent="Decorations" index="4"]
 visible = false
 
 [node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Decorations/Trees" index="0"]
@@ -515,94 +535,76 @@ position = Vector2(1893, 910)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Bush" parent="Decorations" index="10" instance=ExtResource("36_k1eci")]
-material = SubResource("ShaderMaterial_whssv")
-position = Vector2(1187, 776)
-
-[node name="Dirt1" type="Sprite2D" parent="Decorations" index="11"]
+[node name="Dirt1" type="Sprite2D" parent="Decorations" index="5"]
 modulate = Color(1, 1, 1, 0.87451)
 z_index = -1
 position = Vector2(640, 647)
 texture = ExtResource("38_iyu5g")
 
-[node name="Bush2" parent="Decorations" index="12" instance=ExtResource("36_k1eci")]
-position = Vector2(70, 475)
-
-[node name="Bush3" parent="Decorations" index="13" instance=ExtResource("36_k1eci")]
-position = Vector2(-169, 596)
-scale = Vector2(-1, 1)
-
-[node name="Bush4" parent="Decorations" index="14" instance=ExtResource("36_k1eci")]
-position = Vector2(89, 772)
-scale = Vector2(-1, 1)
-
-[node name="Bush5" parent="Decorations" index="15" instance=ExtResource("36_k1eci")]
-position = Vector2(-36, 767)
-
-[node name="Grass1" type="Sprite2D" parent="Decorations" index="16"]
+[node name="Grass1" type="Sprite2D" parent="Decorations" index="6"]
 position = Vector2(236, 788)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass2" type="Sprite2D" parent="Decorations" index="17"]
+[node name="Grass2" type="Sprite2D" parent="Decorations" index="7"]
 position = Vector2(950, 920)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass3" type="Sprite2D" parent="Decorations" index="18"]
+[node name="Grass3" type="Sprite2D" parent="Decorations" index="8"]
 position = Vector2(164, 587)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass4" type="Sprite2D" parent="Decorations" index="19"]
+[node name="Grass4" type="Sprite2D" parent="Decorations" index="9"]
 position = Vector2(380, 462)
 texture = ExtResource("42_27olt")
 
-[node name="Grass5" type="Sprite2D" parent="Decorations" index="20"]
+[node name="Grass5" type="Sprite2D" parent="Decorations" index="10"]
 position = Vector2(1106, 538)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass6" type="Sprite2D" parent="Decorations" index="21"]
+[node name="Grass6" type="Sprite2D" parent="Decorations" index="11"]
 position = Vector2(1443, 740)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass7" type="Sprite2D" parent="Decorations" index="22"]
+[node name="Grass7" type="Sprite2D" parent="Decorations" index="12"]
 position = Vector2(861, 1074)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass8" type="Sprite2D" parent="Decorations" index="23"]
+[node name="Grass8" type="Sprite2D" parent="Decorations" index="13"]
 position = Vector2(541, 1123)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass9" type="Sprite2D" parent="Decorations" index="24"]
+[node name="Grass9" type="Sprite2D" parent="Decorations" index="14"]
 position = Vector2(-271, 695)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass10" type="Sprite2D" parent="Decorations" index="25"]
+[node name="Grass10" type="Sprite2D" parent="Decorations" index="15"]
 position = Vector2(356, 973)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass11" type="Sprite2D" parent="Decorations" index="26"]
+[node name="Grass11" type="Sprite2D" parent="Decorations" index="16"]
 position = Vector2(1353, 1230)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass12" type="Sprite2D" parent="Decorations" index="27"]
+[node name="Grass12" type="Sprite2D" parent="Decorations" index="17"]
 position = Vector2(1755, 1036)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass13" type="Sprite2D" parent="Decorations" index="28"]
+[node name="Grass13" type="Sprite2D" parent="Decorations" index="18"]
 position = Vector2(1563, 934)
 texture = ExtResource("42_27olt")
 
-[node name="Grass14" type="Sprite2D" parent="Decorations" index="29"]
+[node name="Grass14" type="Sprite2D" parent="Decorations" index="19"]
 position = Vector2(644, 175)
 texture = ExtResource("41_e61ky")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="17"]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="27"]
 spawn_path = NodePath("../GameUI/PlayerUIContainer")
 
-[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="18"]
+[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="28"]
 _spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
 spawn_path = NodePath("..")
 
-[node name="Explosion" parent="." index="19" instance=ExtResource("31_dfbji")]
+[node name="Explosion" parent="." index="29" instance=ExtResource("31_dfbji")]
 position = Vector2(224, 390)
 hat_string = "explosion_hat"
 
@@ -616,7 +618,7 @@ text = "Cowboy Hat"
 text = "[center][font_size=18]Create an explosion when you take damage.
 [/font_size]"
 
-[node name="Snowball" parent="." index="20" instance=ExtResource("31_dfbji")]
+[node name="Snowball" parent="." index="30" instance=ExtResource("31_dfbji")]
 position = Vector2(408, 287)
 hat_string = "snowball_hat"
 
@@ -633,7 +635,7 @@ text = "Baseball Cap"
 text = "[center][font_size=18]Gain extra damage when defeating an enemy, just don't get hit!
 [/font_size]"
 
-[node name="Vampire" parent="." index="21" instance=ExtResource("31_dfbji")]
+[node name="Vampire" parent="." index="31" instance=ExtResource("31_dfbji")]
 position = Vector2(884, 289)
 hat_string = "vampire_hat"
 
@@ -651,7 +653,7 @@ text = "[center][font_size=18]Gain a bit of
  health when defeating an enemy.
 [/font_size]"
 
-[node name="GlassCannon" parent="." index="22" instance=ExtResource("31_dfbji")]
+[node name="GlassCannon" parent="." index="32" instance=ExtResource("31_dfbji")]
 position = Vector2(1083, 400)
 hat_string = "glass_cannon_hat"
 
@@ -669,18 +671,18 @@ text = "[center][font_size=18]Move slower,
 but deal more damage
 [/font_size]"
 
-[node name="HatDestroyer" parent="." index="23" instance=ExtResource("43_sukgf")]
+[node name="HatDestroyer" parent="." index="33" instance=ExtResource("43_sukgf")]
 position = Vector2(642, 185)
 
 [connection signal="player_entered" from="Decorations/PartyExit" to="." method="_on_party_exit_player_entered"]
 
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
-[editable path="Decorations/GameFrog"]
-[editable path="Decorations/ExitFrog"]
-[editable path="Decorations/HatFrog"]
-[editable path="Decorations/WelcomeFrog"]
-[editable path="Decorations/DiscoFrog"]
+[editable path="GameFrog"]
+[editable path="ExitFrog"]
+[editable path="HatFrog"]
+[editable path="WelcomeFrog"]
+[editable path="DiscoFrog"]
 [editable path="Explosion"]
 [editable path="Snowball"]
 [editable path="Vampire"]
