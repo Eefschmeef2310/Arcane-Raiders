@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=22 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="PackedScene" uid="uid://otbl7685h64s" path="res://items/pickups/health_pickup.tscn" id="2_bnel2"]
@@ -72,6 +72,14 @@ shader_parameter/noise_min = 0.82
 shader_parameter/noise_max = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 shader_parameter/noise = SubResource("NoiseTexture2D_e168e")
+
+[sub_resource type="Gradient" id="Gradient_a0r8j"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_20gjc"]
+gradient = SubResource("Gradient_a0r8j")
+use_hdr = true
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0.999)
 
 [node name="CastleRoom" type="Node2D"]
 y_sort_enabled = true
@@ -163,9 +171,6 @@ spawn_path = NodePath("..")
 [node name="RoomExit" parent="." instance=ExtResource("5_dh6mk")]
 position = Vector2(796, 138)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.756863, 0.756863, 0.756863, 1)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BossBars" type="HBoxContainer" parent="CanvasLayer"]
@@ -190,6 +195,13 @@ visible = false
 exit = NodePath("../../RoomExit")
 camera = NodePath("../../DynamicCamera")
 screen_margin = 150.0
+
+[node name="CoverLight" type="PointLight2D" parent="."]
+position = Vector2(917.5, 728)
+scale = Vector2(90.1094, 57.4688)
+energy = 0.25
+blend_mode = 1
+texture = SubResource("GradientTexture2D_20gjc")
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="all_waves_cleared" from="." to="GuideArrow/Sprite2D" method="_on_castle_room_all_waves_cleared"]

@@ -1,6 +1,6 @@
 extends Node
 
-const version_id : int = 2899410
+const version_id : int = 480
 #3062240 for DEMO
 #2899410 for MAIN GAME
 #480 for SPACEWAR

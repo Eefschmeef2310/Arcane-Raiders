@@ -4,7 +4,6 @@
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_j27yy"]
 
 [node name="DamageNumber" type="Control"]
-light_mask = 0
 z_index = 29
 layout_mode = 3
 anchors_preset = 0
@@ -13,6 +12,7 @@ offset_bottom = 40.0
 script = ExtResource("1_b64cl")
 
 [node name="Label" type="Label" parent="."]
+light_mask = 0
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

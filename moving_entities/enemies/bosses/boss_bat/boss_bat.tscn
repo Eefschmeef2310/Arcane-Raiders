@@ -25,14 +25,14 @@ script/source = "extends EnemyEntity
 
 var dash_prep_pos: Vector2
 var dark_room:bool = false
-var canvas_modulate:CanvasModulate
+var canvas_modulate: PointLight2D
 var target_player: Entity
 var invincible: bool = false
 
 func _ready():
 	super._ready()
-	if get_parent().has_node(\"CanvasModulate\"):
-		canvas_modulate = get_parent().get_node(\"CanvasModulate\")
+	if get_parent().has_node(\"CoverLight\"):
+		canvas_modulate = get_parent().get_node(\"CoverLight\")
 		
 func _on_zero_health():
 	await change_room_light()
@@ -40,12 +40,12 @@ func _on_zero_health():
 
 func change_room_light():
 	dark_room = !dark_room
-	var light_lvl = Color(0, 0, 0) if dark_room else Color(0.75, 0.75, 0.75)
+	var light_lvl = 1 if dark_room else 0.25
 	var player_lvl = 1 if dark_room else 0.1
 	var player_size = 2 if dark_room else 1
 	$PointLight2D.energy = 0
 	var tween = get_tree().create_tween()
-	tween.tween_property(canvas_modulate, \"color\", light_lvl, 2)
+	tween.tween_property(canvas_modulate, \"energy\", light_lvl, 2)
 	var p_arr = get_tree().get_nodes_in_group(\"player\")
 	for p in p_arr:
 		if p.has_node(\"PointLight2D\"):
