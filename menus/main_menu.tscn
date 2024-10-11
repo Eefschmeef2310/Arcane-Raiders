@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=23 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="1_tp6hm"]
 [ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/img/TOGETHER-small.png" id="1_usn4v"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://bnv1hr4yvuwr5" path="res://menus/img/ROCK_EFFECTS_SMALL.png" id="10_k7nue"]
 [ext_resource type="Texture2D" uid="uid://dg4oi66c20d63" path="res://menus/img/ELECTRC_EFFECTS_SMALL.png" id="11_ybop7"]
 [ext_resource type="Texture2D" uid="uid://j0xqv51txihy" path="res://menus/img/WIND_EFFECTS_SMALL.png" id="12_t3345"]
+[ext_resource type="Texture2D" uid="uid://dnsrxgk786yrt" path="res://discord-white-icon.webp" id="19_edvgm"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
@@ -94,6 +95,14 @@ func _on_credits_button_pressed():
 func set_white(_arg, arg2, _arg3):
 	Steam.setLEDColor(arg2, 255, 255, 255, 0)
 #endregion
+
+
+func _on_discord_button_pressed():
+	OS.shell_open(\"https://discord.com/invite/3BPYMHqNve\")
+
+
+func _on_feedback_button_pressed():
+	OS.shell_open(\"https://forms.gle/X1ToW3kE8Pzpy4mu5\")
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
@@ -269,6 +278,15 @@ theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Settings"
 
+[node name="FeedbackButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../Horiz/CreditsButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
+text = "Provide Feedback!"
+
 [node name="Horiz" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 24
@@ -277,19 +295,32 @@ theme_override_constants/separation = 24
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_top = NodePath("../../SettingsButton")
-focus_neighbor_right = NodePath("../QuitButton")
+focus_neighbor_top = NodePath("../../FeedbackButton")
+focus_neighbor_right = NodePath("../DiscordButton")
 theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Credits"
 script = ExtResource("2_hcuag")
 
-[node name="QuitButton" type="Button" parent="VBoxContainer/Horiz"]
+[node name="DiscordButton" type="Button" parent="VBoxContainer/Horiz"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../CreditsButton")
-focus_neighbor_top = NodePath("../../SettingsButton")
+focus_neighbor_top = NodePath("../../FeedbackButton")
+focus_neighbor_right = NodePath("../QuitButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
+icon = ExtResource("19_edvgm")
+icon_alignment = 1
+expand_icon = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../DiscordButton")
+focus_neighbor_top = NodePath("../../FeedbackButton")
 theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Quit"
@@ -325,5 +356,7 @@ label_settings = SubResource("LabelSettings_sscpa")
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Horiz/DiscordButton" to="." method="_on_discord_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]

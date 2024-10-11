@@ -48,8 +48,9 @@ func _process(delta):
 		if ((\"confirm\" in mouse_input) or \"click_confirm\" in mouse_input) and !quit_warning:
 			match current_button:
 				0: _on_continue_button_pressed()
-				1: _on_settings_button_pressed()
-				2: _on_quit_button_pressed()
+				1: _on_feedback_button_pressed()
+				2: _on_settings_button_pressed()
+				3: _on_quit_button_pressed()
 		
 		if (\"cancel\" in mouse_input or \"pause\" in mouse_input):
 			_on_continue_button_pressed()
@@ -105,7 +106,10 @@ func _on_quit_button_pressed():
 		get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
 		queue_free()
 		
+func _on_feedback_button_pressed():
+	OS.shell_open(\"https://forms.gle/X1ToW3kE8Pzpy4mu5\")
 #endregion
+
 
 func update_device_list(_device: int, _connected: bool):
 	devices.clear()
@@ -155,13 +159,20 @@ func _on_continue_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
 		current_button = 0
 
-func _on_settings_button_mouse_entered():
+func _on_feedback_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
 		current_button = 1
 
-func _on_quit_button_mouse_entered():
+func _on_settings_button_mouse_entered():
 	if device_id <= -1 and is_multiplayer_authority():
 		current_button = 2
+
+func _on_quit_button_mouse_entered():
+	if device_id <= -1 and is_multiplayer_authority():
+		current_button = 3
+
+
+
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adoh7"]
@@ -227,7 +238,7 @@ _data = {
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("panels_array")]
 process_mode = 3
 script = SubResource("GDScript_gacho")
-panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
+panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
 stylebox_normal = SubResource("StyleBoxFlat_adoh7")
 stylebox_selected = SubResource("StyleBoxFlat_iqpjl")
 
@@ -297,6 +308,15 @@ text = "Continue"
 label_settings = SubResource("LabelSettings_yrycy")
 horizontal_alignment = 1
 
+[node name="FeedbackButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton"]
+layout_mode = 2
+text = "Submit Feedback"
+label_settings = SubResource("LabelSettings_yrycy")
+horizontal_alignment = 1
+
 [node name="SettingsButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -324,5 +344,6 @@ autoplay = "default"
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
+[connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton" to="." method="_on_feedback_button_mouse_entered"]
 [connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_mouse_entered"]
 [connection signal="mouse_entered" from="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_mouse_entered"]
