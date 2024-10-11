@@ -259,6 +259,13 @@ func start_next_floor():
 	
 	await get_tree().create_timer(0.2).timeout
 	current_room_node.spawn_players(number_of_players)
+	
+	if(number_of_players > 1):
+		DiscordRPC.state = "Raiding the tower with " + str(number_of_players) + " friends!"
+	else:
+		DiscordRPC.state = "Raiding the tower alone..."
+	DiscordRPC.details = "Currently on Floor " + str(current_floor) 
+	DiscordRPC.refresh()
 
 func spawn_common_level(key) -> Node:
 	AudioManager.play_sector(get_current_sector())

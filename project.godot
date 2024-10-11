@@ -36,6 +36,7 @@ PlayerPreferenceManager="*res://managers/player_preference_manager.gd"
 HatManager="*res://managers/hat_manager.tscn"
 DebugPause="*res://debug/debug_pause.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 
 [dialogic]
 
@@ -90,7 +91,7 @@ movie_writer/movie_file="C:/Users/User/Videos/Arcane Raiders/arcance.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/minos_uuid_generator/plugin.cfg", "res://addons/multiplayer_input/plugin.cfg")
+enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/multiplayer_input/plugin.cfg")
 
 [file_customization]
 
