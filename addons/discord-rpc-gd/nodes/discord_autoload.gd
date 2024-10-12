@@ -12,8 +12,8 @@ func _ready() -> void:
 	#DiscordRPC.state = "Checkpoint 23/23" # floor number
 	DiscordRPC.large_image = "game" # Image key from "Art Assets"
 	DiscordRPC.large_image_text = "Download the demo on Steam!"
-	#DiscordRPC.small_image = "boss" # Image key from "Art Assets" # we could use the small image/text to display floor info?
-	#DiscordRPC.small_image_text = "Fighting the end boss! D:"
+	DiscordRPC.small_image = "smol" # Image key from "Art Assets" # we could use the small image/text to display floor info?
+	DiscordRPC.small_image_text = "Ver: " + ProjectSettings.get_setting("application/config/version", "0") + SteamManager.get_version_string()
 
 	DiscordRPC.start_timestamp = int(Time.get_unix_time_from_system()) # "02:46 elapsed"
 	# DiscordRPC.end_timestamp = int(Time.get_unix_time_from_system()) + 3600 # +1 hour in unix time / "01:00:00 remaining"

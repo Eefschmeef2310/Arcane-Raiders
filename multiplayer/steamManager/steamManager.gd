@@ -71,3 +71,14 @@ func upload_stat_float(stat_name : String, stat_value : float):
 	if(live_mode):
 		Steam.setStatFloat(stat_name, stat_value)
 		Steam.storeStats()
+
+func get_version_string() -> String:
+	match version_id:
+		3062240:
+			return " - DEMO"
+		2899410:
+			return ""
+		480:
+			return " - SPACEWAR"
+		_:
+			return " - UNKNOWN"
