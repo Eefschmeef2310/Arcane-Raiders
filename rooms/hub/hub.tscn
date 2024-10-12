@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=56 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -41,6 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://c31gixqqe88mm" path="res://tilesets/decorations/grass2.png" id="40_yx4qc"]
 [ext_resource type="Texture2D" uid="uid://bh0sfaks47mhy" path="res://tilesets/decorations/grass3.png" id="41_e61ky"]
 [ext_resource type="Texture2D" uid="uid://bfbbtqo7sim14" path="res://tilesets/decorations/grass4.png" id="42_27olt"]
+[ext_resource type="Script" path="res://rooms/hub/DiscordRP Tool.gd" id="43_ari5y"]
 [ext_resource type="PackedScene" uid="uid://b7ucgdokfb826" path="res://hats/pickups/hat_destroyer.tscn" id="43_sukgf"]
 
 [sub_resource type="Gradient" id="Gradient_n0mbe"]
@@ -659,6 +660,9 @@ but deal more damage
 
 [node name="HatDestroyer" parent="." index="33" instance=ExtResource("43_sukgf")]
 position = Vector2(642, 185)
+
+[node name="DiscordRP Tool" type="Node" parent="." index="34"]
+script = ExtResource("43_ari5y")
 
 [connection signal="player_entered" from="Decorations/PartyExit" to="." method="_on_party_exit_player_entered"]
 

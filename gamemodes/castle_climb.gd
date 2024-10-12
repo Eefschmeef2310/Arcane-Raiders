@@ -261,7 +261,7 @@ func start_next_floor():
 	current_room_node.spawn_players(number_of_players)
 	
 	if(number_of_players > 1):
-		DiscordRPC.state = "Raiding the tower with " + str(number_of_players) + " friends!"
+		DiscordRPC.state = "Raiding the tower in a group of " + str(number_of_players) + " friends!"
 	else:
 		DiscordRPC.state = "Raiding the tower alone..."
 	DiscordRPC.details = "Currently on Floor " + str(current_floor) 
