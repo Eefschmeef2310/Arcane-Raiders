@@ -101,7 +101,7 @@ func join_lobby(id):
 func _on_lobby_created(connected, id):
 	if connected:
 		lobby_id = id
-		Steam.setLobbyData(lobby_id,"name",str(Steam.getPersonaName()+"'s Arcane Raiders Lobby " + Time.get_time_string_from_system()))
+		Steam.setLobbyData(lobby_id,"name",str(Steam.getPersonaName()+"'s Arcane Raiders Lobby, Version: " +  ProjectSettings.get_setting("application/config/version", "0") + ", Time: "+ Time.get_time_string_from_system()))
 		Steam.setLobbyJoinable(lobby_id, true)
 		print(lobby_id)
 		
@@ -114,7 +114,7 @@ func on_lobby_match_list(lobbies):
 	var all_lobbies_count = lobbies.size()
 	for lobby in lobbies:
 		var lobby_name = Steam.getLobbyData(lobby,"name")
-		if (lobby_name.contains("Arcane Raiders")):
+		if (lobby_name.contains("Arcane Raiders, Version: " + ProjectSettings.get_setting("application/config/version", "0"))):
 			var memb_count = Steam.getNumLobbyMembers(lobby)
 			var button = template_button.duplicate()
 			button.get_node("MarginContainer/HBoxContainer/ServerName").text = str(lobby_name)
