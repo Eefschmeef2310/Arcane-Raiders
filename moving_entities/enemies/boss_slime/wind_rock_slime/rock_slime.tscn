@@ -457,8 +457,9 @@ offset_bottom = -153.0
 spells = Array[ExtResource("5_gv6gh")]([SubResource("Resource_s8rm7"), SubResource("Resource_xoaik")])
 cast_time = Array[float]([0.45, 0.0, 0.2])
 
-[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
+debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = ExtResource("7_kreo6")
@@ -469,6 +470,7 @@ script = ExtResource("8_7pplt")
 
 [node name="BSlimeSolo" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("9_jawt5")
+animation = "enrage"
 
 [node name="BSlimePerma" type="Node" parent="StateMachine" index="3"]
 script = ExtResource("10_2gsid")
