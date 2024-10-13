@@ -104,9 +104,9 @@ func _physics_process(delta):
 		knockback_hold_timer -= delta
 	else:
 		knockback_velocity = lerp(knockback_velocity, 0.0, clamp(delta * knockback_lerp_strength, 0, 1.0))
-		if knockback_velocity > 0 and knockback_velocity <= knockback_floor:
+		if knockback_velocity >= 0 and knockback_velocity <= knockback_floor:
 			can_input = true
-		elif knockback_velocity < 0 and knockback_velocity >= -knockback_floor:
+		elif knockback_velocity <= 0 and knockback_velocity >= -knockback_floor:
 			can_input = true
 	
 	set_deferred("ice_speed_scale", 1.0)

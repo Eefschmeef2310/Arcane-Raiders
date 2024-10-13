@@ -21,11 +21,17 @@ func _ready():
 		raycasts.global_position = global_position
 	
 	global_position = caster.global_position
+	var is_inside:bool = true
 	for raycast:RayCast2D in $RayCasts.get_children():
 		raycast.force_raycast_update()
+		if raycast.is_colliding():
+			is_inside = false
 		pos_array.push_back(raycast.get_collision_point())
 		
-	center_position = Vector2((pos_array[0].x + pos_array[1].x)/2,(pos_array[2].y + pos_array[3].y)/2)
+	if !is_inside and "spawn_point" in caster:
+		center_position = caster.spawn_point
+	else:
+		center_position = Vector2((pos_array[0].x + pos_array[1].x)/2,(pos_array[2].y + pos_array[3].y)/2)
 
 func caster_visibility(vis: bool):
 	var poof = POOF_SCENE.instantiate()
@@ -46,7 +52,7 @@ func teleport_to_center():
 func teleport_to_random_side():
 	#if !caster.is_multiplayer_authority(): return
 	await caster_visibility(false)
-	caster.global_position = center_position
+	global_position = center_position
 	var raycast:RayCast2D = $RayCasts/RayCastLeft
 	raycast.target_position = Vector2.LEFT.rotated(deg_to_rad(randi() % 360)) * 9999
 	raycast.force_raycast_update()

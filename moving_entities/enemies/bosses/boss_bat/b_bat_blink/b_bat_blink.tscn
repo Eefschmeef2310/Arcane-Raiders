@@ -8,3 +8,4 @@ script = ExtResource("1_emm0t")
 particle_duration = 1.0
 
 [node name="RayCasts" parent="." instance=ExtResource("2_kpvn8")]
+visible = true

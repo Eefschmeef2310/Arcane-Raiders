@@ -23,6 +23,7 @@
 [sub_resource type="GDScript" id="GDScript_b5sd0"]
 script/source = "extends EnemyEntity
 
+var spawn_point:Vector2
 var dash_prep_pos: Vector2
 var dark_room:bool = false
 var canvas_modulate: PointLight2D
@@ -33,7 +34,8 @@ func _ready():
 	super._ready()
 	if get_parent().has_node(\"CoverLight\"):
 		canvas_modulate = get_parent().get_node(\"CoverLight\")
-		
+	spawn_point = global_position
+
 func _on_zero_health():
 	change_room_light()
 	super._on_zero_health()
@@ -513,8 +515,8 @@ is_boss = true
 boss_name = "Echo Rusher"
 death_sound = null
 max_health = 3000
-knockback_lerp_strength = 0.0
-knockback_initial_velocity = 20.0
+knockback_lerp_strength = 100.0
+knockback_initial_velocity = 1.0
 
 [node name="PointLight2D" parent="." index="0"]
 position = Vector2(0, -53)
