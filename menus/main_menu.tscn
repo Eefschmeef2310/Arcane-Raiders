@@ -380,7 +380,6 @@ layout_mode = 2
 label_settings = SubResource("LabelSettings_sscpa")
 
 [node name="DemoPopup" type="Control" parent="." node_paths=PackedStringArray("close_button", "local_play_button")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -446,7 +445,7 @@ theme_override_font_sizes/normal_font_size = 27
 bbcode_enabled = true
 text = "[font_size=30] [center]Thank you for checking out Arcane Raiders!
 
-This is a test of the stability of the online architecture and game framework. Please report any you find on our [url=\"https://discord.com/invite/3BPYMHqNve\"]Discord Server[/url] or in the [url=\"https://forms.gle/X1ToW3kE8Pzpy4mu5\"]Feedback Form[/url]
+This is a test of the stability of the online architecture and game framework. Please report any you find on our [url=\"https://discord.com/invite/3BPYMHqNve\"]Discord Server[/url] or in the [url=\"https://forms.gle/X1ToW3kE8Pzpy4mu5\"]Feedback Form[/url].
 
 We hope you enjoy the game!
 

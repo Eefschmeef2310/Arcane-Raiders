@@ -143,8 +143,12 @@ func _on_peer_disconnected(id:int):
 			if card is JoinSelectUI and card.peer_id == id:
 				card._remove_player()
 				
-				
-		#emit a signal for removing them from the actual game 
+	for player in get_tree().get_nodes_in_group("player"):
+		if player is Player and player.data.peer_id == id:
+			player.queue_free()
+	
+	
+	#emit a signal for removing them from the actual game 
 	player_left.emit(id)
 
 func _on_connected_to_server(): #this isnt working at all
