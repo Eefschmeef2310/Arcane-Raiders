@@ -309,7 +309,7 @@ func dash_muck_with_collider():
 
 @rpc("authority", "call_local", "reliable")
 func play_emote(index : int):
-	if animation_player.current_animation != ("emote_" + str(index)) and !is_casting and preparing_cast_slot == -1: #So we don't overwrite existing animation
+	if animation_player.current_animation != ("emote_" + str(index)) and !is_casting and !is_dashing and preparing_cast_slot == -1: #So we don't overwrite existing animation
 		animation_player.play("emote_" + str(index))
 
 func prepare_cast_down(slot: int):
