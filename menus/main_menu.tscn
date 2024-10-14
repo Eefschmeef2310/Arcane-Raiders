@@ -32,7 +32,7 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 @export var steam_error_window : PanelContainer
 @export var steam_error_label : Label
 @export var online_button : Button
-@export var demo_badge : Node2D
+@export var demo_badge : Button
 @export var demo_popup : Control
 
 #region Godot methods
@@ -44,8 +44,8 @@ func _ready():
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
 	
 	AudioManager.play_track_instant(\"menu\")
+	$VBoxContainer/VersionInfo/VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
 	
-	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
 	if (!Steam.loggedOn()):
 		steam_error_window.show()
 		steam_error_label.text = \" Connection to steam failed, Online functions disabled: Not logged into steam \"
@@ -139,7 +139,7 @@ script = SubResource("GDScript_mpxdx")
 steam_error_window = NodePath("SteamErrorWindow")
 steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
 online_button = NodePath("VBoxContainer/OnlineButton")
-demo_badge = NodePath("")
+demo_badge = NodePath("VBoxContainer/VersionInfo/Button")
 demo_popup = NodePath("DemoPopup")
 
 [node name="ColorRect" type="ColorRect" parent="."]
