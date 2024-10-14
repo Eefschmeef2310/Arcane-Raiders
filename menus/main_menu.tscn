@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=25 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="1_tp6hm"]
 [ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/img/TOGETHER-small.png" id="1_usn4v"]
@@ -18,7 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://bnv1hr4yvuwr5" path="res://menus/img/ROCK_EFFECTS_SMALL.png" id="10_k7nue"]
 [ext_resource type="Texture2D" uid="uid://dg4oi66c20d63" path="res://menus/img/ELECTRC_EFFECTS_SMALL.png" id="11_ybop7"]
 [ext_resource type="Texture2D" uid="uid://j0xqv51txihy" path="res://menus/img/WIND_EFFECTS_SMALL.png" id="12_t3345"]
-[ext_resource type="Texture2D" uid="uid://dnsrxgk786yrt" path="res://discord-white-icon.webp" id="19_edvgm"]
+[ext_resource type="Texture2D" path="res://discord-white-icon.webp" id="19_edvgm"]
+[ext_resource type="Script" path="res://menus/DemoPopup.gd" id="20_ryswq"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
@@ -30,6 +31,8 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 @export var steam_error_window : PanelContainer
 @export var steam_error_label : Label
 @export var online_button : Button
+@export var demo_badge : Node2D
+@export var demo_popup : Control
 
 #region Godot methods
 func _ready():
@@ -62,6 +65,11 @@ func _ready():
 	DiscordRPC.details = \"In the menus\"
 	DiscordRPC.state = \"\"
 	DiscordRPC.refresh()
+	
+	demo_badge.visible = SteamManager.is_demo()
+	demo_popup.visible = SteamManager.is_demo()
+	demo_popup.close_button.grab_focus() 
+
 	
 	#MultiplayerInput.set_ui_action_device(-2)
 ##endregion
@@ -107,6 +115,10 @@ func _on_discord_button_pressed():
 
 func _on_feedback_button_pressed():
 	OS.shell_open(\"https://forms.gle/X1ToW3kE8Pzpy4mu5\")
+
+
+func _on_demo_badge_pressed():
+	demo_popup.show()
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
@@ -116,11 +128,18 @@ font_size = 32
 font_size = 32
 font_color = Color(0.905882, 0, 0.466667, 1)
 
-[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button")]
+[sub_resource type="LabelSettings" id="LabelSettings_qs2c7"]
+font_size = 61
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button", "demo_badge", "demo_popup")]
 script = SubResource("GDScript_mpxdx")
 steam_error_window = NodePath("SteamErrorWindow")
 steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
 online_button = NodePath("VBoxContainer/OnlineButton")
+demo_badge = NodePath("DemoBadge")
+demo_popup = NodePath("DemoPopup")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -357,6 +376,93 @@ grow_vertical = 0
 layout_mode = 2
 label_settings = SubResource("LabelSettings_sscpa")
 
+[node name="DemoBadge" type="Node2D" parent="."]
+position = Vector2(1073, 384)
+
+[node name="Button" type="Button" parent="DemoBadge"]
+custom_minimum_size = Vector2(300, 60)
+offset_right = 6.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0.647059, 0.827451, 0.592157, 1)
+theme_override_colors/font_pressed_color = Color(0.317647, 0.490196, 0.294118, 1)
+theme_override_colors/font_hover_color = Color(0.235294, 0.980392, 0.466667, 1)
+theme_override_font_sizes/font_size = 46
+text = "Demo Version!"
+
+[node name="DemoPopup" type="Control" parent="." node_paths=PackedStringArray("close_button", "local_play_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_ryswq")
+close_button = NodePath("MarginContainer/PanelContainer/VBoxContainer/Button")
+local_play_button = NodePath("../VBoxContainer/LocalPlayButton")
+
+[node name="ColorRect" type="ColorRect" parent="DemoPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="MarginContainer" type="MarginContainer" parent="DemoPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 80
+
+[node name="PanelContainer" type="PanelContainer" parent="DemoPopup/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DemoPopup/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DemoPopup/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Welcome to the Arcane Raiders Demo/Playtest!"
+label_settings = SubResource("LabelSettings_qs2c7")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="DemoPopup/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DemoPopup/MarginContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("2_7gsyx")
+theme_override_font_sizes/normal_font_size = 31
+bbcode_enabled = true
+text = "Thanks for checking out Arcane Raiders!
+
+This is the first game we've ever published to Steam so we're still getting used to the process and as such theres still likely to be alot of bugs that we still need to fix. Please report any you find on our [url=\"https://discord.com/invite/3BPYMHqNve\"]Discord Server[/url] or in the [url=\"https://forms.gle/X1ToW3kE8Pzpy4mu5\"]Feedback Form[/url]
+
+Hope you enjoy the game!~
+
+Coming soon in the full game:
+[ul] More Spells!
+ Unlockable Hats!
+ More Challenging Difficulty Levels
+ Cat!"
+
+[node name="Button" type="Button" parent="DemoPopup/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Close"
+
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -364,3 +470,6 @@ label_settings = SubResource("LabelSettings_sscpa")
 [connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/DiscordButton" to="." method="_on_discord_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="DemoBadge/Button" to="." method="_on_demo_badge_pressed"]
+[connection signal="meta_clicked" from="DemoPopup/MarginContainer/PanelContainer/VBoxContainer/MarginContainer/RichTextLabel" to="DemoPopup" method="_on_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="DemoPopup/MarginContainer/PanelContainer/VBoxContainer/Button" to="DemoPopup" method="_on_button_pressed"]
