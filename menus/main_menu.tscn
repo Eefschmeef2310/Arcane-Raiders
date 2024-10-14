@@ -139,7 +139,7 @@ script = SubResource("GDScript_mpxdx")
 steam_error_window = NodePath("SteamErrorWindow")
 steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
 online_button = NodePath("VBoxContainer/OnlineButton")
-demo_badge = NodePath("DemoBadge")
+demo_badge = NodePath("")
 demo_popup = NodePath("DemoPopup")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -273,11 +273,11 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 80.0
-offset_top = -318.5
+offset_top = -385.0
 offset_right = 558.0
-offset_bottom = 318.5
+offset_bottom = 385.0
 grow_vertical = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 27
 alignment = 1
 
 [node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
@@ -307,7 +307,6 @@ custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../Horiz/CreditsButton")
-theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Provide Feedback!"
 
@@ -347,17 +346,22 @@ theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Quit"
 
-[node name="VersionLabel" type="Label" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 80.0
-offset_top = -204.0
-offset_right = 277.0
-offset_bottom = -155.0
-grow_vertical = 0
+[node name="VersionInfo" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VersionLabel" type="Label" parent="VBoxContainer/VersionInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Ver. 24-05-14"
 label_settings = SubResource("LabelSettings_ko00r")
+
+[node name="Button" type="Button" parent="VBoxContainer/VersionInfo"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Demo Info"
 
 [node name="SteamErrorWindow" type="PanelContainer" parent="."]
 visible = false
@@ -375,20 +379,8 @@ grow_vertical = 0
 layout_mode = 2
 label_settings = SubResource("LabelSettings_sscpa")
 
-[node name="DemoBadge" type="Node2D" parent="."]
-position = Vector2(265, 874)
-
-[node name="Button" type="Button" parent="DemoBadge"]
-custom_minimum_size = Vector2(100, 60)
-offset_right = 6.0
-offset_bottom = 11.0
-theme_override_colors/font_color = Color(0.647059, 0.827451, 0.592157, 1)
-theme_override_colors/font_pressed_color = Color(0.317647, 0.490196, 0.294118, 1)
-theme_override_colors/font_hover_color = Color(0.235294, 0.980392, 0.466667, 1)
-theme_override_font_sizes/font_size = 32
-text = "Demo"
-
 [node name="DemoPopup" type="Control" parent="." node_paths=PackedStringArray("close_button", "local_play_button")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -478,6 +470,6 @@ script = ExtResource("2_hcuag")
 [connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/DiscordButton" to="." method="_on_discord_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="DemoBadge/Button" to="." method="_on_demo_badge_pressed"]
+[connection signal="pressed" from="VBoxContainer/VersionInfo/Button" to="." method="_on_demo_badge_pressed"]
 [connection signal="meta_clicked" from="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/RichTextLabel" to="DemoPopup" method="_on_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/Button" to="DemoPopup" method="_on_button_pressed"]
