@@ -1493,7 +1493,6 @@ position = Vector2(-80, -160)
 
 [connection signal="health_updated" from="." to="." method="_on_health_updated"]
 [connection signal="health_updated" from="." to="PlayerData" method="_on_player_health_updated"]
-[connection signal="character_updated" from="PlayerData" to="AnimalSound" method="_on_player_data_character_updated"]
 [connection signal="animation_finished" from="Animation Players/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]

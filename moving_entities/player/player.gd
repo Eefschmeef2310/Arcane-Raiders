@@ -105,6 +105,9 @@ func _ready():
 	
 	if data.hat_string:
 		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
+		
+	if data.character.animal_sound:
+		$AnimalSound._on_player_data_character_updated()
 	
 	# TODO temporary lines here
 	if debug:

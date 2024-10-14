@@ -16,8 +16,6 @@ signal hat_label_changed(text: String)
 signal destroy()
 signal reassign()
 
-signal character_updated()
-
 @export var device_id : int = -2
 @export var peer_id : int = 1
 @export var player_name : String
@@ -36,10 +34,7 @@ var spell_cooldowns : Array[float] = [0,0,0]
 @export var hat_sprite : Texture2D
 
 @export var main_color : Color = Color.RED
-@export var character : RaiderRes:
-	set(value):
-		character = value
-		character_updated.emit()
+@export var character : RaiderRes
 
 @export var money : int
 @export var total_money : int #all the money the player has earnt this run
