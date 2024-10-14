@@ -23,6 +23,7 @@ extends AudioStreamPlayer2D
 
 #region Godot methods
 func _ready():
+	#TODO - test online
 	if (owner.data as PlayerData).character.animal_sound:
 		(stream as AudioStreamRandomizer).set_stream(0, (owner.data as PlayerData).character.animal_sound)
 #endregion
