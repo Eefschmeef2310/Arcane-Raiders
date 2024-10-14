@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=26 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="1_tp6hm"]
 [ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/img/TOGETHER-small.png" id="1_usn4v"]
@@ -18,8 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://bnv1hr4yvuwr5" path="res://menus/img/ROCK_EFFECTS_SMALL.png" id="10_k7nue"]
 [ext_resource type="Texture2D" uid="uid://dg4oi66c20d63" path="res://menus/img/ELECTRC_EFFECTS_SMALL.png" id="11_ybop7"]
 [ext_resource type="Texture2D" uid="uid://j0xqv51txihy" path="res://menus/img/WIND_EFFECTS_SMALL.png" id="12_t3345"]
-[ext_resource type="Texture2D" path="res://discord-white-icon.webp" id="19_edvgm"]
+[ext_resource type="Texture2D" uid="uid://dnsrxgk786yrt" path="res://discord-white-icon.webp" id="19_edvgm"]
 [ext_resource type="Script" path="res://menus/DemoPopup.gd" id="20_ryswq"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="21_on564"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
@@ -443,8 +444,8 @@ theme_override_constants/margin_right = 10
 [node name="RichTextLabel" type="RichTextLabel" parent="DemoPopup/MarginContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("2_7gsyx")
-theme_override_font_sizes/normal_font_size = 31
+theme_override_fonts/normal_font = ExtResource("21_on564")
+theme_override_font_sizes/normal_font_size = 27
 bbcode_enabled = true
 text = "Thanks for checking out Arcane Raiders!
 
