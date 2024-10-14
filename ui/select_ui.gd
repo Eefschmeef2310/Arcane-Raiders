@@ -40,6 +40,8 @@ var readied_up : bool = false
 @export var player_data : PlayerData
 var player_node : Player
 
+@onready var animal_sound_stream = $AnimalSoundStream
+
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
 	update_device_list(0, true)
@@ -270,6 +272,10 @@ func convert_to_ui():
 	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
 	$PanelContainer.visible = false
+	
+	if player_data.character.animal_sound != null:
+		(animal_sound_stream as AudioStreamPlayer).stream = player_data.character.animal_sound
+		animal_sound_stream.play()
 
 
 func _remove_player():

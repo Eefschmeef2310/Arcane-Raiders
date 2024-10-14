@@ -286,6 +286,8 @@ offset_right = 51.0
 offset_bottom = -11.0
 text = "0"
 
+[node name="AnimalSoundStream" type="AudioStreamPlayer" parent="."]
+
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
