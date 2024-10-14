@@ -275,7 +275,7 @@ func convert_to_ui():
 func _remove_player():
 	# Clean up player here
 	player_data.destroy.emit()
-	if player_node:
+	if is_instance_valid(player_node):
 		player_node.queue_free()
 	queue_free()
 

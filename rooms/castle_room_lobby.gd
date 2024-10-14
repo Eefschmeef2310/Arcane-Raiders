@@ -141,7 +141,7 @@ func _on_peer_disconnected(id:int):
 	if is_instance_valid(player_ui_container):
 		for card in player_ui_container.get_children():
 			if card is JoinSelectUI and card.peer_id == id:
-				card.remove_player()
+				card._remove_player()
 				
 				
 		#emit a signal for removing them from the actual game 
