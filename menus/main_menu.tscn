@@ -307,12 +307,14 @@ text = "Credits"
 script = ExtResource("2_hcuag")
 
 [node name="DiscordButton" type="Button" parent="VBoxContainer/Horiz"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../CreditsButton")
 focus_neighbor_top = NodePath("../../FeedbackButton")
 focus_neighbor_right = NodePath("../QuitButton")
-theme_override_constants/icon_max_width = 54
+theme_override_fonts/font = ExtResource("2_7gsyx")
+theme_override_font_sizes/font_size = 38
 icon = ExtResource("19_edvgm")
 icon_alignment = 1
 expand_icon = true

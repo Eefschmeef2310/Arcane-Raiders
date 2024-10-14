@@ -98,8 +98,6 @@ func _ready():
 	animation_player.seek(randf_range(0,2))
 	revival_meter.max_value = revival_time_max
 	
-	is_dead = false
-	
 	killed_entity.connect(_on_killed_entity);
 	dealt_damage.connect(_on_dealt_damage)
 	
@@ -187,7 +185,7 @@ func _process(delta):
 				if revival_time >= revival_time_max:
 					health = 250
 			else:
-				revival_time -= delta / 2
+				revival_time -= delta
 				if revival_time <= 0:
 					revival_time = 0
 			

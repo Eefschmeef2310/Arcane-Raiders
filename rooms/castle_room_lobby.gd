@@ -24,7 +24,7 @@ const MAX_PLAYERS = 4
 @onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var castle_climb_spawner = $CastleClimbSpawner
 
-@export var destroy_on_game_start: Array[Node]
+@export var hide_on_game_start: Array[Node]
 @export var invis_on_game_start: Array[Node]
 
 #Other Variables (please try to separate and organise!)
@@ -193,7 +193,7 @@ func get_card_data() -> Array:
 				"spells": card.player_data.spell_strings,
 				"raider": raiders[card.selected_raider],
 				"color": player_colors[card.selected_color],
-				"name": card.display_name,
+				"name": card.player_name.text,
 				"hat": card.player_data.hat_string,
 				"new_hat_sprite" : card.player_data.hat_sprite,
 				})
@@ -225,17 +225,13 @@ func StartGame():
 @rpc("reliable", "call_local", "authority")
 func hide_lobby():
 	await get_tree().create_timer(0.1).timeout
-	for node in destroy_on_game_start:
-		if is_instance_valid(node):
-			node.queue_free()
+	for node in hide_on_game_start:
+		node.queue_free()
 	for node in invis_on_game_start:
 		node.hide()
 	for node in get_tree().get_nodes_in_group("hub_exclusive"):
 		node.queue_free()
-	for ghost in get_tree().get_nodes_in_group("temp_ghost"):
-		if is_instance_valid(ghost):
-			ghost.queue_free()
- 
+
 
 func _on_party_exit_player_entered(player):
 	for card in player_ui_container.get_children():
