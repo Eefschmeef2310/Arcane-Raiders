@@ -19,7 +19,7 @@ signal raider_selected(peer_id, device_id)
 @onready var player_ui_scene = preload("res://ui/player_ui.tscn")
 
 @export var lobby_manager : Node
-@export var player_name : Label
+#@export var player_name : Label
 @export var select_controls_panel : Control # hide and show this depending on if a player has joined
 @export var panels_array : Array[Control]
 @export var ready_button : Button
@@ -112,7 +112,7 @@ func _ready():
 	await get_tree().create_timer(0.1).timeout
 	
 	if !is_multiplayer_authority():
-		player_data.player_name = username
+		player_data.display_name = username
 		player_data.character = lobby_manager.raiders[selected_raider]
 		player_data.main_color = lobby_manager.player_colors[selected_color]
 		player_data.peer_id = peer_id

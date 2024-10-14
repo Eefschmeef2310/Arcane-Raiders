@@ -147,7 +147,6 @@ func _on_peer_disconnected(id:int):
 		if player is Player and player.data.peer_id == id:
 			player.queue_free()
 	
-	
 	#emit a signal for removing them from the actual game 
 	player_left.emit(id)
 

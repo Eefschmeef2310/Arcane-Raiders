@@ -66,7 +66,7 @@ properties/6/path = NodePath("PlayerData:hat_string")
 properties/6/spawn = true
 properties/6/replication_mode = 2
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -77,7 +77,6 @@ offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b2j28")
-player_name = NodePath("PanelContainer/VBoxContainer/Username")
 select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer")]
 ready_button = NodePath("PanelContainer/VBoxContainer/Button")
