@@ -24,7 +24,7 @@ func _ready():
 	var is_inside:bool = true
 	for raycast:RayCast2D in $RayCasts.get_children():
 		raycast.force_raycast_update()
-		if raycast.is_colliding():
+		if !raycast.is_colliding():
 			is_inside = false
 		pos_array.push_back(raycast.get_collision_point())
 		
