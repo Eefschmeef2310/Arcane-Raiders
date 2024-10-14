@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=60 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -22,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="19_ccbim"]
 [ext_resource type="Script" path="res://moving_entities/player/player_ui.gd" id="19_t4fmv"]
 [ext_resource type="AudioStream" uid="uid://chorsx3mmyjuv" path="res://sounds/effects/player/spell_click.wav" id="21_ig1r5"]
-[ext_resource type="Script" path="res://moving_entities/player/animal_sound_loader.gd" id="21_yh1ud"]
 [ext_resource type="AudioStream" uid="uid://bejdfxbpqudeq" path="res://sounds/effects/player/foley_soldier_gear_equipment_movement_grab_item_06.wav" id="22_68tbj"]
 [ext_resource type="Texture2D" uid="uid://o4ybtnyr1byl" path="res://moving_entities/enemies/healing.png" id="23_3frsv"]
 [ext_resource type="AudioStream" uid="uid://chdgqr03jjw61" path="res://items/pickups/coin-upaif-14631.mp3" id="23_sj6la"]
@@ -1455,7 +1454,6 @@ bus = &"SFX"
 [node name="AnimalSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_rqmd7")
 bus = &"SFX"
-script = ExtResource("21_yh1ud")
 
 [node name="Audio Players" type="Node2D" parent="."]
 
