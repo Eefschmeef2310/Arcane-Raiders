@@ -111,10 +111,8 @@ func _ready():
 	
 	await get_tree().create_timer(0.1).timeout
 	
-	
-	
 	if !is_multiplayer_authority():
-		player_data.name = username
+		player_data.player_name = username
 		player_data.character = lobby_manager.raiders[selected_raider]
 		player_data.main_color = lobby_manager.player_colors[selected_color]
 		player_data.peer_id = peer_id
