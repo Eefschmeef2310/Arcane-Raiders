@@ -440,7 +440,17 @@ func set_seed(seed_string: String):
 
 
 func _on_player_left(id : int):
-	for ui in $GameUI/PlayerUIContainer.get_children():
-		if ui.data.peer_id == id:
+	var n = 0
+	for data in player_data:
+		if data.peer_id == id:
+			player_data.erase(data)
+			player_data.append(data)
+			
+			var ui = player_ui[n]
 			ui.hide()
+			player_ui.erase(ui)
+			player_ui.append(ui)
+			
 			number_of_players -= 1
+			return
+		n += 1
