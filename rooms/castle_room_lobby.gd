@@ -14,6 +14,7 @@ const MAX_PLAYERS = 4
 @export var player_ui : Array[PlayerUI]
 @onready var player_ui_container = $GameUI/PlayerUIContainer
 @onready var game_ui = $GameUI
+@onready var notif_ui = $NotifUI
 
 
 @export_group("Other Resources")
@@ -285,7 +286,7 @@ func InitLobby(new_lobby_id : int):
 
 func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150 )):
 	var notif = player_notif_scene.instantiate()
-	game_ui.add_child(notif)
+	notif_ui.add_child(notif)
 	notif.position = pos
 	notif.set_text(s)
 	notif.start_tween()
