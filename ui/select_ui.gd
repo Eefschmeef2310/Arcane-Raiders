@@ -17,6 +17,7 @@ signal raider_selected(peer_id, device_id)
 @onready var character_pips_box = $PanelContainer/VBoxContainer/CharacterContainer/CharacterPips
 @onready var color_pips_box = $PanelContainer/VBoxContainer/ColorContainer/ColorPips
 @onready var player_ui_scene = preload("res://ui/player_ui.tscn")
+@onready var notif_spawn_pos = $NotifSpawnPos
 
 @export var lobby_manager : Node
 #@export var player_name : Label
@@ -277,8 +278,7 @@ func convert_to_ui(is_on_join : bool = false):
 	
 	if GameManager.isOnline():
 		var s = username + " has joined the raid!"
-		var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
-		lobby_manager.create_notification(s, pos)
+		lobby_manager.create_notification(s, notif_spawn_pos.global_position)
 	else:
 		var s = "A"
 		var raider_name = player_data.character.raider_name.to_lower()
@@ -286,7 +286,7 @@ func convert_to_ui(is_on_join : bool = false):
 			s += "n"
 		s += " " + raider_name + " has joined the raid!"
 		var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
-		lobby_manager.create_notification(s, pos)
+		lobby_manager.create_notification(s, notif_spawn_pos.global_position)
 
 
 func _remove_player():
