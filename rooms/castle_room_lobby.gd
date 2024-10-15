@@ -252,6 +252,13 @@ func _on_party_exit_player_entered(player):
 	for card in player_ui_container.get_children():
 		if card is JoinSelectUI and card.player_data == player.data:
 			card._remove_player()
+			
+			var s = "A"
+			var raider_name = card.player_data.character.raider_name.to_lower()
+			if raider_name[0] in ['a', 'e', 'i', 'o', 'u']:
+				s += "n"
+			s += " " + raider_name + " has left the raid."
+			create_notification(s)
 
 
 ## called after the lobby mode has been decided 
@@ -276,7 +283,7 @@ func InitLobby(new_lobby_id : int):
 	pass
 
 
-func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 300)):
+func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150)):
 	var notif = player_notif_scene.instantiate()
 	game_ui.add_child(notif)
 	notif.position = pos
