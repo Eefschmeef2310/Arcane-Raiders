@@ -128,7 +128,7 @@ func check_for_existing_player():
 			if player.get_multiplayer_authority() == get_multiplayer_authority():
 				player_node = player
 				player.set_data(player_data, false)
-				convert_to_ui()
+				convert_to_ui(true)
 
 func _process(_delta):
 	connected_time += _delta
@@ -264,14 +264,14 @@ func spawn_player(na, raider_id, color_id):
 	raider_selected.emit(peer_id, device_id)
 	convert_to_ui()
 
-func convert_to_ui():
+func convert_to_ui(is_on_join : bool = false):
 	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
 	$PanelContainer.visible = false
 	
-	if player_data.character.animal_sound != null:
+	if !is_on_join and player_data.character.animal_sound != null and is_instance_valid(player_node):
 		(player_node.animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, player_data.character.animal_sound)
 		player_node.animal_sound_player.play()
 	
