@@ -283,7 +283,7 @@ func InitLobby(new_lobby_id : int):
 	pass
 
 
-func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150)):
+func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150 )):
 	var notif = player_notif_scene.instantiate()
 	game_ui.add_child(notif)
 	notif.position = pos
