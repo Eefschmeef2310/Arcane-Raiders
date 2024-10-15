@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvmm60ifm8q48"]
+
+[ext_resource type="PackedScene" uid="uid://cceu5pa434epk" path="res://moving_entities/player/player_notif.tscn" id="1_svocd"]
+[ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_deqrb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ggj0a"]
+resource_local_to_scene = true
+shader = ExtResource("2_deqrb")
+shader_parameter/final_saturation = 0.75
+shader_parameter/alpha = 1.0
+
+[node name="HubNotif" instance=ExtResource("1_svocd")]
+move_distance = 64.0
+fade_time = 2.0
+fade_delay = 1.0
+
+[node name="Label" parent="." index="0"]
+custom_minimum_size = Vector2(1000, 0)
+anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -500.0
+offset_top = -25.0
+offset_right = 500.0
+offset_bottom = 24.0
+grow_horizontal = 1
+grow_vertical = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="TextureRect" parent="SpellBox" index="0"]
+material = SubResource("ShaderMaterial_ggj0a")

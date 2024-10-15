@@ -109,6 +109,11 @@ func _ready():
 	
 	UpdateDisplay()
 	
+	if GameManager.isOnline():
+		var s = username + " has joined the room!"
+		var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
+		lobby_manager.create_notification(s, pos)
+	
 	await get_tree().create_timer(0.1).timeout
 	
 	if !is_multiplayer_authority():
@@ -274,6 +279,14 @@ func convert_to_ui():
 	if player_data.character.animal_sound != null:
 		(player_node.animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, player_data.character.animal_sound)
 		player_node.animal_sound_player.play()
+	
+	var s = "A"
+	var raider_name = player_data.character.raider_name.to_lower()
+	if raider_name[0] in ['a', 'e', 'i', 'o', 'u']:
+		s += "n"
+	s += " " + raider_name + " has joined the raid!"
+	var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
+	lobby_manager.create_notification(s, pos)
 
 
 func _remove_player():

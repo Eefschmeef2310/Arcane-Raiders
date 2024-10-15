@@ -13,13 +13,16 @@ const MAX_PLAYERS = 4
 @export_group("Node References")
 @export var player_ui : Array[PlayerUI]
 @onready var player_ui_container = $GameUI/PlayerUIContainer
+@onready var game_ui = $GameUI
+
 
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
 #@export var menu_scene : PackedScene
 @export var castle_climb_scene : PackedScene
-@onready var lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
+const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
+const player_notif_scene = preload("res://rooms/hub/hub_notif.tscn")
 
 @onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var castle_climb_spawner = $CastleClimbSpawner
@@ -70,7 +73,7 @@ func _process(delta):
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.hide()
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer", "call_local", "reliable")
 func CreateNewCard(peer_id : int):
 	
 	var new_player_card : JoinSelectUI = lobby_player_select_scene.instantiate()
@@ -142,6 +145,9 @@ func _on_peer_disconnected(id:int):
 		for card in player_ui_container.get_children():
 			if card is JoinSelectUI and card.peer_id == id:
 				card._remove_player()
+				
+				var s = card.username + " has left the room."
+				create_notification(s)
 				
 	for player in get_tree().get_nodes_in_group("player"):
 		if player is Player and player.data.peer_id == id:
@@ -268,3 +274,13 @@ func InitLobby(new_lobby_id : int):
 		print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
 		pass
 	pass
+
+
+func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 300)):
+	var notif = player_notif_scene.instantiate()
+	game_ui.add_child(notif)
+	notif.position = pos
+	notif.set_text(s)
+	notif.start_tween()
+	
+	print(notif.position)

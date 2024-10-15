@@ -142,6 +142,7 @@ layer_6/tile_data = PackedInt32Array()
 
 [node name="Floor" parent="TileMap/Floor" index="0"]
 material = SubResource("ShaderMaterial_ej8t1")
+metadata/_edit_use_anchors_ = true
 
 [node name="GameUI" type="CanvasLayer" parent="." index="1"]
 layer = 3
@@ -158,6 +159,7 @@ offset_right = 900.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="JoinIndicator" type="Control" parent="GameUI/PlayerUIContainer" index="0"]
 custom_minimum_size = Vector2(450, 200)
