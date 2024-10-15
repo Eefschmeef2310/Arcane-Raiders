@@ -80,6 +80,7 @@ var revival_time_max : float = 3
 @export var animation_player : AnimationPlayer
 @export var invincibility_animation : AnimationPlayer
 @export var flashing_animation : AnimationPlayer
+@export var animal_sound_player : AudioStreamPlayer2D
 
 @export_subgroup("Player Sprite Components")
 @export var sprites_flip : Node2D
