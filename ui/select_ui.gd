@@ -115,7 +115,7 @@ func _ready():
 		
 	UpdateDisplay()
 	
-	await get_tree().create_timer(0.0001).timeout
+	await get_tree().create_timer(0.005).timeout
 	
 	if is_multiplayer_authority():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
@@ -127,12 +127,13 @@ func _ready():
 		player_data.peer_id = peer_id
 		player_data.device_id = device_id
 	
-		call_deferred("check_for_existing_player")
+		check_for_existing_player()
 
 func check_for_existing_player():
 	if GameManager.isOnline():
 		for player in get_tree().get_nodes_in_group("player"):
-			if player.get_multiplayer_authority() == get_multiplayer_authority():
+			if player.data.get_multiplayer_authority() == get_multiplayer_authority():
+				print("Existing player found: " + str(player.get_multiplayer_authority()))
 				player_node = player
 				player.set_data(player_data, false)
 				convert_to_ui(true)
@@ -272,6 +273,7 @@ func spawn_player(na, raider_id, color_id):
 	convert_to_ui()
 
 func convert_to_ui(is_on_join : bool = false):
+	print("Converting to UI: " + str(get_multiplayer_authority()))
 	new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
