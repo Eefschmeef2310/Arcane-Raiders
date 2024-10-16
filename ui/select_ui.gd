@@ -119,8 +119,12 @@ func _ready():
 	
 	if is_multiplayer_authority():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
+		print("I'm the authority.")
 		 
 	if !is_multiplayer_authority():
+		
+		print("I'm a remote peer.")
+		
 		player_data.player_name = username
 		player_data.character = lobby_manager.raiders[selected_raider]
 		player_data.main_color = lobby_manager.player_colors[selected_color]
@@ -132,8 +136,8 @@ func _ready():
 func check_for_existing_player():
 	if GameManager.isOnline():
 		for player in get_tree().get_nodes_in_group("player"):
-			if player.data.get_multiplayer_authority() == get_multiplayer_authority():
-				print("Existing player found: " + str(player.get_multiplayer_authority()))
+			if player.data.peer_id == peer_id:
+				print("Existing player found: " + str(peer_id))
 				player_node = player
 				player.set_data(player_data, false)
 				convert_to_ui(true)
