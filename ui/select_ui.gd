@@ -115,14 +115,13 @@ func _ready():
 		
 	UpdateDisplay()
 	
-	await get_tree().create_timer(0.005).timeout
+	await get_tree().create_timer(0.05).timeout
 	
-	if get_multiplayer_authority() == peer_id:
+	if is_multiplayer_authority():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
 		print("I'm the authority.")
-		 
+		  
 	else:
-		
 		print("I'm a remote peer.")
 		
 		player_data.player_name = username

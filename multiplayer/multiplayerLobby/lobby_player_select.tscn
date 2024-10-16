@@ -65,6 +65,15 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath("PlayerData:hat_string")
 properties/6/spawn = true
 properties/6/replication_mode = 2
+properties/7/path = NodePath("PlayerData:peer_id")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath("PlayerData:player_name")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath("PlayerData:device_id")
+properties/9/spawn = true
+properties/9/replication_mode = 1
 
 [node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
