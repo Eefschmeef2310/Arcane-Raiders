@@ -139,6 +139,8 @@ func check_for_existing_player():
 				print("Existing player found: " + str(peer_id))
 				player_node = player
 				player.set_data(player_data, false)
+				if is_instance_valid(new_ui):
+					new_ui.set_data(player_data)
 				convert_to_ui(true)
 
 func _process(_delta):
