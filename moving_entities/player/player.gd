@@ -111,7 +111,7 @@ func _ready():
 		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
 	
 	# TODO temporary lines here
-	if debug:
+	if debug and is_multiplayer_authority():
 		set_data(data, false)
 
 func _process(delta):
