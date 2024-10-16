@@ -359,6 +359,7 @@ lobby_click={
 2d_physics/layer_2="Unwalkable Floor"
 2d_navigation/layer_2="Hole"
 2d_physics/layer_3="Player"
+2d_navigation/layer_3="Traps"
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Spells"
 2d_physics/layer_6="SpellImpact"
