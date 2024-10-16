@@ -74,6 +74,9 @@ properties/8/replication_mode = 2
 properties/9/path = NodePath("PlayerData:device_id")
 properties/9/spawn = true
 properties/9/replication_mode = 1
+properties/10/path = NodePath("PlayerData:main_color")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
