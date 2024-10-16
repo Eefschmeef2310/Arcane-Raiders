@@ -27,7 +27,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @export var show_boss_bar: bool = true
 
 @onready var state_machine = $StateMachine
-@onready var nav_agent:NavigationAgent2D = $NavigationAgent2D
+@onready var nav_agent = $NavigationAgent2D
 @onready var enemy_spells = $EnemySpells
 @onready var animation_player = $AnimationPlayer
 @onready var attack_sound = $AttackSound
@@ -70,11 +70,10 @@ func _physics_process(delta):
 	if nav_server_synced:
 		if !is_multiplayer_authority():
 			return
-		nav_agent.set_navigation_layer_value(3, false)
-		nav_agent.set_navigation_layer_value(3, !nav_agent.is_target_reachable())
 		
 		var current_agent_pos: Vector2 = global_position
 		var next_path_pos: Vector2 = nav_agent.get_next_path_position()
+		
 		var intended_velocity = current_agent_pos.direction_to(next_path_pos) * movement_speed * frost_speed_scale
 		
 		#knockback code
