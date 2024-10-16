@@ -128,6 +128,11 @@ func _ready():
 
 func check_for_existing_player():
 	if GameManager.isOnline():
+		player_data.player_name = username
+		player_data.character = lobby_manager.raiders[selected_raider]
+		player_data.main_color = lobby_manager.player_colors[selected_color]
+		player_data.peer_id = peer_id
+		player_data.device_id = device_id
 		print("Starting loop for " + str(peer_id))
 		for player in get_tree().get_nodes_in_group("player"):
 			if player.peer_id == peer_id:
@@ -197,11 +202,7 @@ func _process(_delta):
 	else:
 		$PanelContainer/OnlineShieldPanel.show()
 	
-	player_data.player_name = username
-	player_data.character = lobby_manager.raiders[selected_raider]
-	player_data.main_color = lobby_manager.player_colors[selected_color]
-	player_data.peer_id = peer_id
-	player_data.device_id = device_id
+	
 
 func UpdateDisplay():
 	# hide everything if there isnt a player to use it

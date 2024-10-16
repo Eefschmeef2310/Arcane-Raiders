@@ -179,15 +179,8 @@ func _on_controller_changed(device : int, connected : bool):
 func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	var player: Player = PLAYER_SCENE.instantiate()
 	var i = 0
-	for card in player_ui_container.get_children():
-		if card is JoinSelectUI and card.peer_id == dict.peer_id and card.device_id == dict.device_id:
-			player.set_data(card.player_data)
-			player.peer_id = card.peer_id  
-			card.player_node = player
-			break
-		else:
-			i += 1
-	player.global_position = player_spawns[i].global_position
+	
+	player.global_position = player_spawns[0].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	player.dead.connect(report_player_death)
 	player.revived.connect(report_player_revival)
@@ -196,9 +189,18 @@ func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	#print("Spawned player of peer_id " + 1str(player.data.peer_id))
 	
 	player.add_to_group("hub_exclusive")
+	call_deferred("find_select", player, dict)
 	
 	return player
 
+func find_select(player : Player, dict: Dictionary):
+	for card in player_ui_container.get_children():
+		if card is JoinSelectUI and card.peer_id == dict.peer_id and card.device_id == dict.device_id:
+			player.set_data(card.player_data)
+			player.peer_id = card.peer_id  
+			card.player_node = player
+			break
+ 
 func get_card_data() -> Array:
 	var arr = []
 	for card in player_ui_container.get_children():

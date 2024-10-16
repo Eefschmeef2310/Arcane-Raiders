@@ -117,7 +117,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[node name="Hub" node_paths=PackedStringArray("player_ui", "destroy_on_game_start", "invis_on_game_start", "join_indicator_node") instance=ExtResource("1_vicu8")]
+[node name="Hub" node_paths=PackedStringArray("player_ui", "destroy_on_game_start", "invis_on_game_start", "join_indicator_node") groups=["hub"] instance=ExtResource("1_vicu8")]
 script = ExtResource("2_34pa5")
 player_ui = []
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy")])
