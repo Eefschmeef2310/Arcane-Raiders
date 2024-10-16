@@ -440,6 +440,10 @@ func set_seed(seed_string: String):
 
 
 func _on_player_left(id : int):
+	remove_player_from_run.rpc(id)
+
+@rpc("authority", "call_local", "reliable")
+func remove_player_from_run(id):
 	var n = 0
 	for data in player_data:
 		if data.peer_id == id:
