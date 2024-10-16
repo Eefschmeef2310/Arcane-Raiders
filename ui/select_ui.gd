@@ -119,10 +119,10 @@ func _ready():
 	
 	if !GameManager.isOnline():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
-		print("I'm the authority.")
+		print("I'm the authority. " + str(peer_id))
 		  
 	if !is_multiplayer_authority():
-		print("I'm a remote peer.")
+		print("I'm a remote peer. " + str(peer_id))
 	
 		call_deferred("check_for_existing_player")
 
@@ -432,6 +432,6 @@ func has_valid_color():
 func some_player_has_color(i : int) -> bool:
 	for card in lobby_manager.player_ui_container.get_children():
 		if card is JoinSelectUI and card != self and card.selected_color == i:
-			print(valid_color)
+			#print(valid_color)
 			return true
 	return false

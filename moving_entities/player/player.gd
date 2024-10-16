@@ -13,6 +13,7 @@ const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn
 
 @export var debug : bool = false
 @export var data: PlayerData
+@export var peer_id : int = 1
 
 @export_group("Parameters")
 @export var movement_speed : float = 300
@@ -231,6 +232,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
+	peer_id = data.peer_id
 	
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
