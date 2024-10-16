@@ -995,6 +995,9 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath(".:preparing_cast_slot")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath(".:peer_id")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mujc"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1051,7 +1054,7 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "hud", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "hud", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "animal_sound_player", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
@@ -1084,6 +1087,7 @@ dash_sound_player = NodePath("Audio Players/DashSound")
 animation_player = NodePath("Animation Players/AnimationPlayer")
 invincibility_animation = NodePath("Animation Players/InvincibilityAnimation")
 flashing_animation = NodePath("Animation Players/Flashing")
+animal_sound_player = NodePath("AnimalSound")
 sprites_flip = NodePath("SpritesFlip")
 sprites_scale = NodePath("SpritesFlip/SpritesScale")
 body_sprite = NodePath("SpritesFlip/SpritesScale/Body")
@@ -1116,6 +1120,7 @@ texture = ExtResource("3_fuo50")
 offset = Vector2(16.5, 0)
 
 [node name="Sprite2DProjection" type="Sprite2D" parent="SpellDirection"]
+visible = false
 modulate = Color(0.564706, 0.286275, 1, 0.501961)
 texture = ExtResource("4_2byeo")
 offset = Vector2(162, 0)

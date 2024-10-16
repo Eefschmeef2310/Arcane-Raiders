@@ -117,13 +117,13 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[node name="Hub" node_paths=PackedStringArray("player_ui", "destroy_on_game_start", "invis_on_game_start", "join_indicator_node") instance=ExtResource("1_vicu8")]
+[node name="Hub" node_paths=PackedStringArray("player_ui", "destroy_on_game_start", "invis_on_game_start", "join_indicator_node") groups=["hub"] instance=ExtResource("1_vicu8")]
 script = ExtResource("2_34pa5")
 player_ui = []
 raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy")])
 player_colors = Array[Color]([Color(0.490196, 0.203922, 0.760784, 1), Color(0.780392, 0.756863, 0.101961, 1), Color(0.737255, 0.231373, 0.192157, 1), Color(0, 0.623529, 0.505882, 1), Color(0.211765, 0.521569, 0.180392, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.972549, 0.443137, 0, 1)])
 castle_climb_scene = ExtResource("11_coaxx")
-destroy_on_game_start = [NodePath("TileMap"), NodePath("DynamicCamera"), NodePath("RoomExit"), NodePath("CoverLight"), NodePath("CanvasLayer"), NodePath("GuideArrow"), NodePath("Decorations"), NodePath("Snowball"), NodePath("Vampire"), NodePath("GlassCannon"), NodePath("Explosion"), NodePath("HatDestroyer"), NodePath("GameFrog"), NodePath("ExitFrog"), NodePath("HatFrog"), NodePath("WelcomeFrog"), NodePath("DiscoFrog"), NodePath("Bush"), NodePath("Bush2"), NodePath("Bush3"), NodePath("Bush4"), NodePath("Bush5")]
+destroy_on_game_start = [NodePath("TileMap"), NodePath("DynamicCamera"), NodePath("CoverLight"), NodePath("CanvasLayer"), NodePath("GuideArrow"), NodePath("Decorations"), NodePath("Snowball"), NodePath("Vampire"), NodePath("GlassCannon"), NodePath("Explosion"), NodePath("HatDestroyer"), NodePath("GameFrog"), NodePath("ExitFrog"), NodePath("HatFrog"), NodePath("WelcomeFrog"), NodePath("DiscoFrog"), NodePath("Bush"), NodePath("Bush2"), NodePath("Bush3"), NodePath("Bush4"), NodePath("Bush5"), NodePath("RoomExit")]
 invis_on_game_start = [NodePath("GameUI")]
 join_indicator_node = NodePath("GameUI/PlayerUIContainer/JoinIndicator")
 
@@ -142,11 +142,26 @@ layer_6/tile_data = PackedInt32Array()
 
 [node name="Floor" parent="TileMap/Floor" index="0"]
 material = SubResource("ShaderMaterial_ej8t1")
+metadata/_edit_use_anchors_ = true
 
 [node name="GameUI" type="CanvasLayer" parent="." index="1"]
 layer = 3
 
-[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="0"]
+[node name="NoPlayersLabel" type="RichTextLabel" parent="GameUI" index="0"]
+custom_minimum_size = Vector2(0, 150)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("12_5bwfn")
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "[center]Press Space /[img width=96]res://ui/join_button.svg[/img] to join!"
+
+[node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="1"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -158,6 +173,7 @@ offset_right = 900.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="JoinIndicator" type="Control" parent="GameUI/PlayerUIContainer" index="0"]
 custom_minimum_size = Vector2(450, 200)
@@ -178,26 +194,28 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[center]Press Space /[img width=48]res://ui/join_button.svg[/img] to join!"
 
-[node name="DynamicCamera" parent="." index="2"]
+[node name="NotifUI" type="CanvasLayer" parent="." index="2"]
+
+[node name="DynamicCamera" parent="." index="3"]
 position = Vector2(640, 647)
 
-[node name="PlayerSpawn0" parent="." index="3"]
+[node name="PlayerSpawn0" parent="." index="4"]
 visible = false
 position = Vector2(528, 655)
 
-[node name="PlayerSpawn1" parent="." index="4"]
+[node name="PlayerSpawn1" parent="." index="5"]
 visible = false
 position = Vector2(639, 595)
 
-[node name="PlayerSpawn2" parent="." index="5"]
+[node name="PlayerSpawn2" parent="." index="6"]
 visible = false
 position = Vector2(636, 725)
 
-[node name="PlayerSpawn3" parent="." index="6"]
+[node name="PlayerSpawn3" parent="." index="7"]
 visible = false
 position = Vector2(743, 665)
 
-[node name="RoomExit" parent="." index="12"]
+[node name="RoomExit" parent="." index="13"]
 position = Vector2(1461, 460)
 wait_for_all_players = true
 
@@ -210,7 +228,7 @@ text = "Start Run!"
 label_settings = SubResource("LabelSettings_u03uf")
 horizontal_alignment = 1
 
-[node name="GameFrog" parent="." index="16" instance=ExtResource("4_7li37")]
+[node name="GameFrog" parent="." index="17" instance=ExtResource("4_7li37")]
 position = Vector2(1374, 685)
 character_name = "Master Frog"
 dialogues = Array[StringName]([&"Battle to the top of the Arcane Tower!"])
@@ -218,7 +236,7 @@ dialogues = Array[StringName]([&"Battle to the top of the Arcane Tower!"])
 [node name="Crown" parent="GameFrog/SpritesScale/HeadGroup" index="1"]
 texture = ExtResource("32_mb7kk")
 
-[node name="ExitFrog" parent="." index="17" instance=ExtResource("4_7li37")]
+[node name="ExitFrog" parent="." index="18" instance=ExtResource("4_7li37")]
 position = Vector2(21, 743)
 character_name = "Cool Frog"
 dialogues = Array[StringName]([&"Use this door to leave!"])
@@ -239,7 +257,7 @@ self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
 [node name="LeftHand" parent="ExitFrog/SpritesScale" index="3"]
 self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
 
-[node name="HatFrog" parent="." index="18" instance=ExtResource("4_7li37")]
+[node name="HatFrog" parent="." index="19" instance=ExtResource("4_7li37")]
 position = Vector2(648, 381)
 character_name = "Milliner Frog"
 dialogues = Array[StringName]([&"Pick a hat using E or R1!"])
@@ -253,7 +271,7 @@ position = Vector2(37, -28)
 [node name="LeftHand" parent="HatFrog/SpritesScale" index="3"]
 position = Vector2(-36, -28)
 
-[node name="WelcomeFrog" parent="." index="19" instance=ExtResource("4_7li37")]
+[node name="WelcomeFrog" parent="." index="20" instance=ExtResource("4_7li37")]
 position = Vector2(634, 956)
 character_name = "Frog"
 dialogues = Array[StringName]([&"Welcome wizards!"])
@@ -276,7 +294,7 @@ position = Vector2(-40, -79)
 [node name="AnimationPlayer" parent="WelcomeFrog" index="2"]
 autoplay = "jump"
 
-[node name="DiscoFrog" parent="." index="20" instance=ExtResource("4_7li37")]
+[node name="DiscoFrog" parent="." index="21" instance=ExtResource("4_7li37")]
 position = Vector2(1361, 1041)
 timeline = ExtResource("13_ts3tr")
 character = ExtResource("14_oo7ad")
@@ -306,30 +324,30 @@ position = Vector2(6, -25)
 [node name="AnimationPlayer" parent="DiscoFrog" index="2"]
 autoplay = "dance"
 
-[node name="Bush" parent="." index="21" instance=ExtResource("36_k1eci")]
+[node name="Bush" parent="." index="22" instance=ExtResource("36_k1eci")]
 material = SubResource("ShaderMaterial_o3vje")
 position = Vector2(1187, 776)
 
-[node name="Bush2" parent="." index="22" instance=ExtResource("36_k1eci")]
+[node name="Bush2" parent="." index="23" instance=ExtResource("36_k1eci")]
 position = Vector2(70, 475)
 
-[node name="Bush3" parent="." index="23" instance=ExtResource("36_k1eci")]
+[node name="Bush3" parent="." index="24" instance=ExtResource("36_k1eci")]
 position = Vector2(-169, 596)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Bush4" parent="." index="24" instance=ExtResource("36_k1eci")]
+[node name="Bush4" parent="." index="25" instance=ExtResource("36_k1eci")]
 position = Vector2(89, 762.91)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
-[node name="Bush5" parent="." index="25" instance=ExtResource("36_k1eci")]
+[node name="Bush5" parent="." index="26" instance=ExtResource("36_k1eci")]
 position = Vector2(-36, 762.91)
 
-[node name="Decorations" type="Node2D" parent="." index="26"]
+[node name="Decorations" type="Node2D" parent="." index="27"]
 
 [node name="PartyExit" parent="Decorations" index="0" instance=ExtResource("12_xu7yv")]
-position = Vector2(-97, 417)
+position = Vector2(-333, 546)
 scale = Vector2(-1, 1)
 destroy_if_online = true
 
@@ -343,7 +361,21 @@ text = "Exit Party"
 label_settings = SubResource("LabelSettings_u03uf")
 horizontal_alignment = 1
 
-[node name="Heads" type="Node2D" parent="Decorations" index="1"]
+[node name="CustomiseExit" parent="Decorations" index="1" instance=ExtResource("12_xu7yv")]
+position = Vector2(-26, 391)
+scale = Vector2(-1, 1)
+
+[node name="Label" type="Label" parent="Decorations/CustomiseExit" index="3"]
+offset_left = 101.0
+offset_top = -137.0
+offset_right = 330.0
+offset_bottom = -88.0
+scale = Vector2(-1, 1)
+text = "Customise Raider"
+label_settings = SubResource("LabelSettings_u03uf")
+horizontal_alignment = 1
+
+[node name="Heads" type="Node2D" parent="Decorations" index="2"]
 visible = false
 
 [node name="Head-cat" type="Sprite2D" parent="Decorations/Heads" index="0"]
@@ -378,7 +410,7 @@ texture = ExtResource("11_m7u4e")
 position = Vector2(801, 98)
 texture = ExtResource("12_xlyq7")
 
-[node name="Line2D" type="Line2D" parent="Decorations" index="2"]
+[node name="Line2D" type="Line2D" parent="Decorations" index="3"]
 visible = false
 points = PackedVector2Array(-234, 908, -327, 977, -357, 1074, -290, 1136, -201, 1161, -75, 1195, 122, 1093)
 gradient = SubResource("Gradient_iw6gt")
@@ -386,7 +418,7 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="Robes" type="Node2D" parent="Decorations" index="3"]
+[node name="Robes" type="Node2D" parent="Decorations" index="4"]
 visible = false
 
 [node name="Body3" type="Sprite2D" parent="Decorations/Robes" index="0"]
@@ -429,7 +461,7 @@ modulate = Color(0, 0.623529, 0.505882, 1)
 position = Vector2(-238, 1138)
 texture = ExtResource("20_d8qci")
 
-[node name="Trees" type="Node2D" parent="Decorations" index="4"]
+[node name="Trees" type="Node2D" parent="Decorations" index="5"]
 visible = false
 
 [node name="Pngtree-tree-forest-tree-png-image14619755" type="Sprite2D" parent="Decorations/Trees" index="0"]
@@ -522,76 +554,76 @@ position = Vector2(1893, 910)
 scale = Vector2(0.3968, 0.3856)
 texture = ExtResource("13_1x8ko")
 
-[node name="Dirt1" type="Sprite2D" parent="Decorations" index="5"]
+[node name="Dirt1" type="Sprite2D" parent="Decorations" index="6"]
 modulate = Color(1, 1, 1, 0.87451)
 z_index = -1
 position = Vector2(640, 647)
 texture = ExtResource("38_iyu5g")
 
-[node name="Grass1" type="Sprite2D" parent="Decorations" index="6"]
+[node name="Grass1" type="Sprite2D" parent="Decorations" index="7"]
 position = Vector2(236, 788)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass2" type="Sprite2D" parent="Decorations" index="7"]
+[node name="Grass2" type="Sprite2D" parent="Decorations" index="8"]
 position = Vector2(950, 920)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass3" type="Sprite2D" parent="Decorations" index="8"]
+[node name="Grass3" type="Sprite2D" parent="Decorations" index="9"]
 position = Vector2(164, 587)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass4" type="Sprite2D" parent="Decorations" index="9"]
+[node name="Grass4" type="Sprite2D" parent="Decorations" index="10"]
 position = Vector2(380, 462)
 texture = ExtResource("42_27olt")
 
-[node name="Grass5" type="Sprite2D" parent="Decorations" index="10"]
+[node name="Grass5" type="Sprite2D" parent="Decorations" index="11"]
 position = Vector2(1106, 538)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass6" type="Sprite2D" parent="Decorations" index="11"]
+[node name="Grass6" type="Sprite2D" parent="Decorations" index="12"]
 position = Vector2(1443, 740)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass7" type="Sprite2D" parent="Decorations" index="12"]
+[node name="Grass7" type="Sprite2D" parent="Decorations" index="13"]
 position = Vector2(861, 1074)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass8" type="Sprite2D" parent="Decorations" index="13"]
+[node name="Grass8" type="Sprite2D" parent="Decorations" index="14"]
 position = Vector2(541, 1123)
 texture = ExtResource("40_yx4qc")
 
-[node name="Grass9" type="Sprite2D" parent="Decorations" index="14"]
+[node name="Grass9" type="Sprite2D" parent="Decorations" index="15"]
 position = Vector2(-271, 695)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass10" type="Sprite2D" parent="Decorations" index="15"]
+[node name="Grass10" type="Sprite2D" parent="Decorations" index="16"]
 position = Vector2(356, 973)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass11" type="Sprite2D" parent="Decorations" index="16"]
+[node name="Grass11" type="Sprite2D" parent="Decorations" index="17"]
 position = Vector2(1353, 1230)
 texture = ExtResource("39_whnr4")
 
-[node name="Grass12" type="Sprite2D" parent="Decorations" index="17"]
+[node name="Grass12" type="Sprite2D" parent="Decorations" index="18"]
 position = Vector2(1755, 1036)
 texture = ExtResource("41_e61ky")
 
-[node name="Grass13" type="Sprite2D" parent="Decorations" index="18"]
+[node name="Grass13" type="Sprite2D" parent="Decorations" index="19"]
 position = Vector2(1563, 934)
 texture = ExtResource("42_27olt")
 
-[node name="Grass14" type="Sprite2D" parent="Decorations" index="19"]
+[node name="Grass14" type="Sprite2D" parent="Decorations" index="20"]
 position = Vector2(644, 175)
 texture = ExtResource("41_e61ky")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="27"]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." index="28"]
 spawn_path = NodePath("../GameUI/PlayerUIContainer")
 
-[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="28"]
+[node name="CastleClimbSpawner" type="MultiplayerSpawner" parent="." index="29"]
 _spawnable_scenes = PackedStringArray("res://gamemodes/castle_climb.tscn")
 spawn_path = NodePath("..")
 
-[node name="Explosion" parent="." index="29" instance=ExtResource("31_dfbji")]
+[node name="Explosion" parent="." index="30" instance=ExtResource("31_dfbji")]
 position = Vector2(224, 390)
 hat_string = "explosion_hat"
 
@@ -605,7 +637,7 @@ text = "Cowboy Hat"
 text = "[center][font_size=18]Create an explosion when you take damage.
 [/font_size]"
 
-[node name="Snowball" parent="." index="30" instance=ExtResource("31_dfbji")]
+[node name="Snowball" parent="." index="31" instance=ExtResource("31_dfbji")]
 position = Vector2(408, 287)
 hat_string = "snowball_hat"
 
@@ -622,7 +654,7 @@ text = "Baseball Cap"
 text = "[center][font_size=18]Gain extra damage when defeating an enemy, just don't get hit!
 [/font_size]"
 
-[node name="Vampire" parent="." index="31" instance=ExtResource("31_dfbji")]
+[node name="Vampire" parent="." index="32" instance=ExtResource("31_dfbji")]
 position = Vector2(884, 289)
 hat_string = "vampire_hat"
 
@@ -640,7 +672,7 @@ text = "[center][font_size=18]Gain a bit of
  health when defeating an enemy.
 [/font_size]"
 
-[node name="GlassCannon" parent="." index="32" instance=ExtResource("31_dfbji")]
+[node name="GlassCannon" parent="." index="33" instance=ExtResource("31_dfbji")]
 position = Vector2(1083, 400)
 hat_string = "glass_cannon_hat"
 
@@ -658,13 +690,14 @@ text = "[center][font_size=18]Move slower,
 but deal more damage
 [/font_size]"
 
-[node name="HatDestroyer" parent="." index="33" instance=ExtResource("43_sukgf")]
+[node name="HatDestroyer" parent="." index="34" instance=ExtResource("43_sukgf")]
 position = Vector2(642, 185)
 
-[node name="DiscordRP Tool" type="Node" parent="." index="34"]
+[node name="DiscordRP Tool" type="Node" parent="." index="35"]
 script = ExtResource("43_ari5y")
 
 [connection signal="player_entered" from="Decorations/PartyExit" to="." method="_on_party_exit_player_entered"]
+[connection signal="player_entered" from="Decorations/CustomiseExit" to="." method="_on_customise_exit_player_entered"]
 
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]

@@ -35,8 +35,7 @@ var fresh_bubble : CanvasLayer
 #region Godot methods
 func _ready():
 	if GameManager.isOnline() and destroy_if_online:
-		#queue_free()
-		position.x = 99999999999999
+		queue_free()
 #func _input(event):
 	#if prompt.visible and event.is_action_pressed("interact"):
 		#prompt.visible = false

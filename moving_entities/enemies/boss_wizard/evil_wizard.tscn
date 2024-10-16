@@ -446,6 +446,7 @@ spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
 
 [node name="Hurtbox" parent="." index="7"]
+collision_layer = 8
 collision_mask = 272
 
 [node name="Body" parent="SpritesFlip/SpritesScale" index="0"]

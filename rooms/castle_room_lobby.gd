@@ -13,13 +13,16 @@ const MAX_PLAYERS = 4
 @export_group("Node References")
 @export var player_ui : Array[PlayerUI]
 @onready var player_ui_container = $GameUI/PlayerUIContainer
+@onready var game_ui = $GameUI
+@onready var notif_ui = $NotifUI
 
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
 #@export var menu_scene : PackedScene
 @export var castle_climb_scene : PackedScene
-@onready var lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
+const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
+const player_notif_scene = preload("res://rooms/hub/hub_notif.tscn")
 
 @onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var castle_climb_spawner = $CastleClimbSpawner
@@ -37,6 +40,7 @@ var picked_colors : Array[int]
 var picked_raiders : Array[int]
 var server_browser_node : Node
 @export var join_indicator_node: Control
+@onready var no_players_label = $GameUI/NoPlayersLabel
 
 func _ready():
 	#debug_start_button.disabled = not multiplayer.is_server()
@@ -66,11 +70,14 @@ func _process(delta):
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.show()
 				player_ui_container.move_child(join_indicator_node, -1)
+			if is_instance_valid(no_players_label):
+				no_players_label.visible = player_ui_container.get_child_count() <= 1 
 		else:
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.hide()
+				no_players_label.hide()
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer", "call_local", "reliable")
 func CreateNewCard(peer_id : int):
 	
 	var new_player_card : JoinSelectUI = lobby_player_select_scene.instantiate()
@@ -141,8 +148,16 @@ func _on_peer_disconnected(id:int):
 	if is_instance_valid(player_ui_container):
 		for card in player_ui_container.get_children():
 			if card is JoinSelectUI and card.peer_id == id:
-				card.queue_free()
-		#emit a signal for removing them from the actual game 
+				card._remove_player()
+				
+				var s = card.username + " has left the room."
+				create_notification(s)
+				
+	for player in get_tree().get_nodes_in_group("player"):
+		if player is Player and player.data.peer_id == id:
+			player.queue_free()
+	
+	#emit a signal for removing them from the actual game 
 	player_left.emit(id)
 
 func _on_connected_to_server(): #this isnt working at all
@@ -164,14 +179,8 @@ func _on_controller_changed(device : int, connected : bool):
 func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	var player: Player = PLAYER_SCENE.instantiate()
 	var i = 0
-	for card in player_ui_container.get_children():
-		if card is JoinSelectUI and card.peer_id == dict.peer_id and card.device_id == dict.device_id:
-			player.set_data(card.player_data)
-			card.player_node = player
-			break
-		else:
-			i += 1
-	player.global_position = player_spawns[i].global_position
+	
+	player.global_position = player_spawns[0].global_position
 	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
 	player.dead.connect(report_player_death)
 	player.revived.connect(report_player_revival)
@@ -180,9 +189,18 @@ func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	#print("Spawned player of peer_id " + 1str(player.data.peer_id))
 	
 	player.add_to_group("hub_exclusive")
+	call_deferred("find_select", player, dict)
 	
 	return player
 
+func find_select(player : Player, dict: Dictionary):
+	for card in player_ui_container.get_children():
+		if card is JoinSelectUI and card.peer_id == dict.peer_id and card.device_id == dict.device_id:
+			player.set_data(card.player_data, false)
+			player.peer_id = card.peer_id  
+			card.player_node = player
+			break
+ 
 func get_card_data() -> Array:
 	var arr = []
 	for card in player_ui_container.get_children():
@@ -241,6 +259,13 @@ func _on_party_exit_player_entered(player):
 	for card in player_ui_container.get_children():
 		if card is JoinSelectUI and card.player_data == player.data:
 			card._remove_player()
+			
+			var s = "A"
+			var raider_name = card.player_data.character.raider_name.to_lower()
+			if raider_name[0] in ['a', 'e', 'i', 'o', 'u']:
+				s += "n"
+			s += " " + raider_name + " has left the raid."
+			create_notification(s)
 
 
 ## called after the lobby mode has been decided 
@@ -263,3 +288,17 @@ func InitLobby(new_lobby_id : int):
 		print("Player ID: " + str(SteamManager.player_id) + ", Peer ID: " + str(incoming_peer_id))
 		pass
 	pass
+
+
+func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150 )):
+	var notif = player_notif_scene.instantiate()
+	notif_ui.add_child(notif)
+	notif.position = pos
+	notif.set_text(s)
+	notif.start_tween()
+	
+	print(notif.position)
+
+
+func _on_customise_exit_player_entered(player : Player):
+	player.data.customise.emit()
