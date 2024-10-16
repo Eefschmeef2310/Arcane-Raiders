@@ -1117,6 +1117,7 @@ texture = ExtResource("3_fuo50")
 offset = Vector2(16.5, 0)
 
 [node name="Sprite2DProjection" type="Sprite2D" parent="SpellDirection"]
+visible = false
 modulate = Color(0.564706, 0.286275, 1, 0.501961)
 texture = ExtResource("4_2byeo")
 offset = Vector2(162, 0)

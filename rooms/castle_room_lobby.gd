@@ -16,7 +16,6 @@ const MAX_PLAYERS = 4
 @onready var game_ui = $GameUI
 @onready var notif_ui = $NotifUI
 
-
 @export_group("Other Resources")
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
@@ -41,6 +40,7 @@ var picked_colors : Array[int]
 var picked_raiders : Array[int]
 var server_browser_node : Node
 @export var join_indicator_node: Control
+@onready var no_players_label = $GameUI/NoPlayersLabel
 
 func _ready():
 	#debug_start_button.disabled = not multiplayer.is_server()
@@ -70,9 +70,12 @@ func _process(delta):
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.show()
 				player_ui_container.move_child(join_indicator_node, -1)
+			if is_instance_valid(no_players_label):
+				no_players_label.visible = player_ui_container.get_child_count() <= 1 
 		else:
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.hide()
+				no_players_label.hide()
 
 @rpc("any_peer", "call_local", "reliable")
 func CreateNewCard(peer_id : int):
