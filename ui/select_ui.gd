@@ -117,11 +117,11 @@ func _ready():
 	
 	await get_tree().create_timer(0.005).timeout
 	
-	if is_multiplayer_authority():
+	if get_multiplayer_authority() == peer_id:
 		spawn_player.rpc(display_name, selected_raider, selected_color)
 		print("I'm the authority.")
 		 
-	if !is_multiplayer_authority():
+	else:
 		
 		print("I'm a remote peer.")
 		
