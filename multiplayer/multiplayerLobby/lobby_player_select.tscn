@@ -83,7 +83,6 @@ ready_button = NodePath("PanelContainer/VBoxContainer/Button")
 player_data = NodePath("PlayerData")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -220,7 +219,7 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_vertical = 8
 bbcode_enabled = true
-text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=20]res://ui/join_button.svg[/img] : Ready!"
+text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=32]res://ui/join_button.svg[/img] Ready!"
 fit_content = true
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]

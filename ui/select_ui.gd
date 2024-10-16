@@ -116,9 +116,9 @@ func _ready():
 	
 	await get_tree().create_timer(0.05).timeout
 	
-	spawn_player.rpc(display_name, selected_raider, selected_color)
-	
-	if !is_multiplayer_authority():
+	if is_multiplayer_authority():
+		spawn_player.rpc(display_name, selected_raider, selected_color)
+	else: #if !is_multiplayer_authority():
 		player_data.player_name = username
 		player_data.character = lobby_manager.raiders[selected_raider]
 		player_data.main_color = lobby_manager.player_colors[selected_color]
@@ -292,6 +292,7 @@ func convert_to_ui(is_on_join : bool = false):
 		var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
 		lobby_manager.create_notification(s, notif_spawn_pos.global_position)
 
+@rpc("authority", "call_local", 'reliable')
 func convert_to_select():
 	if is_instance_valid(player_node):
 		player_node.queue_free()
@@ -301,7 +302,7 @@ func convert_to_select():
 
 func _on_player_data_customise():
 	if is_multiplayer_authority():
-		convert_to_select()
+		convert_to_select.rpc()
 
 
 func _remove_player():
