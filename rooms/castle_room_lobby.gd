@@ -182,7 +182,7 @@ func spawn_player_from_ids(dict: Dictionary) -> Node2D:
 	for card in player_ui_container.get_children():
 		if card is JoinSelectUI and card.peer_id == dict.peer_id and card.device_id == dict.device_id:
 			player.set_data(card.player_data)
-			player.peer_id = card.peer_id
+			player.peer_id = card.peer_id  
 			card.player_node = player
 			break
 		else:

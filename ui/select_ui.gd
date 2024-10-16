@@ -276,6 +276,8 @@ func spawn_player(na, raider_id, color_id):
 	convert_to_ui()
 
 func convert_to_ui(is_on_join : bool = false):
+	if !$PanelContainer.visible: return
+	
 	print("Converting to UI: " + str(get_multiplayer_authority()))
 	new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
@@ -436,3 +438,11 @@ func some_player_has_color(i : int) -> bool:
 			#print(valid_color)
 			return true
 	return false
+
+
+func _on_update_timer_timeout():
+	pass 
+
+func _on_multiplayer_synchronizer_synchronized():
+	print("Updating.")
+	call_deferred("check_for_existing_player")
