@@ -68,6 +68,9 @@ func _ready():
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
 	
+	if get_parent().has_signal("player_left"):
+		get_parent().player_left.connect(_on_player_left)
+	
 	print(rng.seed)
 	
 	sector_room_pool.resize(sector_start_floors.size())
@@ -434,3 +437,24 @@ func set_seed(seed_string: String):
 	preset_seed = seed_int
 	rng.seed = seed_int 
 	seed_text = seed_string
+
+
+func _on_player_left(id : int):
+	remove_player_from_run.rpc(id)
+
+@rpc("authority", "call_local", "reliable")
+func remove_player_from_run(id):
+	var n = 0
+	for data in player_data:
+		if data.peer_id == id:
+			player_data.erase(data)
+			player_data.append(data)
+			
+			var ui = player_ui[n]
+			ui.hide()
+			player_ui.erase(ui)
+			player_ui.append(ui)
+			
+			number_of_players -= 1
+			return
+		n += 1
