@@ -17,10 +17,9 @@ signal raider_selected(peer_id, device_id)
 @onready var character_pips_box = $PanelContainer/VBoxContainer/CharacterContainer/CharacterPips
 @onready var color_pips_box = $PanelContainer/VBoxContainer/ColorContainer/ColorPips
 @onready var player_ui_scene = preload("res://ui/player_ui.tscn")
-@onready var notif_spawn_pos = $NotifSpawnPos
 
 @export var lobby_manager : Node
-#@export var player_name : Label
+@export var player_name : Label
 @export var select_controls_panel : Control # hide and show this depending on if a player has joined
 @export var panels_array : Array[Control]
 @export var ready_button : Button
@@ -40,8 +39,6 @@ var readied_up : bool = false
 
 @export var player_data : PlayerData
 var player_node : Player
-
-var new_ui : PlayerUI
 
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
@@ -110,38 +107,28 @@ func _ready():
 	while !has_valid_color():
 		selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
 	
-	if is_multiplayer_authority():
-		username = Steam.getPersonaName()
-		
 	UpdateDisplay()
 	
-	#await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(0.1).timeout
 	
-	if !GameManager.isOnline():
-		spawn_player.rpc(display_name, selected_raider, selected_color)
-		print("I'm the authority. " + str(peer_id))
-		  
+	
+	
 	if !is_multiplayer_authority():
-		print("I'm a remote peer. " + str(peer_id))
+		player_data.name = username
+		player_data.character = lobby_manager.raiders[selected_raider]
+		player_data.main_color = lobby_manager.player_colors[selected_color]
+		player_data.peer_id = peer_id
+		player_data.device_id = device_id
 	
 		call_deferred("check_for_existing_player")
 
 func check_for_existing_player():
 	if GameManager.isOnline():
-		player_data.player_name = username
-		player_data.character = lobby_manager.raiders[selected_raider]
-		player_data.main_color = lobby_manager.player_colors[selected_color]
-		player_data.peer_id = peer_id
-		player_data.device_id = device_id
-		print("Starting loop for " + str(peer_id))
 		for player in get_tree().get_nodes_in_group("player"):
-			if player.peer_id == peer_id:
-				print("Existing player found: " + str(peer_id))
+			if player.get_multiplayer_authority() == get_multiplayer_authority():
 				player_node = player
 				player.set_data(player_data, false)
-				if is_instance_valid(new_ui):
-					new_ui.set_data(player_data)
-				convert_to_ui(true)
+				convert_to_ui()
 
 func _process(_delta):
 	connected_time += _delta
@@ -196,6 +183,8 @@ func _process(_delta):
 			if ("confirm_click" in mouse_input):
 				if (valid_color and selected_panel == 2):
 					spawn_player.rpc(display_name, selected_raider, selected_color)
+			
+			username = Steam.getPersonaName()
 			
 			UpdateDisplay()
 			mouse_input.clear()
@@ -277,52 +266,18 @@ func spawn_player(na, raider_id, color_id):
 	raider_selected.emit(peer_id, device_id)
 	convert_to_ui()
 
-func convert_to_ui(is_on_join : bool = false):
-	if !$PanelContainer.visible: return
-	
-	print("Converting to UI: " + str(get_multiplayer_authority()))
-	new_ui = player_ui_scene.instantiate()
+func convert_to_ui():
+	var new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
 	$PanelContainer.visible = false
-	
-	if !is_on_join and player_data.character.animal_sound != null and is_instance_valid(player_node):
-		(player_node.animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, player_data.character.animal_sound)
-		player_node.animal_sound_player.play()
-	
-	await get_tree().create_timer(0.00001).timeout 
-	
-	if !is_on_join:
-		if GameManager.isOnline():
-			var s = username + " has joined the raid!"
-			lobby_manager.create_notification(s, notif_spawn_pos.global_position)
-		else:
-			var s = "A"
-			var raider_name = player_data.character.raider_name.to_lower()
-			if raider_name[0] in ['a', 'e', 'i', 'o', 'u']:
-				s += "n"
-			s += " " + raider_name + " has joined the raid!"
-			var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
-			lobby_manager.create_notification(s, notif_spawn_pos.global_position)
-
-@rpc("authority", "call_local", 'reliable')
-func convert_to_select():
-	if is_instance_valid(player_node):
-		player_node.queue_free()
-	new_ui.queue_free()
-	$PanelContainer.visible = true
-	
-
-func _on_player_data_customise():
-	if is_multiplayer_authority():
-		convert_to_select.rpc()
 
 
 func _remove_player():
 	# Clean up player here
 	player_data.destroy.emit()
-	if is_instance_valid(player_node):
+	if player_node:
 		player_node.queue_free()
 	queue_free()
 
@@ -437,14 +392,6 @@ func has_valid_color():
 func some_player_has_color(i : int) -> bool:
 	for card in lobby_manager.player_ui_container.get_children():
 		if card is JoinSelectUI and card != self and card.selected_color == i:
-			#print(valid_color)
+			print(valid_color)
 			return true
 	return false
-
-
-func _on_update_timer_timeout():
-	pass 
-
-func _on_multiplayer_synchronizer_synchronized():
-	print("Updating.")
-	call_deferred("check_for_existing_player")

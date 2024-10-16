@@ -82,9 +82,3 @@ func get_version_string() -> String:
 			return " - SPACEWAR"
 		_:
 			return " - UNKNOWN"
-
-func is_demo() -> bool:
-	if version_id == 3062240:
-		return true
-	else:
-		return false

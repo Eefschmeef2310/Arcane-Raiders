@@ -15,7 +15,6 @@ signal spell_ready(spell: int)
 signal hat_label_changed(text: String)
 signal destroy()
 signal reassign()
-signal customise()
 
 @export var device_id : int = -2
 @export var peer_id : int = 1
@@ -33,6 +32,9 @@ var spell_cooldowns : Array[float] = [0,0,0]
 @export_category("Hats")
 @export var hat_string : StringName = ""
 @export var hat_sprite : Texture2D
+	#set(value):
+		#hat_sprite = value
+		#hat_changed.emit()
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes

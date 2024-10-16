@@ -31,7 +31,7 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
- 
+
 #endregion
 
 #region Other methods (please try to separate and organise!)

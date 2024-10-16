@@ -46,7 +46,7 @@ expand_margin_bottom = 2.0
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i7afp"]
 properties/0/path = NodePath(".:peer_id")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath(".:device_id")
 properties/1/spawn = true
 properties/1/replication_mode = 2
@@ -65,20 +65,8 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath("PlayerData:hat_string")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("PlayerData:peer_id")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath("PlayerData:player_name")
-properties/8/spawn = true
-properties/8/replication_mode = 2
-properties/9/path = NodePath("PlayerData:device_id")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath("PlayerData:main_color")
-properties/10/spawn = true
-properties/10/replication_mode = 1
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("player_name", "select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -89,6 +77,7 @@ offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b2j28")
+player_name = NodePath("PanelContainer/VBoxContainer/Username")
 select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer")]
 ready_button = NodePath("PanelContainer/VBoxContainer/Button")
@@ -231,7 +220,7 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_vertical = 8
 bbcode_enabled = true
-text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=32]res://ui/join_button.svg[/img] Ready!"
+text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=20]res://ui/join_button.svg[/img] : Ready!"
 fit_content = true
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
@@ -276,7 +265,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-text = "Customising raider..."
+text = "Selecting raider..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -298,16 +287,7 @@ offset_right = 51.0
 offset_bottom = -11.0
 text = "0"
 
-[node name="NotifSpawnPos" type="Marker2D" parent="."]
-position = Vector2(225, -24)
-
-[node name="UpdateTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="customise" from="PlayerData" to="." method="_on_player_data_customise"]
-[connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
-[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

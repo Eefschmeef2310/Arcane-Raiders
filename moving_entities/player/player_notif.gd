@@ -12,9 +12,8 @@ class_name PlayerNotif
 @export var element_pip : TextureRect
 @export var synergy_label : Label
 
-@export var move_distance = 48.0
-@export var fade_time = 0.75
-@export var fade_delay = 0.0
+var move_distance = 48
+var fade_time = 0.75
 
 func _process(_delta):
 	(spell_rect.material as ShaderMaterial).set_shader_parameter("alpha", modulate.a)
@@ -22,13 +21,8 @@ func _process(_delta):
 func start_tween():
 	var tween = create_tween()
 	tween.tween_property(self, "position:y", position.y - move_distance, fade_time)
-	tween.parallel().tween_property(self, "modulate:a", 0, fade_time - fade_delay).set_delay(fade_delay)
+	tween.parallel().tween_property(self, "modulate:a", 0, fade_time)
 	tween.tween_callback(queue_free)
-
-func set_text(s : String):
-	label.text = s
-	label.show()
-	spell_box.hide()
 
 func set_recharging(_seconds: float):
 	label.text = "Recharging!"

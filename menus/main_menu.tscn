@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://brmt3xwasqlgc"]
+[gd_scene load_steps=23 format=3 uid="uid://brmt3xwasqlgc"]
 
 [ext_resource type="Texture2D" uid="uid://bbw2uumi5iixb" path="res://menus/img/background.png" id="1_tp6hm"]
 [ext_resource type="Texture2D" uid="uid://w6guicq5830i" path="res://menus/img/TOGETHER-small.png" id="1_usn4v"]
@@ -19,8 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://dg4oi66c20d63" path="res://menus/img/ELECTRC_EFFECTS_SMALL.png" id="11_ybop7"]
 [ext_resource type="Texture2D" uid="uid://j0xqv51txihy" path="res://menus/img/WIND_EFFECTS_SMALL.png" id="12_t3345"]
 [ext_resource type="Texture2D" uid="uid://dnsrxgk786yrt" path="res://discord-white-icon.webp" id="19_edvgm"]
-[ext_resource type="Script" path="res://menus/DemoPopup.gd" id="20_ryswq"]
-[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="21_on564"]
 
 [sub_resource type="GDScript" id="GDScript_mpxdx"]
 resource_name = "main_menu"
@@ -32,8 +30,6 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 @export var steam_error_window : PanelContainer
 @export var steam_error_label : Label
 @export var online_button : Button
-@export var demo_badge : Button
-@export var demo_popup : Control
 
 #region Godot methods
 func _ready():
@@ -44,8 +40,8 @@ func _ready():
 	$VBoxContainer/OnlineButton.visible = OS.get_name() != \"Web\"
 	
 	AudioManager.play_track_instant(\"menu\")
-	$VBoxContainer/VersionInfo/VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
 	
+	$VersionLabel.text = \"Ver. \" + ProjectSettings.get_setting(\"application/config/version\", \"0\")
 	if (!Steam.loggedOn()):
 		steam_error_window.show()
 		steam_error_label.text = \" Connection to steam failed, Online functions disabled: Not logged into steam \"
@@ -66,11 +62,6 @@ func _ready():
 	DiscordRPC.details = \"In the menus\"
 	DiscordRPC.state = \"\"
 	DiscordRPC.refresh()
-	
-	demo_badge.visible = SteamManager.is_demo()
-	demo_popup.visible = SteamManager.is_demo()
-	demo_popup.close_button.grab_focus() 
-
 	
 	#MultiplayerInput.set_ui_action_device(-2)
 ##endregion
@@ -116,10 +107,6 @@ func _on_discord_button_pressed():
 
 func _on_feedback_button_pressed():
 	OS.shell_open(\"https://forms.gle/X1ToW3kE8Pzpy4mu5\")
-
-
-func _on_demo_badge_pressed():
-	demo_popup.show()
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
@@ -129,18 +116,11 @@ font_size = 32
 font_size = 32
 font_color = Color(0.905882, 0, 0.466667, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_qs2c7"]
-font_size = 61
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 1)
-
-[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button", "demo_badge", "demo_popup")]
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("steam_error_window", "steam_error_label", "online_button")]
 script = SubResource("GDScript_mpxdx")
 steam_error_window = NodePath("SteamErrorWindow")
 steam_error_label = NodePath("SteamErrorWindow/SteamErrorText")
 online_button = NodePath("VBoxContainer/OnlineButton")
-demo_badge = NodePath("VBoxContainer/VersionInfo/Button")
-demo_popup = NodePath("DemoPopup")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -273,11 +253,11 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 80.0
-offset_top = -385.0
+offset_top = -318.5
 offset_right = 558.0
-offset_bottom = 385.0
+offset_bottom = 318.5
 grow_vertical = 2
-theme_override_constants/separation = 27
+theme_override_constants/separation = 24
 alignment = 1
 
 [node name="LocalPlayButton" type="Button" parent="VBoxContainer"]
@@ -307,6 +287,7 @@ custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../Horiz/CreditsButton")
+theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Provide Feedback!"
 
@@ -346,22 +327,17 @@ theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 38
 text = "Quit"
 
-[node name="VersionInfo" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="VersionLabel" type="Label" parent="VBoxContainer/VersionInfo"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="VersionLabel" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -204.0
+offset_right = 277.0
+offset_bottom = -155.0
+grow_vertical = 0
 text = "Ver. 24-05-14"
 label_settings = SubResource("LabelSettings_ko00r")
-
-[node name="Button" type="Button" parent="VBoxContainer/VersionInfo"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "Demo Info"
 
 [node name="SteamErrorWindow" type="PanelContainer" parent="."]
 visible = false
@@ -379,89 +355,6 @@ grow_vertical = 0
 layout_mode = 2
 label_settings = SubResource("LabelSettings_sscpa")
 
-[node name="DemoPopup" type="Control" parent="." node_paths=PackedStringArray("close_button", "local_play_button")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("20_ryswq")
-close_button = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/Button")
-local_play_button = NodePath("../VBoxContainer/LocalPlayButton")
-
-[node name="ColorRect" type="ColorRect" parent="DemoPopup"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.678431)
-
-[node name="MarginContainer" type="MarginContainer" parent="DemoPopup"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 350
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 350
-theme_override_constants/margin_bottom = 80
-
-[node name="PanelContainer" type="PanelContainer" parent="DemoPopup/MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="DemoPopup/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DemoPopup/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Welcome to the Arcane Raiders Demo/Playtest!"
-label_settings = SubResource("LabelSettings_qs2c7")
-horizontal_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
-
-[node name="RichTextLabel" type="RichTextLabel" parent="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/normal_font = ExtResource("21_on564")
-theme_override_font_sizes/normal_font_size = 27
-bbcode_enabled = true
-text = "[font_size=30] [center]Thank you for checking out Arcane Raiders!
-
-This is a test of the stability of the online architecture and game framework. Please report any you find on our [url=\"https://discord.com/invite/3BPYMHqNve\"]Discord Server[/url] or in the [url=\"https://forms.gle/X1ToW3kE8Pzpy4mu5\"]Feedback Form[/url].
-
-We hope you enjoy the game!
-
-[img=300]res://menus/img/verticalWhite.png[/img]"
-
-[node name="MarginContainer2" type="MarginContainer" parent="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 300
-theme_override_constants/margin_right = 300
-
-[node name="Button" type="Button" parent="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 41
-text = "Close"
-script = ExtResource("2_hcuag")
-
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -469,6 +362,3 @@ script = ExtResource("2_hcuag")
 [connection signal="pressed" from="VBoxContainer/Horiz/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/DiscordButton" to="." method="_on_discord_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Horiz/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/VersionInfo/Button" to="." method="_on_demo_badge_pressed"]
-[connection signal="meta_clicked" from="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/RichTextLabel" to="DemoPopup" method="_on_rich_text_label_meta_clicked"]
-[connection signal="pressed" from="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/Button" to="DemoPopup" method="_on_button_pressed"]

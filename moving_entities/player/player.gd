@@ -13,7 +13,6 @@ const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn
 
 @export var debug : bool = false
 @export var data: PlayerData
-@export var peer_id : int = 1
 
 @export_group("Parameters")
 @export var movement_speed : float = 300
@@ -51,8 +50,6 @@ var friends_nearby : Array = []
 @export var revival_time : float
 var revival_time_max : float = 3
 
-var after_images : Array = []
-
 @export_group("Node References")
 @export var revival_meter : ProgressBar
 @export var hurtbox : Area2D
@@ -83,7 +80,6 @@ var after_images : Array = []
 @export var animation_player : AnimationPlayer
 @export var invincibility_animation : AnimationPlayer
 @export var flashing_animation : AnimationPlayer
-@export var animal_sound_player : AudioStreamPlayer2D
 
 @export_subgroup("Player Sprite Components")
 @export var sprites_flip : Node2D
@@ -111,9 +107,8 @@ func _ready():
 		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
 	
 	# TODO temporary lines here
-	if debug and is_multiplayer_authority():
+	if debug:
 		set_data(data, false)
-		
 
 func _process(delta):
 	super._process(delta)
@@ -233,7 +228,6 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if destroy_old:
 		data.queue_free()
 	data = new_data
-	peer_id = data.peer_id
 	
 	health = data.health
 	if !health_updated.is_connected(data._on_player_health_updated): health_updated.connect(data._on_player_health_updated)
@@ -261,7 +255,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if data.hat_string:
 		data.set_hat_from_string(data.hat_string)
 	
-	set_multiplayer_authority(data.peer_id, true)
+	call_deferred("set_multiplayer_authority", data.peer_id, true)
 
 func _on_data_reassign():
 	set_data(data, false)
@@ -315,7 +309,7 @@ func dash_muck_with_collider():
 
 @rpc("authority", "call_local", "reliable")
 func play_emote(index : int):
-	if animation_player.current_animation != ("emote_" + str(index)) and !is_casting and !is_dashing and preparing_cast_slot == -1: #So we don't overwrite existing animation
+	if animation_player.current_animation != ("emote_" + str(index)) and !is_casting and preparing_cast_slot == -1: #So we don't overwrite existing animation
 		animation_player.play("emote_" + str(index))
 
 func prepare_cast_down(slot: int):
@@ -495,7 +489,6 @@ func create_after_image(time: float):
 	after_image.modulate = data.main_color
 	after_image.modulate.a = 0.5
 	after_image.add_to_group("temp_ghost")
-	after_images.push_back(after_image)
 	add_sibling(after_image)
 	
 	var sprites = sprites_flip.duplicate()
@@ -616,9 +609,3 @@ func _on_hat_changed():
 		data.hat_sprite = hat.sprite
 	else:
 		data.hat_sprite = null
-
-
-func _exit_tree():
-	for child in after_images:
-		if is_instance_valid(child):
-			child.queue_free()
