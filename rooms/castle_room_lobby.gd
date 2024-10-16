@@ -292,3 +292,7 @@ func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vecto
 	notif.start_tween()
 	
 	print(notif.position)
+
+
+func _on_customise_exit_player_entered(player : Player):
+	player.data.customise.emit()

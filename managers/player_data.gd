@@ -15,6 +15,7 @@ signal spell_ready(spell: int)
 signal hat_label_changed(text: String)
 signal destroy()
 signal reassign()
+signal customise()
 
 @export var device_id : int = -2
 @export var peer_id : int = 1

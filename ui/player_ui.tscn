@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4q28"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gx1xf"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ljtbr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pssur"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_knvrr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0v8ft"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -312,17 +312,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_t4q28")
+material = SubResource("ShaderMaterial_gx1xf")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_ljtbr")
+material = SubResource("ShaderMaterial_pssur")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_knvrr")
+material = SubResource("ShaderMaterial_0v8ft")
 layout_mode = 2
 mouse_filter = 1
 
@@ -511,6 +511,7 @@ label_settings = SubResource("LabelSettings_w8xoo")
 [node name="UsernameUI" type="Node2D" parent="."]
 
 [node name="PlayerUsername" type="Label" parent="UsernameUI"]
+visible = false
 offset_left = 50.2674
 offset_top = 173.262
 offset_right = 400.267

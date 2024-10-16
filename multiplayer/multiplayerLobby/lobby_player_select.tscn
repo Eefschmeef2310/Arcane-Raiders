@@ -83,6 +83,7 @@ ready_button = NodePath("PanelContainer/VBoxContainer/Button")
 player_data = NodePath("PlayerData")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -293,3 +294,4 @@ position = Vector2(225, -24)
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="customise" from="PlayerData" to="." method="_on_player_data_customise"]

@@ -41,6 +41,8 @@ var readied_up : bool = false
 @export var player_data : PlayerData
 var player_node : Player
 
+var new_ui : PlayerUI
+
 func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
 	update_device_list(0, true)
@@ -112,7 +114,9 @@ func _ready():
 		username = Steam.getPersonaName()
 	UpdateDisplay()
 	
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.05).timeout
+	
+	spawn_player.rpc(display_name, selected_raider, selected_color)
 	
 	if !is_multiplayer_authority():
 		player_data.player_name = username
@@ -266,7 +270,7 @@ func spawn_player(na, raider_id, color_id):
 	convert_to_ui()
 
 func convert_to_ui(is_on_join : bool = false):
-	var new_ui = player_ui_scene.instantiate()
+	new_ui = player_ui_scene.instantiate()
 	add_child(new_ui)
 	new_ui.set_data(player_data)
 	new_ui.scale = Vector2(1,1)
@@ -287,6 +291,17 @@ func convert_to_ui(is_on_join : bool = false):
 		s += " " + raider_name + " has joined the raid!"
 		var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
 		lobby_manager.create_notification(s, notif_spawn_pos.global_position)
+
+func convert_to_select():
+	if is_instance_valid(player_node):
+		player_node.queue_free()
+	new_ui.queue_free()
+	$PanelContainer.visible = true
+	
+
+func _on_player_data_customise():
+	if is_multiplayer_authority():
+		convert_to_select()
 
 
 func _remove_player():
