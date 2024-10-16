@@ -112,13 +112,15 @@ func _ready():
 	
 	if is_multiplayer_authority():
 		username = Steam.getPersonaName()
+		
 	UpdateDisplay()
 	
-	await get_tree().create_timer(0.05).timeout
+	await get_tree().create_timer(0.0001).timeout
 	
 	if is_multiplayer_authority():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
-	else: #if !is_multiplayer_authority():
+		 
+	if !is_multiplayer_authority():
 		player_data.player_name = username
 		player_data.character = lobby_manager.raiders[selected_raider]
 		player_data.main_color = lobby_manager.player_colors[selected_color]
@@ -280,17 +282,20 @@ func convert_to_ui(is_on_join : bool = false):
 		(player_node.animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, player_data.character.animal_sound)
 		player_node.animal_sound_player.play()
 	
-	if GameManager.isOnline():
-		var s = username + " has joined the raid!"
-		lobby_manager.create_notification(s, notif_spawn_pos.global_position)
-	else:
-		var s = "A"
-		var raider_name = player_data.character.raider_name.to_lower()
-		if raider_name[0] in ['a', 'e', 'i', 'o', 'u']:
-			s += "n"
-		s += " " + raider_name + " has joined the raid!"
-		var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
-		lobby_manager.create_notification(s, notif_spawn_pos.global_position)
+	await get_tree().create_timer(0.00001).timeout 
+	
+	if !is_on_join:
+		if GameManager.isOnline():
+			var s = username + " has joined the raid!"
+			lobby_manager.create_notification(s, notif_spawn_pos.global_position)
+		else:
+			var s = "A"
+			var raider_name = player_data.character.raider_name.to_lower()
+			if raider_name[0] in ['a', 'e', 'i', 'o', 'u']:
+				s += "n"
+			s += " " + raider_name + " has joined the raid!"
+			var pos = get_parent().position +  Vector2(get_rect().size.x / 2, -24)
+			lobby_manager.create_notification(s, notif_spawn_pos.global_position)
 
 @rpc("authority", "call_local", 'reliable')
 func convert_to_select():
