@@ -1061,7 +1061,6 @@ collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_wrxev")
-debug = true
 data = NodePath("PlayerData")
 movement_speed = 350.0
 revival_meter = NodePath("RevivalMeter")
