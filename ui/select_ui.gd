@@ -115,13 +115,13 @@ func _ready():
 		
 	UpdateDisplay()
 	
-	await get_tree().create_timer(0.05).timeout
+	#await get_tree().create_timer(0.05).timeout
 	
-	if is_multiplayer_authority():
+	if !GameManager.isOnline():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
 		print("I'm the authority.")
 		  
-	else:
+	if !is_multiplayer_authority():
 		print("I'm a remote peer.")
 		
 		player_data.player_name = username
@@ -130,7 +130,7 @@ func _ready():
 		player_data.peer_id = peer_id
 		player_data.device_id = device_id
 	
-		check_for_existing_player()
+		call_deferred("check_for_existing_player")
 
 func check_for_existing_player():
 	if GameManager.isOnline():
