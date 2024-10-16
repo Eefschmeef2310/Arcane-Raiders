@@ -50,6 +50,8 @@ var friends_nearby : Array = []
 @export var revival_time : float
 var revival_time_max : float = 3
 
+var after_images : Array = []
+
 @export_group("Node References")
 @export var revival_meter : ProgressBar
 @export var hurtbox : Area2D
@@ -490,6 +492,7 @@ func create_after_image(time: float):
 	after_image.modulate = data.main_color
 	after_image.modulate.a = 0.5
 	after_image.add_to_group("temp_ghost")
+	after_images.push_back(after_image)
 	add_sibling(after_image)
 	
 	var sprites = sprites_flip.duplicate()
@@ -610,3 +613,9 @@ func _on_hat_changed():
 		data.hat_sprite = hat.sprite
 	else:
 		data.hat_sprite = null
+
+
+func _exit_tree():
+	for child in after_images:
+		if is_instance_valid(child):
+			child.queue_free()
