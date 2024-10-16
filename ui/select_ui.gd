@@ -134,7 +134,7 @@ func check_for_existing_player():
 		player_data.peer_id = peer_id
 		player_data.device_id = device_id
 		for player in get_tree().get_nodes_in_group("player"):
-			if player.data.peer_id == peer_id:
+			if player.peer_id == peer_id:
 				print("Existing player found: " + str(peer_id))
 				player_node = player
 				player.set_data(player_data, false)

@@ -260,7 +260,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if data.hat_string:
 		data.set_hat_from_string(data.hat_string)
 	
-	call_deferred("set_multiplayer_authority", data.peer_id, true)
+	set_multiplayer_authority(data.peer_id, true)
 
 func _on_data_reassign():
 	set_data(data, false)
