@@ -17,11 +17,10 @@ shader_parameter/distortion = null
 shader_parameter/heightOffset = null
 shader_parameter/offset = 0.0
 
-[node name="Bush" type="Node2D"]
+[node name="Bush" type="Sprite2D"]
 y_sort_enabled = true
-
-[node name="Bush" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_chgwu")
-position = Vector2(0, -20)
+position = Vector2(0, 17)
 texture = ExtResource("2_joo8y")
+offset = Vector2(0, -40)
 script = ExtResource("3_xnvx7")

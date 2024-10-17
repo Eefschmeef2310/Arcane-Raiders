@@ -27,7 +27,7 @@ locked_texture = ExtResource("2_esy68")
 unlocked_texture = ExtResource("3_2xi6p")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-141, 45, 67, 158, 67, 101, -79, 30)
+polygon = PackedVector2Array(-141, 45, 67, 158, 80, 106, -93.42, 21.505)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true

@@ -1,24 +1,72 @@
-[gd_resource type="TileSet" load_steps=35 format=3 uid="uid://ck4nnts3mjdv2"]
+[gd_resource type="TileSet" load_steps=44 format=3 uid="uid://ck4nnts3mjdv2"]
 
 [ext_resource type="Texture2D" uid="uid://queb65wfae4g" path="res://tilesets/tiles_2.png" id="1_5qpff"]
 [ext_resource type="PackedScene" uid="uid://bs50gcb1skgp4" path="res://tilesets/decorations/torch.tscn" id="1_imgdy"]
 [ext_resource type="PackedScene" uid="uid://7ackwtsdw4us" path="res://tilesets/decorations/window.tscn" id="2_cvrec"]
 [ext_resource type="PackedScene" uid="uid://7ic6tmc26syr" path="res://tilesets/decorations/chest.tscn" id="2_ha725"]
-[ext_resource type="PackedScene" uid="uid://diufg2lyp18n2" path="res://tilesets/decorations/chest-flipped.tscn" id="3_ft02e"]
 [ext_resource type="PackedScene" uid="uid://bhexq08sb2msk" path="res://tilesets/decorations/torch_other_way.tscn" id="3_vx6cj"]
 [ext_resource type="PackedScene" uid="uid://rjdf8vu04xyv" path="res://tilesets/decorations/window_other_way.tscn" id="4_6n5bn"]
+[ext_resource type="Texture2D" uid="uid://ciug4durujouy" path="res://tilesets/decorations/sprites/CHEST.png" id="4_74ftf"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="4_ep2uc"]
 [ext_resource type="Texture2D" uid="uid://reyrua0dcxmu" path="res://tilesets/decorations/cracks_tileset.png" id="4_ew2ml"]
 [ext_resource type="PackedScene" uid="uid://bh70olrrel7l8" path="res://tilesets/decorations/candle.tscn" id="4_vqqd1"]
 [ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="5_futuj"]
-[ext_resource type="PackedScene" uid="uid://g60njie0rus0" path="res://tilesets/decorations/candle-flipped.tscn" id="5_nrvld"]
+[ext_resource type="Texture2D" uid="uid://elpwxrnyqx5y" path="res://tilesets/decorations/sprites/CANDLE.png" id="6_3vsql"]
 [ext_resource type="Texture2D" uid="uid://cfvo71m485f0q" path="res://tilesets/decorations/window.png" id="6_omrmw"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="7_2fg4p"]
+[ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="7_54lmb"]
+[ext_resource type="PackedScene" uid="uid://bpgt62vn4epai" path="res://tilesets/decorations/candle_flipped.tscn" id="8_xwy3q"]
 [ext_resource type="PackedScene" uid="uid://x7nsi77vpnvj" path="res://tilesets/traps/spike_traps/spike_trap.tscn" id="9_4y0o1"]
+[ext_resource type="PackedScene" uid="uid://cugv20my35lbv" path="res://tilesets/decorations/chest_flipped.tscn" id="9_wyudv"]
 [ext_resource type="PackedScene" uid="uid://b1xslj4koa4ta" path="res://tilesets/traps/dart_trap/dart_trap.tscn" id="10_3x5et"]
 [ext_resource type="PackedScene" uid="uid://m7iax2fg8po8" path="res://tilesets/traps/dart_trap/dart_trap_other.tscn" id="11_fbnbu"]
 [ext_resource type="PackedScene" uid="uid://dnabcmd0hxe6s" path="res://tilesets/decorations/disco_floor/disco_tile.tscn" id="12_56okc"]
 [ext_resource type="Texture2D" uid="uid://cw83orwblyhof" path="res://tilesets/tile decorations.png" id="17_7f1pj"]
+
+[sub_resource type="Gradient" id="Gradient_mkddu"]
+offsets = PackedFloat32Array(0, 0.195556, 0.424242, 0.621212, 0.838384)
+colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
+gradient = SubResource("Gradient_mkddu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21r5l"]
+shader = ExtResource("4_ep2uc")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="PackedScene" id="PackedScene_b2lic"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Chest", "Node2D", "Sprite2D", "Sprite2D", "z_index", "material", "position", "scale", "texture", "script"),
+"node_count": 2,
+"node_paths": [NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 1073741824, 0, 3, 2, -1, 6, 4, 0, 5, 1, 6, 2, 7, 3, 8, 4, 9, 5, 0),
+"variants": [4, SubResource("ShaderMaterial_21r5l"), Vector2(-17, -24), Vector2(-1, 1), ExtResource("4_74ftf"), ExtResource("7_54lmb")],
+"version": 3
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umc6r"]
+shader = ExtResource("4_ep2uc")
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="PackedScene" id="PackedScene_vq6o2"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Candle Flipped", "Node2D", "y_sort_enabled", "material", "scale", "texture", "offset", "script", "Sprite2D"),
+"node_count": 2,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 0, 0, 8, 0, -1, 6, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 0),
+"variants": [true, SubResource("ShaderMaterial_umc6r"), Vector2(-1, 1), ExtResource("6_3vsql"), Vector2(20, -35), ExtResource("7_54lmb")],
+"version": 3
+}
 
 [sub_resource type="Gradient" id="Gradient_oh054"]
 offsets = PackedFloat32Array(0, 0.255396, 0.456835, 0.585761, 0.877698)
@@ -60,9 +108,11 @@ scenes/7/scene = ExtResource("10_3x5et")
 scenes/8/scene = ExtResource("9_4y0o1")
 scenes/9/scene = ExtResource("12_56okc")
 scenes/10/scene = ExtResource("2_ha725")
-scenes/11/scene = ExtResource("3_ft02e")
+scenes/11/scene = SubResource("PackedScene_b2lic")
 scenes/12/scene = ExtResource("4_vqqd1")
-scenes/13/scene = ExtResource("5_nrvld")
+scenes/13/scene = SubResource("PackedScene_vq6o2")
+scenes/15/scene = ExtResource("8_xwy3q")
+scenes/16/scene = ExtResource("9_wyudv")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ap3w"]
 resource_name = "edges"

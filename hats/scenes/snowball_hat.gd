@@ -12,7 +12,7 @@ extends Hat
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var bonus := 0.05
+@export var bonus := 0.1
 
 	#Onready Variables
 

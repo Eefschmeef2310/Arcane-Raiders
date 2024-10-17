@@ -40,8 +40,8 @@ func _process(delta):
 #endregion
 
 #region Signal methods
-func _on_hitbox_body_entered(_body):
-	if(_body.owner != caster):
+func _on_hitbox_body_entered(body):
+	if(body.owner != caster):
 		create_explosion()
 
 func _on_explosion_timer_timeout():
@@ -64,4 +64,3 @@ func create_explosion():
 	queue_free()
 	
 #endregion
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=61 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -28,6 +28,7 @@
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/disco_frog.dtl" id="13_ts3tr"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/disco_frog.dch" id="14_oo7ad"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="20_d8qci"]
+[ext_resource type="Shader" path="res://shaders/bush_sway.gdshader" id="23_h46ni"]
 [ext_resource type="Texture2D" uid="uid://dwu0ha5vtnce4" path="res://moving_entities/player/player_pieces/head-frog2.png" id="24_3nove"]
 [ext_resource type="Texture2D" uid="uid://bfwuk7c5loa3n" path="res://moving_entities/player/player_pieces/head-frog3.png" id="28_a3fgk"]
 [ext_resource type="PackedScene" uid="uid://nnvvipwr6cnf" path="res://hats/pickups/hat_pickup.tscn" id="31_dfbji"]
@@ -108,6 +109,58 @@ shader_parameter/noise = SubResource("NoiseTexture2D_smrd5")
 font_size = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o3vje"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6mt4h"]
+resource_local_to_scene = true
+shader = ExtResource("23_h46ni")
+shader_parameter/speed = 2.0
+shader_parameter/minStrength = 0.071
+shader_parameter/maxStrength = 0.061
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enbid"]
+resource_local_to_scene = true
+shader = ExtResource("23_h46ni")
+shader_parameter/speed = 2.0
+shader_parameter/minStrength = 0.071
+shader_parameter/maxStrength = 0.061
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_stbc6"]
+resource_local_to_scene = true
+shader = ExtResource("23_h46ni")
+shader_parameter/speed = 2.0
+shader_parameter/minStrength = 0.071
+shader_parameter/maxStrength = 0.061
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rc3m"]
+resource_local_to_scene = true
+shader = ExtResource("23_h46ni")
+shader_parameter/speed = 2.0
+shader_parameter/minStrength = 0.071
+shader_parameter/maxStrength = 0.061
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
 
 [sub_resource type="Gradient" id="Gradient_iw6gt"]
 offsets = PackedFloat32Array(0, 0.166667, 0.368217, 0.534884, 0.709302, 0.856589, 1)
@@ -258,9 +311,9 @@ self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
 self_modulate = Color(0.364706, 0.639216, 0.756863, 1)
 
 [node name="HatFrog" parent="." index="19" instance=ExtResource("4_7li37")]
-position = Vector2(648, 381)
+position = Vector2(646, 489)
 character_name = "Milliner Frog"
-dialogues = Array[StringName]([&"Pick a hat using E or R1!"])
+dialogues = Array[StringName]([&"Pick up a hat for a special effect!"])
 
 [node name="HeadGroup" parent="HatFrog/SpritesScale" index="1"]
 position = Vector2(2, -74)
@@ -329,19 +382,23 @@ material = SubResource("ShaderMaterial_o3vje")
 position = Vector2(1187, 776)
 
 [node name="Bush2" parent="." index="23" instance=ExtResource("36_k1eci")]
+material = SubResource("ShaderMaterial_6mt4h")
 position = Vector2(70, 475)
 
 [node name="Bush3" parent="." index="24" instance=ExtResource("36_k1eci")]
+material = SubResource("ShaderMaterial_enbid")
 position = Vector2(-169, 596)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
 [node name="Bush4" parent="." index="25" instance=ExtResource("36_k1eci")]
+material = SubResource("ShaderMaterial_stbc6")
 position = Vector2(89, 762.91)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
 [node name="Bush5" parent="." index="26" instance=ExtResource("36_k1eci")]
+material = SubResource("ShaderMaterial_2rc3m")
 position = Vector2(-36, 762.91)
 
 [node name="Decorations" type="Node2D" parent="." index="27"]
@@ -706,6 +763,7 @@ script = ExtResource("43_ari5y")
 [editable path="HatFrog"]
 [editable path="WelcomeFrog"]
 [editable path="DiscoFrog"]
+[editable path="Bush5"]
 [editable path="Explosion"]
 [editable path="Snowball"]
 [editable path="Vampire"]

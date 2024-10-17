@@ -1,8 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh70olrrel7l8"]
+[gd_scene load_steps=16 format=3 uid="uid://bh70olrrel7l8"]
 
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="1_gd4ko"]
+[ext_resource type="Script" path="res://tilesets/decorations/torch.gd" id="1_s6jug"]
 [ext_resource type="Texture2D" uid="uid://elpwxrnyqx5y" path="res://tilesets/decorations/sprites/CANDLE.png" id="2_3wngg"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="3_g60c7"]
+[ext_resource type="Shader" path="res://shaders/toon_fire.gdshader" id="5_ctcgt"]
+[ext_resource type="Texture2D" uid="uid://cu18y4rboi0mp" path="res://icon.svg" id="6_yg1p4"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="7_kuwax"]
+[ext_resource type="Script" path="res://tilesets/decorations/candle_snuffer.gd" id="8_8hvfa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.195556, 0.424242, 0.621212, 0.838384)
@@ -17,11 +22,91 @@ shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
-[node name="candle" type="Node2D"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m1ex7"]
+seed = 86
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 4
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ltec"]
+seamless = true
+noise = SubResource("FastNoiseLite_m1ex7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jhqg"]
+resource_local_to_scene = true
+shader = ExtResource("5_ctcgt")
+shader_parameter/spread = 0.25
+shader_parameter/speed = 0.1
+shader_parameter/final_saturation = 0.5
+shader_parameter/alpha = 0.66
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vd3us"]
+size = Vector2(71, 55)
+
+[node name="Candle" type="Node2D" node_paths=PackedStringArray("flames", "lights")]
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_s6jug")
+flames = [NodePath("Flame"), NodePath("Flame2"), NodePath("Flame3")]
+lights = [NodePath("Flame/PointLight2D"), NodePath("Flame2/PointLight2D"), NodePath("Flame3/PointLight2D")]
+min_energy = 0.2
+max_energy = 0.3
+
+[node name="Candle" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_21r5l")
-position = Vector2(20, -24)
+position = Vector2(18, 0)
 texture = ExtResource("2_3wngg")
+offset = Vector2(2, -35)
 script = ExtResource("3_g60c7")
+
+[node name="Flame" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0jhqg")
+position = Vector2(-2, -71)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("6_yg1p4")
+script = ExtResource("3_g60c7")
+
+[node name="PointLight2D" type="PointLight2D" parent="Flame"]
+z_index = 1
+position = Vector2(4, 18)
+energy = 0.2
+shadow_enabled = true
+texture = ExtResource("7_kuwax")
+
+[node name="Flame2" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0jhqg")
+position = Vector2(20, -80)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("6_yg1p4")
+script = ExtResource("3_g60c7")
+
+[node name="PointLight2D" type="PointLight2D" parent="Flame2"]
+z_index = 1
+position = Vector2(4, 18)
+energy = 0.2
+shadow_enabled = true
+texture = ExtResource("7_kuwax")
+
+[node name="Flame3" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0jhqg")
+position = Vector2(44, -63)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("6_yg1p4")
+script = ExtResource("3_g60c7")
+
+[node name="PointLight2D" type="PointLight2D" parent="Flame3"]
+z_index = 1
+position = Vector2(4, 18)
+energy = 0.2
+shadow_enabled = true
+texture = ExtResource("7_kuwax")
+
+[node name="Snuffer" type="Area2D" parent="." node_paths=PackedStringArray("candle_parent")]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("8_8hvfa")
+candle_parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Snuffer"]
+position = Vector2(20.5, -47.5)
+shape = SubResource("RectangleShape2D_vd3us")
+
+[connection signal="area_entered" from="Snuffer" to="Snuffer" method="_on_area_entered"]
