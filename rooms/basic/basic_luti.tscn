@@ -48,5 +48,18 @@ texture = ExtResource("2_yaddg")
 [node name="RoomExit" parent="." index="11"]
 position = Vector2(1798, -6)
 
+[connection signal="area_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_entered"]
+[connection signal="area_exited" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_area_exited"]
+[connection signal="body_entered" from="TileMap/SpikeTrap" to="TileMap/SpikeTrap" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31803" to="TileMap/@Area2D@31803" method="_on_area_entered"]
+[connection signal="area_exited" from="TileMap/@Area2D@31803" to="TileMap/@Area2D@31803" method="_on_area_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@31803" to="TileMap/@Area2D@31803" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31804" to="TileMap/@Area2D@31804" method="_on_area_entered"]
+[connection signal="area_exited" from="TileMap/@Area2D@31804" to="TileMap/@Area2D@31804" method="_on_area_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@31804" to="TileMap/@Area2D@31804" method="_on_body_entered"]
+[connection signal="area_entered" from="TileMap/@Area2D@31805" to="TileMap/@Area2D@31805" method="_on_area_entered"]
+[connection signal="area_exited" from="TileMap/@Area2D@31805" to="TileMap/@Area2D@31805" method="_on_area_exited"]
+[connection signal="body_entered" from="TileMap/@Area2D@31805" to="TileMap/@Area2D@31805" method="_on_body_entered"]
+
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
