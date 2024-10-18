@@ -42,11 +42,10 @@ func get_players():
 		players.push_back(p)
 
 func _on_zero_health():
-	change_room_light()
+	change_room_light(false)
 	super._on_zero_health()
 
-func change_room_light():
-	dark_room = !dark_room
+func change_room_light(dark_room:bool):
 	var light_lvl = 1 if dark_room else 0.25
 	var player_lvl = 1 if dark_room else 0.1
 	var player_size = 2 if dark_room else 1
@@ -245,7 +244,7 @@ script/source = "extends State
 #region Other methods (please try to separate and organise!)
 func enter():
 	play_anim()
-	enemy.change_room_light()
+	enemy.change_room_light(true)
 	Transitioned.emit(self, \"phase2\")
 "
 
