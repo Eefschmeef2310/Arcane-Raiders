@@ -21,12 +21,12 @@ shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_lxbe0")
 
-[sub_resource type="Gradient" id="Gradient_mkddu"]
+[sub_resource type="Gradient" id="Gradient_4306w"]
 offsets = PackedFloat32Array(0, 0.195556, 0.424242, 0.621212, 0.838384)
 colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
-gradient = SubResource("Gradient_mkddu")
+gradient = SubResource("Gradient_4306w")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fl6p3"]
 shader = ExtResource("3_llv6y")
@@ -37,7 +37,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ttldr"]
 seed = 86
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7ltec"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2spje"]
 seamless = true
 noise = SubResource("FastNoiseLite_ttldr")
 
@@ -48,12 +48,14 @@ shader_parameter/spread = 0.25
 shader_parameter/speed = 0.1
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 0.66
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_2spje")
 
-[node name="Torch" type="Node2D"]
+[node name="Torch" type="Node2D" node_paths=PackedStringArray("flames", "lights")]
 z_index = 4
 material = SubResource("ShaderMaterial_061cr")
 script = ExtResource("2_v84hn")
+flames = [NodePath("Flame")]
+lights = [NodePath("PointLight2D")]
 
 [node name="Torch" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_fl6p3")

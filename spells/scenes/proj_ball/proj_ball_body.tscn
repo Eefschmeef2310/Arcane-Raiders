@@ -85,8 +85,7 @@ frame = 1
 frame_progress = 0.315976
 
 [node name="Hitbox" type="Area2D" parent="."]
-visible = false
-collision_layer = 32
+collision_layer = 48
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
@@ -98,4 +97,6 @@ energy = 0.3
 texture = ExtResource("4_isauo")
 texture_scale = 0.3
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

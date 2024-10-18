@@ -5,6 +5,5 @@
 
 [node name="SnowballHat" type="Node" groups=["hat"]]
 script = ExtResource("1_202r6")
-bonus = 1.0
 sprite = ExtResource("2_ml8js")
 manager_key = &"snowball_hat"

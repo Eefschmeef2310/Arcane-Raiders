@@ -17,11 +17,16 @@ shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
 
-[node name="Chest" type="Node2D"]
+[node name="Chest" type="StaticBody2D"]
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 4
 material = SubResource("ShaderMaterial_21r5l")
-position = Vector2(20, -24)
+position = Vector2(-23, -13)
 texture = ExtResource("2_0snfi")
+offset = Vector2(43, -11)
 script = ExtResource("3_4qrrt")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(32, 17, -26, -13, 10, -30, 67, -4)
