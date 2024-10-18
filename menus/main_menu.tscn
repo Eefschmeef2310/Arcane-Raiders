@@ -120,6 +120,18 @@ func _on_feedback_button_pressed():
 
 func _on_demo_badge_pressed():
 	demo_popup.show()
+
+
+func _on_no_button_pressed_timer_timeout():
+	print(\"changing\")
+	get_tree().change_scene_to_file(\"res://menus/sizzle_reel.tscn\")
+
+
+func _input(e):
+	if !e is InputEventJoypadMotion:
+		print(\"OASIUFHKDSJHF\")
+		$NoButtonPressedTimer.stop()
+		$NoButtonPressedTimer.start()
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_ko00r"]
@@ -462,6 +474,10 @@ theme_override_font_sizes/font_size = 41
 text = "Close"
 script = ExtResource("2_hcuag")
 
+[node name="NoButtonPressedTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [connection signal="pressed" from="VBoxContainer/LocalPlayButton" to="." method="_on_local_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OnlineButton" to="." method="_on_online_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -472,3 +488,4 @@ script = ExtResource("2_hcuag")
 [connection signal="pressed" from="VBoxContainer/VersionInfo/Button" to="." method="_on_demo_badge_pressed"]
 [connection signal="meta_clicked" from="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/RichTextLabel" to="DemoPopup" method="_on_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="DemoPopup/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/Button" to="DemoPopup" method="_on_button_pressed"]
+[connection signal="timeout" from="NoButtonPressedTimer" to="." method="_on_no_button_pressed_timer_timeout"]
