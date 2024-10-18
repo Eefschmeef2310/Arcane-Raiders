@@ -196,8 +196,7 @@ theme_override_fonts/normal_font = ExtResource("4_835q6")
 theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 text = "[center][font_size=18]Cast these two spells
-at the same time!
-[/font_size]"
+at the same time!"
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
@@ -208,12 +207,6 @@ theme_override_fonts/font = ExtResource("3_0hw4k")
 theme_override_font_sizes/font_size = 2
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

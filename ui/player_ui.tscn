@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://xvld7tdd1xe4"]
+[gd_scene load_steps=35 format=3 uid="uid://xvld7tdd1xe4"]
 
 [ext_resource type="Script" path="res://ui/player_ui.gd" id="1_cbyu2"]
 [ext_resource type="PackedScene" uid="uid://c8tisd7v43c66" path="res://ui/spell_slot.tscn" id="1_whj2e"]
@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xnpum"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_78ik7"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3revh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh236"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8u3g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ia518"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -107,6 +107,9 @@ corner_radius_bottom_left = 20
 [sub_resource type="LabelSettings" id="LabelSettings_oqe1k"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w8xoo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hhphg"]
+font_size = 20
 
 [sub_resource type="Animation" id="Animation_3xk7l"]
 resource_name = "flash"
@@ -312,17 +315,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_xnpum")
+material = SubResource("ShaderMaterial_78ik7")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_3revh")
+material = SubResource("ShaderMaterial_fh236")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_k8u3g")
+material = SubResource("ShaderMaterial_ia518")
 layout_mode = 2
 mouse_filter = 1
 
@@ -511,13 +514,13 @@ label_settings = SubResource("LabelSettings_w8xoo")
 [node name="UsernameUI" type="Node2D" parent="."]
 
 [node name="PlayerUsername" type="Label" parent="UsernameUI"]
-visible = false
 offset_left = 50.2674
-offset_top = 173.262
+offset_top = 166.845
 offset_right = 400.267
-offset_bottom = 198.262
+offset_bottom = 197.845
 mouse_filter = 1
 text = "Nintendo Switch Pro Controller"
+label_settings = SubResource("LabelSettings_hhphg")
 horizontal_alignment = 1
 
 [node name="HatLabelUI" type="Node2D" parent="."]
