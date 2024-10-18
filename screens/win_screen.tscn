@@ -124,7 +124,7 @@ func _ready():
 	#var leaderboard : Array[int] = castle_climb.get_leaderboard()
 	var leaderboard : Array[int] = get_leaderboard()
 	var players_in_leaderboard = leaderboard.size()
-	for i in [0,1,2,3]:
+	for i in range(4):
 		#set corresponding card
 		if i < players_in_leaderboard:
 			#print_debug(\"we have \" + str(i))
@@ -170,9 +170,9 @@ func get_leaderboard() -> Array[int]:
 	#populate leaders 
 	for x in data.size():
 		if data[x].wins > 0 or data[x].damage > 0:
-			var player_id = -1
+			var player_id = -1 
 			#leaders[x] = -1
-			for i in castle_climb.player_data.size():
+			for i in castle_climb.number_of_players:
 				if castle_climb.player_data[i].main_color == data[x].player:
 					#leaders[x] = i
 					leaders.append(i)
