@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_gcbln"]
 [ext_resource type="Texture2D" uid="uid://k86eniw42xb" path="res://moving_entities/enemies/bosses/boss_bat/sprites/001.png" id="2_h11k2"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_1ls6v"]
-[ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_sk0yk"]
 [ext_resource type="PackedScene" uid="uid://42pqgoacrk05" path="res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn" id="4_0nrxh"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_77mgy"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_sn5q4"]
@@ -26,15 +25,21 @@ script/source = "extends EnemyEntity
 var spawn_point:Vector2
 var dash_prep_pos: Vector2
 var dark_room:bool = false
-var canvas_modulate: PointLight2D
 var target_player: Entity
 var invincible: bool = false
+var canvas_modulate: PointLight2D
+var players: Array[Player]
 
 func _ready():
 	super._ready()
 	if get_parent().has_node(\"CoverLight\"):
 		canvas_modulate = get_parent().get_node(\"CoverLight\")
 	spawn_point = global_position
+
+func get_players():
+	var p_arr = get_tree().get_nodes_in_group(\"player\")
+	for p in p_arr:
+		players.push_back(p)
 
 func _on_zero_health():
 	change_room_light()
@@ -48,9 +53,8 @@ func change_room_light():
 	$PointLight2D.energy = 0
 	var tween = get_tree().create_tween()
 	tween.tween_property(canvas_modulate, \"energy\", light_lvl, 2)
-	var p_arr = get_tree().get_nodes_in_group(\"player\")
-	for p in p_arr:
-		if p.has_node(\"PointLight2D\"):
+	for p in players:
+		if is_instance_valid(p) && p.has_node(\"PointLight2D\"):
 			var light = p.get_node(\"PointLight2D\")
 			var tween0 = get_tree().create_tween()
 			tween0.tween_property(light, \"energy\", player_lvl, 2)
@@ -99,6 +103,28 @@ suffix = ""
 description = ""
 scene = ExtResource("9_0h871")
 element = ExtResource("3_1ls6v")
+
+[sub_resource type="GDScript" id="GDScript_ch8ay"]
+resource_name = "Bat_Boss_Idle"
+script/source = "extends Idle
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Godot methods
+func exit():
+	super.exit()
+	if enemy.has_method(\"get_players\"): enemy.get_players()
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+
+"
 
 [sub_resource type="GDScript" id="GDScript_vnb1m"]
 resource_name = "Default"
@@ -555,7 +581,7 @@ spell_cooldowns = Array[float]([2.0, 0.0, 2.0, 10.0, 20.0])
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
-script = ExtResource("3_sk0yk")
+script = SubResource("GDScript_ch8ay")
 actual_first_state = NodePath("../Default")
 
 [node name="Default" type="Node" parent="StateMachine" index="1"]
