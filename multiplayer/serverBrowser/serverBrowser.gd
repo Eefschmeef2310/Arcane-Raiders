@@ -70,10 +70,7 @@ func _on_host_pressed():
 	lobby_scene.InitLobby(lobby_id)
 	server_browser.hide()
 
-func _on_local_pressed():
-	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	lobby_scene.InitLobby(0)
-	server_browser.hide()
+
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -126,3 +123,24 @@ func on_lobby_match_list(lobbies):
 	server_count_text.text = str(valid_lobbies_count," / ",all_lobbies_count," Servers Shown")
 
 #endregion
+
+func _on_host_local_pressed():
+	peer = ENetMultiplayerPeer.new()
+	peer.create_server(135)
+	multiplayer.multiplayer_peer = peer
+	
+	var lobby_scene = multiplayer_spawner.spawn(gameScene)
+	lobby_scene.InitLobby(0)
+	server_browser.hide()
+
+func _on_join_local_pressed():
+	peer = ENetMultiplayerPeer.new()
+	loading_panel.show()
+	loading_text.text = "Loading into...\n" + "LAN Lobby"
+	peer.create_client("localhost",135)
+	#print("TimerDebuging - multiplayer_peer, before join_lobby set: "+ str(multiplayer.multiplayer_peer))
+	multiplayer.multiplayer_peer = peer
+	#print("TimerDebuging - multiplayer_peer, afetr join_lobby set: "+ str(multiplayer.multiplayer_peer))
+	#lobby_id = id
+	#SteamManager.player_id = Steam.getNumLobbyMembers(id)
+	server_browser.hide()

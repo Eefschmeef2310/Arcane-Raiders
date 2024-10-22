@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ngf5irvgldhp"]
+[gd_scene load_steps=6 format=3 uid="uid://ngf5irvgldhp"]
 
 [ext_resource type="Script" path="res://multiplayer/serverBrowser/serverBrowser.gd" id="1_ih681"]
 [ext_resource type="PackedScene" uid="uid://brmt3xwasqlgc" path="res://menus/main_menu.tscn" id="2_gq6d0"]
@@ -6,6 +6,10 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_u0dj5"]
 font_size = 24
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_63i0t"]
+color = Color(0, 0.380392, 0.470588, 1)
+thickness = 4
 
 [node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel", "template_button")]
 process_mode = 3
@@ -103,12 +107,6 @@ theme_override_font_sizes/font_size = 32
 text = "Host"
 script = ExtResource("3_ixota")
 
-[node name="Local" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Local"
-
 [node name="Refresh" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -124,6 +122,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Loading servers..."
 horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxLine_63i0t")
+
+[node name="HostLocal" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Host Local"
+
+[node name="JoinLocal" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Join Local"
 
 [node name="MarginContainer2" type="MarginContainer" parent="ServerBrowser/HBoxContainer"]
 layout_mode = 2
@@ -181,7 +194,8 @@ theme_override_font_sizes/font_size = 32
 text = "Disconnect"
 
 [connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Local" to="." method="_on_local_pressed"]
 [connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Refresh" to="." method="_on_refresh_pressed"]
 [connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/HostLocal" to="." method="_on_host_local_pressed"]
+[connection signal="pressed" from="ServerBrowser/HBoxContainer/MarginContainer/Buttons/JoinLocal" to="." method="_on_join_local_pressed"]
 [connection signal="pressed" from="LoadingPanel/DisconnectButton" to="." method="_on_disconnect_button_pressed"]
