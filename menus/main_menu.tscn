@@ -124,7 +124,7 @@ func _on_demo_badge_pressed():
 
 func _on_no_button_pressed_timer_timeout():
 	print(\"changing\")
-	get_tree().change_scene_to_file(\"res://menus/sizzle_reel.tscn\")
+	#get_tree().change_scene_to_file(\"res://menus/sizzle_reel.tscn\")
 
 
 func _input(e):

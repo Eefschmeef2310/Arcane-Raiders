@@ -225,7 +225,7 @@ func _on_hub_room_exited():
 func StartGame():
 	print("Attempting to spawn castle climb.")
 	start_game_called = true
-	if GameManager.isOnline():
+	if GameManager.isOnline() and server_browser_node.peer.has_method("set_lobby_joinable"):
 		server_browser_node.peer.set_lobby_joinable(false)
 	print("START THE GAME!!!!")
 	
