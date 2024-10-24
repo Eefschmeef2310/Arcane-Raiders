@@ -113,7 +113,8 @@ func _ready():
 		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
 	
 	# TODO temporary lines here
-	if debug and is_multiplayer_authority():
+	# (NOT TEMPORARY ANYMORE)
+	if debug:
 		set_data(data, false)
 		
 
