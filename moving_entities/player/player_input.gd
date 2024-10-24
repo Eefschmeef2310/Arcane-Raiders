@@ -45,7 +45,7 @@ func _process(_delta):
 			add_sibling(pause_menu)
 		#endregion
 	
-		if !owner.is_dead:
+		if !owner.is_dead and !owner.ignore_movement_input_next_tick:
 			
 			move_dir = Vector2.ZERO
 			aim_dir = Vector2.ZERO
@@ -55,7 +55,7 @@ func _process(_delta):
 			do_dash = false
 			
 			# If we have an input object, use it
-			if !GameManager.isPaused:
+			if !GameManager.isPaused and owner.can_control:
 				if input: #Online
 					# Movement
 					move_dir = input.get_vector("left", "right", "up", "down").normalized()
@@ -128,7 +128,9 @@ func _process(_delta):
 								
 						if MultiplayerInput.is_action_just_pressed(device, "interact") and $"../HatPickupDetector".closest_pickup != null:
 							owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
-						
+			
+			else:
+				move_dir = Vector2(0,0)
 			
 			# Send input to owner
 			owner.move_direction = move_dir

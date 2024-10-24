@@ -96,6 +96,9 @@ var after_images : Array = []
 
 var ignore_movement_input_next_tick : bool = false
 
+# NOTE: NEVER set this within the player, only ever externally
+var can_control : bool = true
+
 #region Godot methods
 func _ready():
 	print(z_index)

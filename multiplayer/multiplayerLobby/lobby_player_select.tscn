@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=13 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://byn34gwtakpjl" path="res://multiplayer/multiplayerLobby/pip.png" id="2_6jqx5"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_cpkxu"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_ac5jf"]
+[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="7_gsvf5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
@@ -46,7 +47,7 @@ expand_margin_bottom = 2.0
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i7afp"]
 properties/0/path = NodePath(".:peer_id")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath(".:device_id")
 properties/1/spawn = true
 properties/1/replication_mode = 2
@@ -67,18 +68,21 @@ properties/6/spawn = true
 properties/6/replication_mode = 2
 properties/7/path = NodePath("PlayerData:peer_id")
 properties/7/spawn = true
-properties/7/replication_mode = 1
+properties/7/replication_mode = 2
 properties/8/path = NodePath("PlayerData:player_name")
 properties/8/spawn = true
 properties/8/replication_mode = 2
 properties/9/path = NodePath("PlayerData:device_id")
 properties/9/spawn = true
-properties/9/replication_mode = 1
+properties/9/replication_mode = 2
 properties/10/path = NodePath("PlayerData:main_color")
 properties/10/spawn = true
-properties/10/replication_mode = 1
+properties/10/replication_mode = 2
+properties/11/path = NodePath(".:is_customising")
+properties/11/spawn = true
+properties/11/replication_mode = 2
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data", "player_node") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -93,6 +97,7 @@ select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer")]
 ready_button = NodePath("PanelContainer/VBoxContainer/Button")
 player_data = NodePath("PlayerData")
+player_node = NodePath("Player")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -284,6 +289,8 @@ vertical_alignment = 1
 script = ExtResource("2_6iir5")
 spell_strings = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large"])
 
+[node name="Player" parent="." instance=ExtResource("7_gsvf5")]
+
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -302,12 +309,12 @@ text = "0"
 position = Vector2(225, -24)
 
 [node name="UpdateTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.125
+autostart = true
 
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="customise" from="PlayerData" to="." method="_on_player_data_customise"]
-[connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

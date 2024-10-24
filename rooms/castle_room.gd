@@ -132,6 +132,14 @@ func spawn_player(player_number: int) -> Node2D:
 	#print("Spawned player of peer_id " + 1str(player.data.peer_id))
 	return player
 
+func register_player(player: Player):
+	player.spell_pickup_requested.connect(_on_player_spell_pickup_requested)
+	player.dead.connect(report_player_death)
+	player.revived.connect(report_player_revival)
+	dynamic_camera.add_target(player)
+	live_players += 1
+	#print("Spawned player of peer_id " + 1str(player.data.peer_id))
+
 func report_player_death(player):
 	if !(player in dead_players):
 		dead_players.append(player)
