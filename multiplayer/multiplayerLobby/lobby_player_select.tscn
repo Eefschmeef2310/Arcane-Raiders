@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=12 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://byn34gwtakpjl" path="res://multiplayer/multiplayerLobby/pip.png" id="2_6jqx5"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_cpkxu"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_ac5jf"]
-[ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="7_gsvf5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
@@ -97,7 +96,7 @@ select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer")]
 ready_button = NodePath("PanelContainer/VBoxContainer/Button")
 player_data = NodePath("PlayerData")
-player_node = NodePath("Player")
+player_node = NodePath("")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -289,8 +288,6 @@ vertical_alignment = 1
 script = ExtResource("2_6iir5")
 spell_strings = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large"])
 
-[node name="Player" parent="." instance=ExtResource("7_gsvf5")]
-
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -317,4 +314,5 @@ autostart = true
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="customise" from="PlayerData" to="." method="_on_player_data_customise"]
+[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]

@@ -116,38 +116,38 @@ func _ready():
 		
 	UpdateDisplay()
 	
-	player_node.reparent(lobby_manager)
-	lobby_manager.register_player(player_node)
-	player_node.set_data(player_data)
-	var player_spawns = get_tree().get_nodes_in_group("player_spawn")
-	player_node.global_position = player_spawns[get_index()].global_position
+	#player_node.reparent(lobby_manager)
+	#lobby_manager.register_player(player_node)
+	#player_node.set_data(player_data)
+	#var player_spawns = get_tree().get_nodes_in_group("player_spawn")
+	#player_node.global_position = player_spawns[get_index()].global_position
 	
-	call_deferred("convert_to_ui")
+	#call_deferred("convert_to_ui")
 	
-	#if !GameManager.isOnline():
-		#print("I'm the authority. " + str(peer_id))
-		#spawn_player.rpc(display_name, selected_raider, selected_color)
-		  #
-	#if !is_multiplayer_authority():
-		#call_deferred("check_for_existing_player")
-		#print("I'm a remote peer. " + str(peer_id))
+	if !GameManager.isOnline():
+		print("I'm the authority. " + str(peer_id))
+		spawn_player.rpc()
+		  
+	if !is_multiplayer_authority():
+		print("I'm a remote peer. " + str(peer_id))
+		call_deferred("check_for_existing_player")
 
-#func check_for_existing_player():
-	#if GameManager.isOnline():
-		#player_data.player_name = username
-		#player_data.character = lobby_manager.raiders[selected_raider]
-		#player_data.main_color = lobby_manager.player_colors[selected_color]
-		#player_data.peer_id = peer_id
-		#player_data.device_id = device_id
-		#print("Starting loop for " + str(peer_id))
-		#for player in get_tree().get_nodes_in_group("player"):
-			#if player.peer_id == peer_id:
-				#print("Existing player found: " + str(peer_id))
-				#player_node = player
-				#player.set_data(player_data, false)
-				#if is_instance_valid(new_ui):
-					#new_ui.set_data(player_data)
-				#convert_to_ui(true)
+func check_for_existing_player():
+	if GameManager.isOnline():
+		player_data.player_name = username
+		player_data.character = lobby_manager.raiders[selected_raider]
+		player_data.main_color = lobby_manager.player_colors[selected_color]
+		player_data.peer_id = peer_id
+		player_data.device_id = device_id
+		print("Starting loop for " + str(peer_id))
+		for player in get_tree().get_nodes_in_group("player"):
+			if player.peer_id == peer_id:
+				print("Existing player found: " + str(peer_id))
+				player_node = player
+				player.set_data(player_data, false)
+				if is_instance_valid(new_ui):
+					new_ui.set_data(player_data)
+				convert_to_ui(true)
 
 func _process(_delta):
 	connected_time += _delta
@@ -197,12 +197,12 @@ func _process(_delta):
 			
 			if ("confirm" in mouse_input):
 				if (valid_color): # NOTE: removed ready button hover requirement
-					convert_to_ui.rpc()
+					spawn_player.rpc()
 					#spawn_player.rpc(display_name, selected_raider, selected_color)
 			
 			if ("confirm_click" in mouse_input):
 				if (valid_color and selected_panel == 2):
-					convert_to_ui.rpc()
+					spawn_player.rpc()
 					#spawn_player.rpc(display_name, selected_raider, selected_color)
 			
 			UpdateDisplay()
@@ -283,17 +283,18 @@ func UpdateDisplay():
 		#if $PanelContainer.visible:
 			#convert_to_ui()
 	
-	player_node.can_control = !is_customising
+	if is_instance_valid(player_node):
+		player_node.can_control = !is_customising
 	
 	$ColorLabel.text = str(selected_color)
 		
 
 @rpc("authority", "call_local", "reliable")
-func spawn_player(na, raider_id, color_id):
+func spawn_player():
 	
-	player_data.player_name = na
-	player_data.character = lobby_manager.raiders[raider_id]
-	player_data.main_color = lobby_manager.player_colors[color_id]
+	player_data.player_name = display_name
+	player_data.character = lobby_manager.raiders[selected_raider]
+	player_data.main_color = lobby_manager.player_colors[selected_color]
 	player_data.peer_id = peer_id
 	player_data.device_id = device_id
 
@@ -332,8 +333,8 @@ func convert_to_ui(is_on_join : bool = false):
 
 @rpc("authority", "call_local", 'reliable')
 func convert_to_select():
-	#if is_instance_valid(player_node):
-		#player_node.queue_free()
+	if is_instance_valid(player_node):
+		player_node.queue_free()
 	if is_instance_valid(new_ui):
 		new_ui.queue_free()
 	$PanelContainer.visible = true
@@ -468,5 +469,7 @@ func some_player_has_color(i : int) -> bool:
 	return false
 
 
-func _on_update_timer_timeout():
-	player_node.set_data(player_data, false)
+func _on_multiplayer_synchronizer_delta_synchronized():
+	check_for_existing_player()
+	if is_instance_valid(player_node):
+		player_node.set_data(player_data, false)
