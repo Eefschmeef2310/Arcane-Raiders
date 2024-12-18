@@ -48,10 +48,10 @@ func _ready():
 	
 	if (!Steam.loggedOn()):
 		steam_error_window.show()
-		steam_error_label.text = \" Connection to steam failed, Online functions disabled: Not logged into steam \"
+		steam_error_label.text = \" Connection to Steam failed, Online functions disabled: Not logged into steam \"
 	if (!Steam.isSubscribed()):
 		steam_error_window.show()
-		steam_error_label.text += \"\\n Connection to steam failed, Online functions disabled: Game is not owned \"
+		steam_error_label.text += \"\\n Connection to Steam failed, Online functions disabled: Game is not owned \"
 		online_button.disabled = true
 	if(!SteamManager.live_mode):
 		steam_error_window.show()

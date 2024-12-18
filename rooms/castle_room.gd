@@ -55,8 +55,13 @@ var spawn_keys = []
 var number_of_players_health_scale: float = 1.0
 var number_of_players_difficulty_scale: float = 1.0
 var james_mode = false
+var difficulty_values : Dictionary = {
+		"enemy_spawn_mult" : 1.0, "pickup_spawn_mult" : 1.0, "enemy_speed_mult" : 1.0, "enemy_health_mult" : 1.0, "healing" : 1.0
+	}
 
 func _ready():
+	print(difficulty_values)
+	
 	if !rng:
 		rng = RandomNumberGenerator.new()
 	
@@ -79,9 +84,7 @@ func _ready():
 		
 		if is_multiplayer_authority():
 			number_of_enemies_left = 0
-			total_difficulty_left = wave_total_difficulty[0] * difficulty_modifier * number_of_players_difficulty_scale
-			if james_mode: total_difficulty_left *= 2
-			print("Difficulty modifier: " + str(difficulty_modifier))
+			total_difficulty_left = wave_total_difficulty[0] * difficulty_values["enemy_spawn_mult"] * number_of_players_difficulty_scale
 		
 			var arr = EnemyManager.Data.keys()
 			if !spawn_keys.is_empty():
@@ -156,6 +159,9 @@ func spawn_enemy(data) -> Node2D:
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
 	enemy.monetary_value = enemy_data["difficulty"] * 10
+	enemy.max_health *= difficulty_values["enemy_health_mult"]
+	enemy.movement_speed *= difficulty_values["enemy_speed_mult"]
+	enemy.health_pickup_chance *= difficulty_values["healing"]
 	if !enemy.zero_health.is_connected(_on_enemy_zero_health): enemy.zero_health.connect(_on_enemy_zero_health) #This is already connected in the BaseEnemy scene
 	number_of_enemies_left += 1
 	
@@ -171,7 +177,7 @@ func spawn_spell_pickup(spell_string: String):
 
 func server_spawn_health_pickup(pos : Vector2):
 	var chance = 0.4
-	if james_mode: chance *= 0.5
+	chance *= difficulty_values["pickup_spawn_mult"]
 	if is_multiplayer_authority() and rng.randf() < chance:
 		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene_index": rng.randi_range(0, pickups.size() - 1)})
 	

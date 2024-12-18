@@ -47,6 +47,22 @@ var enemy_types_per_floor : Array = [
 	[], # boss
 	[], # end
 ]
+var difficulty_values_array = [
+	{
+		"enemy_spawn_mult" : 1.0, "pickup_spawn_mult" : 1.0, "enemy_speed_mult" : 1.0, "enemy_health_mult" : 1.0, "healing" : 1.0
+	},
+	{
+		"enemy_spawn_mult" : 1.5, "pickup_spawn_mult" : 0.5, "enemy_speed_mult" : 1.0, "enemy_health_mult" : 1.0, "healing" : 1.0
+	},
+	{
+		"enemy_spawn_mult" : 1.5, "pickup_spawn_mult" : 0.5, "enemy_speed_mult" : 1.5, "enemy_health_mult" : 1.5, "healing" : 1.0
+	},
+	{
+		"enemy_spawn_mult" : 1.5, "pickup_spawn_mult" : 0.5, "enemy_speed_mult" : 1.5, "enemy_health_mult" : 1.5, "healing" : 0.0
+	},
+]
+@export var difficulty_setting : int = 3
+
 @export var james_mode: bool = false
 
 var number_of_players = 0
@@ -250,7 +266,7 @@ func start_next_floor():
 	elif current_floor in shop_floors:
 		common_level_spawner.spawn("shop")
 		for data in player_data:
-			data.health += 400
+			data.health += (400 * difficulty_values_array[difficulty_setting]["healing"])
 	elif current_floor in boss_floors:
 		boss_level_spawner.spawn(get_current_sector())
 	else:
@@ -293,7 +309,7 @@ func inject_data_to_current_room_node():
 	current_room_node.number_of_players = number_of_players
 	current_room_node.number_of_players_health_scale = number_of_players_health_scale[number_of_players - 1]
 	current_room_node.number_of_players_difficulty_scale = number_of_players_difficulty_scale[number_of_players - 1]
-	current_room_node.james_mode = james_mode
+	current_room_node.difficulty_values = difficulty_values_array[difficulty_setting]
 	current_room_node.room_exited.connect(_on_room_exited)
 	current_room_node.spell_change_requested.connect(_on_spell_change_requested)
 	current_room_node.all_players_dead.connect(_on_room_all_players_dead)
