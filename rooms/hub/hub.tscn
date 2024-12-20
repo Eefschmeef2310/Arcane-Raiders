@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=62 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://bfbbtqo7sim14" path="res://tilesets/decorations/grass4.png" id="42_27olt"]
 [ext_resource type="Script" path="res://rooms/hub/DiscordRP Tool.gd" id="43_ari5y"]
 [ext_resource type="PackedScene" uid="uid://b7ucgdokfb826" path="res://hats/pickups/hat_destroyer.tscn" id="43_sukgf"]
+[ext_resource type="PackedScene" uid="uid://csffr8rhkw316" path="res://menus/difficulty_menu.tscn" id="45_jwps2"]
 
 [sub_resource type="Gradient" id="Gradient_n0mbe"]
 offsets = PackedFloat32Array(0, 0.257576, 0.424242, 0.621212, 0.838384)
@@ -687,12 +688,11 @@ hat_string = "explosion_hat"
 [node name="Outline" parent="Explosion" index="0"]
 texture = ExtResource("32_mb7kk")
 
-[node name="Name" parent="Explosion/HBoxContainer/InfoBox/VBoxContainer" index="0"]
+[node name="Name" parent="Explosion/InfoBox/VBoxContainer" index="0"]
 text = "Cowboy Hat"
 
-[node name="Description" parent="Explosion/HBoxContainer/InfoBox/VBoxContainer" index="1"]
-text = "[center][font_size=18]Create an explosion when you take damage.
-[/font_size]"
+[node name="Description" parent="Explosion/InfoBox/VBoxContainer/PanelContainer" index="0"]
+text = "Create an explosion when you take damage."
 
 [node name="Snowball" parent="." index="31" instance=ExtResource("31_dfbji")]
 position = Vector2(408, 287)
@@ -704,12 +704,11 @@ texture = ExtResource("33_5avpe")
 [node name="Hat" parent="Snowball/Icon" index="0"]
 texture = ExtResource("33_5avpe")
 
-[node name="Name" parent="Snowball/HBoxContainer/InfoBox/VBoxContainer" index="0"]
+[node name="Name" parent="Snowball/InfoBox/VBoxContainer" index="0"]
 text = "Baseball Cap"
 
-[node name="Description" parent="Snowball/HBoxContainer/InfoBox/VBoxContainer" index="1"]
-text = "[center][font_size=18]Gain extra damage when defeating an enemy, just don't get hit!
-[/font_size]"
+[node name="Description" parent="Snowball/InfoBox/VBoxContainer/PanelContainer" index="0"]
+text = "Gain extra damage when defeating an enemy, just don't get hit!"
 
 [node name="Vampire" parent="." index="32" instance=ExtResource("31_dfbji")]
 position = Vector2(884, 289)
@@ -721,13 +720,11 @@ texture = ExtResource("34_5q4m5")
 [node name="Hat" parent="Vampire/Icon" index="0"]
 texture = ExtResource("34_5q4m5")
 
-[node name="Name" parent="Vampire/HBoxContainer/InfoBox/VBoxContainer" index="0"]
+[node name="Name" parent="Vampire/InfoBox/VBoxContainer" index="0"]
 text = "Top Hat"
 
-[node name="Description" parent="Vampire/HBoxContainer/InfoBox/VBoxContainer" index="1"]
-text = "[center][font_size=18]Gain a bit of
- health when defeating an enemy.
-[/font_size]"
+[node name="Description" parent="Vampire/InfoBox/VBoxContainer/PanelContainer" index="0"]
+text = "Gain a bit of health when defeating an enemy."
 
 [node name="GlassCannon" parent="." index="33" instance=ExtResource("31_dfbji")]
 position = Vector2(1083, 400)
@@ -739,19 +736,20 @@ texture = ExtResource("35_dt86x")
 [node name="Hat" parent="GlassCannon/Icon" index="0"]
 texture = ExtResource("35_dt86x")
 
-[node name="Name" parent="GlassCannon/HBoxContainer/InfoBox/VBoxContainer" index="0"]
+[node name="Name" parent="GlassCannon/InfoBox/VBoxContainer" index="0"]
 text = "Wizard Hat"
 
-[node name="Description" parent="GlassCannon/HBoxContainer/InfoBox/VBoxContainer" index="1"]
-text = "[center][font_size=18]Move slower,
-but deal more damage
-[/font_size]"
+[node name="Description" parent="GlassCannon/InfoBox/VBoxContainer/PanelContainer" index="0"]
+text = "Move slower,
+but deal more damage."
 
 [node name="HatDestroyer" parent="." index="34" instance=ExtResource("43_sukgf")]
 position = Vector2(642, 185)
 
 [node name="DiscordRP Tool" type="Node" parent="." index="35"]
 script = ExtResource("43_ari5y")
+
+[node name="DifficultyMenu" parent="." index="36" instance=ExtResource("45_jwps2")]
 
 [connection signal="player_entered" from="Decorations/PartyExit" to="." method="_on_party_exit_player_entered"]
 [connection signal="player_entered" from="Decorations/CustomiseExit" to="." method="_on_customise_exit_player_entered"]

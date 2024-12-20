@@ -12,9 +12,9 @@ class_name HatPickup #THIS MUST BE A SEPARATE CLASS BCS THIS SCRIPT IS USED FOR 
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var info_container : HBoxContainer
-@export var show_equip_prompt : bool = false
+@export var info_container : Control
 @export var hat_string : String
+@export var highest_difficulty : RichTextLabel
 
 	#Onready Variables
 @onready var init_pos = $Shadow.scale
@@ -33,6 +33,8 @@ var freq = 2
 func _ready():
 	i = randf_range(0, 360)
 	base_sprite_pos = icon.position
+	
+	get_highest_completion_difficulty()
 	
 func _process(delta):
 	i += delta
@@ -71,6 +73,23 @@ func _on_area_2d_body_exited(body):
 #endregion
 
 #region Other methods (please try to separate and organise!)
+func get_highest_completion_difficulty():
+	if is_instance_valid(highest_difficulty):
+		highest_difficulty.text = "[center]Highest Completed Difficulty:"
+		if SaveManager.hats_highest_difficulty_completed.has(hat_string):
+			match int(SaveManager.hats_highest_difficulty_completed[hat_string]):
+				_:
+					highest_difficulty.text = "[center]No runs completed with this hat!"
+				0:
+					highest_difficulty.text += "[color=green]\nEasy"
+				1:
+					highest_difficulty.text += "[color=yellow]\nMedium"
+				2:
+					highest_difficulty.text += "[color=red]\nHard"
+				3:
+					highest_difficulty.text += "[color=purple]\nExtreme"
+		else:
+			highest_difficulty.text = "[center]No runs completed with this hat!"
 #func pickup_function(player):
 	#for child in player.get_children():
 		#if child is Hat:
