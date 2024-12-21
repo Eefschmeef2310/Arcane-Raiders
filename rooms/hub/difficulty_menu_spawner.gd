@@ -18,12 +18,14 @@ func _ready():
 	update_current_label()
 
 func _input(event):
-	if interact_label.visible and event.is_action_pressed("interact"):
-		var menu = DIFFICULTY_MENU.instantiate()
-		menu.difficulty_set.connect(update_current_label)
-		add_sibling(menu)
-		
-
+	if interact_label.visible:
+		for device in GameManager.devices:
+			if MultiplayerInput.is_action_just_pressed(device, "interact"):
+				var menu = DIFFICULTY_MENU.instantiate()
+				menu.difficulty_set.connect(update_current_label)
+				menu.device_id = device
+				add_sibling(menu)
+				
 func _on_area_entered(area):
 	if area.owner is Player:
 		player_in_bounds = true
