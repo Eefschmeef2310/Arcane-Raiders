@@ -11,13 +11,13 @@ func _process(_delta):
 	if !is_instance_valid(submenu):
 		if (("confirm" in mouse_input) or "click_confirm" in mouse_input) and !quit_warning:
 			match current_button:
-				0: _on_continue_button_pressed()
+				0: unpause_game()
 				1: _on_feedback_button_pressed()
 				2: _on_settings_button_pressed()
 				3: _on_quit_button_pressed()
 		
 		if ("cancel" in mouse_input or "pause" in mouse_input):
-			_on_continue_button_pressed()
+			unpause_game()
 		
 	mouse_input.clear()
 #endregion
@@ -26,11 +26,6 @@ func _process(_delta):
 #endregion
 		
 #region Button Presses
-func _on_continue_button_pressed():
-	get_tree().paused = false
-	GameManager.isPaused = false
-	queue_free()
-	
 func _on_settings_button_pressed():
 	submenu = load("res://menus/settings.tscn").instantiate()
 	submenu.destroyed.connect(settings_set_focus)

@@ -4,6 +4,7 @@ extends GamePausingMenu
 
 #region Variables
 	#Signals
+signal difficulty_set()
 
 	#Enums
 
@@ -40,10 +41,22 @@ func _process(delta):
 		vignette_material.set_shader_parameter("vignette_color", lerp(vignette_material.get_shader_parameter("vignette_color"), difficulty_color, elapsed_time / lerp_duration) )
 		vignette_material.set_shader_parameter("inner_radius", lerp(vignette_material.get_shader_parameter("inner_radius"), radius, elapsed_time / lerp_duration) )
 		
+	if !is_instance_valid(submenu):
+		if (("confirm" in mouse_input) or "click_confirm" in mouse_input):
+			if current_button < panels_array.size() - 1:
+				_on_difficulty_selected(panels_array[current_button])
+			else:
+				unpause_game()
+		
+		if "cancel" in mouse_input:
+			unpause_game()
+			
 	mouse_input.clear()
 #endregion
 
 #region Signal methods
+
+#region Button mouse enters
 func _on_continue_button_mouse_entered():
 	elapsed_time = 0
 	difficulty_color = Color.GREEN
@@ -68,6 +81,17 @@ func _on_button_mouse_exited():
 	elapsed_time = 0
 	difficulty_color = Color.TRANSPARENT
 	radius = 0.5
+#endregion
+
+#region Button presses
+func _on_difficulty_selected(node : Control):
+	if (get_parent() as CastleRoomLobby):
+		(get_parent() as CastleRoomLobby).chosen_difficulty = panels_array.find(node)
+		difficulty_set.emit()
+		unpause_game()
+
+#endregion
+
 #endregion
 
 #region Other methods (please try to separate and organise!)

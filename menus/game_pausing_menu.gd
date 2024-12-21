@@ -43,6 +43,8 @@ func _ready():
 	if device_id != -2:
 		input = DeviceInput.new(device_id)
 	
+	_on_button_mouse_entered(panels_array[0])
+	
 	for panel in panels_array:
 		panel.mouse_entered.connect(_on_button_mouse_entered.bind(panel))
 
@@ -69,6 +71,11 @@ func _process(_delta):
 func _on_button_mouse_entered(node : Control):
 	if device_id <= -1 and is_multiplayer_authority():
 		current_button = panels_array.find(node)
+
+func unpause_game():
+	get_tree().paused = false
+	GameManager.isPaused = false
+	queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)

@@ -17,6 +17,7 @@ bubble = NodePath("TextBubbleLayer/TextBubble")
 [node name="TextBubble" parent="TextBubbleLayer" instance=ExtResource("2_ipbjq")]
 
 [node name="DialogText" parent="TextBubbleLayer/TextBubble" index="1"]
+theme_override_constants/outline_size = 0
 start_hidden = false
 
 [node name="NameLabel" parent="TextBubbleLayer/TextBubble/DialogText/NameLabelPositioner/NameLabelPanel" index="0"]

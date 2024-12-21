@@ -17,6 +17,7 @@ const MAX_PLAYERS = 4
 @onready var notif_ui = $NotifUI
 
 @export_group("Other Resources")
+@export var chosen_difficulty : int
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
 #@export var menu_scene : PackedScene
