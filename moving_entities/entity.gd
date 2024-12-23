@@ -61,6 +61,8 @@ var ice_speed_scale : float = 1.0
 var shocked_this_frame : bool = false
 
 var can_input : bool = true
+var input_preventing_node : Node
+
 var knockback_velocity : float
 var knockback_direction : Vector2
 var knockback_floor : float = 0.5

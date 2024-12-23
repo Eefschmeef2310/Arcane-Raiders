@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bp3p5hgbn2t6t"]
+[gd_scene load_steps=61 format=3 uid="uid://bp3p5hgbn2t6t"]
 
 [ext_resource type="Script" path="res://moving_entities/player/player.gd" id="1_wrxev"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_1yn5g"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="6_2udvh"]
 [ext_resource type="Script" path="res://moving_entities/player/spell_direction.gd" id="6_378tb"]
 [ext_resource type="Texture2D" uid="uid://b1fqsl2cqg8jq" path="res://moving_entities/player/player_pieces/hand.png" id="7_xrgo1"]
+[ext_resource type="Script" path="res://moving_entities/player/interactor.gd" id="8_1ucgt"]
 [ext_resource type="Script" path="res://moving_entities/player/player_hurtbox.gd" id="9_cti52"]
 [ext_resource type="PackedScene" uid="uid://dha0c27eh3h2g" path="res://ui/element_status/status_ui.tscn" id="11_64qh4"]
 [ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="12_ndveq"]
@@ -1133,6 +1134,9 @@ script = SubResource("GDScript_qs58w")
 
 [node name="HatPickupDetector" type="Node" parent="."]
 script = SubResource("GDScript_3en0v")
+
+[node name="Interactor" type="Node" parent="."]
+script = ExtResource("8_1ucgt")
 
 [node name="PlayerData" type="Node" parent="." groups=["player_data"]]
 script = ExtResource("4_srdhb")

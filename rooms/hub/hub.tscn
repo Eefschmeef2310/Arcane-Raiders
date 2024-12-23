@@ -287,8 +287,8 @@ text = "Start Run!"
 label_settings = SubResource("LabelSettings_u03uf")
 horizontal_alignment = 1
 
-[node name="DifficultyMenuSpawner" type="Area2D" parent="." index="16" node_paths=PackedStringArray("interact_label", "current_difficulty")]
-position = Vector2(1570, 697)
+[node name="DifficultyMenuSpawner" type="Area2D" parent="." index="16" node_paths=PackedStringArray("interact_label", "current_difficulty") groups=["interactable"]]
+position = Vector2(1383, 774)
 collision_layer = 0
 collision_mask = 512
 script = ExtResource("14_aw2au")

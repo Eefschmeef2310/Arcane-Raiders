@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://csffr8rhkw316"]
+[gd_scene load_steps=10 format=3 uid="uid://csffr8rhkw316"]
 
 [ext_resource type="Script" path="res://menus/difficulty_menu.gd" id="1_aho1r"]
 [ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="2_hhq7j"]
@@ -46,6 +46,11 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_il6c0"]
+font_size = 32
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_ptjs1"]
 resource_name = "default"
@@ -140,7 +145,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/Control/MarginContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -148,6 +153,13 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 92
 text = "Choose your difficulty!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "All effects stack with the ones above them."
+label_settings = SubResource("LabelSettings_il6c0")
 horizontal_alignment = 1
 
 [node name="EasyButton" type="PanelContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
@@ -164,14 +176,13 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
-text = "Easy"
-horizontal_alignment = 1
+text = "   Easy"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "A good difficulty for beginners."
+text = "Great for beginner raiders!"
 
 [node name="MediumButton" type="PanelContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -187,14 +198,13 @@ theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
-text = "Medium"
-horizontal_alignment = 1
+text = "   Medium"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "More enemies will appear and less items will spawn"
+text = "More enemies spawn and less items are dropped."
 
 [node name="HardButton" type="PanelContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -210,14 +220,13 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
-text = "Hard"
-horizontal_alignment = 1
+text = "   Hard"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "Enemies move faster, attack faster, andhave more health"
+text = "Enemies will move faster, attack faster, and have more health."
 
 [node name="ExtremeButton" type="PanelContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -233,14 +242,13 @@ theme_override_colors/font_color = Color(0.541176, 0, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
-text = "Extreme"
-horizontal_alignment = 1
+text = "   Extreme"
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "There will be no chances to heal."
+text = "You can never heal."
 
 [node name="MarginContainer" type="MarginContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

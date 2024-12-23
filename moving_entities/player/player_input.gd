@@ -10,6 +10,7 @@ var spell_down: Array[bool] = [false]
 var spell_press: Array[bool] = [false]
 var spell_release: Array[bool] = [false]
 var do_dash: bool = false
+var interact: bool = false
 
 var is_keyb: bool
 
@@ -21,6 +22,7 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	print(move_dir)
 	if is_multiplayer_authority() and is_instance_valid(owner.data):
 		#region - For pausing
 		var do_pause = false
@@ -44,18 +46,23 @@ func _process(_delta):
 			#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
 			add_sibling(pause_menu)
 		#endregion
-	
+		
+		# Reset all input values
+		move_dir = Vector2.ZERO
+		aim_dir = Vector2.ZERO
+		spell_down.fill(false)
+		spell_press.fill(false)
+		spell_release.fill(false)
+		do_dash = false
+		interact = false
+		
+		# Ignore input if we are dead
 		if !owner.is_dead:
 			
-			move_dir = Vector2.ZERO
-			aim_dir = Vector2.ZERO
-			spell_down.fill(false)
-			spell_press.fill(false)
-			spell_release.fill(false)
-			do_dash = false
-			
-			# If we have an input object, use it
-			if !GameManager.isPaused:
+			# Ignore input if we are paused or have something freezing us
+			if !GameManager.isPaused and !is_instance_valid(owner.input_preventing_node):
+				
+				# If we have an input object, use it
 				if input: #Online
 					# Movement
 					move_dir = input.get_vector("left", "right", "up", "down").normalized()
@@ -88,8 +95,8 @@ func _process(_delta):
 							owner.play_emote.rpc(i)
 					#print(input.is_action_just_pressed("Emote2"))
 					
-					if input.is_action_just_pressed("interact") and $"../HatPickupDetector".closest_pickup != null:
-						owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
+					if input.is_action_just_pressed("interact"):
+						interact = true
 				
 				# Otherwise, use any connected controller
 				else:	
@@ -126,8 +133,8 @@ func _process(_delta):
 							if MultiplayerInput.is_action_just_pressed(device, "Emote" + str(i)):
 								owner.play_emote.rpc(i)
 								
-						if MultiplayerInput.is_action_just_pressed(device, "interact") and $"../HatPickupDetector".closest_pickup != null:
-							owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
+						if MultiplayerInput.is_action_just_pressed(device, "interact"):
+							interact = true
 						
 			
 			# Send input to owner
@@ -148,6 +155,11 @@ func _process(_delta):
 						owner.attempt_cast(i)
 			if do_dash:
 				owner.attempt_dash()
+			if interact:
+				if $"../Interactor".closest_interactable != null:
+					$"../Interactor".closest_interactable.on_interact(owner)
+				elif $"../HatPickupDetector".closest_pickup != null:
+					owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
 
 func _input(event):
 	if !input:

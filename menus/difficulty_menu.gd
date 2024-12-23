@@ -86,7 +86,7 @@ func _on_button_mouse_exited():
 #region Button presses
 func _on_difficulty_selected(node : Control):
 	if (get_parent() as CastleRoomLobby):
-		(get_parent() as CastleRoomLobby).chosen_difficulty = panels_array.find(node)
+		(get_parent() as CastleRoomLobby).set_difficulty.rpc(panels_array.find(node))
 		difficulty_set.emit()
 		unpause_game()
 

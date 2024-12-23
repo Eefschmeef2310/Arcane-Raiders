@@ -43,6 +43,8 @@ var server_browser_node : Node
 @export var join_indicator_node: Control
 @onready var no_players_label = $GameUI/NoPlayersLabel
 
+var difficulty_names = ["Easy", "Medium", "Hard", "Extreme"]
+
 func _ready():
 	#debug_start_button.disabled = not multiplayer.is_server()
 	##Runs when all children have entered the tree
@@ -303,3 +305,10 @@ func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vecto
 
 func _on_customise_exit_player_entered(player : Player):
 	player.data.customise.emit()
+
+@rpc("authority", "reliable", "call_local")
+func set_difficulty(val: int):
+	chosen_difficulty = val
+	
+	var s = "The difficulty has been set to " + difficulty_names[chosen_difficulty] + "."
+	create_notification(s)

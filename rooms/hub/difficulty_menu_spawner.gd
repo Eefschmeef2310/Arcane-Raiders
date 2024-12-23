@@ -1,4 +1,4 @@
-extends Area2D
+extends Interactable
 #Authored by Ethan
 
 const DIFFICULTY_MENU = preload("res://menus/difficulty_menu.tscn")
@@ -17,14 +17,19 @@ var player_in_bounds := false:
 func _ready():
 	update_current_label()
 
-func _input(event):
-	if interact_label.visible:
-		for device in GameManager.devices:
-			if MultiplayerInput.is_action_just_pressed(device, "interact"):
-				var menu = DIFFICULTY_MENU.instantiate()
-				menu.difficulty_set.connect(update_current_label)
-				menu.device_id = device
-				add_sibling(menu)
+func _physics_process(delta):
+	update_current_label()
+
+func on_interact(player: Player):
+	if player.data.peer_id == 1:
+		var menu = DIFFICULTY_MENU.instantiate()
+		menu.difficulty_set.connect(update_current_label)
+		menu.device_id = player.data.device_id
+		add_sibling(menu)
+		player.input_preventing_node = menu
+	else:
+		owner.create_notification("Only the host can change the difficulty.")
+
 				
 func _on_area_entered(area):
 	if area.owner is Player:
