@@ -446,5 +446,6 @@ func _on_update_timer_timeout():
 	pass 
 
 func _on_multiplayer_synchronizer_synchronized():
-	print("Updating.")
-	call_deferred("check_for_existing_player")
+	if !lobby_manager.start_game_called:
+		print("Updating.")
+		call_deferred("check_for_existing_player")

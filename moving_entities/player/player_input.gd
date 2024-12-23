@@ -22,7 +22,6 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	print(move_dir)
 	if is_multiplayer_authority() and is_instance_valid(owner.data):
 		#region - For pausing
 		var do_pause = false

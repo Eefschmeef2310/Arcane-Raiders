@@ -28,6 +28,7 @@ func set_data(d: PlayerData):
 	data.spell_ready.connect(spell_ready)
 	#update_prompts(data.device_id)
 	update_spells(0)
+	call_deferred("update_spells", 0)
 	#$HBox/Stats/HealthBar.tint_progress = data.main_color
 	#$HBox/Stats/HealthBar/Border.self_modulate = data.main_color
 	#$HBox/Stats/Spells/Head/Panel.self_modulate = data.main_color

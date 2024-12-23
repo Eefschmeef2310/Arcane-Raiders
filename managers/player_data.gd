@@ -85,6 +85,7 @@ func start_cooldown(slot: int, time: float):
 	spell_cooldowns[slot] = time
 
 func set_spell_from_string(slot: int, string: String):
+	print("Spell changed on a peer.")
 	spell_strings[slot] = string
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0

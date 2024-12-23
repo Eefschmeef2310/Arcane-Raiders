@@ -232,14 +232,15 @@ func StartGame():
 		server_browser_node.peer.set_lobby_joinable(false)
 	print("START THE GAME!!!!")
 	
+	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
 	#if custom_seed_entry.text != "":
 		#castle_climb.set_seed(custom_seed_entry.text)
 	#if james_mode: castle_climb.james_mode = true
 	add_child(castle_climb)
 	
-	hide_lobby.rpc()
 	castle_climb.setup_from_parent_multiplayer_lobby.rpc()
+	hide_lobby.rpc()
 	
 	castle_climb.start_climb()
 
@@ -256,6 +257,8 @@ func hide_lobby():
 	for ghost in get_tree().get_nodes_in_group("temp_ghost"):
 		if is_instance_valid(ghost):
 			ghost.queue_free()
+	for node in player_ui_container.get_children():
+		node.queue_free()
  
 
 func _on_party_exit_player_entered(player):
