@@ -176,8 +176,7 @@ func spawn_spell_pickup(spell_string: String):
 	return pickup
 
 func server_spawn_health_pickup(pos : Vector2):
-	var chance = 0.4
-	chance *= difficulty_values["pickup_spawn_mult"]
+	var chance = 0.4 * difficulty_values["pickup_spawn_mult"]
 	if is_multiplayer_authority() and rng.randf() < chance:
 		health_pickup_spawner.call_deferred("spawn", {"pos" : pos, "scene_index": rng.randi_range(0, pickups.size() - 1)})
 	

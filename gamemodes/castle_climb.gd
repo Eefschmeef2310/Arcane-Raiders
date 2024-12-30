@@ -58,10 +58,10 @@ var difficulty_values_array = [
 		"enemy_spawn_mult" : 1.5, "pickup_spawn_mult" : 0.5, "enemy_speed_mult" : 1.5, "enemy_health_mult" : 1.5, "healing" : 1.0
 	},
 	{
-		"enemy_spawn_mult" : 1.5, "pickup_spawn_mult" : 0.5, "enemy_speed_mult" : 1.5, "enemy_health_mult" : 1.5, "healing" : 0.0
+		"enemy_spawn_mult" : 1.5, "pickup_spawn_mult" : 0, "enemy_speed_mult" : 1.5, "enemy_health_mult" : 1.5, "healing" : 0.0
 	},
 ]
-@export var difficulty_setting : int = 3
+@export var difficulty_setting : int = 0
 
 @export var james_mode: bool = false
 

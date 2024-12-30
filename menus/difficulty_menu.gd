@@ -30,6 +30,12 @@ var elapsed_time : float = 0
 
 #region Godot methods
 func _ready():
+	var arr = [3, 2, 1, 0]
+	for i in arr:
+		if i > SaveManager.highest_difficulty_unlocked:
+			panels_array[i].modulate = Color.WEB_GRAY
+			panels_array.remove_at(i)
+	
 	super._ready()
 	vignette_material = vignette.material as ShaderMaterial
 

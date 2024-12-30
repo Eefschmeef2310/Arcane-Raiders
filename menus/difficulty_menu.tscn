@@ -49,6 +49,7 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_il6c0"]
+line_spacing = -12.0
 font_size = 32
 outline_size = 12
 outline_color = Color(0, 0, 0, 1)
@@ -159,7 +160,8 @@ horizontal_alignment = 1
 [node name="Label2" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "All effects stack with the ones above them."
+text = "Unlock harder difficulties by clearing the tower with each one.
+All effects stack with the ones above them."
 label_settings = SubResource("LabelSettings_il6c0")
 horizontal_alignment = 1
 
