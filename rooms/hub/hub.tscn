@@ -204,7 +204,12 @@ layer_6/tile_data = PackedInt32Array()
 material = SubResource("ShaderMaterial_ej8t1")
 metadata/_edit_use_anchors_ = true
 
-[node name="GameUI" type="CanvasLayer" parent="." index="1"]
+[node name="DifficultyMenuSpawner_VBoxContainer#Label" type="Label" parent="." index="1"]
+visible = false
+text = "Press E/R1"
+horizontal_alignment = 1
+
+[node name="GameUI" type="CanvasLayer" parent="." index="2"]
 layer = 3
 
 [node name="NoPlayersLabel" type="RichTextLabel" parent="GameUI" index="0"]
@@ -254,28 +259,28 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[center]Press Space /[img width=48]res://ui/join_button.svg[/img] to join!"
 
-[node name="NotifUI" type="CanvasLayer" parent="." index="2"]
+[node name="NotifUI" type="CanvasLayer" parent="." index="3"]
 
-[node name="DynamicCamera" parent="." index="3"]
+[node name="DynamicCamera" parent="." index="4"]
 position = Vector2(640, 647)
 
-[node name="PlayerSpawn0" parent="." index="4"]
+[node name="PlayerSpawn0" parent="." index="5"]
 visible = false
 position = Vector2(528, 655)
 
-[node name="PlayerSpawn1" parent="." index="5"]
+[node name="PlayerSpawn1" parent="." index="6"]
 visible = false
 position = Vector2(639, 595)
 
-[node name="PlayerSpawn2" parent="." index="6"]
+[node name="PlayerSpawn2" parent="." index="7"]
 visible = false
 position = Vector2(636, 725)
 
-[node name="PlayerSpawn3" parent="." index="7"]
+[node name="PlayerSpawn3" parent="." index="8"]
 visible = false
 position = Vector2(743, 665)
 
-[node name="RoomExit" parent="." index="13"]
+[node name="RoomExit" parent="." index="14"]
 position = Vector2(1461, 460)
 wait_for_all_players = true
 
@@ -288,7 +293,7 @@ text = "Start Run!"
 label_settings = SubResource("LabelSettings_u03uf")
 horizontal_alignment = 1
 
-[node name="DifficultyMenuSpawner" type="Area2D" parent="." index="16" node_paths=PackedStringArray("interact_label", "current_difficulty") groups=["interactable"]]
+[node name="DifficultyMenuSpawner" type="Area2D" parent="." index="17" node_paths=PackedStringArray("interact_label", "current_difficulty") groups=["interactable"]]
 position = Vector2(1383, 774)
 collision_layer = 0
 collision_mask = 512
@@ -309,7 +314,14 @@ offset_bottom = -88.0
 text = "Press E/R1"
 horizontal_alignment = 1
 
-[node name="CurrentDifficulty" type="RichTextLabel" parent="DifficultyMenuSpawner" index="2"]
+[node name="Sprite2D" type="Sprite2D" parent="DifficultyMenuSpawner" index="2"]
+position = Vector2(0, -28.268)
+texture = ExtResource("15_bo1df")
+script = ExtResource("16_x6lk8")
+frequency = 0.001
+amplitude = 5.0
+
+[node name="CurrentDifficulty" type="RichTextLabel" parent="DifficultyMenuSpawner" index="3"]
 offset_left = -123.0
 offset_top = -93.0
 offset_right = 123.0
@@ -322,22 +334,6 @@ theme_override_constants/outline_size = 0
 bbcode_enabled = true
 text = "[center]Current Difficulty: [color=red]Easy"
 fit_content = true
-
-[node name="Label" type="Label" parent="DifficultyMenuSpawner/VBoxContainer" index="1"]
-visible = false
-layout_mode = 2
-text = "Press E/R1"
-horizontal_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="DifficultyMenuSpawner" index="2"]
-position = Vector2(0, -23.9044)
-texture = ExtResource("15_bo1df")
-script = ExtResource("16_x6lk8")
-frequency = 0.001
-amplitude = 0.03
-
-[node name="CoverLight" parent="." index="17"]
-position = Vector2(925, 729)
 
 [node name="GameFrog" parent="." index="18" instance=ExtResource("4_7li37")]
 position = Vector2(1128, 822)
@@ -809,6 +805,9 @@ script = ExtResource("43_ari5y")
 [node name="Label" type="Label" parent="." index="37"]
 offset_right = 40.0
 offset_bottom = 24.3333
+
+[node name="CoverLight" parent="." index="38"]
+position = Vector2(925, 729)
 
 [connection signal="area_entered" from="DifficultyMenuSpawner" to="DifficultyMenuSpawner" method="_on_area_entered"]
 [connection signal="area_exited" from="DifficultyMenuSpawner" to="DifficultyMenuSpawner" method="_on_area_exited"]

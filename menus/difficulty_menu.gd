@@ -34,6 +34,7 @@ func _ready():
 	for i in arr:
 		if i > SaveManager.highest_difficulty_unlocked:
 			panels_array[i].modulate = Color.WEB_GRAY
+			panels_array[i].mouse_entered.disconnect(_on_mouse_entered)
 			panels_array.remove_at(i)
 	
 	super._ready()
