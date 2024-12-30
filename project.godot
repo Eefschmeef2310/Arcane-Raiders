@@ -37,7 +37,7 @@ HatManager="*res://managers/hat_manager.tscn"
 DebugPause="*res://debug/debug_pause.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
-SaveManager="*res://managers/save_manager.gd"
+SaveManager="*res://managers/save_manager.tscn"
 
 [dialogic]
 

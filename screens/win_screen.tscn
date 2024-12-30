@@ -32,7 +32,7 @@ script/source = "extends CanvasLayer
 @export var leaderboard_panels : Array[Panel]
 @export var back_button_progress_bar : ProgressBar
 @export var seed : Label
-@export var master_mode : Label
+@export var master_mode : RichTextLabel
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
@@ -46,6 +46,8 @@ class stat_score:
 	var player : Color
 	var wins : int
 	var damage : int
+
+var hats_used = []
 #endregion
 
 #region Godot methods
@@ -68,13 +70,17 @@ func _ready():
 	most_pickups.load_data(castle_climb.get_most_pickups())
 	most_reactions.load_data(castle_climb.get_most_reactions())
 	
-	for player in castle_climb.player_data:
-		if player.damage > 0:
+	for data in castle_climb.player_data:
+		if data.damage > 0:
 			var new_score = stat_score.new()
-			new_score.player = player.main_color
+			new_score.player = data.main_color
 			new_score.wins = 0
-			new_score.damage = player.damage
+			new_score.damage = data.damage
 			scores.append(new_score)
+		
+		if data.peer_id == get_tree().get_multiplayer().get_unique_id():
+			hats_used.append(data.hat_string)
+			
 	
 	for stat in scores:
 		if damage_dealt.top_player() == stat.player: stat.wins += 1
@@ -146,10 +152,15 @@ func _ready():
 		else:
 			leaderboard_panels[i].visible = false
 			#print_debug(\"we lack \" + str(i))
-	
+
 	# Save everything
+	
 	if castle_climb.difficulty_setting >= SaveManager.highest_difficulty_unlocked:
 		SaveManager.highest_difficulty_unlocked = castle_climb.difficulty_setting + 1
+	for hat in hats_used:
+		if !hat in SaveManager.hats_highest_difficulty_completed or SaveManager.hats_highest_difficulty_completed[hat] < castle_climb.difficulty_setting:
+			SaveManager.hats_highest_difficulty_completed[hat] = castle_climb.difficulty_setting
+	SaveManager.request_save()
 
  
 func _process(delta):
