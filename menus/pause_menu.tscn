@@ -145,6 +145,7 @@ label_settings = SubResource("LabelSettings_yrycy")
 horizontal_alignment = 1
 
 [node name="FeedbackButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton"]

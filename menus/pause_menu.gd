@@ -12,9 +12,9 @@ func _process(_delta):
 		if (("confirm" in mouse_input) or "click_confirm" in mouse_input) and !quit_warning:
 			match current_button:
 				0: unpause_game()
-				1: _on_feedback_button_pressed()
-				2: _on_settings_button_pressed()
-				3: _on_quit_button_pressed()
+				#1: _on_feedback_button_pressed()
+				1: _on_settings_button_pressed()
+				2: _on_quit_button_pressed()
 		
 		if ("cancel" in mouse_input or "pause" in mouse_input):
 			unpause_game()
