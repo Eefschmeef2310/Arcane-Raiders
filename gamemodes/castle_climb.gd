@@ -419,6 +419,7 @@ func setup_from_parent_multiplayer_lobby():
 	for dict in arr:
 		set_player_data(i, dict["device_id"], dict["peer_id"], dict["spells"], dict["raider"], dict["color"], dict["name"], dict["hat"], dict["new_hat_sprite"])
 		i += 1
+	difficulty_setting = get_parent().chosen_difficulty
 
 func set_player_data(slot: int, device_id: int, peer_id: int, spells: Array[String], character: RaiderRes, color: Color, input_name: String, hat : StringName, new_hat_sprite : Texture2D):
 	var data = player_data[slot]

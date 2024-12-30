@@ -15,7 +15,7 @@ var hats_highest_difficulty_completed : Dictionary = {}
 
 func _ready():
 	autosave_timer = Timer.new()
-	autosave_timer.wait_time = 1.0
+	autosave_timer.wait_time = 0.2
 	autosave_timer.one_shot = true
 	autosave_timer.timeout.connect(_on_autosave_timer_timeout)
 	add_child(autosave_timer)
