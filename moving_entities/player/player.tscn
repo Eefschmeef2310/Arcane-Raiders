@@ -1049,7 +1049,7 @@ bg_color = Color(0, 0, 0, 0.784314)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apotd"]
 bg_color = Color(0, 1, 0, 1)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rqmd7"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wboax"]
 resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
@@ -1461,7 +1461,7 @@ stream = ExtResource("2_fb3ec")
 bus = &"SFX"
 
 [node name="AnimalSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_rqmd7")
+stream = SubResource("AudioStreamRandomizer_wboax")
 bus = &"SFX"
 
 [node name="Audio Players" type="Node2D" parent="."]

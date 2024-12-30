@@ -97,7 +97,7 @@ func _ready():
 	match castle_climb.difficulty_setting:
 		0:
 			master_mode.text = \"[center]Difficulty: [color=green]Easy\"
-		1:
+		1: 
 			master_mode.text = \"[center]Difficulty: [color=Yellow]Medium\"
 		2:
 			master_mode.text = \"[center]Difficulty: [color=red]Hard\"
@@ -144,6 +144,7 @@ func _ready():
 		if i < players_in_leaderboard:
 			#print_debug(\"we have \" + str(i))
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Head\").texture = castle_climb.player_data[leaderboard[i]].character.head_texture
+			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Head/Hat\").texture = castle_climb.player_data[leaderboard[i]].hat_sprite
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Body\").self_modulate = castle_climb.player_data[leaderboard[i]].main_color
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/RightHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/LeftHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color
@@ -390,7 +391,7 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "seed")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "seed", "master_mode")]
 process_mode = 3
 layer = 2
 script = SubResource("GDScript_1hf64")
@@ -403,6 +404,7 @@ total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContain
 leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel1"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel3"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel4")]
 back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton/ProgressBar")
 seed = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Seed")
+master_mode = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/MasterMode")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

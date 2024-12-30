@@ -287,10 +287,6 @@ func convert_to_ui(is_on_join : bool = false):
 	new_ui.scale = Vector2(1,1)
 	$PanelContainer.visible = false
 	
-	if !is_on_join and player_data.character.animal_sound != null and is_instance_valid(player_node):
-		(player_node.animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, player_data.character.animal_sound)
-		player_node.animal_sound_player.play()
-	
 	await get_tree().create_timer(0.00001).timeout 
 	
 	if !is_on_join:

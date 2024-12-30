@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=64 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -29,7 +29,6 @@
 [ext_resource type="Script" path="res://rooms/hub/difficulty_menu_spawner.gd" id="14_aw2au"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/disco_frog.dch" id="14_oo7ad"]
 [ext_resource type="Texture2D" uid="uid://dv0tkq0us5a7i" path="res://tilesets/decorations/sprites/scroll.png" id="15_bo1df"]
-[ext_resource type="Script" path="res://rooms/hub/floating_sprite.gd" id="16_x6lk8"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="20_d8qci"]
 [ext_resource type="Shader" path="res://shaders/bush_sway.gdshader" id="23_h46ni"]
 [ext_resource type="Texture2D" uid="uid://dwu0ha5vtnce4" path="res://moving_entities/player/player_pieces/head-frog2.png" id="24_3nove"]
@@ -315,11 +314,8 @@ text = "Press E/R1"
 horizontal_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="DifficultyMenuSpawner" index="2"]
-position = Vector2(0, -28.268)
+position = Vector2(0, -31.4652)
 texture = ExtResource("15_bo1df")
-script = ExtResource("16_x6lk8")
-frequency = 0.001
-amplitude = 5.0
 
 [node name="CurrentDifficulty" type="RichTextLabel" parent="DifficultyMenuSpawner" index="3"]
 offset_left = -123.0

@@ -133,7 +133,7 @@ func check_crown():
 				highest_player = i
 		if(highest_player != -1):
 			player_data[highest_player].has_crown = true
-	return [0, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage]
+	return [0, player_data[highest_player if highest_player != -1 else 0], player_data[highest_player if highest_player != -1 else 0].damage, player_data[highest_player if highest_player != -1 else 0].hat_sprite]
 	# this func shouldnt be used for stats see get_highest_damage
 
 func get_highest_damage():
@@ -145,7 +145,7 @@ func get_highest_damage():
 		if player_data[i].kills > highest:
 			player_id = i
 			highest = player_data[i].kills
-	return [total_damage, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].damage]
+	return [total_damage, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].damage, player_data[player_id if player_id != -1 else 0].hat_sprite]
 
 
 
@@ -158,7 +158,7 @@ func get_highest_kills():
 		if player_data[i].kills > highest:
 			player_id = i
 			highest = player_data[i].kills
-	return [total_kills, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills]
+	return [total_kills, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills, player_data[player_id if player_id != -1 else 0].hat_sprite]
 
 func get_highest_earner():
 	var highest : int = 0
@@ -169,7 +169,7 @@ func get_highest_earner():
 		if player_data[i].total_money > highest:
 			player_id = i
 			highest = player_data[i].total_money
-	return [total_earnings, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].total_money]
+	return [total_earnings, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].kills, player_data[player_id if player_id != -1 else 0].hat_sprite]
 	
 func get_most_pickups():
 	var highest : int = 0
@@ -180,7 +180,7 @@ func get_most_pickups():
 		if player_data[i].pickups_obtained > highest:
 			player_id = i
 			highest = player_data[i].pickups_obtained
-	return [most_pickups, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].pickups_obtained]
+	return [most_pickups, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].pickups_obtained, player_data[player_id if player_id != -1 else 0].hat_sprite]
 
 func get_most_reactions():
 	var highest : int = 0
@@ -191,7 +191,7 @@ func get_most_reactions():
 		if player_data[i].reactions_created > highest:
 			player_id = i
 			highest = player_data[i].reactions_created
-	return [most_reactions, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].reactions_created]
+	return [most_reactions, player_data[player_id if player_id != -1 else 0], player_data[player_id if player_id != -1 else 0].reactions_created, player_data[player_id if player_id != -1 else 0].hat_sprite]
 
 
 
