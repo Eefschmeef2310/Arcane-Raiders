@@ -261,7 +261,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	if data.character:
 		#print(data.character.raider_name)
 		(animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, data.character.animal_sound)
-		animal_sound_player.play()
+		#animal_sound_player.play()
 		
 		head_sprite.texture = data.character.head_texture
 		right_hand_sprite.self_modulate = data.character.skin_color

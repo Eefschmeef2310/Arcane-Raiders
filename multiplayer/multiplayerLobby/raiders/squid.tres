@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RaiderRes" load_steps=5 format=3 uid="uid://yrm45a54jqh1"]
 
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="1_dmlwy"]
-[ext_resource type="AudioStream" path="res://moving_entities/player/animal_sounds/squid_voice_final.wav" id="1_p5lxq"]
+[ext_resource type="AudioStream" uid="uid://3i6xh3su5h8c" path="res://moving_entities/player/animal_sounds/squid_voice_final.wav" id="1_p5lxq"]
 [ext_resource type="Texture2D" uid="uid://b3j4xdfbpv4ku" path="res://multiplayer/multiplayerLobby/raiders/dogplaceholder.png" id="2_mjf0h"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="3_dpl52"]
 
