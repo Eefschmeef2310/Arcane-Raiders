@@ -119,7 +119,6 @@ func _ready():
 	# TODO temporary lines here
 	if debug and is_multiplayer_authority():
 		set_data(data, false)
-		
 
 func _process(delta):
 	super._process(delta)
