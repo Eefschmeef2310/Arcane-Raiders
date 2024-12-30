@@ -105,6 +105,8 @@ texture = ExtResource("2_1asor")
 position = Vector2(2, -75)
 texture = ExtResource("3_3u61v")
 
+[node name="Hat" type="Sprite2D" parent="SpritesFlip/SpritesScale/Head"]
+
 [node name="RightHand" type="Sprite2D" parent="SpritesFlip/SpritesScale"]
 self_modulate = Color(0.552941, 0.388235, 0.282353, 1)
 position = Vector2(45, -80.4342)

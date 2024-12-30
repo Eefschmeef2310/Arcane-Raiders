@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxnyp0ojcs588"]
+[gd_scene load_steps=7 format=3 uid="uid://cxnyp0ojcs588"]
 
 [ext_resource type="Script" path="res://screens/stat_loader.gd" id="1_faqgd"]
 [ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="1_tk6ak"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_urxyl"]
 font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqtke"]
+bg_color = Color(0.2, 0.113725, 0.0705882, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_6xobg"]
 font_size = 30
@@ -16,10 +24,15 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 
-[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("stat_title")]
+[node name="PanelContainer" type="PanelContainer" node_paths=PackedStringArray("head_sprite", "hat_sprite", "head_panel", "label", "stat_title")]
+custom_minimum_size = Vector2(0, 125)
 offset_right = 661.0
 offset_bottom = 61.0
 script = ExtResource("1_faqgd")
+head_sprite = NodePath("Stat/PanelContainer/HBoxContainer/Control/Head")
+hat_sprite = NodePath("Stat/PanelContainer/HBoxContainer/Control/Head/Hat")
+head_panel = NodePath("Stat/PanelContainer/HBoxContainer/Control/Head/Panel")
+label = NodePath("Stat/PanelContainer/HBoxContainer/Label")
 stat_title = NodePath("Stat/Stat1")
 
 [node name="Stat" type="HBoxContainer" parent="."]
@@ -32,21 +45,27 @@ size_flags_horizontal = 2
 text = "Total Damage Dealt: "
 label_settings = SubResource("LabelSettings_urxyl")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Stat"]
+[node name="PanelContainer" type="PanelContainer" parent="Stat"]
+custom_minimum_size = Vector2(19.435, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fqtke")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Stat/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="Stat/HBoxContainer"]
+[node name="Label" type="Label" parent="Stat/PanelContainer/HBoxContainer"]
 layout_mode = 2
 text = "Best: "
 label_settings = SubResource("LabelSettings_6xobg")
 
-[node name="Control" type="Control" parent="Stat/HBoxContainer"]
+[node name="Control" type="Control" parent="Stat/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(77.01, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="Head" type="TextureRect" parent="Stat/HBoxContainer/Control"]
+[node name="Head" type="TextureRect" parent="Stat/PanelContainer/HBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,7 +84,7 @@ texture = ExtResource("1_tk6ak")
 expand_mode = 3
 stretch_mode = 3
 
-[node name="Panel" type="Panel" parent="Stat/HBoxContainer/Control/Head"]
+[node name="Panel" type="Panel" parent="Stat/PanelContainer/HBoxContainer/Control/Head"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 8
@@ -82,3 +101,13 @@ grow_vertical = 2
 rotation = -0.383972
 pivot_offset = Vector2(37, 37)
 theme_override_styles/panel = SubResource("StyleBoxFlat_86kyg")
+
+[node name="Hat" type="TextureRect" parent="Stat/PanelContainer/HBoxContainer/Control/Head"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

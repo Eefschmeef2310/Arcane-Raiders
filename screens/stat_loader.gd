@@ -12,19 +12,17 @@ class_name FinalStat
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@export var head_sprite : TextureRect
+@export var hat_sprite : TextureRect
+@export var head_panel : Panel
+@export var label : Label
+	
 @export var stat_title : Label
 var captured_player : Color
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-#endregion
-
-#region Signal methods
 
 #endregion
 
@@ -35,9 +33,10 @@ func load_data(packedData : Array):
 	$Stat/Stat1.text += str(packedData[0])
 	
 	#best player stat
-	$Stat/HBoxContainer/Control/Head.texture = packedData[1].character.head_texture
-	$Stat/HBoxContainer/Control/Head/Panel.self_modulate = packedData[1].main_color
-	$Stat/HBoxContainer/Label.text += str(packedData[2])
+	head_sprite.texture = packedData[1].character.head_texture
+	hat_sprite.texture = packedData[3]
+	head_panel.self_modulate = packedData[1].main_color
+	label.text += str(packedData[2])
 	captured_player = packedData[1].main_color
 #endregion
 

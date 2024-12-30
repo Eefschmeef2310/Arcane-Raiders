@@ -111,6 +111,10 @@ func _ready():
 	
 	if data.hat_string:
 		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
+		
+	if data.character.animal_sound != null:
+		(animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, data.character.animal_sound)
+		animal_sound_player.play()
 	
 	# TODO temporary lines here
 	if debug and is_multiplayer_authority():
