@@ -112,9 +112,10 @@ func _ready():
 	if data.hat_string:
 		add_child(HatManager.get_hat_from_string(data.hat_string).instantiate())
 		
-	if data.character.animal_sound != null:
-		(animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, data.character.animal_sound)
-		animal_sound_player.play()
+	#if data.character.animal_sound != null:
+		#print(data.character.animal_sound)
+		#(animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, data.character.animal_sound)
+		#animal_sound_player.play()
 	
 	# TODO temporary lines here
 	if debug and is_multiplayer_authority():
@@ -259,6 +260,9 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	
 	if data.character:
 		#print(data.character.raider_name)
+		(animal_sound_player as AudioStreamPlayer2D).stream.set_stream(0, data.character.animal_sound)
+		animal_sound_player.play()
+		
 		head_sprite.texture = data.character.head_texture
 		right_hand_sprite.self_modulate = data.character.skin_color
 		left_hand_sprite.self_modulate = data.character.skin_color
