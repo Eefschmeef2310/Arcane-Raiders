@@ -129,7 +129,7 @@ func _on_no_button_pressed_timer_timeout():
 
 func _input(e):
 	if !e is InputEventJoypadMotion:
-		print(\"OASIUFHKDSJHF\")
+		#print(\"OASIUFHKDSJHF\")
 		$NoButtonPressedTimer.stop()
 		$NoButtonPressedTimer.start()
 "
@@ -315,6 +315,7 @@ theme_override_font_sizes/font_size = 38
 text = "Settings"
 
 [node name="FeedbackButton" type="Button" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
@@ -340,6 +341,7 @@ script = ExtResource("2_hcuag")
 [node name="DiscordButton" type="Button" parent="VBoxContainer/Horiz"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
 focus_neighbor_left = NodePath("../CreditsButton")
 focus_neighbor_top = NodePath("../../FeedbackButton")
 focus_neighbor_right = NodePath("../QuitButton")
@@ -368,6 +370,7 @@ text = "Ver. 24-05-14"
 label_settings = SubResource("LabelSettings_ko00r")
 
 [node name="Button" type="Button" parent="VBoxContainer/VersionInfo"]
+visible = false
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 8

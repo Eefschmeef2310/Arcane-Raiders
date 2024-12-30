@@ -185,6 +185,7 @@ castle_climb_scene = ExtResource("11_coaxx")
 destroy_on_game_start = [NodePath("TileMap"), NodePath("DynamicCamera"), NodePath("CoverLight"), NodePath("CanvasLayer"), NodePath("GuideArrow"), NodePath("Decorations"), NodePath("Snowball"), NodePath("Vampire"), NodePath("GlassCannon"), NodePath("Explosion"), NodePath("HatDestroyer"), NodePath("GameFrog"), NodePath("ExitFrog"), NodePath("HatFrog"), NodePath("WelcomeFrog"), NodePath("DiscoFrog"), NodePath("Bush"), NodePath("Bush2"), NodePath("Bush3"), NodePath("Bush4"), NodePath("Bush5"), NodePath("RoomExit"), NodePath("DifficultyMenuSpawner")]
 invis_on_game_start = [NodePath("GameUI")]
 join_indicator_node = NodePath("GameUI/PlayerUIContainer/JoinIndicator")
+track_id = "menu"
 
 [node name="TileMap" parent="." index="0"]
 material = SubResource("ShaderMaterial_7o3oi")

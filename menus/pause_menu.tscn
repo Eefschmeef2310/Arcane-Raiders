@@ -65,7 +65,7 @@ _data = {
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("panels_array")]
 script = ExtResource("1_ylafc")
-panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
+panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
 stylebox_normal = SubResource("StyleBoxFlat_y3umn")
 stylebox_selected = SubResource("StyleBoxFlat_57ors")
 
@@ -135,21 +135,22 @@ text = "Continue"
 label_settings = SubResource("LabelSettings_yrycy")
 horizontal_alignment = 1
 
-[node name="FeedbackButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton"]
-layout_mode = 2
-text = "Submit Feedback"
-label_settings = SubResource("LabelSettings_yrycy")
-horizontal_alignment = 1
-
 [node name="SettingsButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"]
 layout_mode = 2
 text = "Settings"
+label_settings = SubResource("LabelSettings_yrycy")
+horizontal_alignment = 1
+
+[node name="FeedbackButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton"]
+visible = false
+layout_mode = 2
+text = "Reset Lobby"
 label_settings = SubResource("LabelSettings_yrycy")
 horizontal_alignment = 1
 

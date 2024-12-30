@@ -4,6 +4,7 @@ class_name CastleRoomLobby
 #Signals
 signal player_joined
 signal player_left(id:int)
+signal restart_requested()
 
 #Enums
 
@@ -60,11 +61,15 @@ func _ready():
 	
 	set_multiplayer_authority(1)
 	
+	await get_tree().create_timer(0.1, true).timeout
+	
 	if(GameManager.isOnline()):
 		server_browser_node = get_parent()
-		#if !is_multiplayer_authority():
-			#$Lobby/VBoxContainer.hide()
-		#print("browser node: "+ server_browser_node.name)
+		if is_multiplayer_authority():
+			for id in get_tree().get_multiplayer().get_peers():
+				if id != 1:
+					_on_peer_connected(id)
+	
 
 func _process(delta):
 	if !start_game_called:
@@ -315,3 +320,10 @@ func set_difficulty(val: int):
 	
 	var s = "The difficulty has been set to " + difficulty_names[chosen_difficulty] + "."
 	create_notification(s)
+
+
+func request_lobby_restart():
+	if GameManager.isLocal():
+		get_tree().reload_current_scene()
+	else:
+		restart_requested.emit()

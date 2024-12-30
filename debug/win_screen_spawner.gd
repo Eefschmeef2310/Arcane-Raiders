@@ -37,6 +37,10 @@ func _input(event):
 			if child is CastleRoom:
 				print(child)
 				child.add_child(load("res://screens/game_over_screen.tscn").instantiate())
+	
+	if event is InputEventKey and event.pressed and event.keycode == KEY_J:
+		if owner is CastleRoomLobby:
+			owner.request_lobby_restart()
 #endregion
 
 #region Signal methods 

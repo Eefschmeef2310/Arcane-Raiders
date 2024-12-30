@@ -124,19 +124,16 @@ text = "Loading servers..."
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 16
 theme_override_styles/separator = SubResource("StyleBoxLine_63i0t")
 
 [node name="HostLocal" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Host Local"
 
 [node name="JoinLocal" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Join Local"

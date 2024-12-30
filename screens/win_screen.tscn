@@ -176,11 +176,14 @@ func _process(delta):
 
 #region Signal methods
 
-func _on_quit_button_pressed():
+func _on_quit_button_pressed():  
+	#get_tree().paused = false
+	#get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
+	## game.queue_free()
+	#queue_free()
+	
 	get_tree().paused = false
-	get_tree().change_scene_to_file(\"res://menus/main_menu.tscn\")
-	# game.queue_free()
-	queue_free()
+	get_tree().get_first_node_in_group(\"hub\").request_lobby_restart()
 #endregion
 
 #region Other methods (please try to separate and organise!)
@@ -439,7 +442,7 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("6_o3j2u")
 theme_override_font_sizes/font_size = 48
-text = "Back"
+text = "  Reset Lobby  "
 script = ExtResource("7_7i8mg")
 
 [node name="ProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton"]

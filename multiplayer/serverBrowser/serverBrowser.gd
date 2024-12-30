@@ -24,6 +24,7 @@ extends Node
 @export var gameScene : String = "res://rooms/hub/hub.tscn"
 @export var disconnect_scene : PackedScene
 
+var lobby_node : Node
 
 #@export_group("Group")
 #@export_subgroup("Subgroup")
@@ -45,6 +46,7 @@ func _ready():
 	Steam.lobby_match_list.connect(on_lobby_match_list)
 	SteamManager.server_browser_node = self
 	open_lobby_list()
+	
 #endregion
 
 #region Signal methods
@@ -66,8 +68,8 @@ func _on_disconnect_button_pressed():
 func _on_host_pressed():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC) #create lobby on steam
 	multiplayer.multiplayer_peer = peer
-	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	lobby_scene.InitLobby(lobby_id)
+	lobby_node = multiplayer_spawner.spawn(gameScene)
+	lobby_node.InitLobby(lobby_id)
 	server_browser.hide()
 
 
@@ -76,13 +78,19 @@ func _on_host_pressed():
 #region Other methods (please try to separate and organise!)
 
 func spawn_level(data):
-	var a = (load(data) as PackedScene).instantiate()
+	var a : CastleRoomLobby = (load(data) as PackedScene).instantiate()
+	a.restart_requested.connect(restart_level)
 	
 	return a 
 
 func restart_level():
-	get_node("Hub").queue_free()
-	multiplayer_spawner.spawn(gameScene)
+	#get_node("Hub").queue_free()
+	#multiplayer_spawner.spawn(gameScene)
+	if is_multiplayer_authority():
+		lobby_node.queue_free()
+		lobby_node = multiplayer_spawner.spawn(gameScene)
+		lobby_node.InitLobby(lobby_id)
+	
 
 func join_lobby(id):
 	loading_panel.show()
@@ -129,8 +137,8 @@ func _on_host_local_pressed():
 	peer.create_server(135)
 	multiplayer.multiplayer_peer = peer
 	
-	var lobby_scene = multiplayer_spawner.spawn(gameScene)
-	lobby_scene.InitLobby(0)
+	lobby_node = multiplayer_spawner.spawn(gameScene)
+	lobby_node.InitLobby(0)
 	server_browser.hide()
 
 func _on_join_local_pressed():
