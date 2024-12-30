@@ -270,11 +270,11 @@ libraries = {
 "": SubResource("AnimationLibrary_tjwa3")
 }
 
-[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton" to="." method="_on_continue_button_mouse_entered"]
+[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton" to="." method="_on_mouse_entered" binds= [Color(0, 1, 0, 1), 0.5]]
 [connection signal="mouse_exited" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton" to="." method="_on_button_mouse_exited"]
-[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton" to="." method="_on_feedback_button_mouse_entered"]
+[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton" to="." method="_on_mouse_entered" binds= [Color(1, 1, 0, 1), 0.4]]
 [connection signal="mouse_exited" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton" to="." method="_on_button_mouse_exited"]
-[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton" to="." method="_on_hard_button_mouse_entered"]
+[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton" to="." method="_on_mouse_entered" binds= [Color(1, 0, 0, 1), 0.3]]
 [connection signal="mouse_exited" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton" to="." method="_on_button_mouse_exited"]
-[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton" to="." method="_on_extreme_button_mouse_entered"]
+[connection signal="mouse_entered" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton" to="." method="_on_mouse_entered" binds= [Color(0.498039, 0, 1, 1), 0.2]]
 [connection signal="mouse_exited" from="Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton" to="." method="_on_button_mouse_exited"]

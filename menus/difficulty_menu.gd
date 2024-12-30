@@ -57,25 +57,10 @@ func _process(delta):
 #region Signal methods
 
 #region Button mouse enters
-func _on_continue_button_mouse_entered():
+func _on_mouse_entered(col : Color, rad : float):
 	elapsed_time = 0
-	difficulty_color = Color.GREEN
-	radius = 0.5
-	
-func _on_feedback_button_mouse_entered():
-	elapsed_time = 0
-	difficulty_color = Color.YELLOW
-	radius = 0.4
-
-func _on_hard_button_mouse_entered():
-	elapsed_time = 0
-	difficulty_color = Color.RED
-	radius = 0.3
-
-func _on_extreme_button_mouse_entered():
-	elapsed_time = 0
-	difficulty_color = Color.PURPLE
-	radius = 0.2
+	difficulty_color = col
+	radius = rad
 
 func _on_button_mouse_exited():
 	elapsed_time = 0
@@ -89,12 +74,8 @@ func _on_difficulty_selected(node : Control):
 		(get_parent() as CastleRoomLobby).set_difficulty.rpc(panels_array.find(node))
 		difficulty_set.emit()
 		unpause_game()
-
-#endregion
-
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 #endregion
-
