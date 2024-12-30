@@ -78,8 +78,6 @@ func get_highest_completion_difficulty():
 		highest_difficulty.text = "[center]Highest Completed Difficulty:"
 		if SaveManager.hats_highest_difficulty_completed.has(hat_string):
 			match int(SaveManager.hats_highest_difficulty_completed[hat_string]):
-				_:
-					highest_difficulty.text = "[center]No runs completed with this hat!"
 				0:
 					highest_difficulty.text += "[color=green]\nEasy"
 				1:
@@ -88,6 +86,8 @@ func get_highest_completion_difficulty():
 					highest_difficulty.text += "[color=red]\nHard"
 				3:
 					highest_difficulty.text += "[color=purple]\nExtreme"
+				_:
+					highest_difficulty.text = "[center]No runs completed with this hat!"
 		else:
 			highest_difficulty.text = "[center]No runs completed with this hat!"
 #func pickup_function(player):
