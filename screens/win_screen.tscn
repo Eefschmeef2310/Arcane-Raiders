@@ -32,7 +32,7 @@ script/source = "extends CanvasLayer
 @export var leaderboard_panels : Array[Panel]
 @export var back_button_progress_bar : ProgressBar
 @export var seed : Label
-@export var master_mode : Label
+@export var master_mode : RichTextLabel
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
@@ -46,6 +46,8 @@ class stat_score:
 	var player : Color
 	var wins : int
 	var damage : int
+
+var hats_used = []
 #endregion
 
 #region Godot methods
@@ -68,13 +70,17 @@ func _ready():
 	most_pickups.load_data(castle_climb.get_most_pickups())
 	most_reactions.load_data(castle_climb.get_most_reactions())
 	
-	for player in castle_climb.player_data:
-		if player.damage > 0:
+	for data in castle_climb.player_data:
+		if data.damage > 0:
 			var new_score = stat_score.new()
-			new_score.player = player.main_color
+			new_score.player = data.main_color
 			new_score.wins = 0
-			new_score.damage = player.damage
+			new_score.damage = data.damage
 			scores.append(new_score)
+		
+		if data.peer_id == get_tree().get_multiplayer().get_unique_id():
+			hats_used.append(data.hat_string)
+			
 	
 	for stat in scores:
 		if damage_dealt.top_player() == stat.player: stat.wins += 1
@@ -83,17 +89,26 @@ func _ready():
 		if most_pickups.top_player() == stat.player: stat.wins += 1
 		if most_reactions.top_player() == stat.player: stat.wins += 1
 	
-	if castle_climb.james_mode:
-		master_mode.show()
-	else:
-		master_mode.hide()
+	#if castle_climb.james_mode:
+		#master_mode.show()
+	#else:
+		#master_mode.hide()
+	
+	match castle_climb.difficulty_setting:
+		0:
+			master_mode.text = \"[center]Difficulty: [color=green]Easy\"
+		1:
+			master_mode.text = \"[center]Difficulty: [color=Yellow]Medium\"
+		2:
+			master_mode.text = \"[center]Difficulty: [color=red]Hard\"
+		3:
+			master_mode.text = \"[center]Difficulty: [color=purple]Extreme\"
 	
 	if castle_climb.preset_seed:
 		seed.show()
 		seed.text = 'Custom seed used: \"' + castle_climb.seed_text + '\"'
 	else:
 		seed.hide()
-	
 	
 	#if(GameManager.isLocal()):
 		#damage_dealt.stat_title.text = \"Most \" + damage_dealt.stat_title.text
@@ -137,6 +152,15 @@ func _ready():
 		else:
 			leaderboard_panels[i].visible = false
 			#print_debug(\"we lack \" + str(i))
+
+	# Save everything
+	
+	if castle_climb.difficulty_setting >= SaveManager.highest_difficulty_unlocked:
+		SaveManager.highest_difficulty_unlocked = castle_climb.difficulty_setting + 1
+	for hat in hats_used:
+		if !hat in SaveManager.hats_highest_difficulty_completed or SaveManager.hats_highest_difficulty_completed[hat] < castle_climb.difficulty_setting:
+			SaveManager.hats_highest_difficulty_completed[hat] = castle_climb.difficulty_setting
+	SaveManager.request_save()
 
  
 func _process(delta):
@@ -258,7 +282,6 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_mrhxc"]
 font_size = 32
-font_color = Color(1, 1, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1r03"]
@@ -367,7 +390,7 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "seed", "master_mode")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "seed")]
 process_mode = 3
 layer = 2
 script = SubResource("GDScript_1hf64")
@@ -380,7 +403,6 @@ total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContain
 leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel1"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel3"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel4")]
 back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton/ProgressBar")
 seed = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Seed")
-master_mode = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/MasterMode")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -528,11 +550,13 @@ layout_mode = 2
 theme_override_constants/separation = -8
 alignment = 1
 
-[node name="MasterMode" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="MasterMode" type="RichTextLabel" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
-text = "Cleared on Master Mode!"
-label_settings = SubResource("LabelSettings_mrhxc")
-horizontal_alignment = 1
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Difficulty: [color=green]Easy"
+scroll_active = false
 
 [node name="Seed" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2

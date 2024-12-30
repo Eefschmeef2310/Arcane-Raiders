@@ -6,6 +6,11 @@ const DIFFICULTY_MENU = preload("res://menus/difficulty_menu.tscn")
 @export var interact_label : Label
 @export var current_difficulty : RichTextLabel
 
+var base_y = 0
+var t = 0
+var amp = 10
+var freq = 2
+
 var player_in_bounds := false:
 	set(value):
 		player_in_bounds = value
@@ -16,9 +21,16 @@ var player_in_bounds := false:
 
 func _ready():
 	update_current_label()
+	
+	base_y = global_position.y
 
 func _physics_process(delta):
 	update_current_label()
+	
+	t += delta
+	if t >= 360:
+		t -= 360
+	global_position.y = base_y + (sin(t * freq) * amp)
 
 func on_interact(player: Player):
 	if player.data.peer_id == 1:

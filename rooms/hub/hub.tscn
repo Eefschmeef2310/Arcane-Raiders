@@ -293,31 +293,32 @@ position = Vector2(1383, 774)
 collision_layer = 0
 collision_mask = 512
 script = ExtResource("14_aw2au")
-interact_label = NodePath("VBoxContainer/Label")
-current_difficulty = NodePath("VBoxContainer/CurrentDifficulty")
+interact_label = NodePath("Label")
+current_difficulty = NodePath("CurrentDifficulty")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DifficultyMenuSpawner" index="0"]
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_rydr2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DifficultyMenuSpawner" index="1"]
-z_index = 1
-custom_minimum_size = Vector2(0, 55)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
+[node name="Label" type="Label" parent="DifficultyMenuSpawner" index="1"]
+visible = false
 offset_left = -123.0
-offset_top = -86.0
+offset_top = -113.0
 offset_right = 123.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 0
+offset_bottom = -88.0
+text = "Press E/R1"
+horizontal_alignment = 1
 
-[node name="CurrentDifficulty" type="RichTextLabel" parent="DifficultyMenuSpawner/VBoxContainer" index="0"]
-layout_mode = 2
+[node name="CurrentDifficulty" type="RichTextLabel" parent="DifficultyMenuSpawner" index="2"]
+offset_left = -123.0
+offset_top = -93.0
+offset_right = 123.0
+offset_bottom = -38.0
 size_flags_vertical = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 0
 bbcode_enabled = true
 text = "[center]Current Difficulty: [color=red]Easy"
 fit_content = true
