@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cuesay1mn2uq8"]
+[gd_scene load_steps=22 format=3 uid="uid://cuesay1mn2uq8"]
 
 [ext_resource type="Script" path="res://rooms/castle_room.gd" id="1_uk66y"]
 [ext_resource type="PackedScene" uid="uid://otbl7685h64s" path="res://items/pickups/health_pickup.tscn" id="2_bnel2"]
@@ -11,7 +11,6 @@
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="5_tvm45"]
 [ext_resource type="PackedScene" uid="uid://xwsqdfu37qdv" path="res://ui/guide_arrow.tscn" id="7_yovep"]
 [ext_resource type="Script" path="res://tilesets/decorations/tilemap_colour_puller.gd" id="9_v1tue"]
-[ext_resource type="Script" path="res://debug/win_screen_spawner.gd" id="12_ix5nm"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.195556, 0.424242, 0.621212, 0.838384)
@@ -203,9 +202,6 @@ scale = Vector2(90.1094, 57.4688)
 energy = 0.25
 blend_mode = 1
 texture = SubResource("GradientTexture2D_20gjc")
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("12_ix5nm")
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="all_waves_cleared" from="." to="GuideArrow/Sprite2D" method="_on_castle_room_all_waves_cleared"]
