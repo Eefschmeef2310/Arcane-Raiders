@@ -49,6 +49,8 @@ var element_index: int
 func _ready():
 	super._ready()
 	
+	remove_from_group(\"player\")
+	
 	data.spells.resize(4)
 	data.spell_cooldowns.resize(4)
 	data.spell_cooldowns_max.resize(4)
@@ -441,38 +443,35 @@ animation = ""
 script = SubResource("GDScript_oflwe")
 animation = ""
 
-[node name="PlayerData" parent="." index="5"]
+[node name="PlayerData" parent="." index="6"]
 spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
 
-[node name="Hurtbox" parent="." index="7"]
+[node name="Hurtbox" parent="." index="8"]
 collision_layer = 8
 collision_mask = 272
 
 [node name="Body" parent="SpritesFlip/SpritesScale" index="0"]
 self_modulate = Color(0.305882, 0.0901961, 0, 1)
 
-[node name="MultiplayerSynchronizer" parent="." index="14" groups=["boss", "enemy"]]
+[node name="MultiplayerSynchronizer" parent="." index="15" groups=["boss", "enemy"]]
 
 [node name="ProgressBar" parent="." index="17" instance=ExtResource("4_jwyjq")]
 offset_top = -112.0
 offset_bottom = -108.0
 
-[node name="DashBar" parent="." index="18"]
+[node name="DashBar" parent="." index="19"]
 script = null
 
-[node name="StatusUI" parent="." index="19"]
+[node name="StatusUI" parent="." index="20"]
 offset_top = -148.0
 offset_bottom = -116.0
 
-[node name="HUD" parent="." index="21"]
+[node name="HUD" parent="." index="22"]
 visible = false
 
-[node name="HitSound" parent="." index="25"]
+[node name="HitSound" parent="." index="26"]
 stream = null
-
-[node name="AnimalSound" parent="." index="26"]
-stream = SubResource("AudioStreamRandomizer_onr5v")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="27"]
 path_postprocessing = 1
@@ -480,6 +479,9 @@ avoidance_enabled = true
 radius = 25.0
 max_speed = 1000.0
 avoidance_priority = 0.1
+
+[node name="AnimalSound" parent="." index="28"]
+stream = SubResource("AudioStreamRandomizer_onr5v")
 
 [node name="DashDetector" type="Area2D" parent="." index="29"]
 collision_layer = 0

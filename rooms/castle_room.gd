@@ -159,9 +159,15 @@ func spawn_enemy(data) -> Node2D:
 	var enemy: Entity = enemy_data["scene"].instantiate()
 	enemy.global_position = pos
 	enemy.monetary_value = enemy_data["difficulty"] * 10
+	
+	#Max health in all entities, movement speed in base enemy and player classes
 	enemy.max_health *= difficulty_values["enemy_health_mult"]
 	enemy.movement_speed *= difficulty_values["enemy_speed_mult"]
-	enemy.health_pickup_chance *= difficulty_values["healing"]
+	
+	#Not present in shadow wizards lol
+	#if "health_pickup_chance" in enemy:
+		#enemy.health_pickup_chance *= difficulty_values["healing"]
+		
 	if !enemy.zero_health.is_connected(_on_enemy_zero_health): enemy.zero_health.connect(_on_enemy_zero_health) #This is already connected in the BaseEnemy scene
 	number_of_enemies_left += 1
 	

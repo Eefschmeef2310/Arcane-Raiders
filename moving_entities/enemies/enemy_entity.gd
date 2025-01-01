@@ -15,7 +15,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @export_group("Enemy Stats")
 @export var movement_speed: float = 500
 @export var base_damage: int = 0
-@export var health_pickup_chance = 0.2
+#@export var health_pickup_chance = 0.2
 @export var create_pickup : bool = true
 
 @export_group("Dash Stats")
