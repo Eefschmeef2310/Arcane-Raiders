@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdic02fvsofc2"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/clickable_pip_character.gd" id="1_2bfpq"]
+[ext_resource type="Texture2D" uid="uid://8l32kgiedlxf" path="res://moving_entities/player/player_pieces/head-cat.png" id="2_m5ekn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drhxr"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl8fi"]
+resource_local_to_scene = true
+atlas = ExtResource("2_m5ekn")
+region = Rect2(35, 35, 80, 80)
+
+[node name="ClickablePip" type="PanelContainer"]
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_drhxr")
+script = ExtResource("1_2bfpq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = SubResource("AtlasTexture_hl8fi")
+expand_mode = 1

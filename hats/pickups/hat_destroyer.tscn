@@ -12,9 +12,10 @@ radius = 100.0
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_n700w"]
 polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 
-[node name="HatDestroyer" type="Node2D" node_paths=PackedStringArray("info_container") groups=["hat_pickup"]]
+[node name="HatDestroyer" type="Node2D" node_paths=PackedStringArray("info_container", "icon") groups=["hat_pickup"]]
 script = ExtResource("1_y5ga5")
 info_container = NodePath("HBoxContainer")
+icon = NodePath("Icon")
 
 [node name="Outline" type="Sprite2D" parent="."]
 modulate = Color(0.596078, 0, 0, 1)

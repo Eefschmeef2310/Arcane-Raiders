@@ -240,7 +240,6 @@ func start_next_floor():
 	
 	# Increase floor count
 	current_floor += 1
-	print("Current floor: " + str(current_floor))
 	
 	play_room_transition.rpc(current_floor)
 	

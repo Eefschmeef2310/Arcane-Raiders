@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b01k41p44far4"]
+[gd_scene load_steps=7 format=3 uid="uid://b01k41p44far4"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_777ke"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_an1k0"]
 [ext_resource type="Texture2D" uid="uid://b5jb61vijlub3" path="res://ui/wheel of reactions.png" id="3_6cwp7"]
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="4_dpx7v"]
+[ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="5_xic7u"]
+[ext_resource type="Texture2D" uid="uid://bdirjffmtu0p7" path="res://moving_entities/player/player_pieces/Body1.png" id="6_2diog"]
 
 [node name="CastleRoomShop" instance=ExtResource("1_777ke")]
 script = ExtResource("2_an1k0")
@@ -66,5 +68,13 @@ position = Vector2(1542, 580)
 [node name="Dummy3" parent="." index="17" instance=ExtResource("4_dpx7v")]
 position = Vector2(1350, 676)
 
+[node name="Frog" parent="." index="20" instance=ExtResource("5_xic7u")]
+position = Vector2(952, 570)
+dialogues = Array[StringName]([&"Equip multiple of the same element to get a synergy bonus!"])
+
+[node name="Body" parent="Frog/SpritesScale" index="0"]
+texture = ExtResource("6_2diog")
+
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
+[editable path="Frog"]

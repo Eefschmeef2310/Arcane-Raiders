@@ -69,7 +69,6 @@ func _ready():
 			for id in get_tree().get_multiplayer().get_peers():
 				if id != 1:
 					_on_peer_connected(id)
-	
 
 func _process(delta):
 	if !start_game_called:

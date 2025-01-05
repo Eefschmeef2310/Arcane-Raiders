@@ -6,7 +6,7 @@ enum {DEVICE_NONE = -3, DEVICE_ANY = -2, DEVICE_KEYB = -1}
 signal health_changed(object, health)
 signal spell_changed(slot)
 signal synergy_updated(amount : float, color : Color)
-signal hat_changed()
+signal hat_changed(hat : Hat)
 signal device_changed(id: int)
 signal pickup_proximity_changed(bool)
 signal spell_casted_but_not_ready(spell: int)
@@ -114,6 +114,11 @@ func get_synergy(_slot):
 		synergy_updated.emit(synergy_bonus, color)
 
 func set_hat_from_string(s: String):
-	print("Data received string")
 	hat_string = s
-	hat_changed.emit()
+	
+	var temp_hat
+	if HatManager.get_hat_from_string(hat_string):
+		temp_hat = HatManager.get_hat_from_string(hat_string).instantiate()
+		hat_sprite = temp_hat.sprite
+	
+	hat_changed.emit(temp_hat)

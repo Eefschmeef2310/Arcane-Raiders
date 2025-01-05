@@ -36,6 +36,8 @@ shader_parameter/spread = 0.25
 shader_parameter/speed = 0.1
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 0.66
+shader_parameter/outer_thickness = 0.2
+shader_parameter/middle_thickness = 0.4
 shader_parameter/noise_tex = SubResource("NoiseTexture2D_7ltec")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vd3us"]

@@ -608,24 +608,22 @@ func _on_hole_detector_body_exited(_body):
 
 @rpc("any_peer", "call_local", "reliable")
 func set_hat_from_pickup(s : String):
-	print("Owner received input")
 	data.set_hat_from_string(s)
 
-func _on_hat_changed():
-	print("Player received signal")
+func _on_hat_changed(hat : Hat):
 	for child in get_children():
 		if child is Hat:
 			data.hat_label_changed.emit("")
 			child.queue_free()
 			crown.texture = null
+			data.hat_sprite = null
 	
-	if data.hat_string != "":
-		var hat = HatManager.get_hat_from_string(data.hat_string).instantiate()
+	if hat != null:
 		add_child(hat)
-		data.hat_sprite = hat.sprite
 	else:
+		data.hat_label_changed.emit("")
+		crown.texture = null
 		data.hat_sprite = null
-
 
 func _exit_tree():
 	for child in after_images:

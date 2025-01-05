@@ -70,6 +70,11 @@ func _process(delta):
 		update_stats_ui()
 		if(Input.is_action_just_pressed("debug_toggle_stats")):
 			show_stats = not show_stats
+		
+		#update hat
+		if data.hat_string == "":
+			crown.texture = null
+			hat_label.text = ""
 #endregion
 
 #region Signal methods
@@ -168,9 +173,11 @@ func spell_ready(slot: int):
 func hat_label_changed(stri: String):
 	hat_label.text = stri
 
-func show_hat():
+func show_hat(hat : Hat):
 	#hat_label.visible = data.hat_string
-	crown.texture = data.hat_sprite
+	if hat and hat.sprite:
+		crown.texture = hat.sprite
+		crown.show()
 
 func synergy_updated(synergy_bonus, color):
 	if synergy_bonus == 0:

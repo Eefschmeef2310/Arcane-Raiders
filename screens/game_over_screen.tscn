@@ -30,8 +30,16 @@ script/source = "extends CanvasLayer
 func _ready():
 	get_tree().paused = true
 	
-	AudioManager.play_track_fade(\"lose\")
+	SaveManager.games_played += 1
 	
+	#Save Management Stuff
+	if castle_climb.current_floor >= 4:
+		SaveManager.area_1_complete = true
+	elif castle_climb.current_floor >= 8:
+		SaveManager.area_2_complete = true
+	SaveManager.request_save()
+	
+	AudioManager.play_track_fade(\"lose\")
 	
 	if !is_multiplayer_authority():
 		$Control/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ResetButton.disabled = true

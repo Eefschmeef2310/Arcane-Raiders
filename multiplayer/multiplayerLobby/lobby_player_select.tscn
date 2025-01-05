@@ -1,11 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=35 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_6iir5"]
-[ext_resource type="Texture2D" uid="uid://byn34gwtakpjl" path="res://multiplayer/multiplayerLobby/pip.png" id="2_6jqx5"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_cpkxu"]
+[ext_resource type="PackedScene" uid="uid://cdic02fvsofc2" path="res://multiplayer/multiplayerLobby/clickable_pip_character.tscn" id="4_l88q1"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_ac5jf"]
+[ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="5_quccd"]
+[ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="6_nkpq1"]
+[ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="7_07gmh"]
+[ext_resource type="Texture2D" uid="uid://3md1hv7rghxy" path="res://moving_entities/player/player_pieces/head-horse.png" id="8_3hqgk"]
+[ext_resource type="Texture2D" uid="uid://bn8h332covd1w" path="res://moving_entities/player/player_pieces/head-lizard.png" id="9_4c1dw"]
+[ext_resource type="Texture2D" uid="uid://da3o08jsb7k8m" path="res://moving_entities/player/player_pieces/head-cow.png" id="10_r356u"]
+[ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="11_oxsdx"]
+[ext_resource type="PackedScene" uid="uid://dcv6ok3gbur1r" path="res://multiplayer/multiplayerLobby/clickable_pip_color.tscn" id="12_4okyq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
@@ -27,6 +35,145 @@ font = ExtResource("5_ac5jf")
 font_size = 24
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o2fm"]
+resource_local_to_scene = true
+atlas = ExtResource("5_quccd")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xttc7"]
+resource_local_to_scene = true
+atlas = ExtResource("6_nkpq1")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfwju"]
+resource_local_to_scene = true
+atlas = ExtResource("7_07gmh")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mrf6"]
+resource_local_to_scene = true
+atlas = ExtResource("8_3hqgk")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c2hr"]
+resource_local_to_scene = true
+atlas = ExtResource("9_4c1dw")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nk1r"]
+resource_local_to_scene = true
+atlas = ExtResource("10_r356u")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxe7b"]
+resource_local_to_scene = true
+atlas = ExtResource("11_oxsdx")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb47p"]
+resource_local_to_scene = true
+bg_color = Color(0.490196, 0.203922, 0.760784, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2ir2"]
+resource_local_to_scene = true
+bg_color = Color(0.780392, 0.756863, 0.101961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0npq"]
+resource_local_to_scene = true
+bg_color = Color(0.737255, 0.231373, 0.192157, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk3hf"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.623529, 0.505882, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dx3km"]
+resource_local_to_scene = true
+bg_color = Color(0.211765, 0.521569, 0.180392, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2hmt"]
+resource_local_to_scene = true
+bg_color = Color(0.839216, 0.376471, 0.701961, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38nr5"]
+resource_local_to_scene = true
+bg_color = Color(0.188235, 0.388235, 0.760784, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ry6d"]
+resource_local_to_scene = true
+bg_color = Color(0.972549, 0.443137, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_kvkxc"]
 font = ExtResource("5_ac5jf")
@@ -136,44 +283,58 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
+[node name="ClickablePip" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip2" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("2_6jqx5")
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip2" index="0"]
+texture = SubResource("AtlasTexture_6o2fm")
 
-[node name="TextureRect4" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip3" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect5" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("2_6jqx5")
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip3" index="0"]
+texture = SubResource("AtlasTexture_xttc7")
 
-[node name="TextureRect6" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip4" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect7" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
-layout_mode = 2
-texture = ExtResource("2_6jqx5")
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip4" index="0"]
+texture = SubResource("AtlasTexture_tfwju")
 
-[node name="TextureRect8" type="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip5" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip5" index="0"]
+texture = SubResource("AtlasTexture_3mrf6")
+
+[node name="ClickablePip6" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip6" index="0"]
+texture = SubResource("AtlasTexture_8c2hr")
+
+[node name="ClickablePip7" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip7" index="0"]
+texture = SubResource("AtlasTexture_6nk1r")
+
+[node name="ClickablePip8" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8" index="0"]
+texture = SubResource("AtlasTexture_cxe7b")
 
 [node name="ColorContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 self_modulate = Color(0, 0.584314, 0.45098, 1)
@@ -187,44 +348,45 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
+[node name="ClickablePip" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yb47p")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip2" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2ir2")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect3" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip3" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r0npq")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect4" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip4" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hk3hf")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect5" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip5" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dx3km")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect6" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip6" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_r2hmt")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect7" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip7" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_38nr5")
+lobby_select = NodePath("../../../../..")
 
-[node name="TextureRect8" type="TextureRect" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips"]
-modulate = Color(1, 1, 1, 0.454902)
+[node name="ClickablePip8" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-texture = ExtResource("2_6jqx5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ry6d")
+lobby_select = NodePath("../../../../..")
 
 [node name="Label" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 48)
@@ -301,13 +463,17 @@ text = "0"
 [node name="NotifSpawnPos" type="Marker2D" parent="."]
 position = Vector2(225, -24)
 
-[node name="UpdateTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="customise" from="PlayerData" to="." method="_on_player_data_customise"]
 [connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
-[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
+
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip2"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip3"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip4"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip5"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip6"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip7"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8"]

@@ -4,11 +4,11 @@
 
 [sub_resource type="Gradient" id="Gradient_320we"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.143, 0.286, 0.428, 0.571, 0.714, 0.857)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.593245, 0, 1, 1, 0.954413, 0, 1, 0.147071, 1, 0, 1, 0, 0.0723271, 1, 1, 0.542603, 0, 1, 1, 1, 0, 0.821623, 1)
+offsets = PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875)
+colors = PackedColorArray(0.972549, 0.443137, 0, 1, 0.839216, 0.376471, 0.701961, 1, 0.490196, 0.203922, 0.760784, 1, 0.780392, 0.756863, 0.101961, 1, 0.737255, 0.231373, 0.192157, 1, 0, 0.623529, 0.505882, 1, 0.211765, 0.521569, 0.180392, 1, 0.188235, 0.388235, 0.760784, 1)
 
 [node name="DiscoTile" type="Polygon2D"]
-color = Color(1, 0.593245, 0, 1)
+color = Color(0.972549, 0.443137, 0, 1)
 polygon = PackedVector2Array(-80, 0, 0, -40, 80, 0, 0, 40)
 script = ExtResource("1_2n726")
 colors = SubResource("Gradient_320we")

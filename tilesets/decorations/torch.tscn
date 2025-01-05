@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bs50gcb1skgp4"]
+[gd_scene load_steps=19 format=3 uid="uid://bs50gcb1skgp4"]
 
 [ext_resource type="Shader" path="res://shaders/toon_fire.gdshader" id="1_tmson"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="2_gl3o8"]
@@ -21,18 +21,23 @@ shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_lxbe0")
 
-[sub_resource type="Gradient" id="Gradient_4306w"]
+[sub_resource type="Gradient" id="Gradient_mkddu"]
 offsets = PackedFloat32Array(0, 0.195556, 0.424242, 0.621212, 0.838384)
 colors = PackedColorArray(0.027451, 0, 0.172549, 1, 0.187822, 0.00216718, 0.259236, 1, 0.6, 0.0156863, 0.278431, 1, 0.870588, 0.388235, 0.266667, 1, 0.948188, 0.714519, 0.479285, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3ppn0"]
-gradient = SubResource("Gradient_4306w")
+gradient = SubResource("Gradient_mkddu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fl6p3"]
 shader = ExtResource("3_llv6y")
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_3ppn0")
+
+[sub_resource type="Gradient" id="Gradient_v71ou"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u62kl"]
+gradient = SubResource("Gradient_v71ou")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ttldr"]
 seed = 86
@@ -48,7 +53,10 @@ shader_parameter/spread = 0.25
 shader_parameter/speed = 0.1
 shader_parameter/final_saturation = 0.5
 shader_parameter/alpha = 0.66
+shader_parameter/outer_thickness = 0.25
+shader_parameter/middle_thickness = 0.5
 shader_parameter/noise_tex = SubResource("NoiseTexture2D_2spje")
+shader_parameter/gradient = SubResource("GradientTexture1D_u62kl")
 
 [node name="Torch" type="Node2D" node_paths=PackedStringArray("flames", "lights")]
 z_index = 4

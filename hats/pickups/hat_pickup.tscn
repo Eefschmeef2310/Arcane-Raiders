@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://nnvvipwr6cnf"]
+[gd_scene load_steps=8 format=3 uid="uid://nnvvipwr6cnf"]
 
 [ext_resource type="Script" path="res://hats/pickups/hat_pickup_base.gd" id="1_kd5f3"]
 [ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="3_e2ldn"]
@@ -7,9 +7,6 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cocqd"]
 radius = 100.0
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_opthb"]
-polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qggy"]
 bg_color = Color(0.309804, 0.243137, 0.2, 1)
@@ -21,12 +18,18 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 19
 corner_radius_bottom_left = 19
 
-[node name="HatPickup" type="Node2D" node_paths=PackedStringArray("info_container", "highest_difficulty") groups=["hat_pickup"]]
+[node name="HatPickup" type="Node2D" node_paths=PackedStringArray("info_container", "condition_box", "condition_label", "highest_difficulty", "icon") groups=["hat_pickup"]]
 script = ExtResource("1_kd5f3")
 info_container = NodePath("InfoBox")
+condition_box = NodePath("ConditionBox")
+condition_label = NodePath("ConditionBox/ConditionLabel")
 highest_difficulty = NodePath("InfoBox/VBoxContainer/Difficulty")
+icon = NodePath("Icon")
+
+[node name="UnlockConditionContainer" type="Node" parent="."]
 
 [node name="Outline" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, -35.2)
 scale = Vector2(1.08, 1.08)
 
@@ -50,14 +53,11 @@ position = Vector2(0, -35)
 texture = ExtResource("4_41jd3")
 
 [node name="InfoBox" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
 offset_left = -119.0
 offset_top = -264.0
 offset_right = 119.0
 offset_bottom = -113.0
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="InfoBox"]
-visible = false
-occluder = SubResource("OccluderPolygon2D_opthb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InfoBox"]
 custom_minimum_size = Vector2(232, 126.675)
@@ -81,6 +81,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_5qggy")
 [node name="Description" type="Label" parent="InfoBox/VBoxContainer/PanelContainer"]
 custom_minimum_size = Vector2(10, 55)
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/line_spacing = -5
@@ -111,6 +112,24 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Press E/R1 to equip"
 horizontal_alignment = 1
+
+[node name="ConditionBox" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -119.0
+offset_top = -264.0
+offset_right = 119.0
+offset_bottom = -85.0
+
+[node name="ConditionLabel" type="Label" parent="ConditionBox"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/line_spacing = -12
+theme_override_fonts/font = ExtResource("5_31nyu")
+theme_override_font_sizes/font_size = 30
+text = "Pyro-Laser"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

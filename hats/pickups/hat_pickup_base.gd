@@ -13,12 +13,17 @@ class_name HatPickup #THIS MUST BE A SEPARATE CLASS BCS THIS SCRIPT IS USED FOR 
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export var info_container : Control
+@export var condition_box : Control
+@export var condition_label : Label
 @export var hat_string : String
 @export var highest_difficulty : RichTextLabel
+@export var unlocked = true
+
+@export var icon : Node2D
+@export var unlock_condition_script : HatUnlockCondition
 
 	#Onready Variables
 @onready var init_pos = $Shadow.scale
-@onready var icon = $Icon
 
 	#Other Variables (please try to separate and organise!)
 var target_info_modulate_a = 0
@@ -31,10 +36,27 @@ var freq = 2
 
 #region Godot methods
 func _ready():
+	#For the hat destroyer. checks if any hats are available. if not, it will destroy itself
+	if hat_string == "":
+		var unlocked_hat_found = false
+		for child in owner.get_children():
+			if child is HatPickup and child.unlocked and child != self:
+				unlocked_hat_found = true
+				break
+		if !unlocked_hat_found:
+			queue_free()
+			return
+	
 	i = randf_range(0, 360)
 	base_sprite_pos = icon.position
 	
 	get_highest_completion_difficulty()
+	
+	if !unlocked:
+		icon.modulate = Color.BLACK
+		if is_instance_valid(unlock_condition_script):
+			info_container = condition_box
+			condition_label.text = unlock_condition_script.condition_text
 	
 func _process(delta):
 	i += delta
@@ -90,16 +112,8 @@ func get_highest_completion_difficulty():
 					highest_difficulty.text = "[center]No runs completed with this hat!"
 		else:
 			highest_difficulty.text = "[center]No runs completed with this hat!"
-#func pickup_function(player):
-	#for child in player.get_children():
-		#if child is Hat:
-			#child.queue_free()
-			#player.crown.texture = null
-	#
-	#if hat_string:
-		#var hat = HatManager.get_hat_from_string(hat_string).instantiate()
-		#player.add_child(hat)
-		#player.data.hat_sprite = hat.sprite
-	#else:
-		#player.data.hat_sprite = null
+
+func set_unlock():
+	unlocked = true
+	icon.modulate = Color.WHITE
 #endregion

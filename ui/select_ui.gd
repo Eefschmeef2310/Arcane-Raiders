@@ -52,59 +52,6 @@ func _ready():
 	else:
 		input = null
 	
-	# create and prepare the ui pips
-	for child in character_pips_box.get_children():
-		child.queue_free()
-	
-	for raiderCount in lobby_manager.raiders.size():
-		var box = StyleBoxFlat.new()
-		var box_box : ClickablePip = ClickablePip.new()
-		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
-		box.bg_color = Color8(0,0,0,0)
-		box.set_border_width_all(3)
-		box.set_corner_radius_all(12)
-		box.border_color = Color.WHITE
-		box_box.add_theme_stylebox_override("panel",box)
-		box_box.gui_input_pass_self.connect(_on_raider_pip_gui_input)
-		box_box.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		
-		var new_pip = TextureRect.new()
-		new_pip.texture = lobby_manager.raiders[raiderCount].head_texture
-		var region = Rect2(35,35,80,80)
-		new_pip.texture = get_cropped_texture(new_pip.texture, region) 
-		new_pip.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		new_pip.custom_minimum_size =  Vector2(40,40)
-		
-		if raiderCount > 0:
-			#new_pip.modulate = Color.DIM_GRAY
-			box_box.modulate = Color.DIM_GRAY
-		
-		box_box.add_child(new_pip)
-		character_pips_box.add_child(box_box)
-	
-	for child in color_pips_box.get_children():
-		child.queue_free()
-		
-	for colorCount in lobby_manager.player_colors.size():
-		var new_pip = ClickablePip.new()
-		var box = StyleBoxFlat.new()
-		#new_pip.add_theme_stylebox_override("panel",StyleBoxFlat.new())
-		box.bg_color = lobby_manager.player_colors[colorCount]
-		box.set_border_width_all(3)
-		box.set_corner_radius_all(12)
-		box.border_color = Color.WHITE
-		new_pip.add_theme_stylebox_override("panel",box)
-		new_pip.gui_input_pass_self.connect(_on_color_pip_gui_input)
-		new_pip.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		
-		#new_pip.color = lobby_manager.player_colors[colorCount]
-		new_pip.custom_minimum_size =  Vector2(46,46)
-		
-		if colorCount > 0:
-			new_pip.modulate = Color.WHITE
-		color_pips_box.add_child(new_pip)
-	pass
-	
 	selected_raider = max(get_index()-1, 0)
 	selected_color = max(get_index()-1, 0)
 	while !has_valid_color():
@@ -167,25 +114,25 @@ func _process(_delta):
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
-					selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
+					selected_raider = wrapi(selected_raider - 1, 0,SaveManager.runs_completed+4)
 					while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
-						selected_raider = wrapi(selected_raider - 1, 0,lobby_manager.raiders.size())
+						selected_raider = wrapi(selected_raider - 1, 0,SaveManager.runs_completed+4)
 				elif(selected_panel == 1): #color selected
-					selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
+					selected_color = wrapi(selected_color - 1, 0, SaveManager.runs_completed+4)
 					while !has_valid_color():
-						selected_color = wrapi(selected_color - 1, 0,lobby_manager.player_colors.size())
+						selected_color = wrapi(selected_color - 1, 0, SaveManager.runs_completed+4)
 				#elif(selected_panel == 3): #loadout selected
 					#selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
 				
 			if(("right" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
-					selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
+					selected_raider = wrapi(selected_raider + 1, 0, SaveManager.runs_completed+4)
 					while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
-						selected_raider = wrapi(selected_raider + 1, 0,lobby_manager.raiders.size())
+						selected_raider = wrapi(selected_raider + 1, 0, SaveManager.runs_completed+4)
 				elif(selected_panel == 1): #loadout selected
-					selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
+					selected_color = wrapi(selected_color + 1, 0, SaveManager.runs_completed+4)
 					while !has_valid_color():
-						selected_color = wrapi(selected_color + 1, 0,lobby_manager.player_colors.size())
+						selected_color = wrapi(selected_color + 1, 0, SaveManager.runs_completed+4)
 				#elif(selected_panel == 3): #loadout selected
 					#selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
 			
@@ -201,7 +148,6 @@ func _process(_delta):
 			mouse_input.clear()
 	else:
 		$PanelContainer/OnlineShieldPanel.show()
-	
 	
 
 func UpdateDisplay():
@@ -224,7 +170,7 @@ func UpdateDisplay():
 			character_pips_box.get_child(pip).modulate = Color.WHITE
 		elif lobby_manager.picked_raiders.has(pip) and not lobby_manager.allow_duplicate_animals:
 			character_pips_box.get_child(pip).modulate = Color8(255,255,255,40)
-		else: 
+		elif color_pips_box.get_child(pip).modulate != Color.BLACK: 
 			character_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	
 	for pip in color_pips_box.get_children().size():
@@ -232,7 +178,7 @@ func UpdateDisplay():
 			color_pips_box.get_child(pip).modulate = Color.WHITE
 		elif some_player_has_color(pip):
 			color_pips_box.get_child(pip).modulate = Color8(255,255,255,20)
-		else: 
+		elif color_pips_box.get_child(pip).modulate != Color.BLACK: 
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	
 	#Highlight the correct panel
@@ -308,12 +254,10 @@ func convert_to_select():
 		player_node.queue_free()
 	new_ui.queue_free()
 	$PanelContainer.visible = true
-	
 
 func _on_player_data_customise():
 	if is_multiplayer_authority():
 		convert_to_select.rpc()
-
 
 func _remove_player():
 	# Clean up player here
@@ -380,6 +324,7 @@ func _on_button_pressed():
 		mouse_input.append("confirm_click")
 
 func _on_raider_pip_gui_input(event, node):
+	print("connect")
 	if is_event_click(event) and device_id <= -1 and visible and is_multiplayer_authority():
 		var raider_int = node.get_index()
 		if !(lobby_manager.picked_raiders.has(raider_int) and not lobby_manager.allow_duplicate_animals):
@@ -419,7 +364,6 @@ func get_controller_input():
 				mouse_input.append("confirm")
 			if MultiplayerInput.is_action_just_pressed(device, "lobby_cancel"):
 				mouse_input.append("cancel")
- 
 
 func has_valid_color():
 	valid_color = true
@@ -429,17 +373,12 @@ func has_valid_color():
 			valid_color = false
 	return valid_color
 
-
 func some_player_has_color(i : int) -> bool:
 	for card in lobby_manager.player_ui_container.get_children():
 		if card is JoinSelectUI and card != self and card.selected_color == i:
 			#print(valid_color)
 			return true
 	return false
-
-
-func _on_update_timer_timeout():
-	pass 
 
 func _on_multiplayer_synchronizer_synchronized():
 	if !lobby_manager.start_game_called:

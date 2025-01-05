@@ -157,7 +157,7 @@ func _process(_delta):
 			if interact:
 				if $"../Interactor".closest_interactable != null:
 					$"../Interactor".closest_interactable.on_interact(owner)
-				elif $"../HatPickupDetector".closest_pickup != null:
+				elif $"../HatPickupDetector".closest_pickup != null and $"../HatPickupDetector".closest_pickup.unlocked:
 					owner.set_hat_from_pickup.rpc($"../HatPickupDetector".closest_pickup.hat_string)
 
 func _input(event):

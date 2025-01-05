@@ -9,6 +9,9 @@ uniform float speed = 1;
 uniform float final_saturation: hint_range(0.0, 1.0, 0.01) = 0.5;
 uniform float alpha : hint_range(0.0, 1.0) = 0.5; // Add uniform for alpha control
 
+uniform float outer_thickness : hint_range(0.0, 1.0, 0.01) = 0.2;
+uniform float middle_thickness : hint_range(0.0, 1.0, 0.01) = 0.4;
+
 void fragment() {
     float noise_value = texture(noise_tex, UV + vec2(0.0, TIME * speed)).r;
     // Sample the gradient map texture at UV coordinates
@@ -17,8 +20,8 @@ void fragment() {
     gradient_value -= smoothstep(spread, spread + 0.5, length(UV + vec2(-0.5, -0.5)) / spread);
 
     float step1 = step(noise_value, gradient_value);
-    float step2 = step(noise_value, gradient_value - 0.2);
-    float step3 = step(noise_value, gradient_value - 0.4);
+    float step2 = step(noise_value, gradient_value - outer_thickness);
+    float step3 = step(noise_value, gradient_value - middle_thickness);
 
     // Sample the gradient map texture at different points
     vec4 gradient_color1 = texture(gradient, vec2(1.));

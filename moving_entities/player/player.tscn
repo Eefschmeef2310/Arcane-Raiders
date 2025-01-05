@@ -1406,7 +1406,7 @@ scale = Vector2(0.6, 0.6)
 script = ExtResource("19_t4fmv")
 
 [node name="SpellContainer" type="HBoxContainer" parent="HUD"]
-modulate = Color(1, 1, 1, 0.686275)
+modulate = Color(1, 1, 1, 0.823529)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

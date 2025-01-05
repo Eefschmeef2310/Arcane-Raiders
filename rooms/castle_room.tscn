@@ -202,6 +202,7 @@ scale = Vector2(90.1094, 57.4688)
 energy = 0.25
 blend_mode = 1
 texture = SubResource("GradientTexture2D_20gjc")
+metadata/_edit_lock_ = true
 
 [connection signal="all_waves_cleared" from="." to="RoomExit" method="unlock"]
 [connection signal="all_waves_cleared" from="." to="GuideArrow/Sprite2D" method="_on_castle_room_all_waves_cleared"]

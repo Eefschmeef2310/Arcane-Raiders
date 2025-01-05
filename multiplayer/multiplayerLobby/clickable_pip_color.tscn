@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcv6ok3gbur1r"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/clickable_pip_color.gd" id="1_qwqe8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k2ht"]
+resource_local_to_scene = true
+bg_color = Color(0.490196, 0.203922, 0.760784, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="ClickablePip" type="PanelContainer"]
+custom_minimum_size = Vector2(46, 46)
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1k2ht")
+script = ExtResource("1_qwqe8")
