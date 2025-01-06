@@ -36,6 +36,7 @@ var spell_cooldowns : Array[float] = [0,0,0]
 
 @export var main_color : Color = Color.RED
 @export var character : RaiderRes
+@export var body_sprite : Texture2D
 
 @export var money : int
 @export var total_money : int #all the money the player has earnt this run
@@ -85,7 +86,6 @@ func start_cooldown(slot: int, time: float):
 	spell_cooldowns[slot] = time
 
 func set_spell_from_string(slot: int, string: String):
-	print("Spell changed on a peer.")
 	spell_strings[slot] = string
 	spells[slot] = SpellManager.get_spell_from_string(string)
 	spell_cooldowns[slot] = 0

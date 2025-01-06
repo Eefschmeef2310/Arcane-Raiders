@@ -256,6 +256,7 @@ func set_data(new_data: PlayerData, destroy_old := true):
 	spell_sprite_2d_projection.modulate = data.main_color
 	spell_sprite_2d_projection.modulate.a = 0.5
 	body_sprite.self_modulate = data.main_color
+	body_sprite.texture = data.body_sprite
 	#%HelpLabel.add_theme_color_override("font_color", data.main_color)
 	
 	if data.character:

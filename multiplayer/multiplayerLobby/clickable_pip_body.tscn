@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://x4un2uthuq3s"]
+
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/clickable_pip_body.gd" id="1_vwyd1"]
+[ext_resource type="Texture2D" uid="uid://bdirjffmtu0p7" path="res://moving_entities/player/player_pieces/Body1.png" id="2_1stcs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q2ejb"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="ClickablePipBody" type="PanelContainer" node_paths=PackedStringArray("sprite")]
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q2ejb")
+script = ExtResource("1_vwyd1")
+sprite = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_1stcs")
+expand_mode = 1

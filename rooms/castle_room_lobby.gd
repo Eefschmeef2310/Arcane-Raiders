@@ -221,6 +221,7 @@ func get_card_data() -> Array:
 				"name": card.display_name,
 				"hat": card.player_data.hat_string,
 				"new_hat_sprite" : card.player_data.hat_sprite,
+				"body_sprite" : card.player_data.body_sprite,
 				})
 	return arr
 

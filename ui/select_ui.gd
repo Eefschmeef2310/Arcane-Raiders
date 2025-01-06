@@ -6,26 +6,24 @@ signal raider_selected(peer_id, device_id)
 @export var username : String
 @export var peer_id : int = 1 # for online multiplayer
 @export var device_id : int = -2 # for local multiplayer
+
 @export var selected_raider : int = 0
-@export var selected_loadout : int = 0
 @export var selected_color : int = 0
-@export var selected_panel : int = 0 # 0 raider, 1 color, 2 ready
-@export var show_panels : bool = true #dont show stuff until a player connects
+@export var selected_body : int = 0
+
+@export var selected_panel : int = 0 # 0 raider, 1 color, 2 body
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED # this should be player colour
 
 @onready var character_pips_box = $PanelContainer/VBoxContainer/CharacterContainer/CharacterPips
 @onready var color_pips_box = $PanelContainer/VBoxContainer/ColorContainer/ColorPips
+@onready var body_pips_box = $PanelContainer/VBoxContainer/BodyContainer/BodyPips
 @onready var player_ui_scene = preload("res://ui/player_ui.tscn")
 @onready var notif_spawn_pos = $NotifSpawnPos
 
 @export var lobby_manager : Node
-#@export var player_name : Label
 @export var select_controls_panel : Control # hide and show this depending on if a player has joined
 @export var panels_array : Array[Control]
-@export var ready_button : Button
-@export var ready_text : Label
-@export var remove_button : Button
 
 var display_name : String
 
@@ -47,10 +45,7 @@ func _ready():
 	Input.joy_connection_changed.connect(update_device_list)
 	update_device_list(0, true)
 	
-	if GameManager.isLocal():
-		input = DeviceInput.new(device_id)
-	else:
-		input = null
+	input = DeviceInput.new(device_id) if GameManager.isLocal() else null
 	
 	selected_raider = max(get_index()-1, 0)
 	selected_color = max(get_index()-1, 0)
@@ -66,11 +61,10 @@ func _ready():
 	
 	if !GameManager.isOnline():
 		spawn_player.rpc(display_name, selected_raider, selected_color)
-		print("I'm the authority. " + str(peer_id))
+		#print("I'm the authority. " + str(peer_id))
 		  
 	if !is_multiplayer_authority():
-		print("I'm a remote peer. " + str(peer_id))
-	
+		#print("I'm a remote peer. " + str(peer_id))
 		call_deferred("check_for_existing_player")
 
 func check_for_existing_player():
@@ -93,7 +87,6 @@ func check_for_existing_player():
 func _process(_delta):
 	connected_time += _delta
 	if !finished_connecting:
-		#resendValues.rpc()
 		finished_connecting = true
 	
 	if (GameManager.isOnline() && multiplayer.get_unique_id() == peer_id) || GameManager.isLocal():
@@ -107,10 +100,7 @@ func _process(_delta):
 			
 			if("up" in mouse_input):
 				if not player_ready:
-					if(GameManager.isLocal()):
-						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
-					else:
-						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
@@ -121,8 +111,8 @@ func _process(_delta):
 					selected_color = wrapi(selected_color - 1, 0, SaveManager.runs_completed+4)
 					while !has_valid_color():
 						selected_color = wrapi(selected_color - 1, 0, SaveManager.runs_completed+4)
-				#elif(selected_panel == 3): #loadout selected
-					#selected_loadout = wrapi(selected_loadout - 1, 0,lobby_manager.loadouts.size())
+				elif(selected_panel == 2): #body selected
+					selected_body = wrapi(selected_body - 1, 0, body_pips_box.get_children().size())
 				
 			if(("right" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
@@ -133,15 +123,11 @@ func _process(_delta):
 					selected_color = wrapi(selected_color + 1, 0, SaveManager.runs_completed+4)
 					while !has_valid_color():
 						selected_color = wrapi(selected_color + 1, 0, SaveManager.runs_completed+4)
-				#elif(selected_panel == 3): #loadout selected
-					#selected_loadout = wrapi(selected_loadout + 1, 0,lobby_manager.loadouts.size())
+				elif(selected_panel == 2): #body selected
+					selected_body = wrapi(selected_body + 1, 0, body_pips_box.get_children().size())
 			
 			if ("confirm" in mouse_input):
 				if (valid_color): # NOTE: removed ready button hover requirement
-					spawn_player.rpc(display_name, selected_raider, selected_color)
-			
-			if ("confirm_click" in mouse_input):
-				if (valid_color and selected_panel == 2):
 					spawn_player.rpc(display_name, selected_raider, selected_color)
 			
 			UpdateDisplay()
@@ -149,11 +135,7 @@ func _process(_delta):
 	else:
 		$PanelContainer/OnlineShieldPanel.show()
 	
-
 func UpdateDisplay():
-	# hide everything if there isnt a player to use it
-	# select_controls_panel.visible = show_panels
-	
 	# set some basic values
 	if GameManager.isLocal():
 		var s = "Keyboard & Mouse"
@@ -180,6 +162,12 @@ func UpdateDisplay():
 			color_pips_box.get_child(pip).modulate = Color8(255,255,255,20)
 		elif color_pips_box.get_child(pip).modulate != Color.BLACK: 
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
+		
+	for pip in body_pips_box.get_children().size():
+		if pip == selected_body:
+			body_pips_box.get_child(pip).modulate = Color.WHITE
+		else:
+			body_pips_box.get_child(pip).modulate = Color.DIM_GRAY
 	
 	#Highlight the correct panel
 	self_modulate = Color.WHITE 
@@ -190,33 +178,26 @@ func UpdateDisplay():
 		if selected_panel == panel_num:
 			#highlight panel with moduate
 			(panels_array[panel_num] as Control).self_modulate = highlight_color
-			pass
 		else:
 			#restore it to normal modulation
 			(panels_array[panel_num] as Control).self_modulate = Color("363636")
-			pass
-	#self_modulate = highlight_color
 	pass
 	
 	#check for valid color
 	valid_raider = true
-	#ready_button.text = "READY"
 	for card in lobby_manager.player_ui_container.get_children():
 		if card is JoinSelectUI and card.selected_raider == selected_raider and not card.peer_id == peer_id:
 			valid_raider = false
 	
 	#check for valid color
 	has_valid_color()
-	
-	$ColorLabel.text = str(selected_color)
-		
 
 @rpc("authority", "call_local", "reliable")
 func spawn_player(na, raider_id, color_id):
-	
 	player_data.player_name = na
 	player_data.character = lobby_manager.raiders[raider_id]
 	player_data.main_color = lobby_manager.player_colors[color_id]
+	player_data.body_sprite = (body_pips_box.get_child(selected_body) as ClickablePipBody).sprite.texture
 	player_data.peer_id = peer_id
 	player_data.device_id = device_id
 
@@ -266,31 +247,6 @@ func _remove_player():
 		player_node.queue_free()
 	queue_free()
 
-#@rpc("any_peer", "call_remote", "reliable")
-#func request_update_from_authority():
-	#if is_multiplayer_authority():
-		#var dict = {
-			#"raider" : selected_raider,
-			#"color" : selected_color,
-			#"hat" : player_data.hat_string
-		#}
-		#receive_from_authority.rpc(dict)
-		#
-#@rpc("authority", "call_remote", "reliable")
-#func receive_from_authority(dict : Dictionary):
-	#selected_raider = dict["raider"]
-	#selected_color = dict["color"]
-	#player_data.set_hat_from_string(dict["hat"])
-	#player_data.reassign.emit()
-	#UpdateDisplay()
-
-
-func get_cropped_texture(texture : Texture, region : Rect2) -> AtlasTexture:
-	var atlas_texture := AtlasTexture.new()
-	atlas_texture.set_atlas(texture)
-	atlas_texture.set_region(region)
-	return atlas_texture
-
 func update_device_list(_device: int, _connected: bool):
 	devices.clear()
 	devices = Input.get_connected_joypads()
@@ -299,32 +255,11 @@ func update_device_list(_device: int, _connected: bool):
 func is_event_click(event):
 	return device_id <= -1 and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed
 
-func _on_character_container_mouse_entered():
+func _on_panel_container_mouse_entered(num):
 	if device_id <= -1 and !player_ready and is_multiplayer_authority():
-		selected_panel = 0
-
-func _on_color_container_mouse_entered():
-	if device_id <= -1 and !player_ready and is_multiplayer_authority():
-		selected_panel = 1
-
-func _on_button_mouse_entered():
-	if device_id <= -1 and is_multiplayer_authority():
-		selected_panel = 2
-
-func _on_left_arrow_clicked(event):
-	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
-		mouse_input.append("left")
-
-func _on_right_arrow_clicked(event):
-	if is_event_click(event) and device_id <= -1 and is_multiplayer_authority():
-		mouse_input.append("right")
-
-func _on_button_pressed():
-	if device_id <= -1 and is_multiplayer_authority():
-		mouse_input.append("confirm_click")
+		selected_panel = num
 
 func _on_raider_pip_gui_input(event, node):
-	print("connect")
 	if is_event_click(event) and device_id <= -1 and visible and is_multiplayer_authority():
 		var raider_int = node.get_index()
 		if !(lobby_manager.picked_raiders.has(raider_int) and not lobby_manager.allow_duplicate_animals):
@@ -335,6 +270,11 @@ func _on_color_pip_gui_input(event, node):
 		var color_int = node.get_index()
 		if !(lobby_manager.picked_colors.has(color_int) and not lobby_manager.allow_duplicate_colors):
 			selected_color = color_int
+
+func _on_body_pip_gui_input(event, node):
+	if is_event_click(event) and device_id <= -1 and visible and is_multiplayer_authority():
+		var body_int = node.get_index()
+		selected_body = body_int
 
 func get_controller_input():
 	if input:
@@ -367,7 +307,6 @@ func get_controller_input():
 
 func has_valid_color():
 	valid_color = true
-	#ready_button.text = "READY"
 	for card in lobby_manager.player_ui_container.get_children():
 		if card is JoinSelectUI and card != self and card.selected_color == selected_color:
 			valid_color = false
@@ -376,11 +315,9 @@ func has_valid_color():
 func some_player_has_color(i : int) -> bool:
 	for card in lobby_manager.player_ui_container.get_children():
 		if card is JoinSelectUI and card != self and card.selected_color == i:
-			#print(valid_color)
 			return true
 	return false
 
 func _on_multiplayer_synchronizer_synchronized():
 	if !lobby_manager.start_game_called:
-		print("Updating.")
 		call_deferred("check_for_existing_player")

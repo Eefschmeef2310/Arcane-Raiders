@@ -152,6 +152,7 @@ func _ready():
 		if i < players_in_leaderboard:
 			#print_debug(\"we have \" + str(i))
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Head\").texture = castle_climb.player_data[leaderboard[i]].character.head_texture
+			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Body\").texture = castle_climb.player_data[leaderboard[i]].body_sprite
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Head/Hat\").texture = castle_climb.player_data[leaderboard[i]].hat_sprite
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/Body\").self_modulate = castle_climb.player_data[leaderboard[i]].main_color
 			leaderboard_panels[i].get_node(\"SpritesFlip/SpritesScale/RightHand\").self_modulate = castle_climb.player_data[leaderboard[i]].character.skin_color

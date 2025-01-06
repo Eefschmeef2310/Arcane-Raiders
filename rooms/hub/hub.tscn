@@ -424,7 +424,7 @@ position = Vector2(1187, 776)
 
 [node name="Bush2" parent="." index="23" instance=ExtResource("36_k1eci")]
 material = SubResource("ShaderMaterial_6mt4h")
-position = Vector2(70, 475)
+position = Vector2(418, 490)
 
 [node name="Bush3" parent="." index="24" instance=ExtResource("36_k1eci")]
 material = SubResource("ShaderMaterial_enbid")
@@ -434,7 +434,7 @@ scale = Vector2(1, -1)
 
 [node name="Bush4" parent="." index="25" instance=ExtResource("36_k1eci")]
 material = SubResource("ShaderMaterial_stbc6")
-position = Vector2(237, 729)
+position = Vector2(678, 1113)
 rotation = 3.14159
 scale = Vector2(1, -1)
 

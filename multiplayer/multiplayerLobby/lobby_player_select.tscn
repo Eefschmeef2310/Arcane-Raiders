@@ -1,9 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=36 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
 [ext_resource type="Script" path="res://managers/player_data.gd" id="2_6iir5"]
-[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="4_cpkxu"]
 [ext_resource type="PackedScene" uid="uid://cdic02fvsofc2" path="res://multiplayer/multiplayerLobby/clickable_pip_character.tscn" id="4_l88q1"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_ac5jf"]
 [ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="5_quccd"]
@@ -14,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://da3o08jsb7k8m" path="res://moving_entities/player/player_pieces/head-cow.png" id="10_r356u"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="11_oxsdx"]
 [ext_resource type="PackedScene" uid="uid://dcv6ok3gbur1r" path="res://multiplayer/multiplayerLobby/clickable_pip_color.tscn" id="12_4okyq"]
+[ext_resource type="PackedScene" uid="uid://x4un2uthuq3s" path="res://multiplayer/multiplayerLobby/clickable_pip_body.tscn" id="13_cknbt"]
+[ext_resource type="Texture2D" uid="uid://c7rdj0qkn6y7m" path="res://moving_entities/player/player_pieces/Body2.png" id="14_4wkv8"]
+[ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="15_378ek"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
@@ -175,10 +177,6 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="LabelSettings" id="LabelSettings_kvkxc"]
-font = ExtResource("5_ac5jf")
-font_size = 24
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sq07"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
 corner_radius_top_left = 16
@@ -225,7 +223,7 @@ properties/10/path = NodePath("PlayerData:main_color")
 properties/10/spawn = true
 properties/10/replication_mode = 1
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "ready_button", "player_data") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "player_data") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -237,8 +235,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b2j28")
 select_controls_panel = NodePath("PanelContainer")
-panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer")]
-ready_button = NodePath("PanelContainer/VBoxContainer/Button")
+panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer"), NodePath("PanelContainer/VBoxContainer/BodyContainer")]
 player_data = NodePath("PlayerData")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -388,6 +385,36 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ry6d")
 lobby_select = NodePath("../../../../..")
 
+[node name="BodyContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+self_modulate = Color(0, 0.584314, 0.45098, 1)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("1_j1n1m")
+
+[node name="BodyPips" type="HBoxContainer" parent="PanelContainer/VBoxContainer/BodyContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ClickablePipBody" parent="PanelContainer/VBoxContainer/BodyContainer/BodyPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("13_cknbt")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody" index="0"]
+texture = ExtResource("15_378ek")
+
+[node name="ClickablePipBody2" parent="PanelContainer/VBoxContainer/BodyContainer/BodyPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("13_cknbt")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody2" index="0"]
+texture = ExtResource("14_4wkv8")
+
+[node name="ClickablePipBody3" parent="PanelContainer/VBoxContainer/BodyContainer/BodyPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("13_cknbt")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
 [node name="Label" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
@@ -395,34 +422,6 @@ size_flags_vertical = 8
 bbcode_enabled = true
 text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=32]res://ui/join_button.svg[/img] Ready!"
 fit_content = true
-
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
-visible = false
-self_modulate = Color(0.192157, 0.360784, 0.647059, 1)
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-size_flags_vertical = 10
-mouse_default_cursor_shape = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("4_cpkxu")
-theme_override_styles/normal = ExtResource("1_j1n1m")
-theme_override_styles/hover = ExtResource("1_j1n1m")
-theme_override_styles/pressed = ExtResource("1_j1n1m")
-theme_override_styles/focus = ExtResource("1_j1n1m")
-
-[node name="ReadyText" type="Label" parent="PanelContainer/VBoxContainer/Button"]
-custom_minimum_size = Vector2(249.105, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-text = "Join!"
-label_settings = SubResource("LabelSettings_kvkxc")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="OnlineShieldPanel" type="Panel" parent="PanelContainer"]
 visible = false
@@ -446,27 +445,16 @@ vertical_alignment = 1
 script = ExtResource("2_6iir5")
 spell_strings = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_large"])
 
-[node name="Node2D" type="Node2D" parent="."]
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_i7afp")
-
-[node name="ColorLabel" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 11.0
-offset_top = -36.0
-offset_right = 51.0
-offset_bottom = -11.0
-text = "0"
 
 [node name="NotifSpawnPos" type="Marker2D" parent="."]
 position = Vector2(225, -24)
 
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_character_container_mouse_entered"]
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_color_container_mouse_entered"]
-[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="." to="." method="_on_panel_container_mouse_entered" binds= [2]]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_panel_container_mouse_entered" binds= [0]]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_panel_container_mouse_entered" binds= [1]]
+[connection signal="mouse_entered" from="PanelContainer/VBoxContainer/BodyContainer" to="." method="_on_panel_container_mouse_entered" binds= [2]]
 [connection signal="customise" from="PlayerData" to="." method="_on_player_data_customise"]
 [connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
 
@@ -477,3 +465,6 @@ position = Vector2(225, -24)
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip6"]
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip7"]
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8"]
+[editable path="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody"]
+[editable path="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody2"]
+[editable path="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody3"]
