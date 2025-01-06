@@ -279,7 +279,8 @@ func get_card_data() -> Array:
 			"spells": loadouts[card.selected_loadout].spell_ids,
 			"raider": raiders[card.selected_raider],
 			"color": player_colors[card.selected_color],
-			"name": card.player_name.text
+			"name": card.player_name.text,
+			"body_sprite" : card.player_data.body_sprite,
 			})
 	return arr
 	
