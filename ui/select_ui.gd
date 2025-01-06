@@ -11,6 +11,8 @@ signal raider_selected(peer_id, device_id)
 @export var selected_color : int = 0
 @export var selected_body : int = 0
 
+@export var selected_loadout : int = 0
+
 @export var selected_panel : int = 0 # 0 raider, 1 color, 2 body
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED # this should be player colour
