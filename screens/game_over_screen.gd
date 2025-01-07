@@ -44,6 +44,8 @@ func _ready():
 		var player_ui : PlayerUI = ui
 		player_ui.show_stats_ui()
 		player_ui.update_stats_ui()
+	
+	SteamManager.update_stats_and_achievements()
 #endregion
 
 #region Signal methods

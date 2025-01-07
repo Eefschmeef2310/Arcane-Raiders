@@ -161,6 +161,11 @@ func _ready():
 		if !hat in SaveManager.hats_highest_difficulty_completed or SaveManager.hats_highest_difficulty_completed[hat] < castle_climb.difficulty_setting:
 			SaveManager.hats_highest_difficulty_completed[hat] = castle_climb.difficulty_setting
 	SaveManager.request_save()
+	
+	if castle_climb.difficulty_setting == 0:
+		SteamManager.grant_acheivement("win_easy")
+	
+	SteamManager.update_stats_and_achievements()
 
  
 func _process(delta):

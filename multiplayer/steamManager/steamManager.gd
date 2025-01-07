@@ -1,6 +1,6 @@
 extends Node
 
-const version_id : int = 3062240
+const version_id : int = 2899410
 #3062240 for DEMO
 #2899410 for MAIN GAME
 #480 for SPACEWAR
@@ -36,7 +36,7 @@ func _ready():
 func _process(_delta):
 	Steam.run_callbacks()
 
-func upload_acheivement(acheivement_name : String):
+func grant_acheivement(acheivement_name : String):
 	#Note: if you want to have an acheievemtn with a progress bar then it needs to be setup with a corresponding stat!
 	if (live_mode):
 		print("Giving acheivement: " + acheivement_name)
@@ -88,3 +88,8 @@ func is_demo() -> bool:
 		return true
 	else:
 		return false
+
+#post each stat to steam api
+func update_stats_and_achievements() -> void:		
+	upload_stat_int("plays", SaveManager.games_played)
+	upload_stat_int("wins", SaveManager.runs_completed)
