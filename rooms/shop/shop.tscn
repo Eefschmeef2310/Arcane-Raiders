@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b01k41p44far4"]
+[gd_scene load_steps=8 format=3 uid="uid://b01k41p44far4"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_777ke"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_an1k0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="4_dpx7v"]
 [ext_resource type="PackedScene" uid="uid://be5tod8c2jxdr" path="res://npcs/frog.tscn" id="5_xic7u"]
 [ext_resource type="Texture2D" uid="uid://bdirjffmtu0p7" path="res://moving_entities/player/player_pieces/Body1.png" id="6_2diog"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="7_n058s"]
 
 [node name="CastleRoomShop" instance=ExtResource("1_777ke")]
 script = ExtResource("2_an1k0")
@@ -74,6 +75,21 @@ dialogues = Array[StringName]([&"Equip multiple of the same element to get a syn
 
 [node name="Body" parent="Frog/SpritesScale" index="0"]
 texture = ExtResource("6_2diog")
+
+[node name="ReactionTutorial" type="Node2D" parent="." index="21"]
+position = Vector2(-67, 492)
+rotation = -0.462512
+skew = 0.462512
+
+[node name="Label" type="RichTextLabel" parent="ReactionTutorial" index="0"]
+offset_right = 944.0
+offset_bottom = 254.0
+theme_override_colors/default_color = Color(1, 1, 1, 0.784314)
+theme_override_constants/line_separation = -12
+theme_override_fonts/normal_font = ExtResource("7_n058s")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[wave center]Equip multiple of the same element to get a synergy bonus!"
 
 [editable path="DynamicCamera"]
 [editable path="GuideArrow"]
