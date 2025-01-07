@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvmm60ifm8q48"]
+[gd_scene load_steps=4 format=3 uid="uid://dn018crnmp715"]
 
 [ext_resource type="PackedScene" uid="uid://cceu5pa434epk" path="res://moving_entities/player/player_notif.tscn" id="1_svocd"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_deqrb"]
