@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=28 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -73,110 +73,6 @@ resource_local_to_scene = true
 atlas = ExtResource("11_oxsdx")
 region = Rect2(35, 35, 80, 80)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb47p"]
-resource_local_to_scene = true
-bg_color = Color(0.490196, 0.203922, 0.760784, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2ir2"]
-resource_local_to_scene = true
-bg_color = Color(0.780392, 0.756863, 0.101961, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0npq"]
-resource_local_to_scene = true
-bg_color = Color(0.737255, 0.231373, 0.192157, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hk3hf"]
-resource_local_to_scene = true
-bg_color = Color(0, 0.623529, 0.505882, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dx3km"]
-resource_local_to_scene = true
-bg_color = Color(0.211765, 0.521569, 0.180392, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2hmt"]
-resource_local_to_scene = true
-bg_color = Color(0.839216, 0.376471, 0.701961, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38nr5"]
-resource_local_to_scene = true
-bg_color = Color(0.188235, 0.388235, 0.760784, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ry6d"]
-resource_local_to_scene = true
-bg_color = Color(0.972549, 0.443137, 0, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sq07"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
 corner_radius_top_left = 16
@@ -223,12 +119,13 @@ properties/10/path = NodePath("PlayerData:main_color")
 properties/10/spawn = true
 properties/10/replication_mode = 1
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "player_data") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "player_data", "character_condition", "color_condition") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -123.0
 offset_right = -1470.0
 offset_bottom = -880.0
 grow_horizontal = 2
@@ -237,6 +134,8 @@ script = ExtResource("1_b2j28")
 select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer"), NodePath("PanelContainer/VBoxContainer/BodyContainer")]
 player_data = NodePath("PlayerData")
+character_condition = NodePath("UnlockConditionContainer/CharacterCondition")
+color_condition = NodePath("UnlockConditionContainer/ColourCondition")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -245,9 +144,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -61.0
-offset_top = -264.0
-offset_right = 61.0
+offset_left = -209.0
+offset_top = -318.0
+offset_right = 209.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -347,43 +246,59 @@ size_flags_vertical = 4
 
 [node name="ClickablePip" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yb47p")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip" index="0"]
+self_modulate = Color(0.490196, 0.203922, 0.760784, 1)
 
 [node name="ClickablePip2" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_l2ir2")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip2" index="0"]
+self_modulate = Color(0.780392, 0.756863, 0.101961, 1)
 
 [node name="ClickablePip3" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r0npq")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip3" index="0"]
+self_modulate = Color(0.737255, 0.231373, 0.192157, 1)
 
 [node name="ClickablePip4" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hk3hf")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip4" index="0"]
+self_modulate = Color(0, 0.623529, 0.505882, 1)
 
 [node name="ClickablePip5" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dx3km")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip5" index="0"]
+self_modulate = Color(0.211765, 0.521569, 0.180392, 1)
 
 [node name="ClickablePip6" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r2hmt")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip6" index="0"]
+self_modulate = Color(0.839216, 0.376471, 0.701961, 1)
 
 [node name="ClickablePip7" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_38nr5")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip7" index="0"]
+self_modulate = Color(0.188235, 0.388235, 0.760784, 1)
 
 [node name="ClickablePip8" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0ry6d")
 lobby_select = NodePath("../../../../..")
+
+[node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip8" index="0"]
+self_modulate = Color(0.972549, 0.443137, 0, 1)
 
 [node name="BodyContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 self_modulate = Color(0, 0.584314, 0.45098, 1)
@@ -451,6 +366,35 @@ replication_config = SubResource("SceneReplicationConfig_i7afp")
 [node name="NotifSpawnPos" type="Marker2D" parent="."]
 position = Vector2(225, -24)
 
+[node name="UnlockConditionContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -209.0
+offset_top = -190.0
+offset_right = 212.0
+offset_bottom = -136.0
+grow_horizontal = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="CharacterCondition" type="Label" parent="UnlockConditionContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Character Condition"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColourCondition" type="Label" parent="UnlockConditionContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Character Condition"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="mouse_entered" from="." to="." method="_on_panel_container_mouse_entered" binds= [2]]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_panel_container_mouse_entered" binds= [0]]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/ColorContainer" to="." method="_on_panel_container_mouse_entered" binds= [1]]
@@ -465,6 +409,14 @@ position = Vector2(225, -24)
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip6"]
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip7"]
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip2"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip3"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip4"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip5"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip6"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip7"]
+[editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip8"]
 [editable path="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody"]
 [editable path="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody2"]
 [editable path="PanelContainer/VBoxContainer/BodyContainer/BodyPips/ClickablePipBody3"]

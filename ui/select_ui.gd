@@ -27,6 +27,12 @@ signal raider_selected(peer_id, device_id)
 @export var select_controls_panel : Control # hide and show this depending on if a player has joined
 @export var panels_array : Array[Control]
 
+@export var player_data : PlayerData
+
+@export_category("Condition Texts")
+@export var character_condition : Label
+@export var color_condition : Label
+
 var display_name : String
 
 var finished_connecting : bool
@@ -38,7 +44,6 @@ var devices: Array[int]
 var connected_time : float
 var readied_up : bool = false
 
-@export var player_data : PlayerData
 var player_node : Player
 
 var new_ui : PlayerUI
@@ -106,30 +111,30 @@ func _process(_delta):
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
-					selected_raider = wrapi(selected_raider - 1, 0,SaveManager.runs_completed+4)
+					selected_raider = wrapi(selected_raider - 1, 0, character_pips_box.get_children().size())
 					while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
-						selected_raider = wrapi(selected_raider - 1, 0,SaveManager.runs_completed+4)
+						selected_raider = wrapi(selected_raider - 1, 0, character_pips_box.get_children().size())
 				elif(selected_panel == 1): #color selected
-					selected_color = wrapi(selected_color - 1, 0, SaveManager.runs_completed+4)
+					selected_color = wrapi(selected_color - 1, 0, color_pips_box.get_children().size())
 					while !has_valid_color():
-						selected_color = wrapi(selected_color - 1, 0, SaveManager.runs_completed+4)
+						selected_color = wrapi(selected_color - 1, 0, color_pips_box.get_children().size())
 				elif(selected_panel == 2): #body selected
 					selected_body = wrapi(selected_body - 1, 0, body_pips_box.get_children().size())
 				
 			if(("right" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
-					selected_raider = wrapi(selected_raider + 1, 0, SaveManager.runs_completed+4)
+					selected_raider = wrapi(selected_raider + 1, 0, character_pips_box.get_children().size())
 					while lobby_manager.picked_raiders.has(selected_raider) and not lobby_manager.allow_duplicate_animals:
-						selected_raider = wrapi(selected_raider + 1, 0, SaveManager.runs_completed+4)
+						selected_raider = wrapi(selected_raider + 1, 0, character_pips_box.get_children().size())
 				elif(selected_panel == 1): #loadout selected
-					selected_color = wrapi(selected_color + 1, 0, SaveManager.runs_completed+4)
+					selected_color = wrapi(selected_color + 1, 0, color_pips_box.get_children().size())
 					while !has_valid_color():
-						selected_color = wrapi(selected_color + 1, 0, SaveManager.runs_completed+4)
+						selected_color = wrapi(selected_color + 1, 0, color_pips_box.get_children().size())
 				elif(selected_panel == 2): #body selected
 					selected_body = wrapi(selected_body + 1, 0, body_pips_box.get_children().size())
 			
 			if ("confirm" in mouse_input):
-				if (valid_color): # NOTE: removed ready button hover requirement
+				if (valid_color) and (character_pips_box.get_child(selected_raider) as ClickablePip).is_unlocked and (color_pips_box.get_child(selected_color) as ClickablePip).is_unlocked:
 					spawn_player.rpc(display_name, selected_raider, selected_color)
 			
 			UpdateDisplay()
@@ -151,20 +156,40 @@ func UpdateDisplay():
 	highlight_color = lobby_manager.player_colors[selected_color]
 	for pip in character_pips_box.get_children().size():
 		if pip == selected_raider:
-			character_pips_box.get_child(pip).modulate = Color.WHITE
+			if !(character_pips_box.get_child(pip) as ClickablePipCharacter).is_unlocked: #If is locked
+				(character_pips_box.get_child(pip) as ClickablePipCharacter).locked_and_selected()
+				#Show text
+				character_condition.text = "Complete " + str(selected_raider-3-SaveManager.runs_completed) + " more run" + ("s" if selected_raider-3-SaveManager.runs_completed > 1 else "") + " to unlock this character!"
+				character_condition.show()
+			else: #Unlocked pip
+				character_pips_box.get_child(pip).modulate = Color.WHITE
+				character_condition.hide()
 		elif lobby_manager.picked_raiders.has(pip) and not lobby_manager.allow_duplicate_animals:
 			character_pips_box.get_child(pip).modulate = Color8(255,255,255,40)
-		elif color_pips_box.get_child(pip).modulate != Color.BLACK: 
+		elif (character_pips_box.get_child(pip) as ClickablePip).is_unlocked:
 			character_pips_box.get_child(pip).modulate = Color.DIM_GRAY
+		else:
+			(character_pips_box.get_child(pip) as ClickablePipCharacter).locked()
 	
+	#Manage colour pips
 	for pip in color_pips_box.get_children().size():
 		if pip == selected_color:
-			color_pips_box.get_child(pip).modulate = Color.WHITE
+			if !(color_pips_box.get_child(pip) as ClickablePip).is_unlocked: #If is locked
+				(color_pips_box.get_child(pip) as ClickablePipColor).locked_and_selected()
+				#Show text
+				color_condition.text = "Complete " + str(selected_color-3-SaveManager.runs_completed) + " more run" + ("s" if selected_color-3-SaveManager.runs_completed > 1 else "") + " to unlock this colour!"
+				color_condition.show()
+			else: #Unlocked pip
+				color_pips_box.get_child(pip).modulate = Color.WHITE
+				color_condition.hide()
 		elif some_player_has_color(pip):
 			color_pips_box.get_child(pip).modulate = Color8(255,255,255,20)
-		elif color_pips_box.get_child(pip).modulate != Color.BLACK: 
+		elif (color_pips_box.get_child(pip) as ClickablePip).is_unlocked:
 			color_pips_box.get_child(pip).modulate = Color.DIM_GRAY
+		else:
+			(color_pips_box.get_child(pip) as ClickablePipColor).locked()
 		
+	#Manage body pips
 	for pip in body_pips_box.get_children().size():
 		if pip == selected_body:
 			body_pips_box.get_child(pip).modulate = Color.WHITE
@@ -179,7 +204,7 @@ func UpdateDisplay():
 	for panel_num in panels_array.size():
 		if selected_panel == panel_num:
 			#highlight panel with moduate
-			(panels_array[panel_num] as Control).self_modulate = highlight_color
+			(panels_array[panel_num] as Control).self_modulate = highlight_color if (color_pips_box.get_child(selected_color) as ClickablePipColor).is_unlocked else Color.WEB_GRAY
 		else:
 			#restore it to normal modulation
 			(panels_array[panel_num] as Control).self_modulate = Color("363636")

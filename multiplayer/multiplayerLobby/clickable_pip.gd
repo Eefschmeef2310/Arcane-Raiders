@@ -14,8 +14,8 @@ func _ready():
 		is_unlocked = true
 	
 	if !is_unlocked:
-		modulate = Color.BLACK
 		mouse_default_cursor_shape = Control.CURSOR_ARROW
 
 func _on_gui_input(event):
-	gui_input_pass_self.emit(event, self);
+	gui_input_pass_self.emit(event, self)
+	

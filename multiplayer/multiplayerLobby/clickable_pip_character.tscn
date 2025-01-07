@@ -20,10 +20,11 @@ resource_local_to_scene = true
 atlas = ExtResource("2_m5ekn")
 region = Rect2(35, 35, 80, 80)
 
-[node name="ClickablePip" type="PanelContainer"]
+[node name="ClickablePip" type="PanelContainer" node_paths=PackedStringArray("head")]
 mouse_default_cursor_shape = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_drhxr")
 script = ExtResource("1_2bfpq")
+head = NodePath("TextureRect")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(40, 40)
