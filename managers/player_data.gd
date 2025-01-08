@@ -46,6 +46,7 @@ var spell_cooldowns : Array[float] = [0,0,0]
 @export var reactions_created : int
 @export var pickups_obtained : int
 @export var has_crown : bool
+var took_damage : bool = false
 
 @export var synergy_bonus : float
 @export var synergy_element : ElementResource
@@ -79,6 +80,8 @@ func _process(delta):
 func _on_player_health_updated(amount):
 	health = amount
 	health_changed.emit(self, health)
+	if health < 100:
+		took_damage = true
 
 func start_cooldown(slot: int, time: float):
 	spell_cooldowns_max[slot] = time
@@ -99,6 +102,7 @@ func get_synergy(_slot):
 			synergy_bonus = 0.5
 			color = spells[0].element.colour
 			synergy_element = spells[0].element
+			SteamManager.grant_acheivement("synergy")
 		elif (spells[0].element == spells[1].element or spells[0].element == spells[2].element) and spells[0].element.prefix != "":
 			synergy_bonus = 0.25
 			color = spells[0].element.colour
@@ -112,6 +116,15 @@ func get_synergy(_slot):
 			synergy_element = null
 		
 		synergy_updated.emit(synergy_bonus, color)
+	
+	#21st night acheivement
+	if spells[0] and spells[1] and spells[2]:
+		print("tabby:" + spells[0].element.prefix)
+		var earth : bool = spells[0].element.prefix == "Stun-" or spells[1].element.prefix == "Stun-" or spells[2].element.prefix == "Stun-"
+		var wind : bool = spells[0].element.prefix == "Wind-" or spells[1].element.prefix == "Wind-" or spells[2].element.prefix == "Wind-"
+		var fire : bool = spells[0].element.prefix == "Pyro-" or spells[1].element.prefix == "Pyro-" or spells[2].element.prefix == "Pyro-"
+		if earth and wind and fire:
+			SteamManager.grant_acheivement("21st_night")
 
 func set_hat_from_string(s: String):
 	hat_string = s

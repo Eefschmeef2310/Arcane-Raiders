@@ -21,6 +21,8 @@ var games_played : int = 0
 var area_1_complete : bool = false
 var area_2_complete : bool = false
 
+var total_kills : int = 0
+
 func _ready():
 	autosave_timer = Timer.new()
 	autosave_timer.wait_time = 0.2
@@ -62,6 +64,7 @@ func save_file():
 		"games_played" : games_played,
 		"area_1_complete" : area_1_complete,
 		"area_2_complete" : area_2_complete,
+		"total_kills" : total_kills
 	}
 	
 	var json_string = JSON.stringify(dict)
@@ -90,6 +93,8 @@ func load_file():
 		area_1_complete = dict["area_1_complete"]
 	if "area_2_complete" in dict.keys():
 		area_2_complete = dict["area_2_complete"]
+	if "total_kills" in dict.keys():
+		total_kills = dict["total_kills"]
 
 
 func request_save():

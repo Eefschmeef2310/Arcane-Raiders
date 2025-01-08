@@ -52,6 +52,10 @@ func _ready():
 		SaveManager.area_1_complete = true
 	elif castle_climb.current_floor >= 8:
 		SaveManager.area_2_complete = true
+	
+	for player in castle_climb.player_data:
+		SaveManager.total_kills += player.kills
+	
 	SaveManager.request_save()
 	
 	#display all the per player stats
@@ -162,8 +166,29 @@ func _ready():
 			SaveManager.hats_highest_difficulty_completed[hat] = castle_climb.difficulty_setting
 	SaveManager.request_save()
 	
-	if castle_climb.difficulty_setting == 0:
-		SteamManager.grant_acheivement("win_easy")
+	if not castle_climb.preset_seed:
+		if castle_climb.difficulty_setting >= 0:
+			SteamManager.grant_acheivement("win_easy")
+		if castle_climb.difficulty_setting >= 1:
+			SteamManager.grant_acheivement("win_mediun")
+		if castle_climb.difficulty_setting >= 2:
+			SteamManager.grant_acheivement("win_hard")
+		if castle_climb.time_elapsed < 300:
+			SteamManager.grant_acheivement("speed")
+		if castle_climb.difficulty_setting >= 3:
+			SteamManager.grant_acheivement("win_expert")
+			if castle_climb.time_elapsed < 300:
+				SteamManager.grant_acheivement("speed_expert")
+		
+		if castle_climb.number_of_players == 4:
+			SteamManager.grant_acheivement("4_players")
+			
+		var no_damage = true
+		for player in castle_climb.player_data:
+			if player.took_damage == true:
+				no_damage = false
+		if no_damage == true:
+			SteamManager.grant_acheivement("no_damage")
 	
 	SteamManager.update_stats_and_achievements()
 
