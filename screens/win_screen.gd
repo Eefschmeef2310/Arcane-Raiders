@@ -182,6 +182,8 @@ func _ready():
 		
 		if castle_climb.number_of_players == 4:
 			SteamManager.grant_acheivement("4_players")
+		if castle_climb.number_of_players == 1 and castle_climb.difficulty_setting == 3:
+			SteamManager.grant_acheivement("1_player_expert")
 			
 		var no_damage = true
 		for player in castle_climb.player_data:
