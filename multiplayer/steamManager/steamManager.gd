@@ -93,3 +93,9 @@ func is_demo() -> bool:
 func update_stats_and_achievements() -> void:		
 	upload_stat_int("plays", SaveManager.games_played)
 	upload_stat_int("wins", SaveManager.runs_completed)
+	if SaveManager.runs_completed >= 1 and SaveManager.games_played >= 10:
+		SteamManager.grant_acheivement("all_hats")
+	upload_stat_int("kills", SaveManager.total_kills)
+
+func reset_stats_and_achievements() -> void:
+	Steam.resetAllStats(true)

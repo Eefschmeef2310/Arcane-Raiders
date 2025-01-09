@@ -31,6 +31,10 @@ func _ready():
 		SaveManager.area_1_complete = true
 	elif castle_climb.current_floor >= 8:
 		SaveManager.area_2_complete = true
+		
+	for player in castle_climb.player_data:
+		SaveManager.total_kills += player.kills
+		
 	SaveManager.request_save()
 	
 	AudioManager.play_track_fade("lose")
