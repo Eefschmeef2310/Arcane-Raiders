@@ -24,6 +24,7 @@ info_container = NodePath("InfoBox")
 condition_box = NodePath("ConditionBox")
 condition_label = NodePath("ConditionBox/ConditionLabel")
 highest_difficulty = NodePath("InfoBox/VBoxContainer/Difficulty")
+locked_color = Color(0.12549, 0.12549, 0.12549, 1)
 icon = NodePath("Icon")
 
 [node name="UnlockConditionContainer" type="Node" parent="."]

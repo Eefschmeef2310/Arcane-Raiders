@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=69 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -39,7 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://bsx13sd0vwllp" path="res://hats/sprites/cap.png" id="33_5avpe"]
 [ext_resource type="Texture2D" uid="uid://byg1lp65ne0aa" path="res://hats/sprites/top_hat.png" id="34_5q4m5"]
 [ext_resource type="Texture2D" uid="uid://dkpnosl74iyee" path="res://hats/sprites/wizard_hat.png" id="35_dt86x"]
-[ext_resource type="PackedScene" path="res://tilesets/decorations/bush.tscn" id="36_k1eci"]
+[ext_resource type="PackedScene" uid="uid://11s7wrfbg1h1" path="res://tilesets/decorations/bush.tscn" id="36_k1eci"]
 [ext_resource type="Texture2D" uid="uid://btamxs2mkjwox" path="res://tilesets/decorations/dirt1.png" id="38_iyu5g"]
 [ext_resource type="Texture2D" uid="uid://ch4e5y1iefvoj" path="res://tilesets/decorations/grass1.png" id="39_whnr4"]
 [ext_resource type="Texture2D" uid="uid://c31gixqqe88mm" path="res://tilesets/decorations/grass2.png" id="40_yx4qc"]
@@ -49,6 +49,7 @@
 [ext_resource type="PackedScene" uid="uid://b7ucgdokfb826" path="res://hats/pickups/hat_destroyer.tscn" id="43_sukgf"]
 [ext_resource type="Script" path="res://hats/unlock_conditions/area_1_complete.gd" id="44_3314m"]
 [ext_resource type="Script" path="res://hats/unlock_conditions/area_2_complete.gd" id="45_gfpef"]
+[ext_resource type="Script" path="res://hats/unlock_conditions/complete_the_tower.gd" id="46_wm8y6"]
 [ext_resource type="Script" path="res://hats/unlock_conditions/complete_runs.gd" id="47_dwkim"]
 
 [sub_resource type="Gradient" id="Gradient_n0mbe"]
@@ -267,6 +268,9 @@ text = "[center]Press Space /[img width=48]res://ui/join_button.svg[/img] to joi
 
 [node name="DynamicCamera" parent="." index="4"]
 position = Vector2(640, 647)
+
+[node name="ColorRect" parent="DynamicCamera/ParallaxBackground" index="0"]
+metadata/_edit_lock_ = true
 
 [node name="PlayerSpawn0" parent="." index="5"]
 visible = false
@@ -769,7 +773,7 @@ unlocked = false
 unlock_condition_script = NodePath("UnlockConditionContainer")
 
 [node name="UnlockConditionContainer" parent="Vampire" index="0"]
-script = ExtResource("45_gfpef")
+script = ExtResource("46_wm8y6")
 condition_text = "Complete Floor 11 to Unlock!"
 
 [node name="Outline" parent="Vampire" index="1"]

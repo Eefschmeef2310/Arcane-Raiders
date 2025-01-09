@@ -159,7 +159,7 @@ func UpdateDisplay():
 			if !(character_pips_box.get_child(pip) as ClickablePipCharacter).is_unlocked: #If is locked
 				(character_pips_box.get_child(pip) as ClickablePipCharacter).locked_and_selected()
 				#Show text
-				character_condition.text = "Complete " + str(selected_raider-3-SaveManager.runs_completed) + " more run" + ("s" if selected_raider-3-SaveManager.runs_completed > 1 else "") + " to unlock this character!"
+				character_condition.text = "Complete " + str((character_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + " more achievement" + ("s" if (character_pips_box.get_child(pip) as ClickablePipCharacter).achievements_required - SteamManager.unlocked_achievements > 1 else "") + " to unlock this character!"
 				character_condition.show()
 			else: #Unlocked pip
 				character_pips_box.get_child(pip).modulate = Color.WHITE
@@ -177,7 +177,7 @@ func UpdateDisplay():
 			if !(color_pips_box.get_child(pip) as ClickablePip).is_unlocked: #If is locked
 				(color_pips_box.get_child(pip) as ClickablePipColor).locked_and_selected()
 				#Show text
-				color_condition.text = "Complete " + str(selected_color-3-SaveManager.runs_completed) + " more run" + ("s" if selected_color-3-SaveManager.runs_completed > 1 else "") + " to unlock this colour!"
+				color_condition.text = "Complete " + str((color_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + " more run" + ("s" if (color_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements > 1 else "") + " to unlock this colour!"
 				color_condition.show()
 			else: #Unlocked pip
 				color_pips_box.get_child(pip).modulate = Color.WHITE

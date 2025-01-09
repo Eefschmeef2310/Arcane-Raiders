@@ -207,6 +207,7 @@ texture = SubResource("AtlasTexture_tfwju")
 [node name="ClickablePip5" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 2
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip5" index="0"]
 texture = SubResource("AtlasTexture_3mrf6")
@@ -214,6 +215,7 @@ texture = SubResource("AtlasTexture_3mrf6")
 [node name="ClickablePip6" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 5
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip6" index="0"]
 texture = SubResource("AtlasTexture_8c2hr")
@@ -221,6 +223,7 @@ texture = SubResource("AtlasTexture_8c2hr")
 [node name="ClickablePip7" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 7
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip7" index="0"]
 texture = SubResource("AtlasTexture_6nk1r")
@@ -228,6 +231,7 @@ texture = SubResource("AtlasTexture_6nk1r")
 [node name="ClickablePip8" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 9
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8" index="0"]
 texture = SubResource("AtlasTexture_cxe7b")
@@ -275,6 +279,7 @@ self_modulate = Color(0, 0.623529, 0.505882, 1)
 [node name="ClickablePip5" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 4
 
 [node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip5" index="0"]
 self_modulate = Color(0.211765, 0.521569, 0.180392, 1)
@@ -282,6 +287,7 @@ self_modulate = Color(0.211765, 0.521569, 0.180392, 1)
 [node name="ClickablePip6" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 6
 
 [node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip6" index="0"]
 self_modulate = Color(0.839216, 0.376471, 0.701961, 1)
@@ -289,6 +295,7 @@ self_modulate = Color(0.839216, 0.376471, 0.701961, 1)
 [node name="ClickablePip7" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 8
 
 [node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip7" index="0"]
 self_modulate = Color(0.188235, 0.388235, 0.760784, 1)
@@ -296,6 +303,7 @@ self_modulate = Color(0.188235, 0.388235, 0.760784, 1)
 [node name="ClickablePip8" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips" node_paths=PackedStringArray("lobby_select") instance=ExtResource("12_4okyq")]
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
+achievements_required = 10
 
 [node name="Panel" parent="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip8" index="0"]
 self_modulate = Color(0.972549, 0.443137, 0, 1)

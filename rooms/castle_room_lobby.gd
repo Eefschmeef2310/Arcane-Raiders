@@ -46,6 +46,10 @@ var server_browser_node : Node
 
 var difficulty_names = ["Easy", "Medium", "Hard", "Extreme"]
 
+func _enter_tree():
+	#Initialise Steam Achievements before pips are loaded into memory
+	SteamManager.count_unlocked_achievements()
+
 func _ready():
 	#debug_start_button.disabled = not multiplayer.is_server()
 	##Runs when all children have entered the tree

@@ -168,26 +168,26 @@ func _ready():
 	
 	if not castle_climb.preset_seed:
 		if castle_climb.difficulty_setting >= 0:
-			SteamManager.grant_acheivement("win_easy")
+			SteamManager.grant_achievement("win_easy")
 		if castle_climb.difficulty_setting >= 1:
-			SteamManager.grant_acheivement("win_medium")
+			SteamManager.grant_achievement("win_medium")
 		if castle_climb.difficulty_setting >= 2:
-			SteamManager.grant_acheivement("win_hard")
+			SteamManager.grant_achievement("win_hard")
 		if castle_climb.time_elapsed < 400:
-			SteamManager.grant_acheivement("speed")
+			SteamManager.grant_achievement("speed")
 		if castle_climb.difficulty_setting >= 3:
-			SteamManager.grant_acheivement("win_expert")
+			SteamManager.grant_achievement("win_expert")
 			if castle_climb.time_elapsed < 400:
-				SteamManager.grant_acheivement("speed_expert")
+				SteamManager.grant_achievement("speed_expert")
 		
 		if castle_climb.number_of_players == 4:
-			SteamManager.grant_acheivement("4_players")
+			SteamManager.grant_achievement("4_players")
 		if castle_climb.number_of_players == 1 and castle_climb.difficulty_setting == 3:
-			SteamManager.grant_acheivement("1_player_expert")
+			SteamManager.grant_achievement("1_player_expert")
 			
 		
 		if SteamManager.damageless:
-			SteamManager.grant_acheivement("no_damage")
+			SteamManager.grant_achievement("no_damage")
 	
 	SteamManager.update_stats_and_achievements()
 

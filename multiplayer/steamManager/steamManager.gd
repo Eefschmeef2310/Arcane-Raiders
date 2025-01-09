@@ -6,15 +6,15 @@ const version_id : int = 2899410
 #480 for SPACEWAR
 
 const live_mode = true #switches the app id to the real id and 
-#enables functions such as leaderboards and acheivements
+#enables functions such as leaderboards and achievements
 
 var player_id = 0 ## 0 = host/offline, 1-2-3 are players that join
 
 var server_browser_node : Node
 
 var damageless : bool = true
-var unlocked_acheivements : int = 0
-var acheivement_list : Array[String] = ["100_plays","50_wins","win_easy","win_medium","win_hard","win_expert","21st_night","4_players","speed","speed_expert","all_hats","no_damage","synergy","1000_kills","1_player_expert"]
+var unlocked_achievements : int = 0
+var achievement_list : Array[String] = ["100_plays","50_wins","win_easy","win_medium","win_hard","win_expert","21st_night","4_players","speed","speed_expert","all_hats","no_damage","synergy","1000_kills","1_player_expert"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,17 +41,17 @@ func _ready():
 func _process(_delta):
 	Steam.run_callbacks()
 	
-	if Input.is_action_just_pressed("debug_count_acheivements"):
-		count_unlocked_achievements()
+	#if Input.is_action_just_pressed("debug_count_achievements"):
+		#count_unlocked_achievements()
 
-func grant_acheivement(acheivement_name : String):
+func grant_achievement(achievement_name : String):
 	#Note: if you want to have an acheievemtn with a progress bar then it needs to be setup with a corresponding stat!
 	if (live_mode):
-		print("Giving acheivement: " + acheivement_name)
-		Steam.setAchievement(acheivement_name)
+		print("Giving achievement: " + achievement_name)
+		Steam.setAchievement(achievement_name)
 		Steam.storeStats()
 	else:
-		print("Would have given acheievement " + acheivement_name + " but live_mode is false!")
+		print("Would have given acheievement " + achievement_name + " but live_mode is false!")
 
 func upload_leaderboard(score, keep_best : bool, details, handle):
 	if (live_mode):
@@ -102,7 +102,7 @@ func update_stats_and_achievements() -> void:
 	upload_stat_int("plays", SaveManager.games_played)
 	upload_stat_int("wins", SaveManager.runs_completed)
 	if SaveManager.runs_completed >= 1 and SaveManager.games_played >= 10:
-		SteamManager.grant_acheivement("all_hats")
+		SteamManager.grant_achievement("all_hats")
 	upload_stat_int("kills", SaveManager.total_kills)
 	Steam.storeStats()
 
@@ -112,12 +112,13 @@ func reset_stats_and_achievements() -> void:
 # counts how many acheiveemnts the user has unlocked and puts it in unlocked_achievements
 func count_unlocked_achievements() -> void:
 	Steam.requestCurrentStats()
+	
 	#Steam.getUserAchievement()
 
 func _on_current_stats_received(game : int, result : int, user : int):
-	var acheivement_count : int = 0
-	for acheivement in acheivement_list:
-		if Steam.getAchievement(acheivement)['achieved']:
-			acheivement_count += 1
-	print("Tabby~ Unlocked: " + str(acheivement_count) +"/" +str(acheivement_list.size()) )
-	unlocked_acheivements = acheivement_count
+	var achievement_count : int = 0
+	for achievement in achievement_list:
+		if Steam.getAchievement(achievement)['achieved']:
+			achievement_count += 1
+	print("Tabby~ Unlocked: " + str(achievement_count) +"/" +str(achievement_list.size()) )
+	unlocked_achievements = achievement_count

@@ -18,6 +18,7 @@ class_name HatPickup #THIS MUST BE A SEPARATE CLASS BCS THIS SCRIPT IS USED FOR 
 @export var hat_string : String
 @export var highest_difficulty : RichTextLabel
 @export var unlocked = true
+@export var locked_color : Color = Color.BLACK
 
 @export var icon : Node2D
 @export var unlock_condition_script : HatUnlockCondition
@@ -53,7 +54,7 @@ func _ready():
 	get_highest_completion_difficulty()
 	
 	if !unlocked:
-		icon.modulate = Color.BLACK
+		icon.modulate = locked_color
 		if is_instance_valid(unlock_condition_script):
 			info_container = condition_box
 			condition_label.text = unlock_condition_script.condition_text
