@@ -50,7 +50,7 @@ func _ready():
 	SaveManager.games_played += 1
 	if castle_climb.current_floor >= 4:
 		SaveManager.area_1_complete = true
-	elif castle_climb.current_floor >= 8:
+	if castle_climb.current_floor >= 8:
 		SaveManager.area_2_complete = true
 	
 	for player in castle_climb.player_data:

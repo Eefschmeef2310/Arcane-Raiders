@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c5fgoh06xrvsb"]
+[gd_scene load_steps=30 format=3 uid="uid://c5fgoh06xrvsb"]
 
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="1_a4rya"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/state_machine.gd" id="2_r37mn"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="9_6xc7a"]
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="10_wxye7"]
 [ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="11_ba4mg"]
+[ext_resource type="Texture2D" uid="uid://c7rdj0qkn6y7m" path="res://moving_entities/player/player_pieces/Body2.png" id="17_toc34"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
 resource_name = "EvilWizard"
@@ -446,6 +447,7 @@ animation = ""
 [node name="PlayerData" parent="." index="6"]
 spell_cooldowns_max = Array[float]([0.0, 0.0, 0.0, 0.0])
 spell_strings = Array[String](["", "", "", ""])
+body_sprite = ExtResource("17_toc34")
 
 [node name="Hurtbox" parent="." index="8"]
 collision_layer = 8

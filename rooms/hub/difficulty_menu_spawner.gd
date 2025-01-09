@@ -5,6 +5,9 @@ const DIFFICULTY_MENU = preload("res://menus/difficulty_menu.tscn")
 
 @export var interact_label : Label
 @export var current_difficulty : RichTextLabel
+@export var container : Node2D
+
+@onready var init_pos = $"../Shadow".scale
 
 var base_y = 0
 var t = 0
@@ -31,6 +34,9 @@ func _physics_process(delta):
 	if t >= 360:
 		t -= 360
 	global_position.y = base_y + (sin(t * freq) * amp)
+	
+	var test = 1 + sin(t*2)*0.25
+	$"../Shadow".scale = Vector2(init_pos.x*test, init_pos.y*test)
 
 func on_interact(player: Player):
 	if player.data.peer_id == 1:
@@ -52,7 +58,7 @@ func _on_area_exited(area):
 
 func update_current_label():
 	current_difficulty.text = "[center]Current Difficulty: "
-	match (get_parent() as CastleRoomLobby).chosen_difficulty:
+	match (container.get_parent() as CastleRoomLobby).chosen_difficulty:
 		0:
 			current_difficulty.text += "[color=green]Easy"
 		1:
