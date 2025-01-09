@@ -96,3 +96,6 @@ func update_stats_and_achievements() -> void:
 	if SaveManager.runs_completed >= 1 and SaveManager.games_played >= 10:
 		SteamManager.grant_acheivement("all_hats")
 	upload_stat_int("kills", SaveManager.total_kills)
+
+func reset_stats_and_achievements() -> void:
+	Steam.resetAllStats(true)

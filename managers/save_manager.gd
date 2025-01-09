@@ -53,6 +53,15 @@ func _input(event):
 		area_1_complete = false
 		area_2_complete = false
 		request_save()
+	elif event.is_action_pressed("debug_reset_steam_stats"):
+		highest_difficulty_unlocked = 0
+		hats_highest_difficulty_completed = {}
+		runs_completed = 0
+		games_played = 0
+		area_1_complete = false
+		area_2_complete = false
+		request_save()
+		SteamManager.reset_stats_and_achievements()
 
 func save_file():
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
