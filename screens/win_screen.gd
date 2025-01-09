@@ -170,14 +170,14 @@ func _ready():
 		if castle_climb.difficulty_setting >= 0:
 			SteamManager.grant_acheivement("win_easy")
 		if castle_climb.difficulty_setting >= 1:
-			SteamManager.grant_acheivement("win_mediun")
+			SteamManager.grant_acheivement("win_medium")
 		if castle_climb.difficulty_setting >= 2:
 			SteamManager.grant_acheivement("win_hard")
-		if castle_climb.time_elapsed < 480:
+		if castle_climb.time_elapsed < 400:
 			SteamManager.grant_acheivement("speed")
 		if castle_climb.difficulty_setting >= 3:
 			SteamManager.grant_acheivement("win_expert")
-			if castle_climb.time_elapsed < 480:
+			if castle_climb.time_elapsed < 400:
 				SteamManager.grant_acheivement("speed_expert")
 		
 		if castle_climb.number_of_players == 4:
