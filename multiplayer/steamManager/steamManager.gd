@@ -12,6 +12,10 @@ var player_id = 0 ## 0 = host/offline, 1-2-3 are players that join
 
 var server_browser_node : Node
 
+var damageless : bool = true
+var unlocked_acheivements : int = 0
+var acheivement_list : Array[String] = ["100_plays","50_wins","win_easy","win_medium","win_hard","win_expert","21st_night","4_players","speed","speed_expert","all_hats","no_damage","synergy","1000_kills","1_player_expert"]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	OS.set_environment("SteamAppID", str(version_id))
@@ -26,6 +30,7 @@ func _ready():
 	Steam.inputInit()
 	Steam.enableDeviceCallbacks()
 	
+	Steam.current_stats_received.connect(_on_current_stats_received)
 	#SteamControllerInput.init()
 	
 	## Spacewar (test app) : 480
@@ -35,6 +40,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	Steam.run_callbacks()
+	
+	if Input.is_action_just_pressed("debug_count_acheivements"):
+		count_unlocked_achievements()
 
 func grant_acheivement(acheivement_name : String):
 	#Note: if you want to have an acheievemtn with a progress bar then it needs to be setup with a corresponding stat!
@@ -96,6 +104,20 @@ func update_stats_and_achievements() -> void:
 	if SaveManager.runs_completed >= 1 and SaveManager.games_played >= 10:
 		SteamManager.grant_acheivement("all_hats")
 	upload_stat_int("kills", SaveManager.total_kills)
+	Steam.storeStats()
 
 func reset_stats_and_achievements() -> void:
 	Steam.resetAllStats(true)
+
+# counts how many acheiveemnts the user has unlocked and puts it in unlocked_achievements
+func count_unlocked_achievements() -> void:
+	Steam.requestCurrentStats()
+	#Steam.getUserAchievement()
+
+func _on_current_stats_received(game : int, result : int, user : int):
+	var acheivement_count : int = 0
+	for acheivement in acheivement_list:
+		if Steam.getAchievement(acheivement)['achieved']:
+			acheivement_count += 1
+	print("Tabby~ Unlocked: " + str(acheivement_count) +"/" +str(acheivement_list.size()) )
+	unlocked_acheivements = acheivement_count
