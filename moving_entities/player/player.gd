@@ -430,6 +430,8 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		return
 	
 	taken_damage.emit()
+	print("tabby: player dmage detected")
+	SteamManager.damageless = false
 	
 	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
 

@@ -80,8 +80,9 @@ func _process(delta):
 func _on_player_health_updated(amount):
 	health = amount
 	health_changed.emit(self, health)
-	if health < 100:
-		SteamManager.damageless = false
+	#if health < 100:
+		#print("tabby: player dmage detected")
+		#SteamManager.damageless = false
 
 func start_cooldown(slot: int, time: float):
 	spell_cooldowns_max[slot] = time
