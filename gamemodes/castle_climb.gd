@@ -64,6 +64,7 @@ var difficulty_values_array = [
 @export var difficulty_setting : int = 0
 
 @export var james_mode: bool = false
+var damageless = true
 
 var number_of_players = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -222,6 +223,7 @@ func get_leaderboard() -> Array[int]:
 
 func start_climb():
 	# Do any server-sided stuff here
+	SteamManager.damageless = true
 	print("Number of players: " + str(number_of_players))
 	if number_of_players <= 0:
 		number_of_players = 1

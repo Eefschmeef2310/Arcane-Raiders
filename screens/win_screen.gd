@@ -173,11 +173,11 @@ func _ready():
 			SteamManager.grant_acheivement("win_mediun")
 		if castle_climb.difficulty_setting >= 2:
 			SteamManager.grant_acheivement("win_hard")
-		if castle_climb.time_elapsed < 300:
+		if castle_climb.time_elapsed < 480:
 			SteamManager.grant_acheivement("speed")
 		if castle_climb.difficulty_setting >= 3:
 			SteamManager.grant_acheivement("win_expert")
-			if castle_climb.time_elapsed < 300:
+			if castle_climb.time_elapsed < 480:
 				SteamManager.grant_acheivement("speed_expert")
 		
 		if castle_climb.number_of_players == 4:
@@ -185,11 +185,8 @@ func _ready():
 		if castle_climb.number_of_players == 1 and castle_climb.difficulty_setting == 3:
 			SteamManager.grant_acheivement("1_player_expert")
 			
-		var no_damage = true
-		for player in castle_climb.player_data:
-			if player.took_damage == true:
-				no_damage = false
-		if no_damage == true:
+		
+		if SteamManager.damageless:
 			SteamManager.grant_acheivement("no_damage")
 	
 	SteamManager.update_stats_and_achievements()
