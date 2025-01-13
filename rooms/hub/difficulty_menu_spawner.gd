@@ -1,4 +1,4 @@
-extends Interactable
+extends Area2D
 #Authored by Ethan
 
 const DIFFICULTY_MENU = preload("res://menus/difficulty_menu.tscn")

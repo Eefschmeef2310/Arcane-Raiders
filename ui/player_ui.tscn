@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_muc18"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54w0o"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2odk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mj3sv"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrbg8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0bff7"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -197,7 +197,7 @@ _data = {
 "show": SubResource("Animation_o7oqj")
 }
 
-[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "synergy_text", "spells", "health_bar", "border", "head_panel", "head", "health_bar_linger", "hat_label", "health_bar_label", "element_particle", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
+[node name="PlayerUI" type="VBoxContainer" node_paths=PackedStringArray("damage_stat", "kills_stat", "crown", "player_username", "synergy_text", "synergy_height_control", "spells", "health_bar", "border", "head_panel", "head", "health_bar_linger", "hat_label", "health_bar_label", "element_particle", "stat_panel", "damage_label", "kills_label", "money_label", "reactions_label", "pickups_label")]
 custom_minimum_size = Vector2(450, 200)
 offset_right = 450.0
 offset_bottom = 200.0
@@ -209,6 +209,7 @@ kills_stat = NodePath("Stats/Stats/Kills Stat")
 crown = NodePath("Stats/Spells/Head/Crown")
 player_username = NodePath("UsernameUI/PlayerUsername")
 synergy_text = NodePath("Stats/Spells/VBoxContainer/SynergyHeightControl/Synergy Label")
+synergy_height_control = NodePath("Stats/Spells/VBoxContainer/SynergyHeightControl")
 spells = [NodePath("Stats/Spells/VBoxContainer/HBoxContainer/Spell0"), NodePath("Stats/Spells/VBoxContainer/HBoxContainer/Spell1"), NodePath("Stats/Spells/VBoxContainer/HBoxContainer/Spell2")]
 health_bar = NodePath("Stats/HealthBar")
 border = NodePath("Stats/HealthBar/Border")
@@ -315,17 +316,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_muc18")
+material = SubResource("ShaderMaterial_54w0o")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_o2odk")
+material = SubResource("ShaderMaterial_mj3sv")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_jrbg8")
+material = SubResource("ShaderMaterial_0bff7")
 layout_mode = 2
 mouse_filter = 1
 
@@ -335,7 +336,6 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="Synergy Label" type="Label" parent="Stats/Spells/VBoxContainer/SynergyHeightControl"]
-visible = false
 custom_minimum_size = Vector2(0, 14)
 layout_mode = 1
 anchors_preset = 5

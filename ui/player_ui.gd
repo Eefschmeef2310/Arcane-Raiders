@@ -15,6 +15,7 @@ class_name PlayerUI
 @export var crown : TextureRect
 @export var player_username : Label
 @export var synergy_text : Label
+@export var synergy_height_control : Control
 @export var spells: Array[SpellUISlot]
 @export var health_bar : TextureProgressBar
 @export var border : NinePatchRect
@@ -181,10 +182,12 @@ func show_hat(hat : Hat):
 
 func synergy_updated(synergy_bonus, color):
 	if synergy_bonus == 0:
+		synergy_height_control.hide()
 		synergy_text.text = ""
 		for slot in spells:
 			slot.set_particles(false)
 	else:
+		synergy_height_control.show()
 		for slot in range(spells.size()):
 			print(data.spells[slot].element == data.synergy_element)
 			spells[slot].set_particles(data.spells[slot].element == data.synergy_element)

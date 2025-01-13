@@ -17,7 +17,7 @@ func _ready():
 	super._ready()
 	await teleport_to_center()
 	await get_tree().create_timer(fire_delay, false).timeout
-	if caster: 
+	if caster and is_inside_tree(): 
 		global_position = caster.global_position
 		if \"attempt_anim\" in caster: 
 			caster.attempt_anim(\"spin\")

@@ -77,14 +77,14 @@ func _physics_process(_delta):
 #region Signal methods
 func _on_body_entered(body):
 	if body != caster and "on_hurt" in body:
-		print("bingus")
+		#print("bingus")
 		body.on_hurt(self)
 	if destroy_on_contact:
 		queue_free()
 
 func _on_area_entered(area):
 	if area.owner != caster and "on_hurt" in area.owner:
-		print("aingus")
+		#print("aingus")
 		area.owner.on_hurt(self)
 	if destroy_on_contact:
 		queue_free()

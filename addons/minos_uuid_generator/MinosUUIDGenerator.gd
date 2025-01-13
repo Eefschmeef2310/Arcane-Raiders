@@ -53,8 +53,8 @@ static func generate_new_UUID() -> String:
 	# Store UUID as used
 	usedUUID.append(finalUUID)
 	
-	if printNewUUID:
-		print("NEW UUID GENERATED: ", finalUUID)
+	#if printNewUUID:
+		#print("NEW UUID GENERATED: ", finalUUID)
 	
 	return finalUUID
 
@@ -63,11 +63,12 @@ static func remove_UUID(_uuid : String) -> void:
 	if usedUUID.has(_uuid):
 		usedUUID.erase(_uuid)
 		
-		if printSuccessfulRemoval:
-			print("UUID REMOVED: ", _uuid)
+		#if printSuccessfulRemoval:
+			#print("UUID REMOVED: ", _uuid)
 	else:
-		if printFailedRemoval:
-			printerr("ATTEMPTED TO REMOVE UUID BUT UUID NOT FOUND")
+		pass
+		#if printFailedRemoval:
+			#printerr("ATTEMPTED TO REMOVE UUID BUT UUID NOT FOUND")
 
 
 ## Create UUID at runtime

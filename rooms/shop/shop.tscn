@@ -73,6 +73,7 @@ rotation = -0.462512
 skew = 0.462512
 
 [node name="Label" type="RichTextLabel" parent="ReactionTutorial" index="0"]
+z_index = -1
 offset_right = 944.0
 offset_bottom = 254.0
 theme_override_colors/default_color = Color(1, 1, 1, 0.784314)

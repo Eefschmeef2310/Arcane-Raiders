@@ -1,7 +1,7 @@
 extends Node
 
 @export var detect_interactables: bool = true
-var closest_interactable: Interactable = null
+var closest_interactable: Area2D = null
 var had_closest_last_frame = false
 var max_distance = 100
 

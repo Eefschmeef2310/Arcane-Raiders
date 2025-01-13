@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
 [ext_resource type="PackedScene" uid="uid://dpu3i2bvxup6g" path="res://hats/scenes/explosion_hat/explosion_hat.tscn" id="5_onx36"]
 [ext_resource type="PackedScene" uid="uid://bh70olrrel7l8" path="res://tilesets/decorations/candle.tscn" id="6_scox5"]
-[ext_resource type="PackedScene" uid="uid://c5fgoh06xrvsb" path="res://moving_entities/enemies/boss_wizard/evil_wizard.tscn" id="7_uuw8w"]
+[ext_resource type="PackedScene" uid="uid://cnew2lxrfa7q7" path="res://moving_entities/enemies/bosses/boss_bat/boss_bat.tscn" id="7_ypd10"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -113,8 +113,8 @@ visible = true
 [node name="Candle" parent="." index="18" instance=ExtResource("6_scox5")]
 position = Vector2(494, 412)
 
-[node name="EvilWizard" parent="." index="19" instance=ExtResource("7_uuw8w")]
-position = Vector2(966, 498)
+[node name="BossBat" parent="." index="19" instance=ExtResource("7_ypd10")]
+position = Vector2(926, 489)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

@@ -108,7 +108,7 @@ func _on_lobby_created(connected, id):
 		lobby_id = id
 		Steam.setLobbyData(lobby_id,"name",str(Steam.getPersonaName()+"'s Arcane Raiders Lobby " + Time.get_time_string_from_system()))
 		Steam.setLobbyJoinable(lobby_id, true)
-		print(lobby_id)
+		#print(lobby_id)
 		
 func open_lobby_list():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)

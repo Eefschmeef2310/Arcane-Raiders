@@ -50,8 +50,7 @@ func change_room_light(dark_room:bool):
 	var player_lvl = 1 if dark_room else 0.1
 	var player_size = 2 if dark_room else 1
 	$PointLight2D.energy = 0
-	var tween = get_tree().create_tween()
-	tween.tween_property(canvas_modulate, \"energy\", light_lvl, 2)
+	get_tree().create_tween().parallel().tween_property(canvas_modulate, \"energy\", light_lvl, 2)
 	for p in players:
 		if is_instance_valid(p) && p.has_node(\"PointLight2D\"):
 			var light = p.get_node(\"PointLight2D\")

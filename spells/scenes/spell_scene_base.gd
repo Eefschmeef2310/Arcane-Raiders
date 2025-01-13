@@ -87,7 +87,7 @@ func transfer_data(new: Node2D):
 		new.can_knockback = can_knockback
 	if "cast_uuid" in new and "cast_uuid" in self:
 		new.cast_uuid = cast_uuid
-		print(new.cast_uuid)
+		#print(new.cast_uuid)
 	
 	if resource and resource.element and resource.element.gradient and material:
 		(material as ShaderMaterial).set_shader_parameter("gradient", resource.element.gradient)

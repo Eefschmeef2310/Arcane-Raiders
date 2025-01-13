@@ -25,12 +25,15 @@ func _process(delta):
 #endregion
 
 #region Signal methods
-func _on_area_entered(_area):
-	var parent = _area.get_parent()
+func _on_area_entered(area):
+	var parent = area.get_parent()
 	if !(parent is Player and (parent.is_invincible or parent.is_dashing)):
 		queue_free()
 
 func _on_body_entered(_body):
+	queue_free()
+	
+func _on_timer_timeout():
 	queue_free()
 #endregion
 
