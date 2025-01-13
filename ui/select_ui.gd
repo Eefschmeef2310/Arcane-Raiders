@@ -67,7 +67,7 @@ func _ready():
 	#await get_tree().create_timer(0.05).timeout
 	
 	if !GameManager.isOnline():
-		spawn_player.rpc(display_name, selected_raider, selected_color)
+		spawn_player.rpc(display_name, selected_raider, selected_color, selected_body)
 		#print("I'm the authority. " + str(peer_id))
 		  
 	if !is_multiplayer_authority():
@@ -135,7 +135,7 @@ func _process(_delta):
 			
 			if ("confirm" in mouse_input):
 				if (valid_color) and (character_pips_box.get_child(selected_raider) as ClickablePip).is_unlocked and (color_pips_box.get_child(selected_color) as ClickablePip).is_unlocked:
-					spawn_player.rpc(display_name, selected_raider, selected_color)
+					spawn_player.rpc(display_name, selected_raider, selected_color, selected_body)
 			
 			UpdateDisplay()
 			mouse_input.clear()
@@ -220,11 +220,11 @@ func UpdateDisplay():
 	has_valid_color()
 
 @rpc("authority", "call_local", "reliable")
-func spawn_player(na, raider_id, color_id):
+func spawn_player(na, raider_id, color_id, body_id):
 	player_data.player_name = na
 	player_data.character = lobby_manager.raiders[raider_id]
 	player_data.main_color = lobby_manager.player_colors[color_id]
-	player_data.body_sprite = (body_pips_box.get_child(selected_body) as ClickablePipBody).sprite.texture
+	player_data.body_sprite = lobby_manager.body_sprites[body_id]
 	player_data.peer_id = peer_id
 	player_data.device_id = device_id
 

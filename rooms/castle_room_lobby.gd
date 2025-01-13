@@ -21,6 +21,7 @@ const MAX_PLAYERS = 4
 @export var chosen_difficulty : int
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
+@export var body_sprites : Array[Texture2D]
 #@export var menu_scene : PackedScene
 @export var castle_climb_scene : PackedScene
 const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
