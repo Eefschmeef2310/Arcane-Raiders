@@ -38,3 +38,7 @@ func _on_body_entered(_body):
 func set_direction(new_direction: Vector2):
 	direction = new_direction
 #endregion
+
+
+func _on_timer_timeout():
+	queue_free()

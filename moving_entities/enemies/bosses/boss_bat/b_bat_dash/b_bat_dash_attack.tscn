@@ -57,7 +57,7 @@ func _on_fire_timer_timeout():
 [node name="BBatDashAttack" type="Node2D"]
 position = Vector2(188, 140)
 script = SubResource("GDScript_5fg5p")
-interval_time = 0.1
+interval_time = 0.2
 base_damage = 100
 end_time = 2.0
 cooldown_time = 15.0
@@ -65,7 +65,7 @@ cooldown_time = 15.0
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
 [node name="FireTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.2
 autostart = true
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
