@@ -10,6 +10,7 @@ script/source = "extends BatBlinkSpell
 const B_BOSS_CONE = preload(\"res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn\")
 
 #@export var max_blinks:int = 3
+@export var fire_delay: float = 0.5
 @export var round_of_bullets: int = 3
 #endregion
 
@@ -20,10 +21,11 @@ func _ready():
 		#for j in range(max_blinks - 1):
 			#if (randi() % 2 == 1): break
 			#else: await teleport_to_random_side()
-		caster.attempt_anim(\"windup\")
 		await teleport_to_random_side()
-		caster.attempt_anim(\"idle\")
+		caster.attempt_anim(\"windup\")
+		await get_tree().create_timer(fire_delay).timeout
 		fire(caster.aim_direction)
+		caster.attempt_anim(\"idle\")
 		await get_tree().create_timer(particle_duration).timeout
 			
 	call_deferred(\"queue_free\")
@@ -42,5 +44,5 @@ func fire(direction: Vector2):
 [node name="BBatBlinkSpam" type="Node2D"]
 script = SubResource("GDScript_h0tub")
 base_damage = 100
-end_time = 6.0
+end_time = 9.0
 cooldown_time = 20.0

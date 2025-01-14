@@ -110,6 +110,9 @@ func physics_update(delta):
 	super.physics_update(delta)
 	if !player: return
 	
+	if enemy.health <= enemy.max_health/2 && enemy.dark_room == false:
+		Transitioned.emit(self, \"darkenroom\")
+	
 	#Shockwave dash attack
 	if can_cast_spell(1):
 		ray_cast_2d.target_position = get_furthest_player().global_position.direction_to(enemy.global_position) * 9999
@@ -137,8 +140,6 @@ func physics_update(delta):
 		return
 		
 	#Dark Room check
-	if enemy.health <= enemy.max_health/2 && enemy.dark_room == false:
-		Transitioned.emit(self, \"darkenroom\")
 
 
 func set_position():
@@ -202,6 +203,7 @@ script/source = "extends State
 func enter():
 	play_anim()
 	enemy.change_room_light(true)
+	await get_tree().create_timer(1, false, true).timeout
 	Transitioned.emit(self, \"phase2\")
 "
 
@@ -501,7 +503,7 @@ offset_bottom = -5.0
 [node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
-spell_cooldowns = Array[float]([2.0, 0.0, 2.0, 10.0, 20.0])
+spell_cooldowns = Array[float]([3.0, 0.0, 2.0, 10.0, 20.0])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")

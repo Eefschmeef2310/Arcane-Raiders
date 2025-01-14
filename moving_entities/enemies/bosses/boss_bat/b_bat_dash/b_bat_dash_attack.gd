@@ -8,10 +8,9 @@ const B_BAT_FISSION = preload("res://moving_entities/enemies/bosses/boss_bat/b_b
 @export var max_shots: int = 6
 
 var timer: float = 0
-var dash_calculated: bool = false
 
 func _ready():
-	if caster && caster.has_method("dash_to") && !dash_calculated:
+	if caster && caster.has_method("dash_to"):
 		global_position = caster.global_position
 		var player = caster.state_machine.current_state.get_closest_player()
 		var player_pos = player.global_position
