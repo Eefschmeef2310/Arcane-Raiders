@@ -507,7 +507,7 @@ spell_cooldowns = Array[float]([3.0, 0.0, 2.0, 10.0, 20.0])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
 initial_state = NodePath("Idle")
-debug_label = NodePath("../Label2")
+debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = SubResource("GDScript_ch8ay")
@@ -563,7 +563,6 @@ nav_timer = 99
 
 [node name="NavigationAgent2D" parent="." index="8"]
 navigation_layers = 3
-debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="11"]
 shape = SubResource("CircleShape2D_f8rpe")
@@ -611,11 +610,5 @@ process_material = SubResource("ParticleProcessMaterial_k3cwl")
 
 [node name="LassoLine" parent="." index="17"]
 points = PackedVector2Array(-44, 54, 30, 52)
-
-[node name="Label2" type="Label" parent="." index="18"]
-offset_left = -86.0
-offset_top = -145.0
-offset_right = 85.0
-offset_bottom = -80.0
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
