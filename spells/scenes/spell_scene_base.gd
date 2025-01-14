@@ -85,7 +85,7 @@ func transfer_data(new: Node2D):
 		new.combined_spell_index = combined_spell_index
 	if "can_knockback" in new:
 		new.can_knockback = can_knockback
-	if "cast_uuid" in new and "cast_uuid" in self:
+	if "cast_uuid" in new and "cast_uuid" in self and is_instance_valid(cast_uuid):
 		new.cast_uuid = cast_uuid
 		print(new.cast_uuid)
 	
