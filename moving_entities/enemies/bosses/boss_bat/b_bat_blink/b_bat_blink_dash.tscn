@@ -7,3 +7,6 @@ script = ExtResource("1_b0ws3")
 base_damage = 100
 end_time = 2.5
 cooldown_time = 8.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false

@@ -11,6 +11,7 @@ end_time = 2.0
 cooldown_time = 15.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
 
 [node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.15

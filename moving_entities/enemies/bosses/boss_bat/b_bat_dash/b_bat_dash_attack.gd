@@ -2,14 +2,16 @@ extends SpellBase
 
 const B_BAT_FISSION = preload("res://moving_entities/enemies/bosses/boss_bat/b_bat_dash/b_bat_fission.tscn")
 
+@onready var fire_timer = $FireTimer
 @onready var ray_cast_2d = $RayCast2D
 @export var interval_time: float = 0.3
 @export var max_shots: int = 6
 
 var timer: float = 0
+var dash_calculated: bool = false
 
 func _ready():
-	if caster && caster.has_method("dash_to"):
+	if caster && caster.has_method("dash_to") && !dash_calculated:
 		global_position = caster.global_position
 		var player = caster.state_machine.current_state.get_closest_player()
 		var player_pos = player.global_position
@@ -25,19 +27,24 @@ func _ready():
 		if is_multiplayer_authority():
 			#dash(direction, ray_cast_2d.get_collision_point())
 			dash.rpc(direction, ray_cast_2d.get_collision_point())
+		await get_tree().process_frame
 	
 func _physics_process(_delta):
-	if !is_instance_valid(caster): 
-		queue_free()
+	if !is_instance_valid(caster):
+		fire_timer.stop() 
+		call_deferred("queue_free")
 		return
 	
 	if caster && \
 	caster.state_machine.current_state.name.to_lower() != "dashattack" and \
 	caster.state_machine.current_state.name.to_lower() != "blinkattack":
-		queue_free()
+		fire_timer.stop()
+		call_deferred("queue_free")
 
 func fire():
-	if is_instance_valid(caster): 
+	if is_instance_valid(caster) && caster && \
+	(caster.state_machine.current_state.name.to_lower() == "dashattack" or \
+	caster.state_machine.current_state.name.to_lower() == "blinkattack"): 
 		var bullet = B_BAT_FISSION.instantiate()
 		bullet.global_position = caster.global_position
 		transfer_data(bullet)
