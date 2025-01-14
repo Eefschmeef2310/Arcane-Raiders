@@ -7,7 +7,8 @@
 position = Vector2(315, 237)
 script = ExtResource("1_16f6a")
 bullet_scene = ExtResource("2_qpvhh")
-bullets = 20
+cone_range_deg = 100.0
+bullets = 15
 base_damage = 100
 infliction_time = 2.0
 cooldown_time = 2.0
