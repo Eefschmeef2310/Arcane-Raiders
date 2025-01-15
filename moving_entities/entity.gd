@@ -182,7 +182,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 		hit_sound.play()
 		
 	if element_string != null and attack_path != null:
-		var attack = get_node(attack_path)
+		#var attack = get_node(attack_path)
 		var element = SpellManager.elements[element_string]
 		if element != SpellManager.elements["null"]:
 			if !current_inflictions_dictionary.has(element):

@@ -79,7 +79,7 @@ _data = {
 layer = 3
 script = ExtResource("1_aho1r")
 vignette = NodePath("Container/Vignette")
-panels_array = [NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/BackButton")]
+panels_array = [NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/BackButton")]
 stylebox_normal = SubResource("StyleBoxFlat_agu4c")
 stylebox_selected = SubResource("StyleBoxFlat_e663r")
 
@@ -253,15 +253,25 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "You can never heal."
 
-[node name="MarginContainer" type="MarginContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 450
-theme_override_constants/margin_right = 450
-
-[node name="BackButton" type="PanelContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/MarginContainer/BackButton"]
+[node name="CustomSeedEntry" type="LineEdit" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+placeholder_text = "Custom Run Seed"
+max_length = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+
+[node name="BackButton" type="PanelContainer" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/BackButton"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Back"

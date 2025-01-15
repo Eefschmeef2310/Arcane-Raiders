@@ -63,6 +63,7 @@ var after_images : Array = []
 @export var healing_particles : GPUParticles2D
 @export var pickup_sound : AudioStreamPlayer2D
 @export var hud : PlayerHUD
+@export var pickup_sound_timer : Timer
 
 @export_subgroup("Spells")
 @export var notif_spawn_pos : Node2D
@@ -585,8 +586,10 @@ func _on_spell_changed(_slot):
 @rpc("any_peer", "call_local", "reliable")
 func heal_damage(amount):
 	super.heal_damage(amount)
-	healing_particles.emitting = true;
-	AudioManager.play_audio2D_at_point(global_position, pickup_sound.stream)
+	healing_particles.emitting = true
+	if health < max_health and pickup_sound_timer.is_stopped():
+		AudioManager.play_audio2D_at_point(global_position, pickup_sound.stream)
+		pickup_sound_timer.start(0.1)
 
 @rpc("any_peer", "call_local", "reliable")
 func add_speed_effect():

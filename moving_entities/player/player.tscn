@@ -1055,7 +1055,7 @@ random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "hud", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "animal_sound_player", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("data", "revival_meter", "hurtbox", "help_label", "collision_shape", "input_node", "invincibility_timer", "healing_particles", "pickup_sound", "hud", "pickup_sound_timer", "notif_spawn_pos", "spell_pickup_detector_node", "prepare_cast_label", "can_cast_label", "spell_sprite_2d_projection", "spell_sprite_2d", "empty_spell_sound", "spell_equip_sound", "dash_ray", "dash_bar", "dash_sound_player", "animation_player", "invincibility_animation", "flashing_animation", "animal_sound_player", "sprites_flip", "sprites_scale", "body_sprite", "head_sprite", "right_hand_sprite", "left_hand_sprite", "crown") groups=["player"]]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
@@ -1074,6 +1074,7 @@ invincibility_timer = NodePath("InvincibilityTimer")
 healing_particles = NodePath("HealingParticles")
 pickup_sound = NodePath("Audio Players/PickupSound")
 hud = NodePath("HUD")
+pickup_sound_timer = NodePath("PickupSoundTimer")
 notif_spawn_pos = NodePath("NotifSpawnPos")
 spell_pickup_detector_node = NodePath("SpellPickupDetector")
 prepare_cast_label = NodePath("PrepareCast")
@@ -1455,6 +1456,9 @@ wait_time = 1.5
 [node name="DashTrailTimer" type="Timer" parent="."]
 wait_time = 0.05
 autostart = true
+
+[node name="PickupSoundTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_fb3ec")
