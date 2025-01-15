@@ -2,3 +2,4 @@
 .godot/
 # *.cfg
 *.tmp
+export_presets.cfg
