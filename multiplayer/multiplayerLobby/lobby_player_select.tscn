@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=38 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cdic02fvsofc2" path="res://multiplayer/multiplayerLobby/clickable_pip_character.tscn" id="4_l88q1"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_ac5jf"]
 [ext_resource type="Texture2D" uid="uid://c6acmyql2kfry" path="res://moving_entities/player/player_pieces/head-croc.png" id="5_quccd"]
+[ext_resource type="Texture2D" uid="uid://dnl3aaxl1x12t" path="res://moving_entities/player/player_pieces/head-croc-2.png" id="5_xt1oy"]
 [ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="6_nkpq1"]
 [ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="7_07gmh"]
 [ext_resource type="Texture2D" uid="uid://3md1hv7rghxy" path="res://moving_entities/player/player_pieces/head-horse.png" id="8_3hqgk"]
@@ -18,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://duv22j7mtpnfj" path="res://moving_entities/player/player_pieces/head-cat-2.png" id="13_or8ii"]
 [ext_resource type="Texture2D" uid="uid://c7rdj0qkn6y7m" path="res://moving_entities/player/player_pieces/Body2.png" id="14_4wkv8"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="15_378ek"]
+[ext_resource type="Texture2D" uid="uid://x0yihrh85inh" path="res://moving_entities/player/player_pieces/head-wolf-2.png" id="15_ea0xe"]
+[ext_resource type="Texture2D" uid="uid://dxy25ep4uq71h" path="res://moving_entities/player/player_pieces/head-owl-2.png" id="16_nrqc0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
@@ -42,7 +45,7 @@ shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6o2fm"]
 resource_local_to_scene = true
-atlas = ExtResource("5_quccd")
+atlas = ExtResource("5_xt1oy")
 region = Rect2(35, 35, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xttc7"]
@@ -73,6 +76,31 @@ region = Rect2(35, 35, 80, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxe7b"]
 resource_local_to_scene = true
 atlas = ExtResource("11_oxsdx")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0iyg"]
+resource_local_to_scene = true
+atlas = ExtResource("5_quccd")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rtav"]
+resource_local_to_scene = true
+atlas = ExtResource("13_or8ii")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1o3p"]
+resource_local_to_scene = true
+atlas = ExtResource("5_xt1oy")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jstkq"]
+resource_local_to_scene = true
+atlas = ExtResource("15_ea0xe")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b1lf"]
+resource_local_to_scene = true
+atlas = ExtResource("16_nrqc0")
 region = Rect2(35, 35, 80, 80)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sq07"]
@@ -253,7 +281,7 @@ layout_mode = 2
 lobby_select = NodePath("../../../../..")
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip2" index="0"]
-texture = SubResource("AtlasTexture_6o2fm")
+texture = SubResource("AtlasTexture_x0iyg")
 
 [node name="ClickablePip3" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -308,7 +336,7 @@ character_key = &"Cat"
 lobby_select = NodePath("../../../../..")
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip9" index="0"]
-texture = ExtResource("13_or8ii")
+texture = SubResource("AtlasTexture_6rtav")
 
 [node name="ClickablePip10" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -317,7 +345,7 @@ character_key = &"Croc"
 lobby_select = NodePath("../../../../..")
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip10" index="0"]
-texture = SubResource("AtlasTexture_6o2fm")
+texture = SubResource("AtlasTexture_o1o3p")
 
 [node name="ClickablePip11" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -326,7 +354,7 @@ character_key = &"Wolf"
 lobby_select = NodePath("../../../../..")
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip11" index="0"]
-texture = SubResource("AtlasTexture_xttc7")
+texture = SubResource("AtlasTexture_jstkq")
 
 [node name="ClickablePip12" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -335,7 +363,7 @@ character_key = &"Owl"
 lobby_select = NodePath("../../../../..")
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip12" index="0"]
-texture = SubResource("AtlasTexture_tfwju")
+texture = SubResource("AtlasTexture_5b1lf")
 
 [node name="ClickablePip13" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
