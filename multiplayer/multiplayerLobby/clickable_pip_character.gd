@@ -8,6 +8,9 @@ class_name ClickablePipCharacter
 func _ready():
 	super._ready()
 	
+	if lobby_select:
+		gui_input_pass_self.connect(lobby_select._on_raider_pip_gui_input)
+	
 	if !is_unlocked:
 		locked()
 #endregion

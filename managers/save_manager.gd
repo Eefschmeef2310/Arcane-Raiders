@@ -15,11 +15,15 @@ var hats_highest_difficulty_completed : Dictionary = {}
 
 var runs_completed : int = 0
 
+#Array of the RAIDER NAMES that completed the run (we use this to track what characters have beat the shadow wizards)
+var characters_completed : Array
+
 #Count of all games (win and lose)
 var games_played : int = 0
 
 var area_1_complete : bool = false
 var area_2_complete : bool = false
+var area_3_complete : bool = false
 
 var total_kills : int = 0
 
@@ -44,6 +48,8 @@ func _input(event):
 		games_played = 12
 		area_1_complete = true
 		area_2_complete = true
+		area_3_complete = true
+		characters_completed = ["Cat", "Cow", "Croc", "Horse", "Lizard", "Owl", "Squid", "Wolf"]
 		request_save()
 	elif event.is_action_pressed("debug_new_save_file"):
 		highest_difficulty_unlocked = 0
@@ -52,15 +58,10 @@ func _input(event):
 		games_played = 0
 		area_1_complete = false
 		area_2_complete = false
+		area_3_complete = false
+		characters_completed = []
 		request_save()
 	elif event.is_action_pressed("debug_reset_steam_stats"):
-		highest_difficulty_unlocked = 0
-		hats_highest_difficulty_completed = {}
-		runs_completed = 0
-		games_played = 0
-		area_1_complete = false
-		area_2_complete = false
-		request_save()
 		SteamManager.reset_stats_and_achievements()
 
 func save_file():
@@ -73,7 +74,8 @@ func save_file():
 		"games_played" : games_played,
 		"area_1_complete" : area_1_complete,
 		"area_2_complete" : area_2_complete,
-		"total_kills" : total_kills
+		"total_kills" : total_kills,
+		"characters_completed" : characters_completed
 	}
 	
 	var json_string = JSON.stringify(dict)
@@ -104,6 +106,8 @@ func load_file():
 		area_2_complete = dict["area_2_complete"]
 	if "total_kills" in dict.keys():
 		total_kills = dict["total_kills"]
+	if "characters_completed" in dict.keys():
+		characters_completed = dict["characters_completed"]
 
 
 func request_save():

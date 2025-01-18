@@ -9,7 +9,7 @@ signal gui_input_pass_self(event, node)
 var is_unlocked : bool = false
 
 func _ready():
-	gui_input.connect(_on_gui_input)
+	#gui_input.connect(_on_gui_input)
 	
 	if lobby_select and SteamManager.unlocked_achievements >= achievements_required:
 		is_unlocked = true

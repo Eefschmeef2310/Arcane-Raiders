@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=30 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://da3o08jsb7k8m" path="res://moving_entities/player/player_pieces/head-cow.png" id="10_r356u"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="11_oxsdx"]
 [ext_resource type="PackedScene" uid="uid://dcv6ok3gbur1r" path="res://multiplayer/multiplayerLobby/clickable_pip_color.tscn" id="12_4okyq"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/clickable_pip_evil_character.gd" id="12_13awm"]
 [ext_resource type="PackedScene" uid="uid://x4un2uthuq3s" path="res://multiplayer/multiplayerLobby/clickable_pip_body.tscn" id="13_cknbt"]
+[ext_resource type="Texture2D" uid="uid://duv22j7mtpnfj" path="res://moving_entities/player/player_pieces/head-cat-2.png" id="13_or8ii"]
 [ext_resource type="Texture2D" uid="uid://c7rdj0qkn6y7m" path="res://moving_entities/player/player_pieces/Body2.png" id="14_4wkv8"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="15_378ek"]
 
@@ -119,7 +121,7 @@ properties/10/path = NodePath("PlayerData:main_color")
 properties/10/spawn = true
 properties/10/replication_mode = 1
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("select_controls_panel", "panels_array", "player_data", "character_condition", "color_condition") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("character_pips_box", "select_controls_panel", "panels_array", "player_data", "character_condition", "color_condition") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -131,6 +133,7 @@ offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b2j28")
+character_pips_box = NodePath("PanelContainer/VBoxContainer/CharacterContainer/GridContainer")
 select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer"), NodePath("PanelContainer/VBoxContainer/BodyContainer")]
 player_data = NodePath("PlayerData")
@@ -174,6 +177,7 @@ size_flags_vertical = 0
 theme_override_styles/panel = ExtResource("1_j1n1m")
 
 [node name="CharacterPips" type="HBoxContainer" parent="PanelContainer/VBoxContainer/CharacterContainer"]
+visible = false
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
@@ -234,6 +238,143 @@ lobby_select = NodePath("../../../../..")
 achievements_required = 9
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8" index="0"]
+texture = SubResource("AtlasTexture_cxe7b")
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/CharacterContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="ClickablePip" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="ClickablePip2" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip2" index="0"]
+texture = SubResource("AtlasTexture_6o2fm")
+
+[node name="ClickablePip3" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip3" index="0"]
+texture = SubResource("AtlasTexture_xttc7")
+
+[node name="ClickablePip4" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip4" index="0"]
+texture = SubResource("AtlasTexture_tfwju")
+
+[node name="ClickablePip5" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+achievements_required = 2
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip5" index="0"]
+texture = SubResource("AtlasTexture_3mrf6")
+
+[node name="ClickablePip6" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+achievements_required = 5
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip6" index="0"]
+texture = SubResource("AtlasTexture_8c2hr")
+
+[node name="ClickablePip7" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+achievements_required = 7
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip7" index="0"]
+texture = SubResource("AtlasTexture_6nk1r")
+
+[node name="ClickablePip8" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+lobby_select = NodePath("../../../../..")
+achievements_required = 9
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip8" index="0"]
+texture = SubResource("AtlasTexture_cxe7b")
+
+[node name="ClickablePip9" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Cat"
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip9" index="0"]
+texture = ExtResource("13_or8ii")
+
+[node name="ClickablePip10" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Croc"
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip10" index="0"]
+texture = SubResource("AtlasTexture_6o2fm")
+
+[node name="ClickablePip11" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Wolf"
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip11" index="0"]
+texture = SubResource("AtlasTexture_xttc7")
+
+[node name="ClickablePip12" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Owl"
+lobby_select = NodePath("../../../../..")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip12" index="0"]
+texture = SubResource("AtlasTexture_tfwju")
+
+[node name="ClickablePip13" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Horse"
+lobby_select = NodePath("../../../../..")
+achievements_required = 2
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip13" index="0"]
+texture = SubResource("AtlasTexture_3mrf6")
+
+[node name="ClickablePip14" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Lizard"
+lobby_select = NodePath("../../../../..")
+achievements_required = 5
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip14" index="0"]
+texture = SubResource("AtlasTexture_8c2hr")
+
+[node name="ClickablePip15" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Cow"
+lobby_select = NodePath("../../../../..")
+achievements_required = 7
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip15" index="0"]
+texture = SubResource("AtlasTexture_6nk1r")
+
+[node name="ClickablePip16" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
+layout_mode = 2
+script = ExtResource("12_13awm")
+character_key = &"Squid"
+lobby_select = NodePath("../../../../..")
+achievements_required = 9
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip16" index="0"]
 texture = SubResource("AtlasTexture_cxe7b")
 
 [node name="ColorContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
@@ -372,23 +513,22 @@ spell_strings = Array[String](["null-proj_ball", "null-proj_spread", "null-aoe_l
 replication_config = SubResource("SceneReplicationConfig_i7afp")
 
 [node name="NotifSpawnPos" type="Marker2D" parent="."]
-position = Vector2(225, -24)
+position = Vector2(225, -75)
 
 [node name="UnlockConditionContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -209.0
-offset_top = -190.0
-offset_right = 212.0
-offset_bottom = -136.0
+offset_left = -217.0
+offset_top = -250.0
+offset_right = 204.0
+offset_bottom = -184.0
 grow_horizontal = 2
 size_flags_vertical = 0
 alignment = 2
 
 [node name="CharacterCondition" type="Label" parent="UnlockConditionContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Character Condition"
@@ -396,7 +536,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ColourCondition" type="Label" parent="UnlockConditionContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Character Condition"
@@ -417,6 +556,21 @@ vertical_alignment = 1
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip6"]
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip7"]
 [editable path="PanelContainer/VBoxContainer/CharacterContainer/CharacterPips/ClickablePip8"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip2"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip3"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip4"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip5"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip6"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip7"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip8"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip9"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip10"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip11"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip12"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip13"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip14"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip15"]
+[editable path="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip16"]
 [editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip"]
 [editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip2"]
 [editable path="PanelContainer/VBoxContainer/ColorContainer/ColorPips/ClickablePip3"]

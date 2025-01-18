@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://boguvd07yohv8"]
+[gd_scene load_steps=78 format=3 uid="uid://boguvd07yohv8"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_vicu8"]
 [ext_resource type="Script" path="res://rooms/castle_room_lobby.gd" id="2_34pa5"]
@@ -18,19 +18,27 @@
 [ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="10_db361"]
 [ext_resource type="Texture2D" uid="uid://buv4kcq240fsi" path="res://moving_entities/player/player_pieces/head-owl.png" id="10_jar8q"]
 [ext_resource type="PackedScene" uid="uid://b51xvgm1i81ut" path="res://gamemodes/castle_climb.tscn" id="11_coaxx"]
+[ext_resource type="Resource" uid="uid://b1fx7p3nstd4r" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_cat.tres" id="11_ki05y"]
 [ext_resource type="Texture2D" uid="uid://c086vo7p1oveu" path="res://moving_entities/player/player_pieces/head-squid.png" id="11_m7u4e"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="12_1rwj8"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="12_5bwfn"]
+[ext_resource type="Resource" uid="uid://drqi1u52scxpe" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_croc.tres" id="12_8uub0"]
 [ext_resource type="Texture2D" uid="uid://dbcu8eel5hq3f" path="res://moving_entities/player/player_pieces/head-wolf.png" id="12_xlyq7"]
 [ext_resource type="PackedScene" uid="uid://dff12rdqx482b" path="res://rooms/exit/room_exit.tscn" id="12_xu7yv"]
+[ext_resource type="Resource" uid="uid://xjdobeb8eht0" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_wolf.tres" id="13_0dw8m"]
 [ext_resource type="Texture2D" uid="uid://umv5me504xvb" path="res://debug/pngtree-tree-forest-tree-png-image_14619746.png" id="13_1x8ko"]
 [ext_resource type="Shader" path="res://shaders/blur_shader.gdshader" id="13_o80m4"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/timelines/disco_frog.dtl" id="13_ts3tr"]
 [ext_resource type="Script" path="res://rooms/hub/difficulty_menu_spawner.gd" id="14_aw2au"]
+[ext_resource type="Resource" uid="uid://cf2qtvs54gq5k" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_owl.tres" id="14_h4gf4"]
 [ext_resource type="Resource" path="res://dialogic_timelines_and_characters/disco_frog.dch" id="14_oo7ad"]
 [ext_resource type="Texture2D" uid="uid://dv0tkq0us5a7i" path="res://tilesets/decorations/sprites/scroll.png" id="15_bo1df"]
+[ext_resource type="Resource" uid="uid://cxyqn2xonn23e" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_horse.tres" id="15_e4yof"]
+[ext_resource type="Resource" uid="uid://c7lvwlqwwhjau" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_lizard.tres" id="16_obg62"]
 [ext_resource type="PackedScene" uid="uid://bbnhiry3st2hn" path="res://items/pickups/pickup_shadow.tscn" id="16_w0h47"]
+[ext_resource type="Resource" uid="uid://uvdkscr7koqm" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_cow.tres" id="17_dxrt6"]
 [ext_resource type="Texture2D" uid="uid://bdirjffmtu0p7" path="res://moving_entities/player/player_pieces/Body1.png" id="17_ff5q1"]
+[ext_resource type="Resource" uid="uid://brc6fotud1wtb" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_squid.tres" id="18_wlc85"]
 [ext_resource type="Texture2D" uid="uid://c7rdj0qkn6y7m" path="res://moving_entities/player/player_pieces/Body2.png" id="19_ywx71"]
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="20_d8qci"]
 [ext_resource type="Shader" path="res://shaders/bush_sway.gdshader" id="23_h46ni"]
@@ -185,7 +193,7 @@ shader_parameter/strength = 5
 script = ExtResource("2_34pa5")
 player_ui = []
 chosen_difficulty = 0
-raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy")])
+raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("3_vtfoc"), ExtResource("5_qbfsh"), ExtResource("10_db361"), ExtResource("8_x0p4y"), ExtResource("6_qduwx"), ExtResource("7_buy8l"), ExtResource("4_htp5m"), ExtResource("9_piyvy"), ExtResource("11_ki05y"), ExtResource("12_8uub0"), ExtResource("13_0dw8m"), ExtResource("14_h4gf4"), ExtResource("15_e4yof"), ExtResource("16_obg62"), ExtResource("17_dxrt6"), ExtResource("18_wlc85")])
 player_colors = Array[Color]([Color(0.490196, 0.203922, 0.760784, 1), Color(0.780392, 0.756863, 0.101961, 1), Color(0.737255, 0.231373, 0.192157, 1), Color(0, 0.623529, 0.505882, 1), Color(0.211765, 0.521569, 0.180392, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.972549, 0.443137, 0, 1)])
 body_sprites = Array[Texture2D]([ExtResource("20_d8qci"), ExtResource("19_ywx71"), ExtResource("17_ff5q1")])
 castle_climb_scene = ExtResource("11_coaxx")

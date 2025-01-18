@@ -31,3 +31,6 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = SubResource("AtlasTexture_hl8fi")
 expand_mode = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="TextureRect" to="." method="_on_gui_input"]

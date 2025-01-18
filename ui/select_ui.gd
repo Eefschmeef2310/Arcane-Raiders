@@ -17,7 +17,7 @@ signal raider_selected(peer_id, device_id)
 @export var player_ready : bool = false
 @export var highlight_color : Color = Color.RED # this should be player colour
 
-@onready var character_pips_box = $PanelContainer/VBoxContainer/CharacterContainer/CharacterPips
+@export var character_pips_box : Container
 @onready var color_pips_box = $PanelContainer/VBoxContainer/ColorContainer/ColorPips
 @onready var body_pips_box = $PanelContainer/VBoxContainer/BodyContainer/BodyPips
 @onready var player_ui_scene = preload("res://ui/player_ui.tscn")
@@ -103,11 +103,23 @@ func _process(_delta):
 			
 			if("down" in mouse_input):
 				if not player_ready:
-					selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
+						if selected_raider + (character_pips_box as GridContainer).columns < (character_pips_box as GridContainer).get_child_count():
+							selected_raider = wrapi(selected_raider + (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
+						else:
+							selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					else:
+						selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
 			
 			if("up" in mouse_input):
 				if not player_ready:
-					selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
+						if selected_raider - (character_pips_box as GridContainer).columns >= 0:
+							selected_raider = wrapi(selected_raider - (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
+						else:
+							selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					else:
+						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
@@ -159,7 +171,14 @@ func UpdateDisplay():
 			if !(character_pips_box.get_child(pip) as ClickablePipCharacter).is_unlocked: #If is locked
 				(character_pips_box.get_child(pip) as ClickablePipCharacter).locked_and_selected()
 				#Show text
-				character_condition.text = "Complete " + str((character_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + " more achievement" + ("s" if (character_pips_box.get_child(pip) as ClickablePipCharacter).achievements_required - SteamManager.unlocked_achievements > 1 else "") + " to unlock this character!"
+				if character_pips_box.get_child(pip) is ClickablePipEvilCharacter:
+					character_condition.text = "Complete Floor 11 with " + (character_pips_box.get_child(pip) as ClickablePipEvilCharacter).character_key + " to unlock!"
+				else:
+					character_condition.text = "Complete " + \
+					str((character_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + \
+					" more achievement" + \
+					("s" if (character_pips_box.get_child(pip) as ClickablePipCharacter).achievements_required - SteamManager.unlocked_achievements > 1 else "") + \
+					" to unlock this character!"
 				character_condition.show()
 			else: #Unlocked pip
 				character_pips_box.get_child(pip).modulate = Color.WHITE

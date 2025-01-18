@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="RaiderRes" load_steps=5 format=3 uid="uid://cf2qtvs54gq5k"]
+
+[ext_resource type="AudioStream" uid="uid://bl5luqv1adoxi" path="res://moving_entities/player/animal_sounds/owl-2-139676.mp3" id="1_aaqnv"]
+[ext_resource type="Texture2D" uid="uid://dxy25ep4uq71h" path="res://moving_entities/player/player_pieces/head-owl-2.png" id="2_chw4o"]
+[ext_resource type="Texture2D" uid="uid://c0ldbdysuqp8l" path="res://multiplayer/multiplayerLobby/raiders/owlplaceholder.png" id="3_4supd"]
+[ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="4_5cho7"]
+
+[resource]
+script = ExtResource("4_5cho7")
+portrait = ExtResource("3_4supd")
+raider_name = "Owl"
+raider_desc = "hooty hoot!"
+color = Color(0.203922, 0.282353, 0.541176, 1)
+head_texture = ExtResource("2_chw4o")
+skin_color = Color(0.917647, 0.796078, 0.65098, 1)
+animal_sound = ExtResource("1_aaqnv")

@@ -52,6 +52,13 @@ func _ready():
 		SaveManager.area_1_complete = true
 	if castle_climb.current_floor >= 8:
 		SaveManager.area_2_complete = true
+	if castle_climb.current_floor >= 12:
+		SaveManager.area_3_complete = true
+		
+		for data in castle_climb.player_data:
+			if data.character != null:
+				if !SaveManager.characters_completed.has(data.character.raider_name):
+					SaveManager.characters_completed.append(data.character.raider_name)
 	
 	for player in castle_climb.player_data:
 		SaveManager.total_kills += player.kills
