@@ -278,7 +278,7 @@ script = SubResource("GDScript_t3owp")
 dash_duration = 0.3
 movement_speed = 200.0
 death_sound = null
-max_health = 400
+max_health = 500
 
 [node name="Sprite2D" parent="." index="1"]
 modulate = Color(1, 0, 0.396078, 1)

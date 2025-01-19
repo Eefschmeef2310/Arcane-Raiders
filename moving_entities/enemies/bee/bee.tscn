@@ -99,6 +99,8 @@ alpha_curve = SubResource("CurveTexture_swxsv")
 collision_mask = 1
 script = SubResource("GDScript_w5nu8")
 death_sound = null
+max_health = 350
+health = 500
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -43)

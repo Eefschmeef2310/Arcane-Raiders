@@ -367,8 +367,11 @@ alpha_curve = SubResource("CurveTexture_swxsv")
 [node name="Hornet" instance=ExtResource("1_rk7t8")]
 collision_mask = 1
 script = SubResource("GDScript_gamko")
-stun_duration = 1.0
-dash_speed = 1100
+stun_duration = 2.0
+movement_speed = 400.0
+dash_speed = 1000
+max_health = 500
+health = 750
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -89)

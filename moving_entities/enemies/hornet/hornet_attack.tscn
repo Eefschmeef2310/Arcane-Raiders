@@ -9,8 +9,8 @@ func _ready():
 	if !caster: queue_free()
 	global_position = caster.global_position
 	if caster.has_method(\"dash\"):
-		duration = get_wall_pos().distance_to(caster.global_position)/caster.dash_speed -0.1
-		end_time = duration + 0.1
+		duration = get_wall_pos().distance_to(caster.global_position)/caster.dash_speed -0.05
+		end_time = duration + 0.05
 	super._ready()
 
 
@@ -23,7 +23,7 @@ func get_wall_pos() -> Vector2:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ddbq1"]
-radius = 89.0
+radius = 52.0096
 
 [node name="HornetAttack" type="Area2D"]
 collision_layer = 64
@@ -33,7 +33,7 @@ base_damage = 100
 end_time = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -52)
+position = Vector2(0, -57)
 shape = SubResource("CircleShape2D_ddbq1")
 debug_color = Color(0.964706, 0, 0.501961, 0.164706)
 
