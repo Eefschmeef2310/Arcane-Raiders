@@ -19,6 +19,8 @@ func _on_navigation_agent_2d_target_reached():
 #endregion
 
 #region Other methods (please try to separate and organise!)
+func enter():
+	play_anim()
 
 #Attack when in attack range
 func physics_update(delta):
