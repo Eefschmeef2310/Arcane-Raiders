@@ -505,9 +505,8 @@ spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResour
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
 spell_cooldowns = Array[float]([3.0, 0.0, 2.0, 10.0, 20.0])
 
-[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state", "debug_label")]
+[node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
-debug_label = NodePath("")
 
 [node name="Idle" type="Node" parent="StateMachine" index="0" node_paths=PackedStringArray("actual_first_state")]
 script = SubResource("GDScript_ch8ay")
