@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0yuwsnpeijiw"]
+
+[ext_resource type="Script" path="res://rooms/shop/dash_tutorial_controller.gd" id="1_llf4r"]
+[ext_resource type="Texture2D" uid="uid://bv057vww5gngt" path="res://moving_entities/enemies/bat_small/small-bullet.png" id="2_61al6"]
+[ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="3_a0rda"]
+
+[sub_resource type="Curve2D" id="Curve2D_y2hew"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1607, 586, 0, 0, 0, 0, 714, 185)
+}
+point_count = 2
+
+[node name="DashTutorial" type="Path2D"]
+curve = SubResource("Curve2D_y2hew")
+script = ExtResource("1_llf4r")
+speed = 0.2
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="."]
+position = Vector2(1539.97, 555.9)
+rotation = -2.71953
+progress = 73.48
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D3"]
+texture = ExtResource("2_61al6")
+
+[node name="PointLight2D" type="PointLight2D" parent="PathFollow2D3"]
+energy = 0.4
+texture = ExtResource("3_a0rda")
+
+[node name="_Timer_79288" type="Timer" parent="PathFollow2D3"]
+wait_time = 0.2
+one_shot = true

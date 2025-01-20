@@ -234,7 +234,7 @@ size_flags_vertical = 8
 theme_override_fonts/normal_font = ExtResource("12_5bwfn")
 theme_override_font_sizes/normal_font_size = 96
 bbcode_enabled = true
-text = "[center]Press Space /[img width=96]res://ui/join_button.svg[/img] to join!"
+text = "[outline_size=10][center]Press Space /[img width=96]res://ui/join_button.svg[/img] to join!"
 
 [node name="PlayerUIContainer" type="HBoxContainer" parent="GameUI" index="1"]
 anchors_preset = 7
@@ -267,7 +267,7 @@ size_flags_vertical = 8
 theme_override_fonts/normal_font = ExtResource("12_5bwfn")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center]Press Space /[img width=48]res://ui/join_button.svg[/img] to join!"
+text = "[outline_size=10][wave amp=50 freq=10][center]Press Space /[img width=48]res://ui/join_button.svg[/img] to join!"
 
 [node name="NotifUI" type="CanvasLayer" parent="." index="2"]
 
@@ -325,9 +325,12 @@ shape = SubResource("CircleShape2D_rydr2")
 visible = false
 z_index = 1
 offset_left = -125.0
-offset_top = -136.0
+offset_top = -155.0
 offset_right = 121.0
-offset_bottom = -111.0
+offset_bottom = -106.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
 text = "Press E/R1"
 horizontal_alignment = 1
 
@@ -346,7 +349,7 @@ theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 0
 bbcode_enabled = true
-text = "[center]Current Difficulty: [color=red]Easy"
+text = "[font_size=32][center][outline_size=12]Current Difficulty: [color=red]Easy"
 fit_content = true
 
 [node name="Shadow" parent="DifficultyMenuSpawnerContainer" index="1" instance=ExtResource("16_w0h47")]
@@ -367,7 +370,7 @@ texture = ExtResource("32_mb7kk")
 [node name="HatFrog" parent="." index="18" instance=ExtResource("4_7li37")]
 position = Vector2(646, 489)
 character_name = "Milliner Frog"
-dialogues = Array[StringName]([&"Pick up a hat for a special effect!"])
+dialogues = Array[StringName]([&"Hats give special effects!"])
 
 [node name="HeadGroup" parent="HatFrog/SpritesScale" index="1"]
 position = Vector2(2, -74)
@@ -380,7 +383,7 @@ position = Vector2(-36, -28)
 
 [node name="WelcomeFrog" parent="." index="19" instance=ExtResource("4_7li37")]
 position = Vector2(363, 917)
-character_name = "Frog"
+character_name = "Excitable Frog"
 dialogues = Array[StringName]([&"Welcome wizards!"])
 
 [node name="SpritesScale" parent="WelcomeFrog" index="1"]

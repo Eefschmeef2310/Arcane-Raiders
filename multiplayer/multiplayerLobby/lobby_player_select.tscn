@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=39 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="15_378ek"]
 [ext_resource type="Texture2D" uid="uid://x0yihrh85inh" path="res://moving_entities/player/player_pieces/head-wolf-2.png" id="15_ea0xe"]
 [ext_resource type="Texture2D" uid="uid://dxy25ep4uq71h" path="res://moving_entities/player/player_pieces/head-owl-2.png" id="16_nrqc0"]
+[ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="22_u118k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
@@ -558,6 +559,7 @@ alignment = 2
 
 [node name="CharacterCondition" type="Label" parent="UnlockConditionContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("22_u118k")
 theme_override_font_sizes/font_size = 20
 text = "Character Condition"
 horizontal_alignment = 1
@@ -565,6 +567,7 @@ vertical_alignment = 1
 
 [node name="ColourCondition" type="Label" parent="UnlockConditionContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("22_u118k")
 theme_override_font_sizes/font_size = 20
 text = "Character Condition"
 horizontal_alignment = 1

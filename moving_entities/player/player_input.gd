@@ -31,6 +31,15 @@ func _process(_delta):
 			for device in GameManager.devices:
 				do_pause = MultiplayerInput.is_action_just_pressed(device, "lobby_pause")
 				if do_pause: break
+		
+		#Run a pause check to make sure at least one player is alive. this check occurs regardless of online or offline - E 21/1
+		if do_pause:
+			var dead_players := 0
+			for player in get_tree().get_nodes_in_group("player"):
+				if !(player as Player).is_dead: break
+				dead_players += 1
+			if dead_players == get_tree().get_nodes_in_group("player").size():
+				do_pause = false
 				
 		if do_pause and !GameManager.isPaused:
 			GameManager.isPaused = true
@@ -43,7 +52,7 @@ func _process(_delta):
 				pause_menu.device_id = input.device
 				
 			#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
-			add_sibling(pause_menu)
+			owner.add_sibling(pause_menu)
 		#endregion
 		
 		# Reset all input values

@@ -57,7 +57,7 @@ func _on_area_exited(area):
 	player_in_bounds = get_overlapping_areas().size() > 0
 
 func update_current_label():
-	current_difficulty.text = "[center]Current Difficulty: "
+	current_difficulty.text = "[font_size=32][center][outline_size=12]Current Difficulty: "
 	match (container.get_parent() as CastleRoomLobby).chosen_difficulty:
 		0:
 			current_difficulty.text += "[color=green]Easy"

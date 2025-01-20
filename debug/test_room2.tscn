@@ -99,7 +99,7 @@ data = NodePath("../../../Player/PlayerData")
 position = Vector2(96, 800)
 
 [node name="PlayerData" parent="Player" index="6"]
-health = 500
+health = 50
 spell_strings = Array[String](["shock-proj_ball", "shock-proj_spread", "shock-proj_ball"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
