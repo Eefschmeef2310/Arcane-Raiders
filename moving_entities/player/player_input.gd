@@ -50,6 +50,7 @@ func _process(_delta):
 			pause_menu.set_panel_color(owner.data.main_color)
 			if input:
 				pause_menu.device_id = input.device
+				pause_menu.stored_player = owner as Player
 				
 			#NOTE : Originally this was owner.parent.add_child. not sure why this is the case - E
 			owner.add_sibling(pause_menu)
@@ -144,14 +145,14 @@ func _process(_delta):
 						if MultiplayerInput.is_action_just_pressed(device, "interact"):
 							interact = true
 						
-			
+					
 			# Send input to owner
 			owner.move_direction = move_dir
 			if aim_dir != Vector2.ZERO:
 				owner.aim_direction = aim_dir
 			for i in spell_down.size():
 				if spell_press[i] and $"../SpellPickupDetector".closest_pickup != null:
-					print("Picking up spell.")
+					#print("Picking up spell.")
 					owner.spell_pickup_requested.emit(owner, i, $"../SpellPickupDetector".closest_pickup)
 				else:
 					if spell_press[i]:

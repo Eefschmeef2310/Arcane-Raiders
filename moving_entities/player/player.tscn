@@ -49,7 +49,6 @@ func _physics_process(_delta):
 					closest_pickup = pickup
 		
 		if had_closest_last_frame and closest_pickup:
-			print(closest_pickup.show_equip_prompt)
 			owner.data.pickup_proximity_changed.emit(true)
 		elif had_closest_last_frame and !closest_pickup:
 			owner.data.pickup_proximity_changed.emit(false)

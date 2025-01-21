@@ -5,6 +5,8 @@ class_name SpellPickup
 @export var spell_string: String
 @export var spell: Spell
 @export var show_equip_prompt : bool = true
+@export var element_description : RichTextLabel
+@export var spell_description : RichTextLabel
 
 var i = 0
 @onready var icon = $Icon
@@ -62,10 +64,12 @@ func set_spell_from_string(s):
 			
 		$HBoxContainer/InfoBox/VBoxContainer/Name.text = spell.spells[0].element.prefix + spell.spells[0].suffix
 		$HBoxContainer/InfoBox.self_modulate = spell.spells[0].element.colour
-		var string = "[center][font_size=18]" + spell.spells[0].description + "[/font_size]"
-		if spell.spells[0].element.descrption_bb != "":
-			string = string + "\n\n" + spell.spells[0].element.descrption_bb
+		var string = "[center][font_size=20]" + spell.spells[0].description + "[/font_size]"
 		$HBoxContainer/InfoBox/VBoxContainer/Description.text = string
+		
+		#Set element desc.
+		if spell.spells[0].element.descrption_bb != "":
+			element_description.text = spell.spells[0].element.descrption_bb
 		
 		$HBoxContainer/InfoBox1/VBoxContainer/Name.text = spell.spells[1].element.prefix + spell.spells[1].suffix
 		$HBoxContainer/InfoBox1.self_modulate = spell.spells[1].element.colour
@@ -87,10 +91,12 @@ func set_spell_from_string(s):
 	
 		$HBoxContainer/InfoBox/VBoxContainer/Name.text = spell.element.prefix + spell.suffix
 		$HBoxContainer/InfoBox.self_modulate = spell.element.colour
-		var string = "[center][font_size=18]" + spell.description + "[/font_size]"
+		var string = "[center]" + spell.description
+		spell_description.text = string
+		
+		#Set element desc.
 		if spell.element.descrption_bb != "":
-			string = string + "\n\n" + spell.element.descrption_bb
-		$HBoxContainer/InfoBox/VBoxContainer/Description.text = string
+			element_description.text = "[center]" + spell.element.descrption_bb
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):

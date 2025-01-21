@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c2sydwom5yb2y"]
+[gd_scene load_steps=22 format=3 uid="uid://c2sydwom5yb2y"]
 
 [ext_resource type="Script" path="res://spells/pickups/spell_pickup.gd" id="1_ey1r6"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="3_0hw4k"]
@@ -53,11 +53,14 @@ properties/0/replication_mode = 1
 radius = 100.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_negf4"]
-content_margin_left = 8.0
 content_margin_top = 8.0
-content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0.298039, 0.298039, 0.298039, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45098, 0.45098, 0.45098, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -66,8 +69,20 @@ corner_radius_bottom_left = 20
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_30e0m"]
 polygon = PackedVector2Array(200, 0, 200, 150, 0, 150, 0, 0)
 
-[node name="SpellPickup" type="Node2D" groups=["spell_pickup"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqhy1"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.313726)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.466667)
+
+[node name="SpellPickup" type="Node2D" node_paths=PackedStringArray("element_description", "spell_description") groups=["spell_pickup"]]
 script = ExtResource("1_ey1r6")
+element_description = NodePath("HBoxContainer/InfoBox/VBoxContainer/MarginContainer/ElementDescription")
+spell_description = NodePath("HBoxContainer/InfoBox/VBoxContainer/PanelContainer/Description")
 
 [node name="Outline" type="Sprite2D" parent="."]
 visible = false
@@ -111,7 +126,7 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_7dj34")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(600, 148)
+custom_minimum_size = Vector2(600, 0)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -126,6 +141,7 @@ grow_vertical = 0
 alignment = 1
 
 [node name="InfoBox" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
 
@@ -140,6 +156,7 @@ layout_mode = 2
 [node name="Name" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_constants/line_spacing = -12
 theme_override_fonts/font = ExtResource("3_0hw4k")
 theme_override_font_sizes/font_size = 30
@@ -147,11 +164,15 @@ text = "Pyro-Laser"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox/VBoxContainer"]
-custom_minimum_size = Vector2(10, 55)
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/InfoBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_nqhy1")
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer/InfoBox/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_835q6")
-theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/normal_font_size = 21
 bbcode_enabled = true
 text = "[center][font_size=18]Cast these two spells
 at the same time!
@@ -160,14 +181,25 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 2
 
-[node name="Name2" type="Label" parent="HBoxContainer/InfoBox/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/InfoBox/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_0hw4k")
-theme_override_font_sizes/font_size = 2
-horizontal_alignment = 1
+size_flags_vertical = 6
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="ElementDescription" type="RichTextLabel" parent="HBoxContainer/InfoBox/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_835q6")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center] Slows movement"
+fit_content = true
+scroll_active = false
 autowrap_mode = 2
 
 [node name="InfoBox1" type="PanelContainer" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_negf4")
 

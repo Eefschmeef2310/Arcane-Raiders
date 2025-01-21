@@ -26,6 +26,8 @@ var current_button = 0
 var mouse_input = []
 var devices = []
 
+var stored_player : Player
+
 var submenu = null
 
 #endregion
@@ -73,6 +75,9 @@ func _on_button_mouse_entered(node : Control):
 		current_button = panels_array.find(node)
 
 func unpause_game():
+	if is_instance_valid(stored_player):
+		stored_player.preparing_cast_slot = -1
+		
 	get_tree().paused = false
 	GameManager.isPaused = false
 	queue_free()

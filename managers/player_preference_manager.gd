@@ -30,6 +30,10 @@ func _enter_tree():
 		player_preferences = PlayerPreferences.new()
 		player_preferences.init()
 		
+	#For Ethan to emulate a 1080p laptop size
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	#DisplayServer.window_set_size(Vector2(1135,638))
+	
 	load_preferences()
 #endregion
 

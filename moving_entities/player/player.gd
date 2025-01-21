@@ -99,7 +99,6 @@ var ignore_movement_input_next_tick : bool = false
 
 #region Godot methods
 func _ready():
-	print(z_index)
 	aim_direction = Vector2(1,1)
 	animation_player.seek(randf_range(0,2))
 	revival_meter.max_value = revival_time_max

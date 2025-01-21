@@ -189,7 +189,6 @@ func synergy_updated(synergy_bonus, color):
 	else:
 		synergy_height_control.show()
 		for slot in range(spells.size()):
-			print(data.spells[slot].element == data.synergy_element)
 			spells[slot].set_particles(data.spells[slot].element == data.synergy_element)
 		
 		element_particle.texture = data.spells[0].element.pip_texture
