@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_gcbln"]
 [ext_resource type="Texture2D" uid="uid://k86eniw42xb" path="res://moving_entities/enemies/bosses/boss_bat/sprites/001.png" id="2_h11k2"]
+[ext_resource type="Script" path="res://moving_entities/enemies/bosses/boss_bat/boss_bat.gd" id="2_t415w"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_1ls6v"]
 [ext_resource type="PackedScene" uid="uid://42pqgoacrk05" path="res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn" id="4_0nrxh"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_77mgy"]
@@ -12,56 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://cem3ar060j8d6" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spam.tscn" id="9_wsy56"]
 [ext_resource type="Texture2D" uid="uid://cj0qhp8t5epeu" path="res://moving_entities/enemies/bosses/boss_bat/sprites/002.png" id="12_5cm8x"]
 [ext_resource type="Texture2D" uid="uid://dtw40454x3rkk" path="res://moving_entities/enemies/bosses/boss_bat/sprites/bat_dash.png" id="12_s28h4"]
+[ext_resource type="Script" path="res://moving_entities/enemies/bosses/boss_bat/phase_2_state.gd" id="12_x1wbf"]
 [ext_resource type="Texture2D" uid="uid://b408sdpf81sgy" path="res://moving_entities/enemies/bosses/boss_bat/sprites/000.png" id="13_rot2b"]
 [ext_resource type="Texture2D" uid="uid://7518x25dosji" path="res://moving_entities/enemies/bosses/boss_bat/sprites/003.png" id="14_b2m18"]
 [ext_resource type="Texture2D" uid="uid://cwdcy6ys7runt" path="res://moving_entities/enemies/bosses/boss_bat/sprites/004.png" id="15_1be68"]
 [ext_resource type="Texture2D" uid="uid://d04xlnuhber0i" path="res://moving_entities/enemies/bosses/boss_bat/sprites/005.png" id="16_ljwad"]
 [ext_resource type="Texture2D" uid="uid://c2hexg1aofj3n" path="res://moving_entities/enemies/bosses/boss_bat/sprites/006.png" id="17_jmbpq"]
 [ext_resource type="Texture2D" uid="uid://bdj6po4xnphk" path="res://moving_entities/enemies/bosses/boss_bat/sprites/bat_spinny_white.png" id="18_nxyx4"]
-
-[sub_resource type="GDScript" id="GDScript_b5sd0"]
-script/source = "extends EnemyEntity
-
-var spawn_point:Vector2
-var dash_prep_pos: Vector2
-var dark_room:bool = false
-var target_player: Entity
-var invincible: bool = false
-var canvas_modulate: PointLight2D
-var players: Array[Player]
-
-func _ready():
-	super._ready()
-	if get_parent().has_node(\"CoverLight\"):
-		canvas_modulate = get_parent().get_node(\"CoverLight\")
-	spawn_point = global_position
-
-func get_players():
-	var p_arr = get_tree().get_nodes_in_group(\"player\")
-	for p in p_arr:
-		players.push_back(p)
-
-func _on_zero_health():
-	change_room_light(false)
-	super._on_zero_health()
-
-func change_room_light(dark_room:bool):
-	var light_lvl = 1 if dark_room else 0.25
-	var player_lvl = 1 if dark_room else 0.1
-	var player_size = 2 if dark_room else 1
-	$PointLight2D.energy = 0
-	get_tree().create_tween().parallel().tween_property(canvas_modulate, \"energy\", light_lvl, 2)
-	for p in players:
-		if is_instance_valid(p) && p.has_node(\"PointLight2D\"):
-			var light = p.get_node(\"PointLight2D\")
-			var tween0 = get_tree().create_tween()
-			tween0.tween_property(light, \"energy\", player_lvl, 2)
-			tween0.parallel().tween_property(light, \"texture_scale\", player_size, 2)
-			
-func on_hurt(attack):
-	if invincible: return
-	super.on_hurt(attack)
-"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hf3fn"]
 radius = 70.0
@@ -152,6 +110,9 @@ func physics_update(delta):
 	super.physics_update(delta)
 	if !player: return
 	
+	if enemy.health <= enemy.max_health/2 && enemy.dark_room == false:
+		Transitioned.emit(self, \"darkenroom\")
+	
 	#Shockwave dash attack
 	if can_cast_spell(1):
 		ray_cast_2d.target_position = get_furthest_player().global_position.direction_to(enemy.global_position) * 9999
@@ -179,8 +140,6 @@ func physics_update(delta):
 		return
 		
 	#Dark Room check
-	if enemy.health <= enemy.max_health/2 && enemy.dark_room == false:
-		Transitioned.emit(self, \"darkenroom\")
 
 
 func set_position():
@@ -244,37 +203,8 @@ script/source = "extends State
 func enter():
 	play_anim()
 	enemy.change_room_light(true)
+	await get_tree().create_timer(1, false, true).timeout
 	Transitioned.emit(self, \"phase2\")
-"
-
-[sub_resource type="GDScript" id="GDScript_d3u3x"]
-resource_name = "bb_phase_2"
-script/source = "extends State
-#class_name
-#Authored by AlexV. Please consult for any modifications or major feature requests.
-@onready var ray_cast_2d = $\"../../RayCast2D\"
-
-func enter():
-	play_anim()
-	set_position()
-	
-func physics_update(delta):
-	super.physics_update(delta)
-	if can_cast_spell(2):
-		var random = randi() % 360
-		ray_cast_2d.target_position = Vector2.RIGHT.rotated(deg_to_rad(random)) * 9999
-		ray_cast_2d.force_raycast_update()
-		
-		var wall_pos = ray_cast_2d.get_collision_point()
-		if wall_pos.distance_to(enemy.global_position) < 200:
-			ray_cast_2d.target_position = Vector2.RIGHT.rotated(deg_to_rad(random - 180))
-			ray_cast_2d.force_raycast_update()
-			wall_pos = ray_cast_2d.get_collision_point()
-		
-		enemy.target_player = get_closest_player()
-		enemy.dash_prep_pos = wall_pos
-		enemy.aim_direction = wall_pos.direction_to(get_closest_player().global_position)
-		Transitioned.emit(self, \"blinkattack\")
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f8rpe"]
@@ -533,7 +463,7 @@ alpha_curve = SubResource("CurveTexture_swxsv")
 
 [node name="BossBat" groups=["boss"] instance=ExtResource("1_gcbln")]
 collision_mask = 1
-script = SubResource("GDScript_b5sd0")
+script = ExtResource("2_t415w")
 movement_speed = 300.0
 is_boss = true
 boss_name = "Echo Rusher"
@@ -573,7 +503,7 @@ offset_bottom = -5.0
 [node name="EnemySpells" parent="." index="6"]
 spells = Array[ExtResource("5_sn5q4")]([SubResource("Resource_sbqj1"), SubResource("Resource_3u7ki"), SubResource("Resource_0ma1c"), SubResource("Resource_o6tja"), SubResource("Resource_ss7x5")])
 cast_time = Array[float]([1.0, 0.2, 0.2, 0.2, 0.2])
-spell_cooldowns = Array[float]([2.0, 0.0, 2.0, 10.0, 20.0])
+spell_cooldowns = Array[float]([3.0, 0.0, 2.0, 10.0, 20.0])
 
 [node name="StateMachine" parent="." index="7" node_paths=PackedStringArray("initial_state")]
 initial_state = NodePath("Idle")
@@ -617,8 +547,9 @@ next_state = "default"
 [node name="DarkenRoom" type="Node" parent="StateMachine" index="7"]
 script = SubResource("GDScript_prrkd")
 
-[node name="Phase2" type="Node" parent="StateMachine" index="8"]
-script = SubResource("GDScript_d3u3x")
+[node name="Phase2" type="Node" parent="StateMachine" index="8" node_paths=PackedStringArray("ray_cast_2d")]
+script = ExtResource("12_x1wbf")
+ray_cast_2d = NodePath("../../RayCast2D")
 nav_timer_interval = 99.0
 nav_timer = 99
 

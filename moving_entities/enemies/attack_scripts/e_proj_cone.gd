@@ -30,15 +30,14 @@ func _ready():
 		tween.tween_property($Sprite2D, "scale", Vector2(1.5, 1.5), delay_time/2)
 		await tween.finished
 	
-	if caster != null and "attempt_anim" in caster and caster.animation_player.current_animation != "dash": caster.attempt_anim("idle")
+	if is_instance_valid(caster) && caster and "attempt_anim" in caster and caster.animation_player.current_animation != "dash": caster.attempt_anim("idle")
 	for i in bullets:
 		var bullet = bullet_scene.instantiate()
-		bullet.set_direction(initial_direction.rotated(deg_to_rad(-cone_range_deg/2 + i*(cone_range_deg/(bullets-1)))))
+		bullet.set_direction(initial_direction.rotated(deg_to_rad(-cone_range_deg/2 + i*(cone_range_deg/maxi(1, bullets-1))))) 
 		bullet.global_position = global_position
 		transfer_data(bullet)
-		add_sibling.call_deferred(bullet)
-		
-	queue_free()
+		call_deferred("add_sibling", bullet)
+	call_deferred("queue_free")
 #endregion
 
 #region Signal methods
