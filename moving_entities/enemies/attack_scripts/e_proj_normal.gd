@@ -28,16 +28,16 @@ func _process(delta):
 func _on_area_entered(area):
 	var parent = area.get_parent()
 	if !(parent is Player and (parent.is_invincible or parent.is_dashing)):
-		queue_free()
+		call_deferred("queue_free")
 
 func _on_body_entered(_body):
-	queue_free()
-	
-func _on_timer_timeout():
-	queue_free()
-#endregion
+	call_deferred("queue_free")
 
 #Called from other scripts (e.g Triple shot attack)
 func set_direction(new_direction: Vector2):
 	direction = new_direction
 #endregion
+
+
+func _on_timer_timeout():
+	call_deferred("queue_free")

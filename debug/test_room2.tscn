@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_fdu1f"]
 [ext_resource type="Shader" path="res://shaders/tilemap_gradient_map.gdshader" id="2_2xy1c"]
 [ext_resource type="PackedScene" uid="uid://bp3p5hgbn2t6t" path="res://moving_entities/player/player.tscn" id="2_177bf"]
-[ext_resource type="PackedScene" uid="uid://ouxe3ksjlhd4" path="res://hats/scenes/vampire_hat.tscn" id="5_o2xy2"]
+[ext_resource type="PackedScene" uid="uid://dpu3i2bvxup6g" path="res://hats/scenes/explosion_hat/explosion_hat.tscn" id="5_onx36"]
 [ext_resource type="PackedScene" uid="uid://bh70olrrel7l8" path="res://tilesets/decorations/candle.tscn" id="6_scox5"]
-[ext_resource type="PackedScene" uid="uid://byabxygfvnpvx" path="res://moving_entities/enemies/SlimeSmall/SmallSlime.tscn" id="7_k41tw"]
+[ext_resource type="PackedScene" uid="uid://bsf2hjv17k50v" path="res://moving_entities/enemies/hornet/hornet.tscn" id="7_gkhx2"]
 [ext_resource type="PackedScene" uid="uid://xvld7tdd1xe4" path="res://ui/player_ui.tscn" id="9_qlfqa"]
 
 [sub_resource type="Gradient" id="Gradient_mkddu"]
@@ -99,14 +99,13 @@ data = NodePath("../../../Player/PlayerData")
 position = Vector2(96, 800)
 
 [node name="PlayerData" parent="Player" index="6"]
-health = 50
-spell_strings = Array[String](["shock-proj_ball", "shock-proj_spread", "shock-proj_ball"])
+spell_strings = Array[String](["shock-proj_ball", "shock-proj_ball", "shock-proj_ball"])
 main_color = Color(0.737255, 0.231373, 0.192157, 1)
 
-[node name="AnimalSound" parent="Player" index="27"]
+[node name="AnimalSound" parent="Player" index="26"]
 stream = SubResource("AudioStreamRandomizer_doftm")
 
-[node name="VampireHat" parent="Player" index="30" instance=ExtResource("5_o2xy2")]
+[node name="ExplosionHat" parent="Player" index="29" instance=ExtResource("5_onx36")]
 
 [node name="Sprite2D" parent="GuideArrow" index="0"]
 visible = true
@@ -114,20 +113,8 @@ visible = true
 [node name="Candle" parent="." index="18" instance=ExtResource("6_scox5")]
 position = Vector2(494, 412)
 
-[node name="SmallSlime" parent="." index="19" instance=ExtResource("7_k41tw")]
-position = Vector2(946, 503)
-
-[node name="SmallSlime2" parent="." index="20" instance=ExtResource("7_k41tw")]
-position = Vector2(946, 503)
-
-[node name="SmallSlime3" parent="." index="21" instance=ExtResource("7_k41tw")]
-position = Vector2(946, 503)
-
-[node name="SmallSlime4" parent="." index="22" instance=ExtResource("7_k41tw")]
-position = Vector2(946, 503)
-
-[node name="SmallSlime5" parent="." index="23" instance=ExtResource("7_k41tw")]
-position = Vector2(946, 503)
+[node name="Hornet" parent="." index="19" instance=ExtResource("7_gkhx2")]
+position = Vector2(876, 438)
 
 [editable path="DynamicCamera"]
 [editable path="Player"]

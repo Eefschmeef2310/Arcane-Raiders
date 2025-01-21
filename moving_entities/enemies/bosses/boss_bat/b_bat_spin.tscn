@@ -54,5 +54,6 @@ func fire():
 [node name="BBatSpin" type="Node2D"]
 position = Vector2(290, 169)
 script = SubResource("GDScript_l47ja")
-bullets_per_second = 25.0
+bullets_per_second = 20.0
 spell_duration = 6.0
+fire_angle_change_rate = 74.0

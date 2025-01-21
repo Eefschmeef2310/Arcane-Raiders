@@ -17,7 +17,7 @@ start_time = 1.0
 cooldown_time = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+modulate = Color(1, 1, 1, 0.356863)
 texture = ExtResource("3_g28pw")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
