@@ -54,5 +54,5 @@ func init_synergy(element : ElementResource, amount : float, col : Color):
 	label.visible = false
 	
 	element_pip.texture = element.pip_texture
-	synergy_label.text = "+" + str(amount) + "x synergy bonus!"
+	synergy_label.text = "+" + str(amount*100) + "% synergy bonus!"
 	synergy_label.add_theme_color_override("font_color", col)

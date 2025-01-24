@@ -29,7 +29,8 @@ func _ready():
 
 func _process(_delta):
 	if !active:
-		player.data.hat_label_changed.emit(str(snapped(active_timer.time_left, 0.1)) + "s until explosion")
+		var explosion_cooldown = "%.1f" % active_timer.time_left
+		player.data.hat_label_changed.emit(str(explosion_cooldown) + "s until explosion")
 	else:
 		player.data.hat_label_changed.emit("Explosion ready!")
 #endregion
