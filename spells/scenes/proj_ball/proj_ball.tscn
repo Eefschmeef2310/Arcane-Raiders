@@ -21,4 +21,5 @@ material = SubResource("ShaderMaterial_jwrim")
 script = ExtResource("2_qb32q")
 base_damage = 75
 infliction_time = 1.5
+cooldown_time = 2.0
 play_sound_on_cast = false
