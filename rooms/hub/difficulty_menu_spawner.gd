@@ -45,6 +45,7 @@ func on_interact(player: Player):
 		menu.device_id = player.data.device_id
 		add_sibling(menu)
 		player.input_preventing_node = menu
+		menu.custom_seed_entry.text = owner.custom_seed
 	else:
 		owner.create_notification("Only the host can change the difficulty.")
 
