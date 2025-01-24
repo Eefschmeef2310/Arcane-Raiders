@@ -15,6 +15,8 @@ signal difficulty_set()
 	#@export_subgroup("Subgroup")
 @export var vignette : ColorRect
 @export var lerp_duration : float = 0.5
+@onready var custom_seed_entry = $Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/CustomSeedEntry
+
 
 	#Onready Variables
 
@@ -79,6 +81,7 @@ func _on_button_mouse_exited():
 func _on_difficulty_selected(node : Control):
 	if (get_parent().get_parent() as CastleRoomLobby):
 		(get_parent().get_parent() as CastleRoomLobby).set_difficulty.rpc(panels_array.find(node))
+		(get_parent().get_parent() as CastleRoomLobby).custom_seed = custom_seed_entry.text
 		difficulty_set.emit()
 		unpause_game()
 #endregion
