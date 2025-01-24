@@ -194,7 +194,7 @@ func synergy_updated(synergy_bonus, color):
 		element_particle.texture = data.spells[0].element.pip_texture
 		element_particle.emitting = data.spells[0].element == data.spells[1].element and data.spells[0].element == data.spells[2].element
 			
-		synergy_text.text = "Synergy Bonus! + " + str(synergy_bonus) + "x damage!"
+		synergy_text.text = "Synergy Bonus! + " + str(synergy_bonus*100) + "% damage!"
 		synergy_text.add_theme_color_override("font_color", color)
 #endregion
 

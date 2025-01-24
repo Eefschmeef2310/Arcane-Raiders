@@ -16,9 +16,9 @@ script = ExtResource("1_llf4r")
 speed = 0.2
 
 [node name="PathFollow2D3" type="PathFollow2D" parent="."]
-position = Vector2(343.644, 215.649)
+position = Vector2(-31.5138, 24.8913)
 rotation = -2.67119
-progress = 353.783
+progress = 774.652
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D3"]
 texture = ExtResource("2_61al6")
@@ -28,5 +28,53 @@ energy = 0.4
 texture = ExtResource("3_a0rda")
 
 [node name="_Timer_79288" type="Timer" parent="PathFollow2D3"]
+wait_time = 0.2
+one_shot = true
+
+[node name="PathFollow2D4" type="PathFollow2D" parent="."]
+position = Vector2(499.506, 294.901)
+rotation = -2.67119
+progress = 178.931
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D4"]
+texture = ExtResource("2_61al6")
+
+[node name="PointLight2D" type="PointLight2D" parent="PathFollow2D4"]
+energy = 0.4
+texture = ExtResource("3_a0rda")
+
+[node name="_Timer_79288" type="Timer" parent="PathFollow2D4"]
+wait_time = 0.2
+one_shot = true
+
+[node name="PathFollow2D5" type="PathFollow2D" parent="."]
+position = Vector2(322.502, 204.899)
+rotation = -2.67119
+progress = 377.501
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D5"]
+texture = ExtResource("2_61al6")
+
+[node name="PointLight2D" type="PointLight2D" parent="PathFollow2D5"]
+energy = 0.4
+texture = ExtResource("3_a0rda")
+
+[node name="_Timer_79288" type="Timer" parent="PathFollow2D5"]
+wait_time = 0.2
+one_shot = true
+
+[node name="PathFollow2D6" type="PathFollow2D" parent="."]
+position = Vector2(145.483, 114.89)
+rotation = -2.67119
+progress = 576.086
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D6"]
+texture = ExtResource("2_61al6")
+
+[node name="PointLight2D" type="PointLight2D" parent="PathFollow2D6"]
+energy = 0.4
+texture = ExtResource("3_a0rda")
+
+[node name="_Timer_79288" type="Timer" parent="PathFollow2D6"]
 wait_time = 0.2
 one_shot = true
