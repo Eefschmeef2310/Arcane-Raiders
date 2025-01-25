@@ -9,7 +9,7 @@ func _process(_delta):
 	super._process(_delta)
 	
 	if !is_instance_valid(submenu):
-		if (("confirm" in mouse_input) or "click_confirm" in mouse_input) and !quit_warning:
+		if (("confirm" in mouse_input) or "click_confirm" in mouse_input) and !quit_warning and current_button != -1:
 			match current_button:
 				0: unpause_game()
 				#1: _on_feedback_button_pressed()
@@ -50,6 +50,10 @@ func _on_quit_button_pressed():
 		
 func _on_feedback_button_pressed():
 	OS.shell_open("https://forms.gle/X1ToW3kE8Pzpy4mu5")
+
+func _on_mouse_exited():
+	if device_id <= -1: #We only want this if the player is a mouse player
+		current_button = -1
 #endregion
 
 #endregion

@@ -51,10 +51,16 @@ func _process(delta):
 		vignette_material.set_shader_parameter("inner_radius", lerp(vignette_material.get_shader_parameter("inner_radius"), radius, elapsed_time / lerp_duration) )
 		
 	if !is_instance_valid(submenu):
-		if (("confirm" in mouse_input) or "click_confirm" in mouse_input):
-			if current_button < panels_array.size() - 1:
-				_on_difficulty_selected(panels_array[current_button])
+		if ("confirm" in mouse_input) and panels_array[current_button] is LineEdit:
+			if panels_array[current_button].has_focus():
+				panels_array[current_button].release_focus()
 			else:
+				panels_array[current_button].grab_focus()
+		
+		if (("confirm" in mouse_input) or "click_confirm" in mouse_input) and current_button != -1:
+			if current_button < panels_array.size() - 2:
+				_on_difficulty_selected(panels_array[current_button])
+			elif !(panels_array[current_button] is LineEdit):
 				unpause_game()
 		
 		if "cancel" in mouse_input:
@@ -72,6 +78,8 @@ func _on_mouse_entered(col : Color, rad : float):
 	radius = rad
 
 func _on_button_mouse_exited():
+	if device_id <= -1 and (!(panels_array[current_button] is LineEdit) or !(panels_array[current_button] as LineEdit).has_focus()):
+		current_button = -1
 	elapsed_time = 0
 	difficulty_color = Color.TRANSPARENT
 	radius = 0.5
