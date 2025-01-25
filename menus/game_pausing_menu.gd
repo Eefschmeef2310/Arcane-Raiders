@@ -22,7 +22,7 @@ class_name GamePausingMenu
 	#Other Variables (please try to separate and organise!)
 var device_id : int = -2
 var input : DeviceInput
-var current_button = -1
+var current_button = 0
 var mouse_input = []
 var devices = []
 
