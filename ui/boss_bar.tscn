@@ -1,7 +1,149 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyojdie2kn8xv"]
+[gd_scene load_steps=39 format=3 uid="uid://cyojdie2kn8xv"]
 
 [ext_resource type="Script" path="res://ui/boss_bar.gd" id="1_pycwm"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="1_vjt7w"]
+[ext_resource type="Script" path="res://moving_entities/enemies/boss_slime/gradientObject.gd" id="2_hdy5g"]
+
+[sub_resource type="Gradient" id="Gradient_hprlb"]
+colors = PackedColorArray(0, 1, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dsxid"]
+gradient = SubResource("Gradient_hprlb")
+fill_from = Vector2(0, 0.526042)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Resource" id="Resource_4q8b3"]
+script = ExtResource("2_hdy5g")
+key = "Frostfire Amalgamate"
+gradient = SubResource("GradientTexture2D_dsxid")
+
+[sub_resource type="Gradient" id="Gradient_wjrcq"]
+colors = PackedColorArray(0, 0, 1, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_la1cv"]
+gradient = SubResource("Gradient_wjrcq")
+fill_from = Vector2(0, 0.541667)
+fill_to = Vector2(1, 0.458333)
+
+[sub_resource type="Resource" id="Resource_i0j22"]
+script = ExtResource("2_hdy5g")
+key = "Conductive Amalgamate"
+gradient = SubResource("GradientTexture2D_la1cv")
+
+[sub_resource type="Gradient" id="Gradient_ratua"]
+colors = PackedColorArray(0, 0, 1, 1, 0.405178, 0.592296, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mrjig"]
+gradient = SubResource("Gradient_ratua")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_6maln"]
+script = ExtResource("2_hdy5g")
+key = "Aqua Slime"
+gradient = SubResource("GradientTexture2D_mrjig")
+
+[sub_resource type="Gradient" id="Gradient_xsyco"]
+colors = PackedColorArray(1, 1, 0, 1, 0.988235, 1, 0.92549, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cvafh"]
+gradient = SubResource("Gradient_xsyco")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_ejuvf"]
+script = ExtResource("2_hdy5g")
+key = "Shock Slime"
+gradient = SubResource("GradientTexture2D_cvafh")
+
+[sub_resource type="Gradient" id="Gradient_m1ys7"]
+colors = PackedColorArray(1, 0.392157, 0, 1, 0.222975, 0.855195, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_61kxm"]
+gradient = SubResource("Gradient_m1ys7")
+fill_from = Vector2(1, 0.510417)
+fill_to = Vector2(0, 0.494792)
+
+[sub_resource type="Resource" id="Resource_3xhwe"]
+script = ExtResource("2_hdy5g")
+key = "Desert Amalgamate"
+gradient = SubResource("GradientTexture2D_61kxm")
+
+[sub_resource type="Gradient" id="Gradient_tc7cc"]
+colors = PackedColorArray(1, 0.372549, 0, 1, 1, 0.679249, 0.52722, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0l1oy"]
+gradient = SubResource("Gradient_tc7cc")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_tk8mm"]
+script = ExtResource("2_hdy5g")
+key = "Stone Slime"
+gradient = SubResource("GradientTexture2D_0l1oy")
+
+[sub_resource type="Gradient" id="Gradient_rsbqk"]
+colors = PackedColorArray(0, 0.847059, 0, 1, 0.715543, 1, 0.689873, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4miob"]
+gradient = SubResource("Gradient_rsbqk")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_lqd2u"]
+script = ExtResource("2_hdy5g")
+key = "Tornado Slime"
+gradient = SubResource("GradientTexture2D_4miob")
+
+[sub_resource type="Gradient" id="Gradient_2f3lh"]
+colors = PackedColorArray(0, 1, 1, 1, 0.823529, 1, 0.996078, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7di72"]
+gradient = SubResource("Gradient_2f3lh")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_4es0f"]
+script = ExtResource("2_hdy5g")
+key = "Frozen Daughter Slime"
+gradient = SubResource("GradientTexture2D_7di72")
+
+[sub_resource type="Gradient" id="Gradient_rmgdk"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.634888, 0.579015, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g71sf"]
+gradient = SubResource("Gradient_rmgdk")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Resource" id="Resource_gdk68"]
+script = ExtResource("2_hdy5g")
+key = "Blazing Slime"
+gradient = SubResource("GradientTexture2D_g71sf")
+
+[sub_resource type="Gradient" id="Gradient_bdho5"]
+colors = PackedColorArray(1, 0.607843, 1, 1, 1, 0.273989, 0.21327, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ieba"]
+gradient = SubResource("Gradient_bdho5")
+fill = 1
+fill_from = Vector2(0.53125, 0.494792)
+fill_to = Vector2(0.635417, 0.40625)
+repeat = 2
+
+[sub_resource type="Resource" id="Resource_afwqc"]
+script = ExtResource("2_hdy5g")
+key = "Echo Rusher"
+gradient = SubResource("GradientTexture2D_8ieba")
+
+[sub_resource type="Gradient" id="Gradient_rqnsm"]
+colors = PackedColorArray(0.494118, 0, 1, 1, 1, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xcwaa"]
+gradient = SubResource("Gradient_rqnsm")
+fill_from = Vector2(0.875, 0)
+repeat = 2
+
+[sub_resource type="Resource" id="Resource_mxjyt"]
+script = ExtResource("2_hdy5g")
+key = "Shadow Wizard Guardians"
+gradient = SubResource("GradientTexture2D_xcwaa")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnneb"]
 bg_color = Color(0, 0, 0, 0.607843)
@@ -17,13 +159,18 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="BossBar" type="VBoxContainer"]
+[node name="BossBar" type="VBoxContainer" node_paths=PackedStringArray("overlay", "color_text", "shadow_text")]
 custom_minimum_size = Vector2(800, 0)
 alignment = 1
 script = ExtResource("1_pycwm")
+colors = Array[ExtResource("2_hdy5g")]([SubResource("Resource_4q8b3"), SubResource("Resource_i0j22"), SubResource("Resource_6maln"), SubResource("Resource_ejuvf"), SubResource("Resource_3xhwe"), SubResource("Resource_tk8mm"), SubResource("Resource_lqd2u"), SubResource("Resource_4es0f"), SubResource("Resource_gdk68"), SubResource("Resource_afwqc"), SubResource("Resource_mxjyt")])
+overlay = NodePath("ShadowText/ColorText/TextureRect")
+color_text = NodePath("ShadowText/ColorText")
+shadow_text = NodePath("ShadowText")
 
-[node name="Name" type="Label" parent="."]
+[node name="ShadowText" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
@@ -31,6 +178,37 @@ theme_override_fonts/font = ExtResource("1_vjt7w")
 theme_override_font_sizes/font_size = 48
 text = "Perpendicular Fiction"
 horizontal_alignment = 1
+
+[node name="ColorText" type="Label" parent="ShadowText"]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -36.5
+offset_right = 208.0
+offset_bottom = 36.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("1_vjt7w")
+theme_override_font_sizes/font_size = 48
+text = "Perpendicular Fiction"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ShadowText/ColorText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(800, 16)

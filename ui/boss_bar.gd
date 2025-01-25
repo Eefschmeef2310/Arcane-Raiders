@@ -4,10 +4,22 @@ class_name BossBar
 
 var entity: Entity
 
+@export var colors : Array[GradientObject]
+
+@export_group("Node References")
+@export var overlay : TextureRect
+@export var color_text : Label
+@export var shadow_text : Label
+
+
 func set_entity(e: Entity):
 	entity = e
 	if "boss_name" in entity:
-		$Name.text = entity.boss_name
+		color_text.text = entity.boss_name
+		shadow_text.text = entity.boss_name
+		for color in colors:
+			if color.key == entity.boss_name:
+				overlay.texture = color.gradient
 	entity.zero_health.connect(_on_entity_zero_health)
 	
 func _ready():
