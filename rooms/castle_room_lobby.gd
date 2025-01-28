@@ -81,12 +81,10 @@ func _process(delta):
 	if !start_game_called:
 		if GameManager.isLocal():
 			handle_join_input()
-			if is_instance_valid(join_indicator_node):
-				join_indicator_node.visible = player_ui_container.get_child_count() <= 4
+			if is_instance_valid(join_indicator_node) and is_instance_valid(no_players_label):
 				player_ui_container.move_child(join_indicator_node, -1)
-			if is_instance_valid(no_players_label):
 				no_players_label.visible = player_ui_container.get_child_count() <= 1
-				join_indicator_node.visible = !no_players_label.visible
+				join_indicator_node.visible = player_ui_container.get_child_count() < 5 and !no_players_label.visible
 		else:
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.hide()
