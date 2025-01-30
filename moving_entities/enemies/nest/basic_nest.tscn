@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cl6evd5eokmpu"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_2tj8e"]
-[ext_resource type="Texture2D" uid="uid://ba1tcgo6plygi" path="res://moving_entities/enemies/nest/nest-temp.png" id="2_74bdc"]
+[ext_resource type="Texture2D" uid="uid://dsepgqbf7p5he" path="res://moving_entities/enemies/nest/Nest.png" id="2_8l1ab"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_gbedi"]
 [ext_resource type="PackedScene" uid="uid://bpmywahil36ui" path="res://moving_entities/enemies/nest/spawn_spiderling.tscn" id="4_p16fd"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_undgi"]
@@ -135,9 +135,8 @@ position = Vector2(0, -40)
 texture_scale = 0.5
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(4, -30)
-scale = Vector2(1.8, 1.8)
-texture = ExtResource("2_74bdc")
+position = Vector2(-3, -30)
+texture = ExtResource("2_8l1ab")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -11)
