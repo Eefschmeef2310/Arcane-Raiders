@@ -294,7 +294,6 @@ scale = Vector2(1.555, 1.555)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(-1.28617, 32.1543)
-rotation = -0.113446
 shape = SubResource("CircleShape2D_3yp8g")
 debug_color = Color(0.976471, 0, 0.411765, 0.419608)
 

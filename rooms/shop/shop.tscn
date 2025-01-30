@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b01k41p44far4"]
+[gd_scene load_steps=22 format=3 uid="uid://b01k41p44far4"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_777ke"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_an1k0"]
@@ -7,6 +7,59 @@
 [ext_resource type="PackedScene" uid="uid://cnwry8vnl527c" path="res://rooms/shop/shop_dash_tutorial_path.tscn" id="5_h3r21"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="6_0rwl8"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="7_n058s"]
+[ext_resource type="Texture2D" uid="uid://r47e7idlp7nk" path="res://moving_entities/enemies/Dummy/baby slime.png" id="8_b6hd7"]
+[ext_resource type="Texture2D" uid="uid://g5hk04tkm5he" path="res://moving_entities/enemies/Dummy/big slime.png" id="9_rb77y"]
+[ext_resource type="Texture2D" uid="uid://dihyw8tnew81j" path="res://moving_entities/enemies/Dummy/mini bat.png" id="10_ab8x4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mrmjl"]
+radius = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_scqll"]
+radius = 20.0
+
+[sub_resource type="Curve" id="Curve_aiy5e"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+curve = SubResource("Curve_aiy5e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fh2gg"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ivvdx"]
+radius = 59.6801
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjlss"]
+radius = 28.0179
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_45bqa"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nqssn"]
+radius = 44.0114
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6mx7"]
+resource_local_to_scene = true
+radius = 14.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_krnu7"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_swxsv")
 
 [node name="CastleRoomShop" instance=ExtResource("1_777ke")]
 script = ExtResource("2_an1k0")
@@ -55,27 +108,18 @@ position = Vector2(1293, -69)
 [node name="Label" parent="CanvasLayer" index="1"]
 metadata/_edit_use_anchors_ = true
 
-[node name="Dummy" parent="." index="14" instance=ExtResource("4_dpx7v")]
-position = Vector2(1403, 430)
-
-[node name="Dummy2" parent="." index="15" instance=ExtResource("4_dpx7v")]
-position = Vector2(1133, 558)
-
-[node name="Dummy3" parent="." index="16" instance=ExtResource("4_dpx7v")]
-position = Vector2(845, 699)
-
-[node name="DashTutorial" parent="." index="17" instance=ExtResource("5_h3r21")]
+[node name="DashTutorial" parent="." index="14" instance=ExtResource("5_h3r21")]
 position = Vector2(1172, -48)
 speed = 0.3
 
 [node name="PathFollow2D3" parent="DashTutorial" index="0"]
-position = Vector2(659, 376)
-progress = 0.0
+position = Vector2(112.325, 98.0299)
+progress = 613.284
 
 [node name="PathFollow2D7" type="PathFollow2D" parent="DashTutorial" index="1"]
-position = Vector2(604.544, 348.31)
+position = Vector2(57.8619, 70.3366)
 rotation = -2.67119
-progress = 61.0977
+progress = 674.383
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D7" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -89,9 +133,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D8" type="PathFollow2D" parent="DashTutorial" index="2"]
-position = Vector2(550.081, 320.617)
+position = Vector2(3.39829, 42.6432)
 rotation = -2.67119
-progress = 122.195
+progress = 735.481
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D8" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -105,9 +149,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D9" type="PathFollow2D" parent="DashTutorial" index="3"]
-position = Vector2(495.618, 292.924)
+position = Vector2(656.943, 374.954)
 rotation = -2.67119
-progress = 183.293
+progress = 2.31113
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D9" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -121,9 +165,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D10" type="PathFollow2D" parent="DashTutorial" index="4"]
-position = Vector2(441.156, 265.232)
+position = Vector2(602.483, 347.263)
 rotation = -2.67119
-progress = 244.391
+progress = 63.4092
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D10" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -137,9 +181,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D11" type="PathFollow2D" parent="DashTutorial" index="5"]
-position = Vector2(386.693, 237.539)
+position = Vector2(548.019, 319.569)
 rotation = -2.67119
-progress = 305.488
+progress = 124.506
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D11" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -153,9 +197,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D12" type="PathFollow2D" parent="DashTutorial" index="6"]
-position = Vector2(332.231, 209.846)
+position = Vector2(493.558, 291.877)
 rotation = -2.67119
-progress = 366.586
+progress = 185.604
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D12" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -169,9 +213,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D13" type="PathFollow2D" parent="DashTutorial" index="7"]
-position = Vector2(277.769, 182.154)
+position = Vector2(439.095, 264.184)
 rotation = -2.67119
-progress = 427.684
+progress = 246.701
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D13" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -185,9 +229,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D14" type="PathFollow2D" parent="DashTutorial" index="8"]
-position = Vector2(223.307, 154.461)
+position = Vector2(384.633, 236.491)
 rotation = -2.67119
-progress = 488.781
+progress = 307.799
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D14" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -201,9 +245,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D15" type="PathFollow2D" parent="DashTutorial" index="9"]
-position = Vector2(168.844, 126.768)
+position = Vector2(330.171, 208.799)
 rotation = -2.67119
-progress = 549.879
+progress = 368.896
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D15" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -217,18 +261,18 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D4" parent="DashTutorial" index="10"]
-position = Vector2(114.382, 99.0758)
-progress = 610.977
+position = Vector2(275.711, 181.108)
+progress = 429.992
 
 [node name="PathFollow2D5" parent="DashTutorial" index="11"]
-position = Vector2(59.919, 71.3825)
-progress = 672.074
+position = Vector2(221.249, 153.415)
+progress = 491.089
 
 [node name="PathFollow2D6" parent="DashTutorial" index="12"]
-position = Vector2(5.45625, 43.6896)
-progress = 733.172
+position = Vector2(166.789, 125.723)
+progress = 552.186
 
-[node name="DashTutorial2" type="Node2D" parent="." index="18"]
+[node name="DashTutorial2" type="Node2D" parent="." index="15"]
 position = Vector2(1175, 83)
 rotation = 0.462512
 skew = -0.462512
@@ -245,7 +289,7 @@ theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[wave center] Dash through attacks to avoid taking damage!"
 
-[node name="ReactionTutorial" type="Node2D" parent="." index="21"]
+[node name="ReactionTutorial" type="Node2D" parent="." index="18"]
 position = Vector2(-67, 492)
 rotation = -0.462512
 skew = 0.462512
@@ -277,6 +321,112 @@ bbcode_enabled = true
 text = "[wave center] Dash through attacks to avoid taking damage!"
 metadata/_edit_use_anchors_ = true
 
+[node name="DummyContainer" type="Node2D" parent="." index="19"]
+position = Vector2(42, -198)
+
+[node name="SmallSlimeDummy" parent="DummyContainer" index="0" instance=ExtResource("4_dpx7v")]
+position = Vector2(1331, 686)
+
+[node name="Sprite2D" parent="DummyContainer/SmallSlimeDummy" index="1"]
+position = Vector2(0, 0)
+texture = ExtResource("8_b6hd7")
+
+[node name="Hurtbox" parent="DummyContainer/SmallSlimeDummy" index="2"]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" parent="DummyContainer/SmallSlimeDummy/Hurtbox" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_mrmjl")
+
+[node name="CollisionShape2D" parent="DummyContainer/SmallSlimeDummy" index="11"]
+shape = SubResource("CircleShape2D_scqll")
+
+[node name="BurnParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_fh2gg")
+
+[node name="FrostParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_fh2gg")
+
+[node name="ShockParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_fh2gg")
+
+[node name="WindParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_fh2gg")
+
+[node name="WetParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_fh2gg")
+
+[node name="StunParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_fh2gg")
+
+[node name="BigSlimeDummy" parent="DummyContainer" index="1" instance=ExtResource("4_dpx7v")]
+position = Vector2(1155, 774)
+
+[node name="Sprite2D" parent="DummyContainer/BigSlimeDummy" index="1"]
+texture = ExtResource("9_rb77y")
+
+[node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy/Hurtbox" index="0"]
+position = Vector2(8, 16)
+scale = Vector2(1.56, 1.08)
+shape = SubResource("CircleShape2D_ivvdx")
+
+[node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy" index="11"]
+shape = SubResource("CircleShape2D_hjlss")
+
+[node name="BurnParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_45bqa")
+
+[node name="FrostParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_45bqa")
+
+[node name="ShockParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_45bqa")
+
+[node name="WindParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_45bqa")
+
+[node name="WetParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_45bqa")
+
+[node name="StunParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_45bqa")
+
+[node name="BatDummy" parent="DummyContainer" index="2" instance=ExtResource("4_dpx7v")]
+position = Vector2(963, 870)
+
+[node name="Sprite2D" parent="DummyContainer/BatDummy" index="1"]
+texture = ExtResource("10_ab8x4")
+
+[node name="CollisionShape2D" parent="DummyContainer/BatDummy/Hurtbox" index="0"]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_nqssn")
+
+[node name="CollisionShape2D" parent="DummyContainer/BatDummy" index="11"]
+position = Vector2(9, 13)
+shape = SubResource("CircleShape2D_k6mx7")
+
+[node name="BurnParticles" parent="DummyContainer/BatDummy/StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_krnu7")
+
+[node name="FrostParticles" parent="DummyContainer/BatDummy/StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_krnu7")
+
+[node name="ShockParticles" parent="DummyContainer/BatDummy/StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_krnu7")
+
+[node name="WindParticles" parent="DummyContainer/BatDummy/StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_krnu7")
+
+[node name="WetParticles" parent="DummyContainer/BatDummy/StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_krnu7")
+
+[node name="StunParticles" parent="DummyContainer/BatDummy/StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_krnu7")
+
 [editable path="DynamicCamera"]
 [editable path="DashTutorial"]
 [editable path="GuideArrow"]
+[editable path="DummyContainer/SmallSlimeDummy"]
+[editable path="DummyContainer/BigSlimeDummy"]
+[editable path="DummyContainer/BatDummy"]

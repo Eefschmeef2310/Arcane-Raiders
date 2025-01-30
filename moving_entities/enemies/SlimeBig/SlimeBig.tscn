@@ -34,7 +34,7 @@ func _on_zero_health():
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j12m"]
 radius = 59.6801
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_07kqc"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlxlg"]
 radius = 14.895
 height = 159.57
 
@@ -246,7 +246,7 @@ _data = {
 "idle": SubResource("Animation_lk3yk")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_my4h2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xht4n"]
 radius = 28.0179
 
 [sub_resource type="Curve" id="Curve_aq1wo"]
@@ -295,7 +295,7 @@ debug_color = Color(1, 0, 0, 0.258824)
 [node name="CollisionShape2D" parent="GroundHurtbox" index="0"]
 position = Vector2(13.785, 7.53)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_07kqc")
+shape = SubResource("CapsuleShape2D_qlxlg")
 
 [node name="ProgressBar" parent="." index="4"]
 offset_top = -114.0
@@ -330,7 +330,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="9"]
-shape = SubResource("CircleShape2D_my4h2")
+shape = SubResource("CircleShape2D_xht4n")
 
 [node name="AttackSound" parent="." index="12"]
 stream = ExtResource("10_sctqr")

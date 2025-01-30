@@ -27,6 +27,9 @@ var area_3_complete : bool = false
 
 var total_kills : int = 0
 
+#Get most recent difficulty, so hub loads it
+var most_recent_difficulty : int = 0
+
 func _ready():
 	autosave_timer = Timer.new()
 	autosave_timer.wait_time = 0.2
@@ -49,6 +52,7 @@ func _input(event):
 		area_1_complete = true
 		area_2_complete = true
 		area_3_complete = true
+		most_recent_difficulty = 3
 		characters_completed = ["Cat", "Cow", "Croc", "Horse", "Lizard", "Owl", "Squid", "Wolf"]
 		request_save()
 	elif event.is_action_pressed("debug_new_save_file"):
@@ -60,6 +64,7 @@ func _input(event):
 		area_2_complete = false
 		area_3_complete = false
 		characters_completed = []
+		most_recent_difficulty = 0
 		request_save()
 	elif event.is_action_pressed("debug_reset_steam_stats"):
 		SteamManager.reset_stats_and_achievements()
@@ -75,7 +80,8 @@ func save_file():
 		"area_1_complete" : area_1_complete,
 		"area_2_complete" : area_2_complete,
 		"total_kills" : total_kills,
-		"characters_completed" : characters_completed
+		"characters_completed" : characters_completed,
+		"most_recent_difficulty" : most_recent_difficulty,
 	}
 	
 	var json_string = JSON.stringify(dict)
@@ -108,6 +114,8 @@ func load_file():
 		total_kills = dict["total_kills"]
 	if "characters_completed" in dict.keys():
 		characters_completed = dict["characters_completed"]
+	if "most_recent_difficulty" in dict.keys():
+		most_recent_difficulty = dict["most_recent_difficulty"]
 
 
 func request_save():

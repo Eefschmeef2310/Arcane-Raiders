@@ -4,9 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dxww667gtraf1" path="res://moving_entities/enemies/Dummy/dumby.png" id="2_pnsbf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rk1iu"]
+resource_local_to_scene = true
 radius = 65.123
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m1k2w"]
+resource_local_to_scene = true
+radius = 14.0
 
 [sub_resource type="Curve" id="Curve_aq1wo"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -35,7 +38,6 @@ energy = 0.1
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(5, -60)
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_pnsbf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
@@ -60,7 +62,6 @@ shape = SubResource("CircleShape2D_m1k2w")
 lifetime = 1.5
 
 [node name="BurnParticles" parent="StatusParticles" index="0"]
-emitting = true
 process_material = SubResource("ParticleProcessMaterial_pradt")
 
 [node name="FrostParticles" parent="StatusParticles" index="1"]
