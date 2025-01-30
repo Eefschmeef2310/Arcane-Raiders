@@ -19,7 +19,7 @@ radius = 20.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_swxsv"]
+[sub_resource type="CurveTexture" id="CurveTexture_q8205"]
 curve = SubResource("Curve_aq1wo")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kdqff"]
@@ -28,7 +28,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
-alpha_curve = SubResource("CurveTexture_swxsv")
+alpha_curve = SubResource("CurveTexture_q8205")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6dde"]
 radius = 59.6801
@@ -42,7 +42,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
-alpha_curve = SubResource("CurveTexture_swxsv")
+alpha_curve = SubResource("CurveTexture_q8205")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u3eod"]
 radius = 44.0114
@@ -57,7 +57,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
-alpha_curve = SubResource("CurveTexture_swxsv")
+alpha_curve = SubResource("CurveTexture_q8205")
 
 [node name="CastleRoom" instance=ExtResource("1_87uam")]
 script = ExtResource("2_m3chr")
@@ -111,13 +111,16 @@ scale = Vector2(0.25, 0.2)
 texture = ExtResource("2_8m1wt")
 
 [node name="DummyContainer" type="Node2D" parent="." index="15"]
+y_sort_enabled = true
 
 [node name="SmallSlimeDummy" parent="DummyContainer" index="0" instance=ExtResource("3_eike6")]
+y_sort_enabled = true
 position = Vector2(1331, 686)
 
 [node name="Sprite2D" parent="DummyContainer/SmallSlimeDummy" index="1"]
-position = Vector2(0, 0)
+position = Vector2(2, 29)
 texture = ExtResource("5_4ml8v")
+offset = Vector2(-2, -29)
 
 [node name="Hurtbox" parent="DummyContainer/SmallSlimeDummy" index="2"]
 position = Vector2(0, 0)
@@ -149,10 +152,13 @@ process_material = SubResource("ParticleProcessMaterial_kdqff")
 process_material = SubResource("ParticleProcessMaterial_kdqff")
 
 [node name="BigSlimeDummy" parent="DummyContainer" index="1" instance=ExtResource("3_eike6")]
+y_sort_enabled = true
 position = Vector2(1155, 774)
 
 [node name="Sprite2D" parent="DummyContainer/BigSlimeDummy" index="1"]
+position = Vector2(12, -1)
 texture = ExtResource("6_k1w4q")
+offset = Vector2(-7, -59)
 
 [node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy/Hurtbox" index="0"]
 position = Vector2(8, 16)
@@ -181,10 +187,14 @@ process_material = SubResource("ParticleProcessMaterial_0fyp2")
 process_material = SubResource("ParticleProcessMaterial_0fyp2")
 
 [node name="BatDummy" parent="DummyContainer" index="2" instance=ExtResource("3_eike6")]
+y_sort_enabled = true
 position = Vector2(963, 870)
 
 [node name="Sprite2D" parent="DummyContainer/BatDummy" index="1"]
+y_sort_enabled = true
+position = Vector2(9, 14)
 texture = ExtResource("7_glhqw")
+offset = Vector2(-4, -74)
 
 [node name="CollisionShape2D" parent="DummyContainer/BatDummy/Hurtbox" index="0"]
 scale = Vector2(1, 1)
