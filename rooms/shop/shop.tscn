@@ -113,13 +113,13 @@ position = Vector2(1172, -48)
 speed = 0.3
 
 [node name="PathFollow2D3" parent="DashTutorial" index="0"]
-position = Vector2(625.425, 358.928)
-progress = 37.68
+position = Vector2(-32.1074, 24.5895)
+progress = 775.298
 
 [node name="PathFollow2D7" type="PathFollow2D" parent="DashTutorial" index="1"]
-position = Vector2(570.954, 331.231)
+position = Vector2(621.46, 356.912)
 rotation = -2.67119
-progress = 98.7796
+progress = 42.1261
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D7" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -133,9 +133,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D8" type="PathFollow2D" parent="DashTutorial" index="2"]
-position = Vector2(516.489, 303.537)
+position = Vector2(566.991, 329.216)
 rotation = -2.67119
-progress = 159.878
+progress = 103.223
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D8" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -149,9 +149,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D9" type="PathFollow2D" parent="DashTutorial" index="3"]
-position = Vector2(462.025, 275.843)
+position = Vector2(512.532, 301.525)
 rotation = -2.67119
-progress = 220.977
+progress = 164.316
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D9" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -165,9 +165,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D10" type="PathFollow2D" parent="DashTutorial" index="4"]
-position = Vector2(407.564, 248.151)
+position = Vector2(458.069, 273.832)
 rotation = -2.67119
-progress = 282.074
+progress = 225.415
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D10" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -181,9 +181,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D11" type="PathFollow2D" parent="DashTutorial" index="5"]
-position = Vector2(353.103, 220.459)
+position = Vector2(403.606, 246.139)
 rotation = -2.67119
-progress = 343.171
+progress = 286.514
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D11" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -197,9 +197,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D12" type="PathFollow2D" parent="DashTutorial" index="6"]
-position = Vector2(298.641, 192.767)
+position = Vector2(349.146, 218.447)
 rotation = -2.67119
-progress = 404.268
+progress = 347.61
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D12" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -213,9 +213,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D13" type="PathFollow2D" parent="DashTutorial" index="7"]
-position = Vector2(244.181, 165.075)
+position = Vector2(294.684, 190.754)
 rotation = -2.67119
-progress = 465.364
+progress = 408.708
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D13" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -229,9 +229,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D14" type="PathFollow2D" parent="DashTutorial" index="8"]
-position = Vector2(189.719, 137.382)
+position = Vector2(240.22, 163.061)
 rotation = -2.67119
-progress = 526.462
+progress = 469.807
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D14" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -245,9 +245,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D15" type="PathFollow2D" parent="DashTutorial" index="9"]
-position = Vector2(135.257, 109.69)
+position = Vector2(185.757, 135.368)
 rotation = -2.67119
-progress = 587.558
+progress = 530.906
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D15" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -261,16 +261,16 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D4" parent="DashTutorial" index="10"]
-position = Vector2(80.8004, 82.0002)
-progress = 648.653
+position = Vector2(131.294, 107.675)
+progress = 592.004
 
 [node name="PathFollow2D5" parent="DashTutorial" index="11"]
-position = Vector2(26.3349, 54.3059)
-progress = 709.752
+position = Vector2(76.8311, 79.9819)
+progress = 653.103
 
 [node name="PathFollow2D6" parent="DashTutorial" index="12"]
-position = Vector2(-28.1377, 26.6079)
-progress = 770.851
+position = Vector2(22.3669, 52.2882)
+progress = 714.202
 
 [node name="DashTutorial2" type="Node2D" parent="." index="15"]
 position = Vector2(1175, 83)

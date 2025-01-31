@@ -104,23 +104,25 @@ func _process(_delta):
 			
 			if("down" in mouse_input):
 				if not player_ready:
-					if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
-						if selected_raider + (character_pips_box as GridContainer).columns < (character_pips_box as GridContainer).get_child_count():
-							selected_raider = wrapi(selected_raider + (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
-						else:
-							selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
-					else:
-						selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					#if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
+						#if selected_raider + (character_pips_box as GridContainer).columns < (character_pips_box as GridContainer).get_child_count():
+							#selected_raider = wrapi(selected_raider + (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
+						#else:
+							#selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					#else:
+						#selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					selected_panel = wrapi(selected_panel + 1, 0,panels_array.size()-1)
 			
 			if("up" in mouse_input):
 				if not player_ready:
-					if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
-						if selected_raider - (character_pips_box as GridContainer).columns >= 0:
-							selected_raider = wrapi(selected_raider - (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
-						else:
-							selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
-					else:
-						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					#if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
+						#if selected_raider - (character_pips_box as GridContainer).columns >= 0:
+							#selected_raider = wrapi(selected_raider - (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
+						#else:
+							#selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					#else:
+						#selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					selected_panel = wrapi(selected_panel - 1, 0,panels_array.size()-1)
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
