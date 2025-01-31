@@ -111,7 +111,7 @@ func _process(_delta):
 							#selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
 					#else:
 						#selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
-					selected_panel = wrapi(selected_panel + 1, 0,panels_array.size()-1)
+					selected_panel = wrapi(selected_panel + 1, 0,panels_array.size())
 			
 			if("up" in mouse_input):
 				if not player_ready:
@@ -122,7 +122,7 @@ func _process(_delta):
 							#selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
 					#else:
 						#selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
-					selected_panel = wrapi(selected_panel - 1, 0,panels_array.size()-1)
+					selected_panel = wrapi(selected_panel - 1, 0,panels_array.size())
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
