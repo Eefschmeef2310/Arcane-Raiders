@@ -82,10 +82,10 @@ func check_for_existing_player():
 		player_data.main_color = lobby_manager.player_colors[selected_color]
 		player_data.peer_id = peer_id
 		player_data.device_id = device_id
-		print("Starting loop for " + str(peer_id))
+		#print("Starting loop for " + str(peer_id))
 		for player in get_tree().get_nodes_in_group("player"):
 			if player.peer_id == peer_id:
-				print("Existing player found: " + str(peer_id))
+				#print("Existing player found: " + str(peer_id))
 				player_node = player
 				player.set_data(player_data, false)
 				if is_instance_valid(new_ui):
