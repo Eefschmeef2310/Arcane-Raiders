@@ -130,7 +130,7 @@ func set_difficulty_label():
 		difficulty_label.text = "Hard"
 		difficulty_label.label_settings.font_color = Color.RED
 	elif difficulty_setting == 3:
-		difficulty_label.text = "Expert"
+		difficulty_label.text = "Extreme"
 		difficulty_label.label_settings.font_color = Color.PURPLE
 		
 
