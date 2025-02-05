@@ -135,6 +135,7 @@ scale = Vector2(0.782, 0.364)
 texture = ExtResource("5_74t7r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EthanCoin" index="1"]
+process_mode = 4
 libraries = {
 "": SubResource("AnimationLibrary_j3j7o")
 }
