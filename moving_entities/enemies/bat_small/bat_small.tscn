@@ -17,7 +17,7 @@ script/source = "extends EnemyEntity
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6k7pk"]
-radius = 39.3236
+radius = 76.8318
 
 [sub_resource type="Resource" id="Resource_3gbb5"]
 script = ExtResource("5_h17s1")
@@ -178,12 +178,11 @@ texture_scale = 0.5
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(3, -18)
-scale = Vector2(0.559999, 0.559999)
 texture = ExtResource("2_2wyck")
 hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(1, 52)
+position = Vector2(1, 55)
 rotation = -0.113446
 scale = Vector2(1, 0.685)
 shape = SubResource("CircleShape2D_6k7pk")

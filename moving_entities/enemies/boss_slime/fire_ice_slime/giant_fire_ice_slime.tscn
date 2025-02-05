@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://c6bly0x4rmksf"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ea0a8"]
-[ext_resource type="Texture2D" uid="uid://bxi32523tql4w" path="res://moving_entities/enemies/boss_slime/giant_slime/fire_ice_giant_slime_idle_sketch.png" id="2_oqylm"]
+[ext_resource type="Texture2D" uid="uid://ba2ntnu5see2h" path="res://moving_entities/enemies/boss_slime/fire_ice_slime/fire_ice.png" id="2_xpskv"]
 [ext_resource type="Resource" uid="uid://bb41m0v5xy6p3" path="res://elements/burn.tres" id="3_tdqey"]
 [ext_resource type="PackedScene" uid="uid://dcxtekbksqhva" path="res://moving_entities/enemies/boss_slime/giant_slime/slime_lob.tscn" id="4_np7xm"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_nb01y"]
@@ -89,7 +89,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_oqylm")]
+"values": [ExtResource("2_xpskv")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -131,7 +131,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_oqylm")]
+"values": [ExtResource("2_xpskv")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -195,7 +195,7 @@ texture_scale = 1.5
 [node name="Sprite2D" parent="." index="1"]
 texture_filter = 1
 position = Vector2(0, -74)
-texture = ExtResource("2_oqylm")
+texture = ExtResource("2_xpskv")
 hframes = 8
 
 [node name="Hurtbox" parent="." index="2"]

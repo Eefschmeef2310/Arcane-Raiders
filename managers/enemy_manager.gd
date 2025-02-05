@@ -33,10 +33,10 @@ extends Node
 		"scene" : preload("res://moving_entities/enemies/bee/bee.tscn"),
 		"difficulty" : 2
 	},
-	"hornet" : {
-		"scene" : preload("res://moving_entities/enemies/hornet/hornet.tscn"),
-		"difficulty" : 8
-	},
+	#"hornet" : {
+		#"scene" : preload("res://moving_entities/enemies/hornet/hornet.tscn"),
+		#"difficulty" : 8
+	#},
 	"boss_slime": {
 		"scene" : preload("res://moving_entities/enemies/boss_slime/giant_slime/boss_slime.tscn"),
 		"difficulty" : 999

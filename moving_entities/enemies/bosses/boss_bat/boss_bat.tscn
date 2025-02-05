@@ -1,9 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://cnew2lxrfa7q7"]
+[gd_scene load_steps=35 format=3 uid="uid://cnew2lxrfa7q7"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_gcbln"]
-[ext_resource type="Texture2D" uid="uid://k86eniw42xb" path="res://moving_entities/enemies/bosses/boss_bat/sprites/001.png" id="2_h11k2"]
 [ext_resource type="Script" path="res://moving_entities/enemies/bosses/boss_bat/boss_bat.gd" id="2_t415w"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_1ls6v"]
+[ext_resource type="Texture2D" uid="uid://dfu7nhnf0def7" path="res://moving_entities/enemies/bosses/boss_bat/sprites/big_bat_boss.png" id="3_vugss"]
 [ext_resource type="PackedScene" uid="uid://42pqgoacrk05" path="res://moving_entities/enemies/bosses/boss_bat/b_boss_cone.tscn" id="4_0nrxh"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="4_77mgy"]
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="5_sn5q4"]
@@ -11,15 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bel63f5xhtsss" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_dash.tscn" id="7_k0tnq"]
 [ext_resource type="PackedScene" uid="uid://c2qvhqinofmoy" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spin.tscn" id="9_0h871"]
 [ext_resource type="PackedScene" uid="uid://cem3ar060j8d6" path="res://moving_entities/enemies/bosses/boss_bat/b_bat_blink/b_bat_blink_spam.tscn" id="9_wsy56"]
-[ext_resource type="Texture2D" uid="uid://cj0qhp8t5epeu" path="res://moving_entities/enemies/bosses/boss_bat/sprites/002.png" id="12_5cm8x"]
-[ext_resource type="Texture2D" uid="uid://dtw40454x3rkk" path="res://moving_entities/enemies/bosses/boss_bat/sprites/bat_dash.png" id="12_s28h4"]
 [ext_resource type="Script" path="res://moving_entities/enemies/bosses/boss_bat/phase_2_state.gd" id="12_x1wbf"]
-[ext_resource type="Texture2D" uid="uid://b408sdpf81sgy" path="res://moving_entities/enemies/bosses/boss_bat/sprites/000.png" id="13_rot2b"]
-[ext_resource type="Texture2D" uid="uid://7518x25dosji" path="res://moving_entities/enemies/bosses/boss_bat/sprites/003.png" id="14_b2m18"]
-[ext_resource type="Texture2D" uid="uid://cwdcy6ys7runt" path="res://moving_entities/enemies/bosses/boss_bat/sprites/004.png" id="15_1be68"]
-[ext_resource type="Texture2D" uid="uid://d04xlnuhber0i" path="res://moving_entities/enemies/bosses/boss_bat/sprites/005.png" id="16_ljwad"]
-[ext_resource type="Texture2D" uid="uid://c2hexg1aofj3n" path="res://moving_entities/enemies/bosses/boss_bat/sprites/006.png" id="17_jmbpq"]
-[ext_resource type="Texture2D" uid="uid://bdj6po4xnphk" path="res://moving_entities/enemies/bosses/boss_bat/sprites/bat_spinny_white.png" id="18_nxyx4"]
+[ext_resource type="Texture2D" uid="uid://cchp2b44r2wv7" path="res://moving_entities/enemies/bosses/boss_bat/sprites/bat_dash_new.png" id="13_f5ipd"]
+[ext_resource type="Texture2D" uid="uid://fgjjsh3ebgsk" path="res://moving_entities/enemies/bosses/boss_bat/sprites/bat_spinny_new.png" id="14_73877"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hf3fn"]
 radius = 70.0
@@ -222,7 +216,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_h11k2")]
+"values": [ExtResource("3_vugss")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -260,6 +254,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [PackedVector2Array(-44, 54, 30, 52)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_etk7i"]
 resource_name = "dash"
@@ -275,7 +293,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("12_s28h4")]
+"values": [ExtResource("13_f5ipd")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -289,6 +307,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_w55vx"]
 resource_name = "idle"
@@ -301,10 +343,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("13_rot2b"), ExtResource("2_h11k2"), ExtResource("12_5cm8x"), ExtResource("14_b2m18"), ExtResource("15_1be68"), ExtResource("16_ljwad"), ExtResource("17_jmbpq")]
+"values": [ExtResource("3_vugss")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -340,7 +382,31 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.4, 0.5, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [PackedVector2Array(-44, 54, 30, 52), PackedVector2Array(-40, 15, 33, 2), PackedVector2Array(-38, -16, 29, -37), PackedVector2Array(-38, -16, 29, -37), PackedVector2Array(-31, 12, 35, -10), PackedVector2Array(-39, 15, 34, 1)]
+"values": [PackedVector2Array(-44, 54, 30, 52), PackedVector2Array(-35, 11, 35, -3), PackedVector2Array(-37, 3, 30, -17), PackedVector2Array(-47, -13, 34, -18), PackedVector2Array(-52, -10, 27, -3), PackedVector2Array(-53, 5, 27, 15)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:hframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
 }
 
 [sub_resource type="Animation" id="Animation_8bjhm"]
@@ -357,7 +423,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("18_nxyx4")]
+"values": [ExtResource("14_73877")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -395,11 +461,36 @@ tracks/3/keys = {
 "update": 1,
 "values": [PackedVector2Array(-33, 6, 39, -8)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:hframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_r1rus"]
 resource_name = "windup"
-length = 0.2
+length = 0.3
 loop_mode = 1
+step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -407,10 +498,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("15_1be68"), ExtResource("16_ljwad")]
+"values": [ExtResource("3_vugss")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -435,6 +526,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dckjw"]
@@ -478,7 +593,8 @@ position = Vector2(0, -53)
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -7.62939e-06)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_h11k2")
+texture = ExtResource("3_vugss")
+hframes = 7
 
 [node name="Hurtbox" parent="." index="2"]
 position = Vector2(0, 0)
@@ -608,6 +724,7 @@ process_material = SubResource("ParticleProcessMaterial_k3cwl")
 process_material = SubResource("ParticleProcessMaterial_k3cwl")
 
 [node name="LassoLine" parent="." index="17"]
+position = Vector2(-6, 4)
 points = PackedVector2Array(-44, 54, 30, 52)
 
 [connection signal="health_updated" from="." to="ProgressBar" method="_on_enemy_health_updated"]
