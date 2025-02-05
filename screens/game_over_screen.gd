@@ -17,7 +17,7 @@ extends CanvasLayer
 @onready var castle_climb : CastleClimb = get_parent()
 
 	#Other Variables (please try to separate and organise!)
-
+@export var reset_button : Button
 #endregion
 
 #region Godot methods
@@ -52,6 +52,9 @@ func _ready():
 		player_ui.update_stats_ui()
 	
 	SteamManager.update_stats_and_achievements()
+	
+	if(GameManager.isOnline()):
+		reset_button.hide()
 #endregion
 
 #region Signal methods
