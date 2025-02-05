@@ -37,6 +37,7 @@ HatManager="*res://managers/hat_manager.tscn"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 SaveManager="*res://managers/save_manager.tscn"
+CheatCodeChecker="*res://managers/cheat_code_checker.tscn"
 
 [dialogic]
 

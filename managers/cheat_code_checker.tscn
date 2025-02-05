@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bas0xjeseb8i7"]
+
+[ext_resource type="Script" path="res://managers/cheat_code_checker.gd" id="1_bhc8p"]
+
+[node name="CheatCodeChecker" type="Node"]
+script = ExtResource("1_bhc8p")
