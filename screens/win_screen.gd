@@ -24,6 +24,7 @@ extends CanvasLayer
 @export var back_button_progress_bar : ProgressBar
 @export var seed : Label
 @export var master_mode : RichTextLabel
+@export var quit_button : Button
 
 	#Onready Variables
 @onready var castle_climb : CastleClimb = get_parent().get_parent()
@@ -197,6 +198,12 @@ func _ready():
 			SteamManager.grant_achievement("no_damage")
 	
 	SteamManager.update_stats_and_achievements()
+	
+	if(GameManager.isLocal()):
+		pass
+	else:
+		quit_button.text = "Menu"
+	
 
  
 func _process(delta):
@@ -217,8 +224,14 @@ func _on_quit_button_pressed():
 	## game.queue_free()
 	#queue_free()
 	
-	get_tree().paused = false
-	get_tree().get_first_node_in_group("hub").request_lobby_restart()
+	if(GameManager.isLocal()):
+		get_tree().paused = false
+		get_tree().get_first_node_in_group("hub").request_lobby_restart()
+	else: # online game, send back to menu
+		get_tree().paused = false
+		get_tree().change_scene_to_file("res://menus/main_menu.tscn")
+		# game.queue_free()
+		queue_free()
 #endregion
 
 #region Other methods (please try to separate and organise!)
