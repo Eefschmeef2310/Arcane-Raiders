@@ -198,7 +198,6 @@ texture_scale = 0.3
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(2, -12)
-scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_yqfbr")
 hframes = 8
 
