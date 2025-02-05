@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RaiderRes" load_steps=5 format=3 uid="uid://c7lvwlqwwhjau"]
 
 [ext_resource type="AudioStream" uid="uid://bfwo7m2tulnd8" path="res://moving_entities/player/animal_sounds/snake-hissing-6092.wav" id="1_3dsni"]
-[ext_resource type="Texture2D" uid="uid://bn8h332covd1w" path="res://moving_entities/player/player_pieces/head-lizard.png" id="2_m2tap"]
+[ext_resource type="Texture2D" uid="uid://di8q268klc7lj" path="res://moving_entities/player/player_pieces/head-lizard-2.png" id="2_hh4ay"]
 [ext_resource type="Texture2D" uid="uid://ckvnyognf84so" path="res://multiplayer/multiplayerLobby/raiders/crocplaceholder.png" id="3_36cb8"]
 [ext_resource type="Script" path="res://multiplayer/multiplayerLobby/raiderRes.gd" id="4_qvfep"]
 
@@ -11,6 +11,6 @@ portrait = ExtResource("3_36cb8")
 raider_name = "Lizard"
 raider_desc = "hissss!!"
 color = Color(0.203922, 0.282353, 0.541176, 1)
-head_texture = ExtResource("2_m2tap")
-skin_color = Color(0.847059, 0.698039, 0.545098, 1)
+head_texture = ExtResource("2_hh4ay")
+skin_color = Color(0.207843, 0.219608, 0.243137, 1)
 animal_sound = ExtResource("1_3dsni")

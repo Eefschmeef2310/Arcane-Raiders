@@ -23,13 +23,12 @@ var player_in_bounds := false:
 			interact_label.hide()
 
 func _ready():
+	(container.get_parent() as CastleRoomLobby).chosen_difficulty = SaveManager.most_recent_difficulty
 	update_current_label()
 	
 	base_y = global_position.y
 
 func _physics_process(delta):
-	update_current_label()
-	
 	t += delta
 	if t >= 360:
 		t -= 360
@@ -45,6 +44,7 @@ func on_interact(player: Player):
 		menu.device_id = player.data.device_id
 		add_sibling(menu)
 		player.input_preventing_node = menu
+		menu.custom_seed_entry.text = owner.custom_seed
 	else:
 		owner.create_notification("Only the host can change the difficulty.")
 
@@ -67,3 +67,7 @@ func update_current_label():
 			current_difficulty.text += "[color=red]Hard"
 		3:
 			current_difficulty.text += "[color=purple]Extreme"
+	
+	#Update save
+	SaveManager.most_recent_difficulty = (container.get_parent() as CastleRoomLobby).chosen_difficulty
+	SaveManager.request_save()

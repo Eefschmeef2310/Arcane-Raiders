@@ -30,8 +30,9 @@ signal raider_selected(peer_id, device_id)
 @export var player_data : PlayerData
 
 @export_category("Condition Texts")
-@export var character_condition : Label
-@export var color_condition : Label
+@export var character_condition : RichTextLabel
+@export var color_condition : RichTextLabel
+@export var press_button_label : RichTextLabel
 
 var display_name : String
 
@@ -81,10 +82,10 @@ func check_for_existing_player():
 		player_data.main_color = lobby_manager.player_colors[selected_color]
 		player_data.peer_id = peer_id
 		player_data.device_id = device_id
-		print("Starting loop for " + str(peer_id))
+		#print("Starting loop for " + str(peer_id))
 		for player in get_tree().get_nodes_in_group("player"):
 			if player.peer_id == peer_id:
-				print("Existing player found: " + str(peer_id))
+				#print("Existing player found: " + str(peer_id))
 				player_node = player
 				player.set_data(player_data, false)
 				if is_instance_valid(new_ui):
@@ -103,23 +104,25 @@ func _process(_delta):
 			
 			if("down" in mouse_input):
 				if not player_ready:
-					if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
-						if selected_raider + (character_pips_box as GridContainer).columns < (character_pips_box as GridContainer).get_child_count():
-							selected_raider = wrapi(selected_raider + (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
-						else:
-							selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
-					else:
-						selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					#if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
+						#if selected_raider + (character_pips_box as GridContainer).columns < (character_pips_box as GridContainer).get_child_count():
+							#selected_raider = wrapi(selected_raider + (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
+						#else:
+							#selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					#else:
+						#selected_panel = clampi(selected_panel + 1, 0,panels_array.size()-1)
+					selected_panel = wrapi(selected_panel + 1, 0,panels_array.size())
 			
 			if("up" in mouse_input):
 				if not player_ready:
-					if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
-						if selected_raider - (character_pips_box as GridContainer).columns >= 0:
-							selected_raider = wrapi(selected_raider - (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
-						else:
-							selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
-					else:
-						selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					#if selected_panel == 0: #For handling multiple rows, this should be refacotred if we want more in another panel lol
+						#if selected_raider - (character_pips_box as GridContainer).columns >= 0:
+							#selected_raider = wrapi(selected_raider - (character_pips_box as GridContainer).columns, 0, character_pips_box.get_child_count())
+						#else:
+							#selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					#else:
+						#selected_panel = clampi(selected_panel - 1, 0,panels_array.size()-1)
+					selected_panel = wrapi(selected_panel - 1, 0,panels_array.size())
 			
 			if(("left" in mouse_input) and not player_ready):
 				if(selected_panel == 0): #raider panel selected 
@@ -172,9 +175,9 @@ func UpdateDisplay():
 				(character_pips_box.get_child(pip) as ClickablePipCharacter).locked_and_selected()
 				#Show text
 				if character_pips_box.get_child(pip) is ClickablePipEvilCharacter:
-					character_condition.text = "Complete Floor 11 with " + (character_pips_box.get_child(pip) as ClickablePipEvilCharacter).character_key + " to unlock!"
+					character_condition.text = "[center][wave]Complete Floor 11 with " + (character_pips_box.get_child(pip) as ClickablePipEvilCharacter).character_key + " to unlock!"
 				else:
-					character_condition.text = "Complete " + \
+					character_condition.text = "[center][wave]Complete " + \
 					str((character_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + \
 					" more achievement" + \
 					("s" if (character_pips_box.get_child(pip) as ClickablePipCharacter).achievements_required - SteamManager.unlocked_achievements > 1 else "") + \
@@ -196,7 +199,7 @@ func UpdateDisplay():
 			if !(color_pips_box.get_child(pip) as ClickablePip).is_unlocked: #If is locked
 				(color_pips_box.get_child(pip) as ClickablePipColor).locked_and_selected()
 				#Show text
-				color_condition.text = "Complete " + str((color_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + " more run" + ("s" if (color_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements > 1 else "") + " to unlock this colour!"
+				color_condition.text = "[center][wave]Complete " + str((color_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements) + " more run" + ("s" if (color_pips_box.get_child(pip) as ClickablePip).achievements_required - SteamManager.unlocked_achievements > 1 else "") + " to unlock this colour!"
 				color_condition.show()
 			else: #Unlocked pip
 				color_pips_box.get_child(pip).modulate = Color.WHITE
@@ -214,6 +217,12 @@ func UpdateDisplay():
 			body_pips_box.get_child(pip).modulate = Color.WHITE
 		else:
 			body_pips_box.get_child(pip).modulate = Color.DIM_GRAY
+	
+	#Manage the button prompt
+	if character_condition.visible or color_condition.visible:
+		press_button_label.text = "[center]Select a valid combination!"
+	else:
+		press_button_label.text = "[center]Space/[img width=32]res://ui/join_button.svg[/img] to jump in!"
 	
 	#Highlight the correct panel
 	self_modulate = Color.WHITE 

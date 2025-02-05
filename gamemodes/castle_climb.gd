@@ -109,14 +109,30 @@ func _ready():
 
 func _process(delta):
 	time_elapsed += delta
-	$SpeedrunUI/SpeedrunTimer.text = GameManager.format_timer(time_elapsed)
-	
+	$SpeedrunUI/Control/HBoxContainer/SpeedrunTimer.text = GameManager.format_timer(time_elapsed)
+	set_difficulty_label()
 	$SpeedrunUI.visible = show_speedrun_timer
 	
 	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
 		
 	check_crown()
+
+func set_difficulty_label():
+	var difficulty_label : Label = $SpeedrunUI/Control/HBoxContainer/DifficultyDisplay
+	if difficulty_setting == 0:
+		difficulty_label.text = "Easy"
+		difficulty_label.label_settings.font_color = Color.GREEN
+	elif difficulty_setting == 1:
+		difficulty_label.text = "Medium"
+		difficulty_label.label_settings.font_color = Color.YELLOW
+	elif difficulty_setting == 2:
+		difficulty_label.text = "Hard"
+		difficulty_label.label_settings.font_color = Color.RED
+	elif difficulty_setting == 3:
+		difficulty_label.text = "Extreme"
+		difficulty_label.label_settings.font_color = Color.PURPLE
+		
 
 func check_crown():
 	#calculate who should have the crown and gives it to them

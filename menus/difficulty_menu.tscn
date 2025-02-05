@@ -79,7 +79,7 @@ _data = {
 layer = 3
 script = ExtResource("1_aho1r")
 vignette = NodePath("Container/Vignette")
-panels_array = [NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/BackButton")]
+panels_array = [NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/EasyButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/MediumButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HardButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/ExtremeButton"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/CustomSeedEntry"), NodePath("Container/Control/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/BackButton")]
 stylebox_normal = SubResource("StyleBoxFlat_agu4c")
 stylebox_selected = SubResource("StyleBoxFlat_e663r")
 

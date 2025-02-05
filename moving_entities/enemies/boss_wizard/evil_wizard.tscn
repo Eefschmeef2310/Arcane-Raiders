@@ -11,12 +11,12 @@
 [ext_resource type="Script" path="res://spells/spell_base.gd" id="6_ku3qc"]
 [ext_resource type="Texture2D" uid="uid://b6b8ne544hjgj" path="res://spells/projections/spread.png" id="7_bt8co"]
 [ext_resource type="PackedScene" uid="uid://3lsjnqa75f7t" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_ball_body.tscn" id="7_rniqf"]
-[ext_resource type="Resource" uid="uid://fx7kfybih0q4" path="res://multiplayer/multiplayerLobby/raiders/Cat.tres" id="8_ni1h2"]
 [ext_resource type="PackedScene" uid="uid://20ej7fio4eqo" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_aoe_large.tscn" id="9_3f166"]
 [ext_resource type="PackedScene" uid="uid://c4p5ew4hagnul" path="res://moving_entities/enemies/boss_wizard/wizard_spells/wizard_proj_spread.tscn" id="9_5nwwe"]
-[ext_resource type="Resource" uid="uid://c4em5ujusu5n8" path="res://multiplayer/multiplayerLobby/raiders/croc.tres" id="9_6xc7a"]
-[ext_resource type="Resource" uid="uid://d3oo8nlvtnu1f" path="res://multiplayer/multiplayerLobby/raiders/wolf.tres" id="10_wxye7"]
-[ext_resource type="Resource" uid="uid://fs01faodxb1c" path="res://multiplayer/multiplayerLobby/raiders/owl.tres" id="11_ba4mg"]
+[ext_resource type="Resource" uid="uid://b1fx7p3nstd4r" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_cat.tres" id="10_plgs4"]
+[ext_resource type="Resource" uid="uid://drqi1u52scxpe" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_croc.tres" id="11_qoajg"]
+[ext_resource type="Resource" uid="uid://xjdobeb8eht0" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_wolf.tres" id="12_kry6r"]
+[ext_resource type="Resource" uid="uid://cf2qtvs54gq5k" path="res://multiplayer/multiplayerLobby/raiders/evil_raiders/evil_owl.tres" id="13_eh4l4"]
 [ext_resource type="Texture2D" uid="uid://c7rdj0qkn6y7m" path="res://moving_entities/player/player_pieces/Body2.png" id="17_toc34"]
 
 [sub_resource type="GDScript" id="GDScript_71bfm"]
@@ -360,14 +360,14 @@ func physics_update(delta):
 
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_spcxr"]
+radius = 372.012
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_onr5v"]
 resource_local_to_scene = true
 random_pitch = 1.1
 streams_count = 1
 stream_0/weight = 1.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_spcxr"]
-radius = 372.012
 
 [node name="EvilWizard" groups=["enemy"] instance=ExtResource("1_a4rya")]
 collision_layer = 8
@@ -376,7 +376,7 @@ is_ranged = true
 wizard_dash_cooldown = 1.0
 wizard_dash_cooldown_max = 5.0
 default_spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_jegsn"), SubResource("Resource_gnj56"), SubResource("Resource_h7deh"), SubResource("Resource_3mjdw")])
-enemy_raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("8_ni1h2"), ExtResource("9_6xc7a"), ExtResource("10_wxye7"), ExtResource("11_ba4mg")])
+enemy_raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("10_plgs4"), ExtResource("11_qoajg"), ExtResource("12_kry6r"), ExtResource("13_eh4l4")])
 debug = false
 movement_speed = 300.0
 death_sound = null
@@ -472,9 +472,6 @@ offset_bottom = -116.0
 [node name="HUD" parent="." index="22"]
 visible = false
 
-[node name="HitSound" parent="." index="26"]
-stream = null
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="27"]
 path_postprocessing = 1
 avoidance_enabled = true
@@ -482,8 +479,8 @@ radius = 25.0
 max_speed = 1000.0
 avoidance_priority = 0.1
 
-[node name="AnimalSound" parent="." index="28"]
-stream = SubResource("AudioStreamRandomizer_onr5v")
+[node name="HitSound" parent="." index="28"]
+stream = null
 
 [node name="DashDetector" type="Area2D" parent="." index="29"]
 collision_layer = 0
@@ -493,6 +490,9 @@ collision_mask = 16
 position = Vector2(5, -29)
 shape = SubResource("CircleShape2D_spcxr")
 debug_color = Color(0, 0.6, 0.701961, 0.0745098)
+
+[node name="AnimalSound" parent="." index="30"]
+stream = SubResource("AudioStreamRandomizer_onr5v")
 
 [node name="LassoLine" type="Line2D" parent="." index="32"]
 points = PackedVector2Array(-24, -21, 25, -22)

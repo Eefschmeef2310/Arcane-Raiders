@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cb4w74xnk5j85"]
+[gd_scene load_steps=47 format=3 uid="uid://cb4w74xnk5j85"]
 
 [ext_resource type="Script" path="res://ui/select_ui.gd" id="1_b2j28"]
 [ext_resource type="StyleBox" uid="uid://bib4age2dynrc" path="res://multiplayer/multiplayerLobby/lobbyPanel.tres" id="1_j1n1m"]
@@ -21,6 +21,10 @@
 [ext_resource type="Texture2D" uid="uid://7i6e473q0nbt" path="res://moving_entities/player/player_pieces/Body3.png" id="15_378ek"]
 [ext_resource type="Texture2D" uid="uid://x0yihrh85inh" path="res://moving_entities/player/player_pieces/head-wolf-2.png" id="15_ea0xe"]
 [ext_resource type="Texture2D" uid="uid://dxy25ep4uq71h" path="res://moving_entities/player/player_pieces/head-owl-2.png" id="16_nrqc0"]
+[ext_resource type="Texture2D" uid="uid://cm562be48tgve" path="res://moving_entities/player/player_pieces/head-horse-2.png" id="17_eol45"]
+[ext_resource type="Texture2D" uid="uid://di8q268klc7lj" path="res://moving_entities/player/player_pieces/head-lizard-2.png" id="18_h1br4"]
+[ext_resource type="Texture2D" uid="uid://hbajdjdi5p5j" path="res://moving_entities/player/player_pieces/head-cow-2.png" id="19_0ek54"]
+[ext_resource type="Texture2D" uid="uid://cqab8821y7uoy" path="res://moving_entities/player/player_pieces/head-squid-2.png" id="20_nob6x"]
 [ext_resource type="FontFile" uid="uid://jpoe0li3513x" path="res://ui/fonts/Merriweather-Regular.ttf" id="22_u118k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rye4"]
@@ -104,6 +108,26 @@ resource_local_to_scene = true
 atlas = ExtResource("16_nrqc0")
 region = Rect2(35, 35, 80, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk4ph"]
+resource_local_to_scene = true
+atlas = ExtResource("17_eol45")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvtxr"]
+resource_local_to_scene = true
+atlas = ExtResource("18_h1br4")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mhxp"]
+resource_local_to_scene = true
+atlas = ExtResource("19_0ek54")
+region = Rect2(35, 35, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40tma"]
+resource_local_to_scene = true
+atlas = ExtResource("20_nob6x")
+region = Rect2(35, 35, 80, 80)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sq07"]
 bg_color = Color(0.388235, 0.301961, 0.247059, 1)
 corner_radius_top_left = 16
@@ -150,7 +174,7 @@ properties/10/path = NodePath("PlayerData:main_color")
 properties/10/spawn = true
 properties/10/replication_mode = 1
 
-[node name="LobbySelect" type="Control" node_paths=PackedStringArray("character_pips_box", "select_controls_panel", "panels_array", "player_data", "character_condition", "color_condition") groups=["hub_select"]]
+[node name="LobbySelect" type="Control" node_paths=PackedStringArray("character_pips_box", "select_controls_panel", "panels_array", "player_data", "character_condition", "color_condition", "press_button_label") groups=["hub_select"]]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 15
@@ -167,7 +191,8 @@ select_controls_panel = NodePath("PanelContainer")
 panels_array = [NodePath("PanelContainer/VBoxContainer/CharacterContainer"), NodePath("PanelContainer/VBoxContainer/ColorContainer"), NodePath("PanelContainer/VBoxContainer/BodyContainer")]
 player_data = NodePath("PlayerData")
 character_condition = NodePath("UnlockConditionContainer/CharacterCondition")
-color_condition = NodePath("UnlockConditionContainer/ColourCondition")
+color_condition = NodePath("UnlockConditionContainer/ColorCondition")
+press_button_label = NodePath("PanelContainer/VBoxContainer/PressButtonLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -374,7 +399,7 @@ lobby_select = NodePath("../../../../..")
 achievements_required = 2
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip13" index="0"]
-texture = SubResource("AtlasTexture_3mrf6")
+texture = SubResource("AtlasTexture_kk4ph")
 
 [node name="ClickablePip14" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -384,7 +409,7 @@ lobby_select = NodePath("../../../../..")
 achievements_required = 5
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip14" index="0"]
-texture = SubResource("AtlasTexture_8c2hr")
+texture = SubResource("AtlasTexture_fvtxr")
 
 [node name="ClickablePip15" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -394,7 +419,7 @@ lobby_select = NodePath("../../../../..")
 achievements_required = 7
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip15" index="0"]
-texture = SubResource("AtlasTexture_6nk1r")
+texture = SubResource("AtlasTexture_8mhxp")
 
 [node name="ClickablePip16" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer" node_paths=PackedStringArray("lobby_select") instance=ExtResource("4_l88q1")]
 layout_mode = 2
@@ -404,7 +429,7 @@ lobby_select = NodePath("../../../../..")
 achievements_required = 9
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip16" index="0"]
-texture = SubResource("AtlasTexture_cxe7b")
+texture = SubResource("AtlasTexture_40tma")
 
 [node name="ColorContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 self_modulate = Color(0, 0.584314, 0.45098, 1)
@@ -508,12 +533,13 @@ texture = ExtResource("14_4wkv8")
 layout_mode = 2
 lobby_select = NodePath("../../../../..")
 
-[node name="Label" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="PressButtonLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "[font_size=30][center][font=res://ui/fonts/Rakkas-Regular.ttf][center]Space /[img width=32]res://ui/join_button.svg[/img] Ready!"
+text = "[center]Select a valid combination!"
 fit_content = true
 
 [node name="OnlineShieldPanel" type="Panel" parent="PanelContainer"]
@@ -557,21 +583,29 @@ grow_horizontal = 2
 size_flags_vertical = 0
 alignment = 2
 
-[node name="CharacterCondition" type="Label" parent="UnlockConditionContainer"]
+[node name="CharacterCondition" type="RichTextLabel" parent="UnlockConditionContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("22_u118k")
-theme_override_font_sizes/font_size = 20
-text = "Character Condition"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/normal_font = ExtResource("22_u118k")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center][wave]Character Condition"
+fit_content = true
 
-[node name="ColourCondition" type="Label" parent="UnlockConditionContainer"]
+[node name="ColorCondition" type="RichTextLabel" parent="UnlockConditionContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("22_u118k")
-theme_override_font_sizes/font_size = 20
-text = "Character Condition"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/normal_font = ExtResource("22_u118k")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center][wave]Character Condition"
+fit_content = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_panel_container_mouse_entered" binds= [2]]
 [connection signal="mouse_entered" from="PanelContainer/VBoxContainer/CharacterContainer" to="." method="_on_panel_container_mouse_entered" binds= [0]]

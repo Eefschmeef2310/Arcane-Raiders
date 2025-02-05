@@ -117,9 +117,10 @@ _data = {
 "game_over": SubResource("Animation_knyp0")
 }
 
-[node name="GameOverScreen" type="CanvasLayer"]
+[node name="GameOverScreen" type="CanvasLayer" node_paths=PackedStringArray("reset_button")]
 process_mode = 3
 script = ExtResource("1_u0rcw")
+reset_button = NodePath("Control/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ResetButton")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

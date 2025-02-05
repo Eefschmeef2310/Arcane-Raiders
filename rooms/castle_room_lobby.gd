@@ -47,6 +47,8 @@ var server_browser_node : Node
 
 var difficulty_names = ["Easy", "Medium", "Hard", "Extreme"]
 
+var custom_seed = ""
+
 func _enter_tree():
 	#Initialise Steam Achievements before pips are loaded into memory
 	SteamManager.count_unlocked_achievements()
@@ -79,12 +81,10 @@ func _process(delta):
 	if !start_game_called:
 		if GameManager.isLocal():
 			handle_join_input()
-			if is_instance_valid(join_indicator_node):
-				join_indicator_node.visible = player_ui_container.get_child_count() <= 4
+			if is_instance_valid(join_indicator_node) and is_instance_valid(no_players_label):
 				player_ui_container.move_child(join_indicator_node, -1)
-			if is_instance_valid(no_players_label):
 				no_players_label.visible = player_ui_container.get_child_count() <= 1
-				join_indicator_node.visible = !no_players_label.visible
+				join_indicator_node.visible = player_ui_container.get_child_count() < 5 and !no_players_label.visible
 		else:
 			if is_instance_valid(join_indicator_node):
 				join_indicator_node.hide()
@@ -245,9 +245,9 @@ func StartGame():
 	
 	
 	var castle_climb : CastleClimb = castle_climb_scene.instantiate()
-	#if custom_seed_entry.text != "":
-		#castle_climb.set_seed(custom_seed_entry.text)
-	#if james_mode: castle_climb.james_mode = true
+	if custom_seed != "":
+		castle_climb.set_seed(custom_seed)
+	if james_mode: castle_climb.james_mode = true
 	add_child(castle_climb)
 	
 	castle_climb.setup_from_parent_multiplayer_lobby.rpc()

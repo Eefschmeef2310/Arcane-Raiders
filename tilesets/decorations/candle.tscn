@@ -61,7 +61,7 @@ script = ExtResource("3_g60c7")
 
 [node name="Flame" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_0jhqg")
-position = Vector2(-2, -71)
+position = Vector2(-2, -72)
 scale = Vector2(0.28, 0.28)
 texture = ExtResource("6_yg1p4")
 script = ExtResource("3_g60c7")
@@ -75,7 +75,7 @@ texture = ExtResource("7_kuwax")
 
 [node name="Flame2" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_0jhqg")
-position = Vector2(20, -80)
+position = Vector2(20, -79)
 scale = Vector2(0.28, 0.28)
 texture = ExtResource("6_yg1p4")
 script = ExtResource("3_g60c7")

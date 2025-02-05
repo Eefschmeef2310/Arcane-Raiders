@@ -1,10 +1,63 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgtisn4gy31jx"]
+[gd_scene load_steps=20 format=3 uid="uid://dgtisn4gy31jx"]
 
 [ext_resource type="PackedScene" uid="uid://cuesay1mn2uq8" path="res://rooms/castle_room.tscn" id="1_87uam"]
 [ext_resource type="Texture2D" uid="uid://b5jb61vijlub3" path="res://ui/wheel of reactions.png" id="2_8m1wt"]
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_m3chr"]
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="3_eike6"]
+[ext_resource type="Texture2D" uid="uid://r47e7idlp7nk" path="res://moving_entities/enemies/Dummy/baby slime.png" id="5_4ml8v"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="5_m0grr"]
+[ext_resource type="Texture2D" uid="uid://g5hk04tkm5he" path="res://moving_entities/enemies/Dummy/big slime.png" id="6_k1w4q"]
+[ext_resource type="Texture2D" uid="uid://dihyw8tnew81j" path="res://moving_entities/enemies/Dummy/mini bat.png" id="7_glhqw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gfrwl"]
+radius = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsgbc"]
+radius = 20.0
+
+[sub_resource type="Curve" id="Curve_aq1wo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_q8205"]
+curve = SubResource("Curve_aq1wo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kdqff"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_q8205")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n6dde"]
+radius = 59.6801
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_auroh"]
+radius = 28.0179
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0fyp2"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_q8205")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u3eod"]
+radius = 44.0114
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2v5g0"]
+resource_local_to_scene = true
+radius = 14.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kyruh"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(45, 1, 1)
+gravity = Vector3(0, -100, 0)
+alpha_curve = SubResource("CurveTexture_q8205")
 
 [node name="CastleRoom" instance=ExtResource("1_87uam")]
 script = ExtResource("2_m3chr")
@@ -57,16 +110,119 @@ position = Vector2(1249, 409)
 scale = Vector2(0.25, 0.2)
 texture = ExtResource("2_8m1wt")
 
-[node name="Dummy" parent="." index="15" instance=ExtResource("3_eike6")]
+[node name="DummyContainer" type="Node2D" parent="." index="15"]
+y_sort_enabled = true
+
+[node name="SmallSlimeDummy" parent="DummyContainer" index="0" instance=ExtResource("3_eike6")]
+y_sort_enabled = true
 position = Vector2(1331, 686)
 
-[node name="Dummy2" parent="." index="16" instance=ExtResource("3_eike6")]
+[node name="Sprite2D" parent="DummyContainer/SmallSlimeDummy" index="1"]
+position = Vector2(2, 29)
+texture = ExtResource("5_4ml8v")
+offset = Vector2(-2, -29)
+
+[node name="Hurtbox" parent="DummyContainer/SmallSlimeDummy" index="2"]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" parent="DummyContainer/SmallSlimeDummy/Hurtbox" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_gfrwl")
+
+[node name="CollisionShape2D" parent="DummyContainer/SmallSlimeDummy" index="11"]
+shape = SubResource("CircleShape2D_xsgbc")
+
+[node name="BurnParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_kdqff")
+
+[node name="FrostParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_kdqff")
+
+[node name="ShockParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_kdqff")
+
+[node name="WindParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_kdqff")
+
+[node name="WetParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_kdqff")
+
+[node name="StunParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_kdqff")
+
+[node name="BigSlimeDummy" parent="DummyContainer" index="1" instance=ExtResource("3_eike6")]
+y_sort_enabled = true
 position = Vector2(1155, 774)
 
-[node name="Dummy3" parent="." index="17" instance=ExtResource("3_eike6")]
+[node name="Sprite2D" parent="DummyContainer/BigSlimeDummy" index="1"]
+position = Vector2(12, -1)
+texture = ExtResource("6_k1w4q")
+offset = Vector2(-7, -59)
+
+[node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy/Hurtbox" index="0"]
+position = Vector2(8, 16)
+scale = Vector2(1.56, 1.08)
+shape = SubResource("CircleShape2D_n6dde")
+
+[node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy" index="11"]
+shape = SubResource("CircleShape2D_auroh")
+
+[node name="BurnParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_0fyp2")
+
+[node name="FrostParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_0fyp2")
+
+[node name="ShockParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_0fyp2")
+
+[node name="WindParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_0fyp2")
+
+[node name="WetParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_0fyp2")
+
+[node name="StunParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_0fyp2")
+
+[node name="BatDummy" parent="DummyContainer" index="2" instance=ExtResource("3_eike6")]
+y_sort_enabled = true
 position = Vector2(963, 870)
 
-[node name="ReactionTutorial" type="Node2D" parent="." index="18"]
+[node name="Sprite2D" parent="DummyContainer/BatDummy" index="1"]
+y_sort_enabled = true
+position = Vector2(9, 14)
+texture = ExtResource("7_glhqw")
+offset = Vector2(-4, -74)
+
+[node name="CollisionShape2D" parent="DummyContainer/BatDummy/Hurtbox" index="0"]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_u3eod")
+
+[node name="CollisionShape2D" parent="DummyContainer/BatDummy" index="11"]
+position = Vector2(9, 13)
+shape = SubResource("CircleShape2D_2v5g0")
+
+[node name="BurnParticles" parent="DummyContainer/BatDummy/StatusParticles" index="0"]
+process_material = SubResource("ParticleProcessMaterial_kyruh")
+
+[node name="FrostParticles" parent="DummyContainer/BatDummy/StatusParticles" index="1"]
+process_material = SubResource("ParticleProcessMaterial_kyruh")
+
+[node name="ShockParticles" parent="DummyContainer/BatDummy/StatusParticles" index="2"]
+process_material = SubResource("ParticleProcessMaterial_kyruh")
+
+[node name="WindParticles" parent="DummyContainer/BatDummy/StatusParticles" index="3"]
+process_material = SubResource("ParticleProcessMaterial_kyruh")
+
+[node name="WetParticles" parent="DummyContainer/BatDummy/StatusParticles" index="4"]
+process_material = SubResource("ParticleProcessMaterial_kyruh")
+
+[node name="StunParticles" parent="DummyContainer/BatDummy/StatusParticles" index="5"]
+process_material = SubResource("ParticleProcessMaterial_kyruh")
+
+[node name="ReactionTutorial" type="Node2D" parent="." index="16"]
 position = Vector2(0, 626)
 rotation = -0.462512
 skew = 0.462512
@@ -81,7 +237,7 @@ theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[wave center]Pick up new spells here!"
 
-[node name="ReactionTutorial2" type="Node2D" parent="." index="19"]
+[node name="ReactionTutorial2" type="Node2D" parent="." index="17"]
 position = Vector2(1033, 874)
 rotation = -0.462512
 skew = 0.462512
@@ -96,7 +252,7 @@ theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[wave center]Test your spells here!"
 
-[node name="DashTutorial" type="Node2D" parent="." index="20"]
+[node name="DashTutorial" type="Node2D" parent="." index="18"]
 position = Vector2(1325, 164)
 rotation = 0.462512
 skew = -0.462512
@@ -112,4 +268,7 @@ bbcode_enabled = true
 text = "[wave center]Press Space /[img width=60]res://ui/join_button.svg[/img] to dash!"
 
 [editable path="DynamicCamera"]
+[editable path="DummyContainer/SmallSlimeDummy"]
+[editable path="DummyContainer/BigSlimeDummy"]
+[editable path="DummyContainer/BatDummy"]
 [editable path="GuideArrow"]
