@@ -113,7 +113,7 @@ func _process(delta):
 	set_difficulty_label()
 	$SpeedrunUI.visible = show_speedrun_timer
 	
-	if MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
+	if InputMap.has_action("debug_next_floor") and MultiplayerInput.is_action_just_pressed(-1, "debug_next_floor"):
 		start_next_floor()
 		
 	check_crown()

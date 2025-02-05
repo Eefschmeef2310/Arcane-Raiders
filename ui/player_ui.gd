@@ -69,7 +69,7 @@ func _process(delta):
 		player_username.self_modulate = data.main_color
 		
 		update_stats_ui()
-		if(Input.is_action_just_pressed("debug_toggle_stats")):
+		if InputMap.has_action("debug_toggle_stats") and Input.is_action_just_pressed("debug_toggle_stats"):
 			show_stats = not show_stats
 		
 		#update hat

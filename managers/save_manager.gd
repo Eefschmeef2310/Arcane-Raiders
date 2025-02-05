@@ -44,7 +44,7 @@ func _ready():
 		load_file()
 
 func _input(event):
-	if event.is_action_pressed("debug_full_save_file"):
+	if InputMap.has_action("debug_full_save_file") and event.is_action_pressed("debug_full_save_file"):
 		highest_difficulty_unlocked = 3
 		hats_highest_difficulty_completed = {}
 		runs_completed = 4
@@ -55,7 +55,7 @@ func _input(event):
 		most_recent_difficulty = 3
 		characters_completed = ["Cat", "Cow", "Croc", "Horse", "Lizard", "Owl", "Squid", "Wolf"]
 		request_save()
-	elif event.is_action_pressed("debug_new_save_file"):
+	elif InputMap.has_action("debug_new_save_file") and event.is_action_pressed("debug_new_save_file"):
 		highest_difficulty_unlocked = 0
 		hats_highest_difficulty_completed = {}
 		runs_completed = 0
@@ -66,7 +66,7 @@ func _input(event):
 		characters_completed = []
 		most_recent_difficulty = 0
 		request_save()
-	elif event.is_action_pressed("debug_reset_steam_stats"):
+	elif InputMap.has_action("debug_reset_steam_stats") and  event.is_action_pressed("debug_reset_steam_stats"):
 		SteamManager.reset_stats_and_achievements()
 
 func save_file():

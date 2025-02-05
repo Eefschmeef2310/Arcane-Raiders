@@ -125,7 +125,6 @@ texture = ExtResource("4_u7bdv")
 
 [node name="EthanCoin" type="Sprite2D" parent="." index="15"]
 position = Vector2(661, 669)
-scale = Vector2(1.825, 1.825)
 texture = ExtResource("4_xbx3a")
 
 [node name="Black-circle-fade-sphere-png-image-hd" type="Sprite2D" parent="EthanCoin" index="0"]
@@ -139,7 +138,6 @@ process_mode = 4
 libraries = {
 "": SubResource("AnimationLibrary_j3j7o")
 }
-autoplay = "spin"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EthanCoin" index="2"]
 modulate = Color(1, 1, 0, 1)
