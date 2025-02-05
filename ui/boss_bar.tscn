@@ -102,7 +102,7 @@ fill_from = Vector2(1, 1)
 
 [sub_resource type="Resource" id="Resource_4es0f"]
 script = ExtResource("2_hdy5g")
-key = "Frozen Daughter Slime"
+key = "Frozen Slime"
 gradient = SubResource("GradientTexture2D_7di72")
 
 [sub_resource type="Gradient" id="Gradient_rmgdk"]

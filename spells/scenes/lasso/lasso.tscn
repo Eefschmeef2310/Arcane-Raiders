@@ -36,12 +36,15 @@ radius = 56.0357
 [node name="Lasso" type="Node2D" node_paths=PackedStringArray("path_follow", "icon", "kill_timer", "line", "hurtbox")]
 y_sort_enabled = true
 script = ExtResource("1_g26yd")
+distance_from_caster = 60.0
 knockback = -10.0
 path_follow = NodePath("Path2D/PathFollow2D")
 icon = NodePath("Path2D/PathFollow2D/Icon")
 kill_timer = NodePath("KillTimer")
 line = NodePath("Line2D")
 hurtbox = NodePath("Path2D/PathFollow2D/Hurtbox")
+base_damage = 500
+cooldown_time = 5.0
 
 [node name="Line2D" type="Line2D" parent="."]
 texture_repeat = 2

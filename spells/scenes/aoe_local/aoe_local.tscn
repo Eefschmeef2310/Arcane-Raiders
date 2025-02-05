@@ -27,6 +27,7 @@ max_radians = 6.283
 distance_from_caster = 0.0
 base_damage = 25
 max_damage = 50
+cooldown_time = 2.0
 
 [node name="WaveTimer" type="Timer" parent="." index="0"]
 
