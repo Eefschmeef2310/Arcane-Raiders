@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://ijxu84lyomhr"]
 
-[ext_resource type="Texture2D" uid="uid://cccbtx0s5e3k2" path="res://moving_entities/enemies/spiderling/spiderling_move.png" id="1_3vw24"]
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ljokn"]
+[ext_resource type="Texture2D" uid="uid://dedf7lpalc67v" path="res://moving_entities/enemies/spiderling/small_spider.png" id="2_yqfbr"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="3_pb4nr"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/basic_chase.gd" id="4_4etky"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="5_4a10u"]
@@ -67,7 +67,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_3vw24")]
+"values": [ExtResource("2_yqfbr")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -120,7 +120,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_3vw24")]
+"values": [ExtResource("2_yqfbr")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -199,7 +199,7 @@ texture_scale = 0.3
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(2, -12)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("1_3vw24")
+texture = ExtResource("2_yqfbr")
 hframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
