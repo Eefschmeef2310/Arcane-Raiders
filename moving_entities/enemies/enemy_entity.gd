@@ -29,7 +29,7 @@ const HEALTH_PICKUP = preload("res://items/pickups/health_pickup.tscn")
 @onready var state_machine = $StateMachine
 @onready var nav_agent = $NavigationAgent2D
 @onready var enemy_spells = $EnemySpells
-@onready var animation_player = $AnimationPlayer
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var attack_sound = $AttackSound
 
 @export var aim_direction: Vector2
