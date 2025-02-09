@@ -120,5 +120,5 @@ func _on_current_stats_received(game : int, result : int, user : int):
 	for achievement in achievement_list:
 		if Steam.getAchievement(achievement)['achieved']:
 			achievement_count += 1
-	print("Tabby~ Unlocked: " + str(achievement_count) +"/" +str(achievement_list.size()) )
+	#print("Tabby~ Unlocked: " + str(achievement_count) +"/" +str(achievement_list.size()) )
 	unlocked_achievements = achievement_count
