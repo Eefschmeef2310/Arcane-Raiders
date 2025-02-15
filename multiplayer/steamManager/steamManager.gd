@@ -1,5 +1,7 @@
 extends Node
 
+signal damageless_updated(val)
+
 const version_id : int = 2899410
 #3062240 for DEMO
 #2899410 for MAIN GAME
@@ -12,7 +14,10 @@ var player_id = 0 ## 0 = host/offline, 1-2-3 are players that join
 
 var server_browser_node : Node
 
-var damageless : bool = true
+var damageless : bool = true:
+	set(val):
+		damageless = val
+		damageless_updated.emit(damageless)
 var unlocked_achievements : int = 0
 var achievement_list : Array[String] = ["100_plays","50_wins","win_easy","win_medium","win_hard","win_expert","21st_night","4_players","speed","speed_expert","all_hats","no_damage","synergy","1000_kills","1_player_expert"]
 

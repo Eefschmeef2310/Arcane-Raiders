@@ -21,13 +21,15 @@ script/source = "extends Area2D
 @export var field_damage: int = 0
 @export var max_puddles : int = 10
 
+@export var mat : ShaderMaterial
+
 	#Onready Variables
 @onready var animation_player = $AnimationPlayer
 @onready var group = get_tree().get_nodes_in_group(get_groups()[0])
 
 	#Other Variables (please try to separate and organise!)
 var base_damage
-var resource 
+var resource
 var caster 
 var infliction_time = 1
 var knockback = 1
@@ -38,6 +40,8 @@ var up_time : float = 0
 #region Godot methods
 func _ready():
 	$Sprite2D.modulate = resource.element.colour
+	#TODO: SET MATERIAL SHADER PARAMETER HERE
+	mat.set_shader_parameter(\"tint\", resource.element.colour)
 	base_damage = field_damage
 	print()
 	
@@ -80,18 +84,20 @@ func destroy_oldest():
 
 "
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_jg4j1"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fdeyw"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6x46e"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hmjb6"]
 seamless = true
-noise = SubResource("FastNoiseLite_jg4j1")
+noise = SubResource("FastNoiseLite_fdeyw")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gneoq"]
 resource_local_to_scene = true
 shader = ExtResource("2_01emv")
 shader_parameter/fade_scale = 0.0
-shader_parameter/alpha = 1.0
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_6x46e")
+shader_parameter/burn_size = 0.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_hmjb6")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ft1mc"]
 radius = 102.0
@@ -192,6 +198,7 @@ z_index = -19
 collision_layer = 64
 collision_mask = 512
 script = SubResource("GDScript_g2p4w")
+mat = SubResource("ShaderMaterial_gneoq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_gneoq")
@@ -208,7 +215,8 @@ wait_time = 0.5
 autostart = true
 
 [node name="KillTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

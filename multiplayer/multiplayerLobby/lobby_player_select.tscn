@@ -539,7 +539,7 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
-text = "[center]Select a valid combination!"
+text = "[pulse][center]Select a valid combination!"
 fit_content = true
 
 [node name="OnlineShieldPanel" type="Panel" parent="PanelContainer"]

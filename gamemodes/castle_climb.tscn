@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b51xvgm1i81ut"]
+[gd_scene load_steps=50 format=3 uid="uid://b51xvgm1i81ut"]
 
 [ext_resource type="Script" path="res://gamemodes/castle_climb.gd" id="1_jx40r"]
 [ext_resource type="PackedScene" uid="uid://dgtisn4gy31jx" path="res://rooms/foyer.tscn" id="2_0olmr"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://xsb7s37pr065" path="res://rooms/boss/bossroom_slime_wind_rock.tscn" id="12_rmsyq"]
 [ext_resource type="PackedScene" uid="uid://da2frvq80qm3s" path="res://rooms/boss/bossroom_wizards.tscn" id="13_qv4s1"]
 [ext_resource type="PackedScene" uid="uid://vsdcfys28pej" path="res://rooms/boss/bossroom_bat.tscn" id="15_jp5f8"]
+[ext_resource type="Shader" path="res://shaders/corrosion.gdshader" id="23_37e3u"]
+[ext_resource type="Script" path="res://multiplayer/steamManager/damageless_label.gd" id="23_45y4h"]
 
 [sub_resource type="Gradient" id="Gradient_5svcn"]
 offsets = PackedFloat32Array(0, 0.489899, 0.590909, 0.777778, 1)
@@ -170,6 +172,81 @@ font_size = 32
 font_color = Color(0, 1, 0, 1)
 shadow_color = Color(0, 0, 0, 0.501961)
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5lnf4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tfd1l"]
+seamless = true
+noise = SubResource("FastNoiseLite_5lnf4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0hrcl"]
+shader = ExtResource("23_37e3u")
+shader_parameter/fade_scale = 0.0
+shader_parameter/burn_size = 0.05
+shader_parameter/burn_color = Color(1, 0.494118, 0, 1)
+shader_parameter/tint = Color(0.560784, 1, 0.596078, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_tfd1l")
+
+[sub_resource type="Animation" id="Animation_rkvos"]
+resource_name = "destroy"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorMask:material:shader_parameter/fade_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_nw1xq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorMask:material:shader_parameter/fade_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cf8v6"]
+_data = {
+"RESET": SubResource("Animation_nw1xq"),
+"destroy": SubResource("Animation_rkvos")
+}
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_owfno"]
 properties/0/path = NodePath(".:current_floor")
@@ -371,6 +448,34 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Easy"
 label_settings = SubResource("LabelSettings_8aigv")
+
+[node name="DamagelessLabel" type="Label" parent="SpeedrunUI/Control/HBoxContainer" node_paths=PackedStringArray("anim_player")]
+clip_children = 1
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_font_sizes/font_size = 32
+text = "No Damage Taken"
+horizontal_alignment = 2
+script = ExtResource("23_45y4h")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="ColorMask" type="ColorRect" parent="SpeedrunUI/Control/HBoxContainer/DamagelessLabel"]
+material = SubResource("ShaderMaterial_0hrcl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+color = Color(0.560784, 1, 0.596078, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpeedrunUI/Control/HBoxContainer/DamagelessLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_cf8v6")
+}
 
 [node name="CommonLevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
