@@ -39,6 +39,10 @@ func _ready():
 			panels_array[i].mouse_entered.disconnect(_on_mouse_entered)
 			panels_array.remove_at(i)
 	
+	for panel in panels_array:
+		if panel is LineEdit:
+			(panel as LineEdit).text = (get_parent().get_parent() as CastleRoomLobby).custom_seed
+	
 	super._ready()
 	vignette_material = vignette.material as ShaderMaterial
 
@@ -60,6 +64,8 @@ func _process(delta):
 		if (("confirm" in mouse_input) or "click_confirm" in mouse_input) and current_button != -1:
 			if current_button < panels_array.size() - 2:
 				_on_difficulty_selected(panels_array[current_button])
+			elif (panels_array[current_button] is LineEdit):
+				(get_parent().get_parent() as CastleRoomLobby).custom_seed = custom_seed_entry.text
 			elif !(panels_array[current_button] is LineEdit):
 				unpause_game()
 		

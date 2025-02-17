@@ -78,7 +78,7 @@ func _process(_delta):
 
 #region Signal methods
 func _on_button_mouse_entered(node : Control):
-	if device_id <= -1 and is_multiplayer_authority() and (!(panels_array[current_button] is LineEdit) or !(panels_array[current_button] as LineEdit).has_focus()):
+	if device_id <= -1 and (!(panels_array[current_button] is LineEdit) or !(panels_array[current_button] as LineEdit).has_focus()):
 		current_button = panels_array.find(node)
 
 func unpause_game():
