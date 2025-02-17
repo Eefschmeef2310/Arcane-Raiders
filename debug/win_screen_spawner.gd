@@ -10,7 +10,9 @@ func _ready():
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_H:
-		get_parent().add_child(load("res://screens/win_screen.tscn").instantiate())
+		var win_screen = load("res://screens/win_screen.tscn").instantiate()
+		win_screen.game = get_parent()
+		add_sibling(win_screen)
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_G:
 		get_parent().add_child(load("res://screens/game_over_screen.tscn").instantiate())
