@@ -38,6 +38,7 @@ script/source = "extends EnemyEntity
 @export var respawn: bool = true #Determines if the spider can respawn nests
 @export var nest_spawn_cd: float = 10 #This CD sets the nest spawn spell when all nests have been spawned
 	#Onready Variables
+@onready var sprite_2d = $Sprite2D
 
 	#Other Variables (please try to separate and organise!)
 var can_spawn: bool = true
@@ -56,6 +57,10 @@ func _physics_process(delta):
 		attempt_anim(\"idle\")
 	elif velocity.length() > 2 && animation_player.current_animation != \"move\":
 		attempt_anim(\"move\")
+		
+	animation_player.speed_scale = 1 if velocity.y > 0 else -1
+	if velocity.x > 0: sprite_2d.flip_h = true
+	elif velocity.x < 0: sprite_2d.flip_h = false
 #endregion
 
 #region Signal methods
@@ -128,6 +133,22 @@ tracks/2/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_drhw6"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="Animation" id="Animation_rcq5u"]
 resource_name = "move"
 length = 0.6
@@ -167,22 +188,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_drhw6"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ffq3"]
