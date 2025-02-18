@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://brodj84jliqtq"]
+[gd_scene load_steps=12 format=3 uid="uid://brodj84jliqtq"]
 
 [ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_ylafc"]
 [ext_resource type="Texture2D" uid="uid://c11shmi1m4cjj" path="res://items/pickups/pickup_health.png" id="3_flilo"]
+[ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="4_b6tc6"]
 [ext_resource type="Script" path="res://multiplayer/steamManager/debugDamageless.gd" id="4_fhof3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3umn"]
@@ -42,6 +43,11 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_yrycy"]
 font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_uvs3h"]
+font = ExtResource("4_b6tc6")
+font_size = 56
+font_color = Color(0, 1, 0, 1)
 
 [sub_resource type="Animation" id="Animation_yg65t"]
 resource_name = "default"
@@ -165,15 +171,47 @@ text = "Quit to Title"
 label_settings = SubResource("LabelSettings_yrycy")
 horizontal_alignment = 1
 
-[node name="debug_damageless_indicator" type="TextureRect" parent="Control"]
+[node name="Control" type="Control" parent="Control"]
 modulate = Color(1, 1, 1, 0.215686)
-layout_mode = 0
-offset_left = 9.0
-offset_top = 8.0
-offset_right = 73.0
-offset_bottom = 72.0
-texture = ExtResource("3_flilo")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
 script = ExtResource("4_fhof3")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/Control"]
+self_modulate = Color(0, 0.713726, 0.152941, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -231.0
+offset_top = 15.0
+offset_right = 231.0
+offset_bottom = 112.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="debug_damageless_indicator" type="TextureRect" parent="Control/Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_flilo")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Control/Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Damageless Run"
+label_settings = SubResource("LabelSettings_uvs3h")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
