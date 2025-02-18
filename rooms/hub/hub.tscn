@@ -840,6 +840,7 @@ offset_bottom = 24.3333
 [node name="CoverLight" parent="." index="36"]
 position = Vector2(925, 729)
 
+[connection signal="difficulty_updated" from="." to="DifficultyMenuSpawnerContainer/DifficultyMenuSpawner" method="update_current_label"]
 [connection signal="area_entered" from="DifficultyMenuSpawnerContainer/DifficultyMenuSpawner" to="DifficultyMenuSpawnerContainer/DifficultyMenuSpawner" method="_on_area_entered"]
 [connection signal="area_exited" from="DifficultyMenuSpawnerContainer/DifficultyMenuSpawner" to="DifficultyMenuSpawnerContainer/DifficultyMenuSpawner" method="_on_area_exited"]
 [connection signal="player_entered" from="Decorations/PartyExit" to="." method="_on_party_exit_player_entered"]

@@ -5,6 +5,7 @@ class_name CastleRoomLobby
 signal player_joined
 signal player_left(id:int)
 signal restart_requested()
+signal difficulty_updated()
 
 #Enums
 
@@ -326,7 +327,7 @@ func set_difficulty(val: int):
 	
 	var s = "The difficulty has been set to " + difficulty_names[chosen_difficulty] + "."
 	create_notification(s)
-
+	difficulty_updated.emit()
 
 func request_lobby_restart():
 	if GameManager.isLocal():
