@@ -11,7 +11,7 @@ font_size = 24
 color = Color(0, 0.380392, 0.470588, 1)
 thickness = 4
 
-[node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel")]
+[node name="OnlineMode" type="Node" node_paths=PackedStringArray("multiplayer_spawner", "server_browser", "lobbies_vbox", "server_count_text", "loading_text", "loading_panel", "template_button")]
 process_mode = 3
 script = ExtResource("1_ih681")
 multiplayer_spawner = NodePath("MultiplayerSpawner")
@@ -20,6 +20,7 @@ lobbies_vbox = NodePath("ServerBrowser/HBoxContainer/MarginContainer2/LobbyConta
 server_count_text = NodePath("ServerBrowser/HBoxContainer/MarginContainer/Buttons/ServerDebugText")
 loading_text = NodePath("LoadingPanel/LoadingText")
 loading_panel = NodePath("LoadingPanel")
+template_button = NodePath("ServerButton")
 disconnect_scene = ExtResource("2_gq6d0")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
