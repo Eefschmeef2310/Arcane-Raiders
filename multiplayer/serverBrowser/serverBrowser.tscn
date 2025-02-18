@@ -104,13 +104,13 @@ theme_override_constants/separation = 8
 [node name="Host" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Host"
+text = "Host Online Game"
 script = ExtResource("3_ixota")
 
 [node name="Refresh" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Refresh"
+text = "Refresh Servers"
 
 [node name="Back" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
@@ -131,12 +131,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_63i0t")
 [node name="HostLocal" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Host Local"
+text = "Host LAN Game"
 
 [node name="JoinLocal" type="Button" parent="ServerBrowser/HBoxContainer/MarginContainer/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Join Local"
+text = "Join LAN Game"
 
 [node name="MarginContainer2" type="MarginContainer" parent="ServerBrowser/HBoxContainer"]
 layout_mode = 2

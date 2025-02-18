@@ -310,7 +310,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_7gsyx")
 theme_override_font_sizes/font_size = 52
-text = "Play Local"
+text = "Play Offline"
 script = ExtResource("2_hcuag")
 
 [node name="OnlineButton" type="Button" parent="VBoxContainer"]
