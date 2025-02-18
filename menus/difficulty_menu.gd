@@ -75,8 +75,6 @@ func _process(delta):
 	mouse_input.clear()
 #endregion
 
-#region Signal methods
-
 #region Button mouse enters
 func _on_mouse_entered(col : Color, rad : float):
 	elapsed_time = 0

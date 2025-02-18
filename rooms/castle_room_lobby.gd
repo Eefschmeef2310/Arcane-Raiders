@@ -152,6 +152,9 @@ func _on_peer_connected(id:int): #this isnt triggering when a client joins
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
 	#CreateNewCard.rpc(id)
+	
+	#print("connected!" + str(is_multiplayer_authority()))
+	set_difficulty.rpc(chosen_difficulty)
 	multiplayer_spawner.spawn(id)
 	#rpc("request_updates", id)
 	pass

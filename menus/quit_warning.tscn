@@ -51,7 +51,7 @@ corner_radius_bottom_left = 20
 
 [node name="QuitWarning" type="CanvasLayer"]
 process_mode = 3
-layer = 2
+layer = 3
 script = SubResource("GDScript_85fue")
 
 [node name="ColorRect" type="ColorRect" parent="."]
