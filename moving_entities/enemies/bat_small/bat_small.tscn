@@ -1,7 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://c8uvt7sepdtkk"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_ceawg"]
-[ext_resource type="Texture2D" uid="uid://dhllwaahe1u1j" path="res://moving_entities/enemies/bat_small/bat_small_idle.png" id="2_2wyck"]
 [ext_resource type="Resource" uid="uid://ctj0uyr81n57k" path="res://elements/null.tres" id="3_hf4el"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/bat_chase.gd" id="4_hg75s"]
 [ext_resource type="PackedScene" uid="uid://dneaed1rm6xx2" path="res://moving_entities/enemies/bat_small/bat_attack.tscn" id="4_lqa2o"]
@@ -10,6 +9,7 @@
 [ext_resource type="Script" path="res://moving_entities/enemies/States/idle.gd" id="5_r41an"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/attack.gd" id="7_3lavh"]
 [ext_resource type="AudioStream" uid="uid://bpcm3il7ov3bm" path="res://sounds/effects/enemies/Single Bat Call - QuickSounds.com.wav" id="10_tekme"]
+[ext_resource type="Texture2D" uid="uid://dxxil23eudr0v" path="res://moving_entities/enemies/bat_small/small_bat.png" id="10_woqws"]
 
 [sub_resource type="GDScript" id="GDScript_pwqtp"]
 resource_name = "bat_small"
@@ -17,7 +17,7 @@ script/source = "extends EnemyEntity
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6k7pk"]
-radius = 76.8318
+radius = 71.1483
 
 [sub_resource type="Resource" id="Resource_3gbb5"]
 script = ExtResource("5_h17s1")
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_2wyck")]
+"values": [ExtResource("10_woqws")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -103,7 +103,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_2wyck")]
+"values": [ExtResource("10_woqws")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -178,7 +178,7 @@ texture_scale = 0.5
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(3, -18)
-texture = ExtResource("2_2wyck")
+texture = ExtResource("10_woqws")
 hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]

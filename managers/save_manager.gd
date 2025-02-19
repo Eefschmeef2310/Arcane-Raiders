@@ -117,7 +117,6 @@ func load_file():
 	if "most_recent_difficulty" in dict.keys():
 		most_recent_difficulty = dict["most_recent_difficulty"]
 
-
 func request_save():
 	autosave_timer.stop()
 	autosave_timer.start()

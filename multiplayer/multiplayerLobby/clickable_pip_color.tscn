@@ -33,3 +33,5 @@ color = NodePath("Panel")
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vtjuj")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

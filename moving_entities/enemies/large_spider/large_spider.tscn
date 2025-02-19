@@ -1,7 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://ckoux1a8woan8"]
+[gd_scene load_steps=21 format=3 uid="uid://ckoux1a8woan8"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_dvtpw"]
-[ext_resource type="Texture2D" uid="uid://ctlnjks063l3g" path="res://moving_entities/enemies/large_spider/large_spider_move.png" id="2_kpkts"]
+[ext_resource type="Texture2D" uid="uid://cg0yk3ekebgsu" path="res://moving_entities/enemies/large_spider/spider_big.png" id="2_g65f6"]
 [ext_resource type="Resource" uid="uid://dkx8pk1j6atmv" path="res://moving_entities/enemies/large_spider/create_nest.tres" id="3_745ch"]
 [ext_resource type="Script" path="res://moving_entities/enemies/States/l_spider_passive.gd" id="3_p7ngy"]
 [ext_resource type="Resource" uid="uid://de4m0mx15x57t" path="res://moving_entities/enemies/large_spider/web_attack.tres" id="4_23t6e"]
@@ -38,6 +38,7 @@ script/source = "extends EnemyEntity
 @export var respawn: bool = true #Determines if the spider can respawn nests
 @export var nest_spawn_cd: float = 10 #This CD sets the nest spawn spell when all nests have been spawned
 	#Onready Variables
+@onready var sprite_2d = $Sprite2D
 
 	#Other Variables (please try to separate and organise!)
 var can_spawn: bool = true
@@ -50,6 +51,16 @@ func _ready():
 	super._ready()
 	zone_pos = global_position
 
+func _physics_process(delta):
+	super._physics_process(delta)
+	if velocity.length() < 2 && animation_player.current_animation != \"idle\":
+		attempt_anim(\"idle\")
+	elif velocity.length() > 2 && animation_player.current_animation != \"move\":
+		attempt_anim(\"move\")
+		
+	animation_player.speed_scale = 1 if velocity.y > 0 else -1
+	if velocity.x > 0: sprite_2d.flip_h = true
+	elif velocity.x < 0: sprite_2d.flip_h = false
 #endregion
 
 #region Signal methods
@@ -95,7 +106,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_kpkts")]
+"values": [ExtResource("2_g65f6")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -122,8 +133,24 @@ tracks/2/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_rcq5u"]
+[sub_resource type="Animation" id="Animation_drhw6"]
 resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_rcq5u"]
+resource_name = "move"
 length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
@@ -136,7 +163,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_kpkts")]
+"values": [ExtResource("2_g65f6")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -166,7 +193,8 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ffq3"]
 _data = {
 "RESET": SubResource("Animation_aadst"),
-"idle": SubResource("Animation_rcq5u")
+"idle": SubResource("Animation_drhw6"),
+"move": SubResource("Animation_rcq5u")
 }
 
 [sub_resource type="Curve" id="Curve_aq1wo"]
@@ -203,7 +231,7 @@ texture_scale = 0.75
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(8, -21)
-texture = ExtResource("2_kpkts")
+texture = ExtResource("2_g65f6")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
@@ -239,14 +267,17 @@ initial_state = NodePath("LSpiderPassive")
 
 [node name="LSpiderPassive" type="Node" parent="StateMachine" index="0"]
 script = ExtResource("3_p7ngy")
+animation = "move"
 nav_timer_interval = 1.0
 
 [node name="LSpiderAggro" type="Node" parent="StateMachine" index="1"]
 script = ExtResource("4_xehv5")
+animation = "move"
 nav_timer_interval = 0.4
 
 [node name="LSpiderRetreat" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("5_veoge")
+animation = "move"
 nav_timer_interval = 99.0
 nav_timer = 99
 

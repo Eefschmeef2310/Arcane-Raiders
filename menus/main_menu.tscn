@@ -37,6 +37,19 @@ const multiplayer_lobby : PackedScene = preload(\"res://multiplayer/multiplayerL
 
 #region Godot methods
 func _ready():
+	#Move window such that the top bar isn't above the screen - Ethan 9/2/25
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+		# Get the current window
+		var window = get_window()
+		# And get the current screen the window's in
+		var screen = window.current_screen
+		# Get the usable rect for that screen
+		var screen_rect = DisplayServer.screen_get_usable_rect(screen)
+		# Get the window's size
+		var window_size = window.get_size_with_decorations()
+		# Set its position to the middle
+		window.position = screen_rect.position + (screen_rect.size / 2 - window_size / 2)
+		
 	GameManager.isPaused = false
 	Dialogic.end_timeline()
 	
