@@ -19,7 +19,7 @@ radius = 20.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_q8205"]
+[sub_resource type="CurveTexture" id="CurveTexture_oyn8s"]
 curve = SubResource("Curve_aq1wo")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kdqff"]
@@ -28,7 +28,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
-alpha_curve = SubResource("CurveTexture_q8205")
+alpha_curve = SubResource("CurveTexture_oyn8s")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6dde"]
 radius = 59.6801
@@ -42,7 +42,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
-alpha_curve = SubResource("CurveTexture_q8205")
+alpha_curve = SubResource("CurveTexture_oyn8s")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u3eod"]
 radius = 44.0114
@@ -57,7 +57,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
-alpha_curve = SubResource("CurveTexture_q8205")
+alpha_curve = SubResource("CurveTexture_oyn8s")
 
 [node name="CastleRoom" instance=ExtResource("1_87uam")]
 script = ExtResource("2_m3chr")
@@ -115,7 +115,7 @@ y_sort_enabled = true
 
 [node name="SmallSlimeDummy" parent="DummyContainer" index="0" instance=ExtResource("3_eike6")]
 y_sort_enabled = true
-position = Vector2(1331, 686)
+position = Vector2(1122, 764)
 
 [node name="Sprite2D" parent="DummyContainer/SmallSlimeDummy" index="1"]
 position = Vector2(2, 29)
@@ -153,7 +153,7 @@ process_material = SubResource("ParticleProcessMaterial_kdqff")
 
 [node name="BigSlimeDummy" parent="DummyContainer" index="1" instance=ExtResource("3_eike6")]
 y_sort_enabled = true
-position = Vector2(1155, 774)
+position = Vector2(1282, 707)
 
 [node name="Sprite2D" parent="DummyContainer/BigSlimeDummy" index="1"]
 position = Vector2(12, -1)
@@ -192,9 +192,13 @@ position = Vector2(963, 870)
 
 [node name="Sprite2D" parent="DummyContainer/BatDummy" index="1"]
 y_sort_enabled = true
-position = Vector2(9, 14)
+position = Vector2(8, 11)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("7_glhqw")
 offset = Vector2(-4, -74)
+
+[node name="Hurtbox" parent="DummyContainer/BatDummy" index="2"]
+position = Vector2(0, -30)
 
 [node name="CollisionShape2D" parent="DummyContainer/BatDummy/Hurtbox" index="0"]
 scale = Vector2(1, 1)
