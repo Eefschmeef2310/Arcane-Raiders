@@ -140,8 +140,6 @@ func _process(delta):
 					velocity = get_knockback_velocity() + get_attraction_velocity()
 					if can_input:
 						var input_velocity = move_direction * movement_speed * frost_speed_scale
-						if is_on_wall():
-							input_velocity *= 0.5
 						if is_casting or preparing_cast_slot >= 0:
 							input_velocity *= 0.25
 						velocity += input_velocity
