@@ -6,7 +6,8 @@ class_name ClickablePipCharacter
 
 #region Godot methods
 func _ready():
-	super._ready()
+	if unlock_with_achivements:
+		super._ready()
 	
 	if lobby_select:
 		gui_input_pass_self.connect(lobby_select._on_raider_pip_gui_input)

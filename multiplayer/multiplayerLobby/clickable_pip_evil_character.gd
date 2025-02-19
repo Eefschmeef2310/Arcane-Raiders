@@ -11,9 +11,8 @@ class_name ClickablePipEvilCharacter
 func _ready():
 	#gui_input.connect(_on_gui_input)
 	
-	if lobby_select and SaveManager.characters_completed.has(character_key) and SaveManager.area_3_complete:
-		is_unlocked = true
+	is_unlocked = lobby_select and SaveManager.characters_completed.has(character_key)
+	print(SaveManager.characters_completed.has(character_key))
 	
-	if lobby_select:
-		gui_input_pass_self.connect(lobby_select._on_raider_pip_gui_input)
+	super()
 #endregion

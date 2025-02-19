@@ -360,6 +360,7 @@ layout_mode = 2
 script = ExtResource("12_13awm")
 character_key = &"Cat"
 lobby_select = NodePath("../../../../..")
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip9" index="0"]
 texture = SubResource("AtlasTexture_6rtav")
@@ -369,6 +370,7 @@ layout_mode = 2
 script = ExtResource("12_13awm")
 character_key = &"Croc"
 lobby_select = NodePath("../../../../..")
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip10" index="0"]
 texture = SubResource("AtlasTexture_o1o3p")
@@ -378,6 +380,7 @@ layout_mode = 2
 script = ExtResource("12_13awm")
 character_key = &"Wolf"
 lobby_select = NodePath("../../../../..")
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip11" index="0"]
 texture = SubResource("AtlasTexture_jstkq")
@@ -387,6 +390,7 @@ layout_mode = 2
 script = ExtResource("12_13awm")
 character_key = &"Owl"
 lobby_select = NodePath("../../../../..")
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip12" index="0"]
 texture = SubResource("AtlasTexture_5b1lf")
@@ -397,6 +401,7 @@ script = ExtResource("12_13awm")
 character_key = &"Horse"
 lobby_select = NodePath("../../../../..")
 achievements_required = 2
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip13" index="0"]
 texture = SubResource("AtlasTexture_kk4ph")
@@ -407,6 +412,7 @@ script = ExtResource("12_13awm")
 character_key = &"Lizard"
 lobby_select = NodePath("../../../../..")
 achievements_required = 5
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip14" index="0"]
 texture = SubResource("AtlasTexture_fvtxr")
@@ -417,6 +423,7 @@ script = ExtResource("12_13awm")
 character_key = &"Cow"
 lobby_select = NodePath("../../../../..")
 achievements_required = 7
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip15" index="0"]
 texture = SubResource("AtlasTexture_8mhxp")
@@ -427,6 +434,7 @@ script = ExtResource("12_13awm")
 character_key = &"Squid"
 lobby_select = NodePath("../../../../..")
 achievements_required = 9
+unlock_with_achivements = false
 
 [node name="TextureRect" parent="PanelContainer/VBoxContainer/CharacterContainer/GridContainer/ClickablePip16" index="0"]
 texture = SubResource("AtlasTexture_40tma")

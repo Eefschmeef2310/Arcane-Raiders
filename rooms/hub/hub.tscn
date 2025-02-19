@@ -189,7 +189,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.632763, 0.166667, 1, 1, 0.943057, 0, 
 shader = ExtResource("13_o80m4")
 shader_parameter/strength = 5
 
-[node name="Hub" node_paths=PackedStringArray("player_ui", "destroy_on_game_start", "invis_on_game_start", "join_indicator_node") groups=["hub"] instance=ExtResource("1_vicu8")]
+[node name="Hub" node_paths=PackedStringArray("player_ui", "join_indicator_node", "destroy_on_game_start", "invis_on_game_start") groups=["hub"] instance=ExtResource("1_vicu8")]
 script = ExtResource("2_34pa5")
 player_ui = []
 chosen_difficulty = 0
@@ -197,9 +197,9 @@ raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([Ex
 player_colors = Array[Color]([Color(0.490196, 0.203922, 0.760784, 1), Color(0.780392, 0.756863, 0.101961, 1), Color(0.737255, 0.231373, 0.192157, 1), Color(0, 0.623529, 0.505882, 1), Color(0.211765, 0.521569, 0.180392, 1), Color(0.839216, 0.376471, 0.701961, 1), Color(0.188235, 0.388235, 0.760784, 1), Color(0.972549, 0.443137, 0, 1)])
 body_sprites = Array[Texture2D]([ExtResource("20_d8qci"), ExtResource("19_ywx71"), ExtResource("17_ff5q1")])
 castle_climb_scene = ExtResource("11_coaxx")
+join_indicator_node = NodePath("GameUI/PlayerUIContainer/JoinIndicator")
 destroy_on_game_start = [NodePath("TileMap"), NodePath("DynamicCamera"), NodePath("CoverLight"), NodePath("CanvasLayer"), NodePath("GuideArrow"), NodePath("Decorations"), NodePath("Snowball"), NodePath("Vampire"), NodePath("GlassCannon"), NodePath("Explosion"), NodePath("HatDestroyer"), NodePath("GameFrog"), NodePath("HatFrog"), NodePath("WelcomeFrog"), NodePath("DiscoFrog"), NodePath("Bush"), NodePath("Bush2"), NodePath("Bush3"), NodePath("Bush4"), NodePath("Bush5"), NodePath("RoomExit"), NodePath("DifficultyMenuSpawnerContainer/DifficultyMenuSpawner"), NodePath("DifficultyMenuSpawnerContainer")]
 invis_on_game_start = [NodePath("GameUI")]
-join_indicator_node = NodePath("GameUI/PlayerUIContainer/JoinIndicator")
 track_id = "menu"
 
 [node name="TileMap" parent="." index="0"]

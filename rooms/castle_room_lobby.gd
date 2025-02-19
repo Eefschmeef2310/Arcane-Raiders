@@ -7,10 +7,10 @@ signal player_left(id:int)
 signal restart_requested()
 signal difficulty_updated()
 
-#Enums
-
 #Constants
 const MAX_PLAYERS = 4
+const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
+const player_notif_scene = preload("res://rooms/hub/hub_notif.tscn")
 
 @export_group("Node References")
 @export var player_ui : Array[PlayerUI]
@@ -23,16 +23,15 @@ const MAX_PLAYERS = 4
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
 @export var body_sprites : Array[Texture2D]
-#@export var menu_scene : PackedScene
 @export var castle_climb_scene : PackedScene
-const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
-const player_notif_scene = preload("res://rooms/hub/hub_notif.tscn")
-
-@onready var multiplayer_spawner = $MultiplayerSpawner
-@onready var castle_climb_spawner = $CastleClimbSpawner
+@export var join_indicator_node: Control
 
 @export var destroy_on_game_start: Array[Node]
 @export var invis_on_game_start: Array[Node]
+
+@onready var multiplayer_spawner = $MultiplayerSpawner
+@onready var castle_climb_spawner = $CastleClimbSpawner
+@onready var no_players_label = $GameUI/NoPlayersLabel
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
@@ -43,8 +42,6 @@ var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
 var server_browser_node : Node
-@export var join_indicator_node: Control
-@onready var no_players_label = $GameUI/NoPlayersLabel
 
 var difficulty_names = ["Easy", "Medium", "Hard", "Extreme"]
 
@@ -55,8 +52,6 @@ func _enter_tree():
 	SteamManager.count_unlocked_achievements()
 
 func _ready():
-	#debug_start_button.disabled = not multiplayer.is_server()
-	##Runs when all children have entered the tree
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -93,7 +88,6 @@ func _process(delta):
 
 @rpc("any_peer", "call_local", "reliable")
 func CreateNewCard(peer_id : int):
-	
 	var new_player_card : JoinSelectUI = lobby_player_select_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
@@ -113,11 +107,6 @@ func _on_card_raider_selected(p, d):
 func handle_join_input():
 	for device in get_unjoined_devices():
 		if MultiplayerInput.is_action_just_pressed(device, "join"):
-			#Destroy the prompt
-			#if()
-			
-			#run join function (create card)
-			#join(device)
 			var new_card = CreateNewCard(1)
 			new_card.device_id = device
 			player_ui_container.add_child(new_card)
@@ -310,16 +299,12 @@ func InitLobby(new_lobby_id : int):
 		pass
 	pass
 
-
 func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150 )):
 	var notif = player_notif_scene.instantiate()
 	notif_ui.add_child(notif)
 	notif.position = pos
 	notif.set_text(s)
 	notif.start_tween()
-	
-	print(notif.position)
-
 
 func _on_customise_exit_player_entered(player : Player):
 	player.data.customise.emit()
