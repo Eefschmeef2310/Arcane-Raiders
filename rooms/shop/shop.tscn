@@ -4,27 +4,27 @@
 [ext_resource type="Script" path="res://rooms/shop/castle_room_shop.gd" id="2_an1k0"]
 [ext_resource type="PackedScene" uid="uid://diqk4riipjepp" path="res://moving_entities/enemies/Dummy/dummy.tscn" id="4_dpx7v"]
 [ext_resource type="Texture2D" uid="uid://bv057vww5gngt" path="res://moving_entities/enemies/bat_small/small-bullet.png" id="5_2p1gy"]
-[ext_resource type="PackedScene" uid="uid://cnwry8vnl527c" path="res://rooms/shop/shop_dash_tutorial_path.tscn" id="5_h3r21"]
+[ext_resource type="PackedScene" path="res://rooms/shop/shop_dash_tutorial_path.tscn" id="5_h3r21"]
 [ext_resource type="Texture2D" uid="uid://ph4uvoqc6xmc" path="res://tilesets/decorations/2d_lights_and_shadows_neutral_point_light.png" id="6_0rwl8"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="7_n058s"]
 [ext_resource type="Texture2D" uid="uid://r47e7idlp7nk" path="res://moving_entities/enemies/Dummy/baby slime.png" id="8_b6hd7"]
 [ext_resource type="Texture2D" uid="uid://g5hk04tkm5he" path="res://moving_entities/enemies/Dummy/big slime.png" id="9_rb77y"]
 [ext_resource type="Texture2D" uid="uid://dihyw8tnew81j" path="res://moving_entities/enemies/Dummy/mini bat.png" id="10_ab8x4"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ac36r"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6i58a"]
 radius = 44.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g2jx1"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qsuw"]
 radius = 20.0
 
-[sub_resource type="Curve" id="Curve_sedkx"]
+[sub_resource type="Curve" id="Curve_j2mwd"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_q8205"]
-curve = SubResource("Curve_sedkx")
+curve = SubResource("Curve_j2mwd")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5n5y7"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vwt7j"]
 resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 3
@@ -32,13 +32,13 @@ emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
 alpha_curve = SubResource("CurveTexture_q8205")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uwk4o"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_26imm"]
 radius = 59.6801
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sqijh"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lvqch"]
 radius = 28.0179
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sjd1d"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_41s3t"]
 resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 3
@@ -46,14 +46,14 @@ emission_box_extents = Vector3(45, 1, 1)
 gravity = Vector3(0, -100, 0)
 alpha_curve = SubResource("CurveTexture_q8205")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l6y3n"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mfn8w"]
 radius = 44.0114
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3i444"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_kbqo2"]
 resource_local_to_scene = true
 radius = 14.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2fxnw"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l8wj6"]
 resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape = 3
@@ -113,13 +113,13 @@ position = Vector2(1172, -48)
 speed = 0.3
 
 [node name="PathFollow2D3" parent="DashTutorial" index="0"]
-position = Vector2(659, 376)
-progress = 0.0
+position = Vector2(192.802, 138.95)
+progress = 523.003
 
 [node name="PathFollow2D7" type="PathFollow2D" parent="DashTutorial" index="1"]
-position = Vector2(604.544, 348.31)
+position = Vector2(138.339, 111.257)
 rotation = -2.67119
-progress = 61.0977
+progress = 584.1
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D7" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -133,9 +133,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D8" type="PathFollow2D" parent="DashTutorial" index="2"]
-position = Vector2(550.081, 320.617)
+position = Vector2(83.8799, 83.5661)
 rotation = -2.67119
-progress = 122.195
+progress = 645.197
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D8" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -149,9 +149,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D9" type="PathFollow2D" parent="DashTutorial" index="3"]
-position = Vector2(495.618, 292.924)
+position = Vector2(29.418, 55.8736)
 rotation = -2.67119
-progress = 183.293
+progress = 706.296
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D9" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -165,9 +165,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D10" type="PathFollow2D" parent="DashTutorial" index="4"]
-position = Vector2(441.156, 265.232)
+position = Vector2(-25.0549, 28.1755)
 rotation = -2.67119
-progress = 244.391
+progress = 767.395
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D10" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -181,9 +181,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D11" type="PathFollow2D" parent="DashTutorial" index="5"]
-position = Vector2(386.693, 237.539)
+position = Vector2(628.497, 360.49)
 rotation = -2.67119
-progress = 305.488
+progress = 34.2223
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D11" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -197,9 +197,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D12" type="PathFollow2D" parent="DashTutorial" index="6"]
-position = Vector2(332.231, 209.846)
+position = Vector2(574.038, 332.799)
 rotation = -2.67119
-progress = 366.586
+progress = 95.3194
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D12" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -213,9 +213,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D13" type="PathFollow2D" parent="DashTutorial" index="7"]
-position = Vector2(277.769, 182.154)
+position = Vector2(519.575, 305.106)
 rotation = -2.67119
-progress = 427.684
+progress = 156.416
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D13" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -229,9 +229,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D14" type="PathFollow2D" parent="DashTutorial" index="8"]
-position = Vector2(223.307, 154.461)
+position = Vector2(465.112, 277.413)
 rotation = -2.67119
-progress = 488.781
+progress = 217.514
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D14" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -245,9 +245,9 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D15" type="PathFollow2D" parent="DashTutorial" index="9"]
-position = Vector2(168.844, 126.768)
+position = Vector2(410.651, 249.721)
 rotation = -2.67119
-progress = 549.879
+progress = 278.611
 
 [node name="Sprite2D" type="Sprite2D" parent="DashTutorial/PathFollow2D15" index="0"]
 texture = ExtResource("5_2p1gy")
@@ -261,16 +261,16 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathFollow2D4" parent="DashTutorial" index="10"]
-position = Vector2(114.382, 99.0758)
-progress = 610.977
+position = Vector2(356.189, 222.029)
+progress = 339.709
 
 [node name="PathFollow2D5" parent="DashTutorial" index="11"]
-position = Vector2(59.919, 71.3825)
-progress = 672.074
+position = Vector2(301.728, 194.336)
+progress = 400.805
 
 [node name="PathFollow2D6" parent="DashTutorial" index="12"]
-position = Vector2(5.45625, 43.6896)
-progress = 733.172
+position = Vector2(247.266, 166.644)
+progress = 461.903
 
 [node name="DashTutorial2" type="Node2D" parent="." index="15"]
 position = Vector2(1175, 83)
@@ -323,11 +323,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DummyContainer" type="Node2D" parent="." index="19"]
 y_sort_enabled = true
-position = Vector2(42, -198)
 
 [node name="SmallSlimeDummy" parent="DummyContainer" index="0" instance=ExtResource("4_dpx7v")]
 y_sort_enabled = true
-position = Vector2(1331, 686)
+position = Vector2(1122, 607)
 
 [node name="Sprite2D" parent="DummyContainer/SmallSlimeDummy" index="1"]
 position = Vector2(2, 29)
@@ -340,32 +339,32 @@ position = Vector2(0, 0)
 [node name="CollisionShape2D" parent="DummyContainer/SmallSlimeDummy/Hurtbox" index="0"]
 position = Vector2(0, 0)
 scale = Vector2(1, 1)
-shape = SubResource("CircleShape2D_ac36r")
+shape = SubResource("CircleShape2D_6i58a")
 
 [node name="CollisionShape2D" parent="DummyContainer/SmallSlimeDummy" index="11"]
-shape = SubResource("CircleShape2D_g2jx1")
+shape = SubResource("CircleShape2D_6qsuw")
 
 [node name="BurnParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="0"]
-process_material = SubResource("ParticleProcessMaterial_5n5y7")
+process_material = SubResource("ParticleProcessMaterial_vwt7j")
 
 [node name="FrostParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="1"]
-process_material = SubResource("ParticleProcessMaterial_5n5y7")
+process_material = SubResource("ParticleProcessMaterial_vwt7j")
 
 [node name="ShockParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="2"]
-process_material = SubResource("ParticleProcessMaterial_5n5y7")
+process_material = SubResource("ParticleProcessMaterial_vwt7j")
 
 [node name="WindParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="3"]
-process_material = SubResource("ParticleProcessMaterial_5n5y7")
+process_material = SubResource("ParticleProcessMaterial_vwt7j")
 
 [node name="WetParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="4"]
-process_material = SubResource("ParticleProcessMaterial_5n5y7")
+process_material = SubResource("ParticleProcessMaterial_vwt7j")
 
 [node name="StunParticles" parent="DummyContainer/SmallSlimeDummy/StatusParticles" index="5"]
-process_material = SubResource("ParticleProcessMaterial_5n5y7")
+process_material = SubResource("ParticleProcessMaterial_vwt7j")
 
 [node name="BigSlimeDummy" parent="DummyContainer" index="1" instance=ExtResource("4_dpx7v")]
 y_sort_enabled = true
-position = Vector2(1155, 774)
+position = Vector2(1282, 550)
 
 [node name="Sprite2D" parent="DummyContainer/BigSlimeDummy" index="1"]
 position = Vector2(12, -1)
@@ -375,64 +374,68 @@ offset = Vector2(-7, -59)
 [node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy/Hurtbox" index="0"]
 position = Vector2(8, 16)
 scale = Vector2(1.56, 1.08)
-shape = SubResource("CircleShape2D_uwk4o")
+shape = SubResource("CircleShape2D_26imm")
 
 [node name="CollisionShape2D" parent="DummyContainer/BigSlimeDummy" index="11"]
-shape = SubResource("CircleShape2D_sqijh")
+shape = SubResource("CircleShape2D_lvqch")
 
 [node name="BurnParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="0"]
-process_material = SubResource("ParticleProcessMaterial_sjd1d")
+process_material = SubResource("ParticleProcessMaterial_41s3t")
 
 [node name="FrostParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="1"]
-process_material = SubResource("ParticleProcessMaterial_sjd1d")
+process_material = SubResource("ParticleProcessMaterial_41s3t")
 
 [node name="ShockParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="2"]
-process_material = SubResource("ParticleProcessMaterial_sjd1d")
+process_material = SubResource("ParticleProcessMaterial_41s3t")
 
 [node name="WindParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="3"]
-process_material = SubResource("ParticleProcessMaterial_sjd1d")
+process_material = SubResource("ParticleProcessMaterial_41s3t")
 
 [node name="WetParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="4"]
-process_material = SubResource("ParticleProcessMaterial_sjd1d")
+process_material = SubResource("ParticleProcessMaterial_41s3t")
 
 [node name="StunParticles" parent="DummyContainer/BigSlimeDummy/StatusParticles" index="5"]
-process_material = SubResource("ParticleProcessMaterial_sjd1d")
+process_material = SubResource("ParticleProcessMaterial_41s3t")
 
 [node name="BatDummy" parent="DummyContainer" index="2" instance=ExtResource("4_dpx7v")]
 y_sort_enabled = true
-position = Vector2(963, 870)
+position = Vector2(963, 713)
 
 [node name="Sprite2D" parent="DummyContainer/BatDummy" index="1"]
 y_sort_enabled = true
-position = Vector2(9, 14)
+position = Vector2(8, 11)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("10_ab8x4")
 offset = Vector2(-4, -74)
 
+[node name="Hurtbox" parent="DummyContainer/BatDummy" index="2"]
+position = Vector2(0, -30)
+
 [node name="CollisionShape2D" parent="DummyContainer/BatDummy/Hurtbox" index="0"]
 scale = Vector2(1, 1)
-shape = SubResource("CircleShape2D_l6y3n")
+shape = SubResource("CircleShape2D_mfn8w")
 
 [node name="CollisionShape2D" parent="DummyContainer/BatDummy" index="11"]
 position = Vector2(9, 13)
-shape = SubResource("CircleShape2D_3i444")
+shape = SubResource("CircleShape2D_kbqo2")
 
 [node name="BurnParticles" parent="DummyContainer/BatDummy/StatusParticles" index="0"]
-process_material = SubResource("ParticleProcessMaterial_2fxnw")
+process_material = SubResource("ParticleProcessMaterial_l8wj6")
 
 [node name="FrostParticles" parent="DummyContainer/BatDummy/StatusParticles" index="1"]
-process_material = SubResource("ParticleProcessMaterial_2fxnw")
+process_material = SubResource("ParticleProcessMaterial_l8wj6")
 
 [node name="ShockParticles" parent="DummyContainer/BatDummy/StatusParticles" index="2"]
-process_material = SubResource("ParticleProcessMaterial_2fxnw")
+process_material = SubResource("ParticleProcessMaterial_l8wj6")
 
 [node name="WindParticles" parent="DummyContainer/BatDummy/StatusParticles" index="3"]
-process_material = SubResource("ParticleProcessMaterial_2fxnw")
+process_material = SubResource("ParticleProcessMaterial_l8wj6")
 
 [node name="WetParticles" parent="DummyContainer/BatDummy/StatusParticles" index="4"]
-process_material = SubResource("ParticleProcessMaterial_2fxnw")
+process_material = SubResource("ParticleProcessMaterial_l8wj6")
 
 [node name="StunParticles" parent="DummyContainer/BatDummy/StatusParticles" index="5"]
-process_material = SubResource("ParticleProcessMaterial_2fxnw")
+process_material = SubResource("ParticleProcessMaterial_l8wj6")
 
 [editable path="DynamicCamera"]
 [editable path="DashTutorial"]

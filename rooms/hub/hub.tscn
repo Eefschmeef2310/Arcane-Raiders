@@ -48,7 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://bsx13sd0vwllp" path="res://hats/sprites/cap.png" id="33_5avpe"]
 [ext_resource type="Texture2D" uid="uid://byg1lp65ne0aa" path="res://hats/sprites/top_hat.png" id="34_5q4m5"]
 [ext_resource type="Texture2D" uid="uid://dkpnosl74iyee" path="res://hats/sprites/wizard_hat.png" id="35_dt86x"]
-[ext_resource type="PackedScene" uid="uid://11s7wrfbg1h1" path="res://tilesets/decorations/bush.tscn" id="36_k1eci"]
+[ext_resource type="PackedScene" path="res://tilesets/decorations/bush.tscn" id="36_k1eci"]
 [ext_resource type="Texture2D" uid="uid://btamxs2mkjwox" path="res://tilesets/decorations/dirt1.png" id="38_iyu5g"]
 [ext_resource type="Texture2D" uid="uid://ch4e5y1iefvoj" path="res://tilesets/decorations/grass1.png" id="39_whnr4"]
 [ext_resource type="Texture2D" uid="uid://c31gixqqe88mm" path="res://tilesets/decorations/grass2.png" id="40_yx4qc"]
