@@ -25,7 +25,7 @@ func _ready():
 			if n != 0:
 				var new_projection = $Indicator/Direction/Projection.duplicate()
 				$Indicator/Direction.add_child(new_projection)
-				new_projection.rotation_degrees = n * (360.0/burst_amount)
+				new_projection.rotation_degrees = (n+1) * (360.0/burst_amount)
 		await get_tree().create_timer(start_time).timeout
 		$Indicator.hide()
 	
