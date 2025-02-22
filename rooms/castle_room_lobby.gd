@@ -217,7 +217,7 @@ func get_card_data() -> Array:
 				"spells": card.player_data.spell_strings,
 				"raider": raiders[card.selected_raider],
 				"color": player_colors[card.selected_color],
-				"name": card.display_name,
+				"name": card.player_data.player_name,
 				"hat": card.player_data.hat_string,
 				"new_hat_sprite" : card.player_data.hat_sprite,
 				"body_sprite" : card.player_data.body_sprite,
