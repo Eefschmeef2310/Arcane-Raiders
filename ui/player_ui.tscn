@@ -55,21 +55,21 @@ alpha_curve = SubResource("CurveTexture_5i8g4")
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1qdlr"]
 gradient = SubResource("Gradient_oyrcg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqcis"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f3ooa"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vge0l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jwba"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
 shader_parameter/alpha = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_1qdlr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xbu1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqovf"]
 resource_local_to_scene = true
 shader = ExtResource("4_7o55i")
 shader_parameter/final_saturation = 0.7
@@ -313,17 +313,17 @@ size_flags_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Spell0" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_eqcis")
+material = SubResource("ShaderMaterial_f3ooa")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell1" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_vge0l")
+material = SubResource("ShaderMaterial_4jwba")
 layout_mode = 2
 mouse_filter = 1
 
 [node name="Spell2" parent="Stats/Spells/VBoxContainer/HBoxContainer" instance=ExtResource("1_whj2e")]
-material = SubResource("ShaderMaterial_6xbu1")
+material = SubResource("ShaderMaterial_hqovf")
 layout_mode = 2
 mouse_filter = 1
 

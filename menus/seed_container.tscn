@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvpvtgdbfkjbh"]
+
+[ext_resource type="Script" path="res://menus/seed_cotnainer.gd" id="1_aktj0"]
+
+[node name="SeedContainer" type="HBoxContainer" node_paths=PackedStringArray("seed_label", "button")]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("1_aktj0")
+seed_label = NodePath("SeedLabel")
+button = NodePath("CopySeed")
+
+[node name="SeedLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Seed:"
+horizontal_alignment = 1
+
+[node name="CopySeed" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Copy Seed"
+
+[connection signal="pressed" from="CopySeed" to="." method="_on_copy_seed_pressed"]

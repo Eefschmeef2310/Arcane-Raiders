@@ -48,6 +48,9 @@ func _ready():
 	_on_button_mouse_entered(panels_array[0])
 	
 	for panel in panels_array:
+		if !panel.visible: panels_array.erase(panel)
+	
+	for panel in panels_array:
 		panel.mouse_entered.connect(_on_button_mouse_entered.bind(panel))
 
 func _process(_delta):

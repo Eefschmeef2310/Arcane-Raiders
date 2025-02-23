@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://screens/win_screen.gd" id="1_6kn73"]
 [ext_resource type="PackedScene" uid="uid://cxnyp0ojcs588" path="res://screens/stat.tscn" id="1_42oyx"]
 [ext_resource type="PackedScene" uid="uid://dn432qgqq04aj" path="res://screens/player_panel.tscn" id="4_t8mik"]
+[ext_resource type="PackedScene" uid="uid://dvpvtgdbfkjbh" path="res://menus/seed_container.tscn" id="5_53who"]
 [ext_resource type="FontFile" uid="uid://pq83d6oh436i" path="res://ui/fonts/Rakkas-Regular.ttf" id="6_o3j2u"]
 [ext_resource type="Script" path="res://menus/button_focus_grabber.gd" id="7_7i8mg"]
 
@@ -58,10 +59,6 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-
-[sub_resource type="LabelSettings" id="LabelSettings_mrhxc"]
-font_size = 32
-shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1r03"]
 content_margin_left = 24.0
@@ -169,7 +166,7 @@ _data = {
 "default": SubResource("Animation_ft03a")
 }
 
-[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "seed", "master_mode", "quit_button")]
+[node name="WinScreen" type="CanvasLayer" node_paths=PackedStringArray("damage_dealt", "kills", "highest_earner", "most_pickups", "most_reactions", "total_time", "leaderboard_panels", "back_button_progress_bar", "master_mode", "quit_button")]
 process_mode = 3
 layer = 2
 script = ExtResource("1_6kn73")
@@ -181,7 +178,6 @@ most_reactions = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxCon
 total_time = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/Left Side/Time")
 leaderboard_panels = [NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel1"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel2"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel3"), NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/PanelContainer2/HBoxContainer/Panel4")]
 back_button_progress_bar = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton/ProgressBar")
-seed = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Seed")
 master_mode = NodePath("PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/MasterMode")
 quit_button = NodePath("PanelContainer/VBoxContainer/Panel/MarginContainer/BackButton")
 
@@ -339,11 +335,8 @@ bbcode_enabled = true
 text = "[center]Difficulty: [color=green]Easy"
 scroll_active = false
 
-[node name="Seed" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="SeedContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("5_53who")]
 layout_mode = 2
-text = "Seed used: XXXXX"
-label_settings = SubResource("LabelSettings_mrhxc")
-horizontal_alignment = 1
 
 [node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2

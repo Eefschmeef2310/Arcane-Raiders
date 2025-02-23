@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://brodj84jliqtq"]
+[gd_scene load_steps=10 format=3 uid="uid://brodj84jliqtq"]
 
 [ext_resource type="Script" path="res://menus/pause_menu.gd" id="1_ylafc"]
+[ext_resource type="PackedScene" uid="uid://dvpvtgdbfkjbh" path="res://menus/seed_container.tscn" id="2_haiyo"]
 [ext_resource type="Texture2D" uid="uid://c11shmi1m4cjj" path="res://items/pickups/pickup_health.png" id="3_flilo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y3umn"]
@@ -65,11 +66,12 @@ _data = {
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("panels_array")]
 script = ExtResource("1_ylafc")
-panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
+panels_array = [NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SeedContainer/CopySeed"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/ContinueButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton"), NodePath("Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton")]
 stylebox_normal = SubResource("StyleBoxFlat_y3umn")
 stylebox_selected = SubResource("StyleBoxFlat_57ors")
 
 [node name="Control" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,6 +127,9 @@ theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 92
 text = "Paused"
 horizontal_alignment = 1
+
+[node name="SeedContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_haiyo")]
+layout_mode = 2
 
 [node name="ContinueButton" type="PanelContainer" parent="Control/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -184,3 +189,5 @@ autoplay = "default"
 [connection signal="mouse_exited" from="Control/MarginContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_mouse_exited"]
 [connection signal="mouse_exited" from="Control/MarginContainer/MarginContainer/VBoxContainer/FeedbackButton" to="." method="_on_mouse_exited"]
 [connection signal="mouse_exited" from="Control/MarginContainer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_mouse_exited"]
+
+[editable path="Control/MarginContainer/MarginContainer/VBoxContainer/SeedContainer"]
