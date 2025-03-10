@@ -115,11 +115,11 @@ func _ready():
 		3:
 			master_mode.text = "[center]Difficulty: [color=purple]Extreme"
 	
-	if castle_climb.preset_seed:
-		seed.show()
-		seed.text = 'Custom seed used: "' + castle_climb.seed_text + '"'
-	else:
-		seed.hide()
+	#if castle_climb.preset_seed:
+		#seed.show()
+		#seed.text = 'Custom seed used: "' + castle_climb.seed_text + '"'
+	#else:
+		#seed.hide()
 	
 	#if(GameManager.isLocal()):
 		#damage_dealt.stat_title.text = "Most " + damage_dealt.stat_title.text

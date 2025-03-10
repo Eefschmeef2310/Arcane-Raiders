@@ -21,6 +21,9 @@ func _ready():
 func on_floor_cleared():
 	all_waves_cleared.emit()
 	AudioManager.switch_to_end()
+	
+	for slime in get_tree().get_nodes_in_group("slime_field"):
+		slime._on_kill_timer_timeout()
 
 func _on_boss_zero_health():
 	if is_multiplayer_authority():

@@ -378,6 +378,7 @@ wizard_dash_cooldown_max = 5.0
 default_spells = Array[ExtResource("6_ku3qc")]([SubResource("Resource_jegsn"), SubResource("Resource_gnj56"), SubResource("Resource_h7deh"), SubResource("Resource_3mjdw")])
 enemy_raiders = Array[Resource("res://multiplayer/multiplayerLobby/raiderRes.gd")]([ExtResource("10_plgs4"), ExtResource("11_qoajg"), ExtResource("12_kry6r"), ExtResource("13_eh4l4")])
 debug = false
+is_evil_wizard = true
 movement_speed = 300.0
 death_sound = null
 do_damage_numbers = true

@@ -5,11 +5,12 @@ class_name CastleRoomLobby
 signal player_joined
 signal player_left(id:int)
 signal restart_requested()
-
-#Enums
+signal difficulty_updated()
 
 #Constants
 const MAX_PLAYERS = 4
+const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
+const player_notif_scene = preload("res://rooms/hub/hub_notif.tscn")
 
 @export_group("Node References")
 @export var player_ui : Array[PlayerUI]
@@ -22,16 +23,15 @@ const MAX_PLAYERS = 4
 @export var raiders : Array[RaiderRes]
 @export var player_colors : Array[Color]
 @export var body_sprites : Array[Texture2D]
-#@export var menu_scene : PackedScene
 @export var castle_climb_scene : PackedScene
-const lobby_player_select_scene = preload("res://multiplayer/multiplayerLobby/lobby_player_select.tscn")
-const player_notif_scene = preload("res://rooms/hub/hub_notif.tscn")
-
-@onready var multiplayer_spawner = $MultiplayerSpawner
-@onready var castle_climb_spawner = $CastleClimbSpawner
+@export var join_indicator_node: Control
 
 @export var destroy_on_game_start: Array[Node]
 @export var invis_on_game_start: Array[Node]
+
+@onready var multiplayer_spawner = $MultiplayerSpawner
+@onready var castle_climb_spawner = $CastleClimbSpawner
+@onready var no_players_label = $GameUI/NoPlayersLabel
 
 #Other Variables (please try to separate and organise!)
 var sent_first_update : bool = false
@@ -42,8 +42,6 @@ var lobby_id : int
 var picked_colors : Array[int]
 var picked_raiders : Array[int]
 var server_browser_node : Node
-@export var join_indicator_node: Control
-@onready var no_players_label = $GameUI/NoPlayersLabel
 
 var difficulty_names = ["Easy", "Medium", "Hard", "Extreme"]
 
@@ -54,8 +52,6 @@ func _enter_tree():
 	SteamManager.count_unlocked_achievements()
 
 func _ready():
-	#debug_start_button.disabled = not multiplayer.is_server()
-	##Runs when all children have entered the tree
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -92,7 +88,6 @@ func _process(delta):
 
 @rpc("any_peer", "call_local", "reliable")
 func CreateNewCard(peer_id : int):
-	
 	var new_player_card : JoinSelectUI = lobby_player_select_scene.instantiate()
 	new_player_card.lobby_manager = self
 	new_player_card.peer_id = peer_id
@@ -112,11 +107,6 @@ func _on_card_raider_selected(p, d):
 func handle_join_input():
 	for device in get_unjoined_devices():
 		if MultiplayerInput.is_action_just_pressed(device, "join"):
-			#Destroy the prompt
-			#if()
-			
-			#run join function (create card)
-			#join(device)
 			var new_card = CreateNewCard(1)
 			new_card.device_id = device
 			player_ui_container.add_child(new_card)
@@ -151,6 +141,9 @@ func _on_peer_connected(id:int): #this isnt triggering when a client joins
 	# send a new card update with everything for the new player 
 	print("Peer connected! id: " + str(id))
 	#CreateNewCard.rpc(id)
+	
+	#print("connected!" + str(is_multiplayer_authority()))
+	set_difficulty.rpc(chosen_difficulty)
 	multiplayer_spawner.spawn(id)
 	#rpc("request_updates", id)
 	pass
@@ -224,7 +217,7 @@ func get_card_data() -> Array:
 				"spells": card.player_data.spell_strings,
 				"raider": raiders[card.selected_raider],
 				"color": player_colors[card.selected_color],
-				"name": card.display_name,
+				"name": card.player_data.player_name,
 				"hat": card.player_data.hat_string,
 				"new_hat_sprite" : card.player_data.hat_sprite,
 				"body_sprite" : card.player_data.body_sprite,
@@ -306,16 +299,12 @@ func InitLobby(new_lobby_id : int):
 		pass
 	pass
 
-
 func create_notification(s : String = "DUMMY DUMMY DUMMY", pos : Vector2 = Vector2(960, 150 )):
 	var notif = player_notif_scene.instantiate()
 	notif_ui.add_child(notif)
 	notif.position = pos
 	notif.set_text(s)
 	notif.start_tween()
-	
-	print(notif.position)
-
 
 func _on_customise_exit_player_entered(player : Player):
 	player.data.customise.emit()
@@ -326,7 +315,7 @@ func set_difficulty(val: int):
 	
 	var s = "The difficulty has been set to " + difficulty_names[chosen_difficulty] + "."
 	create_notification(s)
-
+	difficulty_updated.emit()
 
 func request_lobby_restart():
 	if GameManager.isLocal():
