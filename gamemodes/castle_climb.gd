@@ -81,6 +81,7 @@ var time_elapsed : float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SteamManager.damageless = true
 	common_level_spawner.spawn_function = spawn_common_level
 	basic_level_spawner.spawn_function = spawn_basic_level
 	boss_level_spawner.spawn_function = spawn_boss_level
@@ -239,7 +240,7 @@ func get_leaderboard() -> Array[int]:
 
 func start_climb():
 	# Do any server-sided stuff here
-	SteamManager.damageless = true
+	
 	print("Number of players: " + str(number_of_players))
 	if number_of_players <= 0:
 		number_of_players = 1
