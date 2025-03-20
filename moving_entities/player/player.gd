@@ -14,6 +14,7 @@ const DUST_PARTICLES = preload("res://moving_entities/player/dust_particles.tscn
 @export var debug : bool = false
 @export var data: PlayerData
 @export var peer_id : int = 1
+@export var is_evil_wizard : bool = false
 
 @export_group("Parameters")
 @export var movement_speed : float = 300
@@ -142,6 +143,8 @@ func _process(delta):
 						var input_velocity = move_direction * movement_speed * frost_speed_scale
 						if is_casting or preparing_cast_slot >= 0:
 							input_velocity *= 0.25
+						if is_on_wall():
+							input_velocity *= 0.5
 						velocity += input_velocity
 				
 				move_and_slide()
@@ -434,7 +437,7 @@ func deal_damage(attack_path, damage, element_string, infliction_time, create_ne
 	
 	taken_damage.emit()
 	print("tabby: player dmage detected")
-	SteamManager.damageless = false
+	if !is_evil_wizard: SteamManager.damageless = false
 	
 	super.deal_damage(attack_path, damage, element_string, infliction_time, create_new)
 

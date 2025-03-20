@@ -79,6 +79,7 @@ func save_file():
 		"games_played" : games_played,
 		"area_1_complete" : area_1_complete,
 		"area_2_complete" : area_2_complete,
+		"area_3_complete" : area_3_complete,
 		"total_kills" : total_kills,
 		"characters_completed" : characters_completed,
 		"most_recent_difficulty" : most_recent_difficulty,
@@ -110,13 +111,14 @@ func load_file():
 		area_1_complete = dict["area_1_complete"]
 	if "area_2_complete" in dict.keys():
 		area_2_complete = dict["area_2_complete"]
+	if "area_3_complete" in dict.keys():
+		area_3_complete = dict["area_3_complete"]
 	if "total_kills" in dict.keys():
 		total_kills = dict["total_kills"]
 	if "characters_completed" in dict.keys():
 		characters_completed = dict["characters_completed"]
 	if "most_recent_difficulty" in dict.keys():
 		most_recent_difficulty = dict["most_recent_difficulty"]
-
 
 func request_save():
 	autosave_timer.stop()

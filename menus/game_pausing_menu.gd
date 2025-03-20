@@ -48,6 +48,9 @@ func _ready():
 	_on_button_mouse_entered(panels_array[0])
 	
 	for panel in panels_array:
+		if !panel.visible: panels_array.erase(panel)
+	
+	for panel in panels_array:
 		panel.mouse_entered.connect(_on_button_mouse_entered.bind(panel))
 
 func _process(_delta):
@@ -78,7 +81,7 @@ func _process(_delta):
 
 #region Signal methods
 func _on_button_mouse_entered(node : Control):
-	if device_id <= -1 and is_multiplayer_authority() and (!(panels_array[current_button] is LineEdit) or !(panels_array[current_button] as LineEdit).has_focus()):
+	if device_id <= -1 and (!(panels_array[current_button] is LineEdit) or !(panels_array[current_button] as LineEdit).has_focus()):
 		current_button = panels_array.find(node)
 
 func unpause_game():

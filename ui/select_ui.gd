@@ -220,7 +220,7 @@ func UpdateDisplay():
 	
 	#Manage the button prompt
 	if character_condition.visible or color_condition.visible:
-		press_button_label.text = "[center]Select a valid combination!"
+		press_button_label.text = "[pulse][center]Select a valid combination!"
 	else:
 		press_button_label.text = "[center]Space/[img width=32]res://ui/join_button.svg[/img] to jump in!"
 	

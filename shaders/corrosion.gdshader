@@ -1,17 +1,23 @@
 shader_type canvas_item;
 
-uniform float fade_scale : hint_range(0.0, 1.0) = 0.5;
-uniform sampler2D noise_texture : repeat_enable;
+uniform sampler2D dissolve_texture : source_color;
+uniform float fade_scale : hint_range(0,1);
+uniform float burn_size: hint_range(0.0, 1.0, 0.01);
+uniform vec4 burn_color: source_color;
+uniform vec4 tint : source_color = vec4(1.0);
 
-uniform float alpha : hint_range(0.0, 1.0) = 1;
-
-void fragment() {
-	//Get height threshold of noise
-	float height_cutoff = round(mix(fade_scale, texture(noise_texture, UV).r, 0.5));
+void fragment(){
+	float dissolve_value = 1.0 - fade_scale;
 	
-	float mask = texture(TEXTURE, UV).a;
-
-	//Set final albedo (if height in noise is higher than cutoff, use end colour, otherwise do base color)
-	COLOR.a = 1.0 - step(mask, height_cutoff);
-	COLOR.a *= alpha;
+    vec4 main_texture = texture(TEXTURE, UV);
+    vec4 noise_texture = texture(dissolve_texture, UV);
+	
+	// This is needed to avoid keeping a small burn_color dot with dissolve being 0 or 1
+	// is there another way to do it?
+	float burn_size_step = burn_size * step(0.001, dissolve_value) * step(dissolve_value, 0.999);
+	float threshold = smoothstep(noise_texture.x-burn_size_step, noise_texture.x, dissolve_value);
+	float border = smoothstep(noise_texture.x, noise_texture.x + burn_size_step, dissolve_value);
+	
+	COLOR.a *= threshold;
+	COLOR.rgb = mix(burn_color.rgb, main_texture.rgb * tint.rgb, border);
 }

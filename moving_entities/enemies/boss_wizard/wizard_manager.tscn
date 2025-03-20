@@ -1,52 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://waswmvkg1el3"]
 
 [ext_resource type="PackedScene" uid="uid://b4dyl3ppwa1rc" path="res://moving_entities/enemies/base_enemy/base_enemy.tscn" id="1_eytbb"]
-
-[sub_resource type="GDScript" id="GDScript_4pg0j"]
-resource_name = "evil_wizard"
-script/source = "extends EnemyEntity
-
-#array of wizards (added to when you spawn)
-@export var wizard_num: int = 2
-
-var wizards: Array
-
-func _ready():
-	super._ready()
-	if is_multiplayer_authority():
-		await get_tree().create_timer(0.5).timeout
-		var room: CastleRoom = get_parent() as CastleRoom
-		if room:
-			for i in wizard_num:
-				var wizard: Entity = room.enemy_spawner.spawn({\"key\": \"wizard\", \"pos\": global_position})
-				wizard.max_health = max_health/wizard_num
-				wizard.health = max_health/wizard_num
-				wizard.wizard_hurt.connect(_update_health)
-				wizard.wizard_died.connect(_remove_wizard)
-				wizards.push_back(wizard)
-				
-				wizard.element_index = i
-				if i >= 2:wizard.is_ranged = false
-				else: wizard.is_ranged = true
-				wizard.set_spell_element.rpc(i)
-				#data.spells[i].element = SpellManager.elements[\"burn\"]
-				
-
-func _remove_wizard(dead_wizard):
-	if !is_multiplayer_authority(): return
-	print(\"A wizard has died.\")
-	wizards.erase(dead_wizard)
-	if wizards.size() <= 0:
-		set_health.rpc(0)
-
-func _update_health():
-	if !is_multiplayer_authority(): return
-	var total = 0
-	for wizard in wizards:
-		if wizard && is_instance_valid(wizard):
-			total += wizard.health
-	set_health.rpc(total)
-"
+[ext_resource type="Script" path="res://moving_entities/enemies/boss_wizard/wizard_manager.gd" id="2_p2pwv"]
 
 [sub_resource type="Curve" id="Curve_aq1wo"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983607, 1), 0.0, 0.0, 0, 0, Vector2(0.901639, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -64,13 +19,13 @@ gravity = Vector3(0, -100, 0)
 alpha_curve = SubResource("CurveTexture_swxsv")
 
 [node name="WizardManager" groups=["boss"] instance=ExtResource("1_eytbb")]
-script = SubResource("GDScript_4pg0j")
+script = ExtResource("2_p2pwv")
 wizard_num = 4
 is_boss = true
 boss_name = "Shadow Wizard Guardians"
 ignoreForStats = true
 death_sound = null
-max_health = 4000
+max_health = 2000
 
 [node name="PointLight2D" parent="." index="0"]
 visible = false
