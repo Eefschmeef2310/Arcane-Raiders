@@ -122,7 +122,6 @@ theme_override_constants/margin_left = 128
 theme_override_constants/margin_right = 128
 
 [node name="GraphicsContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
@@ -216,6 +215,7 @@ focus_neighbor_bottom = NodePath("../../../../../../../BackButton")
 script = ExtResource("5_f5lin")
 
 [node name="SoundContainer" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer/Contents/MarginContainer"]
+visible = false
 layout_mode = 2
 alignment = 1
 
